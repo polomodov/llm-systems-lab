@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-5",
+  "permission": {
+    "edit": "allow",
+    "bash": "ask",
+    "webfetch": "allow"
+  },
+  "instructions": [
+    "AGENTS.md"
+  ],
+  "_note": "Схема прав OpenCode 1.18: проверить в документации, поддерживает ли конфиг запрет чтения по маске путей; если нет — стену строить хуком оболочки или файловыми правами (chmod 000 tasks/*/check)."
+}

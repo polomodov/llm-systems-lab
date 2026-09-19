@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Harness experiment run record",
+  "type": "object",
+  "required": [
+    "run_id",
+    "date",
+    "harness",
+    "agent",
+    "task",
+    "model",
+    "permissions",
+    "sandbox",
+    "loop",
+    "verdict",
+    "harness_changes",
+    "notes"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}-[a-z0-9-]+$"
+    },
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "harness": {
+      "type": "object",
+      "required": [
+        "name",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string",
+          "description": "cli|sdk|cloud|app"
+        }
+      }
+    },
+    "agent": {
+      "type": "string",
+      "description": "agents/<code>"
+    },
+    "task": {
+      "type": "string",
+      "description": "tasks/<id>"
+    },
+    "model": {
+      "type": "object",
+      "required": [
+        "id",
+        "lock"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "lock": {
+          "type": "boolean",
+          "description": "true if the harness forces its own model"
+        },
+        "reasoning": {
+          "type": "string"
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "blocked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "asked": {
+          "type": "integer"
+        }
+      }
+    },
+    "sandbox": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "description": "none|os|container|vm|cloud"
+        },
+        "network": {
+          "type": "string",
+          "description": "off|allowlist|full"
+        }
+      }
+    },
+    "loop": {
+      "type": "object",
+      "required": [
+        "turns",
+        "stop_reason"
+      ],
+      "properties": {
+        "turns": {
+          "type": "integer"
+        },
+        "stop_reason": {
+          "type": "string"
+        },
+        "budget_usd": {
+          "type": "number"
+        },
+        "cost_usd": {
+          "type": "number"
+        },
+        "tokens_in": {
+          "type": "integer"
+        },
+        "tokens_out": {
+          "type": "integer"
+        },
+        "wall_clock_s": {
+          "type": "integer"
+        },
+        "compactions": {
+          "type": "integer"
+        },
+        "subagents": {
+          "type": "integer"
+        }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "result": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "fail",
+            "partial",
+            "aborted"
+          ]
+        },
+        "check_output": {
+          "type": "string"
+        },
+        "human_notes": {
+          "type": "string"
+        }
+      }
+    },
+    "harness_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "component",
+          "kind",
+          "ledger"
+        ],
+        "properties": {
+          "component": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "words",
+              "walls"
+            ]
+          },
+          "ledger": {
+            "type": "string",
+            "description": "ledger row id, e.g. L001"
+          }
+        }
+      }
+    },
+    "trace_path": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

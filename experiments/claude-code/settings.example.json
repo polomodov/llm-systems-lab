@@ -1,0 +1,61 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "Bash(npm test:*)",
+      "Bash(node:*)",
+      "Bash(git:*)",
+      "Bash(curl:*)"
+    ],
+    "deny": [
+      "Read(./tasks/**/check/**)",
+      "Read(../../../../tasks/**/check/**)",
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "network": {
+      "allowedDomains": [
+        "code.claude.com",
+        "www.langchain.com",
+        "martinfowler.com",
+        "www.anthropic.com",
+        "metr.org",
+        "modelcontextprotocol.io",
+        "registry.npmjs.org"
+      ]
+    }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Bash|Grep|Glob",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node experiments/claude-code/hooks/deny-check-dir.mjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node experiments/claude-code/hooks/log-writes.mjs"
+          }
+        ]
+      }
+    ]
+  }
+}
