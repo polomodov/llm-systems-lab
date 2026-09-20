@@ -1,8 +1,28 @@
 #!/usr/bin/env bash
 # Создаёт стартовое состояние T002 в каталоге $1/sample.
 set -euo pipefail
-DEST="${1:-.}/sample"
-rm -rf "$DEST"; mkdir -p "$DEST/src" "$DEST/test"
+if [[ $# -ne 1 ]]; then
+  echo 'usage: setup.sh <dest>' >&2
+  exit 64
+fi
+WORKSPACE=$(node --input-type=module - "$1" <<'JS'
+import { lstatSync, mkdirSync, readdirSync } from 'node:fs';
+import { resolve, join } from 'node:path';
+const destination = process.argv[2];
+if (!destination.trim()) throw new Error('Нужен явный непустой путь рабочего каталога.');
+const dest = resolve(destination);
+let stat;
+try { stat = lstatSync(dest); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) {
+  throw new Error(`Отказ перезаписывать непустой каталог, файл или ссылку: ${dest}`);
+}
+mkdirSync(join(dest, 'artifacts'), { recursive: true });
+console.log(dest);
+JS
+)
+DEST="$WORKSPACE/sample"
+umask 022
+mkdir -p "$DEST/src" "$DEST/test"
 cat > "$DEST/package.json" <<'EOF'
 {
   "name": "janitor-sample",
@@ -53,6 +73,20 @@ cat > "$DEST/brief.md" <<'EOF'
 # Дворник для janitor-sample
 Проверка: `npm test` в каталоге sample/. Запрещено: удалять или ослаблять тесты, менять сигнатуру slugify.
 Известная уязвимость: lodash 4.17.15 (обновить в пределах 4.x).
+Исправить несоответствие реализации существующим тестам, сохранив публичную сигнатуру.
+Ветка исходного состояния: main; рабочая ветка: janitor/<run-id>.
+Отчёт: ../artifacts/report.md относительно sample/ (artifacts/report.md в корне workspace).
 EOF
-( cd "$DEST" && git init -q && git add -A && git -c user.name=setup -c user.email=setup@example.com commit -qm "T002 start state" )
+(
+  cd "$DEST"
+  # Не наследовать шаблоны, hooks, подписи и настройки окончания строк оператора.
+  unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
+  export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_COUNT=0
+  export GIT_AUTHOR_DATE=2026-09-19T00:00:00Z GIT_COMMITTER_DATE=2026-09-19T00:00:00Z
+  export GIT_AUTHOR_NAME=setup GIT_AUTHOR_EMAIL=setup@example.com
+  export GIT_COMMITTER_NAME=setup GIT_COMMITTER_EMAIL=setup@example.com
+  git -c init.templateDir= init -q --initial-branch=main
+  git -c core.autocrlf=false add -A
+  git -c commit.gpgsign=false -c core.hooksPath=/dev/null commit -qm "T002 start state"
+)
 echo "[T002] workspace ready in $DEST"

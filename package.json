@@ -9,6 +9,18 @@
   },
   "scripts": {
     "new-run": "node scripts/new-run.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "prepare-run": "node scripts/prepare-run.mjs",
+    "run": "node scripts/run.mjs",
+    "judge-run": "node scripts/judge-run.mjs",
+    "compare": "node scripts/compare.mjs",
+    "test": "node --test tests/*.test.mjs experiments/*/adapter.test.mjs",
+    "test:docker": "HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs",
+    "evaluation-template": "node scripts/evaluation-template.mjs",
+    "harnesses": "node scripts/harnesses.mjs",
+    "local:plan": "node scripts/local-plan.mjs",
+    "local:engines": "node scripts/local-engines.mjs",
+    "labs": "node scripts/labs.mjs",
+    "lab:new": "node scripts/new-lab.mjs"
   }
 }

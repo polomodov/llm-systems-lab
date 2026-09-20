@@ -1,55 +1,53 @@
 # Матрица обвязок
 
-Срез на 19 сентября 2026 года по публичной документации (класс — снимок продукта; всё, что не проверено прогоном здесь, помечено так). Колонки — семь частей обвязки. Статус на машине — по `command -v` от 19.09.2026.
+Для каждой из девяти обвязок подготовлена отдельная [лабораторная ЛР11–19](labs/README.md) с командами сборки, smoke, модельным эпизодом и независимой оценкой. Облачный учебный маршрут не требует локального provider bridge.
 
-| Обвязка | Цикл и остановка | Контекст и память | Инструменты и среда | Проверка | Оркестрация | Наблюдаемость | Доверие и границы | Статус |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **Claude Code** 2.1.x + Agent SDK | `/loop`, `/goal` (судья на другой модели), чекпоинты, `max_turns` / `max_budget_usd` в SDK | CLAUDE.md-иерархия, `@`-импорты, авто-память, авто-уплотнение | Read/Edit/Bash/Grep, MCP с отложенной загрузкой, песочница Seatbelt/bubblewrap, worktrees, облачные сессии | 33 события хуков, `type: prompt`/`agent`-хуки, `/security-review` | субагенты (до 20), команды агентов, Projects, Routines | OTel метрики/события, трассировка в бете | 6 режимов прав, классификатор в `auto`, маскирование учётных данных | установлена |
-| **Codex** CLI / App Server | циклы по конфигу, бюджеты токенов (по сводкам) | AGENTS.md (вложенные, ближайший побеждает), серверное уплотнение Responses | Seatbelt/bubblewrap/Windows Sandbox; режимы `read-only` / `workspace-write` / `danger-full-access`; экспериментальные worktrees | линтеры и CI как канал обратной связи («harness engineering») | облачные задачи, делегирование (по сводкам) | журналы сессий | политики подтверждений `on-request`/`never`, Touch ID для MCP | не установлена |
-| **Antigravity CLI** (ex-Gemini CLI) | делит обвязку с Antigravity 2.0 | AGENTS.md / SKILL.md (заявлено для Managed Agents в Gemini API) | песочница терминала, маскирование учётных данных, усиленные git-политики | не проверено | субагенты, несколько агентов | не проверено | не проверено | не установлена |
-| **OpenCode** 1.18.x | цикл на сервере, встраиваемом отдельно от интерфейса | AGENTS.md, навыки (Agent Skills) | 75+ провайдеров, ACP-сессии, инструменты файлов и оболочки | не проверено | не проверено | не проверено | права по конфигу | установлена |
-| **Pi** | минимальный цикл | короткий промпт, навыки | 4 инструмента (read/write/edit/bash), расширения на TypeScript, намеренно без MCP и субагентов | своими расширениями | нет | нет | своими расширениями | не установлена |
-| **OpenHands** Software Agent SDK | цикл в SDK (Python/TS/REST) | по SDK | Agent Server в Docker/K8s, ACP-клиент к чужим обвязкам | по SDK | Agent Canvas | по SDK | по SDK | не установлена |
-| **mini-SWE-agent** | линейная история, ~100 строк | нет | только bash, без tool-calling API | нет | нет | нет | нет | не установлена |
-| **Copilot CLI / cloud agent** | облачный агент: 59 минут, один PR | навыки в markdown, Agent Plugins 1.0 | эфемерная среда GitHub Actions | CI репозитория; «не может одобрить свой PR» | Agent HQ | панель предприятия | права GitHub | не установлена |
-| **Amp** | треды, Orbs (машина на тред) | AGENTS.md | мультимодельность | не проверено | координатор Puck | не проверено | не проверено | установлена |
+Состояние интеграции на **20 сентября 2026 года**. Все девять обвязок подключены к общей подготовке, Docker-запуску, записи трассы и независимой оценке. Установка и offline smoke проверяют инфраструктуру; успешность задач с реальным провайдером остаётся **unverified**, пока нет завершённых записей в `results/runs/`.
 
-Источники строк — досье лонгрида (`docs/research/2026-10-01-agent-harness-evolution.md` в репозитории сайта) и документация продуктов на дату среза. Каждая ячейка «не проверено» — задача для первого прогона в этой обвязке.
+| Обвязка | Проверенный pin | Интерфейс | Провайдер / переменная `.env` | Выбор модели | Лимиты |
+| --- | --- | --- | --- | --- | --- |
+| [Claude Code](../experiments/claude-code/README.md) | 2.1.83 | CLI JSONL | Anthropic / `ANTHROPIC_API_KEY` | Явный ID | Ходы и USD через CLI |
+| [OpenCode](../experiments/opencode/README.md) | 1.18.29 | CLI JSONL | Anthropic / `ANTHROPIC_API_KEY` | Явный ID | Steps advisory; USD observed |
+| [Codex](../experiments/codex/README.md) | 0.155.1 | `codex exec --json` | OpenAI / `CODEX_API_KEY` | Явный ID | Внутренние ходы и USD недоступны |
+| [Antigravity CLI](../experiments/antigravity-cli/README.md) | 1.2.7 | `agy` headless JSONL | Google / `GEMINI_API_KEY` | Явный ID через direct Gemini API | Внутренние ходы и USD недоступны |
+| [Pi](../experiments/pi/README.md) | 0.73.1 | Native SDK `createAgentSession` | Anthropic или OpenAI / соответствующий API key | Явный ID | Предел ходов; USD observed |
+| [mini-SWE-agent](../experiments/mini-swe-agent/README.md) | 2.4.6 | Native SDK `DefaultAgent` | Anthropic или OpenAI / соответствующий API key | Явный ID | Native step limit; USD observed |
+| [OpenHands](../experiments/openhands/README.md) | SDK/tools 1.49.2 | Native SDK `Conversation` | Anthropic или OpenAI / соответствующий API key | Явный ID | Native iteration limit; USD observed |
+| [Copilot CLI](../experiments/copilot-cli/README.md) | 1.0.86 | Headless CLI JSONL | Copilot / `COPILOT_GITHUB_TOKEN` | Явный поддерживаемый selector; underlying ID может быть неизвестен | USD и model-turn cap недоступны |
+| [Amp](../experiments/amp/README.md) | 0.0.1789920039-gafe14b | CLI stream JSONL | Amp / `AMP_API_KEY` | `managed:low`, `managed:medium`, `managed:high`, `managed:ultra` | USD и model-turn cap недоступны |
 
-## Установка
+Во всех случаях действует внешний timeout. Восемь обвязок требуют явного `--budget-mode observed`: отсутствие обязательного USD cap не скрывается. Это исследовательские попытки с отклонением от бюджета задачи; они не объединяются с политикой `hard`. Семантика native step/iteration у SDK может отличаться: сырые события сохраняются для интерпретации, счётчики разных видов не выдаются за одну универсальную метрику.
 
-```bash
-# Claude Code — уже стоит; обновление
-brew upgrade claude || npm i -g @anthropic-ai/claude-code
+## Профили и воспроизводимость
 
-# OpenCode — уже стоит
-brew upgrade opencode
+Источник машинной конфигурации — `experiments/<harness>/harness.json`. В нём закреплены команда проверки версии, файлы конфигурации/runtime, провайдеры, имена credentials, точные сетевые домены, политика модели и доступные лимиты. `npm run harnesses` показывает их без чтения ключей.
 
-# Codex CLI
-npm i -g @openai/codex
+Провайдер выбирается при `new-run --provider ...` либо `prepare-run --provider ...`; без явного выбора используется default profile. Он сохраняется в snapshot и run.json. Нельзя переключить провайдера на стадии run, сохранив старую сетевую политику. В контейнер передаются только имена credentials выбранного провайдера; содержимое `.env` целиком и настройки пользователя не монтируются.
 
-# Antigravity CLI (замена Gemini CLI для бесплатного тарифа с 18.06.2026)
-# см. https://antigravity.google — установщик на дату среза не проверен
+SDK-адаптеры используют собственные циклы соответствующих проектов, а не общий самодельный агент. `harness.mode=sdk` отличает их от CLI. Версия библиотеки определяется внутри конкретного Docker image. Images собираются с pin; для серии сохраняют один image ID. Runtime-файлы и адаптер тоже входят в sealed inputs.
 
-# Pi
-npm i -g @earendil-works/pi          # имя пакета проверить в badlogic/pi-mono
+Copilot и Amp извлекают нативные модули при старте: у этих двух профилей есть `native_cache=true`. Координатор создаёт отдельный непривилегированный exec tmpfs `/tmp/harness-native` ёмкостью 512 MiB и задаёт `TMPDIR`/`XDG_CACHE_HOME`; весь корневой образ остаётся read-only. Это условие учтено в реестре и проверено offline под UID 1000. Другие профили не получают этот mount.
 
-# OpenHands SDK
-uv pip install openhands-sdk           # имя пакета проверить в OpenHands/software-agent-sdk
+## Модель и измерения
 
-# mini-SWE-agent
-uv pip install mini-swe-agent
+Запрошенная модель, `model.provider`, `model.selection`, `model.lock` и наблюдаемая модель — отдельные поля. Amp задаёт managed selector и `lock=true`: это не обещание конкретной underlying модели. Такие серии не попадают в группы с явным model ID. Copilot selector также не считается подтверждением exact snapshot ответа. Отсутствующие наблюдения остаются `null` с причинами.
 
-# Copilot CLI
-npm i -g @github/copilot
-```
+CLI/SDK по-разному учитывают cache, вспомогательные вызовы и стоимость. Парсеры берут только подтверждённые итоговые значения; отсутствующие поля не заменяются нулём. Ошибочный или оборванный terminal stream при exit 0 считается aborted. `awaiting_review` возникает после законченного исполнения, а `pass` — только после внешней оценки.
 
-Строки с «проверить» — снимок, а не инструкция: перед установкой открыть репозиторий проекта.
+T003 готовит allowlist-снимок для каждой из девяти обвязок. Файлы `/control` отображаются в `.harness/control/`, рядом доступны исходный адаптер, профиль, runtime и общие границы координатора. Скрытые проверки и секреты в этот снимок не входят.
 
-## Порядок первых прогонов
+## Первичные источники и проверки
 
-1. `claude-code` — A1 на T001 (всё установлено, есть хуки для запрета `check/`).
-2. `opencode` — A1 на T001 с той же моделью, что в п. 1 (проверка правила одной модели).
-3. `mini-swe-agent` — A2 на T002 как нижняя граница: что делает обвязка из ста строк.
-4. `codex` — A2 на T002 с `model_lock: true`.
-5. Дальше — по матрице, заполняя ячейки «не проверено».
+Для исследования открытых локальных моделей на Ryzen AI Max+ 395 / 128 GB / Linux подготовлена [отдельная кампания](local-models.md). Первые кандидаты на интеграцию — Pi, mini-SWE-agent, OpenCode и OpenHands. Это не готовый `local` provider: адаптация сетевого bridge, снимка настроек backend и условий сравнения ещё необходима. Возможность custom API в upstream не означает проверенную поддержку локального сервера текущим адаптером.
+
+- Claude: [CLI reference](https://code.claude.com/docs/en/cli-reference), [официальные типы SDK](https://github.com/anthropics/claude-agent-sdk-python/blob/main/src/claude_agent_sdk/types.py).
+- OpenCode: [CLI v1](https://opencode.ai/docs/cli/), [network](https://opencode.ai/docs/network/). Команды v1 и v2 нельзя смешивать.
+- Codex: [non-interactive mode](https://developers.openai.com/codex/noninteractive), [config reference](https://developers.openai.com/codex/config-reference).
+- Antigravity: [install](https://antigravity.google/docs/cli/install/), [headless](https://antigravity.google/docs/cli/headless/). Проверен отдельный `agy`; предположения о переименовании Gemini CLI не нужны.
+- Pi: [upstream coding agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent).
+- mini-SWE-agent: [upstream](https://github.com/SWE-agent/mini-swe-agent).
+- OpenHands: [Software Agent SDK](https://github.com/OpenHands/software-agent-sdk).
+- Copilot: [официальный CLI](https://github.com/github/copilot-cli).
+- Amp: [manual](https://ampcode.com/manual).
+
+Точные версии исходников, команды сборки, offline ограничения и наблюдения перечислены в README/NOTES соответствующего каталога. Проверки установки не создают фиктивных agent-run records. Для измерений нужны доступ выбранного аккаунта к API, реальный эпизод и внешний вердикт.

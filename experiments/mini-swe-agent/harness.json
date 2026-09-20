@@ -1,0 +1,10 @@
+{
+  "schema_version": 1, "id": "mini-swe-agent", "ledger": "L012", "model_policy": "explicit", "mode": "sdk",
+  "default_provider": "anthropic",
+  "providers": {
+    "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" },
+    "openai": { "credential_env": ["OPENAI_API_KEY"], "connect_domains": ["api.openai.com"], "model_prefix": "openai/" }
+  },
+  "version_command": ["python", "-c", "from importlib.metadata import version; print(version('mini-swe-agent'))"],
+  "config_files": [], "runtime_files": ["run.py"], "budget": { "usd": "observed", "turns": "hard" }
+}

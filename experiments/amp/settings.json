@@ -1,0 +1,10 @@
+{
+  "amp.dangerouslyAllowAll": true,
+  "amp.proxy": "http://egress:8080",
+  "amp.updates.mode": "disabled",
+  "amp.runner.autoUpdate.enabled": false,
+  "amp.remoteThreadCreation.enabled": false,
+  "amp.mcpServers": {},
+  "amp.skills.disableClaudeCodeSkills": true,
+  "amp.skills.disableGlobalAgentsSkills": true
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "id": "amp",
+  "ledger": "L015",
+  "native_cache": true,
+  "model_policy": "managed",
+  "managed_modes": ["low", "medium", "high", "ultra"],
+  "default_provider": "amp",
+  "providers": {
+    "amp": {
+      "credential_env": ["AMP_API_KEY"],
+      "connect_domains": ["ampcode.com"],
+      "model_prefix": ""
+    }
+  },
+  "version_command": ["amp", "--version"],
+  "config_files": [{ "source": "settings.json", "target": "amp-settings.json" }],
+  "runtime_files": [],
+  "budget": { "usd": "observed", "turns": "unavailable" }
+}

@@ -1,0 +1,5 @@
+# Build trees, upstream checkout and copied weights used by the labs.
+measurements/*/build-vulkan/
+measurements/*/build-hip/
+measurements/*/raw/sglang-src/
+measurements/*/raw/ollama-models/
