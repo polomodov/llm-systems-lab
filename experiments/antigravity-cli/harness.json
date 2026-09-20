@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "id": "antigravity-cli",
+  "ledger": "L010",
+  "model_policy": "explicit",
+  "default_provider": "google",
+  "providers": {
+    "google": {
+      "credential_env": ["GEMINI_API_KEY"],
+      "connect_domains": ["generativelanguage.googleapis.com"],
+      "model_prefix": "google/"
+    }
+  },
+  "version_command": ["agy", "--version"],
+  "config_files": [{ "source": "settings.json", "target": "settings.json" }],
+  "runtime_files": ["run-cli.mjs"],
+  "budget": { "usd": "observed", "turns": "unavailable" }
+}

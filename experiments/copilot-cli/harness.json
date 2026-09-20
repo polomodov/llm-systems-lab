@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "id": "copilot-cli",
+  "ledger": "L014",
+  "native_cache": true,
+  "model_policy": "explicit",
+  "default_provider": "copilot",
+  "providers": {
+    "copilot": {
+      "credential_env": ["COPILOT_GITHUB_TOKEN"],
+      "connect_domains": ["github.com", "api.github.com", "api.githubcopilot.com", "api.individual.githubcopilot.com", "api.business.githubcopilot.com", "api.enterprise.githubcopilot.com"],
+      "model_prefix": ""
+    }
+  },
+  "version_command": ["copilot", "--version"],
+  "config_files": [],
+  "runtime_files": [],
+  "budget": { "usd": "observed", "turns": "unavailable" }
+}

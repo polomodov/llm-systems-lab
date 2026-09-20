@@ -1,0 +1,10 @@
+{
+  "schema_version": 1, "id": "openhands", "ledger": "L013", "model_policy": "explicit", "mode": "sdk",
+  "default_provider": "anthropic",
+  "providers": {
+    "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" },
+    "openai": { "credential_env": ["OPENAI_API_KEY"], "connect_domains": ["api.openai.com"], "model_prefix": "openai/" }
+  },
+  "version_command": ["python", "-c", "from importlib.metadata import version; print(version('openhands-sdk'))"],
+  "config_files": [], "runtime_files": ["run.py"], "budget": { "usd": "observed", "turns": "hard" }
+}

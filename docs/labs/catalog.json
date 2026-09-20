@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-09-21",
+  "require_harness_coverage": true,
+  "labs": [
+    { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
+    { "id": "LAB02", "title": "Паспорт Ryzen и бюджет общей памяти", "file": "LAB02-hardware.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "1–2 часа" },
+    { "id": "LAB03", "title": "Выбор моделей и закрепление артефактов", "file": "LAB03-artifacts.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01", "LAB02"], "effort": "1–2 часа плюс загрузка" },
+    { "id": "LAB04", "title": "llama.cpp: Vulkan против HIP/ROCm", "file": "LAB04-backends.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB02", "LAB03"], "effort": "2–4 часа плюс сборка" },
+    { "id": "LAB05", "title": "Контекст, память и протокол инструментов", "file": "LAB05-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB04"], "effort": "2–4 часа" },
+    { "id": "LAB06", "title": "vLLM, SGLang и Transformers на ROCm", "file": "LAB06-engines.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB03", "LAB05"], "effort": "4–8 часов плюс подготовка стека" },
+    { "id": "LAB07", "title": "Ollama, LM Studio и Lemonade", "file": "LAB07-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "3–6 часов плюс установка" },
+    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB01", "LAB05"], "effort": "инженерная работа, оценить после проектирования" },
+    { "id": "LAB09", "title": "Агентные серии и сравнение обвязок", "file": "LAB09-agent-campaign.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа для cloud / 4–8 для local плюс исполнение и оценка" },
+    { "id": "LAB10", "title": "Абляции, повторяемость и итог исследования", "file": "LAB10-ablation.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09"], "effort": "2–4 часа для минимума после LAB09" },
+    { "id": "LAB11", "title": "Claude Code: CLI, лимиты и наблюдаемость", "file": "LAB11-claude-code.md", "kind": "agent", "harness": "claude-code", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB12", "title": "OpenCode: события и полнота учёта", "file": "LAB12-opencode.md", "kind": "agent", "harness": "opencode", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB13", "title": "Codex: автономное выполнение и границы", "file": "LAB13-codex.md", "kind": "agent", "harness": "codex", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB14", "title": "Antigravity CLI: Google API и трасса agy", "file": "LAB14-antigravity-cli.md", "kind": "agent", "harness": "antigravity-cli", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB15", "title": "Pi: SDK и модельные ходы", "file": "LAB15-pi.md", "kind": "agent", "harness": "pi", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB16", "title": "mini-SWE-agent: шаги и trajectory", "file": "LAB16-mini-swe-agent.md", "kind": "agent", "harness": "mini-swe-agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB17", "title": "OpenHands: Conversation, инструменты и iteration limit", "file": "LAB17-openhands.md", "kind": "agent", "harness": "openhands", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB18", "title": "Copilot CLI: model selector и подписочные метрики", "file": "LAB18-copilot-cli.md", "kind": "agent", "harness": "copilot-cli", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
+    { "id": "LAB19", "title": "Amp: managed mode и наблюдаемость модели", "file": "LAB19-amp.md", "kind": "agent", "harness": "amp", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" }
+  ]
+}

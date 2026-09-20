@@ -1,0 +1,11 @@
+import { readFileSync, mkdirSync } from 'node:fs';
+import { spawn } from 'node:child_process';
+import { buildCommand } from '/control/adapter.mjs';
+mkdirSync('/tmp/home', { recursive: true });
+const launch = JSON.parse(readFileSync('/control/launch.json', 'utf8'));
+const prompt = readFileSync('/control/prompt.txt', 'utf8');
+const { command, env = {} } = buildCommand({ ...launch, prompt });
+const child = spawn(command[0], command.slice(1), { stdio: 'inherit', env: { ...process.env, ...env }, cwd: launch.cwd });
+child.on('error', error => { console.error(error.message); process.exitCode = 127; });
+child.on('exit', (code, signal) => { process.exitCode = code ?? (signal ? 128 : 1); });
+for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => child.kill(signal));

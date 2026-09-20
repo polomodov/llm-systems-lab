@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "claude-code",
+  "ledger": "L008",
+  "model_policy": "explicit",
+  "default_provider": "anthropic",
+  "providers": { "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" } },
+  "version_command": ["claude", "--version"],
+  "config_files": [{ "source": "settings.example.json", "target": "settings.json" }],
+  "runtime_files": [],
+  "budget": { "usd": "hard", "turns": "hard" }
+}
