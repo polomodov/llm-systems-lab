@@ -1,14 +1,16 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "kind": "lab-report",
   "lab_id": null,
   "harness_id": null,
   "session_id": null,
   "created_at": null,
   "status": "not-started",
+  "evidence_class": null,
   "operator": null,
   "hypothesis": null,
   "protocol_before_run": null,
+  "protocol_recorded_at": null,
   "conditions": {
     "hardware_snapshot": null,
     "model_artifact_manifest": null,
@@ -16,6 +18,7 @@
     "harness_profile": null
   },
   "run_ids": [],
+  "planned_attempts": [],
   "evidence_files": [],
   "unavailable": {},
   "conclusion": null,

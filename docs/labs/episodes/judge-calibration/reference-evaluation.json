@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "public-training-reference",
+  "synthetic": true,
+  "not_a_model_measurement": true,
+  "cases": [
+    { "candidate": "candidate-a", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Источники и условия указаны; классы различены; вывод ограничен; контролируемый опыт предложен." },
+    { "candidate": "candidate-b", "criteria": { "C1": true, "C2": true, "C3": false, "C4": false, "C5": true }, "verdict": "fail", "reason": "Из несопоставимых чисел выведено двукратное превосходство и отвергнута необходимая проверка рабочего профиля." },
+    { "candidate": "candidate-c", "criteria": { "C1": true, "C2": false, "C3": true, "C4": true, "C5": true }, "verdict": "fail", "reason": "Vendor claim S1 ошибочно назван независимым измерением; прочие критерии соблюдены." },
+    { "candidate": "candidate-d", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Числа не повторены, что разрешено C1; различия условий, классы, ограничение вывода и контролируемый опыт присутствуют." }
+  ]
+}

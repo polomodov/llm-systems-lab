@@ -21,6 +21,8 @@
     "local:plan": "node scripts/local-plan.mjs",
     "local:engines": "node scripts/local-engines.mjs",
     "labs": "node scripts/labs.mjs",
-    "lab:new": "node scripts/new-lab.mjs"
+    "lab:new": "node scripts/new-lab.mjs",
+    "lab:check": "node scripts/check-lab.mjs",
+    "lab:practice": "node scripts/lab-practice.mjs"
   }
 }
