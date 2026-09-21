@@ -1,5 +1,5 @@
 {
-  "schema_version": 1, "id": "mini-swe-agent", "ledger": "L012", "model_policy": "explicit", "mode": "sdk",
+  "schema_version": 1, "id": "mini-swe-agent", "version": "2.4.6", "ledger": "L012", "model_policy": "explicit", "mode": "sdk",
   "default_provider": "anthropic",
   "providers": {
     "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" },

@@ -18,7 +18,9 @@ function fixture(t) {
   t.after(() => rmSync(root, { recursive: true, force: true }));
   for (const [dir, file] of [["experiments/example", "README.md"], ["agents/a1-fixture", "spec.md"], ["tasks/T001-fixture", "task.md"], ["docs", "harness-ledger.md"]]) {
     mkdirSync(join(root, dir), { recursive: true });
-    writeFileSync(join(root, dir, file), file === "harness-ledger.md" ? ledger : "fixture\n");
+    // Контракт задачи обязан называть бюджет: его читает раннер и проверяет check.
+    const contents = { "harness-ledger.md": ledger, "task.md": "# T001-fixture\n\n## Бюджет\nДо 5 ходов или $1.\n" };
+    writeFileSync(join(root, dir, file), contents[file] ?? "fixture\n");
   }
   return root;
 }

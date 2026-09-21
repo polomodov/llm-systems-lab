@@ -5,8 +5,9 @@ import { spawn, spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { readRun, writeRun } from './lib/records.mjs';
-import { inventory, copyTree, sha256, safePath } from './lib/files.mjs';
+import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.mjs';
 import { validateProfile, selectProvider, selectModel } from './lib/harnesses.mjs';
+import { taskLimits } from './lib/contracts.mjs';
 import { args, options, main } from './lib/cli.mjs';
 export function docker(argv, { env = process.env, timeout = 120000 } = {}) {
   const result = spawnSync('docker', argv, { encoding: 'utf8', env, timeout, maxBuffer: 16 * 1024 * 1024 });
@@ -77,7 +78,7 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
   if (!['hard','observed'].includes(budgetMode)) throw new Error('budget-mode must be hard or observed');
   const manifest = verifyInputs(dir, record), control = join(dir, 'runtime-control');
   const adapter = await import(pathToFileURL(join(dir, 'inputs/control/adapter.mjs')));
-  const limits = record.task.startsWith('T001') ? { turns: 40, budget: 3 } : record.task.startsWith('T002') ? { turns: 30, budget: 2 } : { turns: 20, budget: 1 };
+  const limits = taskLimits(readFileSync(safePath(dir, 'inputs/task.md'), 'utf8'));
   const profile = validateProfile(JSON.parse(readFileSync(join(dir, 'inputs/control/harness.json'), 'utf8')), record.harness.name);
   const selectedProvider = selectProvider(profile, provider ?? record.model.provider ?? manifest.provider);
   if (selectedProvider.name !== manifest.provider || (record.model.provider && record.model.provider !== selectedProvider.name)) throw new Error('Provider differs from the sealed preparation; create a new run');
@@ -89,7 +90,7 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
   const secrets = credentials(root, selectedProvider.credential_env), env = { ...process.env, ...secrets };
   const secretValues = Object.values(secrets);
   const redact = text => secretValues.reduce((out, secret) => out.replaceAll(secret, '[REDACTED]'), String(text));
-  const lock = join(dir, '.lock'); mkdirSync(lock);
+  const lock = acquireLock(dir);
   const suffix = randomBytes(6).toString('hex'), network = `harness-lab-${suffix}`, proxy = `${network}-egress`, name = `${network}-agent`;
   let started = false;
   try {
@@ -99,7 +100,9 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     const version = docker(['run','--rm','--network','none','--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--user','1000:1000','--tmpfs','/tmp:rw,mode=1777',...(profile.native_cache ? ['--tmpfs','/tmp/harness-native:rw,nosuid,exec,size=512m,mode=1777','--env','TMPDIR=/tmp/harness-native','--env','XDG_CACHE_HOME=/tmp/harness-native'] : []),'--env','HOME=/tmp','--entrypoint',executable,imageId,...versionArgs], { timeout: 30000 });
     if (!version || version.length > 300) throw new Error('Harness returned an invalid version');
     const exactVersion = version.match(/\b\d+\.\d+\.\d+(?:[-+][a-zA-Z0-9.-]+)?\b/)?.[0];
-    if (!exactVersion || (record.harness.version && record.harness.version !== exactVersion)) throw new Error('Harness version differs from planned version or is not exact');
+    if (!exactVersion) throw new Error('Harness did not report an exact version');
+    if (exactVersion !== profile.version) throw new Error(`Image reports ${exactVersion}, sealed profile pins ${profile.version}: rebuild the image at the pin or update the pin together with its evidence`);
+    if (record.harness.version && record.harness.version !== exactVersion) throw new Error('Harness version differs from the planned version');
     writeFileSync(join(dir,'trace/harness-version.txt'), version + '\n');
     if (existsSync(control)) throw new Error('Runtime control already exists; inspect failed run before retrying');
     copyTree(join(dir,'inputs/control'), control); writeFileSync(join(control,'launch.json'), JSON.stringify(launch, null, 2) + '\n');

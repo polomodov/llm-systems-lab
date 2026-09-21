@@ -4,7 +4,7 @@ import { dirname, join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import { readRun, writeRun } from './lib/records.mjs';
-import { inventory, copyTree, sha256, safePath } from './lib/files.mjs';
+import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.mjs';
 import { replayFetcher } from '../experiments/common/egress.mjs';
 import { loadProfile, selectProvider, controlFiles } from './lib/harnesses.mjs';
 import { args, options, main } from './lib/cli.mjs';
@@ -17,7 +17,7 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
   const profile = loadProfile(root, record.harness.name);
   const selectedProvider = selectProvider(profile, provider ?? record.model.provider);
   if (record.model.provider && record.model.provider !== selectedProvider.name) throw new Error('Provider differs from the planned run');
-  const lock = join(dir, '.lock'); mkdirSync(lock);
+  const lock = acquireLock(dir);
   const staging = join(dir, '.preparing');
   try {
     if (existsSync(staging) || existsSync(join(dir, 'inputs'))) throw new Error('Preparation already has partial files; inspect before retrying');

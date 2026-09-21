@@ -14,7 +14,7 @@ import { spawnSync } from 'node:child_process';
 import { apiKey, containerArgs, runExperiment, verifyInputs } from '../scripts/run.mjs';
 import { prepareRun } from '../scripts/prepare-run.mjs';
 import { createRun, readRun } from '../scripts/lib/records.mjs';
-import { copyTree, inventory, safePath } from '../scripts/lib/files.mjs';
+import { acquireLock, copyTree, inventory, safePath } from '../scripts/lib/files.mjs';
 import { createGateway, normalizeUrl, publicAddress } from '../experiments/common/egress.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -244,12 +244,15 @@ test('synthetic execution reads .env and redacts captured stdout and stderr with
   const bin = join(f.root, 'fake-bin'); mkdirSync(bin);
   const callsPath = join(f.root, 'docker-calls.jsonl');
   const executable = join(bin, 'docker');
+  // Синтетический образ обязан сообщать ровно тот пин, что закреплён в профиле.
+  const pin = JSON.parse(readFileSync(join(f.root, 'experiments/claude-code/harness.json'), 'utf8')).version;
+  const versionLine = JSON.stringify(`${pin} (synthetic fixture)`);
   writeFileSync(executable, `#!${process.execPath}
 const fs = require('node:fs');
 const args = process.argv.slice(2);
 fs.appendFileSync(${JSON.stringify(callsPath)}, JSON.stringify(args) + '\\n');
 if (args[0] === 'image') console.log('sha256:' + 'a'.repeat(64));
-else if (args.includes('--version')) console.log('1.2.3 (synthetic fixture)');
+else if (args.includes('--version')) console.log(${versionLine});
 else if (args[0] === 'run') {
   const key = process.env.ANTHROPIC_API_KEY;
   console.log(JSON.stringify({ type: 'assistant', message: { model: 'claude-synthetic-20260920', content: key } }));
@@ -273,4 +276,34 @@ else if (args[0] === 'run') {
   assert.equal(readFileSync(callsPath, 'utf8').includes(syntheticKey), false);
   assert.equal(readFileSync(join(f.dir, 'run.json'), 'utf8').includes(syntheticKey), false);
   assert.equal(existsSync(join(f.dir, '.lock')), false);
+});
+
+test('an image whose version differs from the sealed pin never starts the run', async t => {
+  const f = fixture(t);
+  prepareRun(f.root, f.record.run_id);
+  writeFileSync(join(f.root, '.env'), `ANTHROPIC_API_KEY=${syntheticKey}\n`);
+  const bin = join(f.root, 'fake-bin'); mkdirSync(bin);
+  const executable = join(bin, 'docker');
+  writeFileSync(executable, `#!${process.execPath}
+const args = process.argv.slice(2);
+if (args[0] === 'image') console.log('sha256:' + 'a'.repeat(64));
+else if (args.includes('--version')) console.log('9.9.9 (rebuilt without the pin)');
+`);
+  chmodSync(executable, 0o755);
+  const originalPath = process.env.PATH;
+  process.env.PATH = `${bin}:${originalPath}`;
+  t.after(() => { process.env.PATH = originalPath; });
+  await assert.rejects(
+    runExperiment(f.root, f.record.run_id, { image: 'synthetic-image', model: 'claude-synthetic-20260920', timeout: 10 }),
+    /Image reports 9\.9\.9, sealed profile pins 2\.1\.83/,
+  );
+  assert.equal(readRun(f.root, f.record.run_id).status, 'prepared');
+  assert.equal(existsSync(join(f.dir, 'runtime-control')), false);
+  assert.equal(existsSync(join(f.dir, '.lock')), false);
+});
+
+test('a stale lock explains itself instead of failing as EEXIST', t => {
+  const directory = temp(t);
+  assert.equal(acquireLock(directory), join(directory, '.lock'));
+  assert.throws(() => acquireLock(directory), /Run is locked by .*\.lock: another coordinator works on it/);
 });
