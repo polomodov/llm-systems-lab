@@ -16,6 +16,20 @@
 | [Copilot CLI](../experiments/copilot-cli/README.md) | 1.0.86 | Headless CLI JSONL | Copilot / `COPILOT_GITHUB_TOKEN` | Явный поддерживаемый selector; underlying ID может быть неизвестен | USD и model-turn cap недоступны |
 | [Amp](../experiments/amp/README.md) | 0.0.1789920039-gafe14b | CLI stream JSONL | Amp / `AMP_API_KEY` | `managed:low`, `managed:medium`, `managed:high`, `managed:ultra` | USD и model-turn cap недоступны |
 
+## Что означает «проверенный pin»
+
+Пин версии хранится в `experiments/<harness>/harness.json` и является единственным источником. `npm run check` сверяет его с `ARG`/`RUN test` в Dockerfile, с тегом `harness-lab/<id>:<pin>` в корневом README, со строкой этой таблицы и с README обвязки: расхождение в любом из мест — ошибка проверки, а не молчаливый дрейф. При запуске `run.mjs` сравнивает пин запечатанного профиля с версией, которую сообщает сам образ, и прерывает прогон до старта агента при несовпадении.
+
+Класс доказательства по самому образу при этом разный, и таблица его не выравнивает:
+
+- ID проверенного локального образа записан у всех девяти: `claude-code`, `opencode`, `amp`, `copilot-cli` — в README обвязки; `antigravity-cli`, `codex`, `pi`, `mini-swe-agent`, `openhands` — в NOTES.
+- Машинный протокол offline smoke есть только у двух: `antigravity-cli` и `codex` (`experiments/<harness>/smoke/2026-09-20.json`). У остальных — текстовая заметка.
+- Прогона с реальной моделью нет ни у одной обвязки.
+
+21.09.2026 на машине оператора (Docker Engine 29.5.2, host darwin/arm64) version-команда каждого из девяти собранных образов вернула ровно закреплённый пин. Это наша проверка установки без ключей и без запросов к провайдеру, а не результат задачи.
+
+Установка в образах по умолчанию идёт с `--ignore-scripts`. Три исключения задокументированы прямо в Dockerfile и проверены в собранных образах 21.09.2026: `opencode` (postinstall выбирает platform binary), `amp` (postinstall размещает native binary), `pi` (в дереве зависимостей `koffi` собирает native binding через install script).
+
 Во всех случаях действует внешний timeout. Восемь обвязок требуют явного `--budget-mode observed`: отсутствие обязательного USD cap не скрывается. Это исследовательские попытки с отклонением от бюджета задачи; они не объединяются с политикой `hard`. Семантика native step/iteration у SDK может отличаться: сырые события сохраняются для интерпретации, счётчики разных видов не выдаются за одну универсальную метрику.
 
 ## Профили и воспроизводимость
