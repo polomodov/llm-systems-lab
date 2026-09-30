@@ -4,6 +4,8 @@
 
 Для пошагового выполнения используйте [лабораторный практикум](../../docs/labs/README.md). `npm run lab:new -- --lab LAB02 --session first-pass` создаёт в `measurements/LAB02-first-pass/` пустой отчёт, manifest и таблицу измерений. Учебный manifest не заменяет `results/runs/<run-id>/run.json`; реальные агентные попытки записываются отдельно.
 
+[`runbook.md`](runbook.md) — сводный операторский лист ЛР02–ЛР05 для одной сессии на стенде: те же команды с подставленными путями. Нормативны сами лаборатории; дрейф источников проверяется `sha256sum -c experiments/local-models/runbook.sources.sha256`.
+
 - [Порядок тестирования и критерии отбора](../../docs/local-models.md).
 - [Кандидаты, форматы весов и первичные источники](../../docs/local-model-candidates.md).
 - [Linux preflight и runbook backend](../../docs/local-model-runtime.md).
