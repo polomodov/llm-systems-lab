@@ -31,3 +31,12 @@ export function copyTree(source, dest) {
   for (const row of rows) { const to = join(dest, row.path); mkdirSync(dirname(to), { recursive: true }); copyFileSync(join(source, row.path), to); }
   return rows;
 }
+/** Один писатель на прогон: устаревший каталог блокировки объясняется явно, а не падает как EEXIST. */
+export function acquireLock(dir) {
+  const lock = join(dir, '.lock');
+  try { mkdirSync(lock); } catch (error) {
+    if (error.code !== 'EEXIST') throw error;
+    throw new Error(`Run is locked by ${lock}: another coordinator works on it, or a previous one was killed. Inspect the run and containers labelled harness-lab=true, then remove that directory to retry.`);
+  }
+  return lock;
+}

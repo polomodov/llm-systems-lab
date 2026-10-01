@@ -4,8 +4,11 @@ import { safePath } from './files.mjs';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const segment = value => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 export const relativeFile = value => typeof value === 'string' && /^[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_.-]+)*$/.test(value) && value.split('/').every(part => part !== '.' && part !== '..');
+// Единственный источник пина: профиль. Dockerfile, документация и прогон сверяются с ним.
+export const VERSION_PIN = /^\d+\.\d+\.\d+(?:[-+][a-zA-Z0-9.-]+)?$/;
 export function validateProfile(profile, expectedId) {
   if (!object(profile) || profile.schema_version !== 1 || !segment(profile.id) || (expectedId && profile.id !== expectedId)) throw new Error('Invalid harness profile identity');
+  if (typeof profile.version !== 'string' || !VERSION_PIN.test(profile.version)) throw new Error('Harness profile requires an exact version pin');
   if (profile.mode !== undefined && !['cli','sdk'].includes(profile.mode)) throw new Error('Unknown harness execution mode');
   if (profile.native_cache !== undefined && typeof profile.native_cache !== 'boolean') throw new Error('native_cache must be boolean');
   if (!/^L\d{3}$/.test(profile.ledger)) throw new Error('Harness profile requires a ledger ID');

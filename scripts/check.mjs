@@ -6,6 +6,8 @@ import { verifyRunIntegrity } from "./lib/integrity.mjs";
 import { validateLocalPlanData } from "./lib/local-plan.mjs";
 import { validateEngineCatalog } from "./lib/local-engines.mjs";
 import { loadLabCatalog } from "./lib/labs.mjs";
+import { auditPins } from "./lib/pins.mjs";
+import { taskLimits } from "./lib/contracts.mjs";
 
 const root = process.cwd();
 const runsDir = join(root, "results", "runs");
@@ -32,6 +34,21 @@ if (existsSync(localDir)) {
       console.log(`[check] inference profiles=${engines.engines.length}: план, hardware smoke не выполнен`);
     }
   } catch (error) { console.error(`[check] local plan: ${error.message}`); failed++; }
+}
+if (existsSync(join(root, "experiments")) && existsSync(join(root, "docs/harnesses.md")) && existsSync(join(root, "README.md"))) {
+  try {
+    const pins = auditPins(root);
+    for (const error of pins.errors) { console.error(`✖ pin ${error}`); failed++; }
+    if (!pins.errors.length) console.log(`[check] pinned harnesses=${pins.ids.length}: профиль, Dockerfile и документация совпадают`);
+  } catch (error) { console.error(`[check] pins: ${error.message}`); failed++; }
+}
+if (existsSync(join(root, "tasks"))) {
+  try {
+    const tasksDir = join(root, "tasks");
+    const contracts = readdirSync(tasksDir).filter((name) => existsSync(join(tasksDir, name, "task.md")));
+    for (const name of contracts) taskLimits(readFileSync(join(tasksDir, name, "task.md"), "utf8"));
+    console.log(`[check] task contracts=${contracts.length}: лимиты ходов и USD читаются из контракта`);
+  } catch (error) { console.error(`[check] task budget: ${error.message}`); failed++; }
 }
 try {
   if (existsSync(runsDir)) {

@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Тесты и проверки координатора: без API-ключей, без скрытых проверок,
+  # без обращений к провайдерам. Это инфраструктура, не результат агента.
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.13.1'
+      - name: Unit and integration tests
+        run: npm test
+      - name: Records, ledger, pins and contracts
+        run: npm run check
+
+  # Реальная Docker-граница (L003). Отдельная job: ей нужен proxy image и
+  # больше времени, поэтому она запускается вручную и на main.
+  docker:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.13.1'
+      - name: Pull the pinned proxy image
+        run: docker pull node:24.13.1-bookworm-slim
+      - name: Docker boundary smoke
+        run: npm run test:docker

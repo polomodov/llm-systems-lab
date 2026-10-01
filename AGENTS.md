@@ -20,7 +20,9 @@ This repository is a lab for running the same autonomous agents in different age
 - Secrets come only from `.env` through the harness. Do not print, copy or commit them.
 - Write only inside `results/runs/<run-id>/` and `experiments/<harness>/` unless the task says otherwise. Task workspaces live in `results/runs/<run-id>/workspace/` and are git-ignored.
 - Prefer deleting a harness component over adding one. If you add one, add its ledger row in the same change.
-- Checks: `npm run check` validates run records and the ledger. Run it before finishing.
+- Checks: `npm run check` validates run records, the ledger, harness version pins (profile ↔ Dockerfile ↔ documentation) and task budget contracts. Run it before finishing.
+- A harness version is pinned once, in `experiments/<harness>/harness.json`. Dockerfile and documentation repeat it; the runner compares it with the version the image reports.
+- Turn and USD limits belong to `tasks/<id>/task.md`. The runner reads them from the sealed copy of the contract and never carries its own defaults.
 
 ## Style
 
