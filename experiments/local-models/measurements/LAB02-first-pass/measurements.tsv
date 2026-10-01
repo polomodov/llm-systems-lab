@@ -1,0 +1,19 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+mem_total	sys-inventory-001	null	null	null	null	1	MemTotal	134153334784	bytes	measured	raw/memory-inventory.json	null
+mem_available_initial	sys-inventory-001	null	null	null	null	1	MemAvailable	128772624384	bytes	measured	raw/memory-inventory.json	null
+mem_available_after_idle	sys-inventory-001	null	null	null	null	1	MemAvailable	128675229696	bytes	measured	raw/memory-after-idle.txt	null
+swap_total	sys-inventory-001	null	null	null	null	1	SwapTotal	8589930496	bytes	measured	raw/memory-inventory.json	null
+swap_free	sys-inventory-001	null	null	null	null	1	SwapFree	8589930496	bytes	measured	raw/memory-inventory.json	null
+ttm_pages_limit	sys-inventory-001	null	null	null	null	1	ttm_pages_limit	26214400	pages	measured	raw/memory-inventory.json	null
+ttm_page_size	sys-inventory-001	null	null	null	null	1	ttm_page_size_bytes	4096	bytes	measured	raw/memory-inventory.json	null
+ttm_implied_cap	sys-inventory-001	null	null	null	null	1	ttm_pages_limit_x_page_size	107374182400	bytes	measured	raw/memory-inventory.json	null
+amdgpu_vram_total	sys-inventory-001	null	null	null	null	1	mem_info_vram_total	536870912	bytes	measured	raw/memory-inventory.json	null
+amdgpu_gtt_total	sys-inventory-001	null	null	null	null	1	mem_info_gtt_total	107374182400	bytes	measured	raw/memory-inventory.json	null
+amdgpu_gtt_used	sys-inventory-001	null	null	null	null	1	mem_info_gtt_used	451350528	bytes	measured	raw/memory-inventory.json	null
+amdgpu_vram_used	sys-inventory-001	null	null	null	null	1	mem_info_vram_used	468103168	bytes	measured	raw/memory-inventory.json	null
+amdgpu_vis_vram_total	sys-inventory-001	null	null	null	null	1	mem_info_vis_vram_total	536870912	bytes	measured	raw/memory-inventory.json	null
+amdgpu_preempt_used	sys-inventory-001	null	null	null	null	1	mem_info_preempt_used	0	bytes	measured	raw/memory-inventory.json	null
+os_reserve_agreed	sys-inventory-001	null	null	null	null	1	os_reserve_default	17179869184	bytes	measured-by-default	report.md#L102	lab default 16 GiB; no override in LAB01 (not run)
+vulkan_device	sys-inventory-001	null	null	null	null	1	vulkaninfo_device	null	null	unavailable	raw/collection-status.json	no vulkaninfo binary installed
+rocm_gfx	sys-inventory-001	null	null	null	null	1	rocminfo_gfx_target	null	null	unavailable	raw/collection-status.json	no rocminfo/hipconfig binary installed
+power_profile	sys-inventory-001	null	null	null	null	1	powerprofilesctl	balanced	mode	measured	raw/power-profile.txt	null
