@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "lab-practice-fixture",
+  "evidence_class": "synthetic",
+  "id": "duplicate-action",
+  "title": "Потерянный ответ и повтор побочного эффекта",
+  "related_labs": ["LAB20", "LAB23"],
+  "assignment": "Клиент пытается увеличить dummy-счётчик ровно один раз. Первый ответ потерян, поэтому клиент повторяет ту же логическую операцию без ключа идемпотентности. Сопоставьте наблюдения клиента с учебным simulated-action-audit. Счётчик существует только в памяти интерпретатора, внешних действий нет.",
+  "questions": [
+    "Что знает клиент после потерянного ответа: операция не выполнена или её исход неизвестен?",
+    "Сколько реальных внешних действий выполнено и сколько применений показывает только синтетический журнал?",
+    "Почему новый call_id не обеспечивает идемпотентность одной логической action_id?",
+    "Как изменится журнал при одном стабильном idempotency_key для обоих вызовов? Какие проверки нужны при повторном ключе с изменёнными аргументами?",
+    "Достаточно ли полученного final для успеха условия «увеличить ровно один раз»? Какие доказательства нужны оценщику?"
+  ],
+  "steps": [
+    { "type": "request", "at_ms": 0, "request_id": "request-1" },
+    { "type": "assistant-tool-call", "at_ms": 50, "request_id": "request-1", "call_id": "increment-1", "name": "increment_demo_counter", "arguments": { "counter": "demo", "amount": 1 }, "action_id": "add-one", "idempotency_key": null },
+    { "type": "tool-response", "at_ms": 150, "request_id": "request-1", "call_id": "increment-1", "delivery": "lost" },
+    { "type": "assistant-tool-call", "at_ms": 200, "request_id": "request-1", "call_id": "increment-2", "name": "increment_demo_counter", "arguments": { "counter": "demo", "amount": 1 }, "action_id": "add-one", "idempotency_key": null },
+    { "type": "tool-response", "at_ms": 210, "request_id": "request-1", "call_id": "increment-2", "delivery": "delivered" },
+    { "type": "assistant-final", "at_ms": 240, "request_id": "request-1", "text": "Повторный ответ получен: dummy-счётчик равен 2. Исход первого вызова по его ответу неизвестен." }
+  ]
+}

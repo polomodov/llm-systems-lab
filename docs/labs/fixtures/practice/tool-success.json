@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "lab-practice-fixture",
+  "evidence_class": "synthetic",
+  "id": "tool-success",
+  "title": "Контролируемый вызов инструмента",
+  "related_labs": ["LAB20", "LAB22"],
+  "assignment": "Проследите цепочку request → function call → разрешённый tool result → final. Проверьте, на какие наблюдения опирается финальный текст. Отделите корректный протокол от самостоятельного verdict по задаче.",
+  "questions": [
+    "Как связаны request_id и call_id? Какое событие доказывает получение ответа инструмента?",
+    "Можно ли по финальному тексту без tool-response подтвердить значение LAB_VALUE_42?",
+    "Почему final-received не равен pass и почему токены/стоимость оставлены null?",
+    "Какие проверки нужны, если модель вместо разрешённого lookup предложит shell или другой аргумент?"
+  ],
+  "steps": [
+    { "type": "request", "at_ms": 0, "request_id": "request-1" },
+    { "type": "assistant-tool-call", "at_ms": 40, "request_id": "request-1", "call_id": "lookup-1", "name": "lookup_lab_value", "arguments": { "key": "alpha" } },
+    { "type": "tool-response", "at_ms": 45, "request_id": "request-1", "call_id": "lookup-1", "delivery": "delivered" },
+    { "type": "assistant-final", "at_ms": 80, "request_id": "request-1", "text": "Значение alpha: LAB_VALUE_42; получено из lookup_lab_value." }
+  ]
+}
