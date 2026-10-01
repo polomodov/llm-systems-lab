@@ -1,0 +1,87 @@
+{
+  "time": {
+    "command": [
+      "date",
+      "-u",
+      "+%FT%TZ"
+    ],
+    "exit_code": 0
+  },
+  "kernel": {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "exit_code": 0
+  },
+  "cpu": {
+    "command": [
+      "lscpu"
+    ],
+    "exit_code": 0
+  },
+  "memory": {
+    "command": [
+      "free",
+      "-b"
+    ],
+    "exit_code": 0
+  },
+  "swap": {
+    "command": [
+      "swapon",
+      "--show",
+      "--bytes"
+    ],
+    "exit_code": 0
+  },
+  "disk": {
+    "command": [
+      "df",
+      "-B1",
+      "."
+    ],
+    "exit_code": 0
+  },
+  "pci": {
+    "command": [
+      "lspci",
+      "-nnk"
+    ],
+    "exit_code": 0
+  },
+  "vulkan-summary": {
+    "command": [
+      "vulkaninfo",
+      "--summary"
+    ],
+    "exit_code": 0
+  },
+  "vulkan-full": {
+    "command": [
+      "vulkaninfo"
+    ],
+    "exit_code": 0
+  },
+  "rocminfo": {
+    "command": [
+      "rocminfo"
+    ],
+    "exit_code": 0
+  },
+  "hipconfig": {
+    "command": [
+      "hipconfig",
+      "--full"
+    ],
+    "exit_code": null,
+    "reason": "[Errno 2] No such file or directory: 'hipconfig'"
+  },
+  "power-profile": {
+    "command": [
+      "powerprofilesctl",
+      "get"
+    ],
+    "exit_code": 0
+  }
+}

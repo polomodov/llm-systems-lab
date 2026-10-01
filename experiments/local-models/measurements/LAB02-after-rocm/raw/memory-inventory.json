@@ -1,0 +1,60 @@
+{
+  "page_size_bytes": 4096,
+  "memory": {
+    "MemTotal": {
+      "bytes": 134153334784,
+      "GiB": 124.94002914428711
+    },
+    "MemAvailable": {
+      "bytes": 125247705088,
+      "GiB": 116.64601516723633
+    },
+    "SwapTotal": {
+      "bytes": 8589930496,
+      "GiB": 7.999996185302734
+    },
+    "SwapFree": {
+      "bytes": 8589930496,
+      "GiB": 7.999996185302734
+    }
+  },
+  "sysfs": {
+    "/sys/class/drm/card1/device/device": {
+      "value": "0x1586"
+    },
+    "/sys/class/drm/card1/device/mem_info_gtt_total": {
+      "value": "107374182400"
+    },
+    "/sys/class/drm/card1/device/mem_info_gtt_used": {
+      "value": "1126739968"
+    },
+    "/sys/class/drm/card1/device/mem_info_preempt_used": {
+      "value": "0"
+    },
+    "/sys/class/drm/card1/device/mem_info_vis_vram_total": {
+      "value": "536870912"
+    },
+    "/sys/class/drm/card1/device/mem_info_vis_vram_used": {
+      "value": "505311232"
+    },
+    "/sys/class/drm/card1/device/mem_info_vram_total": {
+      "value": "536870912"
+    },
+    "/sys/class/drm/card1/device/mem_info_vram_used": {
+      "value": "505311232"
+    },
+    "/sys/class/drm/card1/device/vendor": {
+      "value": "0x1002"
+    },
+    "/sys/module/amdgpu/parameters/gtt_size": {
+      "value": null,
+      "reason": "[Errno 2] No such file or directory: '/sys/module/amdgpu/parameters/gtt_size'"
+    },
+    "/sys/module/ttm/parameters/page_pool_size": {
+      "value": "16376139"
+    },
+    "/sys/module/ttm/parameters/pages_limit": {
+      "value": "26214400"
+    }
+  }
+}

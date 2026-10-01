@@ -1,0 +1,10 @@
+hipconfig is not part of ROCm 7.2 user-mode apt packages.
+A grep across https://repo.radeon.com/rocm/apt/7.2/dists/noble/main/binary-amd64/Packages.gz
+returned no Package: hipconfig line. The utility has been removed from the
+ROCm 7.x distribution. Equivalent information can be obtained from
+/opt/rocm-7.2.0/lib/libamdhip64.so.7.2.70200 or hipcc --version after
+installing rocm-hip-runtime-dev (not required for LAB02).
+
+For LAB02 this field is filled as unavailable with this reason. The LAB02
+hardware passport is satisfied by rocminfo alone, which enumerates three HSA
+agents (CPU, GPU=gfx1151, DSP=aie2p) and reports full pool/clock/BDF info.
