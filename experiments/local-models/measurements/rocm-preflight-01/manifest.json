@@ -1,0 +1,130 @@
+{
+  "session": "rocm-preflight-01",
+  "kind": "preflight",
+  "purpose": "Install ROCm 7.2 user-space stack to enable rocminfo/hipconfig for the next LAB02 hardware passport.",
+  "prerequisites_session": "LAB02-first-pass",
+  "expected_followup_session": "LAB02-after-rocm",
+  "lab": "LAB02",
+  "machine": {
+    "product_name": "GTR Pro (GTRP112)",
+    "cpu": "AMD Ryzen AI Max+ 395 w/ Radeon 8060S",
+    "cores_threads": "16/32",
+    "os": "Ubuntu 24.04.4 LTS (noble)",
+    "kernel": "7.0.0-34-generic",
+    "bios_version": "06/10/2026",
+    "bios_date": "06/10/2026",
+    "kernel_kind": "custom-hwe",
+    "kernel_vs_amd_matrix": "above-6.17.0-19.19~24.04.2"
+  },
+  "gpu": {
+    "pci_id": "1002:1586",
+    "render_node": "/dev/kfd",
+    "render_node_dev": "/dev/dri/renderD128",
+    "gfx_target": "gfx1151",
+    "vram_total_bytes": 536870912,
+    "vram_used_bytes": null,
+    "gtt_total_bytes": 107374182400,
+    "gtt_used_bytes": 451350528,
+    "ttm_pages_limit": 26214400,
+    "page_size_bytes": 4096
+  },
+  "memory": {
+    "mem_total_bytes": 134153334784,
+    "mem_available_bytes_before_idle": 128772624384,
+    "os_reserve_bytes": 17179869184,
+    "model_budget_bytes": 116973465600,
+    "gpu_budget_bytes": 107374182400
+  },
+  "preflight_evidence": {
+    "directory": "raw/",
+    "key_files": [
+      "time.txt",
+      "kernel.txt",
+      "cpu.txt",
+      "memory.txt",
+      "meminfo.txt",
+      "swap.txt",
+      "disk.txt",
+      "pci.txt",
+      "os-release.txt",
+      "lsmod.txt",
+      "ttm-pages-limit.txt",
+      "vulkan-summary.txt",
+      "vulkan-full.txt",
+      "rocminfo.txt",
+      "hipconfig.txt",
+      "etc-apt-sources.list.d-rocm.list",
+      "dpkg-before.txt",
+      "apt-simulation-minimal.txt",
+      "apt-simulation-full.txt",
+      "card1-vendor.txt",
+      "card1-device.txt",
+      "card1-mem_info_vram_total",
+      "card1-mem_info_vram_used",
+      "card1-mem_info_gtt_total",
+      "card1-mem_info_gtt_used",
+      "card1-mem_info_vis_vram_total",
+      "card1-mem_info_vis_vram_used",
+      "card1-mem_info_preempt_used",
+      "dev-dri.txt",
+      "dev-kfd.txt",
+      "drm-cards.txt"
+    ]
+  },
+  "rocm_plan": {
+    "version": "7.2",
+    "source": "https://repo.radeon.com/rocm/apt/7.2 noble main",
+    "gpg_key": "/etc/apt/keyrings/rocm.gpg",
+    "apt_pin_priority": 1001,
+    "apt_pin_syntax": "Pin: origin \"repo.radeon.com\" (quotes are mandatory)",
+    "modes": {
+      "minimal": {
+        "packages": [
+          "amdgpu-core",
+          "libncurses-dev",
+          "rocm-core",
+          "comgr",
+          "libdrm2-amdgpu",
+          "libdrm-amdgpu-common",
+          "libdrm-amdgpu-amdgpu1",
+          "rocprofiler-register",
+          "hsa-rocr",
+          "rocminfo=1.0.0.70200-43~24.04",
+          "hip-runtime-amd"
+        ],
+        "purpose": "LAB02 rocminfo + hipconfig without multilib toolchain"
+      },
+      "full": {
+        "packages_root": ["rocm-hip-runtime"],
+        "additional_packages": [
+          "rocm-llvm",
+          "rocm-device-libs",
+          "openmp-extras-runtime",
+          "rocm-language-runtime",
+          "gcc-13-multilib",
+          "g++-13-multilib",
+          "libc6-i386",
+          "libc6-x32"
+        ],
+        "purpose": "Full HIP clang toolchain for LAB04/LAB06"
+      }
+    },
+    "changes_kernel": false,
+    "changes_dkms": false,
+    "changes_systemd": false,
+    "reboot_required": false,
+    "install_command": "sudo ./install-rocm-7.2.sh [minimal|full|status]",
+    "fix_command": "sudo ./fix-rocminfo-pin.sh"
+  },
+  "compatibility_status": {
+    "vulkan": "documented (RADV GFX1151, vulkaninfo present)",
+    "hip_rocm": "documented for ROCm 7.2 / gfx1151 in AMD compatibility matrix",
+    "kernel": "documented (Ubuntu HWE above 6.17.0-19.19~24.04.2)"
+  },
+  "notes": [
+    "ROCm 7.14.1 was the originally requested version, but the active rocm.list points at 7.2. Switching to 7.14.1 would require editing rocm.list and refreshing the GPG key; chose 7.2 because (a) it is already pinned in the system repo and (b) it is the AMD-documented stack for gfx1151 / Ubuntu 24.04.4.",
+    "amdgpu-install is not part of the official ROCm 7.2 apt repo; user-mode install via apt is the documented equivalent for our case.",
+    "After installation, LAB02 must be re-run in a new session (LAB02-after-rocm) because adding ROCm userspace changes the observed state (rocminfo/hipconfig become available).",
+    "First install run landed the wrong rocminfo (Ubuntu 5.7.1 instead of ROCm 1.0.0.70200) because the apt pin used Pin: origin repo.radeon.com without quotes, which APT silently ignores. fix-rocminfo-pin.sh replaces the pin with the quoted form, removes the Ubuntu rocminfo/libhsa-runtime64-1/libhsakmt1, and installs rocminfo=1.0.0.70200-43~24.04 explicitly."
+  ]
+}
