@@ -1,0 +1,30 @@
+{
+  "request": {
+    "url": "http://127.0.0.1:8089/v1/chat/completions",
+    "body": {
+      "model": "Qwen3.5-9B-Q6_K",
+      "messages": [{"role":"user","content":"What is the capital of France? Reply with one word only."}],
+      "max_tokens": 512,
+      "temperature": 0.1,
+      "stream": false
+    }
+  },
+  "response": {
+    "id": "chatcmpl-rV8RSwf1bBkNQDlEPHWggnZ5VvGVC2Tc",
+    "object": "chat.completion",
+    "model": "Qwen3.5-9B-Q6_K.gguf",
+    "finish_reason": "stop",
+    "message_content": "Paris",
+    "reasoning_excerpt": "Thinking Process: 1. Analyze the Request... 2. Identify the Answer: the capital of",
+    "usage": {"completion_tokens": 162, "prompt_tokens": 23, "total_tokens": 185},
+    "timings": {
+      "prompt_n": 23,
+      "prompt_ms": 102,
+      "prompt_per_second": 226.2,
+      "predicted_n": 162,
+      "predicted_ms": 5820,
+      "predicted_per_second": 27.83
+    }
+  },
+  "wallclock_seconds": 5.96
+}
