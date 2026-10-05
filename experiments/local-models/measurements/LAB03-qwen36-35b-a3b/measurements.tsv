@@ -1,6 +1,7 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-disk_free_before	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	df	-		1	df_available_bytes	1795944996864	B	measured	raw/disk-before.txt	
-disk_free_after	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	df	-		1	df_available_bytes	1795879305984	B	measured	raw/disk-after.txt	
+disk_free_before	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	df	-		1	df_available_bytes	1825307557888	B	measured	raw/disk-before.txt	
+disk_free_after	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	df	-		1	df_available_bytes	1798843305984	B	measured	raw/disk-after.txt	
+disk_free_delta	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	df	-		1	df_available_delta_bytes	26464251904	B	measured	raw/disk-after.txt	
 weights_bytes	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	sha256sum	-		1	file_bytes	26456194016	B	measured	raw/verification.json	
 weights_sha256_match	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	sha256sum	-		1	sha256_match_publisher	1	bool	measured	raw/verification.json	
 weights_status	qwen36-35b-a3b-verify-001	unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c	fetch_artifact.py	-		1	status_verified	1	bool	measured	raw/verification.json	

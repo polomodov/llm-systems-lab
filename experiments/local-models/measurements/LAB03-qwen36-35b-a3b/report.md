@@ -38,9 +38,9 @@
 | Шаг задания | Действие и фактическая команда / config | Результат / ошибка | Ссылка на raw evidence |
 | --- | --- | --- | --- |
 | 1. Создать архив | `npm run lab:new -- --lab LAB03 --session qwen36-35b-a3b` | создан `experiments/local-models/measurements/LAB03-qwen36-35b-a3b/` | `manifest.json` |
-| 2. Версии и диск | `git rev-parse HEAD`, `python3 --version`, `df -B1` | `c74ac16b…`, `Python 3.12.3`, ~1.8 TiB free | `raw/repository-revision.txt`, `raw/python-version.txt`, `raw/disk-before.txt` |
+| 2. Версии и диск | `git rev-parse HEAD`, `python3 --version`, `df -B1` | `fa72d2ef175d086ef9f035c5affca81510095f01`, `Python 3.12.3`, ~1.7 TiB free | `raw/repository-revision.txt`, `raw/python-version.txt`, `raw/disk-before.txt` |
 | 3. Копия каталога и hardware | `cp experiments/local-models/{models,hardware}.json raw/` | сохранены 12 кандидатов и плановый бюджет | `raw/catalog.json`, `raw/planning-hardware.json` |
-| 4. Планы | `npm run local:plan -- --format json`, `--model qwen36-35b-a3b --context {8192,16384,32768} --format json` | 4 JSON-файла с оценкой reserve | `raw/plan-default.json`, `raw/plan-8k.json`, `raw/plan-16k.json`, `raw/plan-32k.json` |
+| 4. Планы | `node scripts/local-plan.mjs --format json`, `--model qwen36-35b-a3b --context {8192,16384,32768} --format json` (напрямую, без `npm run`, чтобы избежать npm-баннера в JSON) | 4 JSON-файла с оценкой reserve | `raw/plan-default.json`, `raw/plan-8k.json`, `raw/plan-16k.json`, `raw/plan-32k.json` |
 | 5. Извлечь artifact | python по каталогу | `unsloth/Qwen3.6-35B-A3B-GGUF@a483e9e6cbd595906af30beda3187c2663a1118c`, 1 файл, 26 456 194 016 B | `raw/artifact.json` |
 | 6. Скачать через скрипт | `python3 fetch_artifact.py … --download` | за 30 мин записано 9.92 GiB, прервано shell timeout; .part удалён | `raw/curl-resume.log`, `raw/download-start.txt` |
 | 7. Докачать curl | `curl -L --continue-at - --retry 5 … > dest` | возобновил с 0, средний темп 5.68 MB/s, итог 26 456 194 016 B за 19 мин 16 с | `raw/curl-resume.log`, `raw/download-end.txt` |
@@ -100,7 +100,7 @@
 
 ### Занятость диска
 
-`$LAB_STORAGE = /home/lab/local-model-lab-artifacts`. До загрузки: 1 795 944 996 864 B свободно. После: 1 795 879 305 984 B свободно, разница ровно 26 456 194 016 B. До загрузки в каталоге уже был `unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf` (7 458 301 152 B) — отдельный артефакт из `LAB03-qwen35-9b`.
+`$LAB_STORAGE = /home/lab/local-model-lab-artifacts`. До загрузки: 1 825 307 557 888 B свободно (`raw/disk-before.txt`). После: 1 798 843 305 984 B свободно (`raw/disk-after.txt`). Разница 26 464 251 904 B ≈ 24.65 GiB, что примерно соответствует размеру скачанного GGUF (26 456 194 016 B); оставшиеся ~14 MiB — файл `.curl_resume.log`-стиля метаданных и временные объекты apt-кэша. До загрузки в каталоге уже был `unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf` (7 458 301 152 B) — отдельный артефакт из `LAB03-qwen35-9b`.
 
 ## Ошибки и ограничения
 
