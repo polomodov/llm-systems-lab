@@ -1,0 +1,20 @@
+{
+  "method": "curl-resume-then-fetch-verify",
+  "rationale": "fetch_artifact.py --download is non-resumable (uses 'xb' on partial). For a 24.7 GiB file at ~5.5 MB/s, the first attempt was terminated at 9.92 GiB after 30 min. To avoid losing the full download on transient shell timeouts, we deleted the failed .part, downloaded the file via curl --continue-at - (HTTP range) directly to the destination path, then ran the standard fetch_artifact.py without --download to verify bytes/SHA-256. The script's verification is still the authoritative gate.",
+  "url": "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/resolve/a483e9e6cbd595906af30beda3187c2663a1118c/Qwen3.6-35B-A3B-UD-Q5_K_M.gguf",
+  "destination": "/home/lab/local-model-lab-artifacts/unsloth/Qwen3.6-35B-A3B-GGUF/a483e9e6cbd595906af30beda3187c2663a1118c/Qwen3.6-35B-A3B-UD-Q5_K_M.gguf",
+  "expected_bytes": 26456194016,
+  "expected_sha256": "c13ce26253ea334df472bd8fbd2d6da66d8a41195c17f6fcbf44c4d20ece0932",
+  "start_utc": "2026-10-02T09:17:07Z",
+  "end_utc": "2026-10-02T11:08:00Z",
+  "wall_clock_seconds": 6653,
+  "fetch_script_attempt_seconds": 1800,
+  "fetch_script_partial_bytes": 9923723264,
+  "curl_resume_attempt_seconds": 3600,
+  "curl_resume_partial_bytes_before": 0,
+  "curl_resume_final_bytes": 26456194016,
+  "curl_average_speed_bytes_per_sec": 5825696,
+  "verification_status": "verified",
+  "verification_script_exit": 0,
+  "sha256_match": true
+}
