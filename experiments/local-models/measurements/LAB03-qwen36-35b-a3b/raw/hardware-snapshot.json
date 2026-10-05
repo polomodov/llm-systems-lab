@@ -1,0 +1,23 @@
+{
+  "source_session": "LAB02-after-rocm",
+  "report_path": "experiments/local-models/measurements/LAB02-after-rocm/report.md",
+  "manifest_path": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+  "product_name": "GTR Pro (GTRP112)",
+  "cpu": "AMD Ryzen AI Max+ 395 w/ Radeon 8060S",
+  "gfx_target": "gfx1151",
+  "mem_total_bytes": 134153334784,
+  "mem_total_gib": 124.93,
+  "os_reserve_bytes": 17179869184,
+  "os_reserve_gib": 16.0,
+  "available_ram_for_model_bytes": 116973465600,
+  "available_ram_for_model_gib": 108.94,
+  "vulkan_heap1_budget_bytes": 70854057984,
+  "vulkan_heap1_budget_gib": 65.99,
+  "ttm_cap_bytes": 107374182400,
+  "ttm_cap_gib": 100.0,
+  "rocm_gpu_pool_coarse_grained_bytes": 107374182400,
+  "rocm_gpu_pool_coarse_grained_gib": 100.0,
+  "limiting_factor": "vulkan_heap1_budget",
+  "limiting_factor_b": 65.99,
+  "limiting_factor_unit": "GiB"
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-20",
+  "hardware_id": "ryzen-ai-max-395-128gb-linux",
+  "measurement_status": "unverified",
+  "context_tokens": 8192,
+  "budget": {
+    "memory_gib": 119.2,
+    "os_reserve_gib": 16,
+    "available_memory_gib": 103.2,
+    "gpu_budget_gib": 89.4,
+    "effective_gib": 89.4
+  },
+  "estimate_basis": "Planning reserves only; KV cache is not calculated from model architecture. Candidate does not mean verified fit.",
+  "rows": [
+    {
+      "id": "qwen36-35b-a3b",
+      "model_id": "Qwen/Qwen3.6-35B-A3B",
+      "priority": 1,
+      "architecture": "hybrid-moe",
+      "parameters_total_b": 35,
+      "parameters_active_b": 3,
+      "quantization": "UD-Q5_K_M",
+      "context_tokens": 8192,
+      "budget_gib": 89.4,
+      "estimates": {
+        "weights_gib": 24.7,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 4,
+        "total_gib": 34.7
+      },
+      "headroom_gib": 54.7,
+      "status": "candidate",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Актуальная компактная MoE для агентного кода; сравнить с dense 27B и поколением 3.5.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+        "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/tree/a483e9e6cbd595906af30beda3187c2663a1118c",
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/995ad96eacd98c81ed38be0c5b274b04031597b0/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    }
+  ]
+}
