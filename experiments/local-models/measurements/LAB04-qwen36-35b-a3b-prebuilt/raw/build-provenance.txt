@@ -1,0 +1,23 @@
+Build provenance
+=================
+
+Source commit (full 40):
+  312cf03328496df9c56fe843952cf02a8964c59a
+
+Source commit (short 10):
+  312cf03328
+
+GitHub release tag:
+  b8407
+  https://github.com/ggml-org/llama.cpp/releases/tag/b8407
+
+Vulkan bundle:
+  URL: https://github.com/ggml-org/llama.cpp/releases/download/b8407/llama-b8407-bin-ubuntu-vulkan-x64.tar.gz
+  SHA-256 (vulkan):  -- not saved
+  Source dir: /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407
+
+ROCm/HIP bundle:
+  URL: https://repo.radeon.com/rocm/llama.cpp/linux/rocm-rel-7.2.1/llama-b8407-ubuntu-24.04-rocm-7.2.1-gfx110X-gfx115X-gfx120X-x64.zip
+  MD5 (downloaded): effa4bcd7c2dd6d201cb412847359319  /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407-ubuntu-24.04-rocm-7.2.1-gfx110X-gfx115X-gfx120X-x64.zip
+  Expected MD5:     effa4bcd7c2dd6d201cb412847359319
+  Source dir: /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407-ubuntu-24.04-rocm-7.2.1-gfx110X-gfx115X-gfx120X-x64
