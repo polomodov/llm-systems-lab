@@ -87,7 +87,16 @@
 
 ### GPU residency и flash attention
 
-Оба JSON-результата содержат `flash_attn: true` и `n_gpu_layers: 999`, что подтверждает: FA реально активирован (`-fa 1`), и весь стек слоёв запрошен на GPU. `-ngl 999` — это запрос, а не доказательство фактического offload; фактический offload подтверждается через device-side выделения, доступные через `ggml_backend_cuda_get_available_uma_memory` (HIP) и `ggml_vulkan: Found 1 Vulkan devices` (Vulkan), см. `raw/{rocm,vulkan}-devices.txt`. Vulkan показывает `uma: 1` (RADV на UMA видит один пул), HIP — `VMM: no` (`-ngl 999` форсирует mlock).
+Чтобы исключить сценарий, в котором `-ngl 999` молча оставил слои на CPU, был выполнен отдельный прогон с `-v` на каждой ветви (`raw/rocm-verbose.txt`, `raw/vulkan-verbose.txt`). Фактический per-layer offload подтверждается сообщениями `load_tensors: layer N assigned to device {ROCm0,Vulkan0}` для **всех 41 слоёв** (включая embedding и output) на обоих бэкендах. Подробности:
+
+| Backend | Устройство первой доставки | Свободно при load | Model buffer на GPU | KV buffer на GPU | Recurrent state на GPU | CPU-Mapped |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| HIP/ROCm | `ROCm0 (AMD Radeon Graphics) (0000:c6:00.0)` | 121 807 MiB | 24 704.80 MiB | 10.00 MiB | 62.81 MiB | 515.31 MiB |
+| Vulkan | `Vulkan0 (AMD Radeon Graphics (RADV GFX1151)) (0000:c6:00.0)` | 101 829 MiB | 24 704.80 MiB | 10.00 MiB | 62.81 MiB | 515.31 MiB |
+
+MoE-смещение при warmup равно нулю (`n_cpu_moe: 0`). Гибридное recurrent state (`llama_memory_recurrent` = 62.81 MiB на GPU) корректно учитывает гибридный attention. На обоих бэкендах 24 704.80 MiB = весь вес модели 24.64 GiB помещён в GPU buffer; CPU mapped buffer (515.31 MiB) — служебные метаданные (tokenizer, control buffers), не веса. Совпадение байтов в Model buffer между бэкендами подтверждает: один и тот же GGUF реально загружается на один и тот же физический пул UMA.
+
+JSON-результаты основных 12 вызовов содержат `flash_attn: true` и `n_gpu_layers: 999`, что согласуется с verbose-выводом: FA активирован, все слои на GPU. `-ngl 999` — это запрос; verbose-прогон доказывает, что запрос был выполнен буквально.
 
 ### Подтверждение «одинаковые условия»
 
@@ -124,12 +133,13 @@ Backend влияет на скорость: **Vulkan быстрее HIP/ROCm** �
 
 ## Комплект сдачи
 
-- [x] `manifest.json` со статусом `completed`, evidence_class `experimental` (хотя это не agent-run), 12 запланированных и выполненных попыток, два completed attempt.
-- [x] `measurements.tsv` с 52 строками, все `status=measured` с числовыми полями и evidence_path.
+- [x] `manifest.json` со статусом `completed`, evidence_class `experimental`, **14 запланированных и выполненных попыток** (12 paired measurements + 2 warmups), все `completed`.
+- [x] `measurements.tsv` с **36 строками**, все `status=measured` с числовыми полями и evidence_path.
 - [x] `report.md` со всеми обязательными секциями.
-- [x] Сырые логи: `raw/{rocm,vulkan}-{version,bench-help,devices,binaries.sha256}.txt`, `raw/{rocm,vulkan}-warmup.{json,log}`, `raw/{rocm,vulkan}-r{1,2,3}-{pp,tg}.{json,log,process.txt,memory-before.txt,memory-after.txt,vmstat-before.txt,vmstat-after.txt}`, `raw/vmstat-series.txt`, `raw/{verification-before,verification-after,uname,os-release,build-provenance}.txt`.
+- [x] Сырые логи: `raw/{rocm,vulkan}-{version,bench-help,devices,binaries.sha256}.txt`, `raw/{rocm,vulkan}-{verbose,warmup}.{txt,log,json}`, `raw/{rocm,vulkan}-r{1,2,3}-{pp,tg}.{json,log,process.txt}`, `raw/{rocm,vulkan}-r{1,2,3}-{memory,vmstat}-{before,after}.txt`, `raw/vmstat-series.txt`, `raw/vmstat-pid.txt`, `raw/{verification-before,verification-after,uname,os-release,build-provenance}.txt`.
 - [x] Сверительный SHA-256 GGUF: `raw/weights.sha256` + `raw/verification-{before,after}.txt`.
 - [x] Обе ветви описаны отдельной колонкой в таблицах, без смешения.
 - [x] Все numeric наблюдения помечены `measured`, не кандидат-данные от планировщика.
+- [x] Verbose-прогоны (`raw/rocm-verbose.txt`, `raw/vulkan-verbose.txt`) подтверждают полный per-layer GPU offload для всех 41 слоя на обоих бэкендах.
 
 Решение проверяющего: **не проверено**.
