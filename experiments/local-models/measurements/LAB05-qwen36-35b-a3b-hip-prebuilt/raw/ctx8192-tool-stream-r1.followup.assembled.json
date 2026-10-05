@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_VALUE_42",
+  "reasoning_content": "The user requested to call `lookup_lab_value` with `key` \"alpha\" and return *only* the value.\nThe tool returned `LAB_VALUE_42`.\nI will return exactly that string.\n"
+}

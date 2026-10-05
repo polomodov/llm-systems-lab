@@ -1,0 +1,55 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "wMYSe1eRnC6SRQnjhtDfRsiWkIoo9SiP",
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\":\"alpha\"}"
+          }
+        }
+      ],
+      "reasoning_content": "Thinking Process:\n1.  **Analyze User Input:**\n   - User says: \"Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение.\" (Call lookup_lab_value with key alpha. After getting the tool's result, return only the value.)\n   - This is a direct instruction to use a specific tool (`lookup_lab_value`) with a specific parameter (`key: \"alpha\"`).\n\n2.  **Identify Tool & Parameters:**\n   - Tool: `lookup_lab_value`\n   - Parameters: `key` (enum: [\"alpha\"]), required.\n   - Value to pass: `\"alpha\"`\n\n3.  **Execute Tool Call:**\n   - I need to generate the tool call exactly as specified.\n   - `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))`\n\n4.  **Wait for Tool Output (Mental Simulation/Next Step):**\n   - The system will return the result of the tool call.\n   - I will then format the final response as requested (\"верни только значение\" - return only the value).\n   - Since I'm generating the tool call now, I'll just output the tool call.\n\n   Let's construct the tool call.✅\n   `lookup_lab_value(key=\"alpha\")` -> I will use the exact format required.\n   `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))`\n   Done. \n   I will output the tool call now. \n   *Self-Correction/Verification during thought:* \n   The prompt says \"Вызови lookup_lab_value с key alpha.\" I will follow the instruction precisely.\n   Tool schema: `{\"properties\": {\"key\": {\"enum\": [\"alpha\"], \"type\": \"string\"}}, \"required\": [\"key\"], \"type\": \"object\"}`\n   All good. Proceed. \n   Output matches the tool call format.✅\n   *Output Generation* (internal) -> `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))` -> wait for result. I will just output the tool call. \n   Actually, the system handles the tool execution. I just need to output the call.\n   Let's do it. \n   [Proceeds] \n   *(Note: I'll generate the exact tool call string as requested by the framework.)*\n   `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))` -> correct. \n   Ready. \n   [Output Generation] -> `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))` \n   *(Self-Correction/Refinement during generation)*: Wait, the prompt says \"Получив результат инструмента, верни только значение.\" This implies a multi-step process, but I only generate the tool call now. I will just call the tool. The next turn will handle the result. I will output the tool call.✅\n   Proceeds. \n   `print(tool_call(name='lookup_lab_value', args={'key': 'alpha'}))` -> done. \n   [Output Generation] -> *Proceeds*\n"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "wMYSe1eRnC6SRQnjhtDfRsiWkIoo9SiP",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": true
+}

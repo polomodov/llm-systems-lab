@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Answer exactly LAB_READY without explanations.\")\n   - Key constraints: \n     - Output must be exactly \"LAB_READY\"\n     - No additional text, explanations, or formatting.\n\n2.  **Identify Core Requirement:**\n   - The user wants a strict, exact string match: \"LAB_READY\"\n   - Language of prompt is Russian, but the required output is in English/caps.\n   - No extra characters, newlines (unless necessary for standard output, but ideally just the exact string).\n\n3.  **Formulate Response:**\n   - Simply output: `LAB_READY`\n   - Verify against constraints: Exactly matches? Yes. No explanations? Yes.\n\n4.  **Final Output Generation:**\n   - `LAB_READY` (nothing else)✅\n   - Proceed. \n   - Self-Correction/Verification during thought: \n     - Should I add a newline? Usually, it's fine, but the prompt says \"ровно LAB_READY\" (exactly LAB_READY). I'll output just the string.\n     - No markdown, no quotes, just the raw text.\n     - Ready.✅\n"
+      }
+    }
+  ],
+  "created": 1791209660,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 279,
+    "prompt_tokens": 19,
+    "total_tokens": 298
+  },
+  "id": "chatcmpl-KCzlHspg2jd8FEoEoGyOdEwLv4njnOMS",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 19,
+    "prompt_ms": 126.371,
+    "prompt_per_token_ms": 6.651105263157895,
+    "prompt_per_second": 150.35095077193344,
+    "predicted_n": 279,
+    "predicted_ms": 6029.609,
+    "predicted_per_token_ms": 21.611501792114698,
+    "predicted_per_second": 46.27165708423216
+  }
+}

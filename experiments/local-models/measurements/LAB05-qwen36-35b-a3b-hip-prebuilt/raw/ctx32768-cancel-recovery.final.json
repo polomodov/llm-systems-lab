@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\"\n   - Translation: \"Reply exactly with LAB_READY without explanations.\"\n   - Language: Russian\n   - Constraint: Must reply *exactly* with \"LAB_READY\" and nothing else.\n\n2.  **Identify Key Constraints:**\n   - Exact match: \"LAB_READY\"\n   - No additional text, no explanations, no greetings, no punctuation (unless specified, but the prompt says \"ровно LAB_READY\", which implies just that string).\n   - Language: The constraint overrides any language preference; the output must be exactly the requested string.\n\n3.  **Formulate Response:**\n   - Simply output: `LAB_READY`\n   - Double-check: Does it match exactly? Yes.\n   - Any extra characters? No.\n   - Meets all constraints? Yes.\n\n4.  **Final Output Generation:** (Proceeds to output exactly \"LAB_READY\")✅\n"
+}
