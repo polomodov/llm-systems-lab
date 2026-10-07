@@ -1,16 +1,13 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { loadLocalHardware } from './lib/local-hardware.mjs';
 import { args, main, options } from './lib/cli.mjs';
-import { validateEngineCatalog } from './lib/local-engines.mjs';
 
 await main(() => {
   const opts = args();
-  options(opts, ['format']);
+  options(opts, ['format', 'hardware']);
   const format = opts.format ?? 'table';
   if (!['json', 'table'].includes(format)) throw new Error('--format must be json or table');
-  const catalog = JSON.parse(readFileSync(join(process.cwd(), 'experiments', 'local-models', 'engines.json'), 'utf8'));
-  validateEngineCatalog(catalog);
+  const { engines: catalog } = loadLocalHardware(process.cwd(), opts.hardware, { engines: true });
   const engines = [...catalog.engines].sort((a, b) => a.priority - b.priority || a.id.localeCompare(b.id, 'en'));
   if (format === 'json') {
     console.log(JSON.stringify({ ...catalog, engines }, null, 2));
