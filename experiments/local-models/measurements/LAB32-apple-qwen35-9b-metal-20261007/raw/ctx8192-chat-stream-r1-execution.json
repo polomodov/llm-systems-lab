@@ -1,0 +1,145 @@
+{
+  "case": "ctx8192-chat-stream-r1",
+  "command": [
+    "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/http_probe.py",
+    "--url",
+    "http://127.0.0.1:8080",
+    "--request",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/chat-stream-request.json",
+    "--out",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/ctx8192-chat-stream-r1"
+  ],
+  "started_at": "2026-10-07T21:50:12.034525+00:00",
+  "ended_at": "2026-10-07T21:50:12.266534+00:00",
+  "returncode": 0,
+  "accepted": true,
+  "reason": null,
+  "wall_seconds": 0.23201554200000007,
+  "metrics": {
+    "ttft_content_s": 0.069953042,
+    "ttft_reasoning_s": null,
+    "usage": {
+      "completion_tokens": 3,
+      "prompt_tokens": 21,
+      "total_tokens": 24
+    },
+    "http_status": 200,
+    "finish_reason": "stop",
+    "stream_done": true,
+    "duration_s": 0.10099941699999998
+  },
+  "followup_metrics": null,
+  "before": {
+    "timestamp": "2026-10-07T21:50:12.034529+00:00",
+    "commands": {
+      "vm_stat": {
+        "argv": [
+          "vm_stat"
+        ],
+        "returncode": 0,
+        "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  2696405.\nPages active:                                2225834.\nPages inactive:                              2236136.\nPages speculative:                            276244.\nPages throttled:                                   0.\nPages wired down:                             791225.\nPages purgeable:                              100389.\n\"Translation faults\":                     1549321973.\nPages copy-on-write:                        29066547.\nPages zero filled:                        1514505259.\nPages reactivated:                            619378.\nPages purged:                                2327793.\nFile-backed pages:                           1558905.\nAnonymous pages:                             3179309.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    10101362.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 236641.\nPages tagged resident:                        236641.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 7749.\nPages tag-storage free:                        36706.\nPages tag-storage non-tag pageable:           217673.\nPages tag-storage non-tag wired:                  16.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+        "stderr": ""
+      },
+      "swap": {
+        "argv": [
+          "sysctl",
+          "vm.swapusage"
+        ],
+        "returncode": 0,
+        "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+        "stderr": ""
+      },
+      "pressure": {
+        "argv": [
+          "memory_pressure",
+          "-Q"
+        ],
+        "returncode": 0,
+        "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 89%\n",
+        "stderr": ""
+      },
+      "power_source": {
+        "argv": [
+          "pmset",
+          "-g",
+          "batt"
+        ],
+        "returncode": 0,
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+        "stderr": ""
+      },
+      "power_mode": {
+        "argv": [
+          "pmset",
+          "-g",
+          "custom"
+        ],
+        "returncode": 0,
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "stderr": ""
+      }
+    },
+    "free_pages_bytes": 44177899520,
+    "swap_used_bytes": 0,
+    "on_ac_power": true,
+    "ac_power_mode": 0
+  },
+  "after": {
+    "timestamp": "2026-10-07T21:50:12.242715+00:00",
+    "commands": {
+      "vm_stat": {
+        "argv": [
+          "vm_stat"
+        ],
+        "returncode": 0,
+        "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  2696477.\nPages active:                                2243410.\nPages inactive:                              2236136.\nPages speculative:                            276249.\nPages throttled:                                   0.\nPages wired down:                             773584.\nPages purgeable:                              111651.\n\"Translation faults\":                     1549327475.\nPages copy-on-write:                        29067632.\nPages zero filled:                        1514506877.\nPages reactivated:                            619378.\nPages purged:                                2327793.\nFile-backed pages:                           1558910.\nAnonymous pages:                             3196885.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    10101384.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 236641.\nPages tagged resident:                        236641.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 7749.\nPages tag-storage free:                        36705.\nPages tag-storage non-tag pageable:           217677.\nPages tag-storage non-tag wired:                  13.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+        "stderr": ""
+      },
+      "swap": {
+        "argv": [
+          "sysctl",
+          "vm.swapusage"
+        ],
+        "returncode": 0,
+        "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+        "stderr": ""
+      },
+      "pressure": {
+        "argv": [
+          "memory_pressure",
+          "-Q"
+        ],
+        "returncode": 0,
+        "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 90%\n",
+        "stderr": ""
+      },
+      "power_source": {
+        "argv": [
+          "pmset",
+          "-g",
+          "batt"
+        ],
+        "returncode": 0,
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+        "stderr": ""
+      },
+      "power_mode": {
+        "argv": [
+          "pmset",
+          "-g",
+          "custom"
+        ],
+        "returncode": 0,
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "stderr": ""
+      }
+    },
+    "free_pages_bytes": 44179079168,
+    "swap_used_bytes": 0,
+    "on_ac_power": true,
+    "ac_power_mode": 0
+  },
+  "expected_final": "LAB_READY",
+  "expected_prompt_tokens": null
+}

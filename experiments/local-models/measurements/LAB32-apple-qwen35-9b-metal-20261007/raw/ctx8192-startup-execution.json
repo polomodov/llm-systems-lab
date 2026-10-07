@@ -1,0 +1,23 @@
+{
+  "accepted": true,
+  "timestamp": "2026-10-07T21:50:10.749898+00:00",
+  "readiness": [
+    {
+      "error": "URLError"
+    },
+    {
+      "status": 200,
+      "body": {
+        "status": "ok"
+      }
+    }
+  ],
+  "offloaded_layers": [
+    [
+      "33",
+      "33"
+    ]
+  ],
+  "context": 8192,
+  "tensor_api": true
+}
