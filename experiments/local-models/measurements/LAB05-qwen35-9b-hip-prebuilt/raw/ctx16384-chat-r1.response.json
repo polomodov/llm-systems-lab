@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: \"ровно\" (exactly), \"без пояснений\" (without explanations).\n    *   Expected Output: The string \"LAB_READY\".\n\n2.  **Verify Constraints:**\n    *   No additional text.\n    *   No punctuation (unless part of the string, but \"LAB_READY\" doesn't have it).\n    *   No language other than the specified string.\n\n3.  **Formulate Output:**\n    *   String: LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the instruction? Yes.\n    *   Is there any extra whitespace or newlines? Should avoid them if possible, but typically a single line is expected.\n\n5.  **Execute:** Output \"LAB_READY\".\n"
+      }
+    }
+  ],
+  "created": 1791367834,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 206,
+    "prompt_tokens": 19,
+    "total_tokens": 225
+  },
+  "id": "chatcmpl-HAtjdPxk6K3eiu2eblKhQ6DchIrnbKR1",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 19,
+    "prompt_ms": 95.089,
+    "prompt_per_token_ms": 5.004684210526316,
+    "prompt_per_second": 199.8128069492791,
+    "predicted_n": 206,
+    "predicted_ms": 7387.92,
+    "predicted_per_token_ms": 35.86368932038835,
+    "predicted_per_second": 27.883355531732885
+  }
+}

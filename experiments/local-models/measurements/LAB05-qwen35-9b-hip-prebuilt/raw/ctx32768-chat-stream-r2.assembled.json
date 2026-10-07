@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_READY",
+  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: \"ровно LAB_READY\" (exactly LAB_READY), \"без пояснений\" (without explanations).\n    *   Language: Russian (instruction), Output: English string \"LAB_READY\".\n\n2.  **Determine the Output:**\n    *   The user explicitly wants the string \"LAB_READY\".\n    *   No additional text, no newlines, no explanations.\n\n3.  **Final Check:**\n    *   Does the output match the constraint? Yes.\n    *   Is it exactly \"LAB_READY\"? Yes.\n\n4.  **Construct Output:**\n    *   LAB_READY\n"
+}

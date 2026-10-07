@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "GwidihG7qthgstlw8bmqjkTOvgyvp0JT",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user is asking me to call the lookup_lab_value function with the key \"alpha\" and return only the value result. This is a simple function call request.\n\nI need to call the lookup_lab_value function with the parameter key=\"alpha\".\n"
+}
