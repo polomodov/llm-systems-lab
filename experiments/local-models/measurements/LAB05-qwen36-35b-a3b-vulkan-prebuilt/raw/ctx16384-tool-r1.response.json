@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user wants me to call the `lookup_lab_value` tool with the key \"alpha\" and return only the value obtained from the tool.\n\n1.  Identify the tool: `lookup_lab_value`.\n2.  Identify the parameters: `key` = \"alpha\".\n3.  Call the tool.\n4.  Extract the value from the tool's response.\n5.  Return only the value.\n\nLet's call the tool.\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "u57p0TKnsTO1tq5yOcIJYAIb3oU42DKE"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791365601,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 124,
+    "prompt_tokens": 313,
+    "total_tokens": 437
+  },
+  "id": "chatcmpl-A12KeVXLLJFyIOne1zC0NIxxzR46suYw",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 313,
+    "prompt_ms": 679.948,
+    "prompt_per_token_ms": 2.1723578274760382,
+    "prompt_per_second": 460.32931930088773,
+    "predicted_n": 124,
+    "predicted_ms": 2352.147,
+    "predicted_per_token_ms": 18.968927419354838,
+    "predicted_per_second": 52.71779357327583
+  }
+}
