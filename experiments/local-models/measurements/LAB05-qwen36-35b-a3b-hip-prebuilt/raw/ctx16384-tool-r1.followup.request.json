@@ -1,0 +1,55 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "The user wants me to call the `lookup_lab_value` function with the key \"alpha\".\nThen, I need to return only the value obtained from the tool.\n\n1.  **Identify the tool**: `lookup_lab_value`.\n2.  **Identify the parameters**: `key` should be \"alpha\".\n3.  **Construct the function call**: `lookup_lab_value(key=\"alpha\")`.\n4.  **Execute the call**.\n5.  **Extract the result**: The description says it returns a \"fixed value\".\n6.  **Format the output**: \"return only the value\".\n\nLet's make the call.\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\":\"alpha\"}"
+          },
+          "id": "43Nl40dPoZqE8SAvg5TsponY5kjkn1lk"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "43Nl40dPoZqE8SAvg5TsponY5kjkn1lk",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}

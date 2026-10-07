@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_READY",
+  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian)\n   - Translation: \"Answer exactly LAB_READY without explanations.\"\n   - Key constraints: \n     - Output must be exactly \"LAB_READY\"\n     - No additional text, explanations, or formatting.\n\n2.  **Identify Core Requirement:**\n   - The instruction is very clear and strict. I must output only the string \"LAB_READY\".\n\n3.  **Formulate Response:**\n   - Check: Does it match exactly? Yes.\n   - Check: Any extra text? No.\n   - Language: The instruction is in Russian, but the required output is in English. I'll follow the exact string requested.\n\n4.  **Final Output Generation:**\n   - Just \"LAB_READY\" as instructed.✅\n"
+}

@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Answer exactly LAB_READY without explanations.\")\n   - Key constraints: \n     - Output must be exactly \"LAB_READY\"\n     - No additional text, explanations, or formatting.\n\n2.  **Identify Core Requirement:**\n   - The user wants a strict, exact string match: \"LAB_READY\"\n   - Language of prompt is Russian, but the required output is in English/caps.\n   - No extra characters, newlines (unless necessary for standard output, but ideally just the exact string).\n\n3.  **Formulate Response:**\n   - Simply output: `LAB_READY`\n   - Verify against constraints: Exactly matches? Yes. No explanations? Yes.\n\n4.  **Final Output Generation:**\n   - `LAB_READY` (nothing else)✅\n   - Proceed. \n   - Self-Correction/Verification during thought: \n     - Should I add a newline? Usually, it's fine, but the prompt says \"ровно LAB_READY\" (exactly LAB_READY). I'll output just the string.\n     - No markdown, no quotes, just the raw text.\n     - Ready.✅\n"
+}

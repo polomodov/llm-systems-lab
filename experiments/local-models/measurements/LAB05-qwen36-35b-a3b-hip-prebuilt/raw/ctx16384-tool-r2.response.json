@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user wants me to call the `lookup_lab_value` function with the key `alpha`.\nThen I need to return only the value obtained from the tool.\n\n1.  **Identify the tool**: `lookup_lab_value`.\n2.  **Identify the argument**: `key` = \"alpha\".\n3.  **Call the tool**: `lookup_lab_value(key=\"alpha\")`.\n4.  **Process the result**: The user asks to return *only* the value. I shouldn't add conversational filler if possible, or just keep it very brief as requested. The prompt says \"верни только значение\" (return only the value).\n\nLet's make the tool call.\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "AB2PMwoFwkaFJ0TzK4tGRyuZFdX9TuVi"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791208911,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 175,
+    "prompt_tokens": 313,
+    "total_tokens": 488
+  },
+  "id": "chatcmpl-6ZmhdGuETJjm8u55XGMPLVmRedBM7AQ8",
+  "timings": {
+    "cache_n": 309,
+    "prompt_n": 4,
+    "prompt_ms": 38.247,
+    "prompt_per_token_ms": 9.56175,
+    "prompt_per_second": 104.5833660156352,
+    "predicted_n": 175,
+    "predicted_ms": 3790.654,
+    "predicted_per_token_ms": 21.66088,
+    "predicted_per_second": 46.16617607410225
+  }
+}
