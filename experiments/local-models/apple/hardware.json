@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "apple-m5-max-128gb-macos",
+  "cpu": "Apple M5 Max",
+  "os": "macos",
+  "reported_memory_gb": 128,
+  "planning_memory_gib": 128,
+  "os_reserve_gib": 16,
+  "gpu_budget_gib": null,
+  "runtime_reserve_gib": 6,
+  "kv_cache_reserve_gib": {
+    "8192": 4,
+    "16384": 8,
+    "32768": 16
+  },
+  "measurement_status": "unverified",
+  "sources": [
+    "https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/",
+    "https://developer.apple.com/documentation/metal/mtldevice/recommendedmaxworkingsetsize"
+  ],
+  "notes": [
+    "M5 Max / 128 GB сообщены владельцем. При подготовке 07.10.2026 sysctl показал Apple M5 Max и hw.memsize=137438953472 bytes (128 GiB), sw_vers — macOS 26.5 / 25F71. Это исходное наблюдение без архивированного LAB28 evidence, не завершённый аппаратный допуск.",
+    "reported_memory_gb — название комплектации; planning_memory_gib опирается на hw.memsize, а не на перевод десятичных GB. Повторить сбор в LAB28.",
+    "gpu_budget_gib=null: доступный бюджет GPU ещё не измерен. recommendedMaxWorkingSetSize — рекомендация драйвера, не гарантированная свободная память и не дополнительная RAM.",
+    "16 GiB для ОС, 6 GiB для runtime, 4/8/16 GiB для KV/state — начальные гипотезы, не замеры и не архитектурная формула.",
+    "Общая память CPU/GPU единая. Нельзя складывать RSS, GPU allocations и физическую RAM. До LAB34: один сервер, одна модель, один запрос."
+  ]
+}

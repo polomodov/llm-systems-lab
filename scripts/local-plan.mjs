@@ -2,12 +2,13 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { args, main, options } from './lib/cli.mjs';
+import { loadLocalHardware } from './lib/local-hardware.mjs';
 import { buildLocalPlan } from './lib/local-plan.mjs';
 import { buildEnginePlan } from './lib/local-engines.mjs';
 
 await main(() => {
   const opts = args();
-  options(opts, ['format', 'model', 'context', 'gpu-budget-gib', 'memory-gib', 'engine']);
+  options(opts, ['format', 'model', 'context', 'gpu-budget-gib', 'memory-gib', 'engine', 'hardware']);
   const format = opts.format ?? 'table';
   if (!['json', 'table'].includes(format)) throw new Error('--format must be json or table');
   const input = {};
@@ -20,11 +21,11 @@ await main(() => {
   }
   const directory = join(process.cwd(), 'experiments', 'local-models');
   const catalog = JSON.parse(readFileSync(join(directory, 'models.json'), 'utf8'));
-  const hardware = JSON.parse(readFileSync(join(directory, 'hardware.json'), 'utf8'));
+  const { hardware, engines } = loadLocalHardware(process.cwd(), opts.hardware, { engines: opts.engine !== undefined });
   const plan = opts.engine === undefined ? buildLocalPlan(catalog, hardware, input) : buildEnginePlan(
     catalog,
     hardware,
-    JSON.parse(readFileSync(join(directory, 'engines.json'), 'utf8')),
+    engines,
     { ...input, engine: opts.engine },
   );
   if (format === 'json') {

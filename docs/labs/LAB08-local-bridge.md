@@ -6,7 +6,7 @@
 | --- | --- |
 | Тип работы | Инженерная: спроектировать, реализовать и проверить интеграцию; это не только запуск измерений |
 | Время | Ориентир 12–20 часов разработки и проверки после готовности сервера; время устранения несовместимости SDK учитывается отдельно |
-| Предпосылки | ЛР01 и ЛР05; Linux на Ryzen AI Max+ 395, паспорт машины, закреплённые веса и рабочий protocol smoke |
+| Предпосылки | ЛР01 и одна из ЛР05 (Ryzen/Linux) или ЛР32 (Apple/macOS); паспорт машины, закреплённые веса и рабочий protocol smoke |
 | Готовность | Методика готова. Local provider bridge, расширение run metadata и группировка локальных условий пока **pending** |
 | Минимальный объём | Один backend, одна модель, один адаптер Pi или mini-SWE-agent, синтетическая матрица и один реальный T002 pilot |
 | Расширение | Подключение остальных основных локальных обвязок: Pi, mini-SWE-agent, OpenCode, OpenHands |
@@ -22,6 +22,8 @@
 Критерий опровержения: доступ к другому адресу/порту, административному API или облачному fallback; потерянный tool-result; попадание двух разных конфигураций весов в одну группу; выдача отсутствующего usage за нулевой.
 
 ## Подготовка
+
+Для Apple inference server работает нативно в macOS; контейнер содержит только agent harness. Подключение из Docker Desktop к host endpoint требуется спроектировать и проверить отдельно: `127.0.0.1` контейнера не является loopback Mac, а имя `host.docker.internal` само по себе не обеспечивает изоляцию. Bridge должен разрешать только закреплённый endpoint и пройти ту же матрицу B01–B10. Не публикуйте server в LAN как замену этой проверки. MLX server alias и MLX artifact manifest требуют того же контроля identity, что GGUF. Пока bridge не принят, Apple-agent серии остаются `pending/blocked`.
 
 Создайте папку учебной работы из корня репозитория:
 
@@ -53,7 +55,7 @@ npm run check
    | Группа данных | Обязательное содержание |
    | --- | --- |
    | Идентичность модели | Официальный repository и revision; точные файлы, bytes и проверенные SHA-256; quant/format; requested alias и наблюдаемая identity с основанием |
-   | Движок | Engine/version/commit, GPU backend Vulkan или ROCm, build flags, serving wrapper/version, image digest при контейнерном запуске |
+   | Движок | Engine/version/commit, GPU backend Vulkan, ROCm или Metal, build flags, serving wrapper/version, image digest при контейнерном запуске |
    | Входной протокол | Hash tokenizer/chat template; context/output budgets; sampling, seed если поддержан, reasoning; формат tools/action protocol |
    | Память и исполнение | KV/state dtype, batch/ubatch, offload/GPU layers, slot count; hash аппаратного паспорта, driver и режим питания |
    | Происхождение | Запечатанный deployment manifest и его hash; подтверждение фактически запущенной конфигурации, отсутствие cloud fallback |

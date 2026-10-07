@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-09-21",
+  "updated_at": "2026-10-07",
   "require_harness_coverage": true,
   "labs": [
     { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
@@ -10,7 +10,7 @@
     { "id": "LAB05", "title": "Контекст, память и протокол инструментов", "file": "LAB05-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB04"], "effort": "2–4 часа" },
     { "id": "LAB06", "title": "vLLM, SGLang и Transformers на ROCm", "file": "LAB06-engines.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB03", "LAB05"], "effort": "4–8 часов плюс подготовка стека" },
     { "id": "LAB07", "title": "Ollama, LM Studio и Lemonade", "file": "LAB07-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "3–6 часов плюс установка" },
-    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB01", "LAB05"], "effort": "инженерная работа, оценить после проектирования" },
+    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB01"], "effort": "инженерная работа, оценить после проектирования", "prerequisites_any": ["LAB05", "LAB32"] },
     { "id": "LAB09", "title": "Агентные серии и сравнение обвязок", "file": "LAB09-agent-campaign.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа для cloud / 4–8 для local плюс исполнение и оценка" },
     { "id": "LAB10", "title": "Абляции, повторяемость и итог исследования", "file": "LAB10-ablation.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09"], "effort": "2–4 часа для минимума после LAB09" },
     { "id": "LAB11", "title": "Claude Code: CLI, лимиты и наблюдаемость", "file": "LAB11-claude-code.md", "kind": "agent", "harness": "claude-code", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
@@ -29,6 +29,14 @@
     { "id": "LAB24", "title": "Один агент и делегирование", "file": "LAB24-delegation.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB09"], "effort": "4–6 часов после реализации учёта и делегирования" },
     { "id": "LAB25", "title": "Квантизация и качество агентной работы", "file": "LAB25-quantization-quality.md", "kind": "agent", "readiness": "target-machine", "prerequisites": ["LAB08", "LAB09"], "effort": "3–6 часов плюс подготовка весов и исполнение" },
     { "id": "LAB26", "title": "Параллельная нагрузка и устойчивость Ryzen", "file": "LAB26-concurrent-load.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "2–4 часа плюс длительная серия" },
-    { "id": "LAB27", "title": "Регрессии после обновления модели или harness", "file": "LAB27-upgrade-regression.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09", "LAB10"], "effort": "3–5 часов плюс сборка и исполнение" }
+    { "id": "LAB27", "title": "Регрессии после обновления модели или harness", "file": "LAB27-upgrade-regression.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09", "LAB10"], "effort": "3–5 часов плюс сборка и исполнение" },
+    { "id": "LAB28", "title": "Паспорт Apple M5 Max и unified memory", "file": "LAB28-apple-hardware.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "1–2 часа" },
+    { "id": "LAB29", "title": "Закрепление GGUF и MLX-артефактов", "file": "LAB29-apple-artifacts.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28"], "effort": "1–3 часа плюс загрузка" },
+    { "id": "LAB30", "title": "llama.cpp на Apple Metal", "file": "LAB30-apple-metal.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28", "LAB29"], "effort": "2–4 часа плюс сборка" },
+    { "id": "LAB31", "title": "Нативный инференс MLX-LM", "file": "LAB31-apple-mlx.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28", "LAB29"], "effort": "2–4 часа плюс окружение" },
+    { "id": "LAB32", "title": "Контекст, streaming и инструменты на Mac", "file": "LAB32-apple-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB29"], "effort": "3–5 часов", "prerequisites_any": ["LAB30", "LAB31"] },
+    { "id": "LAB33", "title": "Ollama и LM Studio на Apple Silicon", "file": "LAB33-apple-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "3–5 часов плюс установка" },
+    { "id": "LAB34", "title": "Параллельная нагрузка и устойчивость Mac", "file": "LAB34-apple-load.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "2–4 часа плюс 30-минутная серия" },
+    { "id": "LAB35", "title": "Apple против Ryzen на одинаковых задачах", "file": "LAB35-apple-ryzen-comparison.md", "kind": "agent", "readiness": "implementation-required", "prerequisites": ["LAB04", "LAB08", "LAB09", "LAB32", "LAB34"], "effort": "4–8 часов плюс исполнение и оценка" }
   ]
 }

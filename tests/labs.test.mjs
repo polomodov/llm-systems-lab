@@ -136,3 +136,29 @@ test('CLI writes only the requested report and document checks detect unfinished
   writeFileSync(join(root, 'docs/labs/LAB01-fixture.md'), '# Incomplete\n');
   assert.throws(() => loadLabCatalog(root, { checkDocuments: true }), /missing section/);
 });
+
+test('alternative prerequisites are validated, traversed for cycles and displayed as an OR route', () => {
+  const value = catalog();
+  value.labs[1].prerequisites = [];
+  value.labs[1].prerequisites_any = ['LAB01'];
+  assert.equal(validateLabCatalog(value), value);
+  for (const alternatives of [[], null, 'LAB01', ['LAB01', 'LAB01'], ['LAB99'], ['LAB02']]) {
+    const bad = structuredClone(value);
+    bad.labs[1].prerequisites_any = alternatives;
+    assert.throws(() => validateLabCatalog(bad));
+  }
+  const cycle = structuredClone(value);
+  cycle.labs[0].prerequisites_any = ['LAB02'];
+  assert.throws(() => validateLabCatalog(cycle), /Cyclic/);
+  const duplicate = structuredClone(value);
+  duplicate.labs[1].prerequisites = ['LAB01'];
+  assert.throws(() => validateLabCatalog(duplicate), /alternative prerequisites/);
+  const actual = loadLabCatalog(repository, { checkDocuments: true });
+  assert.equal(actual.labs.length, 35);
+  assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites, ['LAB01']);
+  assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites_any, ['LAB05', 'LAB32']);
+  assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB32').prerequisites_any, ['LAB30', 'LAB31']);
+  const cli = spawnSync(process.execPath, [join(repository, 'scripts/labs.mjs')], { cwd: repository, encoding: 'utf8' });
+  assert.equal(cli.status, 0, cli.stderr);
+  assert.match(cli.stdout, /LAB05 или LAB32/);
+});

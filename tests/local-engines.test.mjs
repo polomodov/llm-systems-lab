@@ -25,7 +25,7 @@ const fixture = () => {
   return {
     models: { schema_version: 1, as_of: '2026-09-20', models: [makeModel('large', 70, 'conditional'), makeModel('small', 20, 'candidate')] },
     hardware: {
-      schema_version: 1, id: 'synthetic-linux', cpu: 'Synthetic processor', os: 'linux', reported_memory_gb: 128, planning_memory_gib: 119.2,
+      schema_version: 1, id: 'ryzen-ai-max-395-128gb-linux', cpu: 'Synthetic processor', os: 'linux', reported_memory_gb: 128, planning_memory_gib: 119.2,
       os_reserve_gib: 16, gpu_budget_gib: 89.4, runtime_reserve_gib: 6, kv_cache_reserve_gib: { '8192': 4, '16384': 8, '32768': 16 },
       measurement_status: 'unverified', sources: ['https://example.com/hardware'],
     },

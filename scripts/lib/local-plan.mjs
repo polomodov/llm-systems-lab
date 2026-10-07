@@ -103,9 +103,10 @@ export function validateLocalPlanData(catalog, hardware) {
   string(hardware.id, 'hardware.id');
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(hardware.id)) throw new Error('hardware.id must be a slug');
   string(hardware.cpu, 'hardware.cpu');
-  if (hardware.os !== 'linux') throw new Error('hardware.os must be linux for this plan');
+  if (!['linux', 'macos'].includes(hardware.os)) throw new Error('hardware.os must be linux or macos');
   if (hardware.measurement_status !== 'unverified') throw new Error('hardware.measurement_status must be unverified; this planner does not validate measurements');
-  for (const name of ['reported_memory_gb', 'planning_memory_gib', 'gpu_budget_gib']) number(hardware[name], `hardware.${name}`);
+  for (const name of ['reported_memory_gb', 'planning_memory_gib']) number(hardware[name], `hardware.${name}`);
+  if (hardware.gpu_budget_gib !== null) number(hardware.gpu_budget_gib, 'hardware.gpu_budget_gib');
   for (const name of ['os_reserve_gib', 'runtime_reserve_gib']) number(hardware[name], `hardware.${name}`, true);
   if (hardware.planning_memory_gib > hardware.reported_memory_gb) throw new Error('hardware.planning_memory_gib exceeds reported memory in GB');
   if (hardware.os_reserve_gib >= hardware.planning_memory_gib) throw new Error('hardware.os_reserve_gib leaves no usable memory');
@@ -136,20 +137,20 @@ export function buildLocalPlan(catalog, hardware, options = {}) {
   const memory = options.memoryGib === undefined ? hardware.planning_memory_gib : options.memoryGib;
   const gpuBudget = options.gpuBudgetGib === undefined ? hardware.gpu_budget_gib : options.gpuBudgetGib;
   number(memory, 'memoryGib');
-  number(gpuBudget, 'gpuBudgetGib');
+  if (gpuBudget !== null || options.gpuBudgetGib !== undefined) number(gpuBudget, 'gpuBudgetGib');
   if (memory <= hardware.os_reserve_gib) throw new Error('memoryGib must exceed the OS reserve');
   if (options.model !== undefined) string(options.model, 'model');
   const selected = options.model === undefined ? catalog.models : catalog.models.filter(model => model.id === options.model);
   if (selected.length === 0) throw new Error(`Unknown model: ${options.model}`);
   const available = memory - hardware.os_reserve_gib;
-  const budget = Math.min(available, gpuBudget);
+  const budget = gpuBudget === null ? null : Math.min(available, gpuBudget);
   const cacheReserve = hardware.kv_cache_reserve_gib[context];
   const rows = [...selected].sort((a, b) => a.priority - b.priority || a.weights_gib_estimate - b.weights_gib_estimate || a.id.localeCompare(b.id, 'en')).map(model => {
     if (!model.context_tokens.includes(context)) throw new Error(`Context ${context} is not listed for model ${model.id}`);
     const estimated = model.weights_gib_estimate + hardware.runtime_reserve_gib + cacheReserve;
     number(estimated, `${model.id}.estimated total`);
     // Avoid declaring a decimal boundary over budget because of floating point noise.
-    const headroom = Number((budget - estimated).toFixed(9));
+    const headroom = budget === null ? null : Number((budget - estimated).toFixed(9));
     return {
       id: model.id,
       model_id: model.model_id,
@@ -162,7 +163,7 @@ export function buildLocalPlan(catalog, hardware, options = {}) {
       budget_gib: budget,
       estimates: { weights_gib: model.weights_gib_estimate, runtime_reserve_gib: hardware.runtime_reserve_gib, kv_cache_reserve_gib: cacheReserve, total_gib: estimated },
       headroom_gib: headroom,
-      status: headroom < 0 ? 'over-budget' : model.fit,
+      status: budget === null ? 'hardware-memory-required' : headroom < 0 ? 'over-budget' : model.fit,
       fit_verified: false,
       weights_basis: model.weights_basis,
       reason: model.reason,

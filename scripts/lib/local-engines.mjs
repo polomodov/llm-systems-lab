@@ -25,7 +25,7 @@ export function validateEngineCatalog(catalog) {
     ids.add(engine.id);
     for (const key of ['name', 'engine', 'notes']) string(engine[key], `${engine.id}.${key}`);
     if (!['engine', 'serving-wrapper', 'reference'].includes(engine.kind)) throw new Error(`${engine.id}.kind is invalid`);
-    if (!['vulkan', 'rocm'].includes(engine.backend)) throw new Error(`${engine.id}.backend must be vulkan or rocm`);
+    if (!['vulkan', 'rocm', 'metal'].includes(engine.backend)) throw new Error(`${engine.id}.backend must be vulkan, rocm or metal`);
     if (![1, 2, 3].includes(engine.priority)) throw new Error(`${engine.id}.priority must be 1, 2 or 3`);
     if (!['documented', 'conditional', 'experimental'].includes(engine.hardware_support)) throw new Error(`${engine.id}.hardware_support is invalid`);
     if (!['catalog-gguf', 'separate-artifact'].includes(engine.artifact_policy)) throw new Error(`${engine.id}.artifact_policy is invalid`);
@@ -44,14 +44,25 @@ export function validateEngineCatalog(catalog) {
   return true;
 }
 
+/** Reject catalogs from a different platform, even when called without the CLI loader. */
+export function validateEngineHardware(hardware, catalog) {
+  validateEngineCatalog(catalog);
+  const allowed = { linux: ['vulkan', 'rocm'], macos: ['metal'] }[hardware.os];
+  if (!allowed) throw new Error(`Unsupported hardware OS: ${hardware.os}`);
+  for (const engine of catalog.engines) {
+    if (!allowed.includes(engine.backend)) throw new Error(`Engine ${engine.id} is incompatible with hardware ${hardware.id} (${hardware.os})`);
+  }
+  return true;
+}
+
 /** Build a model × engine plan without transferring GGUF assumptions to other formats. */
 export function buildEnginePlan(models, hardware, engines, options = {}) {
-  validateEngineCatalog(engines);
+  validateEngineHardware(hardware, engines);
   object(options, 'options');
   const { engine: selector = 'all', ...modelOptions } = options;
   string(selector, 'engine');
   const selected = engines.engines.filter(engine => selector === 'all' || engine.id === selector);
-  if (selected.length === 0) throw new Error(`Unknown engine: ${selector}`);
+  if (selected.length === 0) throw new Error(`Unknown engine: ${selector} for hardware ${hardware.id}`);
   selected.sort((a, b) => a.priority - b.priority || a.id.localeCompare(b.id, 'en'));
   const basePlan = buildLocalPlan(models, hardware, modelOptions);
   const modelById = new Map(models.models.map(model => [model.id, model]));
