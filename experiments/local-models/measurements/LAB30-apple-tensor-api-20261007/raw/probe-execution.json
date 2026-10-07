@@ -1,0 +1,76 @@
+{
+  "recorded_at": "2026-10-07T18:01:28.681395+00:00",
+  "attempts": [
+    {
+      "command": [
+        "xcrun",
+        "clang",
+        "-arch",
+        "arm64",
+        "-fobjc-arc",
+        "-framework",
+        "Foundation",
+        "-framework",
+        "Metal",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe.m",
+        "-o",
+        "/tmp/apple-tensor-probe"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-f16.metal",
+        "default"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-f16-default.txt"
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-f16.metal",
+        "3.2"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-f16-3.2.txt"
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-f16.metal",
+        "4.0"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-f16-4.0.txt"
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-bf16.metal",
+        "default"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-bf16-default.txt"
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-bf16.metal",
+        "3.2"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-bf16-3.2.txt"
+    },
+    {
+      "command": [
+        "/tmp/apple-tensor-probe",
+        "experiments/local-models/measurements/LAB30-apple-tensor-api-20261007/raw/probe-bf16.metal",
+        "4.0"
+      ],
+      "exit_code": 3,
+      "evidence": "probe-bf16-4.0.txt"
+    }
+  ]
+}

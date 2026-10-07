@@ -1,0 +1,66 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+pp-r2-speed-0	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	2	prefill_tokens_per_second	1305.381859	tokens/s	measured	raw/pp-r2-bench.json	
+pp-r2-process_max_rss	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7713751040	bytes	measured	raw/pp-r2-execution.json	
+pp-r2-process_wall	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	4.07	seconds	measured	raw/pp-r2-execution.json	
+tg-r1-speed-0	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	1	decode_tokens_per_second	59.966917	tokens/s	measured	raw/tg-r1-bench.json	
+tg-r1-process_max_rss	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7980974080	bytes	measured	raw/tg-r1-execution.json	
+tg-r1-process_wall	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	6.11	seconds	measured	raw/tg-r1-execution.json	
+warmup-pp-speed-0	metal-tensor-pp2048	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048		prefill_tokens_per_second	1620.334245	tokens/s	measured	raw/warmup-pp-bench.json	
+warmup-pp-process_max_rss	metal-tensor-pp2048	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7713816576	bytes	measured	raw/warmup-pp-execution.json	
+warmup-pp-process_wall	metal-tensor-pp2048	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	3.08	seconds	measured	raw/warmup-pp-execution.json	
+warmup-tg-speed-0	metal-tensor-tg128-d4096	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096		decode_tokens_per_second	61.333821	tokens/s	measured	raw/warmup-tg-bench.json	
+warmup-tg-process_max_rss	metal-tensor-tg128-d4096	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7980859392	bytes	measured	raw/warmup-tg-execution.json	
+warmup-tg-process_wall	metal-tensor-tg128-d4096	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	5.58	seconds	measured	raw/warmup-tg-execution.json	
+pp-r3-speed-0	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	3	prefill_tokens_per_second	1208.905822	tokens/s	measured	raw/pp-r3-bench.json	
+pp-r3-process_max_rss	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7716995072	bytes	measured	raw/pp-r3-execution.json	
+pp-r3-process_wall	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	4.07	seconds	measured	raw/pp-r3-execution.json	
+pp-r1-speed-0	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	1	prefill_tokens_per_second	1344.802458	tokens/s	measured	raw/pp-r1-bench.json	
+pp-r1-process_max_rss	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7713587200	bytes	measured	raw/pp-r1-execution.json	
+pp-r1-process_wall	metal-tensor-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	3.57	seconds	measured	raw/pp-r1-execution.json	
+tg-r2-speed-0	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	2	decode_tokens_per_second	53.706866	tokens/s	measured	raw/tg-r2-bench.json	
+tg-r2-process_max_rss	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7981105152	bytes	measured	raw/tg-r2-execution.json	
+tg-r2-process_wall	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	6.1	seconds	measured	raw/tg-r2-execution.json	
+smoke-speed-0	metal-tensor-smoke	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	512		prefill_tokens_per_second	1653.834686	tokens/s	measured	raw/smoke-bench.json	
+smoke-speed-1	metal-tensor-smoke	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			decode_tokens_per_second	61.007745	tokens/s	measured	raw/smoke-bench.json	
+smoke-process_max_rss	metal-tensor-smoke	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7552712704	bytes	measured	raw/smoke-execution.json	
+smoke-process_wall	metal-tensor-smoke	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	3.56	seconds	measured	raw/smoke-execution.json	
+tg-r3-speed-0	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	3	decode_tokens_per_second	47.483579	tokens/s	measured	raw/tg-r3-bench.json	
+tg-r3-process_max_rss	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7982039040	bytes	measured	raw/tg-r3-execution.json	
+tg-r3-process_wall	metal-tensor-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	6.6	seconds	measured	raw/tg-r3-execution.json	
+control-tg-r3-speed-0	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	3	decode_tokens_per_second	37.070535	tokens/s	measured	raw/control-tg-r3-bench.json	
+control-tg-r3-process_max_rss	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7980990464	bytes	measured	raw/control-tg-r3-execution.json	
+control-tg-r3-process_wall	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	11.18	seconds	measured	raw/control-tg-r3-execution.json	
+control-warmup-pp-speed-0	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048		prefill_tokens_per_second	823.608474	tokens/s	measured	raw/control-warmup-pp-bench.json	
+control-warmup-pp-process_max_rss	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7714586624	bytes	measured	raw/control-warmup-pp-execution.json	
+control-warmup-pp-process_wall	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	12.04	seconds	measured	raw/control-warmup-pp-execution.json	
+control-pp-r1-speed-0	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	1	prefill_tokens_per_second	751.064757	tokens/s	measured	raw/control-pp-r1-bench.json	
+control-pp-r1-process_max_rss	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7713390592	bytes	measured	raw/control-pp-r1-execution.json	
+control-pp-r1-process_wall	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	6.1	seconds	measured	raw/control-pp-r1-execution.json	
+control-tg-r2-speed-0	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	2	decode_tokens_per_second	58.835365	tokens/s	measured	raw/control-tg-r2-bench.json	
+control-tg-r2-process_max_rss	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7980040192	bytes	measured	raw/control-tg-r2-execution.json	
+control-tg-r2-process_wall	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	8.6	seconds	measured	raw/control-tg-r2-execution.json	
+control-warmup-tg-speed-0	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096		decode_tokens_per_second	61.243632	tokens/s	measured	raw/control-warmup-tg-bench.json	
+control-warmup-tg-process_max_rss	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7979728896	bytes	measured	raw/control-warmup-tg-execution.json	
+control-warmup-tg-process_wall	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	7.62	seconds	measured	raw/control-warmup-tg-execution.json	
+control-pp-r3-speed-0	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	3	prefill_tokens_per_second	636.007554	tokens/s	measured	raw/control-pp-r3-bench.json	
+control-pp-r3-process_max_rss	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7717289984	bytes	measured	raw/control-pp-r3-execution.json	
+control-pp-r3-process_wall	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	7.09	seconds	measured	raw/control-pp-r3-execution.json	
+control-pp-r2-speed-0	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	2048	2	prefill_tokens_per_second	768.980895	tokens/s	measured	raw/control-pp-r2-bench.json	
+control-pp-r2-process_max_rss	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7717355520	bytes	measured	raw/control-pp-r2-execution.json	
+control-pp-r2-process_wall	metal-control-pp	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	6.1	seconds	measured	raw/control-pp-r2-execution.json	
+control-tg-r1-speed-0	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	4096	1	decode_tokens_per_second	61.07639	tokens/s	measured	raw/control-tg-r1-bench.json	
+control-tg-r1-process_max_rss	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_max_rss	7980007424	bytes	measured	raw/control-tg-r1-execution.json	
+control-tg-r1-process_wall	metal-control-tg	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal			process_wall	8.14	seconds	measured	raw/control-tg-r1-execution.json	
+probe-exit-0	tensor-language-probe		Metal compiler	metal			exit_code	0	exit-code	measured	raw/probe-execution.json	
+probe-exit-1	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-exit-2	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-exit-3	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-exit-4	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-exit-5	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-exit-6	tensor-language-probe		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-execution.json	
+probe-tile16-exit-0	tensor-probe-tile16		Metal compiler	metal			exit_code	0	exit-code	measured	raw/probe-tile16-execution.json	
+probe-tile16-exit-1	tensor-probe-tile16		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-tile16-execution.json	
+probe-tile16-exit-2	tensor-probe-tile16		Metal compiler	metal			exit_code	0	exit-code	measured	raw/probe-tile16-execution.json	
+probe-tile16-exit-3	tensor-probe-tile16		Metal compiler	metal			exit_code	0	exit-code	measured	raw/probe-tile16-execution.json	
+probe-tile16-exit-4	tensor-probe-tile16		Metal compiler	metal			exit_code	3	exit-code	measured	raw/probe-tile16-execution.json	
+probe-tile16-exit-5	tensor-probe-tile16		Metal compiler	metal			exit_code	0	exit-code	measured	raw/probe-tile16-execution.json	

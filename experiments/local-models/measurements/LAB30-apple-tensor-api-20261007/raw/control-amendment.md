@@ -1,0 +1,5 @@
+# Дополнительный контроль до запуска серии
+
+После успешного smoke (exit0, probes f16/bfloat, has_tensor=true, kernel_mul_mm_q6_K_f32 loaded, offload33/33) регистрируется контроль той же patched binary с GGML_METAL_TENSOR_DISABLE=1. Warmup PP и TG на обеих конфигурациях, далее по три повтора каждой метрики/конфигурации. Порядок пар чередовать: tensor/control r1, control/tensor r2, tensor/control r3. Не считать smoke повтором. Результат по median, raw min/max, одинаковые AC/powermode0/память. Не менять languageVersion: исправление локально — только tile probes8×8→16×16 +verbose. Ввиду устройства API основной ожидаемый эффект — PP; направление и величина неизвестны.
+
+До benchmark — upstream test-backend-ops, только MUL_MAT на MTL0, параметры type_a=(q6_K|f16|bf16), type_b=f32, m16/n16/k256. Сравнение с CPU reference, включая штатные bs/nr/per варианты; timeout180s. Успех — exit0, хотя бы один numerically compared test и отсутствие FAIL. Это выборочная проверка, не полная квалификация backend. Upstream рандомизирует входы; данные CPU и GPU в одной попытке одинаковы, seed не закреплён.

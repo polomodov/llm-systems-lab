@@ -1,0 +1,9 @@
+ are exposed to the shader compiler only at Metal language version 4.0
+static void ggml_metal_compile_options_set_lang(MTLCompileOptions * options, bool has_tensor) {
+    if (!has_tensor) {
+        return;
+    }
+
+    options.languageVersion = (MTLLanguageVersion) MTLLanguageVersion4_0_GGML;
+}
+

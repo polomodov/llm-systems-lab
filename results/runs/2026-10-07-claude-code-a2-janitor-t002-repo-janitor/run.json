@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-07-claude-code-a2-janitor-t002-repo-janitor",
+  "date": "2026-10-07",
+  "status": "prepared",
+  "harness": {
+    "name": "claude-code",
+    "version": null,
+    "mode": "cli"
+  },
+  "agent": "a2-janitor",
+  "task": "T002-repo-janitor",
+  "model": {
+    "id": null,
+    "provider": "anthropic",
+    "selection": "explicit",
+    "lock": false,
+    "reasoning": null,
+    "observed_id": null,
+    "identity_evidence": null
+  },
+  "permissions": {
+    "mode": null,
+    "blocked": [],
+    "asked": null
+  },
+  "sandbox": {
+    "kind": null,
+    "network": null
+  },
+  "loop": {
+    "turns": null,
+    "stop_reason": null,
+    "budget_usd": null,
+    "cost_usd": null,
+    "tokens_in": null,
+    "tokens_out": null,
+    "wall_clock_s": null,
+    "compactions": null,
+    "subagents": null
+  },
+  "metrics_unavailable": {},
+  "inputs": {
+    "manifest_path": "inputs/manifest.json",
+    "manifest_sha256": "8beab6b2f0e07f12391db1bb7ad4c773217ada65d88ea43543c2e2e677a5cabb",
+    "prepared_at": "2026-10-07T13:33:16.967Z"
+  },
+  "provenance": {
+    "git_commit": "8ef1cef6b2a9dfed69ee9c1c75e22ed6996e84e3",
+    "git_dirty": true,
+    "recorded_at": "2026-10-07T13:32:28.675Z",
+    "runner_version": "1",
+    "source_revision_reason": null
+  },
+  "execution": {
+    "command": [],
+    "cwd": null,
+    "started_at": null,
+    "finished_at": null,
+    "exit_code": null,
+    "signal": null,
+    "timed_out": false,
+    "image_id": null,
+    "timeout_s": null,
+    "network_policy": null,
+    "budget_policy": null,
+    "proxy_image_id": null
+  },
+  "evaluation": {
+    "method": "hidden-check",
+    "evaluator": null,
+    "evidence_path": null,
+    "evidence_sha256": null,
+    "evaluated_at": null
+  },
+  "verdict": {
+    "result": "pending",
+    "check_output": "",
+    "human_notes": ""
+  },
+  "harness_changes": [
+    {
+      "component": "Docker workspace isolation",
+      "kind": "walls",
+      "ledger": "L003"
+    },
+    {
+      "component": "Input snapshot; variant=baseline",
+      "kind": "words",
+      "ledger": "L004"
+    },
+    {
+      "component": "Recorded lifecycle and validation",
+      "kind": "walls",
+      "ledger": "L005"
+    },
+    {
+      "component": "External evaluation",
+      "kind": "walls",
+      "ledger": "L006"
+    },
+    {
+      "component": "Task-scoped egress gateway",
+      "kind": "walls",
+      "ledger": "L007"
+    },
+    {
+      "component": "Sealed provider profile, credentials and model selection policy",
+      "kind": "walls",
+      "ledger": "L016"
+    },
+    {
+      "component": "Pinned CLI adapter and explicit configuration",
+      "kind": "words",
+      "ledger": "L008"
+    }
+  ],
+  "trace_path": "trace/",
+  "notes": ""
+}

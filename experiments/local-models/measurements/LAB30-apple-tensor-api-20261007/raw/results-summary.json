@@ -1,0 +1,53 @@
+{
+  "tensor": {
+    "pp": {
+      "values": [
+        1344.802458,
+        1305.381859,
+        1208.905822
+      ],
+      "median": 1305.381859,
+      "minimum": 1208.905822,
+      "maximum": 1344.802458
+    },
+    "tg": {
+      "values": [
+        59.966917,
+        53.706866,
+        47.483579
+      ],
+      "median": 53.706866,
+      "minimum": 47.483579,
+      "maximum": 59.966917
+    }
+  },
+  "control": {
+    "pp": {
+      "values": [
+        751.064757,
+        768.980895,
+        636.007554
+      ],
+      "median": 751.064757,
+      "minimum": 636.007554,
+      "maximum": 768.980895
+    },
+    "tg": {
+      "values": [
+        61.07639,
+        58.835365,
+        37.070535
+      ],
+      "median": 58.835365,
+      "minimum": 37.070535,
+      "maximum": 61.07639
+    }
+  },
+  "ratio_tensor_over_control": {
+    "pp": 1.7380416892600914,
+    "tg": 0.9128330554250831
+  },
+  "max_rss_gib": 7.4338531494140625,
+  "swap_growth_bytes": 0,
+  "scope": "M5 Max, macOS26.5, b8407+tile16 patch, Qwen3.5-9B Q6_K, PP2048/TG128@4096; three repeats, AC/powermode0; no thermal/energy measurement"
+}

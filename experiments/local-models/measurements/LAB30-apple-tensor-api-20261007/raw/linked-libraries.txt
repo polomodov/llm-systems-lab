@@ -1,0 +1,9 @@
+/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-bench:
+	@rpath/libllama.0.dylib (compatibility version 0.0.0, current version 0.0.0)
+	@rpath/libggml.0.dylib (compatibility version 0.0.0, current version 0.9.7)
+	@rpath/libggml-cpu.0.dylib (compatibility version 0.0.0, current version 0.9.7)
+	@rpath/libggml-blas.0.dylib (compatibility version 0.0.0, current version 0.9.7)
+	@rpath/libggml-metal.0.dylib (compatibility version 0.0.0, current version 0.9.7)
+	@rpath/libggml-base.0.dylib (compatibility version 0.0.0, current version 0.9.7)
+	/usr/lib/libc++.1.dylib (compatibility version 1.0.0, current version 2100.43.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1356.0.0)

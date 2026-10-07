@@ -1,0 +1,11 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+gguf-bytes	gguf	Qwen/Qwen3.5-9B					weights_size	7458301152	bytes	measured	raw/gguf-files.json	
+mlx-bytes	mlx	Qwen/Qwen3.5-9B					weights_size	5950221072	bytes	measured	raw/mlx-files.json	
+offline-files	artifacts	Qwen/Qwen3.5-9B					verified_file_count	19	count	measured	raw/offline-verification.json	
+offline-duration	artifacts	Qwen/Qwen3.5-9B					verification_wall_time	5.0497845000063535	seconds	measured	raw/offline-verification.json	
+gguf-tensors	artifacts	Qwen/Qwen3.5-9B					gguf_tensor_count	427	count	measured	raw/gguf-summary.json	
+mlx-tensors	artifacts	Qwen/Qwen3.5-9B					mlx_tensor_count	1260	count	measured	raw/mlx-index-verification.json	
+extra-padding	artifacts	Qwen/Qwen3.5-9B					gguf_extra_vocabulary_entries	243	count	measured	raw/protocol-comparison.json	
+gguf-transfer	gguf	Qwen/Qwen3.5-9B					successful_transfer_wall_time	193.23548583300726	seconds	measured	raw/gguf-Qwen3.5-9B-Q6_K.gguf-curl-status.json	
+mlx-transfer-1	mlx	Qwen/Qwen3.5-9B					successful_transfer_wall_time	318.72416579200944	seconds	measured	raw/mlx-model-00001-of-00002.safetensors-curl-status.json	
+mlx-transfer-2	mlx	Qwen/Qwen3.5-9B					successful_transfer_wall_time	38.19025541600422	seconds	measured	raw/mlx-model-00002-of-00002.safetensors-curl-status.json	

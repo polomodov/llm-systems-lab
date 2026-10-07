@@ -85,6 +85,7 @@ for (const name of entries) {
   else {
     if (record.status === "completed") { completed++; evidenceIds.add(record.run_id); }
     console.log(`✔ ${name}: ${record.status}/${record.verdict.result}`);
+    if (record.status === "prepared" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив prepared проверен по sealed inputs; запуск требует live tree`);
     if (record.status === "completed" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив проверен без live tree`);
   }
 }

@@ -1,0 +1,10 @@
+{
+  "command": [
+    "xcrun",
+    "swift",
+    "experiments/local-models/measurements/LAB28-apple-first-20261007/raw/metal-device.swift"
+  ],
+  "started_at": "2026-10-07T13:34:48.200476+00:00",
+  "ended_at": "2026-10-07T13:35:14.130571+00:00",
+  "exit_code": 0
+}
