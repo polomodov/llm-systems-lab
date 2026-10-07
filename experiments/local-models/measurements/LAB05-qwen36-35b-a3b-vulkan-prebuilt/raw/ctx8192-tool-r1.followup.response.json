@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "The user asked to call `lookup_lab_value` with key `alpha` and return only the value.\nThe tool returned `LAB_VALUE_42`.\nI will return this value as requested.\n"
+      }
+    }
+  ],
+  "created": 1791365470,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 50,
+    "prompt_tokens": 486,
+    "total_tokens": 536
+  },
+  "id": "chatcmpl-2fAX3uxbxB3Wtqt2FYdcn4NxgnGpS4IF",
+  "timings": {
+    "cache_n": 465,
+    "prompt_n": 21,
+    "prompt_ms": 152.411,
+    "prompt_per_token_ms": 7.257666666666667,
+    "prompt_per_second": 137.78533045515087,
+    "predicted_n": 50,
+    "predicted_ms": 946.281,
+    "predicted_per_token_ms": 18.92562,
+    "predicted_per_second": 52.83842748612727
+  }
+}

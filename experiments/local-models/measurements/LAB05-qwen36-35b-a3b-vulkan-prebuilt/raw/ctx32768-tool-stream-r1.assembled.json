@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "udEafI8kk64cQ4q2ztrDvEDpVWJ0bJwP",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user wants me to call the `lookup_lab_value` function with the parameter `key` set to \"alpha\".\nThen I need to return only the value returned by the tool.\n\n1.  **Call tool**: `lookup_lab_value(key=\"alpha\")`\n2.  **Extract result**: Get the value from the response.\n3.  **Return**: Output only that value.\n\nLet's execute the tool call.\n"
+}
