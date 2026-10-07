@@ -1,0 +1,161 @@
+{
+  "case": "control-warmup-pp",
+  "command": [
+    "/usr/bin/time",
+    "-l",
+    "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-bench",
+    "-m",
+    "/Users/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf",
+    "-ngl",
+    "999",
+    "-t",
+    "8",
+    "-b",
+    "512",
+    "-ub",
+    "256",
+    "-ctk",
+    "f16",
+    "-ctv",
+    "f16",
+    "-fa",
+    "1",
+    "-v",
+    "-p",
+    "2048",
+    "-n",
+    "0",
+    "-r",
+    "1",
+    "-o",
+    "json"
+  ],
+  "started_at": "2026-10-07T18:08:28.924921+00:00",
+  "returncode": 0,
+  "stop_reason": null,
+  "memory_sample_interval_seconds": 2,
+  "timeout_seconds": 600,
+  "tensor_environment": {
+    "GGML_METAL_TENSOR_ENABLE": null,
+    "GGML_METAL_TENSOR_DISABLE": "1"
+  },
+  "ended_at": "2026-10-07T18:08:41.098017+00:00",
+  "observed_wall_seconds": 12.172951625,
+  "after": {
+    "timestamp": "2026-10-07T18:08:41.098047+00:00",
+    "commands": {
+      "vm_stat": {
+        "argv": [
+          "vm_stat"
+        ],
+        "exit_code": 0,
+        "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  2389333.\nPages active:                                2755752.\nPages inactive:                              2430161.\nPages speculative:                            323973.\nPages throttled:                                   0.\nPages wired down:                             326643.\nPages purgeable:                              105068.\n\"Translation faults\":                     1440471510.\nPages copy-on-write:                        26475224.\nPages zero filled:                        1417903236.\nPages reactivated:                            586080.\nPages purged:                                2197062.\nFile-backed pages:                           1739588.\nAnonymous pages:                             3770298.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                     8784211.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 240529.\nPages tagged resident:                        240529.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 7758.\nPages tag-storage free:                        36607.\nPages tag-storage non-tag pageable:           217762.\nPages tag-storage non-tag wired:                  17.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+        "stderr": ""
+      },
+      "swap": {
+        "argv": [
+          "sysctl",
+          "vm.swapusage"
+        ],
+        "exit_code": 0,
+        "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+        "stderr": ""
+      },
+      "pressure": {
+        "argv": [
+          "memory_pressure",
+          "-Q"
+        ],
+        "exit_code": 0,
+        "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 95%\n",
+        "stderr": ""
+      },
+      "power_source": {
+        "argv": [
+          "pmset",
+          "-g",
+          "batt"
+        ],
+        "exit_code": 0,
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+        "stderr": ""
+      },
+      "power_mode": {
+        "argv": [
+          "pmset",
+          "-g",
+          "custom"
+        ],
+        "exit_code": 0,
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "stderr": ""
+      }
+    },
+    "free_pages_bytes": 39146831872,
+    "swap_used_bytes": 0,
+    "on_ac_power": true,
+    "ac_power_mode": 0
+  },
+  "max_rss_bytes": 7714586624,
+  "time_wall_seconds": 12.04,
+  "gpu_log_confirmed": true,
+  "tensor_api_supported": false,
+  "benchmark_rows": [
+    {
+      "build_commit": "312cf03",
+      "build_number": 1,
+      "cpu_info": "Accelerate, Apple M5 Max",
+      "gpu_info": "Apple M5 Max",
+      "backends": "MTL,BLAS",
+      "model_filename": "/Users/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf",
+      "model_type": "qwen35 9B Q6_K",
+      "model_size": 7447332864,
+      "model_n_params": 8953803264,
+      "n_batch": 512,
+      "n_ubatch": 256,
+      "n_threads": 8,
+      "cpu_mask": "0x0",
+      "cpu_strict": false,
+      "poll": 50,
+      "type_k": "f16",
+      "type_v": "f16",
+      "n_gpu_layers": 999,
+      "n_cpu_moe": 0,
+      "split_mode": "layer",
+      "main_gpu": 0,
+      "no_kv_offload": false,
+      "flash_attn": true,
+      "devices": "auto",
+      "tensor_split": "0.00",
+      "tensor_buft_overrides": "none",
+      "use_mmap": true,
+      "use_direct_io": false,
+      "embeddings": false,
+      "no_op_offload": 0,
+      "no_host": false,
+      "n_prompt": 2048,
+      "n_gen": 0,
+      "n_depth": 0,
+      "test_time": "2026-10-07T18:08:35Z",
+      "avg_ns": 2486618417,
+      "stddev_ns": 0,
+      "avg_ts": 823.608474,
+      "stddev_ts": 0.0,
+      "samples_ns": [
+        2486618417
+      ],
+      "samples_ts": [
+        823.608
+      ]
+    }
+  ],
+  "workload_confirmed": true,
+  "metal_backend_confirmed": true,
+  "offloaded_layers": [
+    [
+      "33",
+      "33"
+    ]
+  ],
+  "accepted": true
+}

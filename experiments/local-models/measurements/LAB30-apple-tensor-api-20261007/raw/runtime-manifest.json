@@ -1,0 +1,18 @@
+{
+  "base_commit": "312cf03328496df9c56fe843952cf02a8964c59a",
+  "variant": "tensor-tile16",
+  "source": "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/source-tensor-tile16",
+  "build": "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64",
+  "patch": "raw/tensor-tile16.patch",
+  "patch_sha256": "561c77562a5caad4772bfc0fcf078f9b1c354296e310300c7b460e635f368863",
+  "toolchain": "Apple clang21.0.0, CommandLineTools, SDK26.5",
+  "flags": [
+    "Release",
+    "arm64",
+    "GGML_METAL=ON",
+    "LLAMA_CURL=OFF"
+  ],
+  "tensor_forced": false,
+  "baseline_preserved": true,
+  "recorded_at": "2026-10-07T18:04:37.914442+00:00"
+}
