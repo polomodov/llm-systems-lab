@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "defaultMode": "dontAsk",
+    "allow": ["Read", "Edit", "Write", "Glob", "Grep", "Bash"]
+  },
+  "disableAllHooks": true,
+  "enableAllProjectMcpServers": false
+}

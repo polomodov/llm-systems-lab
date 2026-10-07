@@ -1,6 +1,15 @@
 # Apple M5 Max / 128 GB / macOS
 
-Второй стенд кампании локальных моделей. Это профили и методика; аппаратные прогоны ещё не выполнены. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` фиксирует исходное наблюдение RAM и гипотезы резервов; архивируемый паспорт собирается в LAB28.
+Второй стенд кампании локальных моделей. Профили дополнены первыми аппаратными измерениями от 07.10.2026; условия и ограничения сохранены в отчётах. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` фиксирует исходное наблюдение RAM и гипотезы резервов; архивируемый паспорт собирается в LAB28.
+
+## Первые результаты — 07.10.2026
+
+- [LAB01: воспроизводимая подготовка](../measurements/LAB01-apple-prerequisite-20261007/report.md): prepared T002 и 30 synthetic tests; агентская модель не запускалась.
+- [LAB28: паспорт M5 Max](../measurements/LAB28-apple-first-20261007/report.md): 18 CPU / 40 GPU, 128 GiB, macOS26.5/arm64, Metal unified memory; два снимка памяти без swap.
+- [LAB29: GGUF и MLX](../measurements/LAB29-apple-qwen35-9b-20261007/report.md): Qwen3.5-9B Q6_K и MLX4-bit, 19 pinned files с повторной SHA-256 проверкой. Weights находятся вне Git; source commit конверсии MLX неизвестен.
+- [LAB30: Metal microbench](../measurements/LAB30-apple-qwen35-9b-metal-20261007/report.md): тот же GGUF и llama.cpp source commit `312cf03328496df9c56fe843952cf02a8964c59a` (b8407), что Ryzen; Release arm64/Clang21, threads8, batch512/ubatch256, KV f16/f16, FA1, offload33/33. Медиана трёх подтверждённых AC/powermode0 повторов: **PP2048 872.62 tokens/s**, **TG128@depth4096 63.86 tokens/s**, max RSS **7.432 GiB**, swap0.
+
+В архивном Ryzen/Vulkan при совпавших параметрах PP2048 median857.88, TG128@4096 median29.40 tokens/s; отношение Mac/Vulkan — 1.017×/2.172×. Это измеренное сравнение deployments с разными hardware/OS/compiler, не изолированный эффект backend и не агентское качество. Tensor API probe b8407 на Mac не поддержан; работал standard Metal SIMD. Полный GPU allocation limit и HTTP contexts8K/16K/32K ещё не проверены. Failed downloads, checker correction и pilot без power timeline сохранены вместе с подтверждающей серией.
 
 ## Команды планирования
 

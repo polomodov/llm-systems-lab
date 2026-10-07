@@ -1,0 +1,637 @@
+{
+  "smoke": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 16.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 8.51
+      },
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 8.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 61.62
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 2.06
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "warmup-pp": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "warmup-tg": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-r1": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-r1": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-r2": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-r2": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-r3": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-r3": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-power-r1": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-power-r1": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-power-r2": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-power-r2": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "pp-power-r3": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 64.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 246.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 10.01
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  },
+  "tg-power-r3": {
+    "mapped_model_buffers": [
+      {
+        "backend": "CPU_Mapped",
+        "mib": 795.7
+      },
+      {
+        "backend": "MTL0_Mapped",
+        "mib": 7102.33
+      }
+    ],
+    "context_buffers": [
+      {
+        "backend": "MTL0",
+        "kind": "KV",
+        "mib": 136.0
+      },
+      {
+        "backend": "MTL0",
+        "kind": "RS",
+        "mib": 50.25
+      },
+      {
+        "backend": "MTL0",
+        "kind": "compute",
+        "mib": 250.5
+      },
+      {
+        "backend": "CPU",
+        "kind": "compute",
+        "mib": 12.26
+      }
+    ],
+    "offloaded_layers": [
+      [
+        "33",
+        "33"
+      ]
+    ],
+    "do_not_sum_with_rss": true
+  }
+}

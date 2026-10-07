@@ -1,0 +1,53 @@
+{
+  "kind": "deployment microbench comparison",
+  "primary_apple_series": "confirmed AC power",
+  "source_commit": "312cf03328496df9c56fe843952cf02a8964c59a",
+  "conditions_checked": [
+    "n_prompt",
+    "n_gen",
+    "n_depth",
+    "n_batch",
+    "n_ubatch",
+    "n_threads",
+    "type_k",
+    "type_v",
+    "n_gpu_layers",
+    "flash_attn"
+  ],
+  "backends": {
+    "vulkan": {
+      "pp": {
+        "ryzen_median_tokens_per_second": 857.879064,
+        "apple_median_tokens_per_second": 872.621976,
+        "apple_to_ryzen_ratio": 1.0171853034054228,
+        "apple_change_percent": 1.7185303405422792
+      },
+      "tg": {
+        "ryzen_median_tokens_per_second": 29.396277,
+        "apple_median_tokens_per_second": 63.861153,
+        "apple_to_ryzen_ratio": 2.1724231609329303,
+        "apple_change_percent": 117.24231609329303
+      }
+    },
+    "hip": {
+      "pp": {
+        "ryzen_median_tokens_per_second": 765.936761,
+        "apple_median_tokens_per_second": 872.621976,
+        "apple_to_ryzen_ratio": 1.1392872367957803,
+        "apple_change_percent": 13.928723679578026
+      },
+      "tg": {
+        "ryzen_median_tokens_per_second": 26.765591,
+        "apple_median_tokens_per_second": 63.861153,
+        "apple_to_ryzen_ratio": 2.3859421972038652,
+        "apple_change_percent": 138.59421972038652
+      }
+    }
+  },
+  "limitations": [
+    "Different hardware/OS/compiler and source/prebuilt bundles.",
+    "Apple tensor API probe failed; standard Metal SIMD path active.",
+    "Historical Ryzen evidence, not simultaneous randomized trials.",
+    "No agent success/quality or energy claim."
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-20",
+  "hardware_id": "apple-m5-max-128gb-macos",
+  "measurement_status": "unverified",
+  "context_tokens": 16384,
+  "budget": {
+    "memory_gib": 128,
+    "os_reserve_gib": 16,
+    "available_memory_gib": 112,
+    "gpu_budget_gib": null,
+    "effective_gib": null
+  },
+  "estimate_basis": "Planning reserves only; KV cache is not calculated from model architecture. Candidate does not mean verified fit.",
+  "rows": [
+    {
+      "id": "qwen35-9b",
+      "model_id": "Qwen/Qwen3.5-9B",
+      "priority": 1,
+      "architecture": "hybrid-dense",
+      "parameters_total_b": 9,
+      "parameters_active_b": 9,
+      "quantization": "Q6_K",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 7,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 21
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Малый контроль скорости и качества на тех же задачах.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-9B",
+        "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/tree/3885219b6810b007914f3a7950a8d1b469d598a5",
+        "https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "gpt-oss-20b",
+      "model_id": "openai/gpt-oss-20b",
+      "priority": 1,
+      "architecture": "moe",
+      "parameters_total_b": 21,
+      "parameters_active_b": 3.6,
+      "quantization": "MXFP4",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 11.3,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 25.3
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Компактная независимая семья; проверить Harmony/tool parser и уровни reasoning.",
+      "sources": [
+        "https://huggingface.co/openai/gpt-oss-20b",
+        "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/tree/ef9b12f2ff56c69cf32153a02784e7a3c88bf524",
+        "https://huggingface.co/openai/gpt-oss-20b/blob/6cee5e81ee83917806bbde320786a8fb61efebee/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen36-27b",
+      "model_id": "Qwen/Qwen3.6-27B",
+      "priority": 1,
+      "architecture": "hybrid-dense",
+      "parameters_total_b": 27,
+      "parameters_active_b": 27,
+      "quantization": "Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 18.2,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 32.2
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Dense-кандидат: проверить цену качества во времени относительно MoE с 3B active.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.6-27B",
+        "https://huggingface.co/unsloth/Qwen3.6-27B-GGUF/tree/82d411acf4a06cfb8d9b073a5211bf410bfc29bf",
+        "https://huggingface.co/Qwen/Qwen3.6-27B/blob/6a9e13bd6fc8f0983b9b99948120bc37f49c13e9/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen36-35b-a3b",
+      "model_id": "Qwen/Qwen3.6-35B-A3B",
+      "priority": 1,
+      "architecture": "hybrid-moe",
+      "parameters_total_b": 35,
+      "parameters_active_b": 3,
+      "quantization": "UD-Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 24.7,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 38.7
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Актуальная компактная MoE для агентного кода; сравнить с dense 27B и поколением 3.5.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+        "https://huggingface.co/unsloth/Qwen3.6-35B-A3B-GGUF/tree/a483e9e6cbd595906af30beda3187c2663a1118c",
+        "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/995ad96eacd98c81ed38be0c5b274b04031597b0/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "glm-47-flash",
+      "model_id": "zai-org/GLM-4.7-Flash",
+      "priority": 1,
+      "architecture": "moe",
+      "parameters_total_b": 30,
+      "parameters_active_b": 3,
+      "quantization": "Q8_0",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 29.7,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 43.7
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Независимая MoE 30B с MLA; Q8 снижает смешение ошибок квантизации и tool parser.",
+      "sources": [
+        "https://huggingface.co/zai-org/GLM-4.7-Flash",
+        "https://huggingface.co/ggml-org/GLM-4.7-Flash-GGUF/tree/7559e96b7e324ab405897dc2b91492b0f376ad4a",
+        "https://huggingface.co/zai-org/GLM-4.7-Flash/blob/7dd20894a642a0aa287e9827cb1a1f7f91386b67/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen3-coder-next",
+      "model_id": "Qwen/Qwen3-Coder-Next",
+      "priority": 1,
+      "architecture": "hybrid-moe",
+      "parameters_total_b": 80,
+      "parameters_active_b": 3,
+      "quantization": "Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 52.9,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 66.9
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Специализированная модель для coding agents с официальным GGUF; non-thinking контроль.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+        "https://huggingface.co/Qwen/Qwen3-Coder-Next-GGUF/tree/b82fb7382639d97b38fa7672e526c760c2fb358e",
+        "https://huggingface.co/Qwen/Qwen3-Coder-Next/blob/a7fbcb5c0e12d62a448eaa0e260346bf5dcc0feb/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "gemma4-31b-it",
+      "model_id": "google/gemma-4-31B-it",
+      "priority": 2,
+      "architecture": "dense",
+      "parameters_total_b": 30.7,
+      "parameters_active_b": 30.7,
+      "quantization": "Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 20.2,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 34.2
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Независимая dense-семья с native tool calling; проверить parser и режим thinking на тех же задачах.",
+      "sources": [
+        "https://huggingface.co/google/gemma-4-31B-it",
+        "https://huggingface.co/unsloth/gemma-4-31B-it-GGUF/tree/c1ac76e99d5513b141e8adde7288b85c3f9c32ec",
+        "https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen3-coder-30b-a3b",
+      "model_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "priority": 2,
+      "architecture": "moe",
+      "parameters_total_b": 30.5,
+      "parameters_active_b": 3.3,
+      "quantization": "Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 20.3,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 34.3
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Контроль обычного full-attention MoE против hybrid Coder-Next на тех же задачах.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "https://huggingface.co/unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF/tree/b17cb02dd882d5b6ab62fc777ad2995f19668350",
+        "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/blob/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "gpt-oss-120b",
+      "model_id": "openai/gpt-oss-120b",
+      "priority": 2,
+      "architecture": "moe",
+      "parameters_total_b": 117,
+      "parameters_active_b": 5.1,
+      "quantization": "MXFP4",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 59.1,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 73.1
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Большая модель той же семьи: допуск после замера пиков памяти и проверки MXFP4 backend.",
+      "sources": [
+        "https://huggingface.co/openai/gpt-oss-120b",
+        "https://huggingface.co/ggml-org/gpt-oss-120b-GGUF/tree/238abdd290bb874b90a5da1b4549881b7d05c091",
+        "https://huggingface.co/openai/gpt-oss-120b/blob/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen35-122b-a10b",
+      "model_id": "Qwen/Qwen3.5-122B-A10B",
+      "priority": 2,
+      "architecture": "hybrid-moe",
+      "parameters_total_b": 122,
+      "parameters_active_b": 10,
+      "quantization": "Q4_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 71.3,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 85.3
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Верхняя граница shortlist: около 71.3 GiB весов; Q5 только отдельной абляцией после memory gate.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
+        "https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF/tree/51eab4d59d53f573fb9206cb3ce613f1d0aa392b",
+        "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/dc4d348443bc740c68e2d77492492c11606384d5/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "qwen35-35b-a3b",
+      "model_id": "Qwen/Qwen3.5-35B-A3B",
+      "priority": 3,
+      "architecture": "hybrid-moe",
+      "parameters_total_b": 35,
+      "parameters_active_b": 3,
+      "quantization": "Q5_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 24.5,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 38.5
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Парный baseline поколения 3.5 для Qwen3.6-35B; одинаковые runtime и настройки.",
+      "sources": [
+        "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+        "https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF/tree/bc014a17be43adabd7066b7a86075ff935c6a4e2",
+        "https://huggingface.co/Qwen/Qwen3.5-35B-A3B/blob/59d61f3ce65a6d9863b86d2e96597125219dc754/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    },
+    {
+      "id": "glm-45-air",
+      "model_id": "zai-org/GLM-4.5-Air",
+      "priority": 3,
+      "architecture": "moe",
+      "parameters_total_b": 106,
+      "parameters_active_b": 12,
+      "quantization": "Q4_K_M",
+      "context_tokens": 16384,
+      "budget_gib": null,
+      "estimates": {
+        "weights_gib": 68,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 8,
+        "total_gib": 82
+      },
+      "headroom_gib": null,
+      "status": "hardware-memory-required",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Большая альтернативная MoE: оценить память и full-attention KV относительно Flash.",
+      "sources": [
+        "https://huggingface.co/zai-org/GLM-4.5-Air",
+        "https://huggingface.co/unsloth/GLM-4.5-Air-GGUF/tree/506d64aa8c5cfe9dbbf00bc7a15739438f83204d",
+        "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    }
+  ]
+}
