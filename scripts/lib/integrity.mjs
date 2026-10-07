@@ -35,20 +35,26 @@ export function verifyRunIntegrity(root, record) {
   const inputs = ownedPath(dir, relative(dir, dirname(manifestPath)), 'directory');
   const actual = inventory(inputs).filter(row => row.path !== basename(manifestPath));
   if (!Array.isArray(manifest.files) || JSON.stringify(actual) !== JSON.stringify(manifest.files)) throw new Error('Run integrity: sealed input snapshot changed');
-  if (record.status === 'prepared') sameInventory(ownedPath(dir, 'workspace', 'directory'), manifest.workspace, 'prepared workspace');
-  if (record.status !== 'completed') return;
-
-  const evidencePath = ownedPath(dir, record.evaluation.evidence_path);
-  const evidenceText = readFileSync(evidencePath);
-  if (sha256(evidenceText) !== record.evaluation.evidence_sha256) throw new Error('Run integrity: evaluation SHA-256 mismatch');
-  const evidence = JSON.parse(evidenceText);
-  if (evidence.run_id !== record.run_id || evidence.result !== record.verdict.result || evidence.method !== record.evaluation.method || evidence.evaluator !== record.evaluation.evaluator || evidence.check_output !== record.verdict.check_output) throw new Error('Run integrity: sealed evaluation differs from record');
+  if (record.status !== 'prepared' && record.status !== 'completed') return;
   let workspaceExists = false;
   try {
     const workspaceStat = lstatSync(join(dir, 'workspace'));
     if (workspaceStat.isSymbolicLink()) throw new Error('Run integrity: symlink is not accepted: workspace');
     workspaceExists = true;
   } catch (error) { if (error.code !== 'ENOENT') throw error; }
+  if (record.status === 'prepared') {
+    if (!Array.isArray(manifest.workspace)) throw new Error('Run integrity: prepared workspace inventory missing');
+    // Git archives omit workspaces. Inspect the sealed preparation in that case;
+    // execution still requires the complete live tree through run.verifyInputs.
+    if (workspaceExists) sameInventory(ownedPath(dir, 'workspace', 'directory'), manifest.workspace, 'prepared workspace');
+    return;
+  }
+
+  const evidencePath = ownedPath(dir, record.evaluation.evidence_path);
+  const evidenceText = readFileSync(evidencePath);
+  if (sha256(evidenceText) !== record.evaluation.evidence_sha256) throw new Error('Run integrity: evaluation SHA-256 mismatch');
+  const evidence = JSON.parse(evidenceText);
+  if (evidence.run_id !== record.run_id || evidence.result !== record.verdict.result || evidence.method !== record.evaluation.method || evidence.evaluator !== record.evaluation.evaluator || evidence.check_output !== record.verdict.check_output) throw new Error('Run integrity: sealed evaluation differs from record');
   for (const [path, field, directory, label] of [
     ['trace/artifacts.json', 'artifacts_sha256', 'artifacts', 'artifacts'],
     ['trace/final-workspace.json', 'workspace_sha256', 'workspace', 'final workspace'],
