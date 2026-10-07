@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no explanations, no newlines unless part of the string (but usually \"exactly\" implies no surrounding whitespace).\n    *   Language: Russian (instruction), but the required output is English (\"LAB_READY\").\n\n2.  **Determine the Output:**\n    *   The user explicitly demands the string \"LAB_READY\".\n    *   I must not add any conversational filler, apologies, or additional information.\n\n3.  **Final Check:**\n    *   Does \"LAB_READY\" meet the \"exactly\" criteria? Yes.\n    *   Are there explanations? No.\n    *   Is it the correct string? Yes.\n\n4.  **Construct Response:**\n    *   LAB_READY\n\n5.  **Final Output Generation:** (Ensure no markdown code blocks unless requested, but usually plain text is safer for \"exactly\" constraints). Actually, to be safe and strictly follow \"exactly\", I should output just the text.\n\n    *   Wait, looking at the instruction \"Ответь ровно LAB_READY\".\n    *   Output: LAB_READY\n\n    *   Self-Correction on formatting: Sometimes users want it on a new line or without it. Since it's a specific string, I will output just that string.\n\n    *   Final decision: LAB_READY\n"
+      }
+    }
+  ],
+  "created": 1791367685,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 335,
+    "prompt_tokens": 19,
+    "total_tokens": 354
+  },
+  "id": "chatcmpl-CPp5Cd5BXvmwsOhGuj6hXQTzQVswQbPS",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 19,
+    "prompt_ms": 100.968,
+    "prompt_per_token_ms": 5.314105263157895,
+    "prompt_per_second": 188.17843277077884,
+    "predicted_n": 335,
+    "predicted_ms": 12013.383,
+    "predicted_per_token_ms": 35.8608447761194,
+    "predicted_per_second": 27.885567287749005
+  }
+}

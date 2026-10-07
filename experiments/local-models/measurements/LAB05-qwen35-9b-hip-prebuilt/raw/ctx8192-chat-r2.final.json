@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: Respond *exactly* with the string \"LAB_READY\".\n    *   Language: Russian (instruction), but the target output is English code/string.\n    *   Tone/Style: Strict, no extra text, no punctuation, no quotes, no explanations.\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for \"LAB_READY\".\n    *   I must not add any introductory or concluding text.\n    *   I must not add any markdown formatting (like bolding or code blocks) unless it's part of the string itself (which it isn't).\n\n3.  **Final Verification:**\n    *   Does the output match \"LAB_READY\" exactly? Yes.\n    *   Are there any explanations? No.\n\n4.  **Construct Output:**\n    LAB_READY\n\n5.  **Final Decision:** Just output the string.cw\n"
+}
