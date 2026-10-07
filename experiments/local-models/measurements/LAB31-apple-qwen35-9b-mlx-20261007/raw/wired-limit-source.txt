@@ -1,0 +1,12 @@
+def maybe_set_recommended_wired_limit() -> Optional[int]:
+    """Set the wired limit to the recommended size.
+
+    Returns the previous limit, or ``None`` if the device reports no
+    recommended size.
+    """
+    max_rec_size = mx.device_info().get("max_recommended_working_set_size")
+    if max_rec_size is None:
+        return None
+    return mx.set_wired_limit(max_rec_size)
+
+
