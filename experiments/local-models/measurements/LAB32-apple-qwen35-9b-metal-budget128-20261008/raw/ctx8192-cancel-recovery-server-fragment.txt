@@ -1,0 +1,30 @@
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.158 (> 0.100 thold), f_keep = 0.001
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 4060, total state size = 177.203 MiB
+srv          load:  - looking for better prompt, base f_keep = 0.001, sim = 0.158
+srv        update:  - cache state: 3 prompts, 497.343 MiB (limits: 8192.000 MiB, 8192 tokens, 76691 est)
+srv        update:    - prompt 0x9c6d88190:     150 tokens, checkpoints:  0,    54.941 MiB
+srv        update:    - prompt 0x9c6d88210:     446 tokens, checkpoints:  2,   164.698 MiB
+srv        update:    - prompt 0x9c6d88290:    4060 tokens, checkpoints:  2,   277.704 MiB
+srv  get_availabl: prompt cache update took 17.81 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> reasoning-budget -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 2646 | processing task, is_child = 0
+slot update_slots: id  0 | task 2646 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 19
+slot update_slots: id  0 | task 2646 | erased invalidated context checkpoint (pos_min = 3798, pos_max = 3798, n_tokens = 3799, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2646 | erased invalidated context checkpoint (pos_min = 4054, pos_max = 4054, n_tokens = 4055, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2646 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 2646 | prompt processing progress, n_tokens = 15, batch.n_tokens = 15, progress = 0.789474
+slot update_slots: id  0 | task 2646 | n_tokens = 15, memory_seq_rm [15, end)
+reasoning-budget: activated, budget=128 tokens
+slot init_sampler: id  0 | task 2646 | init sampler, took 0.00 ms, tokens: text = 19, total = 19
+slot update_slots: id  0 | task 2646 | prompt processing done, n_tokens = 19, batch.n_tokens = 4
+reasoning-budget: budget exhausted, forcing end sequence
+reasoning-budget: forced sequence complete, done
+slot print_timing: id  0 | task 2646 | 
+prompt eval time =      55.26 ms /    19 tokens (    2.91 ms per token,   343.85 tokens per second)
+       eval time =    2125.46 ms /   132 tokens (   16.10 ms per token,    62.10 tokens per second)
+      total time =    2180.71 ms /   151 tokens
+slot      release: id  0 | task 2646 | stop processing: n_tokens = 150, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200

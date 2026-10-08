@@ -1,0 +1,21 @@
+{
+  "recorded_at": "2026-10-08T07:57:39.526129+00:00",
+  "case": "ctx32768-long-warmup",
+  "evidence_class": "derived-analysis",
+  "http_status": 200,
+  "stream_done": true,
+  "finish_reason": "length",
+  "prompt_tokens": 28670,
+  "token_count_matches": true,
+  "completion_tokens": 2048,
+  "output_cap": 2048,
+  "final_content_empty": true,
+  "sentinel_in_reasoning": true,
+  "reasoning_characters": 7008,
+  "interpretation": "Модель нашла sentinel в reasoning, но output cap исчерпан до final content; это отказ зарегистрированного output contract, не доказательство потери контекста или OOM.",
+  "next_steps": "Отдельно зарегистрировать диагностическое условие с ограничением reasoning или иным output budget; не подменять эту серию. 32K cancel/overflow и long r1–r3 не запускались.",
+  "native_exit_code": 0,
+  "max_rss_bytes": 9341730816,
+  "max_swap_used_bytes": 0,
+  "min_free_pages_bytes": 63213797376
+}

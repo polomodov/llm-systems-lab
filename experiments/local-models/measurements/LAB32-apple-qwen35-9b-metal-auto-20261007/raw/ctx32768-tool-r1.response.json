@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user is asking me to call the lookup_lab_value function with the key \"alpha\" and return only the value from the result. I need to use the lookup_lab_value function with the parameter key=\"alpha\".\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "9NIFgt1ULukuW6r3l6GA3wCWvNA9Om72"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791446024,
+  "model": "lab-model",
+  "system_fingerprint": "b1-312cf03",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 73,
+    "prompt_tokens": 313,
+    "total_tokens": 386
+  },
+  "id": "chatcmpl-GM6Hql62xhcHvjAxuTVCpJvpvtbAzITR",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 313,
+    "prompt_ms": 228.162,
+    "prompt_per_token_ms": 0.7289520766773163,
+    "prompt_per_second": 1371.8322945976981,
+    "predicted_n": 73,
+    "predicted_ms": 1189.58,
+    "predicted_per_token_ms": 16.295616438356163,
+    "predicted_per_second": 61.36619647270466
+  }
+}
