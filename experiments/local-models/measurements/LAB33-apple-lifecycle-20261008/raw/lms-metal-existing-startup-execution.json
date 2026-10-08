@@ -1,0 +1,57 @@
+{
+  "accepted": true,
+  "timestamp": "2026-10-08T14:49:30.601763+00:00",
+  "app_pid": 18402,
+  "model": {
+    "type": "llm",
+    "modelKey": "qwen3.5-9b",
+    "format": "gguf",
+    "displayName": "Qwen3.5 9B",
+    "publisher": "unsloth",
+    "path": "unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf",
+    "sizeBytes": 7458301152,
+    "indexedModelIdentifier": "unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf",
+    "deviceIdentifier": null,
+    "paramsString": "9B",
+    "architecture": "qwen35",
+    "quantization": {
+      "name": "Q6_K",
+      "bits": 6
+    },
+    "vision": false,
+    "trainedForToolUse": true,
+    "maxContextLength": 262144
+  },
+  "loaded": [
+    {
+      "type": "llm",
+      "modelKey": "qwen3.5-9b",
+      "format": "gguf",
+      "displayName": "Qwen3.5 9B",
+      "publisher": "unsloth",
+      "path": "unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf",
+      "sizeBytes": 7458301152,
+      "indexedModelIdentifier": "unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf",
+      "deviceIdentifier": null,
+      "paramsString": "9B",
+      "architecture": "qwen35",
+      "quantization": {
+        "name": "Q6_K",
+        "bits": 6
+      },
+      "identifier": "lab-lifecycle-qwen35-gguf",
+      "ttlMs": 600000,
+      "lastUsedTime": 1791470970311,
+      "vision": false,
+      "trainedForToolUse": true,
+      "maxContextLength": 262144,
+      "contextLength": 8192,
+      "status": "idle",
+      "queued": 0,
+      "parallel": 1
+    }
+  ],
+  "engine_package": "llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0",
+  "runtime": "raw/lms-metal-existing-startup-runtime.json",
+  "backend_evidence_pending": "Actual load/inference logs archived; GPU proof assessed after cases."
+}

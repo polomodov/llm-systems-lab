@@ -13,11 +13,207 @@
       "published_bytes": 15664
     },
     {
-      "path": "raw/lms_runner.py",
+      "path": "raw/lms-metal-existing-server.txt",
+      "original_sha256": "0dd3aa12682115fe941a6105d1029b793cec527bee60e1f0db46637174fc24e6",
+      "published_sha256": "9f5fa5a992fd861aa6577023ca280902d092c631118ef3c026958618ef4b278c",
+      "original_bytes": 2805,
+      "published_bytes": 2798
+    },
+    {
+      "path": "raw/lms-metal-existing-startup-existing-import.json",
+      "original_sha256": "6770b25c0b5a4cbfb31d500f655716a703d301815e20b8084a4d4741dbe24c08",
+      "published_sha256": "6cbae6fcc27fd2157201cf776621415c8ffb139c71e6f06e33ca3583c3c113e5",
+      "original_bytes": 361,
+      "published_bytes": 347
+    },
+    {
+      "path": "raw/lms-metal-existing-startup-runtime.json",
+      "original_sha256": "061c760f76f5ad5e6d72f9b05c56bad1168637f1277ee14b8f74344f7706bb6a",
+      "published_sha256": "a4f3f6161b21fd96132da06ede1423c91eba925b476cd01813ecc1311947c285",
+      "original_bytes": 3496,
+      "published_bytes": 3489
+    },
+    {
+      "path": "raw/lms-metal-existing-startup-weights.json",
+      "original_sha256": "6bca8c6b5ec415c61dc7e417e50eae4ca7749ea8d83f0d8a6abdf2cfe0f44966",
+      "published_sha256": "60e5f4fa470cb9a970e78ee2e326929abeeafe202689b296bf602dda20ebc8a0",
+      "original_bytes": 434,
+      "published_bytes": 420
+    },
+    {
+      "path": "raw/lms-metal-shutdown-execution.json",
+      "original_sha256": "68fdaaf77923ec6f26cd2525813a521e30e18e2cea24955c08ba83b0c2114370",
+      "published_sha256": "f773bea5be8002c873d0d0ec8790797c047c05312bc3eeda09b08b3a5d022fff",
+      "original_bytes": 8849,
+      "published_bytes": 8842
+    },
+    {
+      "path": "raw/lms-metal-startup-import.txt",
+      "original_sha256": "68fe30930934b877fdbf6bfd136497aff0508fc8fb72310f43ca129afae3437b",
+      "published_sha256": "1d6c29fd8f8e244923490d0f7c614dd3e68f636bd1a823149effb66e7297038b",
+      "original_bytes": 115,
+      "published_bytes": 108
+    },
+    {
+      "path": "raw/lms-metal-startup-runtime.json",
+      "original_sha256": "061c760f76f5ad5e6d72f9b05c56bad1168637f1277ee14b8f74344f7706bb6a",
+      "published_sha256": "a4f3f6161b21fd96132da06ede1423c91eba925b476cd01813ecc1311947c285",
+      "original_bytes": 3496,
+      "published_bytes": 3489
+    },
+    {
+      "path": "raw/lms-mlx-cancel-execution.json",
+      "original_sha256": "c50f96959383d8ee317598a69bd2b6d87bce6a5c5b5b55adaa7f75c9f194ec28",
+      "published_sha256": "164e0f70aaadb723e4567173b27561c78d15849b3d88d13c8838c9b1cc6f751c",
+      "original_bytes": 694,
+      "published_bytes": 687
+    },
+    {
+      "path": "raw/lms-mlx-cancel-recovery-execution.json",
+      "original_sha256": "123444e3128b0f4966c863df46ec37815ded2f3efca60b4f61645e502ace7786",
+      "published_sha256": "1b265ef1297636c7e1aacb3ef99e8809c23329aacd9f8945f5dd80c63c25e5f9",
+      "original_bytes": 9614,
+      "published_bytes": 9586
+    },
+    {
+      "path": "raw/lms-mlx-chat-r1-execution.json",
+      "original_sha256": "12861bd468a17bb17bda688ab09d36780ac2df05529dc8320336e2eead2ca5be",
+      "published_sha256": "23a3e6f5dd5e070c1e72e3c8dc537a79a618bd76f0cd661aee2cd576369405b9",
+      "original_bytes": 9600,
+      "published_bytes": 9572
+    },
+    {
+      "path": "raw/lms-mlx-chat-r2-execution.json",
+      "original_sha256": "8b1bf42785ed39a16acebf746a2914755e51967fef3fae80fae33d51661cc1f1",
+      "published_sha256": "a1e9ad71e37772e7e27b329a25883f6b8c7501bffe405c4f83e7a6654d57379d",
+      "original_bytes": 9597,
+      "published_bytes": 9569
+    },
+    {
+      "path": "raw/lms-mlx-chat-r3-execution.json",
+      "original_sha256": "1ff587f6969a0fd1f5201c18c7fcde791acc47aa7f8339d585dc882517ba7049",
+      "published_sha256": "d6e049956f726944e35028dc73ded0e77d74859bae838ec072c954a8a992ee9a",
+      "original_bytes": 9600,
+      "published_bytes": 9572
+    },
+    {
+      "path": "raw/lms-mlx-chat-stream-r1-execution.json",
+      "original_sha256": "c834905258f590c2e739147a10faeec563beea85365f62e5014385f97db3abc6",
+      "published_sha256": "5a86da9d5a8ac618acb372431aff7444a658e4f046c491642f7a75093baacc58",
+      "original_bytes": 9666,
+      "published_bytes": 9638
+    },
+    {
+      "path": "raw/lms-mlx-chat-stream-r2-execution.json",
+      "original_sha256": "20f21dd2e43acd1afbef5885711aafcc0f4b9f34b3fb059999f70f21aca84b93",
+      "published_sha256": "38d17ddeb7fdf325255226ef1a7a8edc56079e8e3f4e0244c4a6b789b6a0827e",
+      "original_bytes": 9668,
+      "published_bytes": 9640
+    },
+    {
+      "path": "raw/lms-mlx-chat-stream-r3-execution.json",
+      "original_sha256": "21b2156171cf85b92a54515bf8879756d1fbfac1e83fbf930d963a3895735935",
+      "published_sha256": "997a0d0a8c97647afd5503d33b02ea417cff43a02d34e37dafa019334e80fcb3",
+      "original_bytes": 9666,
+      "published_bytes": 9638
+    },
+    {
+      "path": "raw/lms-mlx-chat-stream-warmup-execution.json",
+      "original_sha256": "8846e49b29897babcc805a505cac47c0e2b1d8bc6cc178c744221fd6a24ed8cf",
+      "published_sha256": "ca9b15653f1863f89c91f2d37bbce1a13d0f5db7a44f953177797bc8f4a3dd54",
+      "original_bytes": 9675,
+      "published_bytes": 9647
+    },
+    {
+      "path": "raw/lms-mlx-chat-warmup-execution.json",
+      "original_sha256": "1f5e266526a9afcc0f7b9608eb128df9eb68764c0eb252f5dc4ae9f314244444",
+      "published_sha256": "2c660bb931715afa7cb0269c8025963b59c60f807458ad6b534ce44990b94146",
+      "original_bytes": 9607,
+      "published_bytes": 9579
+    },
+    {
+      "path": "raw/lms-mlx-startup-runtime.json",
+      "original_sha256": "f6679b9c5e4cc77b5a4d803436358c4f86914307c59ae9112e7cf0725e54e776",
+      "published_sha256": "5df3c5f7edd79aee2e4aaa6f4eb64010fe88b6ebb7c66cefe132acbe361a65e8",
+      "original_bytes": 2350,
+      "published_bytes": 2343
+    },
+    {
+      "path": "raw/lms-mlx-startup-weights.json",
+      "original_sha256": "d515b0e0760b378f363189203a725362f6069fcad206c8bdcada3cfe82b94c32",
+      "published_sha256": "eef22645dc20d85a7eadccaf3f0f9f71effe497821645044bebade057fd4bc02",
+      "original_bytes": 3572,
+      "published_bytes": 3481
+    },
+    {
+      "path": "raw/lms-mlx-tool-r1-execution.json",
+      "original_sha256": "fb8736313bf8f27f5aba12b9def487cf55d495b7b3d7bc35ea8be05b6fc0597b",
+      "published_sha256": "c3d052dc13ba7018fa59f2dce0233c853fd65a29c54e8ae8e201272496acf562",
+      "original_bytes": 9959,
+      "published_bytes": 9931
+    },
+    {
+      "path": "raw/lms-mlx-tool-r2-execution.json",
+      "original_sha256": "b2a90744f83c80951fecf1e2818c24d99911b626b4d18709c0bcc202bfc7176e",
+      "published_sha256": "79571f908ec011af9ec016992e3417e7390e49d2176c7113f50a0cf7c691f86b",
+      "original_bytes": 9958,
+      "published_bytes": 9930
+    },
+    {
+      "path": "raw/lms-mlx-tool-r3-execution.json",
+      "original_sha256": "d297d2fc0c77b2bd50337932c7bdceff0eec534a956a0c1f8f2790c6dcb29742",
+      "published_sha256": "9525e5738c25938c07f1e2f3863f2c7f95120770aa2ec76aa47f3b273f063575",
+      "original_bytes": 9959,
+      "published_bytes": 9931
+    },
+    {
+      "path": "raw/lms-mlx-tool-stream-r1-execution.json",
+      "original_sha256": "91c4f8bd5b1df6d50d798a488ed3c3857565b5d9afa193ce8f069eaecc115330",
+      "published_sha256": "6a33f9246c067a280ec80309af542312d6908e3dd2e185d29e7867715405d797",
+      "original_bytes": 10081,
+      "published_bytes": 10053
+    },
+    {
+      "path": "raw/lms-mlx-tool-stream-r2-execution.json",
+      "original_sha256": "85a43c08f8ce649f707d64544e7c56983defe2ee1a591d37247d8686a7a064f1",
+      "published_sha256": "e5ff27b5b73c73c6eb3ddba71a2f4641b9106477f78d4af48d1c9805920e03fd",
+      "original_bytes": 10081,
+      "published_bytes": 10053
+    },
+    {
+      "path": "raw/lms-mlx-tool-stream-r3-execution.json",
+      "original_sha256": "ffc2bbed320fc320b72602583e16ac556011ed8e5399030dafbd5272b8052944",
+      "published_sha256": "e2323ce15f46f769bf57ef9c1d319c4cfdd4ecd8f520958e367519027d0ec844",
+      "original_bytes": 10083,
+      "published_bytes": 10055
+    },
+    {
+      "path": "raw/lms-mlx-tool-stream-warmup-execution.json",
+      "original_sha256": "22bba78e0837ff345e168ec77ae228a2e65055f8c258b79334cf82ae44cda6bc",
+      "published_sha256": "a1e1a68eca8c12722a38925de1e77c4655284c0781883fd782bf002335db2284",
+      "original_bytes": 10087,
+      "published_bytes": 10059
+    },
+    {
+      "path": "raw/lms-mlx-tool-warmup-execution.json",
+      "original_sha256": "42f4a277081900fbf34e04481ceda8a8272c36fbb1b8003c884996ff53caade2",
+      "published_sha256": "ea0d8aa3342d1921d681a1d6329a5bbe30de66eeb183c3ba2343f48e29cd55be",
+      "original_bytes": 9967,
+      "published_bytes": 9939
+    },
+    {
+      "path": "raw/lms_runner-at-first-start.py",
       "original_sha256": "4d2013c2ba1c1bbe6c2b9a59c5006240adcbc17f7cf40248265d856c74a69b52",
       "published_sha256": "b00ffea36d276d1f8d4940cb4074355ecf6f4773c9633fd3a57d06a83170e53b",
       "original_bytes": 11477,
       "published_bytes": 11470
+    },
+    {
+      "path": "raw/lms_runner.py",
+      "original_sha256": "8c7f28086c48fc0f78f47c572ac1ffe312aead3d08de20be3db1e32e5f16ef32",
+      "published_sha256": "3bcf7a949d28824dc45d5d9ac845663389d4cb62d861ad24ad0aa187602e87b0",
+      "original_bytes": 11733,
+      "published_bytes": 11726
     },
     {
       "path": "raw/mlx-artifact-manifest.json",
@@ -25,6 +221,13 @@
       "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
       "original_bytes": 12476,
       "published_bytes": 12378
+    },
+    {
+      "path": "raw/native-log-offsets-before.json",
+      "original_sha256": "7f7f3a7b3b7431244377b285c9cada1370e6d94aa57a6995466d5f10071660b7",
+      "published_sha256": "5361732168334780e8ee22c93c2b3bf9dbd3636a7ce2a54cf3c0b424dee75d4a",
+      "original_bytes": 219,
+      "published_bytes": 205
     }
   ]
 }

@@ -1,0 +1,161 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB34",
+  "harness_id": null,
+  "session_id": "apple-direct-load-20261008",
+  "created_at": "2026-10-08T14:48:26.418Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Client concurrency2/4 даст>=10%medianthroughput gain при fixed slot1 и p95<=60s; прошедшаяконфигурация устойчива30min.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:52:19.556Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB28-apple-first-20261007/raw/hardware-snapshot.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/baseline-artifact-manifest.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "startup",
+      "configuration_id": "direct-ctx8192-slot1-startup",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "warmup",
+      "configuration_id": "direct-ctx8192-slot1-warmup",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r1-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r1-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r1-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r2-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r2-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r2-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r3-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r3-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "r3-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "sustained",
+      "configuration_id": "direct-ctx8192-slot1-sustained",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "shutdown",
+      "configuration_id": "direct-ctx8192-slot1-shutdown",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/build-reference.json",
+    "raw/concurrency_driver.py",
+    "raw/concurrency_test.py",
+    "raw/load-request.json",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/registered-source-hashes.json",
+    "raw/resources.py",
+    "raw/run_load.py"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "Actual native runtime saved afterstartup.",
+    "conditions.harness_profile": "HTTP load exercise without agent harness.",
+    "gpu_budget_gib": "No maximal allocationcampaign.",
+    "energy": "Notmeasured.",
+    "temperature": "Verifiedthermalcollector absent.",
+    "ttft": "Non-streamingHTTP only."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}

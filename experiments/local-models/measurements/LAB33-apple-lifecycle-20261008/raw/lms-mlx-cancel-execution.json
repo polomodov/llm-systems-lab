@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-08T14:48:16.190986+00:00",
+  "command": [
+    "curl",
+    "--noproxy",
+    "*",
+    "--max-time",
+    "1",
+    "-sS",
+    "-N",
+    "http://127.0.0.1:1234/v1/chat/completions",
+    "-H",
+    "Content-Type: application/json",
+    "--data-binary",
+    "@/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB33-apple-lifecycle-20261008/raw/lms-mlx-cancel-request.json"
+  ],
+  "exit_code": 28,
+  "duration_s": 1.0371867500070948,
+  "done_received": false,
+  "cancellation_log": false,
+  "gpu_slot_release_seconds": null,
+  "gpu_slot_release_unavailable": "No verified native slot monitor in app API",
+  "accepted": false
+}
