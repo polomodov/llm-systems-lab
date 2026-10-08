@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-vecs7x158nb7ex23sak2sm",
+  "object": "chat.completion",
+  "created": 1791463290,
+  "model": "lab-apple-qwen35-9b-q6-k",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "The tool returned \"LAB_VALUE_42\". The user asked me to return only the value from the result, so I should just output this value without any additional text.\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 461,
+    "completion_tokens": 44,
+    "total_tokens": 505,
+    "completion_tokens_details": {
+      "reasoning_tokens": 36
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-apple-qwen35-9b-q6-k"
+}

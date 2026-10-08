@@ -26,7 +26,7 @@ def result(case,ok,reason=None):
  print(json.dumps({'case':case,'accepted':ok,'reason':reason}),flush=True)
 def env_ollama():
  env={k:v for k,v in os.environ.items() if k in ['HOME','PATH','TMPDIR','USER','LOGNAME','LANG','LC_ALL']}
- env.update(OLLAMA_HOST='127.0.0.1:11434',OLLAMA_MODELS=str(ARCHIVE/'models'),OLLAMA_NO_CLOUD='1',OLLAMA_MAX_LOADED_MODELS='1',OLLAMA_NUM_PARALLEL='1',OLLAMA_CONTEXT_LENGTH='8192',OLLAMA_FLASH_ATTENTION='1',OLLAMA_KV_CACHE_TYPE='f16',OLLAMA_KEEP_ALIVE='10m',OLLAMA_DEBUG='1',NO_PROXY='127.0.0.1,localhost,::1',no_proxy='127.0.0.1,localhost,::1')
+ env.update(OLLAMA_HOST='127.0.0.1:11435',OLLAMA_MODELS=str(ARCHIVE/'models'),OLLAMA_NO_CLOUD='1',OLLAMA_MAX_LOADED_MODELS='1',OLLAMA_NUM_PARALLEL='1',OLLAMA_CONTEXT_LENGTH='8192',OLLAMA_FLASH_ATTENTION='1',OLLAMA_KV_CACHE_TYPE='f16',OLLAMA_KEEP_ALIVE='10m',OLLAMA_DEBUG='1',NO_PROXY='127.0.0.1,localhost,::1',no_proxy='127.0.0.1,localhost,::1')
  return env
 def api(url,route,payload=None,timeout=30):
  req=urllib.request.Request(url+route,data=json.dumps(payload).encode() if payload is not None else None,headers={'Content-Type':'application/json'})
@@ -54,8 +54,8 @@ def preflight():
  write('offline-validator-results.json',{'evidence_class':'synthetic','model_executed':False,'results':results});result('offline-validator',True)
 class Server:
  def __init__(self,dep):
-  self.dep=dep;self.url='http://127.0.0.1:'+('11434' if dep=='ollama' else '8080');self.stop=threading.Event();self.guard=None
-  with socket.socket() as s:s.bind(('127.0.0.1',11434 if dep=='ollama' else 8080))
+  self.dep=dep;self.url='http://127.0.0.1:'+('11435' if dep=='ollama' else '8080');self.stop=threading.Event();self.guard=None
+  with socket.socket() as s:s.bind(('127.0.0.1',11435 if dep=='ollama' else 8080))
   assert safe(sample())
   command=[str(OLL/'ollama'),'serve'] if dep=='ollama' else [str(DIRECT),'-m',str(MODEL),'--host','127.0.0.1','--port','8080','--alias',ALIAS,'-ngl','999','-c','8192','-np','1','-t','8','-b','512','-ub','256','-ctk','f16','-ctv','f16','-fa','on','--jinja','--no-context-shift','--reasoning','auto','--chat-template-kwargs','{"enable_thinking":true}','--no-cache-prompt','--slots','--metrics']
   self.log=RAW/(dep+'-server.txt');self.handle=self.log.open('x');self.record={'command':command,'started_at':now(),'resources_before':sample(),'pid':None,'returncode':None}
@@ -95,14 +95,10 @@ class Server:
    (RAW/(case+'-import.txt')).write_text(p.stdout+p.stderr);assert p.returncode==0,'Import failed'
    show=api(self.url,'/api/show',{'model':ALIAS,'verbose':True});write(case+'-show.json',show)
    write(case+'-models.json',api(self.url,'/v1/models'))
-   blobs=[]
-   for path in (ARCHIVE/'models/manifests').rglob('*'):
-    if path.is_file():
-     content=json.loads(path.read_text());write(case+'-import-manifest.json',{'path':str(path),'body':content})
-     for layer in content['layers']:
-      if layer['mediaType']=='application/vnd.ollama.image.model':
-       blob=ARCHIVE/'models/blobs'/layer['digest'].replace(':','-');blobs.append({'path':str(blob),'sha256':digest(blob),'bytes':blob.stat().st_size})
-   assert len(blobs)==1 and blobs[0]['sha256']==SHA and digest(MODEL)==SHA
+   from_line=next(line[5:].strip() for line in show['body']['modelfile'].splitlines() if line.startswith('FROM '))
+   blob=pathlib.Path(from_line);assert blob.parent==(ARCHIVE/'models/blobs'),'Unexpected imported blob path'
+   blobs=[{'path':str(blob),'sha256':digest(blob),'bytes':blob.stat().st_size}]
+   assert blobs[0]['sha256']==SHA and digest(MODEL)==SHA,'Imported/source weights hash mismatch'
    write(case+'-weights.json',{'source_sha256':SHA,'imported_model_blobs':blobs,'source_after_import_sha256':digest(MODEL)})
   else:
    for name,route in [('props','/props'),('slots','/slots'),('models','/v1/models')]:write(case+'-'+name+'.json',api(self.url,route))
@@ -125,6 +121,7 @@ class Server:
 def probe(server,case,kind):
  server.ensure();payload=json.loads((RAW/(kind+'-request.json')).read_text())
  if server.dep=='direct':payload.pop('reasoning_effort');payload.update(cache_prompt=False,chat_template_kwargs={'enable_thinking':True})
+ if server.dep.startswith('lms-'):payload.pop('reasoning_effort',None)
  fixture=RAW/(case+'-input.json');write(fixture.name,payload)
  command=[sys.executable,str(RAW/'http_probe.py'),'--url',server.url,'--request',str(fixture),'--out',str(RAW/case)]
  if kind.startswith('tool'):command.append('--follow-tool')

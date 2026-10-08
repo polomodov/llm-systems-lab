@@ -1,0 +1,7 @@
+Streaming logs from LM Studio
+
+{"timestamp":1791467785145,"data":{"type":"runtime.log","level":"debug","message":"[disk_budget][INFO]: VLM prompt cache disk budget: stage=provisional cap_gib=30.00\n[cache_store][INFO]: VLM prompt cache disk store: lifetime=model_load storage=temporary cleanup=model_unload_or_process_exit","engineName":"mlx-llm-mac-arm64-apple-metal-nax-advsimd","engineVersion":"1.13.1","engineType":"mlx-llm","modelIdentifier":"lab-apple-qwen35-9b-q6-k","instanceReference":"qgojsyNLIRZyvMXChgHbEN2I","pid":17998}}
+{"timestamp":1791467786960,"data":{"type":"runtime.log","level":"debug","message":"[model_kit][INFO]: Context auto-fit disabled; leaving context unchanged","engineName":"mlx-llm-mac-arm64-apple-metal-nax-advsimd","engineVersion":"1.13.1","engineType":"mlx-llm","modelIdentifier":"lab-apple-qwen35-9b-q6-k","instanceReference":"qgojsyNLIRZyvMXChgHbEN2I","pid":17998}}
+{"timestamp":1791467787415,"data":{"type":"runtime.log","level":"debug","message":"[coordinator][INFO]: Prompt cache restore: cached_tokens=0 uncached_tokens=18 lifetime_efficiency=0.00%","engineName":"mlx-llm-mac-arm64-apple-metal-nax-advsimd","engineVersion":"1.13.1","engineType":"mlx-llm","modelIdentifier":"lab-apple-qwen35-9b-q6-k","instanceReference":"qgojsyNLIRZyvMXChgHbEN2I","pid":17998}}
+[LMStudioClient][Diagnostics][ClientPort][WsClientTransport:AuthenticatedWsClientTransport] WebSocket error: Error: WebSocket connection closed
+    at <anonymous> (/$bunfs/root/lms:106820:33)

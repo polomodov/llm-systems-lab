@@ -42,8 +42,8 @@ class LMS:
   model=matches[0];lab.write(case+'-selected-model.json',model)
   if self.dep=='lms-metal':
    imported=pathlib.Path.home()/'.lmstudio/models'/model['path'];assert lab.digest(imported)==lab.SHA;lab.write(case+'-weights.json',{'source_sha256':lab.digest(lab.MODEL),'imported_sha256':lab.digest(imported),'imported_path':str(imported),'symlink_target':str(imported.resolve())})
-  self.cli(['load',model['indexedModelIdentifier'],'--identifier',lab.ALIAS,'--context-length','8192','--parallel','1','--gpu','max','--ttl','600','--yes'],'startup-load');self.loaded=True
-  loaded=json.loads(self.cli(['ps','--json'],'startup-loaded'));assert len(loaded)==1
+  self.cli(['load',model['modelKey'],'--identifier',lab.ALIAS,'--context-length','8192','--parallel','1','--gpu','max','--ttl','600','--yes'],'startup-load');self.loaded=True
+  loaded=json.loads(self.cli(['ps','--json'],'startup-loaded'));assert len(loaded)==1 and loaded[0]['format']==format and loaded[0]['path']==model['path'] and loaded[0]['contextLength']==8192 and loaded[0]['parallel']==1,'Loaded deployment differs from registered artifact/config'
   self.cli(['server','start','--port','1234','--bind','127.0.0.1'],'startup-server');self.server_started=True
   for label,route in [('models','/v1/models'),('native-models','/api/v0/models')]:lab.write(case+'-'+label+'.json',lab.api(self.url,route))
   lab.write(case+'-execution.json',{'accepted':True,'timestamp':lab.now(),'app_pid':self.process.pid,'model':model,'loaded':loaded,'engine_package':backend_name,'runtime':'raw/'+case+'-runtime.json','backend_evidence_pending':'Actual load/inference logs archived; GPU proof assessed after cases.'});lab.result(case,True)

@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-08T12:41:52.596186+00:00",
+  "command": [
+    "curl",
+    "--noproxy",
+    "*",
+    "--max-time",
+    "1",
+    "-sS",
+    "-N",
+    "http://127.0.0.1:1234/v1/chat/completions",
+    "-H",
+    "Content-Type: application/json",
+    "--data-binary",
+    "@/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/lms-metal-cancel-request.json"
+  ],
+  "exit_code": 28,
+  "duration_s": 1.0598432919999965,
+  "done_received": false,
+  "cancellation_log": true,
+  "gpu_slot_release_seconds": null,
+  "gpu_slot_release_unavailable": "No verified native slot monitor in app API",
+  "accepted": true
+}

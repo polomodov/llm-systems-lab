@@ -17,6 +17,21 @@
 
 В архивном Ryzen/Vulkan при совпавших параметрах PP2048 median857.88, TG128@4096 median29.40 tokens/s; отношение исходного Mac/Vulkan — 1.017×/2.172×. Это измеренное сравнение deployments с разными hardware/OS/compiler, не изолированный эффект backend и не агентское качество. Исходная Mac baseline работала на standard Metal SIMD после отказа tensor probe; новая диагностика выше установила причину и проверила исправление отдельно. Полный GPU allocation limit не установлен; HTTP8K/16K подтверждены для LAB32 fixtures, 32K long final contract не прошёл. Failed downloads, checker correction и pilot без power timeline сохранены вместе с подтверждающей серией.
 
+
+## LAB33 и обычный запуск приложений — 08.10.2026
+
+По запросу владельца установлены `/Applications/Ollama.app`0.40.1 и `/Applications/LM Studio.app`0.4.25+1; `ollama` и `lms` доступны через обычный PATH. Официальные архивы и code signatures проверены; версии/hashes сохранены в [отчёте LAB33](../measurements/LAB33-apple-serving-central-20261008/report.md). Запуск вне лаборатории:
+
+```sh
+open -a Ollama
+open -a 'LM Studio'
+ollama --version
+lms --version
+lms ls
+```
+
+[Исходный Battery preflight](../measurements/LAB33-apple-ollama-qwen35-9b-20261008/report.md) отдельно blocked до модели. Новая AC серия: Ollama16/16 и LMS/GGUF16/16 short chat/tool JSON/SSE, cancel/recovery; direct baseline16/16. Medians tool JSON1.319/3.301/2.261s соответственно — сравнение разных deployments. Actual Ollama Metal/M5/33of33offload подтверждён; у LMS actual package2.54.0 известен, device/offload доказательство неполно. LMS MLX1.13.1 загрузился, но первый HTTP chat оборвался при исчезновении GUI процесса; причина неизвестна, вся LAB33 остаётся blocked. Подробности, resource amendments и failures в отчёте; GPU budget/null и общие conditional профили не изменены.
+
 ## Команды планирования
 
 ```sh
