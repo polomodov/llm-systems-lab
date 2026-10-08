@@ -1,0 +1,17 @@
+{
+  "id": "qwen3-coder-30b-a3b",
+  "model_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+  "quantization": "Q5_K_M",
+  "artifact": {
+    "repository": "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF",
+    "revision": "b17cb02dd882d5b6ab62fc777ad2995f19668350",
+    "files": [
+      {
+        "path": "Qwen3-Coder-30B-A3B-Instruct-Q5_K_M.gguf",
+        "bytes": 21725584544,
+        "sha256": "4b78837bbec5ee248e4a5642bf608b6793721af41b92589e40c8da0bce58b907"
+      }
+    ],
+    "total_bytes": 21725584544
+  }
+}
