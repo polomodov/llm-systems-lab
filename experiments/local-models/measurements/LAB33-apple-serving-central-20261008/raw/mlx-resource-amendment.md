@@ -1,0 +1,7 @@
+# Новый resource condition до первой MLX загрузки
+
+Первая MLX ветвь остановлена до model load: индекс ещё не вернул Qwen MLX, а freepages при hash-reading6GB упали ниже16GiB. Полный failure сохранён, включая minfree14.208GiB, swap0 и pressure free95%. Позже lms ls --llm подтвердил artifact path и format safetensors; никаких весов не скачивали.
+
+Для отдельного lms-mlx-cache-aware condition зарегистрированы20 новых попыток с теми же IDs без first-префикса, исходные переименованы lms-mlx-first-* вместе с primary files. Резерв ОС16GiB теперь определяется консервативной суммой Pages free + Pages speculative из vm_stat; additionally memory_pressure -Q free percentage>=50%, swap0,AC,powermode0,aggregate app treeRSS<=24GiB. Это новый показатель, не равный прежнему freepages>=16; старый guard и результаты не переписываются. Free/speculative отдельно в timeline, ни cache purge, ни искусственный pressure, ни изменение macOS power/memory knobs не выполняются. Speculative страницы трактуются как reclaimable filesystem cache, не доступная GPU heap; неизвестный GPU budget остаётся null.
+
+До запуска сохранить runtime/package/MLX filehash verification повторно. При падении guard остановить только лабораторную модель; app не убивать. Все inference inputs, runtime1.13.1, context8192,parallel1, defaults и критерии API остаются теми же. После старта series guard не менять. Не объединять memory conclusions с предыдущими free-only условиями.

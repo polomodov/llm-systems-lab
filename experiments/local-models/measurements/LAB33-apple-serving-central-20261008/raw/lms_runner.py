@@ -38,11 +38,11 @@ class LMS:
    target=pathlib.Path.home()/'.lmstudio/models/mlx-community/Qwen3.5-9B-MLX-4bit';target.parent.mkdir(parents=True,exist_ok=True)
    if not target.exists():target.symlink_to(MLX,target_is_directory=True)
    assert target.resolve()==MLX;lab.write(case+'-weights.json',{'revision':artifact['revision'],'files':verified,'registry_symlink':str(target),'quantization':artifact['quantization']})
-  models=json.loads(self.cli(['ls','--json'],'startup-models'));format='gguf' if self.dep=='lms-metal' else 'mlx';matches=[m for m in models if m.get('format')==format and 'Qwen3.5-9B' in m.get('path','')];assert len(matches)==1,repr(matches)
+  models=json.loads(self.cli(['ls','--json'],'startup-models'));format='gguf' if self.dep=='lms-metal' else 'safetensors';matches=[m for m in models if m.get('format')==format and 'Qwen3.5-9B' in m.get('path','')];assert len(matches)==1,repr(matches)
   model=matches[0];lab.write(case+'-selected-model.json',model)
   if self.dep=='lms-metal':
    imported=pathlib.Path.home()/'.lmstudio/models'/model['path'];assert lab.digest(imported)==lab.SHA;lab.write(case+'-weights.json',{'source_sha256':lab.digest(lab.MODEL),'imported_sha256':lab.digest(imported),'imported_path':str(imported),'symlink_target':str(imported.resolve())})
-  self.cli(['load',model['modelKey'],'--identifier',lab.ALIAS,'--context-length','8192','--parallel','1','--gpu','max','--ttl','600','--yes'],'startup-load');self.loaded=True
+  self.cli(['load',model['indexedModelIdentifier'],'--identifier',lab.ALIAS,'--context-length','8192','--parallel','1','--gpu','max','--ttl','600','--yes'],'startup-load');self.loaded=True
   loaded=json.loads(self.cli(['ps','--json'],'startup-loaded'));assert len(loaded)==1
   self.cli(['server','start','--port','1234','--bind','127.0.0.1'],'startup-server');self.server_started=True
   for label,route in [('models','/v1/models'),('native-models','/api/v0/models')]:lab.write(case+'-'+label+'.json',lab.api(self.url,route))
@@ -70,6 +70,17 @@ def cancel(s):
  lab.probe(s,s.dep+'-cancel-recovery','chat');elapsed=time.monotonic()-ended;lab.write(s.dep+'-cancel-recovery-window.json',{'within_60_seconds':elapsed<=60,'client_exit_to_recovery_end_seconds':elapsed,'same_app_pid':s.process.pid});assert elapsed<=60,'Recovery window exceeded'
  if not ok:raise RuntimeError('Cancellation inconclusive; recovery preserved')
 def main(dep):
+ if dep=='lms-mlx':
+  import re
+  base_sample=lab.sample
+  def cache_sample():
+   row=base_sample();vm=row['commands']['vm_stat']['stdout'];page=re.search(r'page size of (\d+) bytes',vm);spec=re.search(r'Pages speculative:\s+(\d+)',vm);pressure=re.search(r'free percentage: (\d+)%',row['commands']['pressure']['stdout'])
+   row['speculative_pages_bytes']=int(page[1])*int(spec[1]) if page and spec else None
+   row['free_speculative_bytes']=row['free_pages_bytes']+row['speculative_pages_bytes'] if row['free_pages_bytes'] is not None and row['speculative_pages_bytes'] is not None else None
+   row['pressure_free_percentage']=int(pressure[1]) if pressure else None;row['resource_condition']='free+speculative>=16GiB;pressure-free>=50%;swap0;AC/powermode0;app treeRSS<=24GiB'
+   return row
+  def cache_safe(row):return row['free_speculative_bytes'] is not None and row['free_speculative_bytes']>=16*2**30 and row['pressure_free_percentage'] is not None and row['pressure_free_percentage']>=50 and row['swap_used_bytes']==0 and row['on_ac_power'] and row['ac_power_mode']==0
+  lab.sample=cache_sample;lab.safe=cache_safe
  s=None
  try:
   s=LMS(dep);s.ready()
