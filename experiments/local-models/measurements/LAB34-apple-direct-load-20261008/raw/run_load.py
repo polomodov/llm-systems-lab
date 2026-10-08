@@ -46,7 +46,8 @@ class Campaign:
     def __init__(self):
         self.process=None;self.client=None;self.guard=None;self.stop=threading.Event()
         self.monitor=None;self.handle=None;self.caffeinate=None
-        self.record={'started_at':now(),'command':None,'pid':None}
+        self.interrupt_sent=False
+        self.record={'started_at':now(),'command':None,'pid':None,'interrupts':[]}
     def ensure(self):
         if self.guard or (self.process and self.process.poll() is not None):
             raise RuntimeError(self.guard or 'Own server exited')
@@ -67,7 +68,11 @@ class Campaign:
                 if not safe(row) or (row['server_rss_bytes'] or 0)>24*2**30:
                     self.guard='Memory/power admission failed'
                 if self.guard:
-                    if self.process.poll() is None:os.killpg(self.process.pid,signal.SIGINT)
+                    if self.process.poll() is None:
+                        self.interrupt_sent=True
+                        self.record['interrupts'].append({'timestamp':now(),'reason':'resource guard','signal':'SIGINT'})
+                        write('guard-trigger.json',{'row':row,'reason':self.guard,'owned_pid':self.process.pid})
+                        os.killpg(self.process.pid,signal.SIGINT)
                     return
                 i+=1;self.stop.wait(2)
     def startup(self):
@@ -136,7 +141,10 @@ class Campaign:
         return summary,ok
     def shutdown(self):
         if self.process and self.process.poll() is None:
-            os.killpg(self.process.pid,signal.SIGINT)
+            if not self.interrupt_sent:
+                self.interrupt_sent=True
+                self.record['interrupts'].append({'timestamp':now(),'reason':'normal shutdown','signal':'SIGINT'})
+                os.killpg(self.process.pid,signal.SIGINT)
             try:self.process.wait(timeout=30)
             except subprocess.TimeoutExpired:
                 os.killpg(self.process.pid,signal.SIGKILL);self.process.wait();self.guard=self.guard or 'Native shutdown deadline exceeded'

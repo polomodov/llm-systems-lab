@@ -1,0 +1,98 @@
+{
+  "attempt_counts": {
+    "completed": 21,
+    "failed": 3,
+    "not-run": 36
+  },
+  "short_cells": {
+    "lms-mlx-chat": {
+      "accepted_attempts": 4,
+      "warmup_excluded": true,
+      "median_round_trip_s": 2.7782788329932373,
+      "values": {
+        "warmup": 3.5558557079930324,
+        "r1": 2.7782788329932373,
+        "r2": 2.7767232079932,
+        "r3": 2.7828027920040768
+      }
+    },
+    "lms-mlx-chat-stream": {
+      "accepted_attempts": 4,
+      "warmup_excluded": true,
+      "median_round_trip_s": 2.780833667013212,
+      "values": {
+        "warmup": 2.782145916004083,
+        "r1": 2.80123983300291,
+        "r2": 2.7774617089889944,
+        "r3": 2.780833667013212
+      }
+    },
+    "lms-mlx-tool": {
+      "accepted_attempts": 4,
+      "warmup_excluded": true,
+      "median_round_trip_s": 1.26304079098918,
+      "values": {
+        "warmup": 2.3747153760050423,
+        "r1": 1.2593565829884028,
+        "r2": 1.26304079098918,
+        "r3": 1.274521667000954
+      }
+    },
+    "lms-mlx-tool-stream": {
+      "accepted_attempts": 4,
+      "warmup_excluded": true,
+      "median_round_trip_s": 1.2593396660086,
+      "values": {
+        "warmup": 1.2619243749941234,
+        "r1": 1.2593396660086,
+        "r2": 1.259227083006408,
+        "r3": 1.266890251004952
+      }
+    }
+  },
+  "memory": {
+    "lms-mlx": {
+      "samples": 25,
+      "app_pids": [
+        18402
+      ],
+      "app_alive_all_samples": true,
+      "min_free_pages_bytes": 14371782656,
+      "max_tree_rss_bytes": 8916140032,
+      "swap_max_bytes": 0,
+      "guard": null
+    },
+    "lms-metal": {
+      "samples": 1,
+      "app_pids": [
+        18402
+      ],
+      "app_alive_all_samples": true,
+      "min_free_pages_bytes": 23544594432,
+      "max_tree_rss_bytes": 1308344320,
+      "swap_max_bytes": 0,
+      "guard": null
+    },
+    "lms-metal-existing": {
+      "samples": 3,
+      "app_pids": [
+        18402
+      ],
+      "app_alive_all_samples": true,
+      "min_free_pages_bytes": 16087302144,
+      "max_tree_rss_bytes": 1308409856,
+      "swap_max_bytes": 0,
+      "guard": "Memory/power guard failed; own alias will be unloaded, application is not killed"
+    }
+  },
+  "cancellation": {
+    "lms-mlx": {
+      "client_timeout_seconds": 1.0371867500070948,
+      "recovery_seconds": 4.8896019169915235,
+      "native_cancel_verified": false,
+      "gpu_slot_release_seconds": null
+    }
+  },
+  "prior_failure_cause": null,
+  "prior_failure_cause_unavailable": "Original GUI interruption not reproduced; user quit/crash/OOM not established."
+}
