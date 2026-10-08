@@ -31,14 +31,24 @@
 npm run lab:new -- --lab LAB08 --session my-session
 LAB_DIR='experiments/local-models/measurements/LAB08-my-session'
 npm run harnesses
-npm run local:engines
 npm test
 npm run check
 ```
 
+Выберите каталог своего стенда; автоматического выбора по машине нет:
+
+```bash
+# Вход через ЛР05: Ryzen / Linux
+npm run local:engines -- --hardware ryzen-ai-max-395-128gb-linux
+# Вход через ЛР32: Apple / macOS
+npm run local:engines -- --hardware apple-m5-max-128gb-macos
+```
+
+В отчёте укажите выбранный hardware ID и ссылку на допущенное условие protocol smoke: ЛР05 для Ryzen либо ЛР32 для Apple. Частичный допуск контекста не распространяется на другие контексты или настройки reasoning.
+
 `report.md`, `measurements.tsv`, черновой `manifest.json` и `raw/` относятся к учебной работе. Реальная агентная попытка получает отдельный `results/runs/<run-id>/run.json`. Учебный отчёт не заменяет его.
 
-Прочитайте `scripts/lib/harnesses.mjs`, `scripts/prepare-run.mjs`, `scripts/run.mjs`, `experiments/common/egress.mjs`, `results/schema.json`, `scripts/lib/records.mjs` и `scripts/compare.mjs`. Скрытые проверки не открывайте, контракты `tasks/*/task.md` не изменяйте. Подготовьте одну доступную модель из ЛР05, сервер без встроенных shell/tools и без mount исходного репозитория лаборатории.
+Прочитайте `scripts/lib/harnesses.mjs`, `scripts/prepare-run.mjs`, `scripts/run.mjs`, `experiments/common/egress.mjs`, `results/schema.json`, `scripts/lib/records.mjs` и `scripts/compare.mjs`. Скрытые проверки не открывайте, контракты `tasks/*/task.md` не изменяйте. Подготовьте одну доступную модель из ЛР05 (Ryzen) либо ЛР32 (Apple) с закреплёнными артефактами и прошедшими chat/tool/cancel/overflow/recovery именно для выбранного deployment; сервер без встроенных shell/tools и без mount исходного репозитория лаборатории.
 
 ## Порядок выполнения
 

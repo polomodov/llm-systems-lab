@@ -55,7 +55,7 @@ class ScopedBudgetAdmission(unittest.TestCase):
         self.assertTrue(all(a['status']=='not-run' for a in manifest['planned_attempts'] if a['id'].startswith('ctx32768-')))
 
     def assert_rejected_without_export(self,target):
-        protected=[target/'report.md',target/'measurements.tsv',target/'raw/campaign-summary.json']
+        protected=[target/'manifest.json',target/'report.md',target/'measurements.tsv',target/'raw/campaign-summary.json',target/'raw/evidence-hashes.json']
         before={p:p.read_bytes() for p in protected}
         result=run_finalizer(target)
         self.assertNotEqual(result.returncode,0)
@@ -73,6 +73,51 @@ class ScopedBudgetAdmission(unittest.TestCase):
             target=copied_report(temporary);path=target/'raw/ctx32768-cancel-execution.json'
             data=json.loads(path.read_text());data['release_after_client_s']=0.0;path.write_text(json.dumps(data))
             self.assert_rejected_without_export(target)
+
+    def test_invalid_primary_tool_contract_is_rejected_before_any_export(self):
+        mutations={
+            'name':lambda calls:calls[0]['function'].update(name='execute_shell'),
+            'arguments':lambda calls:calls[0]['function'].update(arguments='{"key":"beta"}'),
+            'extra_argument':lambda calls:calls[0]['function'].update(arguments='{"key":"alpha","command":"id"}'),
+            'invalid_json':lambda calls:calls[0]['function'].update(arguments='{'),
+            'missing_id':lambda calls:calls[0].pop('id'),
+            'empty_id':lambda calls:calls[0].update(id=''),
+            'blank_id':lambda calls:calls[0].update(id='   '),
+            'wrong_type':lambda calls:calls[0].update(type='shell'),
+            'multiple_calls':lambda calls:calls.append(dict(calls[0])),
+        }
+        for kind in ['tool','tool-stream']:
+            for label,mutate in mutations.items():
+                with self.subTest(kind=kind,mutation=label), tempfile.TemporaryDirectory() as temporary:
+                    target=copied_report(temporary)
+                    suffix='.assembled.json' if kind=='tool-stream' else '.response.json'
+                    path=target/f'raw/ctx32768-{kind}-r1{suffix}'
+                    data=json.loads(path.read_text())
+                    message=data if kind=='tool-stream' else data['choices'][0]['message']
+                    mutate(message['tool_calls']);path.write_text(json.dumps(data))
+                    self.assert_rejected_without_export(target)
+
+    def test_tool_result_must_match_primary_call_and_registered_value(self):
+        for kind in ['tool','tool-stream']:
+            for field,value in [('tool_call_id','another-call'),('content','UNREGISTERED_VALUE'),('role','user')]:
+                with self.subTest(kind=kind,field=field), tempfile.TemporaryDirectory() as temporary:
+                    target=copied_report(temporary)
+                    path=target/f'raw/ctx32768-{kind}-r1.followup.request.json'
+                    data=json.loads(path.read_text());data['messages'][-1][field]=value
+                    path.write_text(json.dumps(data));self.assert_rejected_without_export(target)
+            with self.subTest(kind=kind,field='assistant-call'), tempfile.TemporaryDirectory() as temporary:
+                target=copied_report(temporary)
+                path=target/f'raw/ctx32768-{kind}-r1.followup.request.json'
+                data=json.loads(path.read_text());data['messages'][-2]['tool_calls'][0]['function']['name']='execute_shell'
+                path.write_text(json.dumps(data));self.assert_rejected_without_export(target)
+
+    def test_sequential_campaign_uses_the_same_tool_verifier(self):
+        sequential=ROOT.parent/'LAB32-apple-qwen35-9b-metal-budget128-20261008'
+        spec=importlib.util.spec_from_file_location('sequential_finalizer',sequential/'raw/finalize_campaign.py')
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        self.assertEqual(module.verify_tool_round_trip.__code__.co_code,finalizer.verify_tool_round_trip.__code__.co_code)
+        for kind in ['tool','tool-stream']:
+            module.verify_protocol(sequential/'raw',f'ctx8192-{kind}-r1')
 
     def test_missing_budget_in_tool_followup_prevents_admission(self):
         with tempfile.TemporaryDirectory() as temporary:

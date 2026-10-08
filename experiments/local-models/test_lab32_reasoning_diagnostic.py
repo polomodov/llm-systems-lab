@@ -63,6 +63,28 @@ class ReasoningDiagnostic(unittest.TestCase):
             self.assertTrue(all(row['context_tokens']=='32768' for row in rows))
             self.assertTrue(all('budget128' in row['configuration_id'] for row in rows if 'budget128' in row['observation_id']))
 
+    def test_interrupted_finalization_stays_blocked_on_repeated_export(self):
+        for initial_status in ['planned','not-run']:
+            with self.subTest(initial_status=initial_status), tempfile.TemporaryDirectory() as temporary:
+                target=pathlib.Path(temporary)/'report'
+                shutil.copytree(ROOT,target,ignore=shutil.ignore_patterns('__pycache__'))
+                path=target/'manifest.json';manifest=json.loads(path.read_text())
+                attempt=next(a for a in manifest['planned_attempts'] if a['id']=='ctx32768-budget512-tool-stream-r3')
+                attempt.update(status=initial_status,reason='Synthetic controller interruption')
+                path.write_text(json.dumps(manifest))
+                snapshots=[]
+                for invocation in range(2):
+                    result=subprocess.run([sys.executable,str(target/'raw/finalize_diagnostic.py')],capture_output=True,text=True)
+                    self.assertEqual(result.returncode,0,result.stderr)
+                    summary=json.loads((target/'raw/diagnostic-summary.json').read_text())
+                    self.assertEqual(summary['status'],'blocked')
+                    self.assertEqual(summary['attempts']['not-run'],1)
+                    self.assertEqual(summary['attempts']['planned'],0)
+                    self.assertFalse(summary['diagnostic_condition_admission']['budget512'])
+                    self.assertEqual(json.loads(path.read_text())['status'],'blocked')
+                    snapshots.append({p:p.read_bytes() for p in [path,target/'report.md',target/'measurements.tsv',target/'raw/diagnostic-summary.json',target/'raw/evidence-hashes.json']})
+                self.assertEqual(snapshots[0],snapshots[1])
+
     def test_failure_cannot_be_relabelled_as_success_before_export(self):
         with tempfile.TemporaryDirectory() as temporary:
             target=pathlib.Path(temporary)/'report'

@@ -192,7 +192,7 @@
   "ctx32768-long-r1.request.json": "d28b1e2fc7bd8cf35a464d33b174e4a9514aa9f0576e0088a74b023bed83a276",
   "ctx32768-chat-r1.response.json": "44ab308178b605e16efd4496eb6ca0c25041a22ad43171a1200191219b860278",
   "ctx32768-chat-r3.request.json": "da56e1adaa62e5e37743a91b5d5406fb9608a0f210d784b4624dd77d12e557f5",
-  "finalize_campaign.py": "f54126030df1947a0917c429fb0c3476620df248578f884d7802b9f1bcc4f4cc",
+  "finalize_campaign.py": "26bf914680e13c0850634e47a3f72a7796562e3377fa34164eaf92824e0dc525",
   "ctx32768-chat-stream-r3.assembled.json": "77d522e36155ea89559b534611976558837e11c2009fc8f672b3fb9ed170d80a",
   "ctx32768-chat-stream-warmup.sse": "d31bd127e413556938ddc8c42736a6bab9cd376133e4a1896b2db8e6dc786ec7",
   "ctx32768-long-request.json": "cda310ca4b0ba46f4c30ac682bd5dfbef8b127b0f144aa408e5e8a0dd4317e72",
@@ -248,5 +248,8 @@
   "protocol.md": "a3f0e13baac1d4260d2cfaa821246976efb53231201dbfd569c983d683c3f8de",
   "ctx32768-long-r1.sse": "e7dd1b2c9c7c5b8fdd7ae1e97804f58f8d7b060ffb424fca4a904fd74a472178",
   "ctx32768-tool-stream-warmup.request.json": "97879b3886e651569110f223b379e39d9d53a78dd196fdf41bdaa3e8572ff0bb",
-  "ctx32768-tool-stream-warmup.metrics.json": "93c12b3d2a07849aa571aae16f93275e8ae5d8ced8e7bd95a3cf0ecb9364067c"
+  "ctx32768-tool-stream-warmup.metrics.json": "93c12b3d2a07849aa571aae16f93275e8ae5d8ced8e7bd95a3cf0ecb9364067c",
+  "review-erratum-20261008.md": "47d18d4e5208f2aa23f9f9b49af73132a694af3fdfc84d6eedd2ca9544a1675e",
+  "evidence-hashes.json.before-review-20261008": "3e8724e3414f72c0ee6a755ac6b3f5f07a25e57b8a6f8cbd81c5ec5409341155",
+  "finalize_campaign.py.before-review-20261008": "f54126030df1947a0917c429fb0c3476620df248578f884d7802b9f1bcc4f4cc"
 }

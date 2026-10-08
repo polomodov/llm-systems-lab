@@ -136,7 +136,7 @@
   "ctx32768-budget128-tool-stream-r1.final.json": "5ffffdf82d79839454ee21fa2269ba1aa06f3624771f839db13ca475cf617b2a",
   "ctx32768-budget512-tool-warmup-server-fragment.txt": "51dfe73b728e96cb45fadcd33560877c4f8d62a5a402fe1a36ff7ee24df6edb1",
   "ctx32768-budget512-chat-r3.response.json": "e43db62d30bd3b55c6b09644a5dcbada973585eb7077f2b901fdfff19d305a58",
-  "finalize_diagnostic.py": "5f556dfef88aa90f27420e66e00a777284cb5fd26b1686d7904daa4b72ad2409",
+  "finalize_diagnostic.py": "200a036eb651b1ddf95070c76d4cb8cdf7e63a8c70fe87edadaa63291f5e0cb3",
   "ctx32768-budget128-tool-r2-execution.json": "d2865025565ab89b54d14502dae87bcf58bdac94d1cdda81980e50bca8a8e783",
   "ctx32768-budget512-chat-stream-warmup.sse": "bcc7b360f1ec48455f27b3afee39a89be1c69bfa2c901ba23351f8731067a9ff",
   "ctx32768-budget128-chat-r2.final.json": "4cf7f0350f6aa189576023a720c4f96e8dff1622125fbbfb7fc06e579ef674a0",
@@ -449,5 +449,8 @@
   "ctx32768-budget512-tool-stream-r2.request.json": "987524f9928024c1706a5aea7e5282abb2fa29d029203168790d5cc71e33751d",
   "ctx32768-budget512-tool-r1.final.json": "5ffffdf82d79839454ee21fa2269ba1aa06f3624771f839db13ca475cf617b2a",
   "ctx32768-control-long-r3.final.json": "c0275aae320b30051a22c2aff963eea936aaa7488cfd0810591d0770eedea0f2",
-  "ctx32768-budget512-chat-warmup-server-fragment.txt": "f218b30bc3dd4648d37e6ab41590e19ee4d0cae09ab8c3ce92ba9c15729e27d1"
+  "ctx32768-budget512-chat-warmup-server-fragment.txt": "f218b30bc3dd4648d37e6ab41590e19ee4d0cae09ab8c3ce92ba9c15729e27d1",
+  "review-erratum-20261008.md": "47d18d4e5208f2aa23f9f9b49af73132a694af3fdfc84d6eedd2ca9544a1675e",
+  "evidence-hashes.json.before-review-20261008": "c2493a11b0fe7550dc57eaedcf4566d809599ee0b1e8eec2b1542710356e0db3",
+  "finalize_diagnostic.py.before-review-20261008": "5f556dfef88aa90f27420e66e00a777284cb5fd26b1686d7904daa4b72ad2409"
 }
