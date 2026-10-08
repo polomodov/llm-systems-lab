@@ -5,15 +5,15 @@
   "harness_id": null,
   "session_id": "gpt-oss-120b-prebuilt",
   "created_at": "2026-10-07T18:00:00.000Z",
-  "status": "completed",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "agent-harness-lab operator",
   "hypothesis": "The gpt-oss-120b-MXFP4.gguf (59 GiB, MoE 117B total / 5.1B active) can run with full GPU offload in both llama.cpp b8407 prebuilt backends (Vulkan/RADV and ROCm/HIP). At identical load the backend may affect prefill/decode speed and memory; direction and magnitude are unknown until measurement. Bounded to this model and commit 312cf03328496df9c56fe843952cf02a8964c59a; prebuilt toolchains differ (GNU 11.4 Vulkan vs GNU 13.3 ROCm).",
-  "protocol_before_run": "raw/build-provenance.txt",
+  "protocol_before_run": null,
   "protocol_recorded_at": "2026-10-07T18:00:00Z",
   "conditions": {
     "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
-    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gpt-oss-120b/raw/artifact-manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB04-gpt-oss-120b-prebuilt/raw/artifact.json",
     "runtime_manifest": "experiments/local-models/measurements/LAB04-gpt-oss-120b-prebuilt/raw/build-provenance.txt",
     "harness_profile": null
   },
@@ -342,8 +342,11 @@
   ],
   "unavailable": {
     "source_build": "Source-build path unavailable (no cmake/HIP SDK). Uses the same two prebuilt b8407 bundles from LAB04-qwen36. Toolchain differs (GNU 13.3 ROCm vs GNU 11.4 Vulkan).",
-    "conditions.harness_profile": "No harness in LAB04."
+    "conditions.harness_profile": "No harness in LAB04.",
+    "protocol_before_run": "build-provenance.txt не является предварительным протоколом; завершённый результат с preregistration перенесён в сессию gpt-oss-120b-prebuilt-prereg.",
+    "completion": "Ретроспективная сессия без preregistered-протокола; перезапущена как gpt-oss-120b-prebuilt-prereg.",
+    "offload": "Прямое подтверждение раскладки слоёв снято в preregistered-сессии (llama-bench -v: 37/37 слоёв на GPU, 0 на CPU)."
   },
-  "conclusion": "gpt-oss-120b MXFP4 MoE runs with full offload on both backends. Backend effect is direction-dependent: HIP is faster on pp2048 (median 414.77 vs 389.30 t/s, +6.5%), Vulkan is faster on tg128@4096 (median 51.59 vs 42.88 t/s, +20.3%). RSS ~62.1 GiB (Vulkan) vs ~62.3 GiB (HIP). Small but nonzero swap (max swap-out ~2 GiB) appears for this 59 GiB model, unlike the smaller Qwen GGUF. See report.md.",
+  "conclusion": "gpt-oss-120b MXFP4 MoE run with full offload on both backends. Backend effect is direction-dependent: HIP faster on pp2048 (median 414.77 vs 389.30 t/s, +6.5%), Vulkan faster on tg128@4096 (median 51.59 vs 42.88 t/s, +20.3%). RSS ~59.2 GiB (Vulkan) vs ~59.4 GiB (HIP). Swap-out present on both backends (pswpout delta: Vulkan ~273,670 pages ≈1.04 GiB, HIP ~56,591 pages ≈0.22 GiB across three repeats), unlike the smaller Qwen GGUF. Ретроспективная сессия; preregistered-результат — в gpt-oss-120b-prebuilt-prereg.",
   "reviewer_decision": null
 }
