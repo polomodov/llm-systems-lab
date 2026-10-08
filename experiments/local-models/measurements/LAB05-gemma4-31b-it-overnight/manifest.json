@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "gemma4-31b-it-overnight",
   "created_at": "2026-10-08T18:48:32Z",
-  "status": "in_progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "overnight campaign",
   "protocol_recorded_at": "2026-10-08T18:48:32Z",
@@ -17,12 +17,35 @@
     "harness_profile": null
   },
   "run_ids": [],
-  "planned_attempts": [],
+  "planned_attempts": [
+    {
+      "id": "gemma4-31b-it-ctx8192",
+      "configuration_id": "gemma4-31b-it-ctx8192",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/context-8192-bench.log"
+      ],
+      "conclusion": null,
+      "reason": "bench exit 1"
+    }
+  ],
   "evidence_files": [
-    "raw/protocol.md"
+    "raw/chat-request-stream-request.json",
+    "raw/chat-request.json",
+    "raw/context-8192-bench.json",
+    "raw/context-8192-bench.log",
+    "raw/context-8192-exit.txt",
+    "raw/context-8192-process.txt",
+    "raw/http_probe.py",
+    "raw/protocol.md",
+    "raw/tool-request-stream-request.json",
+    "raw/tool-request.json"
   ],
   "unavailable": {
-    "conditions.harness_profile": "LAB05 не использует обвязку."
+    "conditions.harness_profile": "LAB05 не использует обвязку.",
+    "completion": "Не все контексты прошли; см. attempts."
   },
-  "conclusion": null
+  "conclusion": "no context completed"
 }
