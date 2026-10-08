@@ -33,7 +33,7 @@ def finalize(root):
     raw=root/'raw';manifest=json.loads((root/'manifest.json').read_text())
     attempts={a['id']:a for a in manifest['planned_attempts']}
     # A controller/transport/resource stop remains blocked, even with a passing output.
-    unfinished=any(a['status']=='planned' for a in attempts.values())
+    unfinished=any(a['status'] in {'planned','not-run'} for a in attempts.values())
     for a in attempts.values():
         if a['status']=='planned':a.update(status='not-run',reason='Diagnostic controller stopped; see driver-error.txt or prior failure.')
     fixtures=json.loads((raw/'fixtures-sha256.json').read_text())
@@ -97,7 +97,7 @@ def finalize(root):
         and (row['observed_rss_bytes'] is None or row['observed_rss_bytes']<=24*2**30) for row in resources)
     status='completed' if not unfinished and resources_ok else 'blocked'
     condition_admission={key:value and resources_ok for key,value in condition_admission.items()}
-    conclusion=('Диагностический план завершён: '+', '.join(f'{label} '+('прошёл long+short fixtures' if passed else 'не получил диагностического допуска') for label,passed in condition_admission.items())+'. Исходная LAB32 остаётся blocked; полного32K protocol admission нет.')
+    conclusion=(('Диагностический план завершён: ' if status=='completed' else 'Диагностический план прерван: ')+', '.join(f'{label} '+('прошёл long+short fixtures' if passed else 'не получил диагностического допуска') for label,passed in condition_admission.items())+'. Исходная LAB32 остаётся blocked; полного32K protocol admission нет.')
     summary=dict(status=status,conclusion=conclusion,context_tokens=32768,input_tokens=28670,output_cap=2048,server_reasoning_budget=-1,
         request_reasoning_budgets=[None,128,512],case_statistics=statistics_by_case,diagnostic_condition_admission=condition_admission,
         full_lab32_admission=False,outcomes=outcomes,attempts={s:sum(a['status']==s for a in attempts.values()) for s in ['completed','failed','not-run','planned']},

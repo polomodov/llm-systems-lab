@@ -38,6 +38,29 @@ def export_measurements(raw,root,attempts):
     return records,groups
 
 
+def verify_tool_round_trip(raw,case,request,primary):
+    # Revalidate the saved call/result, not the controller's accepted flag.
+    if request['stream']:
+        message=json.loads((raw/(case+'.assembled.json')).read_text())
+    else:
+        response=json.loads((raw/(case+'.response.json')).read_text())
+        assert len(response['choices'])==1
+        choice=response['choices'][0]
+        assert choice['finish_reason']==primary['finish_reason']=='tool_calls'
+        message=choice['message']
+    assert message['role']=='assistant'
+    calls=message.get('tool_calls',[])
+    assert len(calls)==1
+    call=calls[0]
+    assert call['type']=='function'
+    assert call['function']['name']=='lookup_lab_value'
+    assert json.loads(call['function']['arguments'])=={'key':'alpha'}
+    assert isinstance(call.get('id'),str) and call['id'].strip()
+    follow=json.loads((raw/(case+'.followup.request.json')).read_text())
+    assert follow['messages']==request['messages']+[message,{
+        'role':'tool','tool_call_id':call['id'],'content':'LAB_VALUE_42'}]
+
+
 def verify_protocol(raw,case):
     request=json.loads((raw/(case+'.request.json')).read_text())
     final=json.loads((raw/(case+'.final.json')).read_text())
@@ -46,7 +69,12 @@ def verify_protocol(raw,case):
     assert execution['metrics']==primary and primary['http_status']==200 and primary['usage']['prompt_tokens']>0
     follow=raw/(case+'.followup.metrics.json')
     metrics=json.loads(follow.read_text()) if follow.exists() else primary
-    if follow.exists():assert primary['finish_reason']=='tool_calls' and execution['followup_metrics']==metrics
+    if '-tool-' in case or '-tool-stream-' in case:
+        assert follow.exists() and primary['finish_reason']=='tool_calls'
+        assert execution['followup_metrics']==metrics
+        verify_tool_round_trip(raw,case,request,primary)
+    else:
+        assert not follow.exists()
     expected='LAB_SENTINEL_42' if '-long-' in case else 'LAB_VALUE_42' if '-tool' in case else 'LAB_READY'
     assert metrics['finish_reason']=='stop' and metrics['http_status']==200
     assert final.get('content','').strip()==expected and not final.get('tool_calls')
