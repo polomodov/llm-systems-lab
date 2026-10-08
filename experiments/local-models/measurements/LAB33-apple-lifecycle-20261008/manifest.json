@@ -1,0 +1,405 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB33",
+  "harness_id": null,
+  "session_id": "apple-lifecycle-20261008",
+  "created_at": "2026-10-08T14:46:14.935Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Стабильный service process сохраняет MLX HTTP/tool session; предыдущий отказ не повторится в новом зарегистрированном deployment.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:47:12.773Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB28-apple-first-20261007/raw/hardware-snapshot.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-lifecycle-20261008/raw/mlx-artifact-manifest.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "lms-mlx-startup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-stream-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-stream-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-stream-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-stream-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-stream-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-stream-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-stream-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-tool-stream-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-cancel",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-cancel-recovery",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-shutdown",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-startup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-chat-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-tool-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-cancel",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-cancel-recovery",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "lms-metal-shutdown",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/chat-request.json",
+    "raw/chat-stream-request.json",
+    "raw/http_probe.py",
+    "raw/lab33_runner.py",
+    "raw/lms_runner.py",
+    "raw/mlx-artifact-manifest.json",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/resources.py",
+    "raw/tool-request.json",
+    "raw/tool-stream-request.json"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "Будет сохранён фактический runtime каждого deployment после startup.",
+    "conditions.harness_profile": "Аппаратный HTTP опыт без agent harness.",
+    "gpu_budget_gib": "Maximum GPU allocation budget не измеряется.",
+    "energy": "Не измеряется.",
+    "temperature": "Проверенный thermal collector отсутствует."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
