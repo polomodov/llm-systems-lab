@@ -1,0 +1,23 @@
+	Command being timed: "/home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407-ubuntu-24.04-rocm-7.2.1-gfx110X-gfx115X-gfx120X-x64/llama-bench -m /home/lab/local-model-lab-artifacts/unsloth/Qwen3.6-27B-GGUF/82d411acf4a06cfb8d9b073a5211bf410bfc29bf/Qwen3.6-27B-Q5_K_M.gguf -ngl 999 -t 8 -b 512 -ub 256 -ctk f16 -ctv f16 -fa 1 -p 0 -n 128 -d 4096 -r 1 -o json"
+	User time (seconds): 33.04
+	System time (seconds): 12.24
+	Percent of CPU this job got: 145%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:31.09
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 19372312
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 4
+	Minor (reclaiming a frame) page faults: 190787
+	Voluntary context switches: 914
+	Involuntary context switches: 367
+	Swaps: 0
+	File system inputs: 3088
+	File system outputs: 640
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
