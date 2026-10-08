@@ -1,0 +1,8 @@
+{
+  "case": "ctx16384-overflow",
+  "timestamp": "2026-10-08T07:52:38.367146+00:00",
+  "status": 400,
+  "response": "{\"error\":{\"code\":400,\"message\":\"request (24565 tokens) exceeds the available context size (16384 tokens), try increasing it\",\"type\":\"exceed_context_size_error\",\"n_prompt_tokens\":24565,\"n_ctx\":16384}}",
+  "wall_seconds": 0.04233904199998051,
+  "accepted": true
+}

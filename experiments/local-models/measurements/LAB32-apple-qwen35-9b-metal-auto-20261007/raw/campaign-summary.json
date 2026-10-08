@@ -1,0 +1,237 @@
+{
+  "conclusion": "Кампания не завершена; допуск только для полностью проверенных этапов: 8192, 16384. Отказы: ctx32768-long-warmup.",
+  "condition": "reasoning=auto / enable_thinking=true",
+  "contexts": [
+    8192,
+    16384,
+    32768
+  ],
+  "admitted_contexts": [
+    8192,
+    16384
+  ],
+  "higher_contexts_measured": true,
+  "case_statistics": {
+    "ctx8192-chat": {
+      "context_tokens": 8192,
+      "case": "chat",
+      "values": [
+        3.784451125,
+        3.836657333,
+        3.7649676249999997
+      ],
+      "median_seconds": 3.784451125,
+      "min_seconds": 3.7649676249999997,
+      "max_seconds": 3.836657333
+    },
+    "ctx8192-chat-stream": {
+      "context_tokens": 8192,
+      "case": "chat-stream",
+      "values": [
+        3.772274,
+        3.869127584,
+        3.8734625840000003
+      ],
+      "median_seconds": 3.869127584,
+      "min_seconds": 3.772274,
+      "max_seconds": 3.8734625840000003
+    },
+    "ctx8192-tool": {
+      "context_tokens": 8192,
+      "case": "tool",
+      "values": [
+        2.3119702909999997,
+        2.281411667,
+        2.298207542
+      ],
+      "median_seconds": 2.298207542,
+      "min_seconds": 2.281411667,
+      "max_seconds": 2.3119702909999997
+    },
+    "ctx8192-tool-stream": {
+      "context_tokens": 8192,
+      "case": "tool-stream",
+      "values": [
+        2.307047375,
+        2.3146828750000004,
+        2.3156577499999997
+      ],
+      "median_seconds": 2.3146828750000004,
+      "min_seconds": 2.307047375,
+      "max_seconds": 2.3156577499999997
+    },
+    "ctx8192-long": {
+      "context_tokens": 8192,
+      "case": "long",
+      "values": [
+        18.04456975,
+        18.108321583000002,
+        18.900565957999998
+      ],
+      "median_seconds": 18.108321583000002,
+      "min_seconds": 18.04456975,
+      "max_seconds": 18.900565957999998
+    },
+    "ctx16384-chat": {
+      "context_tokens": 16384,
+      "case": "chat",
+      "values": [
+        3.833258167,
+        3.8748221249999997,
+        3.847837417
+      ],
+      "median_seconds": 3.847837417,
+      "min_seconds": 3.833258167,
+      "max_seconds": 3.8748221249999997
+    },
+    "ctx16384-chat-stream": {
+      "context_tokens": 16384,
+      "case": "chat-stream",
+      "values": [
+        3.950363042,
+        4.0088898749999995,
+        4.008877709
+      ],
+      "median_seconds": 4.008877709,
+      "min_seconds": 3.950363042,
+      "max_seconds": 4.0088898749999995
+    },
+    "ctx16384-tool": {
+      "context_tokens": 16384,
+      "case": "tool",
+      "values": [
+        2.377663458,
+        2.3843091669999996,
+        2.376197208
+      ],
+      "median_seconds": 2.377663458,
+      "min_seconds": 2.376197208,
+      "max_seconds": 2.3843091669999996
+    },
+    "ctx16384-tool-stream": {
+      "context_tokens": 16384,
+      "case": "tool-stream",
+      "values": [
+        2.403079375,
+        2.397278208,
+        2.413860875
+      ],
+      "median_seconds": 2.403079375,
+      "min_seconds": 2.397278208,
+      "max_seconds": 2.413860875
+    },
+    "ctx16384-long": {
+      "context_tokens": 16384,
+      "case": "long",
+      "values": [
+        27.955878958,
+        29.204800459,
+        29.852687500000002
+      ],
+      "median_seconds": 29.204800459,
+      "min_seconds": 27.955878958,
+      "max_seconds": 29.852687500000002
+    },
+    "ctx32768-chat": {
+      "context_tokens": 32768,
+      "case": "chat",
+      "values": [
+        4.218650542,
+        4.060416958,
+        4.080748583
+      ],
+      "median_seconds": 4.080748583,
+      "min_seconds": 4.060416958,
+      "max_seconds": 4.218650542
+    },
+    "ctx32768-chat-stream": {
+      "context_tokens": 32768,
+      "case": "chat-stream",
+      "values": [
+        4.110153667,
+        4.0758535,
+        4.101097834000001
+      ],
+      "median_seconds": 4.101097834000001,
+      "min_seconds": 4.0758535,
+      "max_seconds": 4.110153667
+    },
+    "ctx32768-tool": {
+      "context_tokens": 32768,
+      "case": "tool",
+      "values": [
+        2.404887083,
+        2.391109458,
+        2.4049388329999997
+      ],
+      "median_seconds": 2.404887083,
+      "min_seconds": 2.391109458,
+      "max_seconds": 2.4049388329999997
+    },
+    "ctx32768-tool-stream": {
+      "context_tokens": 32768,
+      "case": "tool-stream",
+      "values": [
+        2.4171376249999996,
+        2.4119460420000003,
+        2.403510667
+      ],
+      "median_seconds": 2.4119460420000003,
+      "min_seconds": 2.403510667,
+      "max_seconds": 2.4171376249999996
+    }
+  },
+  "context_details": {
+    "8192": {
+      "input_tokens": 4083,
+      "input_budget": 4096,
+      "max_rss_bytes": 8570896384,
+      "min_free_pages_bytes": 42226532352,
+      "max_swap_used_bytes": 0,
+      "slot_release_after_disconnect_s": 2.278881040999991,
+      "overflow_input_tokens": 16305,
+      "overflow_http_status": 400,
+      "started_at": "2026-10-07T22:00:32.763607+00:00",
+      "ended_at": "2026-10-07T22:02:50.497792+00:00"
+    },
+    "16384": {
+      "input_tokens": 12287,
+      "input_budget": 12288,
+      "max_rss_bytes": 9247080448,
+      "min_free_pages_bytes": 62837882880,
+      "max_swap_used_bytes": 0,
+      "slot_release_after_disconnect_s": 9.237971915999992,
+      "overflow_input_tokens": 24565,
+      "overflow_http_status": 400,
+      "started_at": "2026-10-08T07:49:33.717123+00:00",
+      "ended_at": "2026-10-08T07:52:43.316184+00:00"
+    }
+  },
+  "attempts": {
+    "completed": 73,
+    "failed": 1,
+    "not-run": 7,
+    "planned": 0
+  },
+  "failure_analysis": {
+    "recorded_at": "2026-10-08T07:57:39.526129+00:00",
+    "case": "ctx32768-long-warmup",
+    "evidence_class": "derived-analysis",
+    "http_status": 200,
+    "stream_done": true,
+    "finish_reason": "length",
+    "prompt_tokens": 28670,
+    "token_count_matches": true,
+    "completion_tokens": 2048,
+    "output_cap": 2048,
+    "final_content_empty": true,
+    "sentinel_in_reasoning": true,
+    "reasoning_characters": 7008,
+    "interpretation": "Модель нашла sentinel в reasoning, но output cap исчерпан до final content; это отказ зарегистрированного output contract, не доказательство потери контекста или OOM.",
+    "next_steps": "Отдельно зарегистрировать диагностическое условие с ограничением reasoning или иным output budget; не подменять эту серию. 32K cancel/overflow и long r1–r3 не запускались.",
+    "native_exit_code": 0,
+    "max_rss_bytes": 9341730816,
+    "max_swap_used_bytes": 0,
+    "min_free_pages_bytes": 63213797376
+  }
+}
