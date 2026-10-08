@@ -1,0 +1,6 @@
+{
+  "recorded_at": "2026-10-08T04:55:01.429559+00:00",
+  "review_url": "https://github.com/polomodov/agent-harnesses-exps/pull/17#discussion_r4212553207",
+  "change": "TSV context derived from case/configuration; all registered cancel/overflow effects exported. Missing/conflicting contexts rejected. First-phase report entry point rejects higher-context evidence before mutations.",
+  "scope": "Derived export only; real8K request/response/logs, timestamps, protocol and metric values unchanged; previous source/hash inventory retained."
+}

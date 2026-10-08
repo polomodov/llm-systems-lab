@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/baseline-artifact-manifest.json",
+      "original_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+      "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
+      "original_bytes": 12476,
+      "published_bytes": 12378
+    },
+    {
+      "path": "raw/baseline-binaries.sha256",
+      "original_sha256": "111ebb5c7db1af11d0b3ad6088ded72c724d1c03f0bb4a2b1c0746072c287a97",
+      "published_sha256": "3410bf4537c7bfe2804b4219e4911af37a986ece3e8f8f204fea2c1c0470033a",
+      "original_bytes": 5153,
+      "published_bytes": 4992
+    },
+    {
+      "path": "raw/baseline-runtime-manifest.json",
+      "original_sha256": "b22daea5ae562846c05a9c61d3fdba94e002260468de48b30ec836ecfc376b3e",
+      "published_sha256": "34fba6ee16b5592a259bef1adf95b8c0d8e7f1329890f8c684a8d7acb30bae48",
+      "original_bytes": 766,
+      "published_bytes": 752
+    },
+    {
+      "path": "raw/control-fresh-no-thinking-execution.json",
+      "original_sha256": "9ab7762d7cca7a0f3bba765375d1b3d748910a56e1dbdf8f5ffb00ab1a6e0351",
+      "published_sha256": "e899c0eceb802ab72066bd9ff8f0f08d041491e09a9440ecaade19329c43cbd1",
+      "original_bytes": 9741,
+      "published_bytes": 9706
+    },
+    {
+      "path": "raw/control-fresh-no-thinking-probe.txt",
+      "original_sha256": "b81940a8c57fedf68fc92e7c6e8289f7764578cff672c72536091481d52479b5",
+      "published_sha256": "a0b7b5e486155e77a3ff3cd2b28d32772031e98aed20e71c21b4cfc049b4a40c",
+      "original_bytes": 543,
+      "published_bytes": 529
+    },
+    {
+      "path": "raw/control-fresh-no-thinking-server.txt",
+      "original_sha256": "dc6141877e8cf8e6f8b1f8358346afb6cdbf4ac3f71d33ce97409471e5412394",
+      "published_sha256": "ce6ae1eb55b56b1a741eb17a008732c0edd2dec2a99ceba96b03649011d76d48",
+      "original_bytes": 17966,
+      "published_bytes": 17952
+    },
+    {
+      "path": "raw/control-fresh-thinking-auto-driver.txt",
+      "original_sha256": "b84e177b41867e2292da0c69e92e439577e869d259db6d10c2a87c2e78133bf4",
+      "published_sha256": "e854335963b639949ff25199294bac2325e27e93b58eb2a7c2f08a8fd8c3847e",
+      "original_bytes": 327,
+      "published_bytes": 320
+    },
+    {
+      "path": "raw/control-fresh-thinking-auto-retry-execution.json",
+      "original_sha256": "075f2dd27c57b6899c07df0e72a8a321ab1e8a8a846befa061854b56f2f4cd1c",
+      "published_sha256": "9a29cca476499bd00ecca97a3d690c95b17ddc89421f65972fac25f2350b2468",
+      "original_bytes": 9736,
+      "published_bytes": 9701
+    },
+    {
+      "path": "raw/control-fresh-thinking-auto-retry-server.txt",
+      "original_sha256": "feb4c4ba4e4b5e9c2e3c4a0921c45aa10d8ff911d7721c90a4cd7ad396f0dde3",
+      "published_sha256": "02bf156957a847997c5fec163ed6987bedb00801c7b5c39c628987120771415e",
+      "original_bytes": 20042,
+      "published_bytes": 20028
+    },
+    {
+      "path": "raw/ctx8192-chat-r1-execution.json",
+      "original_sha256": "38b42ffc3ee5d13e27f8512d91e4e0c2b8ee9c8ba9aa3419a38bd0e4bdac2077",
+      "published_sha256": "d166ebd8f2888f57e81d7064491345330d26c042c041a7d2e3ae3b5af1a08784",
+      "original_bytes": 9180,
+      "published_bytes": 9159
+    },
+    {
+      "path": "raw/ctx8192-chat-r2-execution.json",
+      "original_sha256": "c6f28f5c7316e1eed6d640f40003320cba6292f7d9aad070f9c494492fc3c7ad",
+      "published_sha256": "badd5494e5bb71d2d76d7236b313140c856d7e1ecd1dc75bfc03aafbbd5b3614",
+      "original_bytes": 9178,
+      "published_bytes": 9157
+    },
+    {
+      "path": "raw/ctx8192-chat-r3-execution.json",
+      "original_sha256": "4af424264b5a7e30af70a62a5d419829b4fe4116b28c15c619efc3b884f30f6c",
+      "published_sha256": "b46f720543b596748fd43340ce95132511e699e39d955753d0836566d327053e",
+      "original_bytes": 9180,
+      "published_bytes": 9159
+    },
+    {
+      "path": "raw/ctx8192-chat-stream-r1-execution.json",
+      "original_sha256": "d178f93cbc88ed90a7afc5ec0af179928606e9789d5d6e57f10d594a52443e65",
+      "published_sha256": "921c30d3963c739d192f37c9766a259fd6ba06fafb2535f4dd08f46c2fe9e60c",
+      "original_bytes": 9241,
+      "published_bytes": 9220
+    },
+    {
+      "path": "raw/ctx8192-chat-stream-r2-execution.json",
+      "original_sha256": "0d786ba16be8b8d61472dcc5d9a1ebe691f45bdb4d3bf49903d71befc46fd01a",
+      "published_sha256": "117855331d2b68b5a42dec3ec26b84e9f38c91a575ffe3f0f62d56474eb7c37e",
+      "original_bytes": 9224,
+      "published_bytes": 9203
+    },
+    {
+      "path": "raw/ctx8192-chat-stream-r3-execution.json",
+      "original_sha256": "fa45257bba1a803dfc1376e9f6868cde48511526fa703553dbc5d17b8a07bf1c",
+      "published_sha256": "8ff02712ad46cf951be88c6a2e31a25d9a277533b6bf38ca3c22cc9f02cee28d",
+      "original_bytes": 9242,
+      "published_bytes": 9221
+    },
+    {
+      "path": "raw/ctx8192-chat-stream-warmup-execution.json",
+      "original_sha256": "5aa7466b1a20762376adf3cf28246f6693fb025fb18a475b9cf92756568eefb4",
+      "published_sha256": "38f7bcfd74ffa7c35173ed56d4f2d479da9aa1f4913763b4412ccc44fe7c00e5",
+      "original_bytes": 9249,
+      "published_bytes": 9228
+    },
+    {
+      "path": "raw/ctx8192-chat-warmup-execution.json",
+      "original_sha256": "c4c81191c79e51b231567d00618a670d56d8a3ceb1f7a9e301d82f103c4fa372",
+      "published_sha256": "8a5ce69df950e616c8cfa26351181ee7697d18309cccd576e018cb6baafd2a28",
+      "original_bytes": 9188,
+      "published_bytes": 9167
+    },
+    {
+      "path": "raw/ctx8192-driver.txt",
+      "original_sha256": "a20e65c94d0a8469ea8192d422d84eaabca75815f7508259297563eb966155fb",
+      "published_sha256": "823e782233af74eede7349ea3754a61cf91c408c9b4b3db549044017306ba575",
+      "original_bytes": 1841,
+      "published_bytes": 1820
+    },
+    {
+      "path": "raw/ctx8192-props.json",
+      "original_sha256": "3010256055f79cd4ef4c835450ba3c6ba25e6955ef178b37ac6360c7cb607ba9",
+      "published_sha256": "296493c6b953a1c04ecbd095ffcfe54b23a58b2a54973759d3f82c25a6fef502",
+      "original_bytes": 10734,
+      "published_bytes": 10727
+    },
+    {
+      "path": "raw/ctx8192-server-execution.json",
+      "original_sha256": "e953621f57f00319b7ba9d0a762099634974d581b5b6242af10f25e6ac251d7c",
+      "published_sha256": "e64a024661b5baa906a268f0ce853d26b26bcf047a57b007c78b76029238285e",
+      "original_bytes": 1085,
+      "published_bytes": 1071
+    },
+    {
+      "path": "raw/ctx8192-tool-warmup-execution.json",
+      "original_sha256": "314210be97d519afe6191b9c4781d270f2871556252054a737b8515fa5cc45df",
+      "published_sha256": "718bf4d29d373423a11e7e7b562dcab7c29cdaf704dc65f1d1fcda12de9e9949",
+      "original_bytes": 8986,
+      "published_bytes": 8965
+    },
+    {
+      "path": "raw/ctx8192-tool-warmup-probe.txt",
+      "original_sha256": "b81940a8c57fedf68fc92e7c6e8289f7764578cff672c72536091481d52479b5",
+      "published_sha256": "a0b7b5e486155e77a3ff3cd2b28d32772031e98aed20e71c21b4cfc049b4a40c",
+      "original_bytes": 543,
+      "published_bytes": 529
+    },
+    {
+      "path": "raw/lab32_runner-initial.py",
+      "original_sha256": "6d32cd08bcf0f8e1de3aca160e93c3d8209c912065e3b35360b0c840e7b7c10f",
+      "published_sha256": "6bff16ad37399732ff90063be0d81797960e2476c6f8044c17182f69ec674f8b",
+      "original_bytes": 21772,
+      "published_bytes": 21758
+    },
+    {
+      "path": "raw/lab32_runner.py",
+      "original_sha256": "6d32cd08bcf0f8e1de3aca160e93c3d8209c912065e3b35360b0c840e7b7c10f",
+      "published_sha256": "6bff16ad37399732ff90063be0d81797960e2476c6f8044c17182f69ec674f8b",
+      "original_bytes": 21772,
+      "published_bytes": 21758
+    },
+    {
+      "path": "raw/preflight-execution.json",
+      "original_sha256": "52e3cefa38fef5421b1de976ec1245a737c71119ca322396a78c584edf7a5f95",
+      "published_sha256": "dd1a5dccc67ba62eea166942dcaaba645e4a151df718f5b3954fa1212360e80e",
+      "original_bytes": 4821,
+      "published_bytes": 4800
+    },
+    {
+      "path": "raw/runtime-manifest.json",
+      "original_sha256": "adf2794efc3f4a1088872effee6ac65595c4c5b79d4f3cb9dc7a2d1b63e99641",
+      "published_sha256": "f274da4072acb57e851be2a4dc77f6c37690f2c0ee57e0d2b41e2af9c1a33d45",
+      "original_bytes": 1854,
+      "published_bytes": 1812
+    },
+    {
+      "path": "raw/server-8192.txt",
+      "original_sha256": "5aa660868d0ee7adc5242008c0e4c45d030a646da52e41c7a25d6462c38d255c",
+      "published_sha256": "f3e6e30c72701cd52e11a0fb3cc6482bdda1087a5c1518d78adbb4e030492847",
+      "original_bytes": 33626,
+      "published_bytes": 33605
+    },
+    {
+      "path": "raw/single-signal-execution.json",
+      "original_sha256": "d0d912e5e7f5f22ba85856a274a7242a86987d27f03c1afa0c9f4ebac6d2de58",
+      "published_sha256": "4d4582f88e36bbb648f870496acfabea7fe7b55be7a97124f568512012c8754a",
+      "original_bytes": 9079,
+      "published_bytes": 9065
+    },
+    {
+      "path": "raw/single-signal-server.txt",
+      "original_sha256": "13353f95d7990fccb96c75fc1fb43fab571d08aea5b8d0c84c59cf207e634ab6",
+      "published_sha256": "3da06d1f8782bcad1e6ab17db2237948bbabc13fe6ec90dc838cb56e3289fa7b",
+      "original_bytes": 17721,
+      "published_bytes": 17707
+    }
+  ]
+}
