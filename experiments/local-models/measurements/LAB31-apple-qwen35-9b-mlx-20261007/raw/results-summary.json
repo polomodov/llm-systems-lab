@@ -49,6 +49,8 @@
     "minimum": 2.66,
     "maximum": 2.76
   },
+  "context_tokens": null,
+  "context_unavailable_reason": "Hard context capacity not configured or verified; prompt42 is input length.",
   "prompt_tokens": 42,
   "output_tokens": 105,
   "identical_texts": true,

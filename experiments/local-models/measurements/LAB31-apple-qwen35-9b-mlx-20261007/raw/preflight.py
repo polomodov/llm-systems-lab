@@ -53,7 +53,7 @@ pins = json.loads((raw / 'source-pins.json').read_text())
 packages = {name:importlib.metadata.version(name) for name in ['mlx','mlx-metal','mlx-lm','transformers','tokenizers','huggingface-hub','numpy']}
 assert packages['mlx']=='0.32.3' and packages['mlx-metal']=='0.32.3' and packages['mlx-lm']=='0.32.0'
 provenance = {name:hashlib.sha256(pathlib.Path(__import__('mlx_lm.'+name,fromlist=['__file__']).__file__).read_bytes()).hexdigest() for name in ['utils','generate','server','models.qwen3_5']}
-runtime = dict(python=platform.python_version(), architecture=platform.machine(), packages=packages,
+runtime = dict(context_tokens=None, context_unavailable_reason='Hard context capacity not configured or verified in LAB31; prompt tokens are recorded separately.', python=platform.python_version(), architecture=platform.machine(), packages=packages,
     pins=pins, installed_module_sha256=provenance, model_path=str(model), model_revision=model.name,
     device=device_record, tokenizer=tokenizer_record, offline_environment={'HF_HUB_OFFLINE':'1','TRANSFORMERS_OFFLINE':'1','HF_HUB_DISABLE_TELEMETRY':'1'},
     sampling={'temperature':0,'seed':1,'max_tokens':128}, operator_memory_tuning=False,

@@ -12,6 +12,7 @@
 | Остальные зависимости | Transformers5.19.0, tokenizers0.23.2, huggingface-hub1.33.0, numpy2.5.3; [полный lock](raw/python-lock.txt), [wheel URL/hashes](raw/install-report.json) |
 | Artifact | mlx-community/Qwen3.5-9B-MLX-4bit @938d8919941c6e7efd3c7150eff7fe9d12afa631, affine4-bit/group64; два safetensors5950221072 bytes/5.541575GiB включают vision tensors |
 | Проверка артефакта | Все12 локальных файлов совпали с LAB29 SHA-256; [verification](raw/artifact-verification.json) |
+| Context capacity | Не установлена и не проверена; context_tokens=null в runtime/summary, пусто в TSV. Prompt42 — отдельная измеренная длина входа |
 | Template / sampling | enable_thinking=false, temp0, seed1, cap128, без persistent prompt cache/KV quantization; prompt42 tokens; effective EOS248046/im_end |
 | Memory / power | AC/powermode0, telemetry2s, free-page floor16GiB, peak ceiling24GiB; без operator tuning системных лимитов |
 | Harness / run IDs | Не применимы: аппаратный опыт, `run_ids=[]`; агент не запускался |
@@ -59,6 +60,8 @@ HTTP: один non-streaming functional smoke, wall **0.892s**, 42/64 tokens, le
 | Wired policy | Default MLX-LM временно ставит device recommendation в process-local limit | Это задокументированное default отличие; собственные limits оператор не задавал |
 
 ## Ошибки и ограничения
+
+Исправлена ошибка метаданных из review PR16: исходный TSV записывал prompt length42 в context_tokens. Runtime hard context capacity не задавалась и не измерялась, поэтому условие исправлено на пустое/null с причиной в manifest/runtime/summary. Prompt tokens остаются самостоятельной метрикой. [Erratum](raw/context-metadata-correction.json) и context-before-review snapshots сохраняют прежние derived artifacts; первичные outputs/metrics/telemetry не менялись.
 
 Первоначальный preflight ошибочно ожидал read-only mx.get_wired_limit, отсутствующий в0.32.3. [Failed source/log](raw/preflight-initial.py) и [traceback](raw/preflight-initial.txt) сохранены; отсутствие метрики исправлено на null с причиной. GPU/модель не объявлялись несовместимыми из-за этой диагностической ошибки. [Поведение wired limit](raw/wired-limit-source.txt) установлено по source; readback/restoration не измерены, setter для чтения не использовался. Это default runtime behavior, отклонение от строгой формулировки методички о wired tuning записано до исполнения.
 

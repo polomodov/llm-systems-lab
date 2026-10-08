@@ -20,7 +20,7 @@ summary = {metric:dict(values=[records[case][metric] for case in ['r1','r2','r3'
     median=statistics.median(records[case][metric] for case in ['r1','r2','r3']),
     minimum=min(records[case][metric] for case in ['r1','r2','r3']),
     maximum=max(records[case][metric] for case in ['r1','r2','r3'])) for metric in metrics}
-summary.update(prompt_tokens=42,output_tokens=105,
+summary.update(context_tokens=None,context_unavailable_reason='Hard context capacity not configured or verified; prompt42 is input length.',prompt_tokens=42,output_tokens=105,
     identical_texts=len({record['generated_text'] for record in records.values()})==1,
     swap_growth_bytes=0,server_status=server['chat_http_status'],server_usage=server['usage'],
     server_wall_seconds=server['chat_wall_seconds'],server_finish_reason=server['finish_reason'],
@@ -38,11 +38,11 @@ with (root/'measurements.tsv').open('w',newline='') as stream:
             ('process_max_rss',record['max_rss_bytes'],'bytes'),('process_wall',record['time_wall_seconds'],'seconds'),
             ('swap_delta',record['after']['swap_used_bytes']-json.loads((raw/(case+'-memory-before.json')).read_text())['swap_used_bytes'],'bytes')]
         for metric,value,unit in items:
-            writer.writerow([case+'-'+metric,'mlx-qwen35-chat','qwen35-9b-mlx-4bit','mlx-lm-0.32.0','metal',42,case[1:] if case.startswith('r') else '',metric,value,unit,'measured','raw/'+case+'-execution.json',''])
+            writer.writerow([case+'-'+metric,'mlx-qwen35-chat','qwen35-9b-mlx-4bit','mlx-lm-0.32.0','metal','',case[1:] if case.startswith('r') else '',metric,value,unit,'measured','raw/'+case+'-execution.json',''])
     for metric,value,unit in [('chat_http_status',server['chat_http_status'],'http-status'),
         ('chat_wall',server['chat_wall_seconds'],'seconds'),('output_tokens',server['usage']['completion_tokens'],'tokens'),
         ('runtime_peak_memory',server['runtime_peak_memory_bytes'],'bytes'),('process_max_rss',server['max_rss_bytes'],'bytes')]:
-        writer.writerow(['server-'+metric,'mlx-server-local','qwen35-9b-mlx-4bit','mlx-lm-0.32.0','metal',42,1,metric,value,unit,'measured','raw/server-execution.json',''])
+        writer.writerow(['server-'+metric,'mlx-server-local','qwen35-9b-mlx-4bit','mlx-lm-0.32.0','metal','',1,metric,value,unit,'measured','raw/server-execution.json',''])
 
 decode = summary['generation_tokens_per_second'];prefill = summary['prompt_tokens_per_second']
 peak_gib = summary['runtime_peak_memory_bytes']['maximum']/2**30
@@ -51,6 +51,7 @@ conclusion = f"Native MLX-LM0.32.0/MLX0.32.3 работает на M5 Max/macOS2
 manifest.update(status='completed',conclusion=conclusion,reviewer_decision=None)
 manifest['unavailable'] = {
     'conditions.harness_profile':'Native inference, без agent harness.',
+    'context_tokens':'Hard context capacity не задавалась и не проверялась; prompt42 — длина входа. TSV condition пусто, JSON null; architecture limit не выдаётся за runtime cap.',
     'source_conversion_revision':'Издатель MLX artifact не закрепил source commit/version mlx-vlm конверсии; неизвестно с LAB29.',
     'gpu_budget_gib':'Одна малая конфигурация не устанавливает максимальный безопасный memory budget.',
     'wired_limit_before':'MLX0.32.3 не предоставляет read-only get_wired_limit; setter для чтения не использовался. Поведение runtime известно по закреплённому source, readback не измерен.',
@@ -77,6 +78,7 @@ report = f'''# LAB31 — MLX-LM на M5 Max
 | Остальные зависимости | Transformers5.19.0, tokenizers0.23.2, huggingface-hub1.33.0, numpy2.5.3; [полный lock](raw/python-lock.txt), [wheel URL/hashes](raw/install-report.json) |
 | Artifact | mlx-community/Qwen3.5-9B-MLX-4bit @938d8919941c6e7efd3c7150eff7fe9d12afa631, affine4-bit/group64; два safetensors5950221072 bytes/5.541575GiB включают vision tensors |
 | Проверка артефакта | Все12 локальных файлов совпали с LAB29 SHA-256; [verification](raw/artifact-verification.json) |
+| Context capacity | Не установлена и не проверена; context_tokens=null в runtime/summary, пусто в TSV. Prompt42 — отдельная измеренная длина входа |
 | Template / sampling | enable_thinking=false, temp0, seed1, cap128, без persistent prompt cache/KV quantization; prompt42 tokens; effective EOS248046/im_end |
 | Memory / power | AC/powermode0, telemetry2s, free-page floor16GiB, peak ceiling24GiB; без operator tuning системных лимитов |
 | Harness / run IDs | Не применимы: аппаратный опыт, `run_ids=[]`; агент не запускался |
@@ -121,6 +123,8 @@ HTTP: один non-streaming functional smoke, wall **{server['chat_wall_seconds
 | Wired policy | Default MLX-LM временно ставит device recommendation в process-local limit | Это задокументированное default отличие; собственные limits оператор не задавал |
 
 ## Ошибки и ограничения
+
+Исправлена ошибка метаданных из review PR16: исходный TSV записывал prompt length42 в context_tokens. Runtime hard context capacity не задавалась и не измерялась, поэтому условие исправлено на пустое/null с причиной в manifest/runtime/summary. Prompt tokens остаются самостоятельной метрикой. [Erratum](raw/context-metadata-correction.json) и context-before-review snapshots сохраняют прежние derived artifacts; первичные outputs/metrics/telemetry не менялись.
 
 Первоначальный preflight ошибочно ожидал read-only mx.get_wired_limit, отсутствующий в0.32.3. [Failed source/log](raw/preflight-initial.py) и [traceback](raw/preflight-initial.txt) сохранены; отсутствие метрики исправлено на null с причиной. GPU/модель не объявлялись несовместимыми из-за этой диагностической ошибки. [Поведение wired limit](raw/wired-limit-source.txt) установлено по source; readback/restoration не измерены, setter для чтения не использовался. Это default runtime behavior, отклонение от строгой формулировки методички о wired tuning записано до исполнения.
 

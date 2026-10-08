@@ -13,6 +13,20 @@
       "published_bytes": 12378
     },
     {
+      "path": "raw/context-before-review-preflight.py",
+      "original_sha256": "1b526ba5920511a9e142ce96b7dcf2366d4a6f5d37838e3e9911f91012265968",
+      "published_sha256": "9a143d6bc02e9fb5eb993da4fd0483ec465cced70c8c6b319e7df94d8318b408",
+      "original_bytes": 5330,
+      "published_bytes": 5323
+    },
+    {
+      "path": "raw/context-before-review-runtime-manifest.json",
+      "original_sha256": "8e9eb6656b9e86f7047bce2ad5b64ce95f99dea621bc137e2ea87b02cc53cf18",
+      "published_sha256": "f1c9ac1243d4ec7ec2f5aad8d6d49f0d499fa232a9a2a3665c27a33de8867ffb",
+      "original_bytes": 3768,
+      "published_bytes": 3754
+    },
+    {
       "path": "raw/install.txt",
       "original_sha256": "11dda51b400cad98660eda3b904187d732b96fe6b733b144802c88ea461b3c57",
       "published_sha256": "de39b96340edf9b45489953fae8cf676ff9c8e79aad9dbe13e6b95cba01e1723",
@@ -35,10 +49,10 @@
     },
     {
       "path": "raw/preflight.py",
-      "original_sha256": "1b526ba5920511a9e142ce96b7dcf2366d4a6f5d37838e3e9911f91012265968",
-      "published_sha256": "9a143d6bc02e9fb5eb993da4fd0483ec465cced70c8c6b319e7df94d8318b408",
-      "original_bytes": 5330,
-      "published_bytes": 5323
+      "original_sha256": "6f066d16276d6d44f1e1583be467b4355edd341fbd286d84b1b0eb290bc60700",
+      "published_sha256": "a832bd3e9f984389aad1affa2bd3dfb3ee764f612cdcb61291fe0c0124f534b9",
+      "original_bytes": 5479,
+      "published_bytes": 5472
     },
     {
       "path": "raw/r1-device.json",
@@ -98,10 +112,10 @@
     },
     {
       "path": "raw/runtime-manifest.json",
-      "original_sha256": "8e9eb6656b9e86f7047bce2ad5b64ce95f99dea621bc137e2ea87b02cc53cf18",
-      "published_sha256": "f1c9ac1243d4ec7ec2f5aad8d6d49f0d499fa232a9a2a3665c27a33de8867ffb",
-      "original_bytes": 3768,
-      "published_bytes": 3754
+      "original_sha256": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7",
+      "published_sha256": "ac301752ec840344d0358f39f0c0a8333068297ccbbdbc7b1c852c790b1dca5d",
+      "original_bytes": 4099,
+      "published_bytes": 4085
     },
     {
       "path": "raw/server-chat-request.json",

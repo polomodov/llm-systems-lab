@@ -122,5 +122,7 @@
   },
   "operator_memory_tuning": false,
   "runtime_wired_policy": "Unmodified mlx-lm generate.wired_limit: process-local device recommendation, restored after generation",
-  "comparison": "MLX4-bit VLM artifact text-only vs GGUF Q6_K synthetic llama-bench: distinct deployments/inputs"
+  "comparison": "MLX4-bit VLM artifact text-only vs GGUF Q6_K synthetic llama-bench: distinct deployments/inputs",
+  "context_tokens": null,
+  "context_unavailable_reason": "Hard context capacity не задавалась и не проверялась в LAB31; prompt42 означает длину входа, не runtime context limit. Architecture max_position_embeddings не подставляется как проверенный cap."
 }
