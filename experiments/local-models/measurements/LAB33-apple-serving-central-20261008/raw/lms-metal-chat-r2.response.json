@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-nbvxcih0hshy24atzj9ird",
+  "object": "chat.completion",
+  "created": 1791463254,
+  "model": "lab-apple-qwen35-9b-q6-k",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no punctuation, no newlines unless part of the string (but usually implies just the string).\n    *   Language: Russian instruction, but the required output is English (\"LAB_READY\").\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for \"LAB_READY\".\n    *   They emphasized \"ровно\" (exactly) and \"без пояснений\" (without explanations).\n\n3.  **Formulate the Response:**\n    *   String: LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the constraint? Yes.\n    *   Is there any extra whitespace or text? No.\n\n5.  **Execute:** Output \"LAB_READY\".ot\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 215,
+    "total_tokens": 234,
+    "completion_tokens_details": {
+      "reasoning_tokens": 210
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-apple-qwen35-9b-q6-k"
+}

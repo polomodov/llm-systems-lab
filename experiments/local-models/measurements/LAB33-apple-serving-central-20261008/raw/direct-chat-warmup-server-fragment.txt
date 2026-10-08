@@ -1,0 +1,17 @@
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1 | processing task, is_child = 0
+slot update_slots: id  0 | task 1 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 19
+slot update_slots: id  0 | task 1 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1 | prompt processing progress, n_tokens = 15, batch.n_tokens = 15, progress = 0.789474
+slot update_slots: id  0 | task 1 | n_tokens = 15, memory_seq_rm [15, end)
+slot init_sampler: id  0 | task 1 | init sampler, took 0.00 ms, tokens: text = 19, total = 19
+slot update_slots: id  0 | task 1 | prompt processing done, n_tokens = 19, batch.n_tokens = 4
+slot print_timing: id  0 | task 1 | 
+prompt eval time =      54.11 ms /    19 tokens (    2.85 ms per token,   351.15 tokens per second)
+       eval time =    3741.61 ms /   242 tokens (   15.46 ms per token,    64.68 tokens per second)
+      total time =    3795.72 ms /   261 tokens
+slot      release: id  0 | task 1 | stop processing: n_tokens = 260, truncated = 0
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200

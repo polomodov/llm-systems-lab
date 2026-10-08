@@ -1,0 +1,61 @@
+{
+  "path": "/Users/lab/.lmstudio/extensions/backends/mlx-llm-mac-arm64-apple-metal-nax-advsimd-1.13.1",
+  "manifest": {
+    "cpu": {
+      "architecture": "ARM64",
+      "instruction_set_extensions": [
+        "AdvSIMD"
+      ]
+    },
+    "domains": [
+      "llm"
+    ],
+    "engine": "mlx-llm",
+    "extension_type": "engine",
+    "gpu": {
+      "make": "Apple",
+      "framework": "Metal",
+      "targets": [
+        "M5"
+      ]
+    },
+    "manifest_version": "4",
+    "minimum_llmster_version": "0.0.2+2",
+    "minimum_lmstudio_version": "0.4.2+2",
+    "minimum_macosx_version": "26.2.0",
+    "name": "mlx-llm-mac-arm64-apple-metal-nax-advsimd",
+    "platform": "mac",
+    "supported_model_formats": [
+      "safetensors"
+    ],
+    "target_libraries": [
+      {
+        "name": "liblmstudio_bindings.node",
+        "type": "liblmstudio",
+        "version": "0.2.26"
+      },
+      {
+        "name": "llm_engine_mlx_amphibian.node",
+        "type": "llm_engine",
+        "version": "0.1.2"
+      }
+    ],
+    "vendor_lib_package_names": [
+      "_amphibian/app-mlx-generate-mac26-arm64@38",
+      "_amphibian/cpython3.11-mac-arm64@10"
+    ],
+    "version": "1.13.1"
+  },
+  "files": {
+    "liblmstudio_bindings.node": "d271c42606dc5fc5a9488d4d0aae2ca362fd155cf0ee916f34add644246aa7ec",
+    "llm_engine_mlx_amphibian.node": "455cc9c3758fb4b631c1b5314dbbda61dd7e4a72682dc8ddf1878b5e433f9c3b",
+    "backend-manifest.json": "fb0d0c5b286a39a25c5799a99b4af8971b01696c2d2833ea0b90d107776cf5dc",
+    "libllm_engine.dylib": "6460f61a4ce2387f48ba3344cd2b7fade83b6ea6bdcfce43c631bcca6e99858d",
+    "display-data.json": "8f141be85710488ec42ea47b497ef5be7bb45850e315f5693ad91fd9db381c6c"
+  },
+  "selected_inventory": "LLM ENGINE                                          SELECTED    MODEL FORMAT\nllama.cpp-mac-arm64-apple-metal-advsimd@2.54.0         ✓            GGUF    \nllama.cpp-mac-arm64-apple-metal-advsimd@2.41.0                      GGUF    \nmlx-llm-mac-arm64-apple-metal-advsimd@1.11.0                        MLX     \nmlx-llm-mac-arm64-apple-metal-nax-advsimd@1.13.1       ✓            MLX     \n",
+  "reasoning": "native default; requested effort omitted as unsupported/unverified",
+  "kv_cache_dtype": null,
+  "cache_policy": null,
+  "unavailable": "CLI does not pin all KV/cache/default-reasoning parameters; actual logs retained"
+}

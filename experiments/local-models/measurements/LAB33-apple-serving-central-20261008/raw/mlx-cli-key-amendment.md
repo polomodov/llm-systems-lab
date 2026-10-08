@@ -1,0 +1,3 @@
+# До повторной MLX загрузки: фактический CLI modelKey
+
+CLI load не принял indexedModelIdentifier mlx-community/Qwen3.5-9B-MLX-4bit и вернул Model not found. Вес не загружался; это ошибка выбораCLI, не GPU incompatibility. Failed startup/not-run и exact controller сохранены lms-mlx-selector-*. Inventory показывает отдельный однозначный modelKey=qwen3.5-9b-mlx для safetensors, GGUF=qwen3.5-9b. Новые20 попыток регистрируются с теми же научными условиями/cache-aware guard и входами; load использует этот actual modelKey. После load обязательно сверить ps format,path,contextLength8192,parallel1 с выбранным artifact; alias q6-k не считается идентичностью. Никаких fallback на GGUF.

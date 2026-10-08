@@ -1,0 +1,37 @@
+{
+  "id": "chatcmpl-536",
+  "object": "chat.completion",
+  "created": 1791463089,
+  "model": "lab-apple-qwen35-9b-q6-k",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning": "The user is asking me to call the lookup_lab_value function with the key \"alpha\" and return only the value from the result. I need to use the lookup_lab_value function with the parameter key=\"alpha\".\n",
+        "tool_calls": [
+          {
+            "id": "PQBAfxdfX0leQdRbYMKVikAWE35y2dvW",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 308,
+    "prompt_tokens_details": {
+      "cached_tokens": 304
+    },
+    "completion_tokens": 73,
+    "total_tokens": 381
+  }
+}

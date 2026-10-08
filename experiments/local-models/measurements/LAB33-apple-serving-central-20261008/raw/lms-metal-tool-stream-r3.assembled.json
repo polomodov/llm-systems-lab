@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "ClQ3MofDpaSGRb9TMpq0norWlLDdOf0F",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user wants me to call the lookup_lab_value function with the key \"alpha\" and return only the value from the result. I need to use the tool with the specified parameter.\n\nLooking at the function definition:\n- Function name: lookup_lab_value\n- Required parameter: key (string, enum with values [\"alpha\"])\n- The user wants me to call it with key=\"alpha\"\n\nI'll make the function call and then return only the value from the result.\n"
+}

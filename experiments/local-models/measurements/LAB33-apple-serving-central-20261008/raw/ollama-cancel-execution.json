@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-08T12:38:21.697194+00:00",
+  "command": [
+    "curl",
+    "--noproxy",
+    "*",
+    "--max-time",
+    "1",
+    "-sS",
+    "-N",
+    "http://127.0.0.1:11435/v1/chat/completions",
+    "-H",
+    "Content-Type: application/json",
+    "--data-binary",
+    "@/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/ollama-cancel-request.json"
+  ],
+  "exit_code": 28,
+  "duration_s": 1.0493831659999984,
+  "done_received": false,
+  "cancellation_log": true,
+  "gpu_slot_release_seconds": null,
+  "gpu_slot_release_unavailable": "Ollama API не предоставляет проверенного slot monitor; cancellation log не измеряет освобождение GPU.",
+  "accepted": true
+}

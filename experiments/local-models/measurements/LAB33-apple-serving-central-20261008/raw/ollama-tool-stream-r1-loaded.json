@@ -1,0 +1,27 @@
+{
+  "http_status": 200,
+  "body": {
+    "models": [
+      {
+        "name": "lab-apple-qwen35-9b-q6-k:latest",
+        "model": "lab-apple-qwen35-9b-q6-k:latest",
+        "size": 7986699304,
+        "digest": "230ee9a1d7aeb1b58b8b2dd25b056ea0cb6f20ffcb66638ec6ef036829d8fbc2",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "qwen35",
+          "families": [
+            "qwen35"
+          ],
+          "parameter_size": "9.0B",
+          "quantization_level": "Q6_K"
+        },
+        "expires_at": "2026-10-08T13:48:15.684875+01:00",
+        "size_vram": 7986699304,
+        "context_length": 8192,
+        "runner": "llamacpp"
+      }
+    ]
+  }
+}

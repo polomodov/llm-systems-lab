@@ -1,0 +1,214 @@
+{
+  "started_at": "2026-10-08T13:56:07.232774+00:00",
+  "app_pid": 303,
+  "runtime_log_command": [
+    "lms",
+    "log",
+    "stream",
+    "--source",
+    "runtime",
+    "--json"
+  ],
+  "resources_before": {
+    "timestamp": "2026-10-08T13:56:07.232793+00:00",
+    "commands": {
+      "vm_stat": {
+        "argv": [
+          "vm_stat"
+        ],
+        "returncode": 0,
+        "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                   696720.\nPages active:                                3588504.\nPages inactive:                              2859129.\nPages speculative:                            729541.\nPages throttled:                                   0.\nPages wired down:                             368935.\nPages purgeable:                               86888.\n\"Translation faults\":                     2112441408.\nPages copy-on-write:                        44070109.\nPages zero filled:                        2050661207.\nPages reactivated:                            860467.\nPages purged:                                3417843.\nFile-backed pages:                           2582960.\nAnonymous pages:                             4594213.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    15824319.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 166731.\nPages tagged resident:                        166731.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 6628.\nPages tag-storage free:                        19635.\nPages tag-storage non-tag pageable:           235873.\nPages tag-storage non-tag wired:                   8.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+        "stderr": ""
+      },
+      "swap": {
+        "argv": [
+          "sysctl",
+          "vm.swapusage"
+        ],
+        "returncode": 0,
+        "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+        "stderr": ""
+      },
+      "pressure": {
+        "argv": [
+          "memory_pressure",
+          "-Q"
+        ],
+        "returncode": 0,
+        "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 95%\n",
+        "stderr": ""
+      },
+      "power_source": {
+        "argv": [
+          "pmset",
+          "-g",
+          "batt"
+        ],
+        "returncode": 0,
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+        "stderr": ""
+      },
+      "power_mode": {
+        "argv": [
+          "pmset",
+          "-g",
+          "custom"
+        ],
+        "returncode": 0,
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "stderr": ""
+      }
+    },
+    "free_pages_bytes": 11415060480,
+    "swap_used_bytes": 0,
+    "on_ac_power": true,
+    "ac_power_mode": 0,
+    "speculative_pages_bytes": 11952799744,
+    "free_speculative_bytes": 23367860224,
+    "pressure_free_percentage": 95,
+    "resource_condition": "free+speculative>=16GiB;pressure-free>=50%;swap0;AC/powermode0;app treeRSS<=24GiB"
+  },
+  "commands": [
+    {
+      "command": [
+        "lms",
+        "runtime",
+        "ls"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-startup-runtimes.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "ls",
+        "--json"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-startup-models.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "load",
+        "qwen3.5-9b-mlx",
+        "--identifier",
+        "lab-apple-qwen35-9b-q6-k",
+        "--context-length",
+        "8192",
+        "--parallel",
+        "1",
+        "--gpu",
+        "max",
+        "--ttl",
+        "600",
+        "--yes"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-startup-load.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "ps",
+        "--json"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-startup-loaded.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "server",
+        "start",
+        "--port",
+        "1234",
+        "--bind",
+        "127.0.0.1"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-startup-server.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "unload",
+        "lab-apple-qwen35-9b-q6-k"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-mlx-shutdown-unload.txt"
+    },
+    {
+      "command": [
+        "lms",
+        "server",
+        "stop"
+      ],
+      "returncode": 1,
+      "evidence": "raw/lms-mlx-shutdown-server.txt"
+    }
+  ],
+  "ended_at": "2026-10-08T13:56:31.773375+00:00",
+  "error": "shutdown-server failed",
+  "guard_reason": "Memory/power guard failed",
+  "resources_after": {
+    "timestamp": "2026-10-08T13:56:31.773434+00:00",
+    "commands": {
+      "vm_stat": {
+        "argv": [
+          "vm_stat"
+        ],
+        "returncode": 0,
+        "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  1052156.\nPages active:                                3334963.\nPages inactive:                              2986292.\nPages speculative:                            518895.\nPages throttled:                                   0.\nPages wired down:                             353098.\nPages purgeable:                               93293.\n\"Translation faults\":                     2115322372.\nPages copy-on-write:                        44119246.\nPages zero filled:                        2053026941.\nPages reactivated:                            860754.\nPages purged:                                3419131.\nFile-backed pages:                           2471150.\nAnonymous pages:                             4369000.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    16183870.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 167003.\nPages tagged resident:                        167003.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 6628.\nPages tag-storage free:                        17146.\nPages tag-storage non-tag pageable:           238362.\nPages tag-storage non-tag wired:                   8.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+        "stderr": ""
+      },
+      "swap": {
+        "argv": [
+          "sysctl",
+          "vm.swapusage"
+        ],
+        "returncode": 0,
+        "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+        "stderr": ""
+      },
+      "pressure": {
+        "argv": [
+          "memory_pressure",
+          "-Q"
+        ],
+        "returncode": 0,
+        "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 95%\n",
+        "stderr": ""
+      },
+      "power_source": {
+        "argv": [
+          "pmset",
+          "-g",
+          "batt"
+        ],
+        "returncode": 0,
+        "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+        "stderr": ""
+      },
+      "power_mode": {
+        "argv": [
+          "pmset",
+          "-g",
+          "custom"
+        ],
+        "returncode": 0,
+        "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+        "stderr": ""
+      }
+    },
+    "free_pages_bytes": 17238523904,
+    "swap_used_bytes": 0,
+    "on_ac_power": true,
+    "ac_power_mode": 0,
+    "speculative_pages_bytes": 8501575680,
+    "free_speculative_bytes": 25740099584,
+    "pressure_free_percentage": 95,
+    "resource_condition": "free+speculative>=16GiB;pressure-free>=50%;swap0;AC/powermode0;app treeRSS<=24GiB"
+  },
+  "models_after": []
+}
