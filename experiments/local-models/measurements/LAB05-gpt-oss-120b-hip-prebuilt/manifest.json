@@ -437,6 +437,7 @@
     "raw/context-16384-memory-after.txt",
     "raw/context-16384-memory-before.txt",
     "raw/context-16384-process.txt",
+    "raw/context-16384-swap-delta.json",
     "raw/context-16384-vmstat-after.txt",
     "raw/context-16384-vmstat-before.txt",
     "raw/context-16384-vmstat-pid.txt",
@@ -447,6 +448,7 @@
     "raw/context-32768-memory-after.txt",
     "raw/context-32768-memory-before.txt",
     "raw/context-32768-process.txt",
+    "raw/context-32768-swap-delta.json",
     "raw/context-32768-vmstat-after.txt",
     "raw/context-32768-vmstat-before.txt",
     "raw/context-32768-vmstat-pid.txt",
@@ -457,6 +459,7 @@
     "raw/context-8192-memory-after.txt",
     "raw/context-8192-memory-before.txt",
     "raw/context-8192-process.txt",
+    "raw/context-8192-swap-delta.json",
     "raw/context-8192-vmstat-after.txt",
     "raw/context-8192-vmstat-before.txt",
     "raw/context-8192-vmstat-pid.txt",
@@ -736,6 +739,6 @@
     "conditions.harness_profile": "LAB05 queries the model directly via HTTP; no harness.",
     "streaming_usage_tokens": "usage is null for streaming (no stream_options.include_usage); recorded as usage_tokens_present=0."
   },
-  "conclusion": "gpt-oss-120b completes the full LAB05 matrix at 8K/16K/32K on ROCm/HIP: 24/24 HTTP cases pass, long-context returns LAB_SENTINEL_42 at 4093/12283/28669 tokens, overflow HTTP 400, cancel exit 28, recovery LAB_READY, offline allowlist 4/4. Bench tg128 36.32/27.36/14.61 t/s (8K→32K drop 60%). RSS stable ~62.3 GiB. See report.md.",
+  "conclusion": "gpt-oss-120b completes the full LAB05 matrix at 8K/16K/32K on ROCm/HIP: 24/24 HTTP cases pass, long-context returns LAB_SENTINEL_42 at 4093/12283/28669 tokens, overflow HTTP 400, cancel exit 28, recovery LAB_READY, offline allowlist 4/4. Bench tg128 36.32/27.36/14.61 t/s (8K→32K drop 60%). RSS stable ~59.4 GiB (max 62 265 000 KiB). See report.md.",
   "reviewer_decision": null
 }
