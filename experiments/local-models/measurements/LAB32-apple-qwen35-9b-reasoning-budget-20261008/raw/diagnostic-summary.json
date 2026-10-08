@@ -1,0 +1,829 @@
+{
+  "status": "completed",
+  "conclusion": "Диагностический план завершён: budget128 прошёл long+short fixtures, budget512 не получил диагностического допуска. Исходная LAB32 остаётся blocked; полного32K protocol admission нет.",
+  "context_tokens": 32768,
+  "input_tokens": 28670,
+  "output_cap": 2048,
+  "server_reasoning_budget": -1,
+  "request_reasoning_budgets": [
+    null,
+    128,
+    512
+  ],
+  "case_statistics": {
+    "control-long": {
+      "attempted": 4,
+      "successful": 0,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 0,
+      "median_seconds": 71.172696542,
+      "min_seconds": 70.70942962500001,
+      "max_seconds": 76.818153,
+      "measured_output_tokens": [
+        2048,
+        2048,
+        2048
+      ],
+      "finish_reasons": [
+        "length",
+        "length",
+        "length"
+      ],
+      "condition_pass": false
+    },
+    "budget128-long": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 31.647578834,
+      "min_seconds": 31.548555208,
+      "max_seconds": 35.24902,
+      "measured_output_tokens": [
+        137,
+        137,
+        137
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget512-long": {
+      "attempted": 4,
+      "successful": 0,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 0,
+      "median_seconds": 45.765885792,
+      "min_seconds": 45.699286625,
+      "max_seconds": 50.205305958,
+      "measured_output_tokens": [
+        804,
+        804,
+        804
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": false
+    },
+    "budget128-chat": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.430599875,
+      "min_seconds": 2.429014125,
+      "max_seconds": 2.438219084,
+      "measured_output_tokens": [
+        132,
+        132,
+        132
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget128-chat-stream": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.394356708,
+      "min_seconds": 2.344664958,
+      "max_seconds": 2.413474541,
+      "measured_output_tokens": [
+        132,
+        132,
+        132
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget128-tool": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.685180667,
+      "min_seconds": 2.6428639179999998,
+      "max_seconds": 2.735446125,
+      "measured_output_tokens": [
+        73,
+        73,
+        73
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget128-tool-stream": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.5926716250000004,
+      "min_seconds": 2.5373405,
+      "max_seconds": 2.603413667,
+      "measured_output_tokens": [
+        73,
+        73,
+        73
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget512-chat": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 4.288719083,
+      "min_seconds": 4.271077708,
+      "max_seconds": 4.306985375,
+      "measured_output_tokens": [
+        242,
+        242,
+        242
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget512-chat-stream": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 4.288424333999999,
+      "min_seconds": 4.268542875,
+      "max_seconds": 4.295972625,
+      "measured_output_tokens": [
+        242,
+        242,
+        242
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget512-tool": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.565397418,
+      "min_seconds": 2.5472667920000003,
+      "max_seconds": 2.579437626,
+      "measured_output_tokens": [
+        73,
+        73,
+        73
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    },
+    "budget512-tool-stream": {
+      "attempted": 4,
+      "successful": 4,
+      "measured_repeats": 3,
+      "successful_measured_repeats": 3,
+      "median_seconds": 2.548340708,
+      "min_seconds": 2.542421167,
+      "max_seconds": 2.551117583,
+      "measured_output_tokens": [
+        73,
+        73,
+        73
+      ],
+      "finish_reasons": [
+        "stop",
+        "stop",
+        "stop"
+      ],
+      "condition_pass": true
+    }
+  },
+  "diagnostic_condition_admission": {
+    "budget128": true,
+    "budget512": false
+  },
+  "full_lab32_admission": false,
+  "outcomes": [
+    {
+      "case": "ctx32768-control-long-warmup",
+      "condition": "control",
+      "kind": "long",
+      "repeat": "warmup",
+      "accepted": false,
+      "duration_seconds": 62.968665083999994,
+      "completion_tokens": 2048,
+      "finish_reason": "length",
+      "final_content": "",
+      "reasoning_characters": 7008,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-long-warmup",
+      "condition": "budget128",
+      "kind": "long",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 31.042597542,
+      "completion_tokens": 137,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42",
+      "reasoning_characters": 473,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget512-long-warmup",
+      "condition": "budget512",
+      "kind": "long",
+      "repeat": "warmup",
+      "accepted": false,
+      "duration_seconds": 45.007133708,
+      "completion_tokens": 804,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42.`\n\nWait, I should check if there are any hidden instructions or if I need to be careful about the period.\nThe line is: `Контрольное значение: LAB_SENTINEL_42.`\nThe value is `LAB_SENTINEL_42`.\nThe instruction says \"Return only the control value\".\nSo I will output `LAB_SENTINEL_42`.\n\nLet's double check if I should include the period. Usually, values don't include the punctuation unless it's part of the value. `LAB_SENTINEL_42` looks like a variable or string identifier. The period ends the sentence.\nI will output `LAB_SENTINEL_42`.\n\nWait, re-reading the prompt: \"Верни только контрольное значение из первой строки.\"\nFirst line content: `Контрольное значение: LAB_SENTINEL_42.`\nValue: `LAB_SENTINEL_42`\n\nI will provide just that.\n\nOne more consideration: Sometimes \"first line\" refers to the very first line of the input provided.\nInput starts with: `Контрольное значение: LAB_SENTINEL_42.`\nSo the value is indeed `LAB_SENTINEL_42`.\n\nFinal decision: Output `LAB_SENTINEL_42`.\n</think>\n\nLAB_SENTINEL_42",
+      "reasoning_characters": 1937,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-control-long-r1",
+      "condition": "control",
+      "kind": "long",
+      "repeat": "r1",
+      "accepted": false,
+      "duration_seconds": 70.70942962500001,
+      "completion_tokens": 2048,
+      "finish_reason": "length",
+      "final_content": "",
+      "reasoning_characters": 7008,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-long-r1",
+      "condition": "budget128",
+      "kind": "long",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 31.548555208,
+      "completion_tokens": 137,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42",
+      "reasoning_characters": 473,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget512-long-r1",
+      "condition": "budget512",
+      "kind": "long",
+      "repeat": "r1",
+      "accepted": false,
+      "duration_seconds": 45.699286625,
+      "completion_tokens": 804,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42.`\n\nWait, I should check if there are any hidden instructions or if I need to be careful about the period.\nThe line is: `Контрольное значение: LAB_SENTINEL_42.`\nThe value is `LAB_SENTINEL_42`.\nThe instruction says \"Return only the control value\".\nSo I will output `LAB_SENTINEL_42`.\n\nLet's double check if I should include the period. Usually, values don't include the punctuation unless it's part of the value. `LAB_SENTINEL_42` looks like a variable or string identifier. The period ends the sentence.\nI will output `LAB_SENTINEL_42`.\n\nWait, re-reading the prompt: \"Верни только контрольное значение из первой строки.\"\nFirst line content: `Контрольное значение: LAB_SENTINEL_42.`\nValue: `LAB_SENTINEL_42`\n\nI will provide just that.\n\nOne more consideration: Sometimes \"first line\" refers to the very first line of the input provided.\nInput starts with: `Контрольное значение: LAB_SENTINEL_42.`\nSo the value is indeed `LAB_SENTINEL_42`.\n\nFinal decision: Output `LAB_SENTINEL_42`.\n</think>\n\nLAB_SENTINEL_42",
+      "reasoning_characters": 1937,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-control-long-r2",
+      "condition": "control",
+      "kind": "long",
+      "repeat": "r2",
+      "accepted": false,
+      "duration_seconds": 71.172696542,
+      "completion_tokens": 2048,
+      "finish_reason": "length",
+      "final_content": "",
+      "reasoning_characters": 7008,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-long-r2",
+      "condition": "budget128",
+      "kind": "long",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 31.647578834,
+      "completion_tokens": 137,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42",
+      "reasoning_characters": 473,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget512-long-r2",
+      "condition": "budget512",
+      "kind": "long",
+      "repeat": "r2",
+      "accepted": false,
+      "duration_seconds": 45.765885792,
+      "completion_tokens": 804,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42.`\n\nWait, I should check if there are any hidden instructions or if I need to be careful about the period.\nThe line is: `Контрольное значение: LAB_SENTINEL_42.`\nThe value is `LAB_SENTINEL_42`.\nThe instruction says \"Return only the control value\".\nSo I will output `LAB_SENTINEL_42`.\n\nLet's double check if I should include the period. Usually, values don't include the punctuation unless it's part of the value. `LAB_SENTINEL_42` looks like a variable or string identifier. The period ends the sentence.\nI will output `LAB_SENTINEL_42`.\n\nWait, re-reading the prompt: \"Верни только контрольное значение из первой строки.\"\nFirst line content: `Контрольное значение: LAB_SENTINEL_42.`\nValue: `LAB_SENTINEL_42`\n\nI will provide just that.\n\nOne more consideration: Sometimes \"first line\" refers to the very first line of the input provided.\nInput starts with: `Контрольное значение: LAB_SENTINEL_42.`\nSo the value is indeed `LAB_SENTINEL_42`.\n\nFinal decision: Output `LAB_SENTINEL_42`.\n</think>\n\nLAB_SENTINEL_42",
+      "reasoning_characters": 1937,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-control-long-r3",
+      "condition": "control",
+      "kind": "long",
+      "repeat": "r3",
+      "accepted": false,
+      "duration_seconds": 76.818153,
+      "completion_tokens": 2048,
+      "finish_reason": "length",
+      "final_content": "",
+      "reasoning_characters": 7008,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-long-r3",
+      "condition": "budget128",
+      "kind": "long",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 35.24902,
+      "completion_tokens": 137,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42",
+      "reasoning_characters": 473,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget512-long-r3",
+      "condition": "budget512",
+      "kind": "long",
+      "repeat": "r3",
+      "accepted": false,
+      "duration_seconds": 50.205305958,
+      "completion_tokens": 804,
+      "finish_reason": "stop",
+      "final_content": "LAB_SENTINEL_42.`\n\nWait, I should check if there are any hidden instructions or if I need to be careful about the period.\nThe line is: `Контрольное значение: LAB_SENTINEL_42.`\nThe value is `LAB_SENTINEL_42`.\nThe instruction says \"Return only the control value\".\nSo I will output `LAB_SENTINEL_42`.\n\nLet's double check if I should include the period. Usually, values don't include the punctuation unless it's part of the value. `LAB_SENTINEL_42` looks like a variable or string identifier. The period ends the sentence.\nI will output `LAB_SENTINEL_42`.\n\nWait, re-reading the prompt: \"Верни только контрольное значение из первой строки.\"\nFirst line content: `Контрольное значение: LAB_SENTINEL_42.`\nValue: `LAB_SENTINEL_42`\n\nI will provide just that.\n\nOne more consideration: Sometimes \"first line\" refers to the very first line of the input provided.\nInput starts with: `Контрольное значение: LAB_SENTINEL_42.`\nSo the value is indeed `LAB_SENTINEL_42`.\n\nFinal decision: Output `LAB_SENTINEL_42`.\n</think>\n\nLAB_SENTINEL_42",
+      "reasoning_characters": 1937,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-warmup",
+      "condition": "budget128",
+      "kind": "chat",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.556903667,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-r1",
+      "condition": "budget128",
+      "kind": "chat",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.438219084,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-r2",
+      "condition": "budget128",
+      "kind": "chat",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.430599875,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-r3",
+      "condition": "budget128",
+      "kind": "chat",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.429014125,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-stream-warmup",
+      "condition": "budget128",
+      "kind": "chat-stream",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.406468958,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-stream-r1",
+      "condition": "budget128",
+      "kind": "chat-stream",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.413474541,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-stream-r2",
+      "condition": "budget128",
+      "kind": "chat-stream",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.344664958,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-chat-stream-r3",
+      "condition": "budget128",
+      "kind": "chat-stream",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.394356708,
+      "completion_tokens": 132,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 511,
+      "forced_end_sequence_complete": true
+    },
+    {
+      "case": "ctx32768-budget128-tool-warmup",
+      "condition": "budget128",
+      "kind": "tool",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.713977333,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-r1",
+      "condition": "budget128",
+      "kind": "tool",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.735446125,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-r2",
+      "condition": "budget128",
+      "kind": "tool",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.685180667,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-r3",
+      "condition": "budget128",
+      "kind": "tool",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.6428639179999998,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-stream-warmup",
+      "condition": "budget128",
+      "kind": "tool-stream",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.613160959,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-stream-r1",
+      "condition": "budget128",
+      "kind": "tool-stream",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.5373405,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-stream-r2",
+      "condition": "budget128",
+      "kind": "tool-stream",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.5926716250000004,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget128-tool-stream-r3",
+      "condition": "budget128",
+      "kind": "tool-stream",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.603413667,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-warmup",
+      "condition": "budget512",
+      "kind": "chat",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 4.266689416,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-r1",
+      "condition": "budget512",
+      "kind": "chat",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 4.271077708,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-r2",
+      "condition": "budget512",
+      "kind": "chat",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 4.288719083,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-r3",
+      "condition": "budget512",
+      "kind": "chat",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 4.306985375,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-stream-warmup",
+      "condition": "budget512",
+      "kind": "chat-stream",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 4.294693291,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-stream-r1",
+      "condition": "budget512",
+      "kind": "chat-stream",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 4.288424333999999,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-stream-r2",
+      "condition": "budget512",
+      "kind": "chat-stream",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 4.268542875,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-chat-stream-r3",
+      "condition": "budget512",
+      "kind": "chat-stream",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 4.295972625,
+      "completion_tokens": 242,
+      "finish_reason": "stop",
+      "final_content": "LAB_READY",
+      "reasoning_characters": 903,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-warmup",
+      "condition": "budget512",
+      "kind": "tool",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.5937761669999997,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-r1",
+      "condition": "budget512",
+      "kind": "tool",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.565397418,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-r2",
+      "condition": "budget512",
+      "kind": "tool",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.5472667920000003,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-r3",
+      "condition": "budget512",
+      "kind": "tool",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.579437626,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-stream-warmup",
+      "condition": "budget512",
+      "kind": "tool-stream",
+      "repeat": "warmup",
+      "accepted": true,
+      "duration_seconds": 2.574374417,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-stream-r1",
+      "condition": "budget512",
+      "kind": "tool-stream",
+      "repeat": "r1",
+      "accepted": true,
+      "duration_seconds": 2.542421167,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-stream-r2",
+      "condition": "budget512",
+      "kind": "tool-stream",
+      "repeat": "r2",
+      "accepted": true,
+      "duration_seconds": 2.548340708,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    },
+    {
+      "case": "ctx32768-budget512-tool-stream-r3",
+      "condition": "budget512",
+      "kind": "tool-stream",
+      "repeat": "r3",
+      "accepted": true,
+      "duration_seconds": 2.551117583,
+      "completion_tokens": 73,
+      "finish_reason": "stop",
+      "final_content": "LAB_VALUE_42",
+      "reasoning_characters": 146,
+      "forced_end_sequence_complete": false
+    }
+  ],
+  "attempts": {
+    "completed": 41,
+    "failed": 8,
+    "not-run": 0,
+    "planned": 0
+  },
+  "resources": {
+    "accepted": true,
+    "max_rss_bytes": 10527408128,
+    "min_free_pages_bytes": 42516004864,
+    "max_swap_used_bytes": 0,
+    "started_at": "2026-10-08T08:23:56.629523+00:00",
+    "ended_at": "2026-10-08T08:35:37.477671+00:00",
+    "native_exit_code": 0
+  }
+}
