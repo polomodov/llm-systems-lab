@@ -1,0 +1,11 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Ответь ровно LAB_READY без пояснений."
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}
