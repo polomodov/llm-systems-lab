@@ -1,0 +1,4 @@
+{
+  "reason": "Port guard bind without SO_REUSEADDR rejected TIME_WAIT after preceding owned server exit; no native server or model request started.",
+  "change": "Use SO_REUSEADDR for the admission socket to match the native listener and tolerate TIME_WAIT, while still rejecting active listeners. Retry is separately registered; preceding failure retained."
+}

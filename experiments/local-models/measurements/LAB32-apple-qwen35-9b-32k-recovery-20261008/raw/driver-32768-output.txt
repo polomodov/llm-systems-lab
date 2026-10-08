@@ -1,0 +1,23 @@
+{"case": "ctx32768-chat-warmup", "accepted": true, "reason": null, "duration_s": 2.121822416}
+{"case": "ctx32768-chat-r1", "accepted": true, "reason": null, "duration_s": 2.101149833}
+{"case": "ctx32768-chat-r2", "accepted": true, "reason": null, "duration_s": 2.111540875}
+{"case": "ctx32768-chat-r3", "accepted": true, "reason": null, "duration_s": 2.095319292}
+{"case": "ctx32768-chat-stream-warmup", "accepted": true, "reason": null, "duration_s": 2.1209546660000003}
+{"case": "ctx32768-chat-stream-r1", "accepted": true, "reason": null, "duration_s": 2.112067084}
+{"case": "ctx32768-chat-stream-r2", "accepted": true, "reason": null, "duration_s": 2.129076333}
+{"case": "ctx32768-chat-stream-r3", "accepted": true, "reason": null, "duration_s": 2.118421959}
+{"case": "ctx32768-tool-warmup", "accepted": true, "reason": null, "duration_s": 1.3661295}
+{"case": "ctx32768-tool-r1", "accepted": true, "reason": null, "duration_s": 1.37008025}
+{"case": "ctx32768-tool-r2", "accepted": true, "reason": null, "duration_s": 1.367987459}
+{"case": "ctx32768-tool-r3", "accepted": true, "reason": null, "duration_s": 1.370947667}
+{"case": "ctx32768-tool-stream-warmup", "accepted": true, "reason": null, "duration_s": 1.379867792}
+{"case": "ctx32768-tool-stream-r1", "accepted": true, "reason": null, "duration_s": 1.372304167}
+{"case": "ctx32768-tool-stream-r2", "accepted": true, "reason": null, "duration_s": 1.376872417}
+{"case": "ctx32768-tool-stream-r3", "accepted": true, "reason": null, "duration_s": 1.398060291}
+{"case": "ctx32768-long-warmup", "accepted": true, "reason": null, "duration_s": 28.686251542}
+{"case": "ctx32768-long-r1", "accepted": true, "reason": null, "duration_s": 29.639154}
+{"case": "ctx32768-long-r2", "accepted": true, "reason": null, "duration_s": 28.953478834}
+{"case": "ctx32768-long-r3", "accepted": true, "reason": null, "duration_s": 30.514420375}
+{"case": "ctx32768-cancel-recovery", "accepted": true, "reason": null, "duration_s": 2.314055875}
+{"case": "ctx32768-overflow-recovery", "accepted": true, "reason": null, "duration_s": 2.4108375829999997}
+context admitted 32768

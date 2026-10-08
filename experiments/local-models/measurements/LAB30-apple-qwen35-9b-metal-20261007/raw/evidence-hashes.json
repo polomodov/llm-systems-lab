@@ -1,0 +1,877 @@
+[
+  {
+    "path": "CMakeCache.txt",
+    "bytes": 35469,
+    "sha256": "f49baa093fab12eadf7cec6aaab1e3d193a7d71b7993cd0570c03ea108b332f0"
+  },
+  {
+    "path": "artifact-manifest.json",
+    "bytes": 12476,
+    "sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6"
+  },
+  {
+    "path": "bench-help.txt",
+    "bytes": 4747,
+    "sha256": "2bb05899f027bb727cc5ddb73859c5d09fdc8942e4332a263b5aa41ed435dc04"
+  },
+  {
+    "path": "binaries.sha256",
+    "bytes": 407,
+    "sha256": "3b5b19a402a1b02ffd466504563ae162e5d0f97399a978f10f8782814fd6cc11"
+  },
+  {
+    "path": "binary-arch.txt",
+    "bytes": 340,
+    "sha256": "bc79781211c84b50e9d270a3ecd7f3719e4a4aea258c14d2de857867c70f2978"
+  },
+  {
+    "path": "buffer-allocation-summary.json",
+    "bytes": 10817,
+    "sha256": "6a2991744786166655ca2fef1e9f1f03a03c8691b765a90a9d33bd6de5baac31"
+  },
+  {
+    "path": "build-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "build-tools-lock.txt",
+    "bytes": 13,
+    "sha256": "2dfc5ef297cc071ef010b7c4e78391ea51531f3864adb1627cce7973e01b989a"
+  },
+  {
+    "path": "build.txt",
+    "bytes": 190501,
+    "sha256": "0465aa331a2208e23ccdb2b999b201e32a5aafe942ba440c6ac81c54c8876003"
+  },
+  {
+    "path": "checker-correction.json",
+    "bytes": 331,
+    "sha256": "83d17eb56b871bf349c6343356cab3994a14ac9e2153db8eb2af1fef7bd1b290"
+  },
+  {
+    "path": "clang-version.txt",
+    "bytes": 159,
+    "sha256": "76a924f59997fb65051981eb13105e0a8c151f16cd9c3e45e0f7c27ecefdb839"
+  },
+  {
+    "path": "cmake-install-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "cmake-install.txt",
+    "bytes": 934,
+    "sha256": "9af5da743eb80f5e978a94d424d4e41ce11e4c6f2276db0e4360ac71640d1de6"
+  },
+  {
+    "path": "cmake-version.txt",
+    "bytes": 90,
+    "sha256": "4d92ce18ddf9889d463ac875608423312823ad89e7fd5178b02a21ea26a2bd3d"
+  },
+  {
+    "path": "configure-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "configure.txt",
+    "bytes": 4002,
+    "sha256": "4f52eb92b5a69051643f38769a3157cb693070f6bcafd7d5c383d719abaaef2c"
+  },
+  {
+    "path": "finalization-output.txt",
+    "bytes": 1397,
+    "sha256": "5e659b7ffa8b2e263ada2c2ea81705af70f9bd4b8de1404e9e8e36792376cedf"
+  },
+  {
+    "path": "finalize_results.py",
+    "bytes": 7791,
+    "sha256": "df26bf0dc9f694319c3c9793358c67ee061d96853f947e74eb40ac2c9687bc4e"
+  },
+  {
+    "path": "hardware-snapshot.json",
+    "bytes": 6169,
+    "sha256": "5e5550ee59b1f51876c0b87599cee79a71e54e77f88326b0b5f65d51e86b79a4"
+  },
+  {
+    "path": "linked-libraries.txt",
+    "bytes": 1652,
+    "sha256": "8d60699df8f28a6abcca5427fa5f6b7a41bb2039e49dee4f7042f4f73d17f36b"
+  },
+  {
+    "path": "power-after.txt",
+    "bytes": 712,
+    "sha256": "e34c575ccf173d488c00df3d1b4a51faaf35479300d5ce082c9b8920dfe5fdc1"
+  },
+  {
+    "path": "power-control-amendment.md",
+    "bytes": 1083,
+    "sha256": "9ae93cf030e7c3b7e3c712fd37c851c2fbffa58358e8cfe1d441ff34024bd7f7"
+  },
+  {
+    "path": "power-source-after.txt",
+    "bytes": 119,
+    "sha256": "aa5f88b45f0c46ad5873291c164e8dc7b7cc772a831d26adaa3990e397fc587c"
+  },
+  {
+    "path": "power-status-after.json",
+    "bytes": 332,
+    "sha256": "d5ddc360e022c69292110aa5ad6ebc9135c1793ffbc78a75b8e03976a125e8d4"
+  },
+  {
+    "path": "pp-power-r1-bench.json",
+    "bytes": 1204,
+    "sha256": "64bc0579a273c9f9f863cf0f59c7ccd3f632956d8cff5d2e656bbd8163838d64"
+  },
+  {
+    "path": "pp-power-r1-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-power-r1-driver.txt",
+    "bytes": 1463,
+    "sha256": "dc46289be923a20c58d4eef28cc62fd7b8fddbaa32559878a99df43afc0da10f"
+  },
+  {
+    "path": "pp-power-r1-execution.json",
+    "bytes": 6444,
+    "sha256": "5ac5d763b6ef251e99e65ef819f6046f0c85a55a75987c446ddb5c047350c650"
+  },
+  {
+    "path": "pp-power-r1-memory-after.json",
+    "bytes": 3850,
+    "sha256": "e08411f760da741bb59e15ff1aa16684a16bdccd6963083db082fb6892864ed9"
+  },
+  {
+    "path": "pp-power-r1-memory-before.json",
+    "bytes": 3850,
+    "sha256": "2100fa9cea64613dafcf48b008cf187715d08654f593f80bc4b0ff441a658e00"
+  },
+  {
+    "path": "pp-power-r1-memory.jsonl",
+    "bytes": 10602,
+    "sha256": "73029464b14409279421c442d6188fcbd5d9965dd1af7eacb815ea84311dd155"
+  },
+  {
+    "path": "pp-power-r1-process.txt",
+    "bytes": 50725,
+    "sha256": "b9cf73f853f76e893b39ce16de42089b818176e64521d48a5c196ddf91c48bc0"
+  },
+  {
+    "path": "pp-power-r2-bench.json",
+    "bytes": 1204,
+    "sha256": "8b44137c53b60aeee0deb959031089e9edb845399d71af981b47aa7198f19ac5"
+  },
+  {
+    "path": "pp-power-r2-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-power-r2-driver.txt",
+    "bytes": 1462,
+    "sha256": "406ac38733a921b361ab5267578d3827310827a73e9e29348cda27169c7ca549"
+  },
+  {
+    "path": "pp-power-r2-execution.json",
+    "bytes": 6437,
+    "sha256": "68163ecc42b9abe69d0f817fb95061065d4f99748353f44475a7b9fa94294818"
+  },
+  {
+    "path": "pp-power-r2-memory-after.json",
+    "bytes": 3849,
+    "sha256": "181929b349f5cd4a54612ab6774646a5fad7a1ab450151fbf09013a0aed57738"
+  },
+  {
+    "path": "pp-power-r2-memory-before.json",
+    "bytes": 3850,
+    "sha256": "7de29b9bd4922769bb321f070acafeb22a1646a697aaabab32a84f91403e0233"
+  },
+  {
+    "path": "pp-power-r2-memory.jsonl",
+    "bytes": 10600,
+    "sha256": "4488306c38f25c4b308f3e938f9f9f5d63937eb8f46b43212fb58bd311217937"
+  },
+  {
+    "path": "pp-power-r2-process.txt",
+    "bytes": 50725,
+    "sha256": "1e1b0f929912cf0b1d3097ca9bbeff88feb7a86462eeba81506381e7f1bd0a21"
+  },
+  {
+    "path": "pp-power-r3-bench.json",
+    "bytes": 1204,
+    "sha256": "ddb1fd393092c7aa49aa30e51e24ffa56edead275d816950d9c0335f9a7b77cc"
+  },
+  {
+    "path": "pp-power-r3-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-power-r3-driver.txt",
+    "bytes": 1457,
+    "sha256": "aa4954668b5cc1328439841d66878308cdf6aa8b743a43352d8e53a713192564"
+  },
+  {
+    "path": "pp-power-r3-execution.json",
+    "bytes": 6436,
+    "sha256": "0caaece0693daafccbccfea39303403e7997bc0a01785b0c2e4b693bc7e7e741"
+  },
+  {
+    "path": "pp-power-r3-memory-after.json",
+    "bytes": 3849,
+    "sha256": "2a7ca883bd8a72927726ddbf28061781445dd60f9de3de39fd39f93453e4016f"
+  },
+  {
+    "path": "pp-power-r3-memory-before.json",
+    "bytes": 3849,
+    "sha256": "a8cb1fb7301ff20cd9fe7a531b8482a3715f1faadb2e38755e96569b48cc4240"
+  },
+  {
+    "path": "pp-power-r3-memory.jsonl",
+    "bytes": 10599,
+    "sha256": "3f22b97ac882ab18f89d3deeb3105af346a97739677bc93eba860a6bb7180ab5"
+  },
+  {
+    "path": "pp-power-r3-process.txt",
+    "bytes": 50725,
+    "sha256": "96961198b0f18dc03193de4c424d8e41a90f71eddb19f45aac799c71b56e6080"
+  },
+  {
+    "path": "pp-r1-bench.json",
+    "bytes": 1203,
+    "sha256": "d578d00218279412664bc5aa96c42bdb168a56ccd9ba908c58b30e57c549b928"
+  },
+  {
+    "path": "pp-r1-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-r1-driver.txt",
+    "bytes": 1451,
+    "sha256": "63f5531e62e7b3ebbf2efbde08d3ef4dd82567893f676476723910d5f2c89580"
+  },
+  {
+    "path": "pp-r1-execution.json",
+    "bytes": 5157,
+    "sha256": "ff3544ac3b6b70d6e3768e7da1a42fb7905431fa6c76c8cfdb4004d24c684c80"
+  },
+  {
+    "path": "pp-r1-memory-after.json",
+    "bytes": 2620,
+    "sha256": "2da4190b39139aa211bc5cdbeb4fc576a40be8bcf6cfb3b71bbe8ea22dd649eb"
+  },
+  {
+    "path": "pp-r1-memory-before.json",
+    "bytes": 2620,
+    "sha256": "2f13c170878ee1817bf27ae4640ede5619dea46454f14e2e503013acea551680"
+  },
+  {
+    "path": "pp-r1-memory.jsonl",
+    "bytes": 7320,
+    "sha256": "1f30b3182c2e5d1b8ea54b21acdf5c6fa348db255d7e3b95692837a14c3f9993"
+  },
+  {
+    "path": "pp-r1-process.txt",
+    "bytes": 50725,
+    "sha256": "56366b4608fd6aa1920aea7c23f7ff1b1ce69d0301f0a0f8d0e72b7a3d2d6ec8"
+  },
+  {
+    "path": "pp-r2-bench.json",
+    "bytes": 1204,
+    "sha256": "39c4667cf0c90c657e9f7cc33efce30d1eafb32eb0abd3ff16f33e017b8f529c"
+  },
+  {
+    "path": "pp-r2-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-r2-driver.txt",
+    "bytes": 1454,
+    "sha256": "4524d93a5b317dd7ca879acd258c4b8b2500373bc9138bd0c591670a194001db"
+  },
+  {
+    "path": "pp-r2-execution.json",
+    "bytes": 5157,
+    "sha256": "c1f9fea6859bcbfe3c62707e6824e0c0a589cda1ce740d5011798a062fa7cf93"
+  },
+  {
+    "path": "pp-r2-memory-after.json",
+    "bytes": 2620,
+    "sha256": "41a5800e1cb2f245e93ba99a8cced86124af551f22303444ada6b520384d18ce"
+  },
+  {
+    "path": "pp-r2-memory-before.json",
+    "bytes": 2620,
+    "sha256": "ef7f40351468d098f93bd05dc1f12c3c83580d302b7a60b4d2460718817cc852"
+  },
+  {
+    "path": "pp-r2-memory.jsonl",
+    "bytes": 7320,
+    "sha256": "d16859380fd427d1cda8ce6c649734747bed19988d1442292e4a7fdca2069fe1"
+  },
+  {
+    "path": "pp-r2-process.txt",
+    "bytes": 50725,
+    "sha256": "a7ffc7824d8959824257f123905267ea120656479790ad07de6bb483a95e8d45"
+  },
+  {
+    "path": "pp-r3-bench.json",
+    "bytes": 1204,
+    "sha256": "3e8a272cacb93f07f1a6c24b4be5f080d58db04d6ec1c3a1d266135b2ad2a0a2"
+  },
+  {
+    "path": "pp-r3-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "pp-r3-driver.txt",
+    "bytes": 1457,
+    "sha256": "715c9e3f53a3146fa7ef44fe8f99ea816f35c9d6d2ed8473d6bad8e8c8c10e79"
+  },
+  {
+    "path": "pp-r3-execution.json",
+    "bytes": 5158,
+    "sha256": "2cf11249b5be9872d0588567f812a85e3fc340e99094dd40c28a03077d86572d"
+  },
+  {
+    "path": "pp-r3-memory-after.json",
+    "bytes": 2620,
+    "sha256": "cb2cb60294b639e739cd7ba97b22ef0faa3bf06b18cd87419d025d0074a818a4"
+  },
+  {
+    "path": "pp-r3-memory-before.json",
+    "bytes": 2620,
+    "sha256": "23045d6c735b50aaf1122c44414bede014dc6c649c3fd74ad7f47cced0b60531"
+  },
+  {
+    "path": "pp-r3-memory.jsonl",
+    "bytes": 7320,
+    "sha256": "023ac928872f9677f5ca28f5f78051459663752ca6beea7139730079e84eeb22"
+  },
+  {
+    "path": "pp-r3-process.txt",
+    "bytes": 50725,
+    "sha256": "83b571218932d2b2c0dbce26168a0fc3bfe44f141c064ce2de68c23d0a62537f"
+  },
+  {
+    "path": "protocol.md",
+    "bytes": 3077,
+    "sha256": "80ad44c6bf9d38b464ac7084073063731d42a972cf26d55a76458b071fec2524"
+  },
+  {
+    "path": "protocol.sha256",
+    "bytes": 78,
+    "sha256": "8f7e2cc9e480d314df5b54079d825c522e80c4810908ccd65afd37ad513cbfd5"
+  },
+  {
+    "path": "results-summary.json",
+    "bytes": 30207,
+    "sha256": "ee0429ab6692d62ad05f8d94640659a313996138168fcbf404cc3d581ac8a446"
+  },
+  {
+    "path": "run_bench_case.py",
+    "bytes": 7105,
+    "sha256": "c047051a5f5e9c1ef8e76aa417a134badd9b98a993e810cd2bb8b49c8dc9df50"
+  },
+  {
+    "path": "runtime-manifest.json",
+    "bytes": 7567,
+    "sha256": "fb5358633ea9fb23de35bf4101a29705390087c67cc76dbd222d94230103a91f"
+  },
+  {
+    "path": "runtime-observations-before-smoke.md",
+    "bytes": 520,
+    "sha256": "7995aea8ee28a2df58c6cf8f6671e466e3f6ccd9054ca17ce92b4c18061ff487"
+  },
+  {
+    "path": "ryzen-build-provenance.txt",
+    "bytes": 962,
+    "sha256": "d9e68538cdc20c0c924daa21bff32c59834129c1f1fff07cbc2225b99a342b2c"
+  },
+  {
+    "path": "ryzen-comparison.json",
+    "bytes": 1621,
+    "sha256": "6ba5443141a571b06facc781789d460c9cc498a6fda962168198d43c8043a3a0"
+  },
+  {
+    "path": "ryzen-hip-r1-pp.json",
+    "bytes": 1224,
+    "sha256": "8fc16764d6ab18580ad758e1fa264c22175d78bb9321bd43a2ab09c4e5709276"
+  },
+  {
+    "path": "ryzen-hip-r1-tg.json",
+    "bytes": 1225,
+    "sha256": "b51d7a13c3bccca040ac11d3ae0c6c1565381b7d97d957c4c9d511e81381b67e"
+  },
+  {
+    "path": "ryzen-hip-r2-pp.json",
+    "bytes": 1223,
+    "sha256": "5f5ac82db7ff834c61401ee26e0224fd6626b4b999406a1f6f233ac3611db2db"
+  },
+  {
+    "path": "ryzen-hip-r2-tg.json",
+    "bytes": 1225,
+    "sha256": "9ab1c389b8cb443080cd47774bd0046a9acb2e57aa115f8dd75cdf9045ba072a"
+  },
+  {
+    "path": "ryzen-hip-r3-pp.json",
+    "bytes": 1224,
+    "sha256": "1af809b4fdfee22172f453d33d162b82d8f196db5df071fc1e88ff5400b47a1f"
+  },
+  {
+    "path": "ryzen-hip-r3-tg.json",
+    "bytes": 1225,
+    "sha256": "3828bc94084cafc3e02b3bc0016e5d1f3360113262d9b216b49c5ab36f6bd437"
+  },
+  {
+    "path": "ryzen-vulkan-r1-pp.json",
+    "bytes": 1241,
+    "sha256": "d9313827dff9ba45d18936c452ced44c99a8e5899d98463297793395affb764d"
+  },
+  {
+    "path": "ryzen-vulkan-r1-tg.json",
+    "bytes": 1242,
+    "sha256": "eccde9ebbc851e633920b71726e2dfde2a0c7743e1d4dff589ebc31125b6fbf9"
+  },
+  {
+    "path": "ryzen-vulkan-r2-pp.json",
+    "bytes": 1241,
+    "sha256": "d5eb873e0ff6d86f8166cfef480aff114ec3c62c6106c1a787985e14fae02835"
+  },
+  {
+    "path": "ryzen-vulkan-r2-tg.json",
+    "bytes": 1242,
+    "sha256": "aa52ead578b6fc0f146d0c03952dc2b348a5ef6913a8f84d54f1856a7f2272d2"
+  },
+  {
+    "path": "ryzen-vulkan-r3-pp.json",
+    "bytes": 1241,
+    "sha256": "f48e384fd1cf16ede6e2681fa349ae9c3a289e9eb03c4b2d8e7729921bb6ed1d"
+  },
+  {
+    "path": "ryzen-vulkan-r3-tg.json",
+    "bytes": 1242,
+    "sha256": "5b064e8828d679b12026bb482f45dbc7bcf1cbb2e4b2bb3620903f884c64ea9d"
+  },
+  {
+    "path": "sdk-version.txt",
+    "bytes": 5,
+    "sha256": "25205f2e2f02dc71036ee827e19c49b893b231a3d1af240e35a3ac55aa8cdcb6"
+  },
+  {
+    "path": "server-devices.txt",
+    "bytes": 1169,
+    "sha256": "5d724c38ce24af281c113efa5025d7d821d11fc8bd6681910a86ab51dc53c289"
+  },
+  {
+    "path": "server-help.txt",
+    "bytes": 45259,
+    "sha256": "c7a5470d87c24c5821e72c79a3ad99a1dc8ce8124970fdce1614c7af86f67645"
+  },
+  {
+    "path": "server-version.txt",
+    "bytes": 1136,
+    "sha256": "bd00fdf8dce770a8000f7d1794e6094393a3043db4767ddfa0c292cc4078edc6"
+  },
+  {
+    "path": "smoke-bench.json",
+    "bytes": 2397,
+    "sha256": "1f8727a7c701173e6d8c1e93cb36d9451f3864f8d44cddfeda544ff3543594fb"
+  },
+  {
+    "path": "smoke-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+  },
+  {
+    "path": "smoke-driver.txt",
+    "bytes": 2757,
+    "sha256": "548241f97de9de3f74c9d0535790e6de5810c217a905cc60885bf8b8a51a70cb"
+  },
+  {
+    "path": "smoke-execution-initial-checker.json",
+    "bytes": 6366,
+    "sha256": "ca17aaff2be2f13841e00060eaa000a879a26031c85c2e910af6286104b5d970"
+  },
+  {
+    "path": "smoke-execution.json",
+    "bytes": 6436,
+    "sha256": "2723f945a463a6c749ea3a664d28ef4c662478459c7f537fdc7d0db621166d83"
+  },
+  {
+    "path": "smoke-memory-after.json",
+    "bytes": 2620,
+    "sha256": "03d96cb8e7fb4279333b34a38b4f6e17edc75ac9379c14499fcbaa66bbee70a9"
+  },
+  {
+    "path": "smoke-memory-before.json",
+    "bytes": 2620,
+    "sha256": "98d10b130ea31e4bc27cf098843503a7414c211df32b1187bd39f347ecb3a44d"
+  },
+  {
+    "path": "smoke-memory.jsonl",
+    "bytes": 4880,
+    "sha256": "36858e8f5f5ca041ed9d9f00b82f2185dae489294e07f17fd1f95409a5e46c16"
+  },
+  {
+    "path": "smoke-process.txt",
+    "bytes": 58390,
+    "sha256": "2d89f12a2c1cff85d26e5dc5dc5d3da0b626e71402183ad56c6d3165126a472f"
+  },
+  {
+    "path": "source-checkout.txt",
+    "bytes": 75,
+    "sha256": "b990a9c1bc098f55e0e320c46a28b211feb572c461f65debeca6cb4317fa421f"
+  },
+  {
+    "path": "source-commit.txt",
+    "bytes": 41,
+    "sha256": "a1b1b41ee15b4afcbfc0e1fc72d69860b0ef215d1a1ac943c29f6536c34622ec"
+  },
+  {
+    "path": "source-fetch-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "source-fetch.txt",
+    "bytes": 119,
+    "sha256": "eec5042376165700ed2ade3ae673fbf43ca1a9f6bd33379b58a9c5d2fba7019a"
+  },
+  {
+    "path": "source-status.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "tg-power-r1-bench.json",
+    "bytes": 1205,
+    "sha256": "a99674e7259b76658bb277f67724d209b059b171e3f3ade2da80697e081d3d50"
+  },
+  {
+    "path": "tg-power-r1-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-power-r1-driver.txt",
+    "bytes": 1464,
+    "sha256": "3221ea9824e4d1ae0ce0747b3f6bc1f280ba1db156d969f05c39f9f73de679de"
+  },
+  {
+    "path": "tg-power-r1-execution.json",
+    "bytes": 6460,
+    "sha256": "e67a24e3554177c03c8d45ae026704685993852ab143f54727758a1d852b2d39"
+  },
+  {
+    "path": "tg-power-r1-memory-after.json",
+    "bytes": 3850,
+    "sha256": "66dce018121458edcd5b2a23f6ada09b8ea7b161fd65b63623daa4e35fc08514"
+  },
+  {
+    "path": "tg-power-r1-memory-before.json",
+    "bytes": 3850,
+    "sha256": "1511e0155fcb2f8c9fa23bdc19656b36b51cd6916055d9ca62d3885c2431b5bf"
+  },
+  {
+    "path": "tg-power-r1-memory.jsonl",
+    "bytes": 14136,
+    "sha256": "68a6d0fa276aae3c50af11605ddfa260481dc80d783f05326042e5a58fa22295"
+  },
+  {
+    "path": "tg-power-r1-process.txt",
+    "bytes": 53013,
+    "sha256": "bd7498d17564332287aef9c0788c8f53f063c494ae825170b566449a9dd12e3b"
+  },
+  {
+    "path": "tg-power-r2-bench.json",
+    "bytes": 1205,
+    "sha256": "1d9bb4e39c6c574dd3013d13d0f380dae75b23c2904a76b31933e325bc865d0e"
+  },
+  {
+    "path": "tg-power-r2-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-power-r2-driver.txt",
+    "bytes": 1460,
+    "sha256": "cc23d1f9ee756c3774d41e0ecae9281d858647f3f93f50d0678240ff055aac81"
+  },
+  {
+    "path": "tg-power-r2-execution.json",
+    "bytes": 6459,
+    "sha256": "7e1da32e3b5454e69ce4e6e9c918ccb67946ceb73c1582a0fb3df2613fa7b19c"
+  },
+  {
+    "path": "tg-power-r2-memory-after.json",
+    "bytes": 3849,
+    "sha256": "38ff0e047f7da9a8dc1150e015c847ca66cf7115ce991fb038a5dba1b9990ff0"
+  },
+  {
+    "path": "tg-power-r2-memory-before.json",
+    "bytes": 3849,
+    "sha256": "ba191f2d56dfa32e63293f89ff6e45ccd01d578c0c299d38e6953090a5bc4f5c"
+  },
+  {
+    "path": "tg-power-r2-memory.jsonl",
+    "bytes": 14132,
+    "sha256": "7bdec0a9877579b253560f0d2a2c2d71a834037625bd6bb48227b04c591f9680"
+  },
+  {
+    "path": "tg-power-r2-process.txt",
+    "bytes": 53013,
+    "sha256": "ed79778143d3ed132413d224d833b90dacb2041110b861e16b24d37d94c564de"
+  },
+  {
+    "path": "tg-power-r3-bench.json",
+    "bytes": 1205,
+    "sha256": "456f5508068d3d2909ac35dd1161006f6f504152a3ffbba3b81f8cf281526971"
+  },
+  {
+    "path": "tg-power-r3-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-power-r3-driver.txt",
+    "bytes": 1460,
+    "sha256": "f236083be2848740309b72c2afa6e21bdb2798b242aec12a1af22287bf5949ef"
+  },
+  {
+    "path": "tg-power-r3-execution.json",
+    "bytes": 6458,
+    "sha256": "29dea6e1b7c0dca4580f0496222e0ecc43f2731e4c07ec007ab5e74c160ac268"
+  },
+  {
+    "path": "tg-power-r3-memory-after.json",
+    "bytes": 3849,
+    "sha256": "849d4f604545a6f6e96bde276d04045cb40c567982952e6acddcee20146b1e00"
+  },
+  {
+    "path": "tg-power-r3-memory-before.json",
+    "bytes": 3849,
+    "sha256": "079488f4ea1dc1ded660be6a63abbfd1e345fe87305ecbeeb50493fc58ee4833"
+  },
+  {
+    "path": "tg-power-r3-memory.jsonl",
+    "bytes": 14132,
+    "sha256": "1c124e29fe0cfee9961ff6edcdc305b4196a14b434638e32808cb90e58d2f257"
+  },
+  {
+    "path": "tg-power-r3-process.txt",
+    "bytes": 53013,
+    "sha256": "3d476a6f9b7a5dcbd944683153c7ed5353c3e63d7a46ad5a2bd5066a8ce783c3"
+  },
+  {
+    "path": "tg-r1-bench.json",
+    "bytes": 1205,
+    "sha256": "a84453ed8ec74830fd3ea92ca2736238916d0cba3ced5c5117a26ab10f4e511d"
+  },
+  {
+    "path": "tg-r1-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-r1-driver.txt",
+    "bytes": 1458,
+    "sha256": "d9b3debeeb7079ad0e5a515e07d97279b82f054819b380138df52527813637c8"
+  },
+  {
+    "path": "tg-r1-execution.json",
+    "bytes": 5180,
+    "sha256": "ca893ab5ebd1e9cbd262862640c1a6066e9cf06a3418e5c9be4d0d6d70a2d6f0"
+  },
+  {
+    "path": "tg-r1-memory-after.json",
+    "bytes": 2620,
+    "sha256": "ac5d3db95c53fe5d6843bcab387a9180ddd1ca83263c7fba4636158db2e23c35"
+  },
+  {
+    "path": "tg-r1-memory-before.json",
+    "bytes": 2620,
+    "sha256": "2c820623d1f0460f17a53ab713f528914a8b503e39618eb9f483347aa190250d"
+  },
+  {
+    "path": "tg-r1-memory.jsonl",
+    "bytes": 9760,
+    "sha256": "32eb5347ffbb9a13016599ad44518ca2678c0b0e193c1df87e9d039a4a6a100e"
+  },
+  {
+    "path": "tg-r1-process.txt",
+    "bytes": 53014,
+    "sha256": "f40731ba612cc2ed01da012fa39b120ae53416315f3b3bb68fa3f6e9fdfa24a1"
+  },
+  {
+    "path": "tg-r2-bench.json",
+    "bytes": 1205,
+    "sha256": "ad643689f5bcaf9903e585bfeab3937de95277ae5feb3979470892c5287d0eb7"
+  },
+  {
+    "path": "tg-r2-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-r2-driver.txt",
+    "bytes": 1458,
+    "sha256": "31ac79df703f63edbd76860fb915078d3200311e819eaea2dea27d71f8642511"
+  },
+  {
+    "path": "tg-r2-execution.json",
+    "bytes": 5180,
+    "sha256": "969fff51a6f5482bb4a6b9ca6e13976f73527afd5c2a72127c119eebb4061554"
+  },
+  {
+    "path": "tg-r2-memory-after.json",
+    "bytes": 2620,
+    "sha256": "81dff18184cc5ccf75dcbafd4ace8331f11b67d5fb9a6797641989ff5d853784"
+  },
+  {
+    "path": "tg-r2-memory-before.json",
+    "bytes": 2620,
+    "sha256": "3268b3549d23c5385693d37b0881c8a67ce9d320d165a5fb904d934124ffcc84"
+  },
+  {
+    "path": "tg-r2-memory.jsonl",
+    "bytes": 9760,
+    "sha256": "439fe9f5384141ea9dd5324688fcf993331156d9690c3af1006e982014d7eaa8"
+  },
+  {
+    "path": "tg-r2-process.txt",
+    "bytes": 53013,
+    "sha256": "48f4be3fc890c0ddb3f1bc88b81930220e3924101d4a50832dadc011ddbec997"
+  },
+  {
+    "path": "tg-r3-bench.json",
+    "bytes": 1205,
+    "sha256": "87d0a6d8a13efd567fdeecb861163b8895fcf617185a4e9d5124cc8341185bcd"
+  },
+  {
+    "path": "tg-r3-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "tg-r3-driver.txt",
+    "bytes": 1456,
+    "sha256": "9ee8ef1d0168a874d7e52b1c013539a8ae0d19d68fb606c41662a3c8d20ded4b"
+  },
+  {
+    "path": "tg-r3-execution.json",
+    "bytes": 5186,
+    "sha256": "2ba1409134c09d4fba3471f9d3c86180e47e554a8fe8db0dc7252ec6337e1c8a"
+  },
+  {
+    "path": "tg-r3-memory-after.json",
+    "bytes": 2620,
+    "sha256": "4beacdec70128656d080b9b295498cadcc434c8897110537e7a077258705489d"
+  },
+  {
+    "path": "tg-r3-memory-before.json",
+    "bytes": 2620,
+    "sha256": "9b5fa0cdc623841fcca8422ba4ac45fc9943db0370d86fd3fc87412f643d72ac"
+  },
+  {
+    "path": "tg-r3-memory.jsonl",
+    "bytes": 9760,
+    "sha256": "9c4d754592698d9b8d19c29f78431560b9b7ca5fc6969a7c4873a108e50d4836"
+  },
+  {
+    "path": "tg-r3-process.txt",
+    "bytes": 53013,
+    "sha256": "b5c5d47313cb2214e37583629526a19302d60d83b468baa2a678a0323dbd8c69"
+  },
+  {
+    "path": "warmup-pp-bench.json",
+    "bytes": 1204,
+    "sha256": "d9a0c81cf58a19d8e268e2f9140ff914bceef15ca9d2c550323b8020e50891d2"
+  },
+  {
+    "path": "warmup-pp-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "warmup-pp-driver.txt",
+    "bytes": 1461,
+    "sha256": "46a02eae0a4f11ce83905545bafb21a45ba8c489e0a4abf0831e91c8ac3ff963"
+  },
+  {
+    "path": "warmup-pp-execution.json",
+    "bytes": 5075,
+    "sha256": "732622565dd2204d90b0c598ecd9601579d3643227e23a5150e6abf33996a424"
+  },
+  {
+    "path": "warmup-pp-memory-after.json",
+    "bytes": 2620,
+    "sha256": "e791db40a261c51d1a4cbba41465fa7b20f7314f2f270f32536b736805b73830"
+  },
+  {
+    "path": "warmup-pp-memory-before.json",
+    "bytes": 2620,
+    "sha256": "e5eba0a3f060622c3166e69b176146e440ca5fd1a028ab3d2aba800f4d68e165"
+  },
+  {
+    "path": "warmup-pp-memory.jsonl",
+    "bytes": 7320,
+    "sha256": "f8a51de6c7ba5ba2b9936a55f01e3b7236c5cff05574c6885615c55578c4f304"
+  },
+  {
+    "path": "warmup-pp-process.txt",
+    "bytes": 50725,
+    "sha256": "5f09a9eb8b436d077e15954f9335e03432ba93b9f26cd089b325bcae6f150880"
+  },
+  {
+    "path": "warmup-tg-bench.json",
+    "bytes": 1205,
+    "sha256": "150705c6b94146cf8ab220dbccae0ded4df2eb9b6fafb0da03e9f6f81d176287"
+  },
+  {
+    "path": "warmup-tg-driver-exit.txt",
+    "bytes": 2,
+    "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  },
+  {
+    "path": "warmup-tg-driver.txt",
+    "bytes": 1462,
+    "sha256": "9bae7af3394f73bcbe626cc8273f622563e00445e0586ad60b2c9c6dbe2f4466"
+  },
+  {
+    "path": "warmup-tg-execution.json",
+    "bytes": 5160,
+    "sha256": "f2603049176a00d894b93748a90f41b331ef2b448dbb74e6d4d76bc0b54a1a86"
+  },
+  {
+    "path": "warmup-tg-memory-after.json",
+    "bytes": 2620,
+    "sha256": "3fe894ab30dc965c10bd59aed12907fda60d0cd1000b95878b2dfcf2f6bc06b8"
+  },
+  {
+    "path": "warmup-tg-memory-before.json",
+    "bytes": 2620,
+    "sha256": "3a1a607202525fbb55bf947e644530296efb194de76abcf8ae5efcd61b2948e5"
+  },
+  {
+    "path": "warmup-tg-memory.jsonl",
+    "bytes": 9760,
+    "sha256": "f7081b78d15c57e0b722d8c751963ac96ac2c462b72e11758d0efe1db29251b1"
+  },
+  {
+    "path": "warmup-tg-process.txt",
+    "bytes": 53013,
+    "sha256": "0e932a662ec531d9a099ebe52d1d988be3a243ffc5e17d111a9df0f96eb30781"
+  },
+  {
+    "path": "weights-before.sha256",
+    "bytes": 196,
+    "sha256": "90c10653d5fea3a25e890e5f2e9388a7596bc36f177f2833c4b56f56b114ab00"
+  }
+]

@@ -1,0 +1,28 @@
+ams_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 1.000 (> 0.100 thold), f_keep = 0.127
+srv  get_availabl: updating prompt cache
+srv   prompt_save:  - saving prompt with length 150, total state size = 54.941 MiB
+srv         alloc:  - prompt is already in the cache, skipping
+srv          load:  - looking for better prompt, base f_keep = 0.127, sim = 1.000
+srv        update:  - cache state: 2 prompts, 1278.038 MiB (limits: 8192.000 MiB, 32768 tokens, 189878 est)
+srv        update:    - prompt 0x9070a1990:   29473 tokens, checkpoints:  5,  1223.097 MiB
+srv        update:    - prompt 0x9070a1a10:     150 tokens, checkpoints:  0,    54.941 MiB
+srv  get_availabl: prompt cache update took 0.04 ms
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> reasoning-budget -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 13323 | processing task, is_child = 0
+slot update_slots: id  0 | task 13323 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 19
+slot update_slots: id  0 | task 13323 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 13323 | prompt processing progress, n_tokens = 15, batch.n_tokens = 15, progress = 0.789474
+slot update_slots: id  0 | task 13323 | n_tokens = 15, memory_seq_rm [15, end)
+reasoning-budget: activated, budget=128 tokens
+slot init_sampler: id  0 | task 13323 | init sampler, took 0.01 ms, tokens: text = 19, total = 19
+slot update_slots: id  0 | task 13323 | prompt processing done, n_tokens = 19, batch.n_tokens = 4
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+reasoning-budget: budget exhausted, forcing end sequence
+reasoning-budget: forced sequence complete, done
+slot print_timing: id  0 | task 13323 | 
+prompt eval time =      65.46 ms /    19 tokens (    3.45 ms per token,   290.24 tokens per second)
+       eval time =    2332.54 ms /   132 tokens (   17.67 ms per token,    56.59 tokens per second)
+      total time =    2398.01 ms /   151 tokens
+slot      release: id  0 | task 13323 | stop processing: n_tokens = 150, truncated = 0
+srv  update_slots: all slots are idle

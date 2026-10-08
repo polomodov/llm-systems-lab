@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-10-07T17:03:16.878164+00:00",
+  "commands": {
+    "vm_stat": {
+      "argv": [
+        "vm_stat"
+      ],
+      "exit_code": 0,
+      "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  3294625.\nPages active:                                2420340.\nPages inactive:                              1891754.\nPages speculative:                            338502.\nPages throttled:                                   0.\nPages wired down:                             279967.\nPages purgeable:                              119509.\n\"Translation faults\":                     1386160162.\nPages copy-on-write:                        25188333.\nPages zero filled:                        1367962787.\nPages reactivated:                            565069.\nPages purged:                                2138290.\nFile-backed pages:                           1780422.\nAnonymous pages:                             2870174.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                     8082798.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 240648.\nPages tagged resident:                        240648.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 7719.\nPages tag-storage free:                        37239.\nPages tag-storage non-tag pageable:           217174.\nPages tag-storage non-tag wired:                  12.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+      "stderr": ""
+    },
+    "swap": {
+      "argv": [
+        "sysctl",
+        "vm.swapusage"
+      ],
+      "exit_code": 0,
+      "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+      "stderr": ""
+    },
+    "pressure": {
+      "argv": [
+        "memory_pressure",
+        "-Q"
+      ],
+      "exit_code": 0,
+      "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 96%\n",
+      "stderr": ""
+    }
+  },
+  "free_pages_bytes": 53979136000,
+  "swap_used_bytes": 0
+}

@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "hardware_id": "apple-m5-max-128gb-macos",
+  "collected_at": "2026-10-07T13:39:49.876785+00:00",
+  "source_commit": "8ef1cef6b2a9dfed69ee9c1c75e22ed6996e84e3",
+  "lab_session": "LAB28-apple-first-20261007",
+  "cpu": {
+    "name": "Apple M5 Max",
+    "cores": 18
+  },
+  "gpu": {
+    "name": "Apple M5 Max",
+    "cores": 40,
+    "has_unified_memory": true
+  },
+  "os": {
+    "name": "macOS",
+    "version": "26.5",
+    "build": "25F71",
+    "architecture": "arm64"
+  },
+  "physical_memory": {
+    "bytes": 137438953472,
+    "gib": 128.0
+  },
+  "metal": {
+    "has_unified_memory": true,
+    "max_buffer_length_bytes": 86586540032,
+    "name": "Apple M5 Max",
+    "recommended_max_working_set_bytes": 115448725504,
+    "recommended_max_working_set_gib": 107.52000427246094,
+    "max_buffer_length_gib": 80.63999938964844,
+    "free_gpu_budget_bytes": null
+  },
+  "memory_samples": {
+    "before": {
+      "timestamp": "2026-10-07T13:37:07.359754+00:00",
+      "page_size_bytes": 16384,
+      "vm_stat_counters": {
+        "Pages free": 3149911,
+        "Pages active": 2385124,
+        "Pages inactive": 2176213,
+        "Pages speculative": 215124,
+        "Pages throttled": 0,
+        "Pages wired down": 299518,
+        "Pages purgeable": 131156,
+        "\"Translation faults\"": 1205056254,
+        "Pages copy-on-write": 21590945,
+        "Pages zero filled": 1201939987,
+        "Pages reactivated": 518476,
+        "Pages purged": 1978550,
+        "File-backed pages": 1188109,
+        "Anonymous pages": 3588352,
+        "Pages stored in compressor": 0,
+        "Pages occupied by compressor": 0,
+        "Decompressions": 0,
+        "Compressions": 0,
+        "Pageins": 6567555,
+        "Pageouts": 0,
+        "Swapins": 0,
+        "Swapouts": 0,
+        "Pages tagged": 247649,
+        "Pages tagged resident": 247649,
+        "Pages tagged compressed": 0,
+        "Pages tag-storage": 262144,
+        "Pages tag-storage holding tags": 7890,
+        "Pages tag-storage free": 36562,
+        "Pages tag-storage non-tag pageable": 217679,
+        "Pages tag-storage non-tag wired": 13,
+        "Bytes of compressed tags": 0,
+        "Tagged compressions": 0,
+        "Tagged decompressions": 0
+      },
+      "free_pages_bytes": 51608141824,
+      "swap_used_bytes": 0,
+      "pressure_reported_free_percentage": 95,
+      "pressure_percentage_is_not_mem_available": true
+    },
+    "after-idle": {
+      "timestamp": "2026-10-07T13:38:07.373874+00:00",
+      "page_size_bytes": 16384,
+      "vm_stat_counters": {
+        "Pages free": 2989550,
+        "Pages active": 2438611,
+        "Pages inactive": 2208974,
+        "Pages speculative": 231561,
+        "Pages throttled": 0,
+        "Pages wired down": 357486,
+        "Pages purgeable": 107860,
+        "\"Translation faults\"": 1206319754,
+        "Pages copy-on-write": 21622220,
+        "Pages zero filled": 1203362113,
+        "Pages reactivated": 519212,
+        "Pages purged": 1981302,
+        "File-backed pages": 1198186,
+        "Anonymous pages": 3680960,
+        "Pages stored in compressor": 0,
+        "Pages occupied by compressor": 0,
+        "Decompressions": 0,
+        "Compressions": 0,
+        "Pageins": 6582296,
+        "Pageouts": 0,
+        "Swapins": 0,
+        "Swapouts": 0,
+        "Pages tagged": 247273,
+        "Pages tagged resident": 247273,
+        "Pages tagged compressed": 0,
+        "Pages tag-storage": 262144,
+        "Pages tag-storage holding tags": 7890,
+        "Pages tag-storage free": 36482,
+        "Pages tag-storage non-tag pageable": 217760,
+        "Pages tag-storage non-tag wired": 12,
+        "Bytes of compressed tags": 0,
+        "Tagged compressions": 0,
+        "Tagged decompressions": 0
+      },
+      "free_pages_bytes": 48980787200,
+      "swap_used_bytes": 0,
+      "pressure_reported_free_percentage": 95,
+      "pressure_percentage_is_not_mem_available": true
+    }
+  },
+  "snapshot_interval_seconds": 60.014106875,
+  "planning": {
+    "os_reserve_gib": 16,
+    "ram_after_reserve_gib": 112.0,
+    "gpu_budget_gib": null,
+    "first_smoke_tentative_total_gib_ceiling": 32,
+    "reserve_and_ceiling_are_policy_not_measurements": true,
+    "recommended_first_smoke_total_gib_ceiling": 24,
+    "recommendation_basis": "Post-measurement conservative recommendation below pre-registered 32 GiB ceiling; minimum free pages 45.62 GiB. Not measured GPU budget."
+  },
+  "power": {
+    "source": "AC Power",
+    "battery_percentage": 100,
+    "ac_powermode": 0,
+    "evidence": [
+      "power.txt",
+      "power-source.txt"
+    ]
+  },
+  "admission": {
+    "LAB29": {
+      "status": "admitted",
+      "condition": "Подготовка небольших закреплённых артефактов."
+    },
+    "LAB30": {
+      "status": "conditional",
+      "blocker": "CMake отсутствует в текущем PATH; нужны выбранный commit/build и GGUF из LAB29. Clang/SDK/Metal query готовы."
+    },
+    "LAB31": {
+      "status": "conditional",
+      "condition": "Native arm64 Python 3.12.14 доступен во встроенном runtime; MLX/MLX-LM и выбранные веса ещё не установлены/не проверены."
+    }
+  },
+  "limitations": [
+    "GPU allocation budget не измерен; recommended working set — рекомендация, не свободная память.",
+    "MemAvailable не вычислялся: vm_stat free pages и memory_pressure percentage имеют разные определения.",
+    "Фоновые приложения не останавливались; полный список процессов не собирался.",
+    "Ни inference, ни stress allocation, ни температурные/энергетические измерения не выполнялись."
+  ],
+  "evidence": {
+    "cpu": "cpu.txt",
+    "gpu": "gpu.txt",
+    "os": "os.txt",
+    "arch": "arch.txt",
+    "metal": "metal-device.json",
+    "memory_status": "memory-status.json",
+    "toolchain": "collection-status.json",
+    "dependencies": "dependency-status.json",
+    "planning": "initial-plan.json"
+  }
+}

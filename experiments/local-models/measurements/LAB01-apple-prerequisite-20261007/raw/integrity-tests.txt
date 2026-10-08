@@ -1,0 +1,24 @@
+✔ gateway permits GET for exact initial URLs and one link level, caches responses, and records fetched documents (19.284042ms)
+✔ gateway rejects mutation methods, arbitrary forward proxy requests, and unauthorized CONNECT before resolution (9.89175ms)
+✔ gateway blocks private destinations even if a source list explicitly includes one (1.720709ms)
+✔ gateway coalesces concurrent requests into one immutable source snapshot (27.488084ms)
+✔ URL normalization accepts only public web schemes without credentials or custom ports (0.343583ms)
+✔ public address policy rejects private, reserved, mapped loopback, and malformed addresses (0.206416ms)
+✔ API key parser uses exactly one literal .env entry without shell expansion (1.284042ms)
+✔ container arguments expose only workspace and immutable control; read-only tasks write only artifacts (0.153167ms)
+✔ safePath rejects traversal, absolute paths, live and dangling symlink escapes (0.7345ms)
+✔ snapshot inventory rejects links and records content and executable permission changes (1.093625ms)
+✔ prepared run snapshots are sealed and every agent-visible mutation is detected before execution (85.710208ms)
+✔ manifest modification is detected independently of the data it describes (87.024541ms)
+✔ preparation supports source archives and records the lack of Git provenance explicitly (47.332125ms)
+✔ synthetic execution reads .env and redacts captured stdout and stderr without exposing the key in Docker arguments (730.122458ms)
+✔ an image whose version differs from the sealed pin never starts the run (509.534083ms)
+✔ a stale lock explains itself instead of failing as EEXIST (0.423958ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1567.510791

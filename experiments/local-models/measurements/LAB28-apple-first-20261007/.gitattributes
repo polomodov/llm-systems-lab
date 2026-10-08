@@ -1,0 +1,4 @@
+# Preserve byte-exact command output and publisher snapshots.
+raw/** whitespace=-blank-at-eol,-blank-at-eof,cr-at-eol
+# A terminal TAB is the empty unavailable_reason cell required by the TSV schema.
+measurements.tsv whitespace=-blank-at-eol

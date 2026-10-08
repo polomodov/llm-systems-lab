@@ -1,0 +1,16 @@
+{
+  "run_id": "2026-10-07-claude-code-a2-janitor-t002-repo-janitor",
+  "status": "prepared",
+  "seed_commit": "a05e660e68b81d796b76878039c1642ca28ea76c",
+  "source_mode": "none",
+  "input_files": 28,
+  "workspace_files": 22,
+  "forbidden_workspace_paths": [],
+  "integrity_verified": true,
+  "verdict": {
+    "result": "pending",
+    "check_output": "",
+    "human_notes": ""
+  },
+  "execution_started_at": null
+}

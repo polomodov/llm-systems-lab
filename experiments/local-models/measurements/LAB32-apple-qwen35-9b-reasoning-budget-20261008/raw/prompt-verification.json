@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-10-08T08:23:57.730099+00:00",
+  "accepted": true,
+  "input_tokens": 28670,
+  "prompt_sha256": "85da7d6761d00157c379021a0b212ea9de2508b03b3e1336c37e5620c220ed65",
+  "baseline_count": {
+    "context": 32768,
+    "input_tokens": 28670,
+    "input_budget": 28672,
+    "rows": 1983,
+    "prompt_sha256": "85da7d6761d00157c379021a0b212ea9de2508b03b3e1336c37e5620c220ed65",
+    "output_cap": 2048
+  }
+}

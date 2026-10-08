@@ -222,3 +222,35 @@ test('CLI returns nonzero for incomplete submissions and rejects unknown options
   assert.equal(JSON.parse(incomplete.stdout).ready_for_review, false);
   assert.equal(run(['--grade', 'pass']).status, 1);
 });
+
+test('all Apple labs create compatible drafts and accept honest blocked submissions without run records', t => {
+  const f = fixture(t);
+  for (let n = 28; n <= 35; n++) {
+    const { directory: report } = createLabReport(f.root, { lab: `LAB${n}`, session: 'apple-draft' });
+    assert.equal(report, `experiments/local-models/measurements/LAB${n}-apple-draft`);
+    assert.deepEqual(checkLabReport(f.root, { report }).errors, []);
+    const dir = join(f.root, report);
+    const manifest = JSON.parse(readFileSync(join(dir, 'manifest.json')));
+    assert.equal(manifest.schema_version, 2);
+    assert.equal(manifest.harness_id, null);
+    assert.deepEqual(manifest.run_ids, []);
+    Object.assign(manifest, {
+      status: 'blocked', evidence_class: 'protocol', operator: 'Fixture',
+      hypothesis: 'Admission requires hardware evidence', conclusion: 'No experiment was run',
+      protocol_before_run: 'raw/protocol.md', protocol_recorded_at: '2026-10-07T00:00:00Z',
+      evidence_files: ['raw/protocol.md'],
+      planned_attempts: [{ id: 'smoke', configuration_id: 'apple', kind: n === 35 ? 'agent-run' : 'measurement',
+        status: 'not-run', run_id: null, evidence_files: [], reason: 'Hardware/bridge unavailable in fixture' }],
+      unavailable: {
+        completion: 'Hardware/bridge unavailable in fixture', measurements: 'No experiment was run',
+        ...Object.fromEntries(Object.keys(manifest.conditions).map(key => [`conditions.${key}`, 'Unavailable in offline fixture'])),
+      },
+    });
+    writeFileSync(join(dir, 'raw/protocol.md'), 'Offline preparation; no inference or agent runs.\n');
+    writeFileSync(join(dir, 'manifest.json'), JSON.stringify(manifest));
+    const result = checkLabReport(f.root, { report, mode: 'submission' });
+    assert.deepEqual(result.errors, [], `LAB${n}`);
+    assert.equal(result.ready_for_review, true);
+    assert.equal(result.experiment_pass, null);
+  }
+});

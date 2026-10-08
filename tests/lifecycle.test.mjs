@@ -11,6 +11,7 @@ import { judgeRun } from '../scripts/judge-run.mjs';
 import { summarize } from '../scripts/compare.mjs';
 import { copyTree, inventory, sha256 } from '../scripts/lib/files.mjs';
 import { verifyRunIntegrity } from '../scripts/lib/integrity.mjs';
+import { verifyInputs } from '../scripts/run.mjs';
 
 const repository = fileURLToPath(new URL('../', import.meta.url));
 
@@ -178,6 +179,50 @@ test('integrity catches changed prepared workspace and mismatched recorded verdi
   const completed = judgeRun(root, record.run_id, evaluation(root, finished));
   completed.verdict.result = 'fail';
   assert.throws(() => verifyRunIntegrity(root, completed), /sealed evaluation differs/);
+});
+
+test('prepared archives validate sealed inputs without ignored workspace while execution still requires the live tree', t => {
+  const root = fixture(t);
+  const record = prepared(root);
+  const dir = join(root, 'results/runs', record.run_id);
+  const check = () => spawnSync(process.execPath, [join(repository, 'scripts/check.mjs')], { cwd: root, encoding: 'utf8' });
+  const workspaceFile = join(dir, 'workspace/sample/brief.md');
+  const originalWorkspace = readFileSync(workspaceFile);
+  writeFileSync(workspaceFile, 'tampered starting tree');
+  assert.throws(() => verifyRunIntegrity(root, record), /prepared workspace changed/);
+  assert.equal(check().status, 1);
+  writeFileSync(workspaceFile, originalWorkspace);
+
+  rmSync(join(dir, 'workspace'), { recursive: true });
+  writeFileSync(join(dir, 'trace/.gitkeep'), '');
+  assert.doesNotThrow(() => verifyRunIntegrity(root, record));
+  const archived = check();
+  assert.equal(archived.status, 0, archived.stderr);
+  assert.match(archived.stdout, /prepared\/pending/);
+  assert.match(archived.stdout, /workspace отсутствует; архив prepared проверен по sealed inputs; запуск требует live tree/);
+  assert.throws(() => verifyInputs(dir, record), /ENOENT/);
+  assert.equal(readRun(root, record.run_id).status, 'prepared');
+
+  const sealedFile = join(dir, 'inputs/control/prompt.txt');
+  const originalInput = readFileSync(sealedFile);
+  writeFileSync(sealedFile, 'tampered sealed input');
+  assert.throws(() => verifyRunIntegrity(root, record), /sealed input snapshot changed/);
+  assert.equal(check().status, 1);
+  writeFileSync(sealedFile, originalInput);
+  const manifestFile = join(dir, record.inputs.manifest_path);
+  const originalManifest = readFileSync(manifestFile);
+  writeFileSync(manifestFile, originalManifest.toString('utf8') + '\n');
+  assert.throws(() => verifyRunIntegrity(root, record), /input manifest SHA-256 mismatch/);
+  assert.equal(check().status, 1);
+  writeFileSync(manifestFile, originalManifest);
+
+  symlinkSync(join(dir, 'missing-tree'), join(dir, 'workspace'));
+  assert.throws(() => verifyRunIntegrity(root, record), /symlink is not accepted: workspace/);
+  assert.equal(check().status, 1);
+  rmSync(join(dir, 'workspace'));
+  writeFileSync(join(dir, 'workspace'), 'not a directory');
+  assert.throws(() => verifyRunIntegrity(root, record), /expected directory: workspace/);
+  assert.equal(check().status, 1);
 });
 
 test('completed archives remain verifiable without ignored workspace but reject modified manifests and workspace symlinks', t => {

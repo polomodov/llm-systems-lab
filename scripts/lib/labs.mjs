@@ -23,6 +23,7 @@ export function validateLabCatalog(catalog) {
     if (!['available', 'target-machine', 'implementation-required'].includes(lab.readiness)) throw new Error(`Invalid lab readiness: ${lab.id}`);
     if (typeof lab.effort !== 'string' || !lab.effort.trim()) throw new Error(`Missing lab effort: ${lab.id}`);
     if (!Array.isArray(lab.prerequisites) || new Set(lab.prerequisites).size !== lab.prerequisites.length) throw new Error(`Invalid lab prerequisites: ${lab.id}`);
+    if (lab.prerequisites_any !== undefined && (!Array.isArray(lab.prerequisites_any) || !lab.prerequisites_any.length || new Set(lab.prerequisites_any).size !== lab.prerequisites_any.length || lab.prerequisites_any.some(id => lab.prerequisites.includes(id)))) throw new Error(`Invalid alternative prerequisites: ${lab.id}`);
   }
   const map = new Map(catalog.labs.map(lab => [lab.id, lab]));
   const done = new Set(), visiting = new Set();
@@ -31,7 +32,7 @@ export function validateLabCatalog(catalog) {
     if (visiting.has(id)) throw new Error(`Cyclic lab prerequisites: ${id}`);
     if (done.has(id)) return;
     visiting.add(id);
-    for (const prerequisite of map.get(id).prerequisites) visit(prerequisite);
+    for (const prerequisite of [...map.get(id).prerequisites, ...(map.get(id).prerequisites_any ?? [])]) visit(prerequisite);
     visiting.delete(id); done.add(id);
   }
   for (const id of ids) visit(id);

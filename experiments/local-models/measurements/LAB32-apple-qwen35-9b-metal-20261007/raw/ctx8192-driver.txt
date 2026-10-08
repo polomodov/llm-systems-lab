@@ -1,0 +1,17 @@
+{"case": "ctx8192-chat-warmup", "accepted": true, "reason": null, "duration_s": 0.134932459}
+{"case": "ctx8192-chat-r1", "accepted": true, "reason": null, "duration_s": 0.091176292}
+{"case": "ctx8192-chat-r2", "accepted": true, "reason": null, "duration_s": 0.09122125}
+{"case": "ctx8192-chat-r3", "accepted": true, "reason": null, "duration_s": 0.091274875}
+{"case": "ctx8192-chat-stream-warmup", "accepted": true, "reason": null, "duration_s": 0.100417083}
+{"case": "ctx8192-chat-stream-r1", "accepted": true, "reason": null, "duration_s": 0.10099941699999998}
+{"case": "ctx8192-chat-stream-r2", "accepted": true, "reason": null, "duration_s": 0.092017209}
+{"case": "ctx8192-chat-stream-r3", "accepted": true, "reason": null, "duration_s": 0.091290375}
+{"case": "ctx8192-tool-warmup", "accepted": false, "reason": "Probe execution failed", "duration_s": null}
+Traceback (most recent call last):
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/lab32_runner.py", line 280, in <module>
+    else:context(int(sys.argv[1]))
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/lab32_runner.py", line 273, in context
+    probe(server,f'ctx{ctx}-{kind}-{repeat}',fixture,'LAB_SENTINEL_42' if kind=='long' else 'LAB_VALUE_42' if kind.startswith('tool') else 'LAB_READY',tool=kind.startswith('tool'),expected_tokens=count if kind=='long' else None)
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/lab32_runner.py", line 192, in probe
+    if not accepted:raise RuntimeError(case+': '+str(reason))
+RuntimeError: ctx8192-tool-warmup: Probe execution failed

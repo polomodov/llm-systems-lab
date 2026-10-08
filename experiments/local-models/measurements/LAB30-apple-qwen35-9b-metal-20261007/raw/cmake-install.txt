@@ -1,0 +1,10 @@
+Collecting cmake==4.4.4
+  WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1010)'))': /packages/3f/02/86b484e16c91de4bdf90dfab37a33c3e5512bc30d3a494759976df0943b9/cmake-4.4.4-py3-none-macosx_10_10_universal2.whl.metadata
+  Downloading cmake-4.4.4-py3-none-macosx_10_10_universal2.whl.metadata (7.0 kB)
+Downloading cmake-4.4.4-py3-none-macosx_10_10_universal2.whl (54.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 54.4/54.4 MB 13.4 MB/s eta 0:00:00
+Installing collected packages: cmake
+Successfully installed cmake-4.4.4
+
+[notice] A new release of pip is available: 25.0.1 -> 26.2.1
+[notice] To update, run: /tmp/apple-lab30-build-tools/bin/python -m pip install --upgrade pip

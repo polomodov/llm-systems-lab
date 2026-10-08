@@ -1,0 +1,48 @@
+ate_slots: all slots are idle
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.995 (> 0.100 thold), f_keep = 0.811
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 6530 | processing task, is_child = 0
+slot update_slots: id  0 | task 6530 | new prompt, n_ctx_slot = 8192, n_keep = 0, task.n_tokens = 4059
+slot update_slots: id  0 | task 6530 | erased invalidated context checkpoint (pos_min = 3822, pos_max = 3822, n_tokens = 3823, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 6530 | erased invalidated context checkpoint (pos_min = 4078, pos_max = 4078, n_tokens = 4079, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 6530 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.126139
+slot update_slots: id  0 | task 6530 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.252279
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.378418
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.504558
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.630697
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.756837
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.882976
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 3799, batch.n_tokens = 215, progress = 0.935945
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | n_tokens = 3799, memory_seq_rm [3799, end)
+slot update_slots: id  0 | task 6530 | prompt processing progress, n_tokens = 4055, batch.n_tokens = 256, progress = 0.999015
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot update_slots: id  0 | task 6530 | created context checkpoint 1 of 32 (pos_min = 3798, pos_max = 3798, n_tokens = 3799, size = 50.251 MiB)
+slot update_slots: id  0 | task 6530 | n_tokens = 4055, memory_seq_rm [4055, end)
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+slot init_sampler: id  0 | task 6530 | init sampler, took 0.31 ms, tokens: text = 4059, total = 4059
+slot update_slots: id  0 | task 6530 | prompt processing done, n_tokens = 4059, batch.n_tokens = 4
+slot update_slots: id  0 | task 6530 | created context checkpoint 2 of 32 (pos_min = 4054, pos_max = 4054, n_tokens = 4055, size = 50.251 MiB)
+srv  log_server_r: done request: GET /slots 127.0.0.1 200
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+srv          stop: cancel task, id_task = 6530
+slot      release: id  0 | task 6530 | stop processing: n_tokens = 4060, truncated = 0
+srv  update_slots: all slots are idle
+srv  update_slots: all slots are idle
+srv  log_server_r: done request: GET /slots 127.0.0.1 200

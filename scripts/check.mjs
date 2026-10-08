@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { validateLedger, validateRun } from "./lib/records.mjs";
 import { verifyRunIntegrity } from "./lib/integrity.mjs";
 import { validateLocalPlanData } from "./lib/local-plan.mjs";
-import { validateEngineCatalog } from "./lib/local-engines.mjs";
+import { HARDWARE_PROFILES, loadLocalHardware } from "./lib/local-hardware.mjs";
 import { loadLabCatalog } from "./lib/labs.mjs";
 import { auditPins } from "./lib/pins.mjs";
 import { taskLimits } from "./lib/contracts.mjs";
@@ -23,17 +23,14 @@ if (existsSync(join(root, "docs/labs"))) {
 }
 const localDir = join(root, "experiments", "local-models");
 if (existsSync(localDir)) {
-  try {
-    const catalog = JSON.parse(readFileSync(join(localDir, "models.json"), "utf8"));
-    const hardware = JSON.parse(readFileSync(join(localDir, "hardware.json"), "utf8"));
-    validateLocalPlanData(catalog, hardware);
-    console.log(`[check] local models=${catalog.models.length}: план, не результаты`);
-    if (existsSync(join(localDir, "engines.json"))) {
-      const engines = JSON.parse(readFileSync(join(localDir, "engines.json"), "utf8"));
-      validateEngineCatalog(engines);
-      console.log(`[check] inference profiles=${engines.engines.length}: план, hardware smoke не выполнен`);
-    }
-  } catch (error) { console.error(`[check] local plan: ${error.message}`); failed++; }
+  for (const id of Object.keys(HARDWARE_PROFILES)) {
+    try {
+      const catalog = JSON.parse(readFileSync(join(localDir, "models.json"), "utf8"));
+      const { hardware, engines } = loadLocalHardware(root, id, { engines: true });
+      validateLocalPlanData(catalog, hardware);
+      console.log(`[check] ${id}: models=${catalog.models.length}, inference profiles=${engines.engines.length}: план, hardware smoke не выполнен`);
+    } catch (error) { console.error(`[check] local plan ${id}: ${error.message}`); failed++; }
+  }
 }
 if (existsSync(join(root, "experiments")) && existsSync(join(root, "docs/harnesses.md")) && existsSync(join(root, "README.md"))) {
   try {
@@ -88,6 +85,7 @@ for (const name of entries) {
   else {
     if (record.status === "completed") { completed++; evidenceIds.add(record.run_id); }
     console.log(`✔ ${name}: ${record.status}/${record.verdict.result}`);
+    if (record.status === "prepared" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив prepared проверен по sealed inputs; запуск требует live tree`);
     if (record.status === "completed" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив проверен без live tree`);
   }
 }

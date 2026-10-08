@@ -1,0 +1,13 @@
+{
+  "report": "experiments/local-models/measurements/LAB32-apple-qwen35-9b-reasoning-budget-20261008/report.md",
+  "diagnostic_admission": {
+    "budget128": true,
+    "budget512": false
+  },
+  "full_lab32_admission": false,
+  "sha256": {
+    "manifest.json": "b34b8b600aa4781bfcf82b29d29fd85322252d48cefabe19fe283123ff3d21f5",
+    "raw/diagnostic-summary.json": "d21a7b91ff7bf4c5978cfd6f1416d8935a14162e1a9bee499f61e81790a72519",
+    "raw/evidence-hashes.json": "c2493a11b0fe7550dc57eaedcf4566d809599ee0b1e8eec2b1542710356e0db3"
+  }
+}

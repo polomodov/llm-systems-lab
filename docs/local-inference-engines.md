@@ -1,5 +1,7 @@
 # План сравнения движков инференса на Ryzen AI Max+ 395
 
+**Apple-ветка (07.10.2026):** [LAB28–35 и профили M5 Max](../experiments/local-models/apple/README.md). Обе команды `local:plan` и `local:engines` принимают `--hardware apple-m5-max-128gb-macos`; без флага сохраняется Ryzen. Apple использует Metal/MLX и отдельный каталог из пяти профилей. GPU budget неизвестен: итоговый budget/headroom равен `null`, статус `hardware-memory-required`; числовой бюджет задаётся после измерений. MLX остаётся `artifact-required`, wrapper с неизвестной памятью — `engine-memory-required`. Ниже сохранён исходный план Ryzen/Linux.
+
 Практические задания: [ЛР04 — backend](labs/LAB04-backends.md), [ЛР06 — движки](labs/LAB06-engines.md), [ЛР07 — сервисы](labs/LAB07-serving.md). Общий маршрут и шаблоны — в [практикуме](labs/README.md).
 
 Дополнение от **21.09.2026** к [кампании локальных моделей](local-models.md). Целевая машина — Ryzen AI Max+ 395 / Radeon 8060S (`gfx1151`), 128 GB UMA, Linux. **ROCm — полноценная обязательная ветвь исследования наряду с Vulkan.** Поддержка Max+ 395 явно перечислена в [матрице AMD](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html); AMD также публикует [vLLM-образ для gfx1151](https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/advanced/advancedryz/linux/llm/build-docker-image.html). Это документированные пути запуска, не наши аппаратные замеры.

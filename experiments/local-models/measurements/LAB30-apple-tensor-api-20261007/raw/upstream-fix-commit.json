@@ -1,0 +1,18 @@
+{
+  "sha": "9bcb4eff4d7e7755276645c767948c25c00481b8",
+  "html_url": "https://github.com/ggml-org/llama.cpp/commit/9bcb4eff4d7e7755276645c767948c25c00481b8",
+  "commit": {
+    "message": "metal : Fix dimension constraint violation in matmul2d descriptor (#21048)\n\nUpdates Metal tensor API test probe to fix the dimension constraint violation in the matmul2d descriptor (at least one value must be a multiple of 16).",
+    "author": {
+      "name": "ren",
+      "email": "189031187+lathrys-at@users.noreply.github.com",
+      "date": "2026-03-27T07:05:21Z"
+    }
+  },
+  "files": [
+    {
+      "filename": "ggml/src/ggml-metal/ggml-metal-device.m",
+      "patch": "@@ -690,7 +690,7 @@ ggml_metal_device_t ggml_metal_device_init(int device) {\n                     \"    auto tB = B.slice((int)tgid.x, 0); \\n\"\n                     \" \\n\"\n                     \"    matmul2d< \\n\"\n-                    \"        matmul2d_descriptor(8, 8, dynamic_extent), \\n\"\n+                    \"        matmul2d_descriptor(16, 16, dynamic_extent), \\n\"\n                     \"        execution_simdgroups<4>> mm; \\n\"\n                     \" \\n\"\n                     \"    auto cT = mm.get_destination_cooperative_tensor<decltype(tA), decltype(tB), float>(); \\n\"\n@@ -740,7 +740,7 @@ ggml_metal_device_t ggml_metal_device_init(int device) {\n                     \"    auto tB = B.slice((int)tgid.x, 0); \\n\"\n                     \" \\n\"\n                     \"    matmul2d< \\n\"\n-                    \"        matmul2d_descriptor(8, 8, dynamic_extent), \\n\"\n+                    \"        matmul2d_descriptor(16, 16, dynamic_extent), \\n\"\n                     \"        execution_simdgroups<4>> mm; \\n\"\n                     \" \\n\"\n                     \"    auto cT = mm.get_destination_cooperative_tensor<decltype(tA), decltype(tB), float>(); \\n\""
+    }
+  ]
+}

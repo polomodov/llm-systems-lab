@@ -21,6 +21,11 @@ jobs:
           node-version: '24.13.1'
       - name: Unit and integration tests
         run: npm test
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline Mac lab exporter regressions
+        run: python3 -m unittest discover -s experiments/local-models -p 'test_lab*.py' -v
       - name: Records, ledger, pins and contracts
         run: npm run check
 

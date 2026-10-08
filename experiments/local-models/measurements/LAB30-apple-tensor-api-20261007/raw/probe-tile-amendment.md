@@ -1,0 +1,3 @@
+# Поправка до второй пробы
+
+В первой пробе default languageVersion уже4.0 (262144). f16/bfloat default и explicit4.0 падают на static_assert MPP: At least one of M or N must be a multiple of16. Исходный dummy descriptor8×8 недопустим на установленной macOS26.5. Гипотеза о недостаточной default languageVersion здесь опровергнута. Следующий фактор — только tile: заменить descriptor8×8 на16×16; probe выполняет только компиляцию/pipeline, не dispatch. Матрица: f16/bfloat, default/3.2/4.0. При успехе isolated source patch меняет лишь dummy tiles и включает verbose diagnostics, без принудительной feature flags. Production tensor kernels сохраняются.

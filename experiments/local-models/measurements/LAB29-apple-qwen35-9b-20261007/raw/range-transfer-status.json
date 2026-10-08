@@ -1,0 +1,342 @@
+{
+  "repository": "unsloth/Qwen3.5-9B-GGUF",
+  "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+  "path": "Qwen3.5-9B-Q6_K.gguf",
+  "prefix_bytes": 3093299200,
+  "started_at": "2026-10-07T14:04:33.996817+00:00",
+  "chunk_bytes": 134217728,
+  "workers": 6,
+  "chunks": [
+    {
+      "index": 0,
+      "start": 3093299200,
+      "end": 3227516927,
+      "status": "completed",
+      "bytes": 134217728,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "completed",
+          "range_start": 3093299200
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "start": 3361734656,
+      "end": 3495952383,
+      "status": "completed",
+      "bytes": 134217728,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "completed",
+          "range_start": 3361734656
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "start": 3764387840,
+      "end": 3898605567,
+      "status": "completed",
+      "bytes": 134217728,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "completed",
+          "range_start": 3764387840
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "start": 3898605568,
+      "end": 4032823295,
+      "status": "completed",
+      "bytes": 134217728,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "completed",
+          "range_start": 3898605568
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "start": 4167041024,
+      "end": 4301258751,
+      "status": "failed",
+      "bytes": 1463252,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 4167041024
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4168504276
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4168504276
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "start": 4032823296,
+      "end": 4167041023,
+      "status": "failed",
+      "bytes": 97903063,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 4032823296
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4130726359
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4130726359
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "start": 3630170112,
+      "end": 3764387839,
+      "status": "failed",
+      "bytes": 84904004,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 3630170112
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3715074116
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3715074116
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "start": 3227516928,
+      "end": 3361734655,
+      "status": "failed",
+      "bytes": 64998642,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 3227516928
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3292515570
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3292515570
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "start": 4301258752,
+      "end": 4435476479,
+      "status": "failed",
+      "bytes": 2810353,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 4301258752
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4304069105
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4304069105
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "start": 3495952384,
+      "end": 3630170111,
+      "status": "failed",
+      "bytes": 88566639,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "ValueError",
+          "range_start": 3495952384
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3584519023
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 3584519023
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "start": 4569694208,
+      "end": 4703911935,
+      "status": "failed",
+      "bytes": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4569694208
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4569694208
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4569694208
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "start": 4435476480,
+      "end": 4569694207,
+      "status": "failed",
+      "bytes": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4435476480
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4435476480
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4435476480
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "start": 4703911936,
+      "end": 4838129663,
+      "status": "failed",
+      "bytes": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4703911936
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4703911936
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4703911936
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "start": 4838129664,
+      "end": 4972347391,
+      "status": "failed",
+      "bytes": 0,
+      "attempts": [
+        {
+          "attempt": 1,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4838129664
+        },
+        {
+          "attempt": 2,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4838129664
+        },
+        {
+          "attempt": 3,
+          "status": "failed",
+          "error_type": "URLError",
+          "range_start": 4838129664
+        }
+      ]
+    }
+  ],
+  "completed": false,
+  "elapsed_seconds": 82.1378544170002,
+  "verified_transfer_bytes": 3630170112,
+  "error_type": "RuntimeError",
+  "ended_at": "2026-10-07T14:05:56.134365+00:00"
+}

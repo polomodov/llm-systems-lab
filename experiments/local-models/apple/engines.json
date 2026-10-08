@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-10-07",
+  "engines": [
+    {
+      "id": "llama-cpp-metal",
+      "name": "llama.cpp / Metal",
+      "kind": "engine",
+      "engine": "llama.cpp",
+      "backend": "metal",
+      "priority": 1,
+      "hardware_support": "conditional",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": 6,
+      "sources": [
+        "https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md"
+      ],
+      "notes": "Metal документирован для Apple Silicon. Конкретные M5 Max/macOS/build/model требуют smoke LAB30; 6 GiB — гипотеза. Для сравнения с Ryzen закрепить один commit и те же GGUF hashes."
+    },
+    {
+      "id": "mlx-lm-metal",
+      "name": "MLX-LM / Metal",
+      "kind": "engine",
+      "engine": "mlx-lm",
+      "backend": "metal",
+      "priority": 1,
+      "hardware_support": "conditional",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://github.com/ml-explore/mlx-lm",
+        "https://ml-explore.github.io/mlx/build/html/index.html"
+      ],
+      "notes": "Отдельные MLX weights, quantization config, tokenizer/template и версии mlx/mlx-lm; размеры GGUF не применяются. Архитектура, tool parser, peak memory и M5 Max требуют LAB31–32."
+    },
+    {
+      "id": "ollama-metal",
+      "name": "Ollama / Metal (GGUF)",
+      "kind": "serving-wrapper",
+      "engine": "ollama-runner",
+      "backend": "metal",
+      "priority": 2,
+      "hardware_support": "conditional",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://docs.ollama.com/gpu",
+        "https://docs.ollama.com/import",
+        "https://docs.ollama.com/api/openai-compatibility"
+      ],
+      "notes": "Профиль для импорта точного GGUF без requant. Подтвердить blob hash и реально выбранный runner/Metal; не считать все версии Ollama одним движком. Иной формат или MLX runner — отдельное условие, этот профиль к нему не применять."
+    },
+    {
+      "id": "lm-studio-metal",
+      "name": "LM Studio / llama.cpp Metal",
+      "kind": "serving-wrapper",
+      "engine": "llama.cpp",
+      "backend": "metal",
+      "priority": 2,
+      "hardware_support": "conditional",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lmstudio.ai/docs/app",
+        "https://lmstudio.ai/docs/cli/runtime/runtime"
+      ],
+      "notes": "Закрепить приложение и отдельный runtime package/version; импортировать тот же GGUF. Device/offload и M5 Max unverified до LAB33; версия GUI не определяет commit llama.cpp."
+    },
+    {
+      "id": "lm-studio-mlx",
+      "name": "LM Studio / MLX",
+      "kind": "serving-wrapper",
+      "engine": "mlx",
+      "backend": "metal",
+      "priority": 2,
+      "hardware_support": "conditional",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lmstudio.ai/docs/app",
+        "https://lmstudio.ai/blog/unified-mlx-engine"
+      ],
+      "notes": "Отдельный MLX runtime с собственным artifact manifest; не переносить GGUF size/quant. Для overhead-сравнения подтвердить совпадение весов и внутреннего runtime с прямой ветвью; иначе сравнивать deployments."
+    }
+  ]
+}

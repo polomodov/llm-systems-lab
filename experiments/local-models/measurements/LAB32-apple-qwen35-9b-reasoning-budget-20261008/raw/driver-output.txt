@@ -1,0 +1,52 @@
+{"case": "ctx32768-control-long-warmup", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 62.968665083999994}
+{"case": "ctx32768-control-long-warmup", "semantic_failure_retained": true, "finish_reason": "length"}
+{"case": "ctx32768-budget128-long-warmup", "accepted": true, "reason": null, "duration_s": 31.042597542}
+{"case": "ctx32768-budget512-long-warmup", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 45.007133708}
+{"case": "ctx32768-budget512-long-warmup", "semantic_failure_retained": true, "finish_reason": "stop"}
+{"case": "ctx32768-control-long-r1", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 70.70942962500001}
+{"case": "ctx32768-control-long-r1", "semantic_failure_retained": true, "finish_reason": "length"}
+{"case": "ctx32768-budget128-long-r1", "accepted": true, "reason": null, "duration_s": 31.548555208}
+{"case": "ctx32768-budget512-long-r1", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 45.699286625}
+{"case": "ctx32768-budget512-long-r1", "semantic_failure_retained": true, "finish_reason": "stop"}
+{"case": "ctx32768-control-long-r2", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 71.172696542}
+{"case": "ctx32768-control-long-r2", "semantic_failure_retained": true, "finish_reason": "length"}
+{"case": "ctx32768-budget128-long-r2", "accepted": true, "reason": null, "duration_s": 31.647578834}
+{"case": "ctx32768-budget512-long-r2", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 45.765885792}
+{"case": "ctx32768-budget512-long-r2", "semantic_failure_retained": true, "finish_reason": "stop"}
+{"case": "ctx32768-control-long-r3", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 76.818153}
+{"case": "ctx32768-control-long-r3", "semantic_failure_retained": true, "finish_reason": "length"}
+{"case": "ctx32768-budget128-long-r3", "accepted": true, "reason": null, "duration_s": 35.24902}
+{"case": "ctx32768-budget512-long-r3", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 50.205305958}
+{"case": "ctx32768-budget512-long-r3", "semantic_failure_retained": true, "finish_reason": "stop"}
+{"case": "ctx32768-budget128-chat-warmup", "accepted": true, "reason": null, "duration_s": 2.556903667}
+{"case": "ctx32768-budget128-chat-r1", "accepted": true, "reason": null, "duration_s": 2.438219084}
+{"case": "ctx32768-budget128-chat-r2", "accepted": true, "reason": null, "duration_s": 2.430599875}
+{"case": "ctx32768-budget128-chat-r3", "accepted": true, "reason": null, "duration_s": 2.429014125}
+{"case": "ctx32768-budget128-chat-stream-warmup", "accepted": true, "reason": null, "duration_s": 2.406468958}
+{"case": "ctx32768-budget128-chat-stream-r1", "accepted": true, "reason": null, "duration_s": 2.413474541}
+{"case": "ctx32768-budget128-chat-stream-r2", "accepted": true, "reason": null, "duration_s": 2.344664958}
+{"case": "ctx32768-budget128-chat-stream-r3", "accepted": true, "reason": null, "duration_s": 2.394356708}
+{"case": "ctx32768-budget128-tool-warmup", "accepted": true, "reason": null, "duration_s": 1.578427458}
+{"case": "ctx32768-budget128-tool-r1", "accepted": true, "reason": null, "duration_s": 1.595691708}
+{"case": "ctx32768-budget128-tool-r2", "accepted": true, "reason": null, "duration_s": 1.5322312919999999}
+{"case": "ctx32768-budget128-tool-r3", "accepted": true, "reason": null, "duration_s": 1.5163564589999998}
+{"case": "ctx32768-budget128-tool-stream-warmup", "accepted": true, "reason": null, "duration_s": 1.51844275}
+{"case": "ctx32768-budget128-tool-stream-r1", "accepted": true, "reason": null, "duration_s": 1.465782167}
+{"case": "ctx32768-budget128-tool-stream-r2", "accepted": true, "reason": null, "duration_s": 1.487467916}
+{"case": "ctx32768-budget128-tool-stream-r3", "accepted": true, "reason": null, "duration_s": 1.504808}
+{"case": "ctx32768-budget512-chat-warmup", "accepted": true, "reason": null, "duration_s": 4.266689416}
+{"case": "ctx32768-budget512-chat-r1", "accepted": true, "reason": null, "duration_s": 4.271077708}
+{"case": "ctx32768-budget512-chat-r2", "accepted": true, "reason": null, "duration_s": 4.288719083}
+{"case": "ctx32768-budget512-chat-r3", "accepted": true, "reason": null, "duration_s": 4.306985375}
+{"case": "ctx32768-budget512-chat-stream-warmup", "accepted": true, "reason": null, "duration_s": 4.294693291}
+{"case": "ctx32768-budget512-chat-stream-r1", "accepted": true, "reason": null, "duration_s": 4.288424333999999}
+{"case": "ctx32768-budget512-chat-stream-r2", "accepted": true, "reason": null, "duration_s": 4.268542875}
+{"case": "ctx32768-budget512-chat-stream-r3", "accepted": true, "reason": null, "duration_s": 4.295972625}
+{"case": "ctx32768-budget512-tool-warmup", "accepted": true, "reason": null, "duration_s": 1.5312485}
+{"case": "ctx32768-budget512-tool-r1", "accepted": true, "reason": null, "duration_s": 1.5163092089999999}
+{"case": "ctx32768-budget512-tool-r2", "accepted": true, "reason": null, "duration_s": 1.493556625}
+{"case": "ctx32768-budget512-tool-r3", "accepted": true, "reason": null, "duration_s": 1.500847917}
+{"case": "ctx32768-budget512-tool-stream-warmup", "accepted": true, "reason": null, "duration_s": 1.4956545829999999}
+{"case": "ctx32768-budget512-tool-stream-r1", "accepted": true, "reason": null, "duration_s": 1.496411208}
+{"case": "ctx32768-budget512-tool-stream-r2", "accepted": true, "reason": null, "duration_s": 1.498708625}
+{"case": "ctx32768-budget512-tool-stream-r3", "accepted": true, "reason": null, "duration_s": 1.492365958}

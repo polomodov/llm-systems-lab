@@ -1,0 +1,11 @@
+{
+  "offline_files_verified": 19,
+  "gguf_tensors": 427,
+  "mlx_tensor_count": 1260,
+  "mlx_quantization": {
+    "group_size": 64,
+    "bits": 4,
+    "mode": "affine"
+  },
+  "gguf_chat_template_sha256": "7f0e529032c25183bcd66c7f238da2d377f43be754a94e2725a58c4e16d2ed67"
+}

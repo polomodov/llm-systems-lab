@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-07T21:01:07.941751+00:00",
+  "architecture": "arm64",
+  "python": "3.12.14",
+  "macos": "26.5",
+  "physical_memory_bytes": 137438953472,
+  "cpu": "Apple M5 Max",
+  "gpu": {
+    "device_name": "Apple M5 Max",
+    "max_recommended_working_set_size": 115448725504,
+    "memory_size": 137438953472,
+    "architecture": "applegpu_g17s",
+    "max_buffer_length": 86586540032,
+    "resource_limit": 499000
+  },
+  "baseline_source": "LAB28-apple-first-20261007"
+}
