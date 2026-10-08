@@ -1,0 +1,17 @@
+{
+  "id": "gpt-oss-20b",
+  "model_id": "openai/gpt-oss-20b",
+  "quantization": "MXFP4",
+  "artifact": {
+    "repository": "ggml-org/gpt-oss-20b-GGUF",
+    "revision": "ef9b12f2ff56c69cf32153a02784e7a3c88bf524",
+    "files": [
+      {
+        "path": "gpt-oss-20b-MXFP4.gguf",
+        "bytes": 12109566624,
+        "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901"
+      }
+    ],
+    "total_bytes": 12109566624
+  }
+}
