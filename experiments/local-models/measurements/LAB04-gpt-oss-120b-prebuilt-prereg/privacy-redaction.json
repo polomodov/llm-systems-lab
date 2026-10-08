@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/hip-bench-help.txt",
+      "original_sha256": "dcd5d74bfcb18dbf7fcf4d04c72717d1d93aa407e2b32d55fe5bd57e77379de7",
+      "published_sha256": "fb6968ea21779742f4f87603abdcac1a927a4339ac1758464134d8b7d8aa467e",
+      "original_bytes": 3841,
+      "published_bytes": 3834
+    },
+    {
+      "path": "raw/hip-binaries.sha256",
+      "original_sha256": "ba8d6398471bd9b9e459b025578a7f9dc096a663d83647676282df001b2b8436",
+      "published_sha256": "28eda9f7c3509f5f3421d5ee5974040802d0bebd4b0f8e6e08d3717ed84aafb4",
+      "original_bytes": 403,
+      "published_bytes": 389
+    },
+    {
+      "path": "raw/vulkan-bench-help.txt",
+      "original_sha256": "674bb0bef91e50d2914ad0a2e91c36c1cedf2f36794389c0d9528a526d8076e1",
+      "published_sha256": "6ce9c16e4ea8145d21bc07339a3ebc7491ef43ad9b20fadb7084da4d2bd26df7",
+      "original_bytes": 4307,
+      "published_bytes": 4279
+    },
+    {
+      "path": "raw/vulkan-binaries.sha256",
+      "original_sha256": "de4e4d57354d6297acc0343b6aa5293ae85412668de5e272d79d92094868245e",
+      "published_sha256": "33be2cf11df9b4aa8bbfb3b8033a0d4526b134dfd076dc30245cb1463586eefd",
+      "original_bytes": 299,
+      "published_bytes": 285
+    },
+    {
+      "path": "raw/vulkan-devices.txt",
+      "original_sha256": "3031e6d7ce6fd917a74ff16d079006d36a3d4292819a2e50eda49048cfafd478",
+      "published_sha256": "650a37b91b145b8953b6c20e8a333ce39c3e6b1e59dcfe62523fd076c5d366a8",
+      "original_bytes": 683,
+      "published_bytes": 662
+    },
+    {
+      "path": "raw/vulkan-version.txt",
+      "original_sha256": "8c6aac2053247af4eac0ed451588ca537f65bf1c5000303951ddb2ce162202fb",
+      "published_sha256": "2b7cd67cec51304ef937435001961ec07b9436b32ea2e1b16a926707d90565c4",
+      "original_bytes": 653,
+      "published_bytes": 632
+    },
+    {
+      "path": "raw/weights.sha256",
+      "original_sha256": "00ca5a6ac8fb6d82817f149b917ccf1ed48124ed55a548f1c3c5e0efa42042d7",
+      "published_sha256": "7184c498521ddf188cb8249f35f79f9bbd943bba2c96399d5ef2c595271a7966",
+      "original_bytes": 201,
+      "published_bytes": 194
+    }
+  ]
+}

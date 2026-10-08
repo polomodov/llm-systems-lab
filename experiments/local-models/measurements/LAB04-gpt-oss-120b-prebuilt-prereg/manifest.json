@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB04",
+  "harness_id": null,
+  "session_id": "gpt-oss-120b-prebuilt-prereg",
+  "created_at": "2026-10-08T15:09:12.000Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "agent-harness-lab operator",
+  "hypothesis": "Один GGUF gpt-oss-120b-MXFP4.gguf работает с полным GPU offload в обеих prebuilt-сборках llama.cpp b8407 (Vulkan/RADV и ROCm/HIP); backend влияет на скорость prefill/decode и память, направление неизвестно.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T15:09:12Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB04-gpt-oss-120b-prebuilt-prereg/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB04-gpt-oss-120b-prebuilt-prereg/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "prereg-offload-proof",
+      "configuration_id": "gpt-oss-120b-offload-proof",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": null
+    },
+    {
+      "id": "prereg-vulkan",
+      "configuration_id": "gpt-oss-120b-vulkan",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": null
+    },
+    {
+      "id": "prereg-hip",
+      "configuration_id": "gpt-oss-120b-hip",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": null
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "LAB04 не использует агентную обвязку."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
