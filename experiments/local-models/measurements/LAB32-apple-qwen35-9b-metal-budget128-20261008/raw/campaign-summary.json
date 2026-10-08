@@ -1,0 +1,147 @@
+{
+  "conclusion": "Кампания не завершена; допуск только для полностью проверенных этапов: 8192. Отказы: ctx16384-long-warmup.",
+  "condition": "reasoning=auto / enable_thinking=true / thinking_budget_tokens=128",
+  "thinking_budget_tokens": 128,
+  "server_reasoning_budget": -1,
+  "cancel_release_timeout_seconds": 60,
+  "contexts": [
+    8192,
+    16384,
+    32768
+  ],
+  "admitted_contexts": [
+    8192
+  ],
+  "higher_contexts_measured": false,
+  "case_statistics": {
+    "ctx8192-chat": {
+      "context_tokens": 8192,
+      "case": "chat",
+      "values": [
+        2.111006084,
+        2.1214637909999996,
+        2.1238960409999996
+      ],
+      "median_seconds": 2.1214637909999996,
+      "min_seconds": 2.111006084,
+      "max_seconds": 2.1238960409999996
+    },
+    "ctx8192-chat-stream": {
+      "context_tokens": 8192,
+      "case": "chat-stream",
+      "values": [
+        2.174288083,
+        2.17476775,
+        2.1995852080000002
+      ],
+      "median_seconds": 2.17476775,
+      "min_seconds": 2.174288083,
+      "max_seconds": 2.1995852080000002
+    },
+    "ctx8192-tool": {
+      "context_tokens": 8192,
+      "case": "tool",
+      "values": [
+        2.395000208,
+        2.4126375419999997,
+        2.406557458
+      ],
+      "median_seconds": 2.406557458,
+      "min_seconds": 2.395000208,
+      "max_seconds": 2.4126375419999997
+    },
+    "ctx8192-tool-stream": {
+      "context_tokens": 8192,
+      "case": "tool-stream",
+      "values": [
+        2.43319525,
+        2.393837126,
+        2.418286791
+      ],
+      "median_seconds": 2.418286791,
+      "min_seconds": 2.393837126,
+      "max_seconds": 2.43319525
+    },
+    "ctx8192-long": {
+      "context_tokens": 8192,
+      "case": "long",
+      "values": [
+        5.347640791,
+        5.36567225,
+        5.411094917
+      ],
+      "median_seconds": 5.36567225,
+      "min_seconds": 5.347640791,
+      "max_seconds": 5.411094917
+    },
+    "ctx16384-chat": {
+      "context_tokens": 16384,
+      "case": "chat",
+      "values": [
+        2.108059292,
+        2.1322740000000002,
+        2.097662875
+      ],
+      "median_seconds": 2.108059292,
+      "min_seconds": 2.097662875,
+      "max_seconds": 2.1322740000000002
+    },
+    "ctx16384-chat-stream": {
+      "context_tokens": 16384,
+      "case": "chat-stream",
+      "values": [
+        2.1070624159999998,
+        2.10256775,
+        2.126333458
+      ],
+      "median_seconds": 2.1070624159999998,
+      "min_seconds": 2.10256775,
+      "max_seconds": 2.126333458
+    },
+    "ctx16384-tool": {
+      "context_tokens": 16384,
+      "case": "tool",
+      "values": [
+        2.2961145419999998,
+        2.30832325,
+        2.31791475
+      ],
+      "median_seconds": 2.30832325,
+      "min_seconds": 2.2961145419999998,
+      "max_seconds": 2.31791475
+    },
+    "ctx16384-tool-stream": {
+      "context_tokens": 16384,
+      "case": "tool-stream",
+      "values": [
+        2.3271763329999997,
+        2.3318672090000003,
+        2.3450578340000003
+      ],
+      "median_seconds": 2.3318672090000003,
+      "min_seconds": 2.3271763329999997,
+      "max_seconds": 2.3450578340000003
+    }
+  },
+  "context_details": {
+    "8192": {
+      "input_tokens": 4083,
+      "input_budget": 4096,
+      "max_rss_bytes": 8565260288,
+      "min_free_pages_bytes": 49002168320,
+      "max_swap_used_bytes": 0,
+      "slot_release_after_disconnect_s": 2.351632500000001,
+      "overflow_input_tokens": 16305,
+      "overflow_http_status": 400,
+      "started_at": "2026-10-08T09:08:31.890725+00:00",
+      "ended_at": "2026-10-08T09:09:41.944765+00:00"
+    }
+  },
+  "attempts": {
+    "completed": 46,
+    "failed": 1,
+    "not-run": 33,
+    "planned": 0
+  },
+  "failure_analysis": null
+}

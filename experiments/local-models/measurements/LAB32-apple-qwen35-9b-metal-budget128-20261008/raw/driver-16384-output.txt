@@ -1,0 +1,25 @@
+{"case": "ctx16384-chat-warmup", "accepted": true, "reason": null, "duration_s": 2.1234593750000004}
+{"case": "ctx16384-chat-r1", "accepted": true, "reason": null, "duration_s": 2.108059292}
+{"case": "ctx16384-chat-r2", "accepted": true, "reason": null, "duration_s": 2.1322740000000002}
+{"case": "ctx16384-chat-r3", "accepted": true, "reason": null, "duration_s": 2.097662875}
+{"case": "ctx16384-chat-stream-warmup", "accepted": true, "reason": null, "duration_s": 2.1052182910000004}
+{"case": "ctx16384-chat-stream-r1", "accepted": true, "reason": null, "duration_s": 2.1070624159999998}
+{"case": "ctx16384-chat-stream-r2", "accepted": true, "reason": null, "duration_s": 2.10256775}
+{"case": "ctx16384-chat-stream-r3", "accepted": true, "reason": null, "duration_s": 2.126333458}
+{"case": "ctx16384-tool-warmup", "accepted": true, "reason": null, "duration_s": 1.357701458}
+{"case": "ctx16384-tool-r1", "accepted": true, "reason": null, "duration_s": 1.3626235}
+{"case": "ctx16384-tool-r2", "accepted": true, "reason": null, "duration_s": 1.356242792}
+{"case": "ctx16384-tool-r3", "accepted": true, "reason": null, "duration_s": 1.374761833}
+{"case": "ctx16384-tool-stream-warmup", "accepted": true, "reason": null, "duration_s": 1.3792381660000002}
+{"case": "ctx16384-tool-stream-r1", "accepted": true, "reason": null, "duration_s": 1.3735811249999998}
+{"case": "ctx16384-tool-stream-r2", "accepted": true, "reason": null, "duration_s": 1.387188459}
+{"case": "ctx16384-tool-stream-r3", "accepted": true, "reason": null, "duration_s": 1.385214125}
+{"case": "ctx16384-long-warmup", "accepted": false, "reason": "Final marker/tool mismatch", "duration_s": 11.431454375}
+Traceback (most recent call last):
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-budget128-20261008/raw/lab32_runner.py", line 302, in <module>
+    else:context(int(sys.argv[1]))
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-budget128-20261008/raw/lab32_runner.py", line 295, in context
+    probe(server,f'ctx{ctx}-{kind}-{repeat}',fixture,'LAB_SENTINEL_42' if kind=='long' else 'LAB_VALUE_42' if kind.startswith('tool') else 'LAB_READY',tool=kind.startswith('tool'),expected_tokens=count if kind=='long' else None)
+  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-budget128-20261008/raw/lab32_runner.py", line 205, in probe
+    if not accepted:raise RuntimeError(case+': '+str(reason))
+RuntimeError: ctx16384-long-warmup: Final marker/tool mismatch

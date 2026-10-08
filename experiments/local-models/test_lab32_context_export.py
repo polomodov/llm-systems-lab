@@ -16,6 +16,7 @@ SOURCES = [BASE / session / 'raw/finalize_phase.py' for session in [
     'LAB32-apple-qwen35-9b-metal-auto-20261007',
 ]]
 SOURCES.append(BASE / 'LAB32-apple-qwen35-9b-metal-auto-20261007/raw/finalize_campaign.py')
+EXPORT_SOURCES=SOURCES + [BASE / f'{session}/raw/finalize_campaign.py' for session in ['LAB32-apple-qwen35-9b-metal-budget128-20261008','LAB32-apple-qwen35-9b-32k-recovery-20261008']]
 
 
 def load_exporter(source):
@@ -31,7 +32,7 @@ def load_exporter(source):
 
 class ContextExport(unittest.TestCase):
     def test_primary_followup_controls_and_effects_keep_their_conditions(self):
-        for source in SOURCES:
+        for source in EXPORT_SOURCES:
             with self.subTest(source=source.parent.parent.name), tempfile.TemporaryDirectory() as temporary:
                 root = pathlib.Path(temporary)
                 raw = root / 'raw'
@@ -73,7 +74,7 @@ class ContextExport(unittest.TestCase):
                 self.assertTrue(any(row['status'] == 'unavailable' and row['value'] == '' for row in rows))
 
     def test_missing_unsupported_or_conflicting_context_is_rejected(self):
-        for source in SOURCES:
+        for source in EXPORT_SOURCES:
             function = load_exporter(source)['context_for_case']
             for case, configuration in [('unlabelled', 'unlabelled'),
                                         ('ctx65536-chat-r1', 'metal-ctx65536-chat'),

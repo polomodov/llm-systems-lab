@@ -1,0 +1,99 @@
+{
+  "conclusion": "Самостоятельный контекст32K прошёл protocol и resource admission; допуск ограничен проверенными fixtures и условиями.",
+  "condition": "reasoning=auto / enable_thinking=true / thinking_budget_tokens=128",
+  "thinking_budget_tokens": 128,
+  "server_reasoning_budget": -1,
+  "cancel_release_timeout_seconds": 60,
+  "contexts": [
+    32768
+  ],
+  "full_lab32_admission": false,
+  "admission_scope": "standalone32k",
+  "admitted_contexts": [
+    32768
+  ],
+  "higher_contexts_measured": true,
+  "case_statistics": {
+    "ctx32768-chat": {
+      "context_tokens": 32768,
+      "case": "chat",
+      "values": [
+        2.101149833,
+        2.111540875,
+        2.095319292
+      ],
+      "median_seconds": 2.101149833,
+      "min_seconds": 2.095319292,
+      "max_seconds": 2.111540875
+    },
+    "ctx32768-chat-stream": {
+      "context_tokens": 32768,
+      "case": "chat-stream",
+      "values": [
+        2.112067084,
+        2.129076333,
+        2.118421959
+      ],
+      "median_seconds": 2.118421959,
+      "min_seconds": 2.112067084,
+      "max_seconds": 2.129076333
+    },
+    "ctx32768-tool": {
+      "context_tokens": 32768,
+      "case": "tool",
+      "values": [
+        2.322420875,
+        2.303342501,
+        2.323347875
+      ],
+      "median_seconds": 2.322420875,
+      "min_seconds": 2.303342501,
+      "max_seconds": 2.323347875
+    },
+    "ctx32768-tool-stream": {
+      "context_tokens": 32768,
+      "case": "tool-stream",
+      "values": [
+        2.327844333,
+        2.334651792,
+        2.387826624
+      ],
+      "median_seconds": 2.334651792,
+      "min_seconds": 2.327844333,
+      "max_seconds": 2.387826624
+    },
+    "ctx32768-long": {
+      "context_tokens": 32768,
+      "case": "long",
+      "values": [
+        29.639154,
+        28.953478834,
+        30.514420375
+      ],
+      "median_seconds": 29.639154,
+      "min_seconds": 28.953478834,
+      "max_seconds": 30.514420375
+    }
+  },
+  "context_details": {
+    "32768": {
+      "input_tokens": 28670,
+      "input_budget": 28672,
+      "max_rss_bytes": 10593009664,
+      "min_free_pages_bytes": 46271119360,
+      "max_swap_used_bytes": 0,
+      "slot_release_after_disconnect_s": 27.153672458000017,
+      "overflow_input_tokens": 57331,
+      "overflow_http_status": 400,
+      "started_at": "2026-10-08T09:14:27.220899+00:00",
+      "ended_at": "2026-10-08T09:17:38.513461+00:00"
+    }
+  },
+  "attempts": {
+    "completed": 28,
+    "failed": 0,
+    "not-run": 0,
+    "planned": 0
+  },
+  "failure_analysis": null
+}
