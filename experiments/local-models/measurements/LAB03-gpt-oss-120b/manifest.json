@@ -9,8 +9,8 @@
   "evidence_class": "protocol",
   "operator": "agent-harness-lab operator",
   "hypothesis": "The downloaded gpt-oss-120b-MXFP4.gguf matches the publisher SHA-256 and byte size, and is therefore a pinned, reproducible artifact for LAB04/05.",
-  "protocol_before_run": "raw/artifact-manifest.json",
-  "protocol_recorded_at": "2026-10-07T17:50:00Z",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:23:22Z",
   "conditions": {
     "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
     "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gpt-oss-120b/raw/artifact-manifest.json",
@@ -30,6 +30,7 @@
       "context_tokens": null,
       "estimate_basis": "measured",
       "evidence_files": [
+        "raw/protocol.md",
         "raw/artifact-manifest.json",
         "raw/artifact.json",
         "raw/disk-after.txt",
@@ -49,7 +50,7 @@
       "candidate": "gpt-oss-120b",
       "engine": "llama-cpp",
       "backend": "tbd",
-      "context_tokens": 8,
+      "context_tokens": 8192,
       "estimate_basis": "planned",
       "evidence_files": [],
       "conclusion": null,
@@ -64,7 +65,7 @@
       "candidate": "gpt-oss-120b",
       "engine": "llama-cpp",
       "backend": "tbd",
-      "context_tokens": 16,
+      "context_tokens": 16384,
       "estimate_basis": "planned",
       "evidence_files": [],
       "conclusion": null,
@@ -79,7 +80,7 @@
       "candidate": "gpt-oss-120b",
       "engine": "llama-cpp",
       "backend": "tbd",
-      "context_tokens": 32,
+      "context_tokens": 32768,
       "estimate_basis": "planned",
       "evidence_files": [],
       "conclusion": null,
@@ -88,6 +89,7 @@
     }
   ],
   "evidence_files": [
+    "raw/protocol.md",
     "raw/artifact-manifest.json",
     "raw/artifact.json",
     "raw/disk-after.txt",
@@ -97,6 +99,7 @@
   ],
   "unavailable": {
     "real_inference": "Inference is not run in LAB03; that is the responsibility of LAB04 (Vulkan/HIP) and LAB05 (HIP). This session only confirms file integrity.",
+    "protocol_timing": "Протокол raw/protocol.md зарегистрирован при ревизии отчёта, уже после сверки артефакта; это консолидация процедуры, а не предварительная регистрация. Реальных run_ids нет.",
     "conditions.runtime_manifest": "No runtime launched in LAB03; runtime_manifest filled in LAB04/05.",
     "conditions.harness_profile": "No harness invoked; LAB03 is model-side preparation."
   },

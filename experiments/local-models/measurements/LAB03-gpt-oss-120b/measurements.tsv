@@ -3,6 +3,6 @@ weights_bytes	gpt-oss-120b-verify-001	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874
 weights_sha256_match	gpt-oss-120b-verify-001	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	sha256sum	-		1	sha256_match_publisher	1	bool	measured	raw/verification.json	
 weights_status	gpt-oss-120b-verify-001	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	sha256sum	-		1	status_verified	1	bool	measured	raw/verification.json	
 disk_free_after	gpt-oss-120b-verify-001	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	df	-		1	df_available_bytes	1632021606400	B	measured	raw/disk-after.txt	
-real_inference_8k	gpt-oss-120b-infer-8k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	8	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05
-real_inference_16k	gpt-oss-120b-infer-16k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	16	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05
-real_inference_32k	gpt-oss-120b-infer-32k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	32	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05
+real_inference_8k	gpt-oss-120b-infer-8k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	8192	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05
+real_inference_16k	gpt-oss-120b-infer-16k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	16384	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05
+real_inference_32k	gpt-oss-120b-infer-32k	ggml-org/gpt-oss-120b-GGUF@238abdd290bb874b90a5da1b4549881b7d05c091	llama-cpp	tbd	32768	1	inference_run			not-run		out of LAB03 scope; planned for LAB04/05

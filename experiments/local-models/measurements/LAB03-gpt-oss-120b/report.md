@@ -21,7 +21,7 @@
 
 **Гипотеза.** Скачанный файл совпадает с publisher SHA-256 и байтовым размером, то есть является воспроизводимым закреплённым артефактом для последующих работ.
 
-**Протокол.** Получить metadata (repository, revision, bytes, sha256), скачать через `curl -C -` (resume), сверить `sha256sum`.
+**Протокол.** Сохранён в `raw/protocol.md`: получить metadata (repository, revision, bytes, sha256), скачать через `curl -C -` (resume), сверить `sha256sum`, записать `{repository, revision, files:[…]}`. Протокол сконсолидирован при ревизии отчёта (см. `unavailable.protocol_timing` в manifest).
 
 ## Ход выполнения
 
@@ -53,6 +53,6 @@
 ## Комплект сдачи
 
 - [x] `manifest.json` (protocol, 4 попытки: 1 verify + 3 not-run), `measurements.tsv` (7 строк), `report.md`.
-- [x] `raw/artifact.json`, `raw/artifact-manifest.json`, `raw/weights.sha256`, `raw/verification.json`, `raw/verification.txt`, `raw/disk-after.txt`.
+- [x] `raw/artifact.json`, `raw/artifact-manifest.json`, `raw/weights.sha256`, `raw/verification.json`, `raw/verification.txt`, `raw/disk-after.txt`, `raw/protocol.md`.
 
 Решение проверяющего: **не проверено**.
