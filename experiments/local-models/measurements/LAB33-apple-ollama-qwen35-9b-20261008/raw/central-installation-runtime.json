@@ -1,0 +1,9 @@
+{
+  "scope": "Software installation only; GPU deployment not admitted",
+  "ollama": "raw/ollama-central-installation.json",
+  "lm_studio": "raw/lm-studio-central-installation.json",
+  "inference_backend_confirmed": false,
+  "gpu_memory_budget_gib": null,
+  "unavailable_gpu_memory_budget": "No model loaded or GPU allocation measured in this session.",
+  "future_series_requires": "AC/powermode0 and new protocol amendment after central installation; original protocol preserved."
+}
