@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/lab33_runner.py",
+      "original_sha256": "be8a05244998ace640c2df415107e6ec32c1f414d4aedeb43702c84748dc45e4",
+      "published_sha256": "86d4514fde0380686d515dd621c2016796db20b250a058760fa5c8718b8279d9",
+      "original_bytes": 15685,
+      "published_bytes": 15664
+    },
+    {
+      "path": "raw/lms_runner.py",
+      "original_sha256": "4d2013c2ba1c1bbe6c2b9a59c5006240adcbc17f7cf40248265d856c74a69b52",
+      "published_sha256": "b00ffea36d276d1f8d4940cb4074355ecf6f4773c9633fd3a57d06a83170e53b",
+      "original_bytes": 11477,
+      "published_bytes": 11470
+    },
+    {
+      "path": "raw/mlx-artifact-manifest.json",
+      "original_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+      "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
+      "original_bytes": 12476,
+      "published_bytes": 12378
+    }
+  ]
+}
