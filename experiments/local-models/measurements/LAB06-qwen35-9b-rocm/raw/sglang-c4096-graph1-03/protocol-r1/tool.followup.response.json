@@ -1,0 +1,37 @@
+{
+  "id": "e7c20c49636f432784a5b80820be5d71",
+  "object": "chat.completion",
+  "created": 1791467051,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_VALUE_42",
+        "reasoning_content": "The function returned LAB_VALUE_42. The user asked me to return only the value, so I should just return this string without any additional explanation.\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 421,
+    "total_tokens": 461,
+    "completion_tokens": 40,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 33
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 40
+      }
+    ]
+  }
+}

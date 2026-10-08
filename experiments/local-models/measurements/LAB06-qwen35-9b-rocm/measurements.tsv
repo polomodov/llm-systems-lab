@@ -1,0 +1,22 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+gpu-vllm-total-memory	lab06-gpu-probe	Qwen3.5-9B	vllm	hip			device_total_memory_bytes	107374182400	bytes	measured	raw/gpu-probe-03/vllm-gpu.json	
+gpu-sglang-total-memory	lab06-gpu-probe	Qwen3.5-9B	sglang	hip			device_total_memory_bytes	107374182400	bytes	measured	raw/gpu-probe-03/sglang-gpu.json	
+vllm-4096-chat-http-wall	vllm-c4096-eager	Qwen3.5-9B	vllm	hip	4096	1	http_wall_seconds	15.705810813000426	s	measured	raw/vllm-c4096-eager-01/protocol-r1/chat.metrics.json	
+vllm-4096-chat-completion-tokens	vllm-c4096-eager	Qwen3.5-9B	vllm	hip	4096	1	completion_tokens	202	tokens	measured	raw/vllm-c4096-eager-01/protocol-r1/chat.metrics.json	
+vllm-4096-tool-http-wall	vllm-c4096-eager	Qwen3.5-9B	vllm	hip	4096	1	http_wall_seconds	6.439596529991832	s	measured	raw/vllm-c4096-eager-01/protocol-r1/tool.metrics.json	
+sglang-4096-chat-http-wall	sglang-c4096-graph1	Qwen3.5-9B	sglang	hip	4096	1	http_wall_seconds	88.71438450498681	s	measured	raw/sglang-c4096-graph1-03/protocol-r1/chat.metrics.json	
+sglang-4096-chat-completion-tokens	sglang-c4096-graph1	Qwen3.5-9B	sglang	hip	4096	1	completion_tokens	284	tokens	measured	raw/sglang-c4096-graph1-03/protocol-r1/chat.metrics.json	
+sglang-4096-tool-http-wall	sglang-c4096-graph1	Qwen3.5-9B	sglang	hip	4096	1	http_wall_seconds	16.18553520400019	s	measured	raw/sglang-c4096-graph1-03/protocol-r1/tool.metrics.json	
+sglang-4096-tool-stream-client-fail-wall	sglang-c4096-graph1	Qwen3.5-9B	sglang	hip	4096	1	http_wall_seconds	11.456409956997959	s	measured	raw/sglang-c4096-graph1-03/protocol-r1/failed-tool-stream.metrics.json	
+reference-generate-seconds	transformers-reference-c4096	Qwen3.5-9B	transformers	hip	4096	1	generate_seconds	4.536419658004888	s	measured	raw/reference-result.json	
+reference-input-tokens	transformers-reference-c4096	Qwen3.5-9B	transformers	hip	4096	1	input_tokens	21	tokens	measured	raw/reference-result.json	
+reference-output-tokens	transformers-reference-c4096	Qwen3.5-9B	transformers	hip	4096	1	output_tokens	5	tokens	measured	raw/reference-result.json	
+reference-peak-allocated-bytes	transformers-reference-c4096	Qwen3.5-9B	transformers	hip	4096	1	peak_allocated_bytes	18959007232	bytes	measured	raw/reference-result.json	
+vllm-8192-cold-http-wall	vllm-c8192-eager	Qwen3.5-9B	vllm	hip	8192	1	http_wall_seconds	15.703499140989152	s	measured	raw/vllm-c8192-eager-01/cold-r1/chat.metrics.json	
+vllm-8192-warm-r1-http-wall	vllm-c8192-eager	Qwen3.5-9B	vllm	hip	8192	1	http_wall_seconds	15.315493535003043	s	measured	raw/vllm-c8192-eager-01/warm-r1/chat.metrics.json	
+vllm-8192-warm-r2-http-wall	vllm-c8192-eager	Qwen3.5-9B	vllm	hip	8192	2	http_wall_seconds	15.826483733995701	s	measured	raw/vllm-c8192-eager-01/warm-r2/chat.metrics.json	
+vllm-8192-warm-r3-http-wall	vllm-c8192-eager	Qwen3.5-9B	vllm	hip	8192	3	http_wall_seconds	15.067142414001864	s	measured	raw/vllm-c8192-eager-01/warm-r3/chat.metrics.json	
+sglang-8192-cold-http-wall	sglang-c8192-graph1	Qwen3.5-9B	sglang	hip	8192	1	http_wall_seconds	82.57679587000166	s	measured	raw/sglang-c8192-graph1-01/cold-r1/chat.metrics.json	
+sglang-8192-warm-r1-http-wall	sglang-c8192-graph1	Qwen3.5-9B	sglang	hip	8192	1	http_wall_seconds	70.72995140399144	s	measured	raw/sglang-c8192-graph1-01/warm-r1/chat.metrics.json	
+sglang-8192-warm-r2-http-wall	sglang-c8192-graph1	Qwen3.5-9B	sglang	hip	8192	2	http_wall_seconds	36.842868220002856	s	measured	raw/sglang-c8192-graph1-01/warm-r2/chat.metrics.json	
+sglang-8192-warm-r3-http-wall	sglang-c8192-graph1	Qwen3.5-9B	sglang	hip	8192	3	http_wall_seconds	49.58668804699846	s	measured	raw/sglang-c8192-graph1-01/warm-r3/chat.metrics.json	

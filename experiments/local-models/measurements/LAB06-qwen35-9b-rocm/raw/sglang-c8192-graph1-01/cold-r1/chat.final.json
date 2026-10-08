@@ -1,0 +1,5 @@
+{
+  "content": "\n\nLAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: \"ровно\" (exactly), \"без пояснений\" (without explanations).\n    *   Expected Output: `LAB_READY`\n\n2.  **Verify Compliance:**\n    *   Does the output contain only the string `LAB_READY`? Yes.\n    *   Are there any extra characters, punctuation, or newlines? I should avoid them unless necessary for formatting, but the instruction says \"exactly\". Usually, this means the text itself.\n    *   Language: The instruction is in Russian, but the expected content is `LAB_READY` (likely a status string). I need to output *only* that.\n\n3.  **Formulate Output:**\n    *   String: `LAB_READY`\n\n4.  **Final Check:**\n    *   No explanations? Checked.\n    *   Exact match? Checked.\n\n5.  **Execute:** Output `LAB_READY`.\n"
+}

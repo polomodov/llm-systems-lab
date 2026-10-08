@@ -1,0 +1,42 @@
+{
+  "id": "chatcmpl-bb6143d4d279b997",
+  "object": "chat.completion",
+  "created": 1791467404,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be exactly \"LAB_READY\". No additional text, no punctuation, no explanations.\n    *   Language: Russian (instructing), but the required output is English code/string.\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for \"LAB_READY\".\n    *   The user explicitly forbade explanations.\n\n3.  **Formulate the Response:**\n    *   String: LAB_READY\n\n4.  **Verify Constraints:**\n    *   Is it exact? Yes.\n    *   Are there explanations? No.\n    *   Is it in the requested format? Yes.\n\n5.  **Final Output Generation:**\n    *   LAB_READY\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-74a68676",
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 216,
+    "completion_tokens": 197,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 192
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}
