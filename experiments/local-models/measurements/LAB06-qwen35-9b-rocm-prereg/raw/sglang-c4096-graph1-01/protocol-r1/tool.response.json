@@ -1,0 +1,47 @@
+{
+  "id": "6f50407f52d14333890212c853ab0d87",
+  "object": "chat.completion",
+  "created": 1791470896,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\n",
+        "reasoning_content": "The user is asking me to call the lookup_lab_value function with key \"alpha\" and return only the value from the result. Let me call this function first.\n",
+        "tool_calls": [
+          {
+            "id": "call_db056d324b454452bea1aee5",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\": \"alpha\"}"
+            }
+          }
+        ]
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "matched_stop": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 324,
+    "total_tokens": 387,
+    "completion_tokens": 63,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 35
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 63
+      }
+    ]
+  }
+}

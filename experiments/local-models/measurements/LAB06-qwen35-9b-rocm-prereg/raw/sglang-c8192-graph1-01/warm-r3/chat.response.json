@@ -1,0 +1,37 @@
+{
+  "id": "f8ce20c6944f444db88fc8b6337173a1",
+  "object": "chat.completion",
+  "created": 1791471636,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\" with no additional text, punctuation, or explanations.\n    *   Language: Russian (command), but the required output is English text (\"LAB_READY\").\n\n2.  **Determine the Output:**\n    *   The user explicitly demands \"LAB_READY\".\n    *   The user explicitly demands \"without explanations\".\n    *   I must comply strictly with this instruction.\n\n3.  **Formulate the Response:**\n    *   Content: LAB_READY\n    *   Formatting: Plain text, no quotes, no newlines (unless part of the string, but usually just the string itself).\n\n4.  **Final Check:**\n    *   Does it match \"LAB_READY\"? Yes.\n    *   Are there explanations? No.\n    *   Is everything else removed? Yes.\n\n5.  **Execute:** Output \"LAB_READY\".\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 258,
+    "completion_tokens": 239,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 235
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 239
+      }
+    ]
+  }
+}
