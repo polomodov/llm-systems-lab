@@ -1,1 +1,2 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+gemma4-31b-it-bytes	gemma4-31b-it-verify	google/gemma-4-31B-it	sha256sum	-		1	file_bytes	21658401728	B	measured	raw/verification.json	
