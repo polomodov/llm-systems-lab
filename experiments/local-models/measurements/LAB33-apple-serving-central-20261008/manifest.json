@@ -1,0 +1,782 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB33",
+  "harness_id": null,
+  "session_id": "apple-serving-central-20261008",
+  "created_at": "2026-10-08T11:57:23.285Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Централизованные Ollama/LM Studio сохраняют chat/tool JSON/SSE и cancellation/recovery на существующих pinned artifacts при8K.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T12:34:05.190Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/hardware-snapshot.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/baseline-artifact-manifest.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "preflight",
+      "configuration_id": "apple-central-preflight",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/preflight-execution.json",
+        "raw/preflight-hardware.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "offline-validator",
+      "configuration_id": "synthetic-tool-validator",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/offline-validator-missing-id.json",
+        "raw/offline-validator-missing-id.tool-rejected.json",
+        "raw/offline-validator-results.json",
+        "raw/offline-validator-unknown-name.json",
+        "raw/offline-validator-unknown-name.tool-rejected.json",
+        "raw/offline-validator-valid.json",
+        "raw/offline-validator-valid.tool-validation.json",
+        "raw/offline-validator-wrong-key.json",
+        "raw/offline-validator-wrong-key.tool-rejected.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-startup",
+      "configuration_id": "ollama-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-warmup",
+      "configuration_id": "ollama-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-r1",
+      "configuration_id": "ollama-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-r2",
+      "configuration_id": "ollama-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-r3",
+      "configuration_id": "ollama-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-stream-warmup",
+      "configuration_id": "ollama-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-stream-r1",
+      "configuration_id": "ollama-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-stream-r2",
+      "configuration_id": "ollama-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-stream-r3",
+      "configuration_id": "ollama-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-warmup",
+      "configuration_id": "ollama-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-r1",
+      "configuration_id": "ollama-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-r2",
+      "configuration_id": "ollama-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-r3",
+      "configuration_id": "ollama-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-stream-warmup",
+      "configuration_id": "ollama-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-stream-r1",
+      "configuration_id": "ollama-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-stream-r2",
+      "configuration_id": "ollama-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool-stream-r3",
+      "configuration_id": "ollama-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-cancel",
+      "configuration_id": "ollama-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-cancel-recovery",
+      "configuration_id": "ollama-8k",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "ollama-shutdown",
+      "configuration_id": "ollama-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-startup",
+      "configuration_id": "direct-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-warmup",
+      "configuration_id": "direct-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-r1",
+      "configuration_id": "direct-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-r2",
+      "configuration_id": "direct-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-r3",
+      "configuration_id": "direct-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-stream-warmup",
+      "configuration_id": "direct-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-stream-r1",
+      "configuration_id": "direct-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-stream-r2",
+      "configuration_id": "direct-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-chat-stream-r3",
+      "configuration_id": "direct-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-warmup",
+      "configuration_id": "direct-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-r1",
+      "configuration_id": "direct-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-r2",
+      "configuration_id": "direct-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-r3",
+      "configuration_id": "direct-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-stream-warmup",
+      "configuration_id": "direct-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-stream-r1",
+      "configuration_id": "direct-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-stream-r2",
+      "configuration_id": "direct-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-tool-stream-r3",
+      "configuration_id": "direct-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "direct-shutdown",
+      "configuration_id": "direct-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-startup",
+      "configuration_id": "lms-metal-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-warmup",
+      "configuration_id": "lms-metal-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-r1",
+      "configuration_id": "lms-metal-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-r2",
+      "configuration_id": "lms-metal-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-r3",
+      "configuration_id": "lms-metal-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-stream-warmup",
+      "configuration_id": "lms-metal-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-stream-r1",
+      "configuration_id": "lms-metal-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-stream-r2",
+      "configuration_id": "lms-metal-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-chat-stream-r3",
+      "configuration_id": "lms-metal-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-warmup",
+      "configuration_id": "lms-metal-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-r1",
+      "configuration_id": "lms-metal-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-r2",
+      "configuration_id": "lms-metal-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-r3",
+      "configuration_id": "lms-metal-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-stream-warmup",
+      "configuration_id": "lms-metal-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-stream-r1",
+      "configuration_id": "lms-metal-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-stream-r2",
+      "configuration_id": "lms-metal-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-tool-stream-r3",
+      "configuration_id": "lms-metal-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-cancel",
+      "configuration_id": "lms-metal-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-cancel-recovery",
+      "configuration_id": "lms-metal-8k",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-metal-shutdown",
+      "configuration_id": "lms-metal-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-startup",
+      "configuration_id": "lms-mlx-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-warmup",
+      "configuration_id": "lms-mlx-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-r1",
+      "configuration_id": "lms-mlx-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-r2",
+      "configuration_id": "lms-mlx-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-r3",
+      "configuration_id": "lms-mlx-8k-chat",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-stream-warmup",
+      "configuration_id": "lms-mlx-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-stream-r1",
+      "configuration_id": "lms-mlx-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-stream-r2",
+      "configuration_id": "lms-mlx-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-chat-stream-r3",
+      "configuration_id": "lms-mlx-8k-chat-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-warmup",
+      "configuration_id": "lms-mlx-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-r1",
+      "configuration_id": "lms-mlx-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-r2",
+      "configuration_id": "lms-mlx-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-r3",
+      "configuration_id": "lms-mlx-8k-tool",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-stream-warmup",
+      "configuration_id": "lms-mlx-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-stream-r1",
+      "configuration_id": "lms-mlx-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-stream-r2",
+      "configuration_id": "lms-mlx-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-tool-stream-r3",
+      "configuration_id": "lms-mlx-8k-tool-stream",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-cancel",
+      "configuration_id": "lms-mlx-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-cancel-recovery",
+      "configuration_id": "lms-mlx-8k",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    },
+    {
+      "id": "lms-mlx-shutdown",
+      "configuration_id": "lms-mlx-8k",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": null
+    }
+  ],
+  "evidence_files": [
+    "raw/Modelfile",
+    "raw/baseline-artifact-manifest.json",
+    "raw/baseline-runtime-manifest.json",
+    "raw/chat-request.json",
+    "raw/chat-stream-request.json",
+    "raw/hardware-snapshot.json",
+    "raw/http_probe.py",
+    "raw/lab33_runner.py",
+    "raw/lm-studio-central-installation.json",
+    "raw/mlx-artifact-manifest.json",
+    "raw/ollama-bundled-runner-version.txt",
+    "raw/ollama-central-installation.json",
+    "raw/ollama-release.json",
+    "raw/prior-protocol.md",
+    "raw/protocol.md",
+    "raw/resources.py",
+    "raw/tool-request.json",
+    "raw/tool-stream-request.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Аппаратные HTTP probes, harness не запускался.",
+    "conditions.runtime_manifest": "Формируется preflight до model load."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}

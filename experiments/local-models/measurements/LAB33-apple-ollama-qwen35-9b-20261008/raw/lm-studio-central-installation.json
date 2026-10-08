@@ -1,0 +1,77 @@
+{
+  "timestamp": "2026-10-08T11:55:19.587+00:00",
+  "app_path": "/Applications/LM Studio.app",
+  "app_version": "0.4.25+1",
+  "cli_path": "/Users/lab/.lmstudio/bin/lms",
+  "cli_link": "/opt/homebrew/bin/lms",
+  "cli_sha256": "abde1bee0691dc08790c58d92017c9eb29d0069cffdeca30fb056d4f8c0cbe6d",
+  "cli_commit": "CLI commit: 69d945a",
+  "archive_sha256": "8bab857c3d2900e14ab46435f0d1471de068f165e761bb9c177093e8a25e1774",
+  "source": "https://installers.lmstudio.ai/darwin/arm64/0.4.25-1/LM-Studio-0.4.25-1-arm64.dmg",
+  "code_signature_verified": false,
+  "signature": "Executable=/Applications/LM Studio.app/Contents/MacOS/LM Studio\nIdentifier=ai.elementlabs.lmstudio\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=643 flags=0x10000(runtime) hashes=9+7 location=embedded\nSignature size=8981\nAuthority=Developer ID Application: Element Labs Inc (D65G88RHWN)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=19 Sep 2026 at 02:41:24\nNotarization Ticket=stapled\nInfo.plist entries=32\nTeamIdentifier=D65G88RHWN\nRuntime Version=26.0.0\nSealed Resources version=2 rules=13 files=24786\nInternal requirements count=1 size=184\n",
+  "inventory": {
+    "version": {
+      "command": [
+        "lms",
+        "--version"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-version.txt"
+    },
+    "help": {
+      "command": [
+        "lms",
+        "--help"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-help.txt"
+    },
+    "runtime": {
+      "command": [
+        "lms",
+        "runtime",
+        "ls"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-runtime.txt"
+    },
+    "runtime-help": {
+      "command": [
+        "lms",
+        "runtime",
+        "--help"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-runtime-help.txt"
+    },
+    "models": {
+      "command": [
+        "lms",
+        "ls"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-models.txt"
+    },
+    "loaded": {
+      "command": [
+        "lms",
+        "ps"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-loaded.txt"
+    },
+    "server-status": {
+      "command": [
+        "lms",
+        "server",
+        "status"
+      ],
+      "returncode": 0,
+      "evidence": "raw/lms-server-status.txt"
+    }
+  },
+  "application_process_observed": true,
+  "model_inference_executed": false,
+  "note": "Bundled runtimes llama.cpp2.41.0/MLX1.11.0; after initial launch runtime ls selected llama.cpp2.54.0/MLX1.13.1. Selection is not observed GPU execution. CLI reports bundled embedding model84.11MB; none loaded."
+}
