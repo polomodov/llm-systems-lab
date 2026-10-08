@@ -4,6 +4,12 @@ import csv,hashlib,json,pathlib,re,statistics,sys
 raw=pathlib.Path(__file__).resolve().parent;root=raw.parent
 manifest=json.loads((root/'manifest.json').read_text())
 initial=sys.argv[1]=='initial'
+# This entry point finalizes the first 8K checkpoint, not subsequent stages.
+for path in list(raw.glob('ctx*.metrics.json'))+list(raw.glob('ctx*-execution.json')):
+    match=re.match(r'ctx([0-9]+)-',path.name)
+    if match and int(match.group(1))!=8192:
+        raise ValueError('8K checkpoint cannot finalize higher-context evidence; extend the phase report before using this entry point')
+
 if initial:
     for attempt in manifest['planned_attempts']:
         if attempt['status']=='planned':attempt.update(status='not-run',reason='Initial 8K tool contract failed; protocol stops the original condition and context growth. Diagnostic controls are separately registered.')
@@ -25,34 +31,48 @@ manifest['conclusion']=conclusion;manifest['reviewer_decision']=None
 manifest['unavailable'].update(temperature='Not measured.',energy='Not measured.',gpu_budget_gib='A fixed8K fixture does not establish maximum safe GPU memory budget.',
     agent_run='Native loopback protocol only; no agent harness/run.json.',mlx='Separate MLX session not started here.')
 attempts={a['id']:a for a in manifest['planned_attempts']}
-records={};groups={}
-with (root/'measurements.tsv').open('w',newline='') as f:
-    writer=csv.writer(f,delimiter='\t',lineterminator='\n')
-    writer.writerow(['observation_id','configuration_id','model_id','engine','backend','context_tokens','repeat','metric','value','unit','status','evidence_path','unavailable_reason'])
-    for path in sorted(raw.glob('*.metrics.json')):
-        label=path.name.removesuffix('.metrics.json');case=label.removesuffix('.followup')
-        if case not in attempts:continue
-        data=json.loads(path.read_text());records[label]=data
-        values=[('duration',data.get('duration_s'),'seconds'),('http_status',data.get('http_status'),'http-status'),
-            ('ttft_content',data.get('ttft_content_s'),'seconds'),('ttft_reasoning',data.get('ttft_reasoning_s'),'seconds')]
-        if data.get('usage'):
-            values += [(key,data['usage'].get(key),'tokens') for key in ['prompt_tokens','completion_tokens']]
-        for metric,value,unit in values:
-            writer.writerow([label+'-'+metric,attempts[case]['configuration_id'],'qwen35-9b-q6-k','llama.cpp-b8407-tensor','metal',8192,
-                re.search(r'-r([123])$',case).group(1) if re.search(r'-r([123])$',case) else '',metric,value if value is not None else '',unit,
-                'measured' if value is not None else 'unavailable','raw/'+path.name,'' if value is not None else 'Not reported; JSON has no token timing or the corresponding channel did not occur.'])
-    for kind in ['chat','chat-stream','tool','tool-stream','long']:
-        durations=[]
-        for n in [1,2,3]:
-            case=f'ctx8192-{kind}-r{n}';primary=records.get(case);follow=records.get(case+'.followup')
-            if primary and attempts[case]['status']=='completed':durations.append(primary['duration_s']+(follow['duration_s'] if follow else 0))
-        if durations:groups[kind]={'values':durations,'median_seconds':statistics.median(durations),'min_seconds':min(durations),'max_seconds':max(durations)}
-    for case in ['ctx8192-cancel','ctx8192-overflow']:
-        path=raw/(case+'-execution.json')
-        if not path.exists():continue
-        data=json.loads(path.read_text())
-        for metric,key,unit in [('slot_release_after_disconnect','release_after_client_s','seconds'),('http_status','status','http-status'),('error_wall','wall_seconds','seconds'),('curl_exit','exit_code','exit-code')]:
-            if key in data:writer.writerow([case+'-'+metric,attempts[case]['configuration_id'],'qwen35-9b-q6-k','llama.cpp-b8407-tensor','metal',8192,'',metric,data[key],unit,'measured','raw/'+path.name,''])
+def context_for_case(case,attempts):
+    matches=[]
+    for value in [case,attempts[case]['configuration_id']]:
+        match=re.search(r'(?:^|-)ctx([0-9]+)(?:-|$)',value)
+        if match:matches.append(int(match.group(1)))
+    if not matches or any(value not in [8192,16384,32768] for value in matches) or len(set(matches))!=1:
+        raise ValueError('Missing, unsupported or conflicting context for '+case)
+    return matches[0]
+
+def export_measurements(raw,root,attempts):
+    records={};groups={}
+    with (root/'measurements.tsv').open('w',newline='') as f:
+        writer=csv.writer(f,delimiter='\t',lineterminator='\n')
+        writer.writerow(['observation_id','configuration_id','model_id','engine','backend','context_tokens','repeat','metric','value','unit','status','evidence_path','unavailable_reason'])
+        for path in sorted(raw.glob('*.metrics.json')):
+            label=path.name.removesuffix('.metrics.json');case=label.removesuffix('.followup')
+            if case not in attempts:continue
+            data=json.loads(path.read_text());records[label]=data
+            values=[('duration',data.get('duration_s'),'seconds'),('http_status',data.get('http_status'),'http-status'),
+                ('ttft_content',data.get('ttft_content_s'),'seconds'),('ttft_reasoning',data.get('ttft_reasoning_s'),'seconds')]
+            if data.get('usage'):
+                values += [(key,data['usage'].get(key),'tokens') for key in ['prompt_tokens','completion_tokens']]
+            for metric,value,unit in values:
+                writer.writerow([label+'-'+metric,attempts[case]['configuration_id'],'qwen35-9b-q6-k','llama.cpp-b8407-tensor','metal',context_for_case(case,attempts),
+                    re.search(r'-r([123])$',case).group(1) if re.search(r'-r([123])$',case) else '',metric,value if value is not None else '',unit,
+                    'measured' if value is not None else 'unavailable','raw/'+path.name,'' if value is not None else 'Not reported; JSON has no token timing or the corresponding channel did not occur.'])
+        for kind in ['chat','chat-stream','tool','tool-stream','long']:
+            durations=[]
+            for n in [1,2,3]:
+                case=f'ctx8192-{kind}-r{n}';primary=records.get(case);follow=records.get(case+'.followup')
+                if primary and attempts[case]['status']=='completed':durations.append(primary['duration_s']+(follow['duration_s'] if follow else 0))
+            if durations:groups[kind]={'values':durations,'median_seconds':statistics.median(durations),'min_seconds':min(durations),'max_seconds':max(durations)}
+        for case in attempts:
+            if not re.fullmatch(r'ctx[0-9]+-(cancel|overflow)',case):continue
+            path=raw/(case+'-execution.json')
+            if not path.exists():continue
+            data=json.loads(path.read_text())
+            for metric,key,unit in [('slot_release_after_disconnect','release_after_client_s','seconds'),('http_status','status','http-status'),('error_wall','wall_seconds','seconds'),('curl_exit','exit_code','exit-code')]:
+                if key in data:writer.writerow([case+'-'+metric,attempts[case]['configuration_id'],'qwen35-9b-q6-k','llama.cpp-b8407-tensor','metal',context_for_case(case,attempts),'',metric,data[key],unit,'measured','raw/'+path.name,''])
+    return records,groups
+
+records,groups=export_measurements(raw,root,attempts)
 summary={'conclusion':conclusion,'case_statistics':groups,'attempts':{status:sum(a['status']==status for a in attempts.values()) for status in ['completed','failed','not-run','planned']},
     'condition':'thinking=false' if initial else 'reasoning=auto / enable_thinking=true','context':8192,'higher_contexts_measured':False}
 (raw/'phase-summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
