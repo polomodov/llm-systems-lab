@@ -4,4 +4,4 @@ ggml_vulkan: 0 = AMD Radeon Graphics (RADV GFX1151) (radv) | uma: 1 | fp16: 1 | 
 load_backend: loaded Vulkan backend from /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/libggml-vulkan.so
 load_backend: loaded CPU backend from /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/libggml-cpu-zen4.so
 Available devices:
-  Vulkan0: AMD Radeon Graphics (RADV GFX1151) (102912 MiB, 101639 MiB free)
+  Vulkan0: AMD Radeon Graphics (RADV GFX1151) (102912 MiB, 101375 MiB free)
