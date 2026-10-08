@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/download-verification.json",
+      "original_sha256": "ae4c58ee3162eda8fe335f8f2b40057d90d5afb4ab0a798f62c8a1afc1f11d2d",
+      "published_sha256": "558fd90bd1eb613548bdc7128c73ed5be51c9e64491e3e30ff88eb9bb4d6a96e",
+      "original_bytes": 463,
+      "published_bytes": 456
+    },
+    {
+      "path": "raw/verification.json",
+      "original_sha256": "ae4c58ee3162eda8fe335f8f2b40057d90d5afb4ab0a798f62c8a1afc1f11d2d",
+      "published_sha256": "558fd90bd1eb613548bdc7128c73ed5be51c9e64491e3e30ff88eb9bb4d6a96e",
+      "original_bytes": 463,
+      "published_bytes": 456
+    },
+    {
+      "path": "raw/verification.txt",
+      "original_sha256": "0686f5a2318a4e7ae53a23c0c55630ec8f2dea9a3e8edd1b413b1720a8653612",
+      "published_sha256": "4f59bc10ed8b01cc04a4e283fbba37c17f884156839e3a687836140d13ac154c",
+      "original_bytes": 137,
+      "published_bytes": 130
+    },
+    {
+      "path": "raw/weights.sha256",
+      "original_sha256": "ac84d0df4c3c4d78eec46193aa97ff822e98f0650b0a399f558a094d7d0ecf7f",
+      "published_sha256": "7651d03a5b0efe6275cfff65ccadba30f0fa8649cea57ff6a13f3fe320dbbd9b",
+      "original_bytes": 199,
+      "published_bytes": 192
+    }
+  ]
+}
