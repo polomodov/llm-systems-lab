@@ -1,0 +1,109 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "gpt-oss-120b",
+  "created_at": "2026-10-07T17:50:00.000Z",
+  "status": "blocked",
+  "evidence_class": "protocol",
+  "operator": "agent-harness-lab operator",
+  "hypothesis": "The downloaded gpt-oss-120b-MXFP4.gguf matches the publisher SHA-256 and byte size, and is therefore a pinned, reproducible artifact for LAB04/05.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:23:22Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gpt-oss-120b/raw/artifact-manifest.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "lab03-gpt-oss-120b-verify",
+      "configuration_id": "gpt-oss-120b-verify-001",
+      "kind": "measurement",
+      "status": "completed",
+      "candidate": "gpt-oss-120b",
+      "engine": "sha256sum",
+      "backend": "-",
+      "context_tokens": null,
+      "estimate_basis": "measured",
+      "evidence_files": [
+        "raw/protocol.md",
+        "raw/artifact-manifest.json",
+        "raw/artifact.json",
+        "raw/disk-after.txt",
+        "raw/verification.json",
+        "raw/verification.txt",
+        "raw/weights.sha256"
+      ],
+      "conclusion": "SHA-256 matches publisher (582bd40f…); 63,387,346,208 bytes verified.",
+      "reason": null,
+      "run_id": null
+    },
+    {
+      "id": "lab03-gpt-oss-120b-infer-8k",
+      "configuration_id": "gpt-oss-120b-infer-8k",
+      "kind": "measurement",
+      "status": "not-run",
+      "candidate": "gpt-oss-120b",
+      "engine": "llama-cpp",
+      "backend": "tbd",
+      "context_tokens": 8192,
+      "estimate_basis": "planned",
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "out of LAB03 scope; planned for LAB04/05",
+      "run_id": null
+    },
+    {
+      "id": "lab03-gpt-oss-120b-infer-16k",
+      "configuration_id": "gpt-oss-120b-infer-16k",
+      "kind": "measurement",
+      "status": "not-run",
+      "candidate": "gpt-oss-120b",
+      "engine": "llama-cpp",
+      "backend": "tbd",
+      "context_tokens": 16384,
+      "estimate_basis": "planned",
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "out of LAB03 scope; planned for LAB04/05",
+      "run_id": null
+    },
+    {
+      "id": "lab03-gpt-oss-120b-infer-32k",
+      "configuration_id": "gpt-oss-120b-infer-32k",
+      "kind": "measurement",
+      "status": "not-run",
+      "candidate": "gpt-oss-120b",
+      "engine": "llama-cpp",
+      "backend": "tbd",
+      "context_tokens": 32768,
+      "estimate_basis": "planned",
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "out of LAB03 scope; planned for LAB04/05",
+      "run_id": null
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md",
+    "raw/artifact-manifest.json",
+    "raw/artifact.json",
+    "raw/disk-after.txt",
+    "raw/verification.json",
+    "raw/verification.txt",
+    "raw/weights.sha256"
+  ],
+  "unavailable": {
+    "real_inference": "Inference is not run in LAB03; that is the responsibility of LAB04 (Vulkan/HIP) and LAB05 (HIP). This session only confirms file integrity.",
+    "protocol_timing": "Протокол raw/protocol.md зарегистрирован при ревизии отчёта, уже после сверки артефакта; это консолидация процедуры, а не предварительная регистрация. Реальных run_ids нет.",
+    "conditions.runtime_manifest": "No runtime launched in LAB03; runtime_manifest filled in LAB04/05.",
+    "conditions.harness_profile": "No harness invoked; LAB03 is model-side preparation.",
+    "completion": "Ретроспективная регистрация: протокол оформлен после сверки файла. Завершённый результат с предварительной регистрацией перенесён в сессию gpt-oss-120b-prereg."
+  },
+  "conclusion": "gpt-oss-120b-MXFP4.gguf (63,387,346,208 B) verified against publisher SHA-256 582bd40f6886200101f4c4ed9f25f3fe80cc14c86e9e2b37746cd8904a0c622d. Artifact pinned for LAB04/05.",
+  "reviewer_decision": null
+}
