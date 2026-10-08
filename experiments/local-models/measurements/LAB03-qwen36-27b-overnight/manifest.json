@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "qwen36-27b-overnight",
+  "created_at": "2026-10-08T16:28:41Z",
+  "status": "in_progress",
+  "evidence_class": "protocol",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-08T16:28:41Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-qwen36-27b-overnight/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "LAB03 не запускает runtime.",
+    "conditions.harness_profile": "LAB03 не использует обвязку."
+  },
+  "conclusion": null
+}
