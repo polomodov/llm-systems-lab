@@ -1,1 +1,4 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+gpt-oss-20b-ctx8192-tg	gpt-oss-20b-ctx8192	openai/gpt-oss-20b	llama.cpp b8407	hip	8192	1	tg128_avg_ts	53.587179	tokens/s	measured	raw/context-8192-bench.json	
+gpt-oss-20b-ctx16384-tg	gpt-oss-20b-ctx16384	openai/gpt-oss-20b	llama.cpp b8407	hip	16384	1	tg128_avg_ts	41.344051	tokens/s	measured	raw/context-16384-bench.json	
+gpt-oss-20b-ctx32768-tg	gpt-oss-20b-ctx32768	openai/gpt-oss-20b	llama.cpp b8407	hip	32768	1	tg128_avg_ts	25.272222	tokens/s	measured	raw/context-32768-bench.json	
