@@ -1,1 +1,2 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+qwen35-35b-a3b-bytes	qwen35-35b-a3b-verify	Qwen/Qwen3.5-35B-A3B	sha256sum	-		1	file_bytes	26249607808	B	measured	raw/verification.json	
