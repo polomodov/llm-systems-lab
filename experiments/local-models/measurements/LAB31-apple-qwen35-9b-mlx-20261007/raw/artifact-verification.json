@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-10-07T20:06:00.176169+00:00",
+  "artifact_revision": "938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1954,
+      "sha256": "7cbe4c3e07a5465d52d60c94c71f8d578113550eb767d331553f9ca19538ce56",
+      "matches_lab29": true
+    },
+    {
+      "path": "chat_template.jinja",
+      "bytes": 7756,
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715",
+      "matches_lab29": true
+    },
+    {
+      "path": "config.json",
+      "bytes": 3331,
+      "sha256": "a96942cb6a8a1d3f1d17514d81a1925d04362a6a3233b389d13012211baaa9f8",
+      "matches_lab29": true
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "bytes": 123592,
+      "sha256": "dd023913fb87cfdae27fb11dcf695117c925833796ccac3c64117d6652d8ff1e",
+      "matches_lab29": true
+    },
+    {
+      "path": "preprocessor_config.json",
+      "bytes": 390,
+      "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516",
+      "matches_lab29": true
+    },
+    {
+      "path": "processor_config.json",
+      "bytes": 1300,
+      "sha256": "14932921ca485d458a04dafd8069fbb0a4505622a48208d19ed247115801385b",
+      "matches_lab29": true
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 19989343,
+      "sha256": "87a7830d63fcf43bf241c3c5242e96e62dd3fdc29224ca26fed8ea333db72de4",
+      "matches_lab29": true
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 1139,
+      "sha256": "e98f1901ac6f0adff67b1d540bfa0c36ac1a0cf59eb72ed78146ef89aafa1182",
+      "matches_lab29": true
+    },
+    {
+      "path": "video_preprocessor_config.json",
+      "bytes": 385,
+      "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13",
+      "matches_lab29": true
+    },
+    {
+      "path": "vocab.json",
+      "bytes": 6722759,
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003",
+      "matches_lab29": true
+    },
+    {
+      "path": "model-00001-of-00002.safetensors",
+      "bytes": 5349771222,
+      "sha256": "a68b87558c6ef43f74c2bd63ce7e9092ceddc3101f3def0030774bae5f42aadd",
+      "matches_lab29": true
+    },
+    {
+      "path": "model-00002-of-00002.safetensors",
+      "bytes": 600449850,
+      "sha256": "b0a770bf8469c7f3f18756a0e0283f1c1174344a83e059a4e483f6af4907352d",
+      "matches_lab29": true
+    }
+  ]
+}

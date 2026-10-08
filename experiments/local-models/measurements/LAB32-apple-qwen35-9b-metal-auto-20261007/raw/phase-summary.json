@@ -1,0 +1,64 @@
+{
+  "conclusion": "Этап 8K с reasoning=auto прошёл: четыре protocol fixtures и длинный вход 4083 tokens имеют прогрев и три повтора; проверены отмена/освобождение слота/recovery и overflow/recovery. 16K/32K остаются планом, LAB32 целиком не завершена.",
+  "case_statistics": {
+    "chat": {
+      "values": [
+        3.784451125,
+        3.836657333,
+        3.7649676249999997
+      ],
+      "median_seconds": 3.784451125,
+      "min_seconds": 3.7649676249999997,
+      "max_seconds": 3.836657333
+    },
+    "chat-stream": {
+      "values": [
+        3.772274,
+        3.869127584,
+        3.8734625840000003
+      ],
+      "median_seconds": 3.869127584,
+      "min_seconds": 3.772274,
+      "max_seconds": 3.8734625840000003
+    },
+    "tool": {
+      "values": [
+        2.3119702909999997,
+        2.281411667,
+        2.298207542
+      ],
+      "median_seconds": 2.298207542,
+      "min_seconds": 2.281411667,
+      "max_seconds": 2.3119702909999997
+    },
+    "tool-stream": {
+      "values": [
+        2.307047375,
+        2.3146828750000004,
+        2.3156577499999997
+      ],
+      "median_seconds": 2.3146828750000004,
+      "min_seconds": 2.307047375,
+      "max_seconds": 2.3156577499999997
+    },
+    "long": {
+      "values": [
+        18.04456975,
+        18.108321583000002,
+        18.900565957999998
+      ],
+      "median_seconds": 18.108321583000002,
+      "min_seconds": 18.04456975,
+      "max_seconds": 18.900565957999998
+    }
+  },
+  "attempts": {
+    "completed": 28,
+    "failed": 0,
+    "not-run": 0,
+    "planned": 52
+  },
+  "condition": "reasoning=auto / enable_thinking=true",
+  "context": 8192,
+  "higher_contexts_measured": false
+}
