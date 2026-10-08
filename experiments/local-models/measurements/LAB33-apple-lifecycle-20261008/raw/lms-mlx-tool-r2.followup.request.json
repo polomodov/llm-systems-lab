@@ -1,0 +1,58 @@
+{
+  "model": "lab-apple-qwen35-9b-q6-k",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "\n\n",
+      "reasoning_content": "The user is asking me to call the lookup_lab_value function with key \"alpha\" and return only the value from the result. Let me call this function with the required parameter.\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "id": "617071727",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\":\"alpha\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "617071727",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false,
+  "temperature": 0,
+  "seed": 1,
+  "top_p": 1
+}

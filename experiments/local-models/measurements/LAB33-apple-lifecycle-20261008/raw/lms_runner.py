@@ -44,11 +44,13 @@ class LMS:
  def cli(self,args,label,timeout=120):
   command=['lms']+args;p=subprocess.run(command,capture_output=True,text=True,timeout=timeout);(RAW/(self.dep+'-'+label+'.txt')).write_text(p.stdout+p.stderr);self.record['commands'].append({'command':command,'returncode':p.returncode,'evidence':'raw/'+self.dep+'-'+label+'.txt'});assert p.returncode==0,label+' failed';return p.stdout
  def ready(self):
-  case=self.dep+'-startup';backend_name='llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0' if self.dep=='lms-metal' else 'mlx-llm-mac-arm64-apple-metal-nax-advsimd-1.13.1'
+  case=self.dep+'-startup';backend_name='llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0' if self.dep.startswith('lms-metal') else 'mlx-llm-mac-arm64-apple-metal-nax-advsimd-1.13.1'
   backend=pathlib.Path.home()/'.lmstudio/extensions/backends'/backend_name;assert backend.is_dir()
   runtime={'path':str(backend),'manifest':json.loads((backend/'backend-manifest.json').read_text()),'files':{str(p.relative_to(backend)):lab.digest(p) for p in backend.rglob('*') if p.is_file()},'selected_inventory':self.cli(['runtime','ls'],'startup-runtimes'),'reasoning':'native default; requested effort omitted as unsupported/unverified','kv_cache_dtype':None,'cache_policy':None,'unavailable':'CLI does not pin all KV/cache/default-reasoning parameters; actual logs retained'};lab.write(case+'-runtime.json',runtime)
-  if self.dep=='lms-metal':
-   self.cli(['import',str(lab.MODEL),'--symbolic-link','--user-repo','unsloth/Qwen3.5-9B-GGUF','--yes'],'startup-import')
+  if self.dep.startswith('lms-metal'):
+   existing=pathlib.Path.home()/'.lmstudio/models/unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf'
+   assert existing.resolve()==lab.MODEL and lab.digest(existing)==lab.SHA
+   lab.write(self.dep+'-startup-existing-import.json',{'registry_path':str(existing),'target':str(existing.resolve()),'sha256':lab.SHA,'import_not_repeated':True})
    assert lab.digest(lab.MODEL)==lab.SHA
   else:
    artifact=next(a for a in json.loads((RAW/'mlx-artifact-manifest.json').read_text())['artifacts'] if a['format']=='MLX/safetensors');verified=[]
@@ -57,9 +59,9 @@ class LMS:
    target=pathlib.Path.home()/'.lmstudio/models/mlx-community/Qwen3.5-9B-MLX-4bit';target.parent.mkdir(parents=True,exist_ok=True)
    if not target.exists():target.symlink_to(MLX,target_is_directory=True)
    assert target.resolve()==MLX;lab.write(case+'-weights.json',{'revision':artifact['revision'],'files':verified,'registry_symlink':str(target),'quantization':artifact['quantization']})
-  models=json.loads(self.cli(['ls','--json'],'startup-models'));format='gguf' if self.dep=='lms-metal' else 'safetensors';matches=[m for m in models if m.get('format')==format and 'Qwen3.5-9B' in m.get('path','')];assert len(matches)==1,repr(matches)
+  models=json.loads(self.cli(['ls','--json'],'startup-models'));format='gguf' if self.dep.startswith('lms-metal') else 'safetensors';matches=[m for m in models if m.get('format')==format and 'Qwen3.5-9B' in m.get('path','')];assert len(matches)==1,repr(matches)
   model=matches[0];lab.write(case+'-selected-model.json',model)
-  if self.dep=='lms-metal':
+  if self.dep.startswith('lms-metal'):
    imported=pathlib.Path.home()/'.lmstudio/models'/model['path'];assert lab.digest(imported)==lab.SHA;lab.write(case+'-weights.json',{'source_sha256':lab.digest(lab.MODEL),'imported_sha256':lab.digest(imported),'imported_path':str(imported),'symlink_target':str(imported.resolve())})
   self.cli(['load',model['modelKey'],'--identifier',lab.ALIAS,'--context-length','8192','--parallel','1','--gpu','max','--ttl','600','--yes'],'startup-load');self.loaded=True
   loaded=json.loads(self.cli(['ps','--json'],'startup-loaded'));assert len(loaded)==1 and loaded[0]['format']==format and loaded[0]['path']==model['path'] and loaded[0]['contextLength']==8192 and loaded[0]['parallel']==1,'Loaded deployment differs from registered artifact/config'
