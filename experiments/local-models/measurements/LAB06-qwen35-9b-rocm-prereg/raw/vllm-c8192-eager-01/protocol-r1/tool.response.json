@@ -1,0 +1,52 @@
+{
+  "id": "chatcmpl-a519c36745d2373e",
+  "object": "chat.completion",
+  "created": 1791471294,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "chatcmpl-tool-922d3592e9dcc975",
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\": \"alpha\"}"
+            }
+          }
+        ],
+        "reasoning": "The user is asking me to call the lookup_lab_value function with key \"alpha\", and then return only the value from the result. I need to use the lookup_lab_value function with the key parameter set to \"alpha\".\n"
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-74a68676",
+  "usage": {
+    "prompt_tokens": 313,
+    "total_tokens": 388,
+    "completion_tokens": 75,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 46
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

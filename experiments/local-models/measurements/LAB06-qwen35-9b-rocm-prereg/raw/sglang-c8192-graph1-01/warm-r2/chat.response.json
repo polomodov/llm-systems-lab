@@ -1,0 +1,37 @@
+{
+  "id": "a5b7f94d44694769a8cc51752b494c6c",
+  "object": "chat.completion",
+  "created": 1791471588,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: Respond *only* with the string \"LAB_READY\". No extra text, no punctuation, no newlines (ideally), no explanations.\n\n2.  **Verify the Content:**\n    *   The user wants a specific string: \"LAB_READY\".\n    *   The user explicitly forbids explanations (\"без пояснений\").\n\n3.  **Formulate the Output:**\n    *   Output must be: LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the constraint? Yes.\n    *   Is there any extra info? No.\n\n5.  **Execute:** Print \"LAB_READY\".\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 199,
+    "completion_tokens": 180,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 176
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 180
+      }
+    ]
+  }
+}

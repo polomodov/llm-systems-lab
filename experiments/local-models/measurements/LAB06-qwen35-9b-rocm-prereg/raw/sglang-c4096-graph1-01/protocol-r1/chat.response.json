@@ -1,0 +1,37 @@
+{
+  "id": "992cf5a654bf446fa45c69a1f54a6894",
+  "object": "chat.completion",
+  "created": 1791470844,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Respond with a specific string.\n    *   String: \"LAB_READY\"\n    *   Constraint: \"без пояснений\" (without explanations).\n    *   Constraint: \"ровно\" (exactly/user-defined, but context implies strict adherence to the requested string).\n    *   Language: Russian (request is in Russian), but the target string is English.\n\n2.  **Verify the Instruction:** The user wants *only* the text \"LAB_READY\", nothing else.\n\n3.  **Formulate Output:** Just the string \"LAB_READY\".\n\n4.  **Final Check:** Does this violate any policies? No. Is it safe? Yes. Does it follow the constraint? Yes.\n\n5.  **Execute:** Output \"LAB_READY\".\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 203,
+    "completion_tokens": 184,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 180
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 184
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"torch": "2.9.1+rocm7.2.4.git39497456", "hip": "7.2.53211-97f5574fe2", "transformers": "5.12.1", "thinking": false, "sampling": "greedy", "input_tokens": 21, "output_tokens": 5, "generate_seconds": 4.536419658004888, "peak_allocated_bytes_after_load": 18959007232, "peak_reserved_bytes_after_load": 19008585728, "final": "LAB_READY\n"}

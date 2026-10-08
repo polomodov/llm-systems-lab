@@ -1,0 +1,11 @@
+--- http_probe.orig.py	2026-10-08 14:44:40.956853563 +0100
++++ http_probe.py	2026-10-08 14:44:43.304077607 +0100
+@@ -81,7 +81,7 @@
+                                 metrics['ttft_reasoning_s'] = time.perf_counter() - start
+                             message['content'] += content
+                             reasoning += thought
+-                            for piece in delta.get('tool_calls', []):
++                            for piece in (delta.get('tool_calls') or []):
+                                 item = tools.setdefault(piece['index'], {'id': '',
+                                     'type': 'function', 'function': {'name': '', 'arguments': ''}})
+                                 if piece.get('id'):

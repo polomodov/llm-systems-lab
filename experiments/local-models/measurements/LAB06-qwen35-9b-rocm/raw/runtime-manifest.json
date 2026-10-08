@@ -1,0 +1,30 @@
+{
+  "session": "qwen35-9b-rocm",
+  "lab": "LAB06",
+  "engines": {
+    "vllm": {
+      "image_ref": "vllm/vllm-openai-rocm@sha256:e5e47f6aaab675c252c381f0dac237b31b10d87bb74d092b07fb4065efd7f5a1",
+      "image_id": "sha256:e5e47f6aaab675c252c381f0dac237b31b10d87bb74d092b07fb4065efd7f5a1",
+      "torch": "2.12.0+git6bbd260",
+      "hip": "7.2.53211",
+      "arch": "gfx1151"
+    },
+    "sglang": {
+      "built_from_commit": "94602c9c2b7cbdb8efd5c52802dac6a1c180089e",
+      "built_image_id": "sha256:ee6979e664b721074809dfe90548b5b7ad4eb263de72a78d592b0f8619fc6911",
+      "effective_image_id": "sha256:32bb7a1b2dc0d2e8883a7115957b13ad4b8b36b871bcc584fccb6ab729a50788",
+      "effective_image_tag": "lab-sglang:gfx1151-94602c9-fixed",
+      "remediation": "raw/sglang-fix.Dockerfile",
+      "torch": "2.9.1+rocm7.2.4.git39497456",
+      "hip": "7.2.53211-97f5574fe2",
+      "arch": "gfx1151",
+      "triton": "3.7.0+amd.rocm7.2.0.git89002410"
+    },
+    "transformers_reference": {
+      "image": "sha256:32bb7a1b2dc0d2e8883a7115957b13ad4b8b36b871bcc584fccb6ab729a50788",
+      "transformers": "5.12.1",
+      "torch": "2.9.1+rocm7.2.4.git39497456",
+      "attn_implementation": "sdpa"
+    }
+  }
+}
