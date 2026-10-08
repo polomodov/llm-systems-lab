@@ -1,0 +1,5 @@
+{
+  "content": "LAB_VALUE_42",
+  "tool_calls": null,
+  "reasoning_content": "The tool `lookup_lab_value` returned \"LAB_VALUE_42\". The user requested \"только значение\" (only the value). So I should return just the string \"LAB_VALUE_42\".\n"
+}
