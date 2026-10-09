@@ -62,7 +62,7 @@ def finalize():
     names=[a for a in attempts if (RAW/a/'summary.json').is_file()]
     names += ['prior-short/'+case for case in reference['copied_blocks']]
     series=read('sustained/series.json') if (RAW/'sustained/series.json').exists() else None
-    if series:names += [b['directory'] for b in series['blocks']]
+    if series:names += sorted(str(p.parent.relative_to(RAW)) for p in (RAW/'sustained').glob('block-*/summary.json'))
     for name in names:
         summary,records=validate_block(name)
         historical=name.startswith('prior-short/')
@@ -72,6 +72,8 @@ def finalize():
         blocks[name]={k:v for k,v in summary.items() if k!='results'}
         if historical or attempts[case]['status']=='completed':
             assert summary['failed']==0 and summary['success_latency_p95_seconds']<=240
+        # Historical rows stay in summary/evidence; TSV describes only this session.
+        if historical:continue
         for record in records:
             evidence=f'{name}/request-{record["index"]:04d}.json'
             if record['ok'] and not historical:finishes[record['finish_reason']]+=1
@@ -99,7 +101,7 @@ def finalize():
         expected=min(c for c,v in medians.items() if v>=.95*max(medians.values()))
         assert read('sustained-selection.json')['concurrency']==series['concurrency']==expected
     else:medians={}
-    sustained_blocks=[blocks[b['directory']] for b in series['blocks']] if series else []
+    sustained_blocks=[block for name,block in blocks.items() if name.startswith('sustained/')] if series else []
     sustained=None
     if sustained_blocks:
         tokens=sum(b['completion_tokens_successful'] for b in sustained_blocks)

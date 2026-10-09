@@ -1,5 +1,5 @@
 """Read only compact campaign progress; never controls the server."""
-import json, pathlib
+import json, pathlib, datetime
 raw=pathlib.Path(__file__).resolve().parent
 directories=[raw/'warmup']+sorted(p for p in raw.glob('r*-c*') if p.is_dir())
 directories+=sorted((raw/'sustained').glob('block-*')) if (raw/'sustained').exists() else []
@@ -22,4 +22,6 @@ if (raw/'memory-timeline.jsonl').exists():
                 'pressure_level':row['pressure_level'],'pressure_free_percent':row['pressure_free_percentage']}
             break
         except json.JSONDecodeError:continue
-print(json.dumps({'completed_blocks':completed,'current':current,'finished_requests':total,'failures':failures,'memory':memory}))
+selection=json.loads((raw/'sustained-selection.json').read_text()) if (raw/'sustained-selection.json').exists() else None
+sustained={'concurrency':selection['concurrency'],'elapsed_minutes':round((datetime.datetime.now(datetime.timezone.utc)-datetime.datetime.fromisoformat(selection['timestamp'])).total_seconds()/60,2)} if selection else None
+print(json.dumps({'sustained':sustained,'completed_blocks':completed,'current':current,'finished_requests':total,'failures':failures,'memory':memory}))

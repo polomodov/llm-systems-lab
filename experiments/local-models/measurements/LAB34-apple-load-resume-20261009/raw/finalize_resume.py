@@ -72,6 +72,8 @@ def finalize():
         blocks[name]={k:v for k,v in summary.items() if k!='results'}
         if historical or attempts[case]['status']=='completed':
             assert summary['failed']==0 and summary['success_latency_p95_seconds']<=240
+        # Historical rows stay in summary/evidence; TSV describes only this session.
+        if historical:continue
         for record in records:
             evidence=f'{name}/request-{record["index"]:04d}.json'
             if record['ok'] and not historical:finishes[record['finish_reason']]+=1
