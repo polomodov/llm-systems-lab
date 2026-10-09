@@ -1,6 +1,6 @@
 # LAB35 — квалификация Mac и готовность сравнения с Ryzen
 
-Сессия apple-qualification-20261009. Статус **in-progress**, новый инференс ещё не начат.
+Сессия apple-qualification-20261009. Статус **blocked**, после model startup HTTP qualification не началась.
 
 ## Паспорт выполнения
 
@@ -33,3 +33,7 @@ Apple M5 Max, 128 GiB, macOS26.5/arm64. Два отдельных llama.cpp b840
 ## Комплект сдачи
 
 Manifest/protocol/conditions/source references подготовлены до исполнения. Все failures/not-run сохраняются. Submission оформляется после квалификации; structural ready_for_review не заменяет критерии LAB35.
+
+## Подготовительная остановка
+
+Исходный Metal startup подтвердил M5/offload33/33/tensor=false. Перед chat warmup child Python завершился с exit2: неверный путь raw/metal-standard/concurrency_driver.py. HTTP-запрос не отправлен, primary request/summary отсутствуют. Это failed подготовка клиента, не записанная модельная latency. Native exit0, один SIGINT, guard=null; 3completed/1failed/33not-run. Runtime descriptor [1,2,4] — наследие LAB34; здесь concurrency не измерялась. Исправленные path и descriptor зарегистрированы отдельно в apple-qualification-retry-20261009.
