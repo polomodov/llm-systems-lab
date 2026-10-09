@@ -27,6 +27,18 @@ def digest(path):
     with path.open('rb') as stream:
         for chunk in iter(lambda:stream.read(8*1024*1024),b''):h.update(chunk)
     return h.hexdigest()
+def verify_build_reference(build,reference):
+    pins=reference['binaries'];directory=build/'bin'
+    families=['libggml','libggml-base','libggml-cpu','libggml-metal','libggml-blas','libllama','libmtmd']
+    required={str(directory/(family+'.dylib')) for family in families}
+    observed={str(path) for path in directory.glob('*.dylib')}
+    assert required<=observed, 'Required bundled dylibs missing from build'
+    assert observed<=pins.keys(), 'Unpinned bundled dylibs: '+str(sorted(observed-pins.keys()))
+    assert str(directory/'llama-server') in pins, 'Server executable pin missing'
+    for name,expected in pins.items():
+        assert digest(pathlib.Path(name))==expected, 'Build hash mismatch: '+name
+    return dict(pins)
+
 def api(base,route):
     with OPENER.open(base+route,timeout=3) as response:return json.load(response)
 def result(case,ok,reason=None):
@@ -93,11 +105,7 @@ class Campaign:
             sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1);sock.bind(('127.0.0.1',PORT))
         assert digest(MODEL)==MODEL_SHA and digest(BUILD/'bin/llama-server')==SERVER_SHA
         reference=json.loads((RAW/'build-reference.json').read_text())
-        pinned={}
-        for name,expected in reference['binaries'].items():
-            path=pathlib.Path(name)
-            assert digest(path)==expected
-            pinned[name]=expected
+        pinned=verify_build_reference(BUILD,reference)
         command=[str(BUILD/'bin/llama-server'),'-m',str(MODEL),'--host','127.0.0.1','--port',str(PORT),
             '--alias','lab-model','-ngl','999','-c','8192','-np','1','-t','8','-b','512','-ub','256',
             '-ctk','f16','-ctv','f16','-fa','on','--jinja','--no-context-shift','--reasoning','auto',
