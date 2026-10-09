@@ -3,6 +3,8 @@ import importlib.util
 import json
 import pathlib
 import shutil
+import signal
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -31,6 +33,18 @@ class ResumeAudit(unittest.TestCase):
                 module.main()
             updated=json.loads((target/'manifest.json').read_text())
             return campaign,updated
+
+    def test_power_stop_cleanup_uses_only_kill_after_exit_deadline(self):
+        campaign=module.Campaign()
+        campaign.process=Mock(pid=123456,returncode=-9)
+        campaign.process.poll.return_value=None
+        campaign.process.wait.side_effect=[subprocess.TimeoutExpired('owned',30),0]
+        campaign.interrupt_sent=True
+        campaign.guard='Memory/power admission failed'
+        with patch.object(module.os,'killpg') as kill,patch.object(module,'sample',return_value={}),patch.object(module,'write'),patch.object(module,'result'):
+            campaign.shutdown()
+        kill.assert_called_once_with(123456,signal.SIGKILL)
+        self.assertEqual(campaign.guard,'Memory/power admission failed')
 
     def test_changed_historical_bytes_stop_before_native_start(self):
         campaign,manifest=self.replay(changed=True)
