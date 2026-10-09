@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/context-16384-bench.json",
+      "original_sha256": "8a2349a76358ace7c20dcdb92402c3c05e6654afab6cb6ebc1afc9a01c45cd75",
+      "published_sha256": "08f099912b677cef84de998f4a31c3d6071a33558f99633b57eb0d71499de071",
+      "original_bytes": 1287,
+      "published_bytes": 1280
+    },
+    {
+      "path": "raw/context-16384-process.txt",
+      "original_sha256": "73e8f5aedb4ac2eade99814155c12ab54ee68382433ef06bef1f5f965f44cf52",
+      "published_sha256": "db0c38d826522d5aa0673b1eb64026922e1f8860b59c64d909c6bf4b8f0a51df",
+      "original_bytes": 1087,
+      "published_bytes": 1073
+    },
+    {
+      "path": "raw/context-32768-bench.json",
+      "original_sha256": "a430d7c4abc900df83f81e13b8aea8cf3fee25214f00d8e1776fb4b9039493cd",
+      "published_sha256": "4dcebf2c051ef0c09b10cc67576716916ad5c01161be6ce3c8af74ead90df092",
+      "original_bytes": 1286,
+      "published_bytes": 1279
+    },
+    {
+      "path": "raw/context-32768-process.txt",
+      "original_sha256": "6836f01db7879e4ba0a0a58ff3740678c1f48acf7c35ab67014e02a8f4f5be07",
+      "published_sha256": "b1ea994fb35f4a2ad0d12629072a7dae0112a8c0a1c0983724175f94faad4cf8",
+      "original_bytes": 1088,
+      "published_bytes": 1074
+    },
+    {
+      "path": "raw/context-8192-bench.json",
+      "original_sha256": "35984081d5813b7ef8c5127b5d3d5954e614b0d136bf17a01eb0952bc938098a",
+      "published_sha256": "b3d28a351a33fed103b4b2028a1a7de134530579bc436caa083b65bb0ceada11",
+      "original_bytes": 1285,
+      "published_bytes": 1278
+    },
+    {
+      "path": "raw/context-8192-process.txt",
+      "original_sha256": "709969c871789fbb4a2965b133cd1383eb32cf95555fc8f7e87b55492c41f96f",
+      "published_sha256": "4342ac53171d0553e7418a5b026dc9358f107ae83670bae2ac375f55044e123e",
+      "original_bytes": 1095,
+      "published_bytes": 1081
+    },
+    {
+      "path": "raw/server-16384.log",
+      "original_sha256": "7eab496def061175ae5d4fe5793728fee83ed34005f72ccd2c7fd1cee2f51138",
+      "published_sha256": "8b01650ce083389211707e503845565e13cbb4404a026536d28000d998ae2e5c",
+      "original_bytes": 33221,
+      "published_bytes": 33207
+    },
+    {
+      "path": "raw/server-32768.log",
+      "original_sha256": "501f224f0d4201fde545f27c5ee38cbb24482fb4eedf551ceadbaf1e5920f54f",
+      "published_sha256": "36f652097d9302a27d3dbdd6e0a28ed91ec903780b13c1ad9824cc587e9efea0",
+      "original_bytes": 33856,
+      "published_bytes": 33842
+    },
+    {
+      "path": "raw/server-8192.log",
+      "original_sha256": "23784d156f67f733968228d00ddb1e666eb679e5a985c9289948e6d35408be09",
+      "published_sha256": "ea3b73363d48a2f1f85fa8d26105dc24a50b341756a7523eeb692887880ee360",
+      "original_bytes": 33201,
+      "published_bytes": 33187
+    }
+  ]
+}

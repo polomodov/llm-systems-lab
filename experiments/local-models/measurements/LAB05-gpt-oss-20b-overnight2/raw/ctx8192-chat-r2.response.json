@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "User says: \"Ответь ровно LAB_READY без пояснений.\" Means: \"Answer exactly LAB_READY without explanations.\" So output should be \"LAB_READY\" only."
+      }
+    }
+  ],
+  "created": 1791535272,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 46,
+    "prompt_tokens": 77,
+    "total_tokens": 123
+  },
+  "id": "chatcmpl-LoMbDDLTDpQ1XQSguPaEObqxwE0SooXo",
+  "timings": {
+    "cache_n": 76,
+    "prompt_n": 1,
+    "prompt_ms": 15.003,
+    "prompt_per_token_ms": 15.003,
+    "prompt_per_second": 66.65333599946678,
+    "predicted_n": 46,
+    "predicted_ms": 638.395,
+    "predicted_per_token_ms": 13.878152173913042,
+    "predicted_per_second": 72.05570219065
+  }
+}

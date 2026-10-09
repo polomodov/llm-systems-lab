@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "o0kV0BshFdlYHQPdSNMHHfFTaoSFSpCw",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user says: \"Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение.\"\n\nWe need to call the function. The function signature: lookup_lab_value takes {key: \"alpha\"} and returns any. We need to invoke it.\n\nWe should use the tool. In the answer, we need only the value returned by the function. So we need to do a function call, then output the result.\n\nWe should produce a single function call JSON. The answer should be the result. Since the instruction says \"Верни только значение\" - only the value. So after calling the function, we output the value (no formatting). But we need to first call the function. According to guidelines, we output a function call first. Then after receiving the result, we output the value. But ChatGPT must respond with a single message. Actually we need to output the function call, then the tool will respond. The final message should be the value only. So we should do two messages? The pattern: We send the function call. Then the tool returns. Then we output the result.\n\nThus our first assistant message: call lookup_lab_value with key: \"alpha\". Then tool returns. Then we output the result.\n\nThus we should respond: use the function."
+}

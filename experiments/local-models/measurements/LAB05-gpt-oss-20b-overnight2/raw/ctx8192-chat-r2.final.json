@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "User says: \"Ответь ровно LAB_READY без пояснений.\" Means: \"Answer exactly LAB_READY without explanations.\" So output should be \"LAB_READY\" only."
+}
