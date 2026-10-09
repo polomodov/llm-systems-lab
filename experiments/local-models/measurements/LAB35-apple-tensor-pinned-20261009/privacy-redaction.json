@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/metal-tensor/build-reference.json",
+      "original_sha256": "07976d3b6d7788a78c90851c16b12d3ad3af2326e2abd8882c29925dc0741a7c",
+      "published_sha256": "46b57edddc97febda893ab7bdd533f20dc828aa5958d2a1aa1dfa536ae993c44",
+      "original_bytes": 5383,
+      "published_bytes": 5222
+    },
+    {
+      "path": "raw/run_tensor.py",
+      "original_sha256": "74258863d234b3b44b63ce364212215da70a50b792ee3a5902b60f4d1d357e93",
+      "published_sha256": "ee03e5a69f71bd94e8387cd6b4bf75f2a102ec838cb3e53e2321cb18242121f5",
+      "original_bytes": 16087,
+      "published_bytes": 16073
+    },
+    {
+      "path": "raw/variants.json",
+      "original_sha256": "eba8b66401b71f26fe0775ca1ade6e7cd8b06363b5d0e9be6b5f02fc4371b319",
+      "published_sha256": "b2091e1437ed41ccd3728c5c93ed0a22dafd93f8b8ca7f972d9e41eee611f0ed",
+      "original_bytes": 5794,
+      "published_bytes": 5626
+    }
+  ]
+}

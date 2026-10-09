@@ -1,0 +1,152 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB35",
+  "harness_id": null,
+  "session_id": "apple-tensor-pinned-20261009",
+  "created_at": "2026-10-09T20:58:24.736Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Новый tensor process завершит общий chat/load после проверки всех dylib hashes до Popen.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-09T21:03:33.679Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "pin-audit",
+      "configuration_id": "tensor-source-audit",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-startup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-chat-warmup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-chat-r1",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-chat-r2",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-chat-r3",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-load-warmup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-load-r1",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-load-r2",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-load-r3",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "metal-tensor-shutdown",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/apple-hardware.json",
+    "raw/chat-request.json",
+    "raw/concurrency_driver.py",
+    "raw/concurrency_test.py",
+    "raw/export_tensor.py",
+    "raw/load-request.json",
+    "raw/metal-tensor/build-reference.json",
+    "raw/metal-tensor/chat-request.json",
+    "raw/metal-tensor/load-request.json",
+    "raw/preflight-power.jsonl",
+    "raw/prior-reference.json",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/registered-source-hashes.json",
+    "raw/resources.py",
+    "raw/run_tensor.py",
+    "raw/variants.json"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "Actual fresh runtime after startup.",
+    "conditions.harness_profile": "No autonomous agent; scoped hardware repeat.",
+    "full_lab35": "Fresh alternating Ryzen pair and accepted LAB08/LAB09 agent series still absent.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
+    "ttft": "Non-streaming.",
+    "energy": "Not measured.",
+    "temperature": "No verified thermal collector."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
