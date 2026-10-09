@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "Функция вернула значение \"LAB_VALUE_42\". Пользователь просит вернуть только значение, поэтому я просто возвращу это значение."
+      }
+    }
+  ],
+  "created": 1791541827,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 35,
+    "prompt_tokens": 254,
+    "total_tokens": 289
+  },
+  "id": "chatcmpl-za7d1d3BeHP1WIVGGOnwsnOJAzxeKFht",
+  "timings": {
+    "cache_n": 245,
+    "prompt_n": 9,
+    "prompt_ms": 69.088,
+    "prompt_per_token_ms": 7.676444444444444,
+    "prompt_per_second": 130.26864289022697,
+    "predicted_n": 35,
+    "predicted_ms": 815.797,
+    "predicted_per_token_ms": 23.308485714285716,
+    "predicted_per_second": 42.90282999324587
+  }
+}

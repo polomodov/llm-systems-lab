@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_READY",
+  "reasoning_content": "The user wants a specific response: \"LAB_READY\".\nThe prompt includes instructions: \"Ответь ровно LAB_READY без пояснений\" (Answer exactly LAB_READY without explanations).\nThe language is Russian.\nThe intent is to test my ability to follow negative constraints (no explanations) and provide a specific output string.\n\nPlan:\n1. Acknowledge the request.\n2. Generate the string \"LAB_READY\".\n3. Ensure no other text is included.\n\nConstraint Checklist & Confidence Score:\n1. Answer exactly LAB_READY? Yes.\n2. No explanations? Yes.\nConfidence Score: 5/5\n\nMental Sandbox:\nIf I write \"LAB_READY\" and nothing else, I succeed.\nIf I write \"Вот ваш ответ: LAB_READY\", I fail.\nIf I write \"LAB_READY.\" (with a period), I technically fail \"exactly\" though it might be accepted. The prompt implies the string itself.\n\nFinal Output Generation:\nLAB_READY"
+}

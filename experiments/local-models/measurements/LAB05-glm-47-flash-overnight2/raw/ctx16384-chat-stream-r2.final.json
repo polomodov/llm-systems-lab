@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Russian for: \"Answer exactly LAB_READY without explanations.\")\n    *   Constraint 1: Output must be *exactly* \"LAB_READY\".\n    *   Constraint 2: No explanations or additional text.\n\n2.  **Verify the Intent:** The user is testing the AI's ability to follow negative constraints (no text) and strict formatting constraints. This is a common prompt engineering pattern to ensure a specific output format.\n\n3.  **Check for Safety/Policy Violations:**\n    *   Is the output harmful? No.\n    *   Is it asking for PII? No.\n    *   Is it asking for dangerous content? No.\n    *   Is it a jailbreak? No.\n\n4.  **Formulate the Output:**\n    *   Target: \"LAB_READY\"\n    *   Language: English (as requested by the specific string).\n\n5.  **Final Polish:** Ensure no extra spaces or newlines (unless specified, but usually \"exactly X\" implies the string X itself). The prompt says \"exactly LAB_READY\".\n\n6.  **Result:** LAB_READY"
+}

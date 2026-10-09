@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "1.  **Analyze the user's request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Answer exactly LAB_READY without explanations.\")\n    *   Intent: The user wants a specific string of characters as the output and explicitly forbids any extra text or explanations.\n\n2.  **Identify the safety/policy implications:**\n    *   This request is extremely simple and benign.\n    *   It does not violate any safety guidelines (no hate speech, no dangerous content, no PII, no prompt injection, etc.).\n    *   It is a direct instruction to output a specific string.\n\n3.  **Determine the appropriate response:**\n    *   The user requested \"exactly\" and \"without explanations\".\n    *   Therefore, the output must be *only* the string \"LAB_READY\".\n\n4.  **Final Output Generation:**\n    *   String: LAB_READY"
+      }
+    }
+  ],
+  "created": 1791541721,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 197,
+    "prompt_tokens": 15,
+    "total_tokens": 212
+  },
+  "id": "chatcmpl-BDwbniW9dXKwfTZCM09XYpnYTdn4WXeH",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 15,
+    "prompt_ms": 99.185,
+    "prompt_per_token_ms": 6.612333333333334,
+    "prompt_per_second": 151.23254524373644,
+    "predicted_n": 197,
+    "predicted_ms": 4642.859,
+    "predicted_per_token_ms": 23.567812182741118,
+    "predicted_per_second": 42.430752258468324
+  }
+}
