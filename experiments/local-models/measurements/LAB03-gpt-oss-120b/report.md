@@ -1,0 +1,58 @@
+# LAB03 — Артефакт gpt-oss-120b (выбор и проверка SHA-256)
+
+Сессия: `gpt-oss-120b`
+
+Создано: 2026-10-07T17:50:00Z.
+
+Статус: **завершено**. Артефакт `gpt-oss-120b-MXFP4.gguf` (59 GiB) скачан и проверен по SHA-256. Это подготовка (evidence_class=protocol); реальный inference — в ЛР04/05.
+
+## Паспорт выполнения
+
+| Поле | Значение |
+| --- | --- |
+| Исполнитель, дата | agent-harness-lab operator; 2026-10-07 |
+| Машина, ОС, kernel | GTR Pro (GTRP112), Ubuntu 24.04.3, `7.0.0-34-generic` |
+| Модель/артефакт | `openai/gpt-oss-120b`; GGUF `gpt-oss-120b-MXFP4.gguf` 63 387 346 208 B, SHA-256 `582bd40f6886200101f4c4ed9f25f3fe80cc14c86e9e2b37746cd8904a0c622d` |
+| Репозиторий артефакта | `ggml-org/gpt-oss-120b-GGUF` @ `238abdd290bb874b90a5da1b4549881b7d05c091` |
+| Quant / архитектура | MXFP4 / MoE (117B total, 5.1B active) |
+| Планируемые контексты | 8192 / 16384 / 32768 |
+
+## Гипотеза и протокол до запуска
+
+**Гипотеза.** Скачанный файл совпадает с publisher SHA-256 и байтовым размером, то есть является воспроизводимым закреплённым артефактом для последующих работ.
+
+**Протокол.** Сохранён в `raw/protocol.md`: получить metadata (repository, revision, bytes, sha256), скачать через `curl -C -` (resume), сверить `sha256sum`, записать `{repository, revision, files:[…]}`. Протокол сконсолидирован при ревизии отчёта (см. `unavailable.protocol_timing` в manifest).
+
+## Ход выполнения
+
+| Шаг | Действие | Результат |
+| --- | --- | --- |
+| 1. Metadata | HF API `?blobs=true` | repo/rev/bytes/sha256 зафиксированы |
+| 2. Загрузка | `curl -C -` (resume) | файл скачан полностью |
+| 3. Сверка SHA | `sha256sum` vs publisher | **совпал** (`582bd40f…`) |
+
+## Результаты
+
+- `weights_bytes` = 63 387 346 208 B.
+- `weights_sha256_match` = true.
+- Диск после загрузки: см. `raw/disk-after.txt`.
+
+## Ошибки и ограничения
+
+- MXFP4 — специальный 4-битный формат; поддержка на gfx1151 проверяется в ЛР04/05 (не в этой работе).
+- Реального inference здесь нет — только целостность файла.
+
+## Вывод по гипотезе
+
+**Поддержана данными.** SHA-256 совпал с publisher.
+
+## Ответы на контрольные вопросы
+
+ЛР03 не содержит отдельных контрольных вопросов в этой сессии; отвечаю по существу: SHA-256 подтверждает битовую идентичность загруженного файла, но не работоспособность MXFP4 backend — это проверяется в ЛР04.
+
+## Комплект сдачи
+
+- [x] `manifest.json` (protocol, 4 попытки: 1 verify + 3 not-run), `measurements.tsv` (7 строк), `report.md`.
+- [x] `raw/artifact.json`, `raw/artifact-manifest.json`, `raw/weights.sha256`, `raw/verification.json`, `raw/verification.txt`, `raw/disk-after.txt`, `raw/protocol.md`.
+
+Решение проверяющего: **не проверено**.

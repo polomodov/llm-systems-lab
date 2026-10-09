@@ -1,0 +1,52 @@
+{
+  "id": "chatcmpl-9bf3b18c69c20aa2",
+  "object": "chat.completion",
+  "created": 1791470641,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "chatcmpl-tool-a533be502833b4e8",
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\": \"alpha\"}"
+            }
+          }
+        ],
+        "reasoning": "The user is asking me to call the lookup_lab_value function with the key \"alpha\". They want me to return only the value result.\n\nLet me call the function with the required parameter.\n"
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-cdd830cc",
+  "usage": {
+    "prompt_tokens": 313,
+    "total_tokens": 382,
+    "completion_tokens": 69,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 40
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

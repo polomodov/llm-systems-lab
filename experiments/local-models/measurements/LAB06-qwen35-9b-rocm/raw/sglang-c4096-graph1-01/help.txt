@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 189, in _run_module_as_main
+  File "<frozen runpy>", line 112, in _get_module_details
+  File "/sgl-workspace/sglang/python/sglang/__init__.py", line 21, in <module>
+    from sglang.srt.utils.hf_transformers_patches import apply_all as _apply_hf_patches
+  File "/sgl-workspace/sglang/python/sglang/srt/utils/__init__.py", line 2, in <module>
+    from sglang.srt.utils.common import *
+  File "/sgl-workspace/sglang/python/sglang/srt/utils/common.py", line 85, in <module>
+    import orjson
+ModuleNotFoundError: No module named 'orjson'

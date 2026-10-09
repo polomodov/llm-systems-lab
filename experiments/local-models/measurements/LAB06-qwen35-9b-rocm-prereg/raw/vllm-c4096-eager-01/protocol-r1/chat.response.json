@@ -1,0 +1,42 @@
+{
+  "id": "chatcmpl-850574c08e67700b",
+  "object": "chat.completion",
+  "created": 1791470609,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Respond with a specific string.\n    *   String: \"LAB_READY\".\n    *   Constraint: \"Ровно\" (exactly) and \"без пояснений\" (without explanations).\n    *   Language: Russian (request), but the output string is English.\n\n2.  **Verify Constraints:**\n    *   Output must be *only* \"LAB_READY\".\n    *   No markdown formatting (like quotes or bold) unless implied, but usually \"exactly\" means raw text.\n    *   No additional text.\n\n3.  **Formulate Output:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the requested string exactly? Yes.\n    *   Are there any explanations? No.\n    *   Is there any extra whitespace or newline? Should avoid unnecessary characters.\n\n5.  **Construct Final Response:**\n    LAB_READY\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-cdd830cc",
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 236,
+    "completion_tokens": 217,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 212
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

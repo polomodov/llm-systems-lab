@@ -1,0 +1,37 @@
+{
+  "id": "acd77dc6661641148924ef75300e867b",
+  "object": "chat.completion",
+  "created": 1791471485,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Language: Russian.\n    *   Constraint: Output *only* the string \"LAB_READY\", no extra text, no markdown, no newlines if possible (though typically a single newline might be acceptable, the prompt says \"exactly\", so I should be careful).\n    *   Intent: The user wants a specific output string, likely for an automation test, API integration, or just to check compliance.\n\n2.  **Determine the Output:**\n    *   Target string: \"LAB_READY\"\n    *   Formatting: No punctuation, no quotes, no additional text like \"Here is the answer:\".\n\n3.  **Draft the Response:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the constraint \"exactly LAB_READY\"? Yes.\n    *   Are there explanations? No.\n\n5.  **Execute:** Output the string.cw\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 255,
+    "completion_tokens": 236,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 232
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 236
+      }
+    ]
+  }
+}

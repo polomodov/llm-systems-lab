@@ -1,0 +1,37 @@
+{
+  "id": "6c34824951f14c9c8d730fccb37cf884",
+  "object": "chat.completion",
+  "created": 1791467756,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no punctuation (unless part of the string, but \"LAB_READY\" implies no trailing punctuation), no newlines unless strictly necessary (but usually best to keep it clean).\n    *   Language: Russian (request), English (output string).\n\n2.  **Verify the Output:**\n    *   The user explicitly asks for \"LAB_READY\" without any explanations.\n    *   I need to output *only* that string.\n\n3.  **Draft the Output:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the constraint? Yes.\n    *   Is there any extra whitespace? I should avoid leading/trailing whitespace if possible, though a single newline at the end is usually standard for text output. However, to be strictly \"ровно\" (exactly), I'll output just the characters.\n\n5.  **Execution:**\n    *   Output: LAB_READY\n\n6.  **Safety Check:**\n    *   No sensitive content.\n    *   No harmful instructions.\n    *   Compliant with the user's formatting constraint.\n\n7.  **Final Decision:**\n    *   Print \"LAB_READY\".\n\n*(Self-Correction/Refinement)*: Wait, I need to make sure I don't add any markdown code blocks or quotes. Just the raw text.\n\nOutput: LAB_READY\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 370,
+    "completion_tokens": 351,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 347
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 351
+      }
+    ]
+  }
+}
