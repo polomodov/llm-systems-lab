@@ -134,7 +134,7 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
       worker=localRuntime.startWorker('http://127.0.0.1:'+match[1],capability,record.local_inference.deployment,{verify:native.verify,trace:join(dir,'trace/inference'),audit:row=>localResponses.push(row)});
     }
     // Readiness is bounded and independent of external network availability.
-    docker(['exec',proxy,'node','--input-type=module','-e',"for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0.1:8080/health',{headers:{host:'egress:8080'}})).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,100));}process.exit(1)"], { timeout: 10000 });
+    docker(['exec',proxy,'node','--input-type=module','-e',`for(let i=0;i<40;i++){try{if((await fetch('http://${local ? "egress" : "127.0.0.1"}:8080/health')).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,100));}process.exit(1)`], { timeout: 10000 });
     const begin = Date.now();
     const result = await execute(containerArgs({ name, network, image: imageId, workspace: join(dir,'workspace'), control, readOnlyWorkspace: !record.task.startsWith('T002'), uid: process.getuid?.() ?? 1000, gid: process.getgid?.() ?? 1000, credentialKeys: selectedProvider.credential_env, nativeCache: profile.native_cache === true }), { env, timeout, name });
     record.loop.wall_clock_s = Math.ceil((Date.now() - begin) / 1000);

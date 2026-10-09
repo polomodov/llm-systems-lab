@@ -19,7 +19,7 @@ export function summarize(root, ids) {
     if (!record.execution.started_at) { excluded.push({ run_id: id, reason: 'aborted before execution' }); continue; }
     const inputKey = sha256(JSON.stringify({ contract: manifest.files.filter(row => ['spec.md','task.md','setup.sh'].includes(row.path)), workspace: manifest.workspace.filter(row => !row.path.split('/').includes('.git')), seed_commit: manifest.seed_commit ?? null, source_mode: manifest.source_mode ?? 'none', source_archive_sha256: manifest.source_archive_sha256 ?? null }));
     const conditions = { task: record.task, agent: record.agent, model: record.model.id, provider: record.model.provider, model_selection: record.model.selection, model_lock: record.model.lock, inputs: inputKey, variant: manifest.variant, budget_policy: record.execution.budget_policy, budget_usd: record.loop.budget_usd, timeout_s: record.execution.timeout_s, sandbox: record.sandbox.kind, network: record.sandbox.network, evaluation: record.evaluation.method ?? (record.task.startsWith('T002') ? 'hidden-check' : 'rubric'), source_mode: manifest.source_mode ?? 'none' };
-    if(record.model.provider==='local')conditions.local_inference=record.local_inference.fingerprint;
+    if(record.model.provider==='local') {conditions.local_inference=record.local_inference.fingerprint;conditions.local_bridge=sha256(JSON.stringify(manifest.files.filter(row=>/^control\/(adapter|run|harness|local-)|^coordinator-common\/local[_-]/.test(row.path))));}
     const key = JSON.stringify(conditions);
     if (!groups.has(key)) groups.set(key,{ conditions, harnesses: new Map() });
     const group = groups.get(key), harnessKey = JSON.stringify([record.harness.name,record.harness.version,record.harness.mode,record.execution.image_id]);
