@@ -1,0 +1,23 @@
+	Command being timed: "/home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407-ubuntu-24.04-rocm-7.2.1-gfx110X-gfx115X-gfx120X-x64/llama-bench -m /home/lab/local-model-lab-artifacts/ggml-org/GLM-4.7-Flash-GGUF/7559e96b7e324ab405897dc2b91492b0f376ad4a/GLM-4.7-Flash-Q8_0.gguf -ngl 999 -t 8 -b 512 -ub 256 -ctk f16 -ctv f16 -fa 1 -p 512 -n 128 -r 1 -o json"
+	User time (seconds): 5.55
+	System time (seconds): 4.46
+	Percent of CPU this job got: 138%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 0:07.22
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 31434136
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 7
+	Minor (reclaiming a frame) page faults: 370249
+	Voluntary context switches: 3824
+	Involuntary context switches: 141
+	Swaps: 0
+	File system inputs: 1424
+	File system outputs: 640
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

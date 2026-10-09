@@ -1,1 +1,17 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+glm-47-flash-vulkan-pp-r1	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		1	pp2048_avg_ts	647.253529	tokens/s	measured	raw/vulkan-r1-pp.json	
+glm-47-flash-vulkan-tg-r1	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		1	tg128_d4096_avg_ts	44.243604	tokens/s	measured	raw/vulkan-r1-tg.json	
+glm-47-flash-vulkan-pp-r2	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		2	pp2048_avg_ts	643.887197	tokens/s	measured	raw/vulkan-r2-pp.json	
+glm-47-flash-vulkan-tg-r2	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		2	tg128_d4096_avg_ts	44.144118	tokens/s	measured	raw/vulkan-r2-tg.json	
+glm-47-flash-vulkan-pp-r3	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		3	pp2048_avg_ts	644.310918	tokens/s	measured	raw/vulkan-r3-pp.json	
+glm-47-flash-vulkan-tg-r3	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		3	tg128_d4096_avg_ts	44.273062	tokens/s	measured	raw/vulkan-r3-tg.json	
+glm-47-flash-vulkan-rss	glm-47-flash-vulkan	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		1	max_rss	31266060	KiB	measured	raw/vulkan-r1-pp-process.txt	
+glm-47-flash-vulkan-gpulayers	glm-47-flash-offload	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	vulkan		1	gpu_assigned_layers	48	layers	measured	raw/vulkan-offload-proof.log	
+glm-47-flash-hip-pp-r1	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		1	pp2048_avg_ts	685.684444	tokens/s	measured	raw/hip-r1-pp.json	
+glm-47-flash-hip-tg-r1	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		1	tg128_d4096_avg_ts	38.363318	tokens/s	measured	raw/hip-r1-tg.json	
+glm-47-flash-hip-pp-r2	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		2	pp2048_avg_ts	679.386082	tokens/s	measured	raw/hip-r2-pp.json	
+glm-47-flash-hip-tg-r2	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		2	tg128_d4096_avg_ts	38.458565	tokens/s	measured	raw/hip-r2-tg.json	
+glm-47-flash-hip-pp-r3	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		3	pp2048_avg_ts	681.53099	tokens/s	measured	raw/hip-r3-pp.json	
+glm-47-flash-hip-tg-r3	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		3	tg128_d4096_avg_ts	38.428237	tokens/s	measured	raw/hip-r3-tg.json	
+glm-47-flash-hip-rss	glm-47-flash-hip	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		1	max_rss	31433744	KiB	measured	raw/hip-r1-pp-process.txt	
+glm-47-flash-hip-gpulayers	glm-47-flash-offload	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip		1	gpu_assigned_layers	48	layers	measured	raw/hip-offload-proof.log	
