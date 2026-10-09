@@ -6,6 +6,13 @@
   "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
   "files": [
     {
+      "path": "manifest.json",
+      "original_sha256": "5babf19d37db8487fc9c2193259471379a751960a9664a359996c8830b39ce1f",
+      "published_sha256": "2f24408a2af5222258769df8135a80a1a51bb554045e688d4f889d585c649888",
+      "original_bytes": 19627,
+      "published_bytes": 19501
+    },
+    {
       "path": "raw/archive/apple/raw/binaries.sha256",
       "original_sha256": "3b5b19a402a1b02ffd466504563ae162e5d0f97399a978f10f8782814fd6cc11",
       "published_sha256": "18452e854aaf567c48b7e6dcdab8ed68e072b1ab9c63d9cb9138a089d31196f6",
@@ -95,6 +102,48 @@
       "published_sha256": "8089d8692718f94583df950cb85d70d18e3938902a046f39d0f29c4f1971cb62",
       "original_bytes": 4849,
       "published_bytes": 4695
+    },
+    {
+      "path": "raw/metal-standard/campaign-error.json",
+      "original_sha256": "d2c9abd5bbfb6df22eba4af6fc3cd13826391a64a3d1bddb85c29e0b80f068f7",
+      "published_sha256": "89e898d7ccb09b880783200e6b8031db882814f0a30b0b843ce32f2f210a56c0",
+      "original_bytes": 334,
+      "published_bytes": 327
+    },
+    {
+      "path": "raw/metal-standard/runtime-manifest.json",
+      "original_sha256": "986e562e25adfa1fa1933d29efa1742edb92e4be1d170d19bdd5130e5a2501a1",
+      "published_sha256": "1d8aed96ae1208c74640c4094823e846a5b453a29cb12aec5ee402482a5aaf71",
+      "original_bytes": 1615,
+      "published_bytes": 1601
+    },
+    {
+      "path": "raw/metal-standard/server.txt",
+      "original_sha256": "8ca60684070b322befc932c664cce45e1eb1ff7218fdc93458a6cac26de25bb0",
+      "published_sha256": "99dc0940bcea1778c443d73868bf86c8881a8eb295c6c245950d63b5e92bb5e7",
+      "original_bytes": 15147,
+      "published_bytes": 15133
+    },
+    {
+      "path": "raw/metal-standard/shutdown-execution.json",
+      "original_sha256": "df1360290922dd50d4eab7902d9398c8d3e9f24ddc614c5935fc7fb56656abd9",
+      "published_sha256": "1e0c19d00f92b4c63e5ade40a844ef23581b2d5e3146c9c69969c63af66cba53",
+      "original_bytes": 14762,
+      "published_bytes": 14594
+    },
+    {
+      "path": "raw/metal-standard/startup-process.json",
+      "original_sha256": "6264be4cf16ee79162902288886a006c747ff63ae36ab84be79e1a25294a7d9d",
+      "published_sha256": "71cc644c42eceafb322a41b3607afb9f06710fd1e00ee82b51b1b64a03198909",
+      "original_bytes": 10179,
+      "published_bytes": 10011
+    },
+    {
+      "path": "raw/metal-standard/startup-props.json",
+      "original_sha256": "6aa9642da20fac7a9421e1f6c500b0723d84000a816009451fbc5e614b8fca50",
+      "published_sha256": "42ba6e9d1e058a8c19bbd5ee2442cd8f7339e006e33888daa0750b0415d16105",
+      "original_bytes": 10520,
+      "published_bytes": 10513
     },
     {
       "path": "raw/metal-tensor/build-reference.json",
