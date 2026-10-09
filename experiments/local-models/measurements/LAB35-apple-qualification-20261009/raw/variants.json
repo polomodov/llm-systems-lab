@@ -1,0 +1,42 @@
+{
+  "metal-standard": {
+    "build": "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64",
+    "server_sha256": "bc5714fbf8eb7c7de30f4470999fb0a65c66259e83345aa630c0637f50d4349e",
+    "tensor": false,
+    "source_label": "b8407/312cf03328496df9c56fe843952cf02a8964c59a/unmodified",
+    "binaries": {
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-base.0.9.7.dylib": "b2ece19bfb34101405ad7e368574c8497c93b9dfadb9e1ca7f6ef5cad42fb378",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-base.0.dylib": "b2ece19bfb34101405ad7e368574c8497c93b9dfadb9e1ca7f6ef5cad42fb378",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-base.dylib": "b2ece19bfb34101405ad7e368574c8497c93b9dfadb9e1ca7f6ef5cad42fb378",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-blas.0.9.7.dylib": "ba20bfd8a5bea1acbcad2eb35baaa5d63dee32d161cb618f9652021c8371ca70",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-blas.0.dylib": "ba20bfd8a5bea1acbcad2eb35baaa5d63dee32d161cb618f9652021c8371ca70",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-blas.dylib": "ba20bfd8a5bea1acbcad2eb35baaa5d63dee32d161cb618f9652021c8371ca70",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-cpu.0.9.7.dylib": "859d3075fbbf3dbee3e0a04c890b8d439d8ae28bdded6e330ca8454ea4a7045e",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-cpu.0.dylib": "859d3075fbbf3dbee3e0a04c890b8d439d8ae28bdded6e330ca8454ea4a7045e",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-cpu.dylib": "859d3075fbbf3dbee3e0a04c890b8d439d8ae28bdded6e330ca8454ea4a7045e",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-metal.0.9.7.dylib": "0d6b7ac08dafe5be05d1d443a1526d0041e79b2567a607ac8f0fc89edead786f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-metal.0.dylib": "0d6b7ac08dafe5be05d1d443a1526d0041e79b2567a607ac8f0fc89edead786f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml-metal.dylib": "0d6b7ac08dafe5be05d1d443a1526d0041e79b2567a607ac8f0fc89edead786f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml.0.9.7.dylib": "b32a6ea82cf24028d81750145be492bbf44f6af79f17aec5ca7bb261c5b16b1f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml.0.dylib": "b32a6ea82cf24028d81750145be492bbf44f6af79f17aec5ca7bb261c5b16b1f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libggml.dylib": "b32a6ea82cf24028d81750145be492bbf44f6af79f17aec5ca7bb261c5b16b1f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libllama.0.0.1.dylib": "1b1e0896eaee830bac24466def084d3758db62e539e6e9807d03236b9117a6a2",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libllama.0.dylib": "1b1e0896eaee830bac24466def084d3758db62e539e6e9807d03236b9117a6a2",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libllama.dylib": "1b1e0896eaee830bac24466def084d3758db62e539e6e9807d03236b9117a6a2",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libmtmd.0.0.1.dylib": "578ea0c4b7664f411635ad354c70283b95dcc6fc0fc45f7c53d2ae7aeb4743a7",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libmtmd.0.dylib": "578ea0c4b7664f411635ad354c70283b95dcc6fc0fc45f7c53d2ae7aeb4743a7",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/libmtmd.dylib": "578ea0c4b7664f411635ad354c70283b95dcc6fc0fc45f7c53d2ae7aeb4743a7",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-arm64/bin/llama-server": "bc5714fbf8eb7c7de30f4470999fb0a65c66259e83345aa630c0637f50d4349e"
+    }
+  },
+  "metal-tensor": {
+    "build": "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64",
+    "server_sha256": "916660e9bfe7f4d2fda420136f6bd192688def8cbd6581f23d08b06ead2e571f",
+    "tensor": true,
+    "source_label": "b8407/312cf03328496df9c56fe843952cf02a8964c59a+tile16",
+    "binaries": {
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-server": "916660e9bfe7f4d2fda420136f6bd192688def8cbd6581f23d08b06ead2e571f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-bench": "10e4ffeaf5c97e5c8cd636daf4d67e112b4bbcab468b474ab02b88bcc5fe1034"
+    }
+  }
+}
