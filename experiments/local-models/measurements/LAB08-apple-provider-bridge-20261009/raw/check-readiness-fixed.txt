@@ -1,0 +1,13 @@
+
+> agent-harnesses-exps@0.1.0 check
+> node scripts/check.mjs
+
+[check] laboratory manuals=35, harness labs=9: задания, не выполненные работы
+[check] ryzen-ai-max-395-128gb-linux: models=12, inference profiles=12: план, hardware smoke не выполнен
+[check] apple-m5-max-128gb-macos: models=12, inference profiles=5: план, hardware smoke не выполнен
+[check] pinned harnesses=9: профиль, Dockerfile и документация совпадают
+[check] task contracts=3: лимиты ходов и USD читаются из контракта
+✔ 2026-10-07-claude-code-a2-janitor-t002-repo-janitor: prepared/pending
+✔ 2026-10-09-pi-a2-janitor-t002-repo-janitor: aborted/aborted
+[check] runs=2 completed=0 failed=0 ledger rows=25
+[check] no experimental evidence: нет завершённых проверенных прогонов

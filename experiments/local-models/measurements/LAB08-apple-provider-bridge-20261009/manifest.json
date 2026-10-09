@@ -6,7 +6,7 @@
   "session_id": "apple-provider-bridge-20261009",
   "created_at": "2026-10-09T22:30:21.351Z",
   "status": "in-progress",
-  "evidence_class": "protocol",
+  "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Изолированный local bridge сохраняет штатный Pi tool round-trip и deployment identity без прямого доступа агента к Mac/LAN/cloud.",
   "protocol_before_run": "raw/protocol.md",
@@ -17,7 +17,9 @@
     "runtime_manifest": null,
     "harness_profile": "experiments/pi/harness.json"
   },
-  "run_ids": [],
+  "run_ids": [
+    "2026-10-09-pi-a2-janitor-t002-repo-janitor"
+  ],
   "planned_attempts": [
     {
       "id": "b01",
@@ -157,6 +159,18 @@
       "id": "pilot-t002",
       "configuration_id": "pi-qwen35-q6-metal-8k",
       "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-09-pi-a2-janitor-t002-repo-janitor",
+      "reason": "Broker readiness used an overridden Host in fetch; agent container and inference requests did not start. Native startup verified and cleanup exit 0.",
+      "evidence_files": [
+        "raw/pilot-initial-failed.txt",
+        "raw/pilot-registration.json"
+      ]
+    },
+    {
+      "id": "pilot-t002-retry",
+      "configuration_id": "pi-qwen35-q6-metal-8k-readiness-fixed",
+      "kind": "agent-run",
       "status": "planned",
       "run_id": null,
       "reason": null,
@@ -166,15 +180,21 @@
   "evidence_files": [
     "raw/boundary-unit-initial-failed.txt",
     "raw/boundary-unit.txt",
+    "raw/check-readiness-fixed.txt",
     "raw/check.txt",
     "raw/deployment.json",
     "raw/docker-cloud.txt",
     "raw/docker-local-initial-failed.txt",
+    "raw/docker-local-readiness-fixed.txt",
     "raw/docker-local-sdk-initial-failed.txt",
     "raw/docker-local.txt",
     "raw/network-contract-amendment.md",
+    "raw/npm-tests-readiness-fixed.txt",
     "raw/npm-tests.txt",
     "raw/pi-image-build.txt",
+    "raw/pilot-driver.txt",
+    "raw/pilot-initial-failed.txt",
+    "raw/pilot-registration.json",
     "raw/protocol.md"
   ],
   "unavailable": {

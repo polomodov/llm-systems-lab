@@ -26,6 +26,7 @@ test('Docker B01–B04: native Pi round-trip, isolated agent and private reverse
   docker(['network','create','--internal',network]);docker(['run','-d','--name',broker,'--network','bridge','--publish','127.0.0.1::8081','--env','LAB_BRIDGE_TOKEN','--user',`${process.getuid()}:${process.getgid()}`,'--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--mount',`type=bind,src=${control},dst=/control,readonly`,proxyImage,'node','/control/local-broker.mjs'],{...process.env,LAB_BRIDGE_TOKEN:capability});
   docker(['network','connect','--alias','egress',network,broker]);
   const port=docker(['port',broker,'8081/tcp']);assert.match(port,/^127\.0\.0\.1:\d+$/);const url='http://'+port;let ready=false;for(let i=0;i<40;i++){try{const r=await requestLocal(url+'/lease',{headers:{authorization:'Bearer '+capability},timeout:1000});if(r.status===200){ready=true;break;}}catch{}await new Promise(r=>setTimeout(r,100));}assert.equal(ready,true,'Private reverse broker control reachable from host');
+  docker(['exec',broker,'node','--input-type=module','-e',"const r=await fetch('http://egress:8080/health');if(!r.ok)process.exit(1);console.log('runner-readiness-ok');"]);
   worker=startWorker(url,capability,d);
   writeFileSync(join(control,'entrypoint.mjs'),`
 import assert from 'node:assert/strict';import net from 'node:net';
