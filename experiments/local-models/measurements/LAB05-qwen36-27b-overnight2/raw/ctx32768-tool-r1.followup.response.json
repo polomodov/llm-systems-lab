@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "The tool returned \"LAB_VALUE_42\". The user requested to return only the value.\nI will return the string \"LAB_VALUE_42\".\n"
+      }
+    }
+  ],
+  "created": 1791536779,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 41,
+    "prompt_tokens": 557,
+    "total_tokens": 598
+  },
+  "id": "chatcmpl-2yUWY8PKuVxIQIVqxwrNXEcPhDrZm3CW",
+  "timings": {
+    "cache_n": 536,
+    "prompt_n": 21,
+    "prompt_ms": 345.514,
+    "prompt_per_token_ms": 16.45304761904762,
+    "prompt_per_second": 60.77901329613272,
+    "predicted_n": 41,
+    "predicted_ms": 3794.22,
+    "predicted_per_token_ms": 92.54195121951219,
+    "predicted_per_second": 10.805910042116693
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "Thinking process:\n\n1.  **Analyze the Request:**\n    *   Action: Call the tool `lookup_lab_value`.\n    *   Argument: `key` set to \"alpha\".\n    *   Output Requirement: Return *only* the value obtained from the tool result.\n\n2.  **Tool Availability:**\n    *   Available tool: `lookup_lab_value`.\n    *   Parameters: `key` (enum: [\"alpha\"]).\n\n3.  **Execute the Tool:**\n    *   Call `lookup_lab_value` with `key=\"alpha\"`.\n\n4.  **Process the Result:**\n    *   The prompt implies I need to simulate or actually call the function. Since I am an AI, I will generate the tool call block.\n    *   Wait, I need to see the result first. The user instruction says \"Получив результат инструмента\" (Having received the tool result), implying I should perform the call now.\n\n5.  **Formulate the Tool Call:**\n    *   `call: lookup_lab_value(key=\"alpha\")`\n\n6.  **Next Steps (Mental Simulation):**\n    *   The system will return the result of the tool.\n    *   Based on the description \"Возвращает фиксированное значение по ключу учебного стенда\" (Returns a fixed value for the educational stand key), I expect a string or number.\n    *   The final output to the user must be just that value.\n\n7.  **Current Step:** Make the tool call.\n\n*(Self-Correction during thought process)*: The user wants me to call the tool *now*. I should not output the text answer yet. I must output the tool call.\n\n8.  **Constructing the response:**\n    *   Tool: `lookup_lab_value`\n    *   Args: `{\"key\": \"alpha\"}`\n\nLet's proceed.\n\n*Note: Since I cannot actually execute code in this thought block, I will output the JSON tool call format expected by the environment.*\n\nWait, looking at the instructions again. The user asks to call it and return the value. I will start by calling the tool.\n\n**Tool Call:**\n`lookup_lab_value` with `key` \"alpha\".\n\n**Expected Output (after tool execution):**\nThe tool will return something. Let's assume the tool execution happens.\n\n*Actually, I am the model generating the response. I will generate the tool call block.*\n\n```json\n{\n  \"name\": \"lookup_lab_value\",\n  \"arguments\": {\n    \"key\": \"alpha\"\n  }\n}\n```\n\nWait, the prompt format usually requires a specific XML-like or JSON structure depending on the platform. Based on the previous examples (which I don't see here, but standard practice), I'll output the tool call.\n\nLet's look at the `lookup_lab_value` definition again.\n`parameters`: `{\"key\": {\"type\": \"string\", \"enum\": [\"alpha\"]}}`\n\nSo, `key` must be \"alpha\".\n\nI will generate the tool call now.\n\n*Self-correction*: The prompt is in Russian. \"Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение.\"\n\nStep 1: Call tool.\nStep 2: Wait for result (implicit in the turn-taking).\nStep 3: Return result.\n\nI am at Step 1.\n\nAction: `lookup_lab_value`\nArguments: `{\"key\": \"alpha\"}`\n\n(The system will execute this and feed the result back to me in the next turn, or I provide the tool call and stop).\n\nLet's write the tool call.\n\nOne detail: The prompt says \"Получив результат инструмента, верни только значение.\" This is a two-step instruction. I can only do the first step now.\n\nTool call generation:\n```json\n{\n  \"name\": \"lookup_lab_value\",\n  \"arguments\": {\n    \"key\": \"alpha\"\n  }\n}\n```\nThe format provided in the example block `\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\":\"alpha\"}"
+          },
+          "id": "yCMWBi8IT70kmpsCEnMGjTyeTV7exAy2"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "yCMWBi8IT70kmpsCEnMGjTyeTV7exAy2",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}

@@ -1,0 +1,12 @@
+{
+  "ttft_content_s": null,
+  "ttft_reasoning_s": null,
+  "usage": {
+    "completion_tokens": 148,
+    "prompt_tokens": 313,
+    "total_tokens": 461
+  },
+  "http_status": 200,
+  "finish_reason": "tool_calls",
+  "duration_s": 15.45944408700052
+}
