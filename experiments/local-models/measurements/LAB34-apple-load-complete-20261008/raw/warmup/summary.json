@@ -1,0 +1,49 @@
+{
+  "kind": "http-load-probe",
+  "agent_run": false,
+  "requests": 2,
+  "concurrency": 1,
+  "successful": 2,
+  "failed": 0,
+  "batch_wall_seconds": 79.29506729199784,
+  "successful_requests_per_second": 0.025222249861207097,
+  "success_latency_median_seconds": 39.64670927100087,
+  "success_latency_p95_seconds": 44.23289366699464,
+  "success_latency_max_seconds": 44.23289366699464,
+  "successes_with_completion_usage": 2,
+  "completion_tokens_successful": 4096,
+  "successful_completion_tokens_per_second": 51.655167715752135,
+  "ttft_seconds": null,
+  "ttft_unavailable": "non-streaming complete-response probe",
+  "memory_bytes": null,
+  "memory_unavailable": "collect server/system telemetry separately",
+  "minimum_sampled_mem_available_bytes": null,
+  "system_memory_sampling_seconds": 1,
+  "finished_at": "2026-10-08T15:13:59.405647+00:00",
+  "results": [
+    {
+      "index": 1,
+      "ok": true,
+      "http_status": 200,
+      "error": null,
+      "latency_seconds": 44.23289366699464,
+      "completion_tokens": 2048,
+      "prompt_tokens": 77,
+      "finish_reason": "length",
+      "response_bytes": 13738,
+      "response_truncated": false
+    },
+    {
+      "index": 2,
+      "ok": true,
+      "http_status": 200,
+      "error": null,
+      "latency_seconds": 35.060524875007104,
+      "completion_tokens": 2048,
+      "prompt_tokens": 77,
+      "finish_reason": "length",
+      "response_bytes": 13738,
+      "response_truncated": false
+    }
+  ]
+}

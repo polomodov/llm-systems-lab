@@ -1,0 +1,425 @@
+{
+  "status": "blocked",
+  "attempts": {
+    "completed": 6,
+    "failed": 2,
+    "not-run": 5
+  },
+  "blocks": {
+    "warmup": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 2,
+      "concurrency": 1,
+      "successful": 2,
+      "failed": 0,
+      "batch_wall_seconds": 79.29506729199784,
+      "successful_requests_per_second": 0.025222249861207097,
+      "success_latency_median_seconds": 39.64670927100087,
+      "success_latency_p95_seconds": 44.23289366699464,
+      "success_latency_max_seconds": 44.23289366699464,
+      "successes_with_completion_usage": 2,
+      "completion_tokens_successful": 4096,
+      "successful_completion_tokens_per_second": 51.655167715752135,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:13:59.405647+00:00"
+    },
+    "r1-c1": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 12,
+      "concurrency": 1,
+      "successful": 12,
+      "failed": 0,
+      "batch_wall_seconds": 439.8968921669875,
+      "successful_requests_per_second": 0.02727911975210029,
+      "success_latency_median_seconds": 36.86496068750421,
+      "success_latency_p95_seconds": 37.75931458300329,
+      "success_latency_max_seconds": 37.75931458300329,
+      "successes_with_completion_usage": 12,
+      "completion_tokens_successful": 24576,
+      "successful_completion_tokens_per_second": 55.86763725230139,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:21:19.397141+00:00"
+    },
+    "r1-c2": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 12,
+      "concurrency": 2,
+      "successful": 12,
+      "failed": 0,
+      "batch_wall_seconds": 444.86470541699964,
+      "successful_requests_per_second": 0.026974493264759328,
+      "success_latency_median_seconds": 73.6931313749883,
+      "success_latency_p95_seconds": 75.82940487499582,
+      "success_latency_max_seconds": 75.82940487499582,
+      "successes_with_completion_usage": 12,
+      "completion_tokens_successful": 24576,
+      "successful_completion_tokens_per_second": 55.2437622062271,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:28:44.330738+00:00"
+    },
+    "r1-c4": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 12,
+      "concurrency": 4,
+      "successful": 12,
+      "failed": 0,
+      "batch_wall_seconds": 437.8373174169974,
+      "successful_requests_per_second": 0.02740743998431538,
+      "success_latency_median_seconds": 145.87336910399608,
+      "success_latency_p95_seconds": 146.20900587500364,
+      "success_latency_max_seconds": 146.20900587500364,
+      "successes_with_completion_usage": 12,
+      "completion_tokens_successful": 24576,
+      "successful_completion_tokens_per_second": 56.1304370878779,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:36:02.230498+00:00"
+    },
+    "r2-c2": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 12,
+      "concurrency": 2,
+      "successful": 12,
+      "failed": 0,
+      "batch_wall_seconds": 443.6902865410084,
+      "successful_requests_per_second": 0.027045892966356143,
+      "success_latency_median_seconds": 73.81761618749442,
+      "success_latency_p95_seconds": 75.28062333299022,
+      "success_latency_max_seconds": 75.28062333299022,
+      "successes_with_completion_usage": 12,
+      "completion_tokens_successful": 24576,
+      "successful_completion_tokens_per_second": 55.38998879509738,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:43:25.976453+00:00"
+    },
+    "r2-c4": {
+      "kind": "http-load-probe",
+      "agent_run": false,
+      "requests": 12,
+      "concurrency": 4,
+      "successful": 10,
+      "failed": 2,
+      "batch_wall_seconds": 382.75237808399834,
+      "successful_requests_per_second": 0.026126552237398282,
+      "success_latency_median_seconds": 147.10803081299673,
+      "success_latency_p95_seconds": 148.48469137500797,
+      "success_latency_max_seconds": 148.48469137500797,
+      "successes_with_completion_usage": 10,
+      "completion_tokens_successful": 20480,
+      "successful_completion_tokens_per_second": 53.50717898219168,
+      "ttft_seconds": null,
+      "ttft_unavailable": "non-streaming complete-response probe",
+      "memory_bytes": null,
+      "memory_unavailable": "collect server/system telemetry separately",
+      "minimum_sampled_mem_available_bytes": null,
+      "system_memory_sampling_seconds": 1,
+      "finished_at": "2026-10-08T15:49:48.883704+00:00"
+    }
+  },
+  "median_short_requests_per_second": {},
+  "throughput_gain_vs_c1": {},
+  "sustained": null,
+  "finish_reasons": {
+    "length": 60
+  },
+  "memory": {
+    "samples": 1088,
+    "min_free_speculative_bytes": 28066709504,
+    "min_pressure_free_percentage": 86,
+    "max_swap_used_bytes": 0,
+    "max_native_rss_bytes": 8144273408,
+    "pressure_levels": [
+      1
+    ],
+    "after_cleanup": {
+      "timestamp": "2026-10-08T15:49:48.935487+00:00",
+      "commands": {
+        "vm_stat": {
+          "argv": [
+            "vm_stat"
+          ],
+          "returncode": 0,
+          "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  1832657.\nPages active:                                3261244.\nPages inactive:                              2410553.\nPages speculative:                            455735.\nPages throttled:                                   0.\nPages wired down:                             283046.\nPages purgeable:                               93405.\n\"Translation faults\":                     2217547670.\nPages copy-on-write:                        48611407.\nPages zero filled:                        2150847640.\nPages reactivated:                            908119.\nPages purged:                                3709166.\nFile-backed pages:                           1673410.\nAnonymous pages:                             4454122.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    18035908.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 174306.\nPages tagged resident:                        174306.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 6628.\nPages tag-storage free:                        19351.\nPages tag-storage non-tag pageable:           236156.\nPages tag-storage non-tag wired:                   9.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+          "stderr": ""
+        },
+        "swap": {
+          "argv": [
+            "sysctl",
+            "vm.swapusage"
+          ],
+          "returncode": 0,
+          "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+          "stderr": ""
+        },
+        "pressure": {
+          "argv": [
+            "memory_pressure",
+            "-Q"
+          ],
+          "returncode": 0,
+          "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 96%\n",
+          "stderr": ""
+        },
+        "power_source": {
+          "argv": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "returncode": 0,
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "power_mode": {
+          "argv": [
+            "pmset",
+            "-g",
+            "custom"
+          ],
+          "returncode": 0,
+          "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+          "stderr": ""
+        },
+        "pressure_level": {
+          "argv": [
+            "sysctl",
+            "-n",
+            "kern.memorystatus_vm_pressure_level"
+          ],
+          "returncode": 0,
+          "stdout": "1\n",
+          "stderr": ""
+        }
+      },
+      "speculative_pages_bytes": 7466762240,
+      "pressure_level": 1,
+      "pressure_free_percentage": 96,
+      "free_pages_bytes": 30026252288,
+      "swap_used_bytes": 0,
+      "on_ac_power": true,
+      "ac_power_mode": 0,
+      "free_speculative_bytes": 37493014528
+    }
+  },
+  "shutdown": {
+    "started_at": "2026-10-08T15:12:36.195120+00:00",
+    "command": [
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-server",
+      "-m",
+      "/Users/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "18080",
+      "--alias",
+      "lab-load-qwen35-9b",
+      "-ngl",
+      "999",
+      "-c",
+      "8192",
+      "-np",
+      "1",
+      "-t",
+      "8",
+      "-b",
+      "512",
+      "-ub",
+      "256",
+      "-ctk",
+      "f16",
+      "-ctv",
+      "f16",
+      "-fa",
+      "on",
+      "--jinja",
+      "--no-context-shift",
+      "--reasoning",
+      "auto",
+      "--chat-template-kwargs",
+      "{\"enable_thinking\":true}",
+      "--no-cache-prompt",
+      "--slots",
+      "--metrics"
+    ],
+    "pid": 48049,
+    "interrupts": [],
+    "resources_before": {
+      "timestamp": "2026-10-08T15:12:39.029358+00:00",
+      "commands": {
+        "vm_stat": {
+          "argv": [
+            "vm_stat"
+          ],
+          "returncode": 0,
+          "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  1760150.\nPages active:                                2840759.\nPages inactive:                              2861797.\nPages speculative:                            441989.\nPages throttled:                                   0.\nPages wired down:                             339575.\nPages purgeable:                              117129.\n\"Translation faults\":                     2199354528.\nPages copy-on-write:                        46922244.\nPages zero filled:                        2125695243.\nPages reactivated:                            892739.\nPages purged:                                3575247.\nFile-backed pages:                           1630157.\nAnonymous pages:                             4514388.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    17887162.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 173343.\nPages tagged resident:                        173343.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 6628.\nPages tag-storage free:                        18226.\nPages tag-storage non-tag pageable:           237282.\nPages tag-storage non-tag wired:                   8.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+          "stderr": ""
+        },
+        "swap": {
+          "argv": [
+            "sysctl",
+            "vm.swapusage"
+          ],
+          "returncode": 0,
+          "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+          "stderr": ""
+        },
+        "pressure": {
+          "argv": [
+            "memory_pressure",
+            "-Q"
+          ],
+          "returncode": 0,
+          "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 95%\n",
+          "stderr": ""
+        },
+        "power_source": {
+          "argv": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "returncode": 0,
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "power_mode": {
+          "argv": [
+            "pmset",
+            "-g",
+            "custom"
+          ],
+          "returncode": 0,
+          "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+          "stderr": ""
+        },
+        "pressure_level": {
+          "argv": [
+            "sysctl",
+            "-n",
+            "kern.memorystatus_vm_pressure_level"
+          ],
+          "returncode": 0,
+          "stdout": "1\n",
+          "stderr": ""
+        }
+      },
+      "speculative_pages_bytes": 7241547776,
+      "pressure_level": 1,
+      "pressure_free_percentage": 95,
+      "free_pages_bytes": 28838297600,
+      "swap_used_bytes": 0,
+      "on_ac_power": true,
+      "ac_power_mode": 0,
+      "free_speculative_bytes": 36079845376
+    },
+    "pinned_binaries": {
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-server": "916660e9bfe7f4d2fda420136f6bd192688def8cbd6581f23d08b06ead2e571f",
+      "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/llama-bench": "10e4ffeaf5c97e5c8cd636daf4d67e112b4bbcab468b474ab02b88bcc5fe1034"
+    },
+    "model_sha256": "91898433cf5ce0a8f45516a4cc3e9343b6e01d052d01f684309098c66a326c59",
+    "ended_at": "2026-10-08T15:49:48.935475+00:00",
+    "returncode": -9,
+    "guard_reason": null,
+    "resources_after": {
+      "timestamp": "2026-10-08T15:49:48.935487+00:00",
+      "commands": {
+        "vm_stat": {
+          "argv": [
+            "vm_stat"
+          ],
+          "returncode": 0,
+          "stdout": "Mach Virtual Memory Statistics: (page size of 16384 bytes)\nPages free:                                  1832657.\nPages active:                                3261244.\nPages inactive:                              2410553.\nPages speculative:                            455735.\nPages throttled:                                   0.\nPages wired down:                             283046.\nPages purgeable:                               93405.\n\"Translation faults\":                     2217547670.\nPages copy-on-write:                        48611407.\nPages zero filled:                        2150847640.\nPages reactivated:                            908119.\nPages purged:                                3709166.\nFile-backed pages:                           1673410.\nAnonymous pages:                             4454122.\nPages stored in compressor:                        0.\nPages occupied by compressor:                      0.\nDecompressions:                                    0.\nCompressions:                                      0.\nPageins:                                    18035908.\nPageouts:                                          0.\nSwapins:                                           0.\nSwapouts:                                          0.\nPages tagged:                                 174306.\nPages tagged resident:                        174306.\nPages tagged compressed:                           0.\nPages tag-storage:                            262144.\nPages tag-storage holding tags:                 6628.\nPages tag-storage free:                        19351.\nPages tag-storage non-tag pageable:           236156.\nPages tag-storage non-tag wired:                   9.\nBytes of compressed tags:                          0.\nTagged compressions:                               0.\nTagged decompressions:                             0.\n",
+          "stderr": ""
+        },
+        "swap": {
+          "argv": [
+            "sysctl",
+            "vm.swapusage"
+          ],
+          "returncode": 0,
+          "stdout": "vm.swapusage: total = 0.00M  used = 0.00M  free = 0.00M  (encrypted)\n",
+          "stderr": ""
+        },
+        "pressure": {
+          "argv": [
+            "memory_pressure",
+            "-Q"
+          ],
+          "returncode": 0,
+          "stdout": "The system has 137438953472 (8388608 pages with a page size of 16384).\nSystem-wide memory free percentage: 96%\n",
+          "stderr": ""
+        },
+        "power_source": {
+          "argv": [
+            "pmset",
+            "-g",
+            "batt"
+          ],
+          "returncode": 0,
+          "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (battery identity omitted)\t100%; charged; 0:00 remaining present: true\n",
+          "stderr": ""
+        },
+        "power_mode": {
+          "argv": [
+            "pmset",
+            "-g",
+            "custom"
+          ],
+          "returncode": 0,
+          "stdout": "Battery Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 0\n displaysleep         2\n networkoversleep     0\n sleep                1\n lessbright           1\n tcpkeepalive         1\n disksleep            10\nAC Power:\n Sleep On Power Button 1\n powermode            0\n standby              1\n hibernatemode        3\n powernap             1\n hibernatefile        /var/vm/sleepimage\n ttyskeepawake        1\n womp                 1\n displaysleep         10\n networkoversleep     0\n sleep                1\n tcpkeepalive         1\n disksleep            10\n",
+          "stderr": ""
+        },
+        "pressure_level": {
+          "argv": [
+            "sysctl",
+            "-n",
+            "kern.memorystatus_vm_pressure_level"
+          ],
+          "returncode": 0,
+          "stdout": "1\n",
+          "stderr": ""
+        }
+      },
+      "speculative_pages_bytes": 7466762240,
+      "pressure_level": 1,
+      "pressure_free_percentage": 96,
+      "free_pages_bytes": 30026252288,
+      "swap_used_bytes": 0,
+      "on_ac_power": true,
+      "ac_power_mode": 0,
+      "free_speculative_bytes": 37493014528
+    }
+  },
+  "ttft_seconds": null,
+  "gpu_budget_gib": null,
+  "scope": "Fixed single server slot; client concurrency is queueing. This does not validate 2/4 simultaneous GPU slots, model quality or maximum GPU memory."
+}

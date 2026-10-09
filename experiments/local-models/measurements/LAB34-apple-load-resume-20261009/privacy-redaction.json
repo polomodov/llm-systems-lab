@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/build-reference.json",
+      "original_sha256": "1cf590e09378d94ad5cd0281fc3c29c87b6ee88b6e5c05c20f46440a87de238c",
+      "published_sha256": "5dbef63d7788fb83488981f9a41c8cc250055809dde6ed3aeb7b5e713e133281",
+      "original_bytes": 1855,
+      "published_bytes": 1813
+    },
+    {
+      "path": "raw/run_load.py",
+      "original_sha256": "c3c1d0886bc7ecb472a280943f7c372137fa1b826002f28ddb6d673181af0ef2",
+      "published_sha256": "3f026d85fbe265f63a8e5e2e9b1d1a873a8ed428fc258d52b8329a7c392da40d",
+      "original_bytes": 15092,
+      "published_bytes": 15078
+    }
+  ]
+}

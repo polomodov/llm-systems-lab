@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-09T08:18:27.499585+00:00",
+  "command": [
+    "pmset",
+    "-g",
+    "batt"
+  ],
+  "new_gpu_runs_started": false,
+  "exit_code": 0,
+  "stdout": "Now drawing from 'AC Power'\n -InternalBattery-0 (id=5439587)\t26%; AC attached; not charging present: true\n",
+  "stderr": "",
+  "reason": "AC power now observed; full resource/foreign-model admission remains before start."
+}
