@@ -1,1 +1,4 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+qwen3-coder-next-ctx8192-tg	qwen3-coder-next-ctx8192	Qwen/Qwen3-Coder-Next	llama.cpp b8407 (312cf0332)	hip	8192	1	tg128_avg_ts	40.151928	tokens/s	measured	raw/context-8192-bench.json	
+qwen3-coder-next-ctx16384-tg	qwen3-coder-next-ctx16384	Qwen/Qwen3-Coder-Next	llama.cpp b8407 (312cf0332)	hip	16384	1	tg128_avg_ts	35.594003	tokens/s	measured	raw/context-16384-bench.json	
+qwen3-coder-next-ctx32768-tg	qwen3-coder-next-ctx32768	Qwen/Qwen3-Coder-Next	llama.cpp b8407 (312cf0332)	hip	32768	1	tg128_avg_ts	30.297082	tokens/s	measured	raw/context-32768-bench.json	
