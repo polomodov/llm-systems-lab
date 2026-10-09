@@ -56,19 +56,21 @@ export function containerArgs({ name, network, image, workspace, control, readOn
     ...credentialKeys.flatMap(key => ['--env', key]), '--env', 'DISABLE_TELEMETRY=1', '--env', 'CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1',
     '--entrypoint', 'node', image, '/control/entrypoint.mjs'];
 }
-export async function execute(argv, { env, timeout, name, maxBytes = 32 * 1024 * 1024 }) {
+export async function execute(argv, { env, timeout, name, maxBytes = 32 * 1024 * 1024, wallNow = Date.now }) {
   return new Promise(resolveResult => {
     const child = spawn('docker', argv, { env, stdio: ['ignore','pipe','pipe'] });
     const out = [], err = []; let bytes = 0, timedOut = false, interruption = null, outputLimit = false;
-    const stop = () => { try { docker(['kill', name], { timeout: 10000 }); } catch {} child.kill('SIGTERM'); };
-    const timer = setTimeout(() => { timedOut = true; stop(); }, timeout * 1000);
+    let stopped=false;
+    const stop = () => { if(stopped)return;stopped=true;try { docker(['kill', name], { env, timeout: 10000 }); } catch {} child.kill('SIGTERM'); };
+    const deadline=wallNow()+timeout*1000;
+    const timer=setInterval(()=>{if(wallNow()>=deadline){timedOut=true;stop();}},Math.min(250,timeout*1000));
     const interrupt = signal => { interruption = signal; stop(); };
     const onInt = () => interrupt('SIGINT'), onTerm = () => interrupt('SIGTERM');
     process.on('SIGINT', onInt); process.on('SIGTERM', onTerm);
     const collect = list => chunk => { bytes += chunk.length; if (bytes > maxBytes) { outputLimit = true; stop(); } else list.push(chunk); };
     child.stdout.on('data', collect(out)); child.stderr.on('data', collect(err));
     let spawnError = null; child.on('error', error => { spawnError = error.message; });
-    child.on('close', (code, signal) => { clearTimeout(timer); process.removeListener('SIGINT', onInt); process.removeListener('SIGTERM', onTerm); resolveResult({ stdout: Buffer.concat(out).toString('utf8'), stderr: Buffer.concat(err).toString('utf8'), code, signal: interruption ?? signal, timedOut, outputLimit, spawnError }); });
+    child.on('close', (code, signal) => { clearInterval(timer); process.removeListener('SIGINT', onInt); process.removeListener('SIGTERM', onTerm); resolveResult({ stdout: Buffer.concat(out).toString('utf8'), stderr: Buffer.concat(err).toString('utf8'), code, signal: interruption ?? signal, timedOut, outputLimit, spawnError }); });
   });
 }
 export async function runExperiment(root, runId, { image, model, timeout = 900, proxyImage = 'node:24.13.1-bookworm-slim', budgetMode = 'hard', provider } = {}) {
