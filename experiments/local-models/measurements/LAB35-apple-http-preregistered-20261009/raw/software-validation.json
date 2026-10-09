@@ -1,18 +1,17 @@
 {
   "kind": "offline-validation",
-  "recorded_at": "2026-10-09T18:19:43.216479+00:00",
+  "recorded_at": "2026-10-09T19:39:33.435363+00:00",
   "python": {
     "command": "python3 -B -m unittest discover -s experiments/local-models -p test_lab*.py -v",
-    "passed": 49,
+    "passed": 53,
     "tail": [
-      "test_changed_primary_final_content_rejects_admission (test_lab35_export.QualificationExport.test_changed_primary_final_content_rejects_admission) ... ok",
       "test_recorded_usage_cannot_replace_primary_usage (test_lab35_export.QualificationExport.test_recorded_usage_cannot_replace_primary_usage) ... ok",
       "test_all_registered_inputs_pass_actual_driver_validation (test_lab35_qualification.Qualification.test_all_registered_inputs_pass_actual_driver_validation) ... ok",
       "test_changed_input_stops_before_any_native_campaign (test_lab35_qualification.Qualification.test_changed_input_stops_before_any_native_campaign) ... ok",
       "test_nested_variant_uses_existing_shared_driver (test_lab35_qualification.Qualification.test_nested_variant_uses_existing_shared_driver) ... ok",
       "",
       "----------------------------------------------------------------------",
-      "Ran 49 tests in 4.976s",
+      "Ran 53 tests in 5.117s",
       "",
       "OK"
     ]
@@ -30,7 +29,7 @@
       "ℹ cancelled 0",
       "ℹ skipped 1",
       "ℹ todo 0",
-      "ℹ duration_ms 2569.549292"
+      "ℹ duration_ms 2600.017042"
     ]
   },
   "project_check": {
@@ -46,5 +45,10 @@
     "errors": [],
     "ready_for_review": true,
     "experiment_pass": null
+  },
+  "review_checks": {
+    "bundled_dylib_pins": "missing/modified/new alias reject before Popen",
+    "read_only_live_check": "22 standard / 23 tensor entries match; no GPU run",
+    "historical_tensor_library_identity": "unverified, not upgraded by post-review hash match"
   }
 }

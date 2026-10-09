@@ -13,7 +13,7 @@
   },
   "variants": {
     "metal-standard": {
-      "qualification_completed": true,
+      "http_qualification_completed": true,
       "fixtures": {
         "chat": {
           "complete_three_repeats": true,
@@ -50,6 +50,9 @@
       },
       "source_label": "b8407/312cf03328496df9c56fe843952cf02a8964c59a/unmodified",
       "tensor": false,
+      "qualification_completed": true,
+      "libraries_verified_at_execution": true,
+      "missing_library_pins_at_execution": [],
       "shutdown": {
         "started_at": "2026-10-09T18:07:04.474320+00:00",
         "command": [
@@ -276,7 +279,7 @@
       }
     },
     "metal-tensor": {
-      "qualification_completed": true,
+      "http_qualification_completed": true,
       "fixtures": {
         "chat": {
           "complete_three_repeats": true,
@@ -313,6 +316,31 @@
       },
       "source_label": "b8407/312cf03328496df9c56fe843952cf02a8964c59a+tile16",
       "tensor": true,
+      "qualification_completed": false,
+      "libraries_verified_at_execution": false,
+      "missing_library_pins_at_execution": [
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-base.0.9.7.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-base.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-base.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-blas.0.9.7.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-blas.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-blas.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-cpu.0.9.7.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-cpu.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-cpu.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-metal.0.9.7.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-metal.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml-metal.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml.0.9.7.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libggml.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libllama.0.0.1.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libllama.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libllama.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libmtmd.0.0.1.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libmtmd.0.dylib",
+        "/Users/lab/local-model-lab-artifacts/engines/llama.cpp/312cf03328496df9c56fe843952cf02a8964c59a/build-metal-tensor-tile16-arm64/bin/libmtmd.dylib"
+      ],
       "shutdown": {
         "started_at": "2026-10-09T18:09:43.097355+00:00",
         "command": [

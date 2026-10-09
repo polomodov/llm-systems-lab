@@ -10,7 +10,7 @@ Apple M5 Max / 128 GiB / macOS 26.5 (25F71) / arm64; питание AC / mode 0.
 
 ## Гипотеза и протокол до запуска
 
-Оба Apple deployments завершат один public LAB32 chat и load fixture LAB34: отдельный warmup и три измеряемых повтора, по одному request/repeat при concurrency 1. [Протокол](raw/protocol.md), source hashes и manifest закреплены до старта в commit `00de4f7`. [Двухминутный AC admission](raw/preflight-power.jsonl) и настоящий client-schema preflight предшествуют GPU-стартапу.
+Оба Apple deployments завершат один public LAB32 chat и load fixture LAB34: отдельный warmup и три измеряемых повтора, по одному request/repeat при concurrency 1. [Протокол](raw/protocol.md), исходные source hashes ([архив регистрации](raw/registered-source-hashes.json.before-review-20261009)) и manifest закреплены до старта в commit `00de4f7`. [Двухминутный AC admission](raw/preflight-power.jsonl) и настоящий client-schema preflight предшествуют GPU-стартапу.
 
 Основная будущая пара — unmodified Metal против Ryzen HIP b8407 с тем же GGUF; HIP имеет архивный LAB05 admission. Tensor patch — отдельное дополнительное условие с другим source fingerprint. Архивный Vulkan рассматривается отдельно. Выбор не меняется по новым результатам. OS/ISA/compiler/driver/power и сетевое размещение остаются частью deployment условий.
 
@@ -44,6 +44,10 @@ Ryzen ratio/агентный pass — **null**: matching fresh HTTP series и р
 
 ## Ошибки и ограничения
 
+Review correction: tensor reference первоначально проверял только executables, не 21 bundled dylib path. Новая [forward reference](raw/metal-tensor/build-reference.json) и pre-Popen guard добавлены после исполнения; оригиналы сохранены. [Erratum](raw/review-erratum-20261009.md), [read-only проверка нынешних файлов и зависимостей](raw/tensor-library-review-verification.json). Совпадение с LAB30 hashes не заменяет execution-time proof.
+
+Standard libraries_verified_at_execution=true; tensor=false, missing 21 library pins. HTTP 16/16 сохранены, но полная tensor qualification не подтверждена. Для неё требуется новый preregistered run с исправленной проверкой.
+
 Свежая парная серия не выполнена: в текущем окружении нет SSH alias/endpoint Ryzen, вопрос владельцу задан. Односторонние Mac repeats не являются чередованными paired repeats. [Access readiness](raw/access-readiness.json), [точный план следующего парного запуска](raw/ryzen-followup.md). Основная HIP ветвь и additional Vulkan не смешиваются.
 
 Agent attempts T002/a2-janitor/Pi (по три на стенд) not-run: LAB08 provider bridge и LAB09 local lifecycle/fingerprint grouping не приняты. Pi 0.73.1 profile поддерживает только anthropic/openai; [readiness и profile SHA](raw/bridge-readiness.json). Ни cloud fallback, ни fake run.json не создавались; hidden checks и task contracts не читались/не менялись.
@@ -52,7 +56,7 @@ Mac deployments выполнялись последовательно standard�
 
 ## Вывод по гипотезе
 
-**Apple qualification поддержана данными:** оба deployment завершили общий chat/load с warmup+3, соблюли условия и штатный cleanup. **Полный LAB35 blocked:** нового сравнения Mac/Ryzen и агентного результата нет.
+**Данных недостаточно:** Apple qualification остановлена/неполна; отсутствуют fresh Ryzen pair и agent verdicts. Все failed/not-run сохранены.
 
 ## Ответы на контрольные вопросы
 
@@ -64,6 +68,6 @@ Mac deployments выполнялись последовательно standard�
 
 ## Комплект сдачи
 
-Проверки: 49 профильных offline tests, npm test —152 passed/1 skipped (Docker gate), npm run check и три lab:check submission без ошибок. [Результаты проверок](raw/software-validation.json).
+Проверки: 53 профильных offline tests, npm test —152 passed/1 skipped (Docker gate), npm run check и три lab:check submission без ошибок. [Результаты проверок](raw/software-validation.json).
 
 Manifest v2, протокол/source pins, archive provenance, startup/runtime/native logs, bodies/records/responses/contracts, macOS timelines, summaries/TSV и SHA inventory сохранены. Проверки submission означают комплектность, не выполнение paired/agent minimum. Reviewer decision: **не проверено**. Следующий запуск требует connection target Ryzen; agent campaign дополнительно требует принятого LAB08/LAB09.

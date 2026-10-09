@@ -587,7 +587,9 @@
     "raw/concurrency_driver.py",
     "raw/concurrency_test.py",
     "raw/evidence-sha256.json",
+    "raw/evidence-sha256.json.before-review-20261009",
     "raw/export_qualification.py",
+    "raw/export_qualification.py.before-review-20261009",
     "raw/load-request.json",
     "raw/metal-standard/build-reference.json",
     "raw/metal-standard/chat-r1-contract.json",
@@ -674,6 +676,7 @@
     "raw/metal-standard/startup-props.json",
     "raw/metal-standard/startup-slots.json",
     "raw/metal-tensor/build-reference.json",
+    "raw/metal-tensor/build-reference.json.before-review-20261009",
     "raw/metal-tensor/chat-r1-contract.json",
     "raw/metal-tensor/chat-r1-driver.txt",
     "raw/metal-tensor/chat-r1-execution.json",
@@ -762,13 +765,24 @@
     "raw/protocol.md",
     "raw/protocol.sha256",
     "raw/registered-source-hashes.json",
+    "raw/registered-source-hashes.json.before-review-20261009",
     "raw/resources.py",
+    "raw/review-erratum-20261009.md",
+    "raw/review-live-pin-check.json",
     "raw/run_qualification.py",
+    "raw/run_qualification.py.before-review-20261009",
     "raw/ryzen-followup.md",
     "raw/software-validation.json",
+    "raw/software-validation.json.before-review-20261009",
+    "raw/source-registration-review.json",
     "raw/summary.json",
+    "raw/summary.json.before-review-20261009",
+    "raw/tensor-library-review-verification.json",
+    "raw/tensor-library-source.sha256",
     "raw/variants.json",
-    "raw/write_report.py"
+    "raw/variants.json.before-review-20261009",
+    "raw/write_report.py",
+    "raw/write_report.py.before-review-20261009"
   ],
   "unavailable": {
     "conditions.harness_profile": "No agent run while LAB08/LAB09 pending.",
@@ -778,7 +792,8 @@
     "energy": "Not measured.",
     "temperature": "No verified thermal collector.",
     "ttft": "Non-streaming.",
-    "completion": "No fresh paired Ryzen HTTP series or accepted local provider bridge/agent verdicts."
+    "completion": "No fresh paired Ryzen HTTP series or accepted local provider bridge/agent verdicts.",
+    "tensor_library_identity": "Original tensor startup verified executables only; bundled dylib pins are a post-review correction. A new preregistered run is required to establish execution-time library identity."
   },
   "conclusion": "Apple qualification recorded; complete LAB35 awaits fresh alternating Ryzen pair and accepted LAB08/LAB09 agent runs.",
   "reviewer_decision": null

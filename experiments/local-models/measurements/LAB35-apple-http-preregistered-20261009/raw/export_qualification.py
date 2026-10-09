@@ -9,12 +9,23 @@ def export():
     manifest=json.loads((ROOT/'manifest.json').read_text());attempts={a['id']:a for a in manifest['planned_attempts']}
     assert all(a['status'] in ['completed','failed','not-run'] for a in attempts.values())
     for name,digest in read('registered-source-hashes.json').items():assert hashlib.sha256((RAW/name).read_bytes()).hexdigest()==digest,name
+    suffix='.before-review-20261009'
+    assert hashlib.sha256((RAW/('registered-source-hashes.json'+suffix)).read_bytes()).hexdigest()=='52e9c443621c63e3a7acdf53cecadd705a2c37d0543a252af60156cec4af0c9e'
+    for name,digest in read('registered-source-hashes.json'+suffix).items():
+        original=name+suffix if name in ['variants.json','metal-tensor/build-reference.json','run_qualification.py'] else name
+        assert hashlib.sha256((RAW/original).read_bytes()).hexdigest()==digest,original
+    assert hashlib.sha256((RAW/('evidence-sha256.json'+suffix)).read_bytes()).hexdigest()=='65bed427f6590c638509fa0655d52a84488780cbc04ac9461afd1ee85db4f844'
+    changed=['registered-source-hashes.json','variants.json','metal-tensor/build-reference.json','run_qualification.py','export_qualification.py','write_report.py','summary.json','software-validation.json']
+    for name,digest in read('evidence-sha256.json'+suffix).items():
+        original=name+suffix if name in changed else name
+        assert hashlib.sha256((RAW/original).read_bytes()).hexdigest()==digest,original
     rows=[];cases={};variants={};total=failed=0;finishes=collections.Counter()
     def add(identifier,metric,value,unit,evidence,repeat='',reason=''):
         variant=identifier.split('-chat-')[0].split('-load-')[0]
         rows.append([f'o{len(rows)+1}',attempts[identifier]['configuration_id'],'qwen35-9b-q6-k','llama-cpp-b8407-'+variant,'metal',8192,repeat,metric,value if value is not None else '',unit,'measured' if value is not None else 'unavailable','raw/'+evidence,reason])
     for variant,config in read('variants.json').items():
-        data={'qualification_completed':all(a['status']=='completed' for key,a in attempts.items() if key.startswith(variant+'-')),'fixtures':{},'source_label':config['source_label'],'tensor':config['tensor']}
+        data={'http_qualification_completed':all(a['status']=='completed' for key,a in attempts.items() if key.startswith(variant+'-')),'fixtures':{},'source_label':config['source_label'],'tensor':config['tensor']}
+        data['qualification_completed']=data['http_qualification_completed']
         directory=RAW/variant
         for path in sorted(directory.glob('*/summary.json')):
             case=path.parent.name;identifier=variant+'-'+case;summary=json.loads(path.read_text())
@@ -56,11 +67,20 @@ def export():
             data['fixtures'][fixture]={'complete_three_repeats':valid,'cases':ids,'median_latency_seconds':statistics.median(cases[i]['record']['latency_seconds'] for i in ids) if valid else None,'median_completion_tokens_per_second':statistics.median(cases[i]['record']['completion_tokens']/cases[i]['batch_wall_seconds'] for i in ids) if valid else None,'completion_tokens':[cases[i]['record']['completion_tokens'] for i in ids if i in cases],'reason':None if valid else 'Three completed measurement repeats required.'}
         if (directory/'startup-execution.json').exists():
             startup=read(variant+'/startup-execution.json');assert startup['tensor_capability']==config['tensor'] and startup['offload']=='33/33'
+        families=['libggml','libggml-base','libggml-cpu','libggml-metal','libggml-blas','libllama','libmtmd']
+        expected_libraries={name:digest for name,digest in config['binaries'].items() if name.endswith('.dylib')}
+        assert all(str(pathlib.Path(config['build'])/'bin'/(family+'.dylib')) in expected_libraries for family in families)
+        assert read(variant+'/build-reference.json')['binaries']==config['binaries']
+        actual_pins=read(variant+'/startup-process.json')['pinned_binaries'] if (directory/'startup-process.json').exists() else {}
+        missing=sorted(name for name,digest in expected_libraries.items() if actual_pins.get(name)!=digest)
+        data['libraries_verified_at_execution']=not missing
+        data['missing_library_pins_at_execution']=missing
+        data['qualification_completed']=data['http_qualification_completed'] and not missing
         if (directory/'shutdown-execution.json').exists():data['shutdown']=read(variant+'/shutdown-execution.json')
         if (directory/'memory-timeline.jsonl').exists():
             samples=[json.loads(line) for line in (directory/'memory-timeline.jsonl').read_text().splitlines()]
             data['memory']={'samples':len(samples),'max_rss_bytes':max(s['server_rss_bytes'] or 0 for s in samples),'min_free_speculative_bytes':min(s['free_speculative_bytes'] for s in samples),'pressure_levels':sorted(set(s['pressure_level'] for s in samples)),'max_swap_bytes':max(s['swap_used_bytes'] for s in samples)}
-            if data['qualification_completed']:
+            if data['http_qualification_completed']:
                 from resources import safe
                 assert all(safe(s) and (s['server_rss_bytes'] or 0)<=24*2**30 for s in samples)
                 assert data['shutdown']['returncode']==0 and data['shutdown']['guard_reason'] is None
@@ -70,6 +90,7 @@ def export():
     (RAW/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2)+'\n')
     manifest['status']='blocked';manifest['conclusion']='Apple qualification recorded; complete LAB35 awaits fresh alternating Ryzen pair and accepted LAB08/LAB09 agent runs.'
     manifest['unavailable']['completion']='No fresh paired Ryzen HTTP series or accepted local provider bridge/agent verdicts.'
+    manifest['unavailable']['tensor_library_identity']='Original tensor startup verified executables only; bundled dylib pins are a post-review correction. A new preregistered run is required to establish execution-time library identity.'
     manifest['conditions']['runtime_manifest']=str(pathlib.Path('experiments/local-models/measurements')/(manifest['lab_id']+'-'+manifest['session_id'])/'raw/summary.json')
     manifest['unavailable'].pop('conditions.runtime_manifest',None)
     with (ROOT/'measurements.tsv').open('w',newline='') as f:
