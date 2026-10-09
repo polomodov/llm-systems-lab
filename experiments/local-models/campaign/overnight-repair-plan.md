@@ -1,8 +1,11 @@
 # План починки ночной кампании (overnight-models-20261008)
 
-Статус: **зафиксирован**, не выполнен. Источник — ночной прогон
+Статус: **выполнен** (ветка `overnight-models-fixes`, драйвер
+`experiments/local-models/campaign/overnight-fix.py`). Источник — ночной прогон
 `overnight-20261008-154949` (ветка `overnight-models-20261008`, worktree
 `/tmp/opencode/overnight-wt-20261008-154949`, драйвер `/tmp/opencode/overnight.py`).
+
+Итоги починки — в разделе «8. Ход починки» в конце документа.
 
 ## 1. Диагноз
 
@@ -70,3 +73,25 @@
 - `glm-47-flash` (MLA) и `gemma4` требуют отчёта runtime о cache/архитектуре — отдельная проверка.
 - Догрузка ~57 GiB для `qwen3-coder-next`; на медленном канале — время.
 - `--jinja` без model-specific sampling/reasoning годится для smoke; качество — днём вручную.
+
+## 8. Ход починки
+
+Драйвер `overnight-fix.py` (в репозитории) уже содержит исправления 3.1 (stream-запросы
+`<kind>-stream-request.json`) и 3.2 (LAB03 `no-artifact` не падает); добавлена устойчивая
+докачка через `curl -C -` и режимы `lab05` / `full` / `gemma4`. Сессии повторяются под новым
+session id `<model>-overnight2`, прежние остаются как честная запись сбоя.
+
+| Шаг | Результат |
+| --- | --- |
+| LAB05 stream, 4 модели | gpt-oss-20b, qwen3-coder-30b-a3b, qwen35-35b-a3b — 8/8/8; qwen36-27b — 8/7/8 |
+| glm-47-flash | докачан, LAB03 verified, LAB04 completed, LAB05 8/7/8 |
+| qwen3-coder-next | докачивается; LAB03/04/05 после завершения |
+| gemma4-31b-it | b8407 не знает архитектуру `gemma4`; выполнен на llama.cpp **b10000** (официальная сборка ggml-org, ROCm 7.2 + Vulkan; HIP-рантайм — библиотеки ROCm 7.2.1 из бандла AMD b8407). LAB04 completed (offload 61/0 слоёв, Vulkan/HIP), LAB05 8/8/8 |
+
+Единственные не-8/8 — кейс `ctx16384-tool-stream-r2`: у qwen36-27b бюджет 2048 токенов
+израсходован на reasoning (`finish_reason=length`), у glm-47-flash модель вернула `alpha`
+без вызова инструмента (`finish_reason=stop`). Это поведение модели при дефолтном sampling,
+а не баг драйвера; зафиксировано как `blocked` с причиной.
+
+**Условие gemma4:** смена версии движка (b8407 → b10000) — новая группа условий, сравнимая
+только сама с собой; для остальных моделей по-прежнему b8407.
