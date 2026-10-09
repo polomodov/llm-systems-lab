@@ -10,7 +10,7 @@
   "operator": "Codex по запросу владельца",
   "hypothesis": "Оба Apple deployments завершат одинаковые chat/load fixtures; сравнение со стендом Ryzen и агенты требуют отдельного допуска.",
   "protocol_before_run": "raw/protocol.md",
-  "protocol_recorded_at": "2026-10-09T17:58:38.007Z",
+  "protocol_recorded_at": "2026-10-09T17:59:02.887Z",
   "conditions": {
     "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/apple-hardware.json",
     "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
@@ -300,7 +300,7 @@
     },
     {
       "id": "agent-apple-r1",
-      "configuration_id": "T002-a2-pi-apple",
+      "configuration_id": "t002-a2-pi-apple",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
@@ -311,7 +311,7 @@
     },
     {
       "id": "agent-apple-r2",
-      "configuration_id": "T002-a2-pi-apple",
+      "configuration_id": "t002-a2-pi-apple",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
@@ -322,7 +322,7 @@
     },
     {
       "id": "agent-apple-r3",
-      "configuration_id": "T002-a2-pi-apple",
+      "configuration_id": "t002-a2-pi-apple",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
@@ -333,7 +333,7 @@
     },
     {
       "id": "agent-ryzen-r1",
-      "configuration_id": "T002-a2-pi-ryzen",
+      "configuration_id": "t002-a2-pi-ryzen",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
@@ -344,7 +344,7 @@
     },
     {
       "id": "agent-ryzen-r2",
-      "configuration_id": "T002-a2-pi-ryzen",
+      "configuration_id": "t002-a2-pi-ryzen",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
@@ -355,7 +355,7 @@
     },
     {
       "id": "agent-ryzen-r3",
-      "configuration_id": "T002-a2-pi-ryzen",
+      "configuration_id": "t002-a2-pi-ryzen",
       "kind": "agent-run",
       "status": "not-run",
       "run_id": null,
