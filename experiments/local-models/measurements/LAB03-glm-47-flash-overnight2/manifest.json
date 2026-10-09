@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "glm-47-flash-overnight2",
+  "created_at": "2026-10-09T10:24:27Z",
+  "status": "in_progress",
+  "evidence_class": "protocol",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-09T10:24:27Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-glm-47-flash-overnight2/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "hypothesis": "Локальная копия артефакта glm-47-flash совпадает с публикацией ggml-org/GLM-4.7-Flash-GGUF@7559e96b7e324ab405897dc2b91492b0f376ad4a по размеру и SHA-256.",
+  "unavailable": {
+    "conditions.runtime_manifest": "LAB03 не запускает runtime.",
+    "conditions.harness_profile": "LAB03 не использует обвязку."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
