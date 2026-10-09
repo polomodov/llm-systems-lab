@@ -1,1 +1,363 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+o1	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-1-latency_seconds	33.00738708398421	s	measured	raw/warmup/request-0001.json	
+o2	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-1-completion_tokens	2048	tokens	measured	raw/warmup/request-0001.json	
+o3	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-1-prompt_tokens	77	tokens	measured	raw/warmup/request-0001.json	
+o4	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-1-http_status	200	http-status	measured	raw/warmup/request-0001.json	
+o5	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-2-latency_seconds	33.6951903750014	s	measured	raw/warmup/request-0002.json	
+o6	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-2-completion_tokens	2048	tokens	measured	raw/warmup/request-0002.json	
+o7	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-2-prompt_tokens	77	tokens	measured	raw/warmup/request-0002.json	
+o8	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-request-2-http_status	200	http-status	measured	raw/warmup/request-0002.json	
+o9	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-batch_wall_seconds	66.70579820798594	s	measured	raw/warmup/summary.json	
+o10	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-successful	2	requests	measured	raw/warmup/summary.json	
+o11	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-failed	0	requests	measured	raw/warmup/summary.json	
+o12	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-success_latency_median_seconds	33.35128872949281	s	measured	raw/warmup/summary.json	
+o13	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-success_latency_p95_seconds	33.6951903750014	s	measured	raw/warmup/summary.json	
+o14	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-success_latency_max_seconds	33.6951903750014	s	measured	raw/warmup/summary.json	
+o15	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-successful_requests_per_second	0.029982401136466164	requests/s	measured	raw/warmup/summary.json	
+o16	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-successful_completion_tokens_per_second	61.4039575274827	tokens/s	measured	raw/warmup/summary.json	
+o17	direct-ctx8192-slot1-warmup	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		warmup-ttft		s	unavailable	raw/warmup/summary.json	Non-streaming complete-response probe.
+o18	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-1-latency_seconds	105.5435250409937	s	measured	raw/r2-c4/request-0001.json	
+o19	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-1-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0001.json	
+o20	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-1-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0001.json	
+o21	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-1-http_status	200	http-status	measured	raw/r2-c4/request-0001.json	
+o22	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-2-latency_seconds	33.71456591700553	s	measured	raw/r2-c4/request-0002.json	
+o23	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-2-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0002.json	
+o24	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-2-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0002.json	
+o25	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-2-http_status	200	http-status	measured	raw/r2-c4/request-0002.json	
+o26	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-3-latency_seconds	69.07564016702236	s	measured	raw/r2-c4/request-0003.json	
+o27	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-3-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0003.json	
+o28	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-3-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0003.json	
+o29	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-3-http_status	200	http-status	measured	raw/r2-c4/request-0003.json	
+o30	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-4-latency_seconds	142.26002250000602	s	measured	raw/r2-c4/request-0004.json	
+o31	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-4-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0004.json	
+o32	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-4-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0004.json	
+o33	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-4-http_status	200	http-status	measured	raw/r2-c4/request-0004.json	
+o34	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-5-latency_seconds	145.09956179198343	s	measured	raw/r2-c4/request-0005.json	
+o35	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-5-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0005.json	
+o36	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-5-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0005.json	
+o37	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-5-http_status	200	http-status	measured	raw/r2-c4/request-0005.json	
+o38	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-6-latency_seconds	146.05593054098426	s	measured	raw/r2-c4/request-0006.json	
+o39	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-6-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0006.json	
+o40	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-6-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0006.json	
+o41	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-6-http_status	200	http-status	measured	raw/r2-c4/request-0006.json	
+o42	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-7-latency_seconds	145.9596158330096	s	measured	raw/r2-c4/request-0007.json	
+o43	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-7-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0007.json	
+o44	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-7-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0007.json	
+o45	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-7-http_status	200	http-status	measured	raw/r2-c4/request-0007.json	
+o46	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-8-latency_seconds	145.83902666601352	s	measured	raw/r2-c4/request-0008.json	
+o47	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-8-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0008.json	
+o48	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-8-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0008.json	
+o49	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-8-http_status	200	http-status	measured	raw/r2-c4/request-0008.json	
+o50	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-9-latency_seconds	145.77448320799158	s	measured	raw/r2-c4/request-0009.json	
+o51	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-9-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0009.json	
+o52	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-9-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0009.json	
+o53	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-9-http_status	200	http-status	measured	raw/r2-c4/request-0009.json	
+o54	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-10-latency_seconds	145.76957895900705	s	measured	raw/r2-c4/request-0010.json	
+o55	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-10-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0010.json	
+o56	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-10-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0010.json	
+o57	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-10-http_status	200	http-status	measured	raw/r2-c4/request-0010.json	
+o58	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-11-latency_seconds	145.77373691700632	s	measured	raw/r2-c4/request-0011.json	
+o59	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-11-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0011.json	
+o60	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-11-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0011.json	
+o61	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-11-http_status	200	http-status	measured	raw/r2-c4/request-0011.json	
+o62	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-12-latency_seconds	145.46220829198137	s	measured	raw/r2-c4/request-0012.json	
+o63	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-12-completion_tokens	2048	tokens	measured	raw/r2-c4/request-0012.json	
+o64	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-12-prompt_tokens	77	tokens	measured	raw/r2-c4/request-0012.json	
+o65	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-request-12-http_status	200	http-status	measured	raw/r2-c4/request-0012.json	
+o66	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-batch_wall_seconds	433.564821958018	s	measured	raw/r2-c4/summary.json	
+o67	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-successful	12	requests	measured	raw/r2-c4/summary.json	
+o68	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-failed	0	requests	measured	raw/r2-c4/summary.json	
+o69	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-success_latency_median_seconds	145.6158936254942	s	measured	raw/r2-c4/summary.json	
+o70	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-success_latency_p95_seconds	146.05593054098426	s	measured	raw/r2-c4/summary.json	
+o71	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-success_latency_max_seconds	146.05593054098426	s	measured	raw/r2-c4/summary.json	
+o72	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-successful_requests_per_second	0.027677522234868857	requests/s	measured	raw/r2-c4/summary.json	
+o73	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-successful_completion_tokens_per_second	56.68356553701142	tokens/s	measured	raw/r2-c4/summary.json	
+o74	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c4-ttft		s	unavailable	raw/r2-c4/summary.json	Non-streaming complete-response probe.
+o75	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-1-latency_seconds	36.25492266699439	s	measured	raw/r2-c1/request-0001.json	
+o76	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-1-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0001.json	
+o77	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-1-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0001.json	
+o78	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-1-http_status	200	http-status	measured	raw/r2-c1/request-0001.json	
+o79	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-2-latency_seconds	36.119716459012125	s	measured	raw/r2-c1/request-0002.json	
+o80	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-2-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0002.json	
+o81	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-2-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0002.json	
+o82	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-2-http_status	200	http-status	measured	raw/r2-c1/request-0002.json	
+o83	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-3-latency_seconds	36.1593209579878	s	measured	raw/r2-c1/request-0003.json	
+o84	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-3-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0003.json	
+o85	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-3-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0003.json	
+o86	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-3-http_status	200	http-status	measured	raw/r2-c1/request-0003.json	
+o87	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-4-latency_seconds	35.99840120901354	s	measured	raw/r2-c1/request-0004.json	
+o88	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-4-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0004.json	
+o89	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-4-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0004.json	
+o90	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-4-http_status	200	http-status	measured	raw/r2-c1/request-0004.json	
+o91	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-5-latency_seconds	35.97551004201523	s	measured	raw/r2-c1/request-0005.json	
+o92	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-5-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0005.json	
+o93	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-5-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0005.json	
+o94	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-5-http_status	200	http-status	measured	raw/r2-c1/request-0005.json	
+o95	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-6-latency_seconds	35.948384041985264	s	measured	raw/r2-c1/request-0006.json	
+o96	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-6-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0006.json	
+o97	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-6-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0006.json	
+o98	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-6-http_status	200	http-status	measured	raw/r2-c1/request-0006.json	
+o99	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-7-latency_seconds	36.47261529197567	s	measured	raw/r2-c1/request-0007.json	
+o100	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-7-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0007.json	
+o101	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-7-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0007.json	
+o102	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-7-http_status	200	http-status	measured	raw/r2-c1/request-0007.json	
+o103	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-8-latency_seconds	36.46517433298868	s	measured	raw/r2-c1/request-0008.json	
+o104	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-8-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0008.json	
+o105	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-8-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0008.json	
+o106	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-8-http_status	200	http-status	measured	raw/r2-c1/request-0008.json	
+o107	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-9-latency_seconds	35.86468766600592	s	measured	raw/r2-c1/request-0009.json	
+o108	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-9-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0009.json	
+o109	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-9-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0009.json	
+o110	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-9-http_status	200	http-status	measured	raw/r2-c1/request-0009.json	
+o111	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-10-latency_seconds	36.32911529199919	s	measured	raw/r2-c1/request-0010.json	
+o112	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-10-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0010.json	
+o113	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-10-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0010.json	
+o114	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-10-http_status	200	http-status	measured	raw/r2-c1/request-0010.json	
+o115	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-11-latency_seconds	36.58584750001319	s	measured	raw/r2-c1/request-0011.json	
+o116	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-11-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0011.json	
+o117	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-11-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0011.json	
+o118	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-11-http_status	200	http-status	measured	raw/r2-c1/request-0011.json	
+o119	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-12-latency_seconds	36.60323237499688	s	measured	raw/r2-c1/request-0012.json	
+o120	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-12-completion_tokens	2048	tokens	measured	raw/r2-c1/request-0012.json	
+o121	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-12-prompt_tokens	77	tokens	measured	raw/r2-c1/request-0012.json	
+o122	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-request-12-http_status	200	http-status	measured	raw/r2-c1/request-0012.json	
+o123	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-batch_wall_seconds	434.78176816599444	s	measured	raw/r2-c1/summary.json	
+o124	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-successful	12	requests	measured	raw/r2-c1/summary.json	
+o125	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-failed	0	requests	measured	raw/r2-c1/summary.json	
+o126	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-success_latency_median_seconds	36.207121812491096	s	measured	raw/r2-c1/summary.json	
+o127	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-success_latency_p95_seconds	36.60323237499688	s	measured	raw/r2-c1/summary.json	
+o128	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-success_latency_max_seconds	36.60323237499688	s	measured	raw/r2-c1/summary.json	
+o129	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-successful_requests_per_second	0.027600053356925825	requests/s	measured	raw/r2-c1/summary.json	
+o130	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-successful_completion_tokens_per_second	56.52490927498409	tokens/s	measured	raw/r2-c1/summary.json	
+o131	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	2	r2-c1-ttft		s	unavailable	raw/r2-c1/summary.json	Non-streaming complete-response probe.
+o132	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-1-latency_seconds	72.92702125001233	s	measured	raw/r3-c4/request-0001.json	
+o133	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-1-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0001.json	
+o134	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-1-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0001.json	
+o135	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-1-http_status	200	http-status	measured	raw/r3-c4/request-0001.json	
+o136	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-2-latency_seconds	109.33124333299929	s	measured	raw/r3-c4/request-0002.json	
+o137	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-2-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0002.json	
+o138	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-2-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0002.json	
+o139	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-2-http_status	200	http-status	measured	raw/r3-c4/request-0002.json	
+o140	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-3-latency_seconds	145.72012162499595	s	measured	raw/r3-c4/request-0003.json	
+o141	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-3-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0003.json	
+o142	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-3-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0003.json	
+o143	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-3-http_status	200	http-status	measured	raw/r3-c4/request-0003.json	
+o144	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-4-latency_seconds	36.51101512499736	s	measured	raw/r3-c4/request-0004.json	
+o145	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-4-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0004.json	
+o146	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-4-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0004.json	
+o147	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-4-http_status	200	http-status	measured	raw/r3-c4/request-0004.json	
+o148	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-5-latency_seconds	145.56785891702748	s	measured	raw/r3-c4/request-0005.json	
+o149	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-5-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0005.json	
+o150	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-5-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0005.json	
+o151	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-5-http_status	200	http-status	measured	raw/r3-c4/request-0005.json	
+o152	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-6-latency_seconds	145.48527979198843	s	measured	raw/r3-c4/request-0006.json	
+o153	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-6-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0006.json	
+o154	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-6-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0006.json	
+o155	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-6-http_status	200	http-status	measured	raw/r3-c4/request-0006.json	
+o156	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-7-latency_seconds	145.3817747500143	s	measured	raw/r3-c4/request-0007.json	
+o157	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-7-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0007.json	
+o158	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-7-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0007.json	
+o159	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-7-http_status	200	http-status	measured	raw/r3-c4/request-0007.json	
+o160	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-8-latency_seconds	145.54427295800997	s	measured	raw/r3-c4/request-0008.json	
+o161	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-8-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0008.json	
+o162	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-8-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0008.json	
+o163	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-8-http_status	200	http-status	measured	raw/r3-c4/request-0008.json	
+o164	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-9-latency_seconds	145.3945453329943	s	measured	raw/r3-c4/request-0009.json	
+o165	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-9-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0009.json	
+o166	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-9-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0009.json	
+o167	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-9-http_status	200	http-status	measured	raw/r3-c4/request-0009.json	
+o168	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-10-latency_seconds	145.1749069999787	s	measured	raw/r3-c4/request-0010.json	
+o169	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-10-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0010.json	
+o170	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-10-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0010.json	
+o171	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-10-http_status	200	http-status	measured	raw/r3-c4/request-0010.json	
+o172	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-11-latency_seconds	146.121641042002	s	measured	raw/r3-c4/request-0011.json	
+o173	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-11-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0011.json	
+o174	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-11-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0011.json	
+o175	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-11-http_status	200	http-status	measured	raw/r3-c4/request-0011.json	
+o176	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-12-latency_seconds	146.0377613749879	s	measured	raw/r3-c4/request-0012.json	
+o177	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-12-completion_tokens	2048	tokens	measured	raw/r3-c4/request-0012.json	
+o178	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-12-prompt_tokens	77	tokens	measured	raw/r3-c4/request-0012.json	
+o179	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-request-12-http_status	200	http-status	measured	raw/r3-c4/request-0012.json	
+o180	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-batch_wall_seconds	437.30417291700724	s	measured	raw/r3-c4/summary.json	
+o181	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-successful	12	requests	measured	raw/r3-c4/summary.json	
+o182	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-failed	0	requests	measured	raw/r3-c4/summary.json	
+o183	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-success_latency_median_seconds	145.43991256249137	s	measured	raw/r3-c4/summary.json	
+o184	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-success_latency_p95_seconds	146.121641042002	s	measured	raw/r3-c4/summary.json	
+o185	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-success_latency_max_seconds	146.121641042002	s	measured	raw/r3-c4/summary.json	
+o186	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-successful_requests_per_second	0.027440854085509475	requests/s	measured	raw/r3-c4/summary.json	
+o187	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-successful_completion_tokens_per_second	56.198869167123405	tokens/s	measured	raw/r3-c4/summary.json	
+o188	direct-ctx8192-slot1-c4	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c4-ttft		s	unavailable	raw/r3-c4/summary.json	Non-streaming complete-response probe.
+o189	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-1-latency_seconds	36.61720041601802	s	measured	raw/r3-c1/request-0001.json	
+o190	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-1-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0001.json	
+o191	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-1-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0001.json	
+o192	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-1-http_status	200	http-status	measured	raw/r3-c1/request-0001.json	
+o193	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-2-latency_seconds	36.41548129200237	s	measured	raw/r3-c1/request-0002.json	
+o194	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-2-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0002.json	
+o195	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-2-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0002.json	
+o196	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-2-http_status	200	http-status	measured	raw/r3-c1/request-0002.json	
+o197	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-3-latency_seconds	36.610607374983374	s	measured	raw/r3-c1/request-0003.json	
+o198	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-3-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0003.json	
+o199	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-3-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0003.json	
+o200	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-3-http_status	200	http-status	measured	raw/r3-c1/request-0003.json	
+o201	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-4-latency_seconds	37.214118541014614	s	measured	raw/r3-c1/request-0004.json	
+o202	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-4-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0004.json	
+o203	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-4-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0004.json	
+o204	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-4-http_status	200	http-status	measured	raw/r3-c1/request-0004.json	
+o205	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-5-latency_seconds	37.103274374996545	s	measured	raw/r3-c1/request-0005.json	
+o206	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-5-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0005.json	
+o207	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-5-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0005.json	
+o208	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-5-http_status	200	http-status	measured	raw/r3-c1/request-0005.json	
+o209	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-6-latency_seconds	37.674937790987315	s	measured	raw/r3-c1/request-0006.json	
+o210	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-6-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0006.json	
+o211	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-6-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0006.json	
+o212	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-6-http_status	200	http-status	measured	raw/r3-c1/request-0006.json	
+o213	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-7-latency_seconds	37.49487420899095	s	measured	raw/r3-c1/request-0007.json	
+o214	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-7-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0007.json	
+o215	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-7-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0007.json	
+o216	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-7-http_status	200	http-status	measured	raw/r3-c1/request-0007.json	
+o217	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-8-latency_seconds	37.81754500002717	s	measured	raw/r3-c1/request-0008.json	
+o218	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-8-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0008.json	
+o219	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-8-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0008.json	
+o220	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-8-http_status	200	http-status	measured	raw/r3-c1/request-0008.json	
+o221	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-9-latency_seconds	38.0829950000043	s	measured	raw/r3-c1/request-0009.json	
+o222	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-9-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0009.json	
+o223	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-9-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0009.json	
+o224	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-9-http_status	200	http-status	measured	raw/r3-c1/request-0009.json	
+o225	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-10-latency_seconds	38.14671129200724	s	measured	raw/r3-c1/request-0010.json	
+o226	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-10-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0010.json	
+o227	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-10-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0010.json	
+o228	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-10-http_status	200	http-status	measured	raw/r3-c1/request-0010.json	
+o229	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-11-latency_seconds	39.170809041010216	s	measured	raw/r3-c1/request-0011.json	
+o230	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-11-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0011.json	
+o231	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-11-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0011.json	
+o232	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-11-http_status	200	http-status	measured	raw/r3-c1/request-0011.json	
+o233	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-12-latency_seconds	39.38259491600911	s	measured	raw/r3-c1/request-0012.json	
+o234	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-12-completion_tokens	2048	tokens	measured	raw/r3-c1/request-0012.json	
+o235	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-12-prompt_tokens	77	tokens	measured	raw/r3-c1/request-0012.json	
+o236	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-request-12-http_status	200	http-status	measured	raw/r3-c1/request-0012.json	
+o237	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-batch_wall_seconds	451.7373624579923	s	measured	raw/r3-c1/summary.json	
+o238	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-successful	12	requests	measured	raw/r3-c1/summary.json	
+o239	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-failed	0	requests	measured	raw/r3-c1/summary.json	
+o240	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-success_latency_median_seconds	37.58490599998913	s	measured	raw/r3-c1/summary.json	
+o241	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-success_latency_p95_seconds	39.38259491600911	s	measured	raw/r3-c1/summary.json	
+o242	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-success_latency_max_seconds	39.38259491600911	s	measured	raw/r3-c1/summary.json	
+o243	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-successful_requests_per_second	0.02656410781411931	requests/s	measured	raw/r3-c1/summary.json	
+o244	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-successful_completion_tokens_per_second	54.40329280331635	tokens/s	measured	raw/r3-c1/summary.json	
+o245	direct-ctx8192-slot1-c1	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c1-ttft		s	unavailable	raw/r3-c1/summary.json	Non-streaming complete-response probe.
+o246	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-1-latency_seconds	80.31195216701599	s	measured	raw/r3-c2/request-0001.json	
+o247	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-1-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0001.json	
+o248	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-1-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0001.json	
+o249	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-1-http_status	200	http-status	measured	raw/r3-c2/request-0001.json	
+o250	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-2-latency_seconds	38.863309707987355	s	measured	raw/r3-c2/request-0002.json	
+o251	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-2-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0002.json	
+o252	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-2-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0002.json	
+o253	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-2-http_status	200	http-status	measured	raw/r3-c2/request-0002.json	
+o254	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-3-latency_seconds	80.84415533399442	s	measured	raw/r3-c2/request-0003.json	
+o255	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-3-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0003.json	
+o256	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-3-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0003.json	
+o257	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-3-http_status	200	http-status	measured	raw/r3-c2/request-0003.json	
+o258	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-4-latency_seconds	78.36021120898658	s	measured	raw/r3-c2/request-0004.json	
+o259	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-4-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0004.json	
+o260	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-4-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0004.json	
+o261	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-4-http_status	200	http-status	measured	raw/r3-c2/request-0004.json	
+o262	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-5-latency_seconds	78.10719499998959	s	measured	raw/r3-c2/request-0005.json	
+o263	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-5-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0005.json	
+o264	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-5-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0005.json	
+o265	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-5-http_status	200	http-status	measured	raw/r3-c2/request-0005.json	
+o266	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-6-latency_seconds	78.14145779199316	s	measured	raw/r3-c2/request-0006.json	
+o267	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-6-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0006.json	
+o268	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-6-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0006.json	
+o269	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-6-http_status	200	http-status	measured	raw/r3-c2/request-0006.json	
+o270	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-7-latency_seconds	80.21285529099987	s	measured	raw/r3-c2/request-0007.json	
+o271	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-7-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0007.json	
+o272	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-7-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0007.json	
+o273	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-7-http_status	200	http-status	measured	raw/r3-c2/request-0007.json	
+o274	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-8-latency_seconds	80.10710254200967	s	measured	raw/r3-c2/request-0008.json	
+o275	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-8-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0008.json	
+o276	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-8-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0008.json	
+o277	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-8-http_status	200	http-status	measured	raw/r3-c2/request-0008.json	
+o278	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-9-latency_seconds	76.79332024999894	s	measured	raw/r3-c2/request-0009.json	
+o279	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-9-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0009.json	
+o280	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-9-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0009.json	
+o281	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-9-http_status	200	http-status	measured	raw/r3-c2/request-0009.json	
+o282	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-10-latency_seconds	75.73492766698473	s	measured	raw/r3-c2/request-0010.json	
+o283	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-10-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0010.json	
+o284	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-10-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0010.json	
+o285	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-10-http_status	200	http-status	measured	raw/r3-c2/request-0010.json	
+o286	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-11-latency_seconds	75.82231195899658	s	measured	raw/r3-c2/request-0011.json	
+o287	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-11-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0011.json	
+o288	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-11-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0011.json	
+o289	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-11-http_status	200	http-status	measured	raw/r3-c2/request-0011.json	
+o290	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-12-latency_seconds	75.5381532080064	s	measured	raw/r3-c2/request-0012.json	
+o291	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-12-completion_tokens	2048	tokens	measured	raw/r3-c2/request-0012.json	
+o292	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-12-prompt_tokens	77	tokens	measured	raw/r3-c2/request-0012.json	
+o293	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-request-12-http_status	200	http-status	measured	raw/r3-c2/request-0012.json	
+o294	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-batch_wall_seconds	468.2081787500065	s	measured	raw/r3-c2/summary.json	
+o295	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-successful	12	requests	measured	raw/r3-c2/summary.json	
+o296	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-failed	0	requests	measured	raw/r3-c2/summary.json	
+o297	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-success_latency_median_seconds	78.12432639599137	s	measured	raw/r3-c2/summary.json	
+o298	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-success_latency_p95_seconds	80.84415533399442	s	measured	raw/r3-c2/summary.json	
+o299	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-success_latency_max_seconds	80.84415533399442	s	measured	raw/r3-c2/summary.json	
+o300	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-successful_requests_per_second	0.025629624907529094	requests/s	measured	raw/r3-c2/summary.json	
+o301	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-successful_completion_tokens_per_second	52.489471810619584	tokens/s	measured	raw/r3-c2/summary.json	
+o302	direct-ctx8192-slot1-c2	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192	3	r3-c2-ttft		s	unavailable	raw/r3-c2/summary.json	Non-streaming complete-response probe.
+o303	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-1-latency_seconds	37.9698203340231	s	measured	raw/sustained/block-0001/request-0001.json	
+o304	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-1-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0001.json	
+o305	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-1-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0001.json	
+o306	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-1-http_status	200	http-status	measured	raw/sustained/block-0001/request-0001.json	
+o307	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-2-latency_seconds	38.234135374979815	s	measured	raw/sustained/block-0001/request-0002.json	
+o308	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-2-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0002.json	
+o309	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-2-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0002.json	
+o310	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-2-http_status	200	http-status	measured	raw/sustained/block-0001/request-0002.json	
+o311	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-3-latency_seconds	38.115930166997714	s	measured	raw/sustained/block-0001/request-0003.json	
+o312	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-3-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0003.json	
+o313	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-3-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0003.json	
+o314	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-3-http_status	200	http-status	measured	raw/sustained/block-0001/request-0003.json	
+o315	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-4-latency_seconds	38.946011042018654	s	measured	raw/sustained/block-0001/request-0004.json	
+o316	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-4-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0004.json	
+o317	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-4-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0004.json	
+o318	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-4-http_status	200	http-status	measured	raw/sustained/block-0001/request-0004.json	
+o319	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-5-latency_seconds	38.39706191600999	s	measured	raw/sustained/block-0001/request-0005.json	
+o320	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-5-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0005.json	
+o321	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-5-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0005.json	
+o322	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-5-http_status	200	http-status	measured	raw/sustained/block-0001/request-0005.json	
+o323	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-6-latency_seconds	38.58103704100358	s	measured	raw/sustained/block-0001/request-0006.json	
+o324	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-6-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0006.json	
+o325	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-6-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0006.json	
+o326	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-6-http_status	200	http-status	measured	raw/sustained/block-0001/request-0006.json	
+o327	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-7-latency_seconds	37.9757255409786	s	measured	raw/sustained/block-0001/request-0007.json	
+o328	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-7-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0007.json	
+o329	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-7-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0007.json	
+o330	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-7-http_status	200	http-status	measured	raw/sustained/block-0001/request-0007.json	
+o331	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-8-latency_seconds	37.766026083001634	s	measured	raw/sustained/block-0001/request-0008.json	
+o332	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-8-completion_tokens	2048	tokens	measured	raw/sustained/block-0001/request-0008.json	
+o333	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-8-prompt_tokens	77	tokens	measured	raw/sustained/block-0001/request-0008.json	
+o334	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-8-http_status	200	http-status	measured	raw/sustained/block-0001/request-0008.json	
+o335	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-9-latency_seconds	31.167658833990572	s	measured	raw/sustained/block-0001/request-0009.json	
+o336	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-9-completion_tokens		tokens	unavailable	raw/sustained/block-0001/request-0009.json	Failed response/usage unavailable.
+o337	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-9-prompt_tokens		tokens	unavailable	raw/sustained/block-0001/request-0009.json	Failed response/usage unavailable.
+o338	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-9-http_status		http-status	unavailable	raw/sustained/block-0001/request-0009.json	Failed response/usage unavailable.
+o339	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-10-latency_seconds	0.003082917013671249	s	measured	raw/sustained/block-0001/request-0010.json	
+o340	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-10-completion_tokens		tokens	unavailable	raw/sustained/block-0001/request-0010.json	Failed response/usage unavailable.
+o341	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-10-prompt_tokens		tokens	unavailable	raw/sustained/block-0001/request-0010.json	Failed response/usage unavailable.
+o342	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-10-http_status		http-status	unavailable	raw/sustained/block-0001/request-0010.json	Failed response/usage unavailable.
+o343	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-11-latency_seconds	0.00013904101797379553	s	measured	raw/sustained/block-0001/request-0011.json	
+o344	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-11-completion_tokens		tokens	unavailable	raw/sustained/block-0001/request-0011.json	Failed response/usage unavailable.
+o345	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-11-prompt_tokens		tokens	unavailable	raw/sustained/block-0001/request-0011.json	Failed response/usage unavailable.
+o346	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-11-http_status		http-status	unavailable	raw/sustained/block-0001/request-0011.json	Failed response/usage unavailable.
+o347	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-12-latency_seconds	0.00011345799430273473	s	measured	raw/sustained/block-0001/request-0012.json	
+o348	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-12-completion_tokens		tokens	unavailable	raw/sustained/block-0001/request-0012.json	Failed response/usage unavailable.
+o349	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-12-prompt_tokens		tokens	unavailable	raw/sustained/block-0001/request-0012.json	Failed response/usage unavailable.
+o350	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-request-12-http_status		http-status	unavailable	raw/sustained/block-0001/request-0012.json	Failed response/usage unavailable.
+o351	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-batch_wall_seconds	337.1637727089983	s	measured	raw/sustained/block-0001/summary.json	
+o352	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-successful	8	requests	measured	raw/sustained/block-0001/summary.json	
+o353	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-failed	4	requests	measured	raw/sustained/block-0001/summary.json	
+o354	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-success_latency_median_seconds	38.175032770988764	s	measured	raw/sustained/block-0001/summary.json	
+o355	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-success_latency_p95_seconds	38.946011042018654	s	measured	raw/sustained/block-0001/summary.json	
+o356	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-success_latency_max_seconds	38.946011042018654	s	measured	raw/sustained/block-0001/summary.json	
+o357	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-successful_requests_per_second	0.02372734156971454	requests/s	measured	raw/sustained/block-0001/summary.json	
+o358	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-successful_completion_tokens_per_second	48.593595534775375	tokens/s	measured	raw/sustained/block-0001/summary.json	
+o359	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		sustained/block-0001-ttft		s	unavailable	raw/sustained/block-0001/summary.json	Non-streaming complete-response probe.
+o360	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		actual_seconds	337.2509335420036	s	measured	raw/sustained/series.json	
+o361	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		overall_successful_requests_per_second	0.02372120935583303	requests/s	measured	raw/sustained/series.json	
+o362	direct-ctx8192-slot1-sustained	qwen35-9b-q6-k	llama.cpp-b8407-tile16	metal	8192		overall_successful_completion_tokens_per_second	48.581036760746045	tokens/s	measured	raw/sustained/series.json	
