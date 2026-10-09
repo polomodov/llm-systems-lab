@@ -30,6 +30,7 @@ export async function verifyFiles(d) {
     if(digest!==f.sha256)throw new Error('Artifact hash mismatch');verified[f.path]=digest;
   }return verified;
 }
+export function assertResourceFresh(last,now=Date.now()) {if(now-last>15000 || now<last)throw new Error('Resource timeline stale or clock moved backwards');}
 export function nativeCommand(d) {
   validateDeployment(d);const p=d.protocol;
   return [d.engine.executable,'-m',d.model.files[0].path,'--host','127.0.0.1','--port',String(d.endpoint.port),'--alias',d.alias,'-ngl',String(p.offload),'-c',String(p.context_tokens),'-np','1','-t',String(p.threads),'-b',String(p.batch),'-ub',String(p.ubatch),'-ctk','f16','-ctv','f16','-fa','on','--jinja','--no-context-shift','--reasoning','auto','--chat-template-kwargs','{"enable_thinking":true}','--no-cache-prompt','--slots'];
@@ -51,16 +52,17 @@ export async function startNative(d,trace) {
   const interrupt=()=>{if(!interrupted && !exit && child.pid){interrupted=true;try{process.kill(-child.pid,'SIGINT');}catch(e){if(e.code!=='ESRCH')throw e;}}};
   const onInterrupt=()=>{guard='Coordinator interrupted';interrupt();};process.on('SIGINT',onInterrupt);process.on('SIGTERM',onInterrupt);
   const collect=chunk=>{bytes+=chunk.length;if(bytes>16*1024*1024){guard='Native log limit';interrupt();}else log.write(chunk);};child.stdout.on('data',collect);child.stderr.on('data',collect);
-  const assertion=spawn('/usr/bin/caffeinate',['-i','-w',String(process.pid)],{stdio:'ignore'});
-  const base=`http://127.0.0.1:${d.endpoint.port}`;
+  const assertion=spawn('/usr/bin/caffeinate',['-i','-w',String(process.pid)],{stdio:'ignore'});proof.idle_sleep_assertion={command:['/usr/bin/caffeinate','-i','-w',String(process.pid)],pid:assertion.pid,scope:'process-bound idle-sleep assertion; no pmset changes'};assertion.on('error',()=>{guard='Idle sleep assertion failed';interrupt();});assertion.on('exit',()=>{if(!closed){guard='Idle sleep assertion exited unexpectedly';interrupt();}});
+  const base=`http://127.0.0.1:${d.endpoint.port}`;let lastSampleWall=Date.now();
   const check=async()=>{
+    assertResourceFresh(lastSampleWall);
     if(exit || error || guard)throw new Error(guard || error || 'Owned native process exited');
     const response=await requestLocal(base+'/props',{timeout:5000});if(response.status!==200)throw new Error('Native identity endpoint failed');const props=JSON.parse(response.body);
     if(props.model_alias!==d.alias || props.model_path!==d.model.files[0].path || props.total_slots!==1 || !props.build_info.includes(d.engine.commit.slice(0,7)) || props.default_generation_settings.n_ctx!==d.protocol.context_tokens || createHash('sha256').update(props.chat_template).digest('hex')!==d.model.chat_template_sha256)throw new Error('Observed native identity differs from sealed deployment');
     return props;
   };
   const timeline=createWriteStream(join(trace,'native-memory.jsonl'),{flags:'wx'});
-  const timer=setInterval(()=>{if(busy || closed)return;busy=true;try{const row=sample();const rss=Number(execFileSync('ps',['-o','rss=','-p',String(child.pid)],{encoding:'utf8'}).trim())*1024;row.server_rss_bytes=rss;timeline.write(JSON.stringify(row)+'\n');if(!safe(row) || !Number.isFinite(rss) || rss>24*2**30){guard='Native memory/power guard';interrupt();}}catch{guard='Resource collector failed';interrupt();}finally{busy=false;}},2000);
+  const timer=setInterval(()=>{if(busy || closed)return;busy=true;try{assertResourceFresh(lastSampleWall);const row=sample();lastSampleWall=Date.now();const rss=Number(execFileSync('ps',['-o','rss=','-p',String(child.pid)],{encoding:'utf8'}).trim())*1024;row.server_rss_bytes=rss;timeline.write(JSON.stringify(row)+'\n');if(!safe(row) || !Number.isFinite(rss) || rss>24*2**30){guard='Native memory/power guard';interrupt();}}catch(error){guard='Resource collector failed: '+error.message;output('resource-guard.json',{timestamp:now(),reason:guard,last_sample_wall:lastSampleWall});interrupt();}finally{busy=false;}},2000);
   const close=async()=>{if(closed)return;closed=true;clearInterval(timer);interrupt();let timeout;await Promise.race([exited,new Promise(resolve=>{timeout=setTimeout(resolve,30000);})]);clearTimeout(timeout);if(!exit && child.pid){process.kill(-child.pid,'SIGKILL');await exited;guard=guard??'Native shutdown deadline';}assertion.kill('SIGTERM');process.removeListener('SIGINT',onInterrupt);process.removeListener('SIGTERM',onInterrupt);log.end();timeline.end();output('shutdown-process.json',{timestamp:now(),pid:child.pid,exit,error,guard,sigint_count:interrupted?1:0});};
   try {
     for(let i=0;i<120;i++){if(exit || error || guard)throw new Error('Native startup stopped');try{const r=await requestLocal(base+'/health',{timeout:2000});if(r.status===200 && JSON.parse(r.body).status==='ok')break;}catch{}if(i===119)throw new Error('Native readiness deadline');await delay(1000);}

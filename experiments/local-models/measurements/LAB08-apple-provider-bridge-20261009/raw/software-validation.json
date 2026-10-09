@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-09T23:33:18.139985+00:00",
+  "npm_tests_passed": 171,
+  "npm_tests_skipped": 2,
+  "new_offline_bridge_tests": 19,
+  "docker_sdk_boundary": "passed",
+  "docker_cloud_boundary": "passed",
+  "wall_stale_regressions": "passed",
+  "npm_run_check": "passed",
+  "native_guard_requalification_after_correction": false,
+  "agent_verdicts": "aborted / aborted; no independent pass",
+  "classification": "Software and mock proofs; completed LAB08 not claimed.",
+  "python_lab_tests_passed": 60,
+  "lab_check_submission": "passed for blocked report",
+  "git_diff_check": "passed"
+}

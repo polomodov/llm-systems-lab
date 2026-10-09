@@ -1,1 +1,29 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+o1	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	accepted_http_responses	0	requests	measured	raw/runtime-summary.json	
+o2	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	failed_jobs	0	jobs	measured	raw/runtime-summary.json	
+o3	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	primary_requests	0	requests	measured	raw/runtime-summary.json	
+o4	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	wall_clock_s		s	unavailable	raw/runtime-summary.json	No agent execution or no successful primary responses.
+o5	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	partial_prompt_tokens		tokens	unavailable	raw/runtime-summary.json	No agent execution or no successful primary responses.
+o6	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	partial_completion_tokens		tokens	unavailable	raw/runtime-summary.json	No agent execution or no successful primary responses.
+o7	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	observed_peak_rss_bytes	7903232000	bytes	measured	raw/runtime-summary.json	
+o8	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	max_sample_gap_s		s	unavailable	raw/runtime-summary.json	No agent execution or no successful primary responses.
+o9	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	complete_tokens_in			unavailable	raw/runtime-summary.json	Incomplete attempt; primary usage missing for failed/canceled job.
+o10	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	complete_tokens_out			unavailable	raw/runtime-summary.json	Incomplete attempt; primary usage missing for failed/canceled job.
+o11	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	cost_usd			unavailable	raw/runtime-summary.json	Hardware/energy cost not measured; SDK placeholders not accepted.
+o12	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	ttft_seconds			unavailable	raw/runtime-summary.json	SSE buffered until finish/DONE.
+o13	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	energy_joules			unavailable	raw/runtime-summary.json	No energy collector.
+o14	pi-qwen35-q6-metal-8k	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	temperature			unavailable	raw/runtime-summary.json	No verified thermal collector.
+o15	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	accepted_http_responses	12	requests	measured	raw/runtime-summary.json	
+o16	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	failed_jobs	1	jobs	measured	raw/runtime-summary.json	
+o17	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	primary_requests	12	requests	measured	raw/runtime-summary.json	
+o18	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	wall_clock_s	1056	s	measured	raw/runtime-summary.json	
+o19	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	partial_prompt_tokens	43504	tokens	measured	raw/runtime-summary.json	
+o20	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	partial_completion_tokens	1224	tokens	measured	raw/runtime-summary.json	
+o21	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	observed_peak_rss_bytes	8072642560	bytes	measured	raw/runtime-summary.json	
+o22	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	max_sample_gap_s	913.90353	s	measured	raw/runtime-summary.json	
+o23	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	complete_tokens_in			unavailable	raw/runtime-summary.json	Incomplete attempt; primary usage missing for failed/canceled job.
+o24	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	complete_tokens_out			unavailable	raw/runtime-summary.json	Incomplete attempt; primary usage missing for failed/canceled job.
+o25	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	cost_usd			unavailable	raw/runtime-summary.json	Hardware/energy cost not measured; SDK placeholders not accepted.
+o26	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	ttft_seconds			unavailable	raw/runtime-summary.json	SSE buffered until finish/DONE.
+o27	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	energy_joules			unavailable	raw/runtime-summary.json	No energy collector.
+o28	pi-qwen35-q6-metal-8k-readiness-fixed	qwen35-9b-q6-k	llama-cpp-b8407-tensor	metal	8192	1	temperature			unavailable	raw/runtime-summary.json	No verified thermal collector.
