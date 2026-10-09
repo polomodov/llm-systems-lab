@@ -1,1 +1,2 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+glm-47-flash-bytes	glm-47-flash-verify	zai-org/GLM-4.7-Flash	sha256sum	-		1	file_bytes	31842799232	B	measured	raw/verification.json	
