@@ -1,0 +1,10 @@
+{
+  "command": [
+    "caffeinate",
+    "-i",
+    "-w",
+    "48028"
+  ],
+  "pid": 48050,
+  "scope": "process-bound idle-sleep assertion; no pmset setting changes"
+}
