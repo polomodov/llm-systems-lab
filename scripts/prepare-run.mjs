@@ -7,8 +7,9 @@ import { readRun, writeRun } from './lib/records.mjs';
 import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.mjs';
 import { replayFetcher } from '../experiments/common/egress.mjs';
 import { loadProfile, selectProvider, controlFiles } from './lib/harnesses.mjs';
+import { validateDeployment, fingerprint } from './lib/local-inference.mjs';
 import { args, options, main } from './lib/cli.mjs';
-export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArchive, provider } = {}) {
+export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArchive, provider, localDeployment } = {}) {
   const record = readRun(root, runId), dir = join(root, 'results/runs', runId);
   if (record.status !== 'planned') throw new Error('Only planned runs may be prepared; create a new run to replay');
   if (!['baseline', 'without-spec'].includes(variant)) throw new Error('Variant must be baseline or without-spec');
@@ -17,6 +18,12 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
   const profile = loadProfile(root, record.harness.name);
   const selectedProvider = selectProvider(profile, provider ?? record.model.provider);
   if (record.model.provider && record.model.provider !== selectedProvider.name) throw new Error('Provider differs from the planned run');
+  const local = selectedProvider.name === 'local';
+  if (local !== !!localDeployment) throw new Error('Local provider requires --local-deployment; cloud preparation rejects it');
+  if (local && !record.task.startsWith('T002')) throw new Error('First local bridge admits T002 only; T001 source gateway remains unchanged');
+  const deploymentText = local ? readFileSync(localDeployment, 'utf8') : null;
+  const deployment = local ? validateDeployment(JSON.parse(deploymentText)) : null;
+  if (local && record.model.id !== deployment.alias) throw new Error('Plan the run with the exact local alias');
   const lock = acquireLock(dir);
   const staging = join(dir, '.preparing');
   try {
@@ -38,12 +45,17 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     const harness = join(root, 'experiments', record.harness.name);
     for (const file of controlFiles(profile)) { mkdirSync(dirname(join(control, file.target)), { recursive: true }); copyFileSync(safePath(harness, file.source), join(control, file.target)); }
     for (const file of ['entrypoint.mjs','egress.mjs']) copyFileSync(join(root, 'experiments/common', file), join(control, file));
+    if (local) {
+      writeFileSync(join(control,'local-deployment.json'), deploymentText);
+      copyFileSync(join(root,'scripts/lib/local-inference.mjs'),join(control,'local-inference.mjs'));
+      writeFileSync(join(control,'local-broker.mjs'),readFileSync(join(root,'experiments/common/local-broker.mjs'),'utf8').replace("'../../scripts/lib/local-inference.mjs'","'./local-inference.mjs'"));
+    }
     const agentCwd = record.task.startsWith('T002') ? '/workspace/sample' : '/workspace';
     const extra = record.task.startsWith('T001') ? '\nСеть источников: только GET через gateway. Для каждого URL используй curl --noproxy egress --get --data-urlencode "url=URL" http://egress:8080/fetch. JSON содержит реальный status, final url и body. Начальные ссылки и ссылки глубины 1 разрешены; прочие запрещены. Снимки ответов сохраняет координатор. Не считай HTTP 4xx/5xx успешно полученным источником.' : '';
     const prompt = `${variant === 'baseline' ? spec + '\n\n' : ''}${contract}\n\nРабочая папка: ${agentCwd}. Входы: brief.md${record.task.startsWith('T001') ? ' и sources.txt' : ''}. Все итоговые артефакты писать в /workspace/artifacts/. Run-id: ${runId}. ${record.task.startsWith('T002') ? `Работай в ветке janitor/${runId}.` : ''}${extra}\n`;
     writeFileSync(join(control, 'prompt.txt'), prompt);
     const sources = record.task.startsWith('T001') ? readFileSync(join(stagedWorkspace, 'sources.txt'), 'utf8').split('\n').map(x => x.replace(/\s+#.*$/, '').trim()).filter(Boolean) : [];
-    writeFileSync(join(control, 'network.json'), JSON.stringify({ connect_domains: [...new Set([...selectedProvider.connect_domains, ...(record.task.startsWith('T002') ? ['registry.npmjs.org'] : [])])], sources }, null, 2) + '\n');
+    writeFileSync(join(control, 'network.json'), JSON.stringify({ connect_domains: [...new Set([...selectedProvider.connect_domains, ...(!local && record.task.startsWith('T002') ? ['registry.npmjs.org'] : [])])], sources }, null, 2) + '\n');
     if (sourceArchive && !record.task.startsWith('T001')) throw new Error('Source archives apply only to T001');
     if (sourceArchive) {
       const archive = readFileSync(sourceArchive, 'utf8');
@@ -54,6 +66,11 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     const coordinator = join(inputs, 'coordinator'); mkdirSync(coordinator);
     for (const file of ['prepare-run.mjs','run.mjs','judge-run.mjs','compare.mjs']) copyFileSync(join(root, 'scripts', file), join(coordinator, file));
     copyTree(join(root, 'scripts/lib'), join(coordinator, 'lib'));
+    if(local) {
+      copyTree(join(root,'experiments/common'),join(inputs,'coordinator-common'));
+      const native=join(inputs,'coordinator-common/local-runtime.mjs');
+      writeFileSync(native,readFileSync(native,'utf8').replace("'../../scripts/lib/local-inference.mjs'","'../coordinator/lib/local-inference.mjs'"));
+    }
     copyFileSync(join(root, 'results/schema.json'), join(coordinator, 'schema.json'));
     const manifest = { version: 1, seed_commit: seedCommit, source_mode: record.task.startsWith('T001') ? (sourceArchive ? 'replay' : 'live') : 'none', source_archive_sha256: sourceArchive ? sha256(readFileSync(sourceArchive)) : null, task: record.task, harness: record.harness.name, provider: selectedProvider.name, model_policy: profile.model_policy, variant, files: inventory(inputs), workspace: inventory(stagedWorkspace) };
     const manifestText = JSON.stringify(manifest, null, 2) + '\n'; writeFileSync(join(inputs, 'manifest.json'), manifestText);
@@ -70,6 +87,10 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
       { component: 'Sealed provider profile, credentials and model selection policy', kind: 'walls', ledger: 'L016' },
       { component: 'Pinned CLI adapter and explicit configuration', kind: 'words', ledger: profile.ledger },
     ];
+    if(local) {
+      record.local_inference={schema_version:1,deployment_sha256:sha256(deploymentText),fingerprint:fingerprint(deployment),deployment,observed:null};
+      record.harness_changes.push({component:'Isolated local broker and native Pi transport',kind:'walls',ledger:'L024'},{component:'Sealed local deployment identity and compare grouping',kind:'walls',ledger:'L025'});
+    }
     record.model.provider = selectedProvider.name;
     record.model.selection = profile.model_policy;
     record.model.lock = profile.model_policy === 'managed';
@@ -81,4 +102,4 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     return record;
   } finally { rmSync(staging, { recursive: true, force: true }); rmSync(lock, { recursive: true, force: true }); }
 }
-if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main(() => { const a = args(); options(a, ['run','variant','as-of','source-archive','provider'], ['run']); const r = prepareRun(process.cwd(), a.run, { variant: a.variant, asOf: a['as-of'], sourceArchive: a['source-archive'], provider: a.provider }); console.log(`[prepare] ${r.run_id}: ${r.status}`); });
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main(() => { const a = args(); options(a, ['run','variant','as-of','source-archive','provider','local-deployment'], ['run']); const r = prepareRun(process.cwd(), a.run, { variant: a.variant, asOf: a['as-of'], sourceArchive: a['source-archive'], provider: a.provider, localDeployment: a['local-deployment'] }); console.log(`[prepare] ${r.run_id}: ${r.status}`); });

@@ -17,13 +17,17 @@ export function validateProfile(profile, expectedId) {
   if (!Array.isArray(profile.version_command) || !profile.version_command.length || profile.version_command.some(arg => typeof arg !== 'string' || !arg || arg.includes('\0'))) throw new Error('Harness requires a version command');
   if (!object(profile.providers) || !Object.hasOwn(profile.providers, profile.default_provider)) throw new Error('Invalid default provider');
   for (const [name, provider] of Object.entries(profile.providers)) {
-    if (!segment(name) || !object(provider) || !Array.isArray(provider.credential_env) || !provider.credential_env.length || provider.credential_env.some(key => !/^[A-Z][A-Z0-9_]*$/.test(key))) throw new Error('Invalid provider credentials');
+    if (!segment(name) || !object(provider) || !Array.isArray(provider.credential_env) || (name !== 'local' && !provider.credential_env.length) || provider.credential_env.some(key => !/^[A-Z][A-Z0-9_]*$/.test(key))) throw new Error('Invalid provider credentials');
+    if (name === 'local') {
+      if (profile.id !== 'pi' || provider.transport !== 'local-broker-v1' || provider.credential_env.length || !Array.isArray(provider.connect_domains) || provider.connect_domains.length || provider.model_prefix !== 'local/') throw new Error('Invalid isolated local provider policy');
+      continue;
+    }
     if (!Array.isArray(provider.connect_domains) || !provider.connect_domains.length || provider.connect_domains.some(host => !/^[a-z0-9]+(?:[.-][a-z0-9]+)*\.[a-z]{2,}$/.test(host))) throw new Error('Provider needs exact DNS hostnames, never wildcards');
     if (typeof provider.model_prefix !== 'string') throw new Error('Provider needs an explicit model prefix');
   }
   if (!Array.isArray(profile.config_files) || profile.config_files.some(file => !object(file) || !relativeFile(file.source) || !relativeFile(file.target))) throw new Error('Unsafe harness config path');
   if (!Array.isArray(profile.runtime_files) || profile.runtime_files.some(file => !relativeFile(file))) throw new Error('Unsafe runtime file path');
-  const targets = ['adapter.mjs','harness.json','entrypoint.mjs','egress.mjs','prompt.txt','network.json','launch.json','sources.replay.jsonl', ...profile.config_files.map(file=>file.target), ...profile.runtime_files];
+  const targets = ['adapter.mjs','harness.json','entrypoint.mjs','egress.mjs','prompt.txt','network.json','launch.json','sources.replay.jsonl','local-deployment.json','local-broker.mjs','local-inference.mjs', ...profile.config_files.map(file=>file.target), ...profile.runtime_files];
   if (new Set(targets).size !== targets.length) throw new Error('Harness files collide with coordinator files');
   if (!object(profile.budget) || !['hard','observed'].includes(profile.budget.usd) || !['hard','advisory','unavailable'].includes(profile.budget.turns)) throw new Error('Unknown harness budget capability');
   return profile;

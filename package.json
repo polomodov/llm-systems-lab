@@ -14,7 +14,7 @@
     "run": "node scripts/run.mjs",
     "judge-run": "node scripts/judge-run.mjs",
     "compare": "node scripts/compare.mjs",
-    "test": "node --test tests/*.test.mjs experiments/*/adapter.test.mjs",
+    "test": "node --test tests/*.test.mjs experiments/*/adapter.test.mjs experiments/common/*.test.mjs",
     "test:docker": "HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs",
     "evaluation-template": "node scripts/evaluation-template.mjs",
     "harnesses": "node scripts/harnesses.mjs",
@@ -23,6 +23,7 @@
     "labs": "node scripts/labs.mjs",
     "lab:new": "node scripts/new-lab.mjs",
     "lab:check": "node scripts/check-lab.mjs",
-    "lab:practice": "node scripts/lab-practice.mjs"
+    "lab:practice": "node scripts/lab-practice.mjs",
+    "test:local-docker": "HARNESS_LOCAL_DOCKER_TEST=1 node --test tests/local-docker.test.mjs"
   }
 }

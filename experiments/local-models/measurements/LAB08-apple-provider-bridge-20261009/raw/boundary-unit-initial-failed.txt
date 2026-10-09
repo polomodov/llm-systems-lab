@@ -1,0 +1,36 @@
+✔ B01 bridge preserves fragmented streaming tool call and tool-result round trip (22.992083ms)
+✖ B02/B03 forbidden destination fields, Host, admin/query paths and control access never reach upstream (105.222792ms)
+✔ B03/B04 upstream redirect never invokes other destination or cloud fallback (106.300625ms)
+✔ B05 invalid JSON yields bounded failure (2.865666ms)
+✔ B05 truncated SSE yields bounded failure (3.58625ms)
+✔ B05 oversized response yields bounded failure (7.42725ms)
+✔ B05 4xx yields bounded failure (3.212833ms)
+✔ B05 5xx yields bounded failure (105.624709ms)
+✔ B06 deadline and disconnect cancel upstream without stopping shared mock service (809.88975ms)
+✔ B07 weights/template/backend/context change fingerprints and corrupt record is rejected (1.445333ms)
+✔ B08 missing primary usage stays null; stream with wrong alias is rejected (0.631ms)
+✔ B09 artifact tamper rejects pre-start identity (2.685167ms)
+✔ B02 private/LAN/IPv6 deployment endpoints are rejected before worker connection (0.183875ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1234.36225
+
+✖ failing tests:
+
+test at experiments/common/local-bridge.test.mjs:26:1
+✖ B02/B03 forbidden destination fields, Host, admin/query paths and control access never reach upstream (105.222792ms)
+  TypeError: Invalid URL
+      at new URL (node:internal/url:840:25)
+      at requestLocal (file:///Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/common/local-runtime.mjs:11:11)
+      at TestContext.<anonymous> (file:///Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/common/local-bridge.test.mjs:29:142)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    code: 'ERR_INVALID_URL',
+    input: 'http://127.0.0.1:62309http://192.168.1.2:9000/v1/chat/completions'
+  }

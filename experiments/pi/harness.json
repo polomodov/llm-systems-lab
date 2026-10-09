@@ -1,10 +1,48 @@
 {
-  "schema_version": 1, "id": "pi", "version": "0.73.1", "ledger": "L011", "model_policy": "explicit", "mode": "sdk",
+  "schema_version": 1,
+  "id": "pi",
+  "version": "0.73.1",
+  "ledger": "L011",
+  "model_policy": "explicit",
+  "mode": "sdk",
   "default_provider": "anthropic",
   "providers": {
-    "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" },
-    "openai": { "credential_env": ["OPENAI_API_KEY"], "connect_domains": ["api.openai.com"], "model_prefix": "openai/" }
+    "anthropic": {
+      "credential_env": [
+        "ANTHROPIC_API_KEY"
+      ],
+      "connect_domains": [
+        "api.anthropic.com"
+      ],
+      "model_prefix": "anthropic/"
+    },
+    "openai": {
+      "credential_env": [
+        "OPENAI_API_KEY"
+      ],
+      "connect_domains": [
+        "api.openai.com"
+      ],
+      "model_prefix": "openai/"
+    },
+    "local": {
+      "credential_env": [],
+      "connect_domains": [],
+      "model_prefix": "local/",
+      "transport": "local-broker-v1"
+    }
   },
-  "version_command": ["node", "-p", "require('/opt/pi/node_modules/@mariozechner/pi-coding-agent/package.json').version"], "config_files": [], "runtime_files": ["run.mjs"],
-  "budget": { "usd": "observed", "turns": "hard" }
+  "version_command": [
+    "node",
+    "-p",
+    "require('/opt/pi/node_modules/@mariozechner/pi-coding-agent/package.json').version"
+  ],
+  "config_files": [],
+  "runtime_files": [
+    "run.mjs"
+  ],
+  "budget": {
+    "usd": "observed",
+    "turns": "hard"
+  }
 }
