@@ -1,2 +1,2 @@
-observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
 gpt-oss-20b-bytes	gpt-oss-20b-verify	openai/gpt-oss-20b	sha256sum	-		1	file_bytes	12109566624	B	measured	raw/verification.json	

@@ -45,7 +45,10 @@
   ],
   "unavailable": {
     "conditions.harness_profile": "LAB05 не использует обвязку.",
-    "completion": "Не все контексты прошли; см. attempts."
+    "completion": "Не все контексты прошли; см. attempts.",
+    "measurements": "Числовых наблюдений нет: ветвь не дошла до измерений."
   },
-  "conclusion": "no context completed"
+  "conclusion": "no context completed",
+  "hypothesis": "gemma4-31b-it на HIP llama.cpp b8407 проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.",
+  "reviewer_decision": null
 }

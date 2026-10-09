@@ -47,5 +47,7 @@
     "conditions.runtime_manifest": "LAB03 не запускает runtime.",
     "conditions.harness_profile": "LAB03 не использует обвязку."
   },
-  "conclusion": "Проверка ggml-org/gpt-oss-20b-GGUF@ef9b12f2ff56c69cf32153a02784e7a3c88bf524: verified."
+  "conclusion": "Проверка ggml-org/gpt-oss-20b-GGUF@ef9b12f2ff56c69cf32153a02784e7a3c88bf524: verified.",
+  "hypothesis": "Локальная копия артефакта gpt-oss-20b совпадает с публикацией по размеру и SHA-256.",
+  "reviewer_decision": null
 }

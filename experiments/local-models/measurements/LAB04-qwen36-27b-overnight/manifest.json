@@ -181,5 +181,7 @@
   "unavailable": {
     "conditions.harness_profile": "LAB04 не использует обвязку."
   },
-  "conclusion": "qwen36-27b: offload GPU/CPU Vulkan 65/0, HIP 65/0. pp2048 median Vulkan 255.63, HIP 283.01 t/s. tg128@4096 median Vulkan 10.71, HIP 10.28 t/s. RSS Vulkan 19235348 KiB, HIP 19372688 KiB."
+  "conclusion": "qwen36-27b: offload GPU/CPU Vulkan 65/0, HIP 65/0. pp2048 median Vulkan 255.63, HIP 283.01 t/s. tg128@4096 median Vulkan 10.71, HIP 10.28 t/s. RSS Vulkan 19235348 KiB, HIP 19372688 KiB.",
+  "hypothesis": "Один GGUF qwen36-27b полностью выгружается на GPU в обеих prebuilt-сборках llama.cpp b8407 (Vulkan/RADV и ROCm/HIP); backend влияет на скорость prefill/decode.",
+  "reviewer_decision": null
 }

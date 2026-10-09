@@ -1,4 +1,4 @@
-observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
 gpt-oss-20b-vulkan-pp-r1	gpt-oss-20b-vulkan	openai/gpt-oss-20b	llama.cpp b8407	vulkan		1	pp2048_avg_ts	1088.783296	tokens/s	measured	raw/vulkan-r1-pp.json	
 gpt-oss-20b-vulkan-tg-r1	gpt-oss-20b-vulkan	openai/gpt-oss-20b	llama.cpp b8407	vulkan		1	tg128_d4096_avg_ts	75.416249	tokens/s	measured	raw/vulkan-r1-tg.json	
 gpt-oss-20b-vulkan-pp-r2	gpt-oss-20b-vulkan	openai/gpt-oss-20b	llama.cpp b8407	vulkan		2	pp2048_avg_ts	1087.028376	tokens/s	measured	raw/vulkan-r2-pp.json	

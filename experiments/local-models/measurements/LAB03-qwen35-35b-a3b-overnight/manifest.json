@@ -47,5 +47,7 @@
     "conditions.runtime_manifest": "LAB03 не запускает runtime.",
     "conditions.harness_profile": "LAB03 не использует обвязку."
   },
-  "conclusion": "Проверка unsloth/Qwen3.5-35B-A3B-GGUF@bc014a17be43adabd7066b7a86075ff935c6a4e2: verified."
+  "conclusion": "Проверка unsloth/Qwen3.5-35B-A3B-GGUF@bc014a17be43adabd7066b7a86075ff935c6a4e2: verified.",
+  "hypothesis": "Локальная копия артефакта qwen35-35b-a3b совпадает с публикацией по размеру и SHA-256.",
+  "reviewer_decision": null
 }

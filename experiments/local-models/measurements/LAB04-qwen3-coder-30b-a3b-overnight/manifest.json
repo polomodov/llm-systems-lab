@@ -181,5 +181,7 @@
   "unavailable": {
     "conditions.harness_profile": "LAB04 не использует обвязку."
   },
-  "conclusion": "qwen3-coder-30b-a3b: offload GPU/CPU Vulkan 49/0, HIP 49/0. pp2048 median Vulkan 761.10, HIP 458.88 t/s. tg128@4096 median Vulkan 66.85, HIP 41.55 t/s. RSS Vulkan 21361700 KiB, HIP 21526892 KiB."
+  "conclusion": "qwen3-coder-30b-a3b: offload GPU/CPU Vulkan 49/0, HIP 49/0. pp2048 median Vulkan 761.10, HIP 458.88 t/s. tg128@4096 median Vulkan 66.85, HIP 41.55 t/s. RSS Vulkan 21361700 KiB, HIP 21526892 KiB.",
+  "hypothesis": "Один GGUF qwen3-coder-30b-a3b полностью выгружается на GPU в обеих prebuilt-сборках llama.cpp b8407 (Vulkan/RADV и ROCm/HIP); backend влияет на скорость prefill/decode.",
+  "reviewer_decision": null
 }

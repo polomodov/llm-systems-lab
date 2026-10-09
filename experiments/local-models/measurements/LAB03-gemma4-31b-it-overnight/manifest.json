@@ -47,5 +47,7 @@
     "conditions.runtime_manifest": "LAB03 не запускает runtime.",
     "conditions.harness_profile": "LAB03 не использует обвязку."
   },
-  "conclusion": "Проверка unsloth/gemma-4-31B-it-GGUF@c1ac76e99d5513b141e8adde7288b85c3f9c32ec: verified."
+  "conclusion": "Проверка unsloth/gemma-4-31B-it-GGUF@c1ac76e99d5513b141e8adde7288b85c3f9c32ec: verified.",
+  "hypothesis": "Локальная копия артефакта gemma4-31b-it совпадает с публикацией по размеру и SHA-256.",
+  "reviewer_decision": null
 }

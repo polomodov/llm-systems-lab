@@ -1,0 +1,157 @@
+[
+  {
+    "id": "gpt-oss-20b",
+    "model_id": "openai/gpt-oss-20b",
+    "quantization": "MXFP4",
+    "artifact": {
+      "repository": "ggml-org/gpt-oss-20b-GGUF",
+      "revision": "ef9b12f2ff56c69cf32153a02784e7a3c88bf524",
+      "files": [
+        {
+          "path": "gpt-oss-20b-MXFP4.gguf",
+          "bytes": 12109566624,
+          "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901"
+        }
+      ],
+      "total_bytes": 12109566624,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 11.3,
+    "fit": "candidate"
+  },
+  {
+    "id": "qwen36-27b",
+    "model_id": "Qwen/Qwen3.6-27B",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "unsloth/Qwen3.6-27B-GGUF",
+      "revision": "82d411acf4a06cfb8d9b073a5211bf410bfc29bf",
+      "files": [
+        {
+          "path": "Qwen3.6-27B-Q5_K_M.gguf",
+          "bytes": 19509790944,
+          "sha256": "cfecab168156269f25d5ffe9e13cf2a401ca2f43a9693fa00bcd1625316ccbde"
+        }
+      ],
+      "total_bytes": 19509790944,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 18.2,
+    "fit": "candidate"
+  },
+  {
+    "id": "gemma4-31b-it",
+    "model_id": "google/gemma-4-31B-it",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "unsloth/gemma-4-31B-it-GGUF",
+      "revision": "c1ac76e99d5513b141e8adde7288b85c3f9c32ec",
+      "files": [
+        {
+          "path": "gemma-4-31B-it-Q5_K_M.gguf",
+          "bytes": 21658401728,
+          "sha256": "95192e41190ef5eb72db92b669cea0ed733049c2265a03a64ac5a080d8605958"
+        }
+      ],
+      "total_bytes": 21658401728,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 20.2,
+    "fit": "candidate"
+  },
+  {
+    "id": "qwen3-coder-30b-a3b",
+    "model_id": "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF",
+      "revision": "b17cb02dd882d5b6ab62fc777ad2995f19668350",
+      "files": [
+        {
+          "path": "Qwen3-Coder-30B-A3B-Instruct-Q5_K_M.gguf",
+          "bytes": 21725584544,
+          "sha256": "4b78837bbec5ee248e4a5642bf608b6793721af41b92589e40c8da0bce58b907"
+        }
+      ],
+      "total_bytes": 21725584544,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 20.3,
+    "fit": "candidate"
+  },
+  {
+    "id": "qwen35-35b-a3b",
+    "model_id": "Qwen/Qwen3.5-35B-A3B",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "unsloth/Qwen3.5-35B-A3B-GGUF",
+      "revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+      "files": [
+        {
+          "path": "Qwen3.5-35B-A3B-Q5_K_M.gguf",
+          "bytes": 26249607808,
+          "sha256": "93198787ca7744a813f437317ff086b9abeb3f6fabbd5fa5702aa893fa315d89"
+        }
+      ],
+      "total_bytes": 26249607808,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 24.5,
+    "fit": "candidate"
+  },
+  {
+    "id": "glm-47-flash",
+    "model_id": "zai-org/GLM-4.7-Flash",
+    "quantization": "Q8_0",
+    "artifact": {
+      "repository": "ggml-org/GLM-4.7-Flash-GGUF",
+      "revision": "7559e96b7e324ab405897dc2b91492b0f376ad4a",
+      "files": [
+        {
+          "path": "GLM-4.7-Flash-Q8_0.gguf",
+          "bytes": 31842799232,
+          "sha256": "35ad96a0d4efd05a99045adb13a18c21a5be858726d9c2c5773406cd25909fd3"
+        }
+      ],
+      "total_bytes": 31842799232,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 29.7,
+    "fit": "candidate"
+  },
+  {
+    "id": "qwen3-coder-next",
+    "model_id": "Qwen/Qwen3-Coder-Next",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "Qwen/Qwen3-Coder-Next-GGUF",
+      "revision": "b82fb7382639d97b38fa7672e526c760c2fb358e",
+      "files": [
+        {
+          "path": "Qwen3-Coder-Next-Q5_K_M/Qwen3-Coder-Next-Q5_K_M-00001-of-00004.gguf",
+          "bytes": 17813589920,
+          "sha256": "d68162877891c4ba309c8601a69721ecfc7be2091ad99e8175a078ae59decdd3"
+        },
+        {
+          "path": "Qwen3-Coder-Next-Q5_K_M/Qwen3-Coder-Next-Q5_K_M-00002-of-00004.gguf",
+          "bytes": 17479501728,
+          "sha256": "3da1a3fda1061009126eb48c7098221653ab63e0a266d3b6d04f5eac3ae9aa74"
+        },
+        {
+          "path": "Qwen3-Coder-Next-Q5_K_M/Qwen3-Coder-Next-Q5_K_M-00003-of-00004.gguf",
+          "bytes": 17226413600,
+          "sha256": "df60c7a55c6e118d4984a829b74df6b9e863dcea749ee7dc25ab5e72913624e1"
+        },
+        {
+          "path": "Qwen3-Coder-Next-Q5_K_M/Qwen3-Coder-Next-Q5_K_M-00004-of-00004.gguf",
+          "bytes": 4190867520,
+          "sha256": "777ac63a6f94272934996b1cfd7e5619c6804e8580ec4e00311d2a465e298c6a"
+        }
+      ],
+      "total_bytes": 56710372768,
+      "checksum_status": "publisher_metadata_not_download_verified"
+    },
+    "weights_gib": 52.9,
+    "fit": "candidate"
+  }
+]

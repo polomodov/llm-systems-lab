@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "gemma4-31b-it-overnight",
   "created_at": "2026-10-08T18:48:30Z",
-  "status": "in_progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "overnight campaign",
   "protocol_recorded_at": "2026-10-08T18:48:30Z",
@@ -17,12 +17,27 @@
     "harness_profile": null
   },
   "run_ids": [],
-  "planned_attempts": [],
+  "planned_attempts": [
+    {
+      "id": "gemma4-31b-it-aborted",
+      "configuration_id": "gemma4-31b-it-aborted",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "Недоступно/прервано в ночной кампании."
+    }
+  ],
   "evidence_files": [
     "raw/protocol.md"
   ],
   "unavailable": {
-    "conditions.harness_profile": "LAB04 не использует обвязку."
+    "conditions.harness_profile": "LAB04 не использует обвязку.",
+    "completion": "Прогон прерван/не завершён; см. experiments/local-models/campaign/overnight-repair-plan.md",
+    "measurements": "Числовых наблюдений нет: ветвь не дошла до измерений."
   },
-  "conclusion": null
+  "conclusion": "Сессия заблокирована: см. attempts и unavailable.completion.",
+  "hypothesis": "Один GGUF gemma4-31b-it полностью выгружается на GPU в обеих prebuilt-сборках llama.cpp b8407 (Vulkan/RADV и ROCm/HIP); backend влияет на скорость prefill/decode.",
+  "reviewer_decision": null
 }

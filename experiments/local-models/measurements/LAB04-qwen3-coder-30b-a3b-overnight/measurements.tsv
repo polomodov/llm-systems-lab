@@ -1,4 +1,4 @@
-observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
 qwen3-coder-30b-a3b-vulkan-pp-r1	qwen3-coder-30b-a3b-vulkan	Qwen/Qwen3-Coder-30B-A3B-Instruct	llama.cpp b8407	vulkan		1	pp2048_avg_ts	764.63338	tokens/s	measured	raw/vulkan-r1-pp.json	
 qwen3-coder-30b-a3b-vulkan-tg-r1	qwen3-coder-30b-a3b-vulkan	Qwen/Qwen3-Coder-30B-A3B-Instruct	llama.cpp b8407	vulkan		1	tg128_d4096_avg_ts	66.854795	tokens/s	measured	raw/vulkan-r1-tg.json	
 qwen3-coder-30b-a3b-vulkan-pp-r2	qwen3-coder-30b-a3b-vulkan	Qwen/Qwen3-Coder-30B-A3B-Instruct	llama.cpp b8407	vulkan		2	pp2048_avg_ts	761.102455	tokens/s	measured	raw/vulkan-r2-pp.json	

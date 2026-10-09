@@ -163,5 +163,7 @@
     "conditions.harness_profile": "LAB05 не использует обвязку.",
     "completion": "Не все контексты прошли; см. attempts."
   },
-  "conclusion": "ctx8192: 4/8; ctx16384: 4/8; ctx32768: 4/8"
+  "conclusion": "ctx8192: 4/8; ctx16384: 4/8; ctx32768: 4/8",
+  "hypothesis": "qwen36-27b на HIP llama.cpp b8407 проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.",
+  "reviewer_decision": null
 }
