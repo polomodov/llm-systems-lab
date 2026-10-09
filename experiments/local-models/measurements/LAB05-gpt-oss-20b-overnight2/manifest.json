@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB05",
+  "harness_id": null,
+  "session_id": "gpt-oss-20b-overnight2",
+  "created_at": "2026-10-09T08:40:40Z",
+  "status": "in_progress",
+  "evidence_class": "experimental",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-09T08:40:40Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gpt-oss-20b-overnight/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB04-gpt-oss-20b-overnight/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "hypothesis": "gpt-oss-20b на HIP llama.cpp b8407 проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.",
+  "unavailable": {
+    "conditions.harness_profile": "LAB05 не использует обвязку."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
