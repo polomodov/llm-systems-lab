@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+    "-B",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB34-apple-sustained-resume-20261009/raw/concurrency_driver.py",
+    "--endpoint",
+    "http://127.0.0.1:18080/v1/chat/completions",
+    "--request",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB34-apple-sustained-resume-20261009/raw/load-request.json",
+    "--concurrency",
+    "1",
+    "--requests",
+    "12",
+    "--timeout",
+    "300",
+    "--out",
+    "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB34-apple-sustained-resume-20261009/raw/sustained/block-0001"
+  ],
+  "started_at": "2026-10-09T16:50:27.057733+00:00",
+  "ended_at": "2026-10-09T16:59:42.578200+00:00",
+  "exit_code": 0,
+  "accepted": true,
+  "guard_reason": null,
+  "summary": "raw/sustained/block-0001/summary.json"
+}

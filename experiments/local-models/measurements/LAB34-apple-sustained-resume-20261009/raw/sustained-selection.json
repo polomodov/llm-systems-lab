@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-09T16:50:27.056949+00:00",
+  "concurrency": 1,
+  "median_short_requests_per_second": {
+    "1": 0.02727911975210029,
+    "2": 0.026974493264759328,
+    "4": 0.027440854085509475
+  },
+  "rule": "lowest passing concurrency within 95% of maximum median short throughput",
+  "planned_seconds": 1800,
+  "server_slots_unchanged": 1,
+  "matrix_sessions": [
+    "apple-load-complete-20261008",
+    "apple-load-power-retry-20261009"
+  ],
+  "sustained_session": "apple-sustained-resume-20261009"
+}
