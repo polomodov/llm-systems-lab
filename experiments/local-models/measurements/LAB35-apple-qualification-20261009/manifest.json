@@ -489,7 +489,9 @@
     "gpu_budget_gib": "Maximum allocation not measured.",
     "energy": "Not measured.",
     "temperature": "No verified thermal collector.",
-    "ttft": "Non-streaming."
+    "ttft": "Non-streaming.",
+    "completion": "HTTP driver path failed before any request; paired/agent minimum not performed.",
+    "measurements": "No HTTP request was sent; startup/shutdown evidence is preserved without invented latency."
   },
   "conclusion": "Preparation stop: HTTP driver path missing, no HTTP request sent; standard Metal model load/offload and clean shutdown recorded. Retry uses separate session.",
   "reviewer_decision": null

@@ -1,7 +1,7 @@
 """Offline LAB35 checks: shared driver path and immutable input admission."""
 import importlib.util,json,pathlib,shutil,sys,tempfile,unittest
 from unittest.mock import Mock,patch
-ROOT=pathlib.Path(__file__).resolve().parent/'measurements/LAB35-apple-qualification-retry-20261009'
+ROOT=pathlib.Path(__file__).resolve().parent/'measurements/LAB35-apple-http-preregistered-20261009'
 raw=ROOT/'raw'
 rs=importlib.util.spec_from_file_location('resources',raw/'resources.py');resources=importlib.util.module_from_spec(rs);rs.loader.exec_module(resources)
 spec=importlib.util.spec_from_file_location('lab35_qualification',raw/'run_qualification.py');module=importlib.util.module_from_spec(spec)
@@ -20,6 +20,16 @@ class Qualification(unittest.TestCase):
             self.assertTrue(pathlib.Path(command[2]).is_file())
             self.assertEqual(command[command.index('--request')+1],str(target/'chat-request.json'))
             self.assertEqual(command[command.index('--requests')+1],'1')
+
+    def test_all_registered_inputs_pass_actual_driver_validation(self):
+        ds=importlib.util.spec_from_file_location('qualification_driver',raw/'concurrency_driver.py')
+        driver=importlib.util.module_from_spec(ds);ds.loader.exec_module(driver)
+        for variant in ['', 'metal-standard', 'metal-tensor']:
+            for fixture in ['chat','load']:
+                with self.subTest(variant=variant,fixture=fixture):
+                    value=json.loads(driver.load_request(raw/variant/(fixture+'-request.json')))
+                    self.assertEqual(value['model'],'lab-model')
+                    self.assertNotIn('chat_template_kwargs',value)
 
     def test_changed_input_stops_before_any_native_campaign(self):
         with tempfile.TemporaryDirectory() as temporary:

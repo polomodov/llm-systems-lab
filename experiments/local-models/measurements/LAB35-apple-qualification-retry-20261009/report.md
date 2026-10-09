@@ -1,6 +1,6 @@
 # LAB35 — квалификация Mac и готовность сравнения с Ryzen
 
-Сессия apple-qualification-retry-20261009. Статус **in-progress**, новый инференс ещё не начат.
+Сессия apple-qualification-retry-20261009. Статус **blocked**, HTTP-запрос не был отправлен.
 
 ## Паспорт выполнения
 
@@ -33,3 +33,7 @@ Apple M5 Max, 128 GiB, macOS26.5/arm64. Два отдельных llama.cpp b840
 ## Комплект сдачи
 
 Manifest/protocol/conditions/source references подготовлены до исполнения. Все failures/not-run сохраняются. Submission оформляется после квалификации; structural ready_for_review не заменяет критерии LAB35.
+
+## Второй подготовительный stop
+
+Standard startup/offload33/33 и normal cleanup exit0/один SIGINT подтверждены. Driver отклонил chat_template_kwargs до HTTP: unsupported extension в bounded request schema. Первичных responses/usage/latency нет; 3completed/1failed/33not-run. Исправление server/body и настоящий client preflight зарегистрированы в отдельной apple-http-preregistered-20261009; прежние raw bytes не изменены.
