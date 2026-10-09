@@ -600,6 +600,43 @@
     },
     "notes": {
       "type": "string"
+    },
+    "local_inference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "schema_version",
+        "deployment_sha256",
+        "fingerprint",
+        "deployment",
+        "observed"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "type": "integer",
+          "enum": [1]
+        },
+        "deployment_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "fingerprint": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "deployment": {
+          "type": "object"
+        },
+        "observed": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
     }
   }
 }

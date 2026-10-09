@@ -71,3 +71,11 @@ judge-run проверяет целостность входов/результ�
 Baseline передаёт спецификацию и контракт. `without-spec` убирает текст спецификации из prompt; границы остаются. Естественные файлы аудируемого репозитория T003 не удаляются этим вариантом. Остальные виды абляции пока не реализованы: при добавлении потребуется отдельный фиксируемый вариант и строка реестра.
 
 После каждой серии заполнить `experiments/<harness>/NOTES.md`: run IDs, условия, что понадобилось добавить, что было заблокировано, что можно удалить. Реестр хранит компонент, предположение или границу, доказательство, дату/модель, триггер и режим владения. Статус подтверждена требует реальных завершённых прогонов до/после. При неизменном результате после удаления компонент становится кандидатом на удаление; границы не удаляются из абляции.
+
+### Версионированная локальная конфигурация (LAB08)
+
+Первый local provider поддержан только Pi / T002 / контролируемый native llama.cpp Metal на допущенном Mac. Prepare принимает `--local-deployment` и запечатывает manifest в inputs. Дополнительное поле `local_inference` записи имеет собственный `schema_version=1`, `deployment_sha256`, canonical `fingerprint`, полный `deployment` и `observed` proof контролируемого процесса. Старые cloud записи schema_version=1 валидируются без этого поля; ручной миграции старых runs нет.
+
+Fingerprint включает weights/revision/bytes/hashes/quant, tokenizer/template, engine/backend/build pins, hardware/OS/power и весь protocol/context/output/KV/cache/tools. Compare добавляет его к conditions только для local. Observed alias основан на собственном PID, проверке файлов до Popen и props/template до/после запросов, а не на SDK metadata. Primary HTTP usage хранится отдельно от SDK trace; его отсутствие даёт null с причиной. Нулевые SDK prices не доказывают нулевую стоимость железа/электричества.
+
+Bridge сохраняет internal сеть агента; доверенный broker с dual network публикует только host control listener на loopback и не выполняет CONNECT. Native host-worker выбирает единственный sealed loopback endpoint. В первой реализации SSE буферизуется до finish/DONE: tool round-trip проверяем, TTFT неизвестен. Общий source gateway и T001 replay остаются прежними для cloud; local T001/T003 требуют отдельной приёмки.

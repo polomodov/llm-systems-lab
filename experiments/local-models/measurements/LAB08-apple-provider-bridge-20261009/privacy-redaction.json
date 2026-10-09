@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/boundary-unit-initial-failed.txt",
+      "original_sha256": "7da717dac5e7caa061e477a0083b3a91ff095877f948ebcc53573aa9f6cd6c92",
+      "published_sha256": "d8970977243eae6e386a967a8cb53ae04e8f9152819bcaff4c3d415d1030f7f5",
+      "original_bytes": 2053,
+      "published_bytes": 2039
+    },
+    {
+      "path": "raw/deployment.json",
+      "original_sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94",
+      "published_sha256": "85ae69768d62c05acd328e60c9e7a8f00722cb838eb1dd1f4055c026f3012f22",
+      "original_bytes": 9207,
+      "published_bytes": 9025
+    },
+    {
+      "path": "raw/docker-local-initial-failed.txt",
+      "original_sha256": "ada34c11a3be5b8b7693cf947f6b5f339f8871488b113f9c27d1ea9ee710fdab",
+      "published_sha256": "37eafb7b5a8d1901ac28020f8071389f71667922a72b9aa28d354213014e1757",
+      "original_bytes": 1257,
+      "published_bytes": 1243
+    },
+    {
+      "path": "raw/docker-local-sdk-initial-failed.txt",
+      "original_sha256": "9376f343a693af9ebc0e1d27bab75d082ce345c5e1db382f5c45e2e6d210b014",
+      "published_sha256": "27c1432c45279e99205bf825d035c9d247c0cf235af8c891a82587dccd043486",
+      "original_bytes": 3351,
+      "published_bytes": 3344
+    }
+  ]
+}

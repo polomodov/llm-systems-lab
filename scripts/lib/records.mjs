@@ -1,3 +1,4 @@
+import { localRecordErrors } from './local-inference.mjs';
 import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
@@ -97,6 +98,7 @@ export function validateRun(record, { root, folderName } = {}) {
   const errors = [];
   validateSchema(record, schema, "run", errors);
   if (!isObject(record)) return errors;
+  errors.push(...localRecordErrors(record).map(error=>'run.local_inference: '+error));
   if (folderName && record.run_id !== folderName) errors.push("run.run_id: must match directory name");
   if (typeof record.run_id === "string" && record.date && !record.run_id.startsWith(`${record.date}-`)) errors.push("run.date: must match run_id date");
   const attemptedAbort = record.status === "aborted" && record.execution?.started_at != null;

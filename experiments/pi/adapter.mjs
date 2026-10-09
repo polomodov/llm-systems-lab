@@ -10,7 +10,7 @@ export function resolveModel(registry, provider, model) {
   throw new Error(`Pi registry does not contain exact model or OpenAI snapshot family ${provider}/${model}`);
 }
 export function buildCommand({ model, provider = 'anthropic', turns, budget, prompt }) {
-  if (!['anthropic', 'openai'].includes(provider)) throw new Error('Pi: unsupported provider');
+  if (!['anthropic', 'openai','local'].includes(provider)) throw new Error('Pi: unsupported provider');
   if (typeof model !== 'string' || !model.trim() || model.includes('/')) throw new Error('Pi: exact unprefixed model ID required');
   if (typeof prompt !== 'string' || !prompt.trim()) throw new Error('Pi: empty prompt');
   if (!Number.isInteger(turns) || turns <= 0) throw new Error('Pi: positive integer turns required');

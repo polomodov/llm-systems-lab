@@ -8,6 +8,7 @@ import { readRun, writeRun } from './lib/records.mjs';
 import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.mjs';
 import { validateProfile, selectProvider, selectModel } from './lib/harnesses.mjs';
 import { taskLimits } from './lib/contracts.mjs';
+import { localRecordErrors } from './lib/local-inference.mjs';
 import { args, options, main } from './lib/cli.mjs';
 export function docker(argv, { env = process.env, timeout = 120000 } = {}) {
   const result = spawnSync('docker', argv, { encoding: 'utf8', env, timeout, maxBuffer: 16 * 1024 * 1024 });
@@ -15,6 +16,7 @@ export function docker(argv, { env = process.env, timeout = 120000 } = {}) {
   return result.stdout.trim();
 }
 export function credentials(root, keys) {
+  if (!keys.length) return {};
   const path = join(root, '.env');
   if (!existsSync(path)) throw new Error(`Create .env with ${keys.join(', ')}; host credentials are not imported`);
   const lines = readFileSync(path, 'utf8').split(/\r?\n/), result = {};
@@ -54,7 +56,7 @@ export function containerArgs({ name, network, image, workspace, control, readOn
     ...credentialKeys.flatMap(key => ['--env', key]), '--env', 'DISABLE_TELEMETRY=1', '--env', 'CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1',
     '--entrypoint', 'node', image, '/control/entrypoint.mjs'];
 }
-async function execute(argv, { env, timeout, name, maxBytes = 32 * 1024 * 1024 }) {
+export async function execute(argv, { env, timeout, name, maxBytes = 32 * 1024 * 1024 }) {
   return new Promise(resolveResult => {
     const child = spawn('docker', argv, { env, stdio: ['ignore','pipe','pipe'] });
     const out = [], err = []; let bytes = 0, timedOut = false, interruption = null, outputLimit = false;
@@ -86,13 +88,18 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
   if (record.model.id && selectModel(profile, selectedProvider, record.model.id).recorded !== selectedModel.recorded) throw new Error('Requested model differs from the planned run');
   if (budgetMode === 'hard' && profile.budget.usd !== 'hard') throw new Error(`${profile.id} has no verified hard USD cap; use --budget-mode observed for exploratory runs`);
   const launch = { model: selectedModel.requested, provider: selectedProvider.name, turns: profile.budget.turns === 'unavailable' ? null : limits.turns, budget: budgetMode === 'hard' ? limits.budget : null, cwd: record.task.startsWith('T002') ? '/workspace/sample' : '/workspace' };
+  const local=selectedProvider.name==='local';
+  if(local && localRecordErrors(record).length)throw new Error(localRecordErrors(record).join('; '));
+  if(local) {const text=readFileSync(join(dir,'inputs/control/local-deployment.json'));if(sha256(text)!==record.local_inference.deployment_sha256 || JSON.stringify(JSON.parse(text))!==JSON.stringify(record.local_inference.deployment))throw new Error('Sealed deployment differs from local record');}
+  const localRuntime=local?await import(pathToFileURL(join(dir,'inputs/coordinator-common/local-runtime.mjs'))):null;
   adapter.buildCommand({ ...launch, prompt: readFileSync(join(dir,'inputs/control/prompt.txt'),'utf8') });
+  const capability=local?randomBytes(32).toString('hex'):null;
   const secrets = credentials(root, selectedProvider.credential_env), env = { ...process.env, ...secrets };
-  const secretValues = Object.values(secrets);
+  const secretValues = [...Object.values(secrets),...(capability?[capability]:[])];
   const redact = text => secretValues.reduce((out, secret) => out.replaceAll(secret, '[REDACTED]'), String(text));
   const lock = acquireLock(dir);
   const suffix = randomBytes(6).toString('hex'), network = `harness-lab-${suffix}`, proxy = `${network}-egress`, name = `${network}-agent`;
-  let started = false;
+  let started = false, native=null, worker=null;const localResponses=[];
   try {
     const imageId = docker(['image','inspect','--format','{{.Id}}',image]);
     const proxyId = docker(['image','inspect','--format','{{.Id}}',proxyImage]);
@@ -106,6 +113,10 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     writeFileSync(join(dir,'trace/harness-version.txt'), version + '\n');
     if (existsSync(control)) throw new Error('Runtime control already exists; inspect failed run before retrying');
     copyTree(join(dir,'inputs/control'), control); writeFileSync(join(control,'launch.json'), JSON.stringify(launch, null, 2) + '\n');
+    if(local) {
+      native=await localRuntime.startNative(record.local_inference.deployment,join(dir,'trace/local-native'));
+      record.local_inference.observed=native.proof;
+    }
     record.harness.version = exactVersion; record.harness.mode = profile.mode ?? 'cli'; record.model.id = selectedModel.recorded; record.model.provider = selectedProvider.name; record.model.selection = selectedModel.policy; record.model.lock = selectedModel.locked; record.model.observed_id = null; record.model.identity_evidence = 'request-only';
     record.permissions = { mode: 'container; harness-specific headless permissions; no interactive approvals', blocked: [], asked: null };
     record.sandbox = { kind: 'container', network: 'allowlist' };
@@ -116,10 +127,14 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     writeRun(root, record); started = true;
     docker(['network','create','--internal','--label','harness-lab=true',network]);
     mkdirSync(join(dir,'trace/network'), { recursive: true });
-    docker(['create','--name',proxy,'--label','harness-lab=true','--network','bridge','--user',`${process.getuid?.() ?? 1000}:${process.getgid?.() ?? 1000}`,'--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--memory','256m','--pids-limit','64','--mount',`type=bind,src=${control},dst=/control,readonly`,'--mount',`type=bind,src=${join(dir,'trace/network')},dst=/audit`,'--entrypoint','node',proxyId,'/control/egress.mjs']);
+    docker(['create','--name',proxy,'--label','harness-lab=true','--network','bridge',...(local?['--publish','127.0.0.1::8081','--env','LAB_BRIDGE_TOKEN']:[]),'--user',`${process.getuid?.() ?? 1000}:${process.getgid?.() ?? 1000}`,'--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--memory','256m','--pids-limit','64','--mount',`type=bind,src=${control},dst=/control,readonly`,'--mount',`type=bind,src=${join(dir,'trace/network')},dst=/audit`,'--entrypoint','node',proxyId,local?'/control/local-broker.mjs':'/control/egress.mjs'], {env:local?{...process.env,LAB_BRIDGE_TOKEN:capability}:process.env});
     docker(['network','connect','--alias','egress',network,proxy]); docker(['start',proxy]);
+    if(local) {
+      const mapping=docker(['port',proxy,'8081/tcp']);const match=/^127\.0\.0\.1:(\d+)$/.exec(mapping);if(!match)throw new Error('Broker control port must be published on IPv4 loopback only');
+      worker=localRuntime.startWorker('http://127.0.0.1:'+match[1],capability,record.local_inference.deployment,{verify:native.verify,trace:join(dir,'trace/inference'),audit:row=>localResponses.push(row)});
+    }
     // Readiness is bounded and independent of external network availability.
-    docker(['exec',proxy,'node','--input-type=module','-e',"for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0.1:8080/health')).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,100));}process.exit(1)"], { timeout: 10000 });
+    docker(['exec',proxy,'node','--input-type=module','-e',"for(let i=0;i<40;i++){try{if((await fetch('http://127.0.0.1:8080/health',{headers:{host:'egress:8080'}})).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,100));}process.exit(1)"], { timeout: 10000 });
     const begin = Date.now();
     const result = await execute(containerArgs({ name, network, image: imageId, workspace: join(dir,'workspace'), control, readOnlyWorkspace: !record.task.startsWith('T002'), uid: process.getuid?.() ?? 1000, gid: process.getgid?.() ?? 1000, credentialKeys: selectedProvider.credential_env, nativeCache: profile.native_cache === true }), { env, timeout, name });
     record.loop.wall_clock_s = Math.ceil((Date.now() - begin) / 1000);
@@ -131,11 +146,21 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     const parsed = adapter.parseTrace(stdout); Object.assign(record.loop, parsed.loop); Object.assign(record.metrics_unavailable, parsed.metrics_unavailable);
     for (const key of Object.keys(parsed.loop)) delete record.metrics_unavailable[`loop.${key}`];
     record.model.observed_id = parsed.modelId && selectedModel.policy === 'explicit' ? selectModel(profile, selectedProvider, parsed.modelId).recorded : parsed.modelId; record.model.identity_evidence = parsed.modelId ? 'assistant response in trace' : selectedModel.policy === 'managed' ? 'managed mode requested; underlying model identity unavailable' : 'request-only; observed identity unavailable';
+    if(local) {
+      await worker.close();
+      const valid=localResponses.length>0 && localResponses.every(row=>row.accepted && row.usage);
+      record.loop.tokens_in=valid?localResponses.reduce((sum,row)=>sum+row.usage.input,0):null;
+      record.loop.tokens_out=valid?localResponses.reduce((sum,row)=>sum+row.usage.output,0):null;
+      for(const key of ['tokens_in','tokens_out']) {if(valid)delete record.metrics_unavailable['loop.'+key];else record.metrics_unavailable['loop.'+key]='Primary local HTTP usage missing or incomplete; SDK zeros not accepted.';}
+      record.loop.cost_usd=null;record.metrics_unavailable['loop.cost_usd']='Local hardware/energy cost not measured; SDK placeholder prices are not billing evidence.';
+      await native.verify();
+      record.model.observed_id=record.local_inference.deployment.alias;record.model.identity_evidence='Controlled native process, pre-Popen file hashes, sealed command and props/template checks before/after HTTP requests';
+    }
     record.execution.finished_at = new Date().toISOString(); record.execution.exit_code = result.code; record.execution.signal = result.signal; record.execution.timed_out = result.timedOut;
     const mismatch = selectedModel.policy === 'explicit' && (parsed.modelIds ?? []).some(id => selectModel(profile, selectedProvider, id).recorded !== selectedModel.recorded);
     record.loop.stop_reason = result.timedOut ? 'timeout' : result.outputLimit ? 'trace_size_limit' : result.signal ? 'interrupted' : mismatch ? 'model_mismatch' : parsed.stopReason;
     const traceFailed = ['trace_incomplete','interrupted','error'].includes(parsed.stopReason) || /^error[:_]/.test(parsed.stopReason);
-    const failed = traceFailed || result.code !== 0 || result.signal || result.timedOut || result.outputLimit || mismatch || result.spawnError;
+    const failed = (local && localResponses.some(row=>!row.accepted)) || traceFailed || result.code !== 0 || result.signal || result.timedOut || result.outputLimit || mismatch || result.spawnError;
     record.status = failed ? 'aborted' : 'awaiting_review'; record.verdict.result = failed ? 'aborted' : 'pending';
     if (failed) record.notes += `\nExecution aborted: ${record.loop.stop_reason}`;
     const finalWorkspace = inventory(join(dir,'workspace'));
@@ -152,12 +177,13 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     writeRun(root, record);
     return record;
   } catch (error) {
-    if (started) {
+    if (started || local) {
       record.status = 'aborted'; record.verdict.result = 'aborted'; record.loop.stop_reason = 'runner_error'; record.notes += `\nRunner error: ${redact(error.message)}`; record.execution.finished_at = new Date().toISOString();
       writeRun(root, record);
     }
     throw new Error(redact(error.message));
   } finally {
+    await worker?.close();await native?.close();
     for (const container of [name,proxy]) { try { docker(['rm','-f',container], { timeout: 15000 }); } catch {} }
     try { docker(['network','rm',network], { timeout: 15000 }); } catch {}
     rmSync(lock, { recursive: true, force: true });

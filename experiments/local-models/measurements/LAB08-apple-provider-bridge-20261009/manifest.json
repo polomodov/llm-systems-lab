@@ -6,7 +6,7 @@
   "session_id": "apple-provider-bridge-20261009",
   "created_at": "2026-10-09T22:30:21.351Z",
   "status": "in-progress",
-  "evidence_class": "synthetic",
+  "evidence_class": "protocol",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Изолированный local bridge сохраняет штатный Pi tool round-trip и deployment identity без прямого доступа агента к Mac/LAN/cloud.",
   "protocol_before_run": "raw/protocol.md",
@@ -20,103 +20,138 @@
   "run_ids": [],
   "planned_attempts": [
     {
-      "id": "B01",
+      "id": "b01",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B02",
+      "id": "b02",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B03",
+      "id": "b03",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B04",
+      "id": "b04",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B05",
+      "id": "b05",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B06",
+      "id": "b06",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
     },
     {
-      "id": "B07",
+      "id": "b07",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
     },
     {
-      "id": "B08",
+      "id": "b08",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
     },
     {
-      "id": "B09",
+      "id": "b09",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
     },
     {
-      "id": "B10",
+      "id": "b10",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
     },
     {
       "id": "docker-boundary",
       "configuration_id": "pi-local-bridge-v1",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/docker-local.txt",
+        "raw/docker-cloud.txt"
+      ]
     },
     {
       "id": "pilot-t002",
@@ -129,6 +164,17 @@
     }
   ],
   "evidence_files": [
+    "raw/boundary-unit-initial-failed.txt",
+    "raw/boundary-unit.txt",
+    "raw/check.txt",
+    "raw/deployment.json",
+    "raw/docker-cloud.txt",
+    "raw/docker-local-initial-failed.txt",
+    "raw/docker-local-sdk-initial-failed.txt",
+    "raw/docker-local.txt",
+    "raw/network-contract-amendment.md",
+    "raw/npm-tests.txt",
+    "raw/pi-image-build.txt",
     "raw/protocol.md"
   ],
   "unavailable": {
