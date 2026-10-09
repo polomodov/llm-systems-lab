@@ -1,13 +1,16 @@
 # Apple M5 Max / 128 GB / macOS
 
-Второй стенд кампании локальных моделей. Профили дополнены первыми аппаратными измерениями от 07–08.10.2026; условия и ограничения сохранены в отчётах. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` ссылается на архивированный паспорт LAB28 для RAM/ОС; резервы остаются гипотезами, свободный GPU budget — неизвестным.
+Второй стенд кампании локальных моделей. Профили дополнены первыми аппаратными измерениями от 07–09.10.2026; условия и ограничения сохранены в отчётах. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` ссылается на архивированный паспорт LAB28 для RAM/ОС; резервы остаются гипотезами, свободный GPU budget — неизвестным.
 
-Последнее продолжение от 08.10.2026:
+Последнее продолжение от 09.10.2026:
 
-- [LAB33: диагностика service lifecycle](../measurements/LAB33-apple-lifecycle-20261008/report.md): MLX прошёл16/16 chat/tool cases и recovery при сохранённом app PID; native cancellation остаётся unverified. Исходный разрыв соединения не повторился, причина неизвестна. GGUF retry остановлен free-only guard до chat.
-- [LAB34: первый нагрузочный опыт](../measurements/LAB34-apple-direct-load-20261008/report.md): warmup2/2, первый c1 block1/12 после memory guard; c2/c4 и1800s not-run. Второй SIGINT контроллера вызвал Metal teardown assertion; cleanup исправлен и проверен синтетически, model rerun отсутствует. Свидетельства OOM или самопроизвольного падения Metal отсутствуют.
+- [LAB34: завершённая длительная серия](../measurements/LAB34-apple-sustained-resume-20261009/report.md): direct llama.cpp b8407+tile16 / Metal / Qwen3.5-9B Q6_K / context 8192, один server slot. После свежего прогрева c1 выполнил **35,51 минуты, 48/48 без ошибок**, whole-interval throughput **46,135 completion tokens/s**. Peak native RSS **7,584 GiB**, swap **0**, normal pressure, AC/mode 0; native exit 0, один SIGINT. Девять успешных коротких клеток c1/c2/c4 проверены по primary copies двух предыдущих сессий; новый long использует отдельный процесс. Это допуск клиентской очереди к одному GPU-слоту, без проверки 2/4 одновременных GPU-слотов или максимального GPU budget.
+- [LAB34: короткая матрица и предыдущий failed long](../measurements/LAB34-apple-load-power-retry-20261009/report.md): пять новых блоков 12/12 вместе с четырьмя успешными блоками 08.10 дают три повтора для c1/c2/c4. Median throughput отличаются менее чем на 2%, очередь увеличивает latency. Первые 337 секунд long завершились 8 successes/4 errors и SIGKILL неизвестного происхождения; исходный register/evidence сохранён, отчёт остаётся blocked.
+- [Первое продолжение LAB34](../measurements/LAB34-apple-load-resume-20261009/report.md) остаётся blocked: r2-c4 retry 11/12 после перехода AC→Battery, один timeout; owned native завершился с одним SIGINT / exit 0. [Первая полная кампания](../measurements/LAB34-apple-load-complete-20261008/report.md) также остаётся blocked после SIGKILL неизвестного происхождения. Исторические copies и ошибки не считаются повторно.
+- [Первый нагрузочный опыт](../measurements/LAB34-apple-direct-load-20261008/report.md): memory guard остановил c1 после 1/12; второй SIGINT вызвал teardown assertion. Cleanup исправлен; последующие штатные и guarded завершения с одним SIGINT сохранены отдельно.
+- [LAB33: диагностика service lifecycle](../measurements/LAB33-apple-lifecycle-20261008/report.md): MLX прошёл 16/16 chat/tool cases и recovery при сохранённом app PID; native cancellation остаётся unverified. GGUF retry остановлен free-only guard до chat.
 
-Для продолжения нужен новый register LAB34 и достаточный запас по выбранному memory guard. Пользовательские приложения и настройки памяти автоматически не меняются. LAB35 требует прошедшей нагрузки; агентная часть также ждёт реализации/приёмки LAB08 и LAB09.
+Следующий этап — LAB35 с сопоставимыми подготовленными измерениями Ryzen. Агентная часть требует реализации/приёмки LAB08 и LAB09. Семь ошибок трёх предыдущих учитываемых LAB34-сессий сохраняются; zero-error нового long их не отменяет. GPU budget остаётся null, профили conditional; пользовательские настройки памяти не менялись.
 
 ## Первые результаты — 07–08.10.2026
 
