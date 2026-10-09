@@ -1,0 +1,5 @@
+{
+  "content": "LAB_VALUE_42",
+  "tool_calls": null,
+  "reasoning_content": "The tool `lookup_lab_value` returned `{\"value\": \"LAB_VALUE_42\"}`.\nThe user requested to return *only* the value."
+}

@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "*   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint 1: Must be exactly \"LAB_READY\".\n    *   Constraint 2: No explanations.\n\n    *   The user wants a specific string as a response.\n\n    *   LAB_READY"
+}

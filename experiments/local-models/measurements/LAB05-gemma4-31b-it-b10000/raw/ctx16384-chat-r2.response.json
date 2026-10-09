@@ -1,0 +1,37 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "*   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint 1: Answer must be \"LAB_READY\".\n    *   Constraint 2: No explanations/additional text.\n\n    *   The user wants a specific string as the output.\n    *   The output must be exactly \"LAB_READY\".\n\n    *   LAB_READY"
+      }
+    }
+  ],
+  "created": 1791539061,
+  "model": "lab-model",
+  "system_fingerprint": "b10000-47a39665e",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 99,
+    "prompt_tokens": 28,
+    "total_tokens": 127,
+    "prompt_tokens_details": {
+      "cached_tokens": 23
+    }
+  },
+  "id": "chatcmpl-YPZDnEaaWNjGcsHQFB2VzIZWJdmuuA2T",
+  "timings": {
+    "cache_n": 23,
+    "prompt_n": 5,
+    "prompt_ms": 288.312,
+    "prompt_per_token_ms": 57.662400000000005,
+    "prompt_per_second": 17.3423235938844,
+    "predicted_n": 99,
+    "predicted_ms": 10621.857,
+    "predicted_per_token_ms": 107.29148484848484,
+    "predicted_per_second": 9.320404144021145
+  }
+}

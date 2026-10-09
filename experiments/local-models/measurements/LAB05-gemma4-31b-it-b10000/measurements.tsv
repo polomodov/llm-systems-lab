@@ -1,1 +1,4 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+gemma4-31b-it-ctx8192-tg	gemma4-31b-it-ctx8192	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip	8192	1	tg128_avg_ts	8.414916	tokens/s	measured	raw/context-8192-bench.json	
+gemma4-31b-it-ctx16384-tg	gemma4-31b-it-ctx16384	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip	16384	1	tg128_avg_ts	8.151825	tokens/s	measured	raw/context-16384-bench.json	
+gemma4-31b-it-ctx32768-tg	gemma4-31b-it-ctx32768	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip	32768	1	tg128_avg_ts	7.635596	tokens/s	measured	raw/context-32768-bench.json	
