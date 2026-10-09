@@ -1,1 +1,57 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+o1	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	latency_seconds	3.97758504099329	s	measured	raw/metal-tensor/chat-r1/request-0001.json	
+o2	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	completion_tokens	242	tokens	measured	raw/metal-tensor/chat-r1/request-0001.json	
+o3	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	prompt_tokens	19	tokens	measured	raw/metal-tensor/chat-r1/request-0001.json	
+o4	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	http_status	200	http-status	measured	raw/metal-tensor/chat-r1/request-0001.json	
+o5	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	successful_completion_tokens_per_second	60.8183568515939	tokens/s	measured	raw/metal-tensor/chat-r1/summary.json	
+o6	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	final_contract	1	bool	measured	raw/metal-tensor/chat-r1/request-0001.json	
+o7	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	ttft_seconds		s	unavailable	raw/metal-tensor/chat-r1/summary.json	Non-streaming full-response probe.
+o8	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	latency_seconds	3.9154314159823116	s	measured	raw/metal-tensor/chat-r2/request-0001.json	
+o9	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	completion_tokens	242	tokens	measured	raw/metal-tensor/chat-r2/request-0001.json	
+o10	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	prompt_tokens	19	tokens	measured	raw/metal-tensor/chat-r2/request-0001.json	
+o11	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	http_status	200	http-status	measured	raw/metal-tensor/chat-r2/request-0001.json	
+o12	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	successful_completion_tokens_per_second	61.7848612307048	tokens/s	measured	raw/metal-tensor/chat-r2/summary.json	
+o13	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	final_contract	1	bool	measured	raw/metal-tensor/chat-r2/request-0001.json	
+o14	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	ttft_seconds		s	unavailable	raw/metal-tensor/chat-r2/summary.json	Non-streaming full-response probe.
+o15	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	latency_seconds	3.9372816249961033	s	measured	raw/metal-tensor/chat-r3/request-0001.json	
+o16	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	completion_tokens	242	tokens	measured	raw/metal-tensor/chat-r3/request-0001.json	
+o17	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	prompt_tokens	19	tokens	measured	raw/metal-tensor/chat-r3/request-0001.json	
+o18	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	http_status	200	http-status	measured	raw/metal-tensor/chat-r3/request-0001.json	
+o19	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	successful_completion_tokens_per_second	61.441561844607506	tokens/s	measured	raw/metal-tensor/chat-r3/summary.json	
+o20	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	final_contract	1	bool	measured	raw/metal-tensor/chat-r3/request-0001.json	
+o21	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	ttft_seconds		s	unavailable	raw/metal-tensor/chat-r3/summary.json	Non-streaming full-response probe.
+o22	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		latency_seconds	4.008735125011299	s	measured	raw/metal-tensor/chat-warmup/request-0001.json	
+o23	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		completion_tokens	242	tokens	measured	raw/metal-tensor/chat-warmup/request-0001.json	
+o24	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		prompt_tokens	19	tokens	measured	raw/metal-tensor/chat-warmup/request-0001.json	
+o25	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		http_status	200	http-status	measured	raw/metal-tensor/chat-warmup/request-0001.json	
+o26	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		successful_completion_tokens_per_second	60.33730173288126	tokens/s	measured	raw/metal-tensor/chat-warmup/summary.json	
+o27	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		final_contract	1	bool	measured	raw/metal-tensor/chat-warmup/request-0001.json	
+o28	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		ttft_seconds		s	unavailable	raw/metal-tensor/chat-warmup/summary.json	Non-streaming full-response probe.
+o29	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	latency_seconds	36.25528983300319	s	measured	raw/metal-tensor/load-r1/request-0001.json	
+o30	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	completion_tokens	2048	tokens	measured	raw/metal-tensor/load-r1/request-0001.json	
+o31	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	prompt_tokens	77	tokens	measured	raw/metal-tensor/load-r1/request-0001.json	
+o32	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	http_status	200	http-status	measured	raw/metal-tensor/load-r1/request-0001.json	
+o33	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	successful_completion_tokens_per_second	56.48553704444097	tokens/s	measured	raw/metal-tensor/load-r1/summary.json	
+o34	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	final_contract	1	bool	measured	raw/metal-tensor/load-r1/request-0001.json	
+o35	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	1	ttft_seconds		s	unavailable	raw/metal-tensor/load-r1/summary.json	Non-streaming full-response probe.
+o36	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	latency_seconds	39.64663425000617	s	measured	raw/metal-tensor/load-r2/request-0001.json	
+o37	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	completion_tokens	2048	tokens	measured	raw/metal-tensor/load-r2/request-0001.json	
+o38	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	prompt_tokens	77	tokens	measured	raw/metal-tensor/load-r2/request-0001.json	
+o39	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	http_status	200	http-status	measured	raw/metal-tensor/load-r2/request-0001.json	
+o40	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	successful_completion_tokens_per_second	51.653749674127845	tokens/s	measured	raw/metal-tensor/load-r2/summary.json	
+o41	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	final_contract	1	bool	measured	raw/metal-tensor/load-r2/request-0001.json	
+o42	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	2	ttft_seconds		s	unavailable	raw/metal-tensor/load-r2/summary.json	Non-streaming full-response probe.
+o43	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	latency_seconds	39.085167749988614	s	measured	raw/metal-tensor/load-r3/request-0001.json	
+o44	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	completion_tokens	2048	tokens	measured	raw/metal-tensor/load-r3/request-0001.json	
+o45	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	prompt_tokens	77	tokens	measured	raw/metal-tensor/load-r3/request-0001.json	
+o46	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	http_status	200	http-status	measured	raw/metal-tensor/load-r3/request-0001.json	
+o47	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	successful_completion_tokens_per_second	52.39507763335351	tokens/s	measured	raw/metal-tensor/load-r3/summary.json	
+o48	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	final_contract	1	bool	measured	raw/metal-tensor/load-r3/request-0001.json	
+o49	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192	3	ttft_seconds		s	unavailable	raw/metal-tensor/load-r3/summary.json	Non-streaming full-response probe.
+o50	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		latency_seconds	34.679492583003594	s	measured	raw/metal-tensor/load-warmup/request-0001.json	
+o51	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		completion_tokens	2048	tokens	measured	raw/metal-tensor/load-warmup/request-0001.json	
+o52	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		prompt_tokens	77	tokens	measured	raw/metal-tensor/load-warmup/request-0001.json	
+o53	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		http_status	200	http-status	measured	raw/metal-tensor/load-warmup/request-0001.json	
+o54	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		successful_completion_tokens_per_second	59.052570491828945	tokens/s	measured	raw/metal-tensor/load-warmup/summary.json	
+o55	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		final_contract	1	bool	measured	raw/metal-tensor/load-warmup/request-0001.json	
+o56	metal-tensor-ctx8192-slot1	qwen35-9b-q6-k	llama-cpp-b8407-metal-tensor	metal	8192		ttft_seconds		s	unavailable	raw/metal-tensor/load-warmup/summary.json	Non-streaming full-response probe.
