@@ -1,0 +1,37 @@
+{
+  "kind": "http-load-probe",
+  "agent_run": false,
+  "requests": 1,
+  "concurrency": 1,
+  "successful": 1,
+  "failed": 0,
+  "batch_wall_seconds": 33.41292520798743,
+  "successful_requests_per_second": 0.0299285379467748,
+  "success_latency_median_seconds": 33.4116407080146,
+  "success_latency_p95_seconds": 33.4116407080146,
+  "success_latency_max_seconds": 33.4116407080146,
+  "successes_with_completion_usage": 1,
+  "completion_tokens_successful": 2048,
+  "successful_completion_tokens_per_second": 61.29364571499479,
+  "ttft_seconds": null,
+  "ttft_unavailable": "non-streaming complete-response probe",
+  "memory_bytes": null,
+  "memory_unavailable": "collect server/system telemetry separately",
+  "minimum_sampled_mem_available_bytes": null,
+  "system_memory_sampling_seconds": 1,
+  "finished_at": "2026-10-09T18:07:56.929994+00:00",
+  "results": [
+    {
+      "index": 1,
+      "ok": true,
+      "http_status": 200,
+      "error": null,
+      "latency_seconds": 33.4116407080146,
+      "completion_tokens": 2048,
+      "prompt_tokens": 77,
+      "finish_reason": "length",
+      "response_bytes": 13729,
+      "response_truncated": false
+    }
+  ]
+}
