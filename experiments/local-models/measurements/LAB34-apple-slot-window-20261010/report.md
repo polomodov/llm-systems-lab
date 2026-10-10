@@ -1,6 +1,6 @@
 # LAB34 — фактические серверные слоты
 
-Сессия `apple-server-slots-20261010`, статус **blocked**. Actual server-slot campaign stopped: Admission changed during pin verification
+Сессия `apple-slot-window-20261010`, статус **blocked**. Actual server-slot campaign stopped: Protocol/latency/actual busy slots criterion failed
 
 ## Паспорт выполнения
 
@@ -16,20 +16,21 @@ Apple M5 Max / 128 GiB / macOS 26.5, AC/mode 0. Qwen3.5-9B GGUF Q6_K, revision 3
 
 ## Результаты
 
-Attempts: {"completed": 0, "failed": 1, "not-run": 18}. Latency — полный ответ, throughput — primary completion tokens / wall когорты. Наблюдаемые busy slots означают логический параллелизм сервера.
+Attempts: {"completed": 2, "failed": 1, "not-run": 16}. Latency — полный ответ, throughput — primary completion tokens / wall когорты. Наблюдаемые busy slots означают логический параллелизм сервера.
 
 | Slots | Условие | Ответы / admission | p95, с | Throughput, tokens/s | Принято |
 | --- | --- | --- | --- | --- | --- |
-| 1 | admission.json | free+spec 28.993 GiB | — | — | — |
-| 1 | admission-after-pins.json | free+spec 22.199 GiB | — | — | — |
+| 1 | admission.json | free+spec 26.695 GiB | — | — | — |
+| 1 | admission-after-pins.json | free+spec 35.859 GiB | — | — | — |
+| 1 | warmup | 0/1, busy 1 | None | None | False |
 
 ## Ошибки и ограничения
 
-Admission changed during pin verification Полный GPU budget, температура, энергия и TTFT неизвестны. Output cap 512 отличается от прежней очереди клиентов на одном слоте с cap 2048; прямое сравнение latency этих серий некорректно. Доказательства реальных слотов и logs обязательны независимо от CLI параметров.
+Protocol/latency/actual busy slots criterion failed Полный GPU budget, температура, энергия и TTFT неизвестны. Output cap 512 отличается от прежней очереди клиентов на одном слоте с cap 2048; прямое сравнение latency этих серий некорректно. Доказательства реальных слотов и logs обязательны независимо от CLI параметров.
 
 ## Вывод по гипотезе
 
-Actual server-slot campaign stopped: Admission changed during pin verification При отказе до модели данных о throughput нет. Успешная сдача отчёта не означает успешный эксперимент или универсальную поддержку оборудования.
+Actual server-slot campaign stopped: Protocol/latency/actual busy slots criterion failed При отказе до модели данных о throughput нет. Успешная сдача отчёта не означает успешный эксперимент или универсальную поддержку оборудования.
 
 ## Ответы на контрольные вопросы
 

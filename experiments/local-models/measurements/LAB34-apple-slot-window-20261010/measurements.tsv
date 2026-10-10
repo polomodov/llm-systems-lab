@@ -1,1 +1,8 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+s1-admission.json-free	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		free_speculative_gib	26.694717407226562	GiB	measured	raw/slots1/admission.json	
+s1-admission-after-pins.json-free	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		free_speculative_gib	35.85858154296875	GiB	measured	raw/slots1/admission-after-pins.json	
+s1-warmup-success_latency_p95_seconds	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		success_latency_p95_seconds		s	unavailable	raw/slots1/warmup/summary.json	Primary field absent; no estimate.
+s1-warmup-batch_wall_seconds	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		batch_wall_seconds	7.979579125000001	s	measured	raw/slots1/warmup/summary.json	
+s1-warmup-successful_completion_tokens_per_second	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		successful_completion_tokens_per_second		tokens/s	unavailable	raw/slots1/warmup/summary.json	Primary field absent; no estimate.
+s1-warmup-failed	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		failed	1	requests	measured	raw/slots1/warmup/summary.json	
+s1-warmup-busy	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		max_busy_slots	1	slots	measured	raw/slots1/warmup/slot-proof.json	
