@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB08",
+  "harness_id": null,
+  "session_id": "apple-native-requalification-20261010",
+  "created_at": "2026-10-10T05:25:01.987Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Исправленный native supervisor поддерживает непрерывную телеметрию и штатный cleanup при короткой реальной серии; затем допускается новый T002 pilot.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-10T05:25:43.305Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB08-apple-native-requalification-20261010/raw/deployment.json",
+    "harness_profile": "experiments/pi/harness.json"
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "native-short",
+      "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "pilot-t002",
+      "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
+      "kind": "agent-run",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md",
+    "raw/deployment.json",
+    "raw/qualify.mjs"
+  ],
+  "unavailable": {},
+  "conclusion": null,
+  "reviewer_decision": null
+}
