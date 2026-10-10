@@ -1,5 +1,5 @@
 {
-  "scope": "Post-review inventory; original preregistration receipt and primary execution data preserved. Original evidence inventory remains historical.",
+  "scope": "Post-review inventory; original source registration and primary execution data preserved.",
   "files": [
     {
       "path": "raw/artifact-manifest.json",
@@ -713,8 +713,8 @@
     },
     {
       "path": "raw/preregistration-audit.json",
-      "bytes": 3607,
-      "sha256": "69ffaa0641a441cfabe8988040b24a32f7f179359b39166a3688a3ebaa717bf3"
+      "bytes": 3670,
+      "sha256": "9a14b9e53bcd891740cef94df605139b5368e3efc107a2a134b679279efdf799"
     },
     {
       "path": "raw/prestart-pins.json",
@@ -768,8 +768,13 @@
     },
     {
       "path": "raw/source-registration.json",
-      "bytes": 2104,
-      "sha256": "44d3609935ba5cb6168acc7421073ceeb6e92ede5af7eefa838ff4079c7bb77c"
+      "bytes": 2172,
+      "sha256": "fe786772f8fbe51e7550b6dcb1d8c231dfb652e8804609cbf51908bcb76a9726"
+    },
+    {
+      "path": "raw/source-registration.original.json",
+      "bytes": 223,
+      "sha256": "85eddb839d46ef12c5422fa2124925c1b0e80623fe6a9028e80fe03a4af93a7e"
     }
   ]
 }

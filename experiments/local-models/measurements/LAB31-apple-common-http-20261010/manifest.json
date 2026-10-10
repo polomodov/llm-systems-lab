@@ -411,7 +411,8 @@
     "raw/software-check.txt",
     "raw/software-node-tests.txt",
     "raw/software-python-tests.txt",
-    "raw/source-registration.json"
+    "raw/source-registration.json",
+    "raw/source-registration.original.json"
   ],
   "unavailable": {
     "conditions.harness_profile": "Native inference only; no agent harness.",

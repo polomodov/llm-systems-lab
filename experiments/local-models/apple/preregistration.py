@@ -16,6 +16,7 @@ def verify_preregistration(root, commit, files, execution_started_at, head='HEAD
         def git(*args):
             return subprocess.check_output(['git', '-C', str(root), *args], stderr=subprocess.PIPE)
         git('merge-base', '--is-ancestor', commit, head)
+        result['reviewed_head'] = git('rev-parse', head).decode().strip()
         committed_at = git('show', '-s', '--format=%cI', commit).decode().strip()
         result['committed_at'] = committed_at
         if stamp(committed_at) > stamp(execution_started_at):
