@@ -1,0 +1,14 @@
+{
+  "role": "assistant",
+  "content": null,
+  "tool_calls": [
+    {
+      "id": "offline-case-1",
+      "type": "function",
+      "function": {
+        "name": "unexpected_tool",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ]
+}

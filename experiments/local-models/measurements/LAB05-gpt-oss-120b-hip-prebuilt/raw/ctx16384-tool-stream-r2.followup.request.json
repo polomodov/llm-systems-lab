@@ -1,0 +1,55 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "tool_calls": [
+        {
+          "id": "5Dfl7imMpG6pjypmtSixwyrw7EXnF6Nn",
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\n  \"key\": \"alpha\"\n}"
+          }
+        }
+      ],
+      "reasoning_content": "The user wants to call the function lookup_lab_value with key alpha and then return only the value. So we need to call the function."
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "5Dfl7imMpG6pjypmtSixwyrw7EXnF6Nn",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": true
+}
