@@ -1,0 +1,1351 @@
+{
+  "registered_at": "2026-10-10T06:33:33.763872+00:00",
+  "files": [
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/libpython3.12.dylib",
+      "bytes": 18058384,
+      "sha256": "22cdcc6ed51f21e2e0877a3807deb177016759ad8fe34f7114abd714d8c1dde8"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/libtcl9.0.dylib",
+      "bytes": 2056336,
+      "sha256": "1f5b867df12d6abd19368e1e867dc8cab641babbf7ac037b3f875633d62ea4c8"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/libtcl9tk9.0.dylib",
+      "bytes": 1856288,
+      "sha256": "fcd6719d6df9cc2d5c719627cd9e4d2dbc519173f4473ac1a7d156f0d85c0d3c"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/lib-dynload/_crypt.cpython-312-darwin.so",
+      "bytes": 66560,
+      "sha256": "6b3cfdd22aa582b55f34584e2880be057324ae17876d2f80faf263f75bc6201d"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/lib-dynload/_dbm.cpython-312-darwin.so",
+      "bytes": 69760,
+      "sha256": "0d4a477ff0080d81a1c2c15c17d293d6931fd6c0408188ee4b4dbd87293f0479"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/lib-dynload/_tkinter.cpython-312-darwin.so",
+      "bytes": 116704,
+      "sha256": "c106b3b2c8b0051753a49529553dddf76c23f36588eb8ca44f2a3d572d91cb08"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/artifact-manifest.json",
+      "bytes": 12476,
+      "sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/http_probe.py",
+      "bytes": 6301,
+      "sha256": "37182a66a435ad441b6457761c93780f214ef034862a451a06130ad437dbf200"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/pin_runtime.py",
+      "bytes": 2243,
+      "sha256": "1d53735db7174966c9619428aeeffb1dc5dde760c73bbe2cfcf907c6010ee1ae"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/prepare_inputs.py",
+      "bytes": 2113,
+      "sha256": "ba324edb695b6db5143020fdbe2ac4485617c6adba0f3045a13253805959ff5a"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/run_series.py",
+      "bytes": 14132,
+      "sha256": "5aae84b0495189860920d38725d20622624a3a2af307f5ada5164e8dfab309d3"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/runtime-manifest.json",
+      "bytes": 4099,
+      "sha256": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7"
+    },
+    {
+      "path": "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-mlx-protocol-20261010/raw/server_entry.py",
+      "bytes": 3108,
+      "sha256": "3e0ef5630598c546431159f0e71be6ebafdb4bde57ff697ccd4bdad4b7c59cf3"
+    },
+    {
+      "path": "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3.12",
+      "bytes": 18058560,
+      "sha256": "2498a31965647f1507a53e391842b23c29d96f0ef4550475f34a1d2b30c23ddb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/google/_upb/_message.abi3.so",
+      "bytes": 695714,
+      "sha256": "5fe9c5aa8c22f90136ea60aa2e46bdbd95d1953c1a35bdd3ca4cd643b1d74f6d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/hf_xet/hf_xet.abi3.so",
+      "bytes": 7401056,
+      "sha256": "196bc0f5f5a9d66e3f314d252c97732ea09f930b51c722d0612db7ae17406a5b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/markupsafe/_speedups.cpython-312-darwin.so",
+      "bytes": 50656,
+      "sha256": "c5dff96c03976c47aa7d1cae3a73b4c57099259b49305c9486735ee9f7022304"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/__array_api_info.py",
+      "bytes": 2623,
+      "sha256": "67bd1bf52f853f2ea96fd6d4f0c64435899f36292290e3d528327a799f863912"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/__main__.py",
+      "bytes": 578,
+      "sha256": "957f513bd1c40f9b8d6cf51d676aa66618bf59b40fa1278ba339a87799c318de"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/_distributed_utils/common.py",
+      "bytes": 3864,
+      "sha256": "407793d67635491c16bd37ce2928a0ba8ff11c0478110878adae79a3fd406e29"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/_distributed_utils/config.py",
+      "bytes": 20106,
+      "sha256": "82e17f9c0322b2875ee975196399c7c4ef662694ea7bff39af0484cbef3023a2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/_distributed_utils/launch.py",
+      "bytes": 18561,
+      "sha256": "6a85d23ed3e505cb1d410d18139ae61599f6805f6ee2b98a1030a28d8a5a7f66"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/_reprlib_fix.py",
+      "bytes": 321,
+      "sha256": "f748ea4f10995bf30ed6ba76ed3539f23c18cdf541031e1c0968dd60dc98f723"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/core.cpython-312-darwin.so",
+      "bytes": 1627528,
+      "sha256": "49eeb7232106aa9ab846b20e0417add980b1c7213ef6dda6e25c01d45ca54851"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/extension.py",
+      "bytes": 3387,
+      "sha256": "ccab3caf8660bf6b43ec949f147c64bac95e914ab8cab6a8afac090d69aebd27"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/include/metal_cpp/SingleHeader/MakeSingleHeader.py",
+      "bytes": 8984,
+      "sha256": "5b87e3f4aebe564025f5e4120258a797ea77fdc92c0b5a2d7bf84e835769ad5a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/lib/libjaccl.dylib",
+      "bytes": 1555552,
+      "sha256": "949e901df832d600a71ff2bc5f3738d55b010668102f36e071e1890807a965cd"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/lib/libmlx.dylib",
+      "bytes": 21108048,
+      "sha256": "ebc8a5f5465afb79d3d9c8f5b0929de1a9b277b7179db8672f92da77ae110a1e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/lib/mlx.metallib",
+      "bytes": 190319536,
+      "sha256": "95974b7de464ec2be7833a914ca5a53d283a70789470fd84218738fc8fcea3e1"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/__init__.py",
+      "bytes": 164,
+      "sha256": "6d578784bfe696a3ba6eca2a559c87e9fd1ec5eaa5e6d4e199e6e959ebe0a492"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/init.py",
+      "bytes": 14659,
+      "sha256": "c6ef640bf114039d5c6c5f2d0d9e53675c171ba1456beba20278c9cc12922831"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/__init__.py",
+      "bytes": 2092,
+      "sha256": "1eb646e38a87579eb63201100c3f9b038e2466d7fbad509c2f32841bc1f2a007"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/activations.py",
+      "bytes": 16776,
+      "sha256": "153660ac19d4fe93d6ca15f67ad8527ed03b0e860e36192f3815e1d3daf73ed1"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/base.py",
+      "bytes": 26169,
+      "sha256": "ec749e1d50fd1a5e57e0aedc8e6eb13fc697e630f59333a0e24aee62a8dc7f0f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/containers.py",
+      "bytes": 618,
+      "sha256": "29ef203c13d9bebb6b8cad6aadb44d1ad495e2bbc19184ca5415b6a505eb36f6"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/convolution.py",
+      "bytes": 7869,
+      "sha256": "d79473462d907735740352bbecd74b961049b55831be4d4369966a68ed325cee"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/convolution_transpose.py",
+      "bytes": 8197,
+      "sha256": "a47cbf2bffebce18a9858d7850a313504fb02fe452591ff5ae4f8e3d2d464f7b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/distributed.py",
+      "bytes": 25369,
+      "sha256": "67e4048ce29b4caf8df9c5ea8ee758e05ac682ee1582e2004c7d9557f6c89969"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/dropout.py",
+      "bytes": 4707,
+      "sha256": "a79c13d31c61163587d83c58f4e4cb81bf24f32923994abd3d98d9dfdd59148f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/embedding.py",
+      "bytes": 1652,
+      "sha256": "f77b039903294c6e880c503a953ea86b43aac36661b724cc9c38e3ed1969e3a8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/linear.py",
+      "bytes": 5808,
+      "sha256": "07ce0d9ac6a1499a0d0f01971bf195305424b6d91a20f77488f7d8116c0a2e23"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/normalization.py",
+      "bytes": 13933,
+      "sha256": "0873ca425d5de6dd462d336ff45a2563f945abeebef3f5146bfc7c83af54be83"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/pooling.py",
+      "bytes": 15022,
+      "sha256": "01e25b975ea6c8c962a8d13f748596a3390a94e9a6d1d5e9d973347697d1509c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/positional_encoding.py",
+      "bytes": 7683,
+      "sha256": "8c139eb81c41b2bb5fd6caa64395a5ef9da72b862ff29ae38507b94223913a64"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/quantized.py",
+      "bytes": 14991,
+      "sha256": "1797a3571484ad3134224354b7f130c0931f495691aa8e54eb55329d674bb00b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/recurrent.py",
+      "bytes": 8789,
+      "sha256": "553738db5ffede77d4d97a6b431ac82475b99c34902a9a32e05b940a95f34ae7"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/transformer.py",
+      "bytes": 12499,
+      "sha256": "4d1b35213d4895e86a3f124d2f0c2d99b64ce7f3c208b884cc13edff0997e77b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/layers/upsample.py",
+      "bytes": 17143,
+      "sha256": "0e2229f46302e99711bc1be2af3a2cd0ab653e0df4f8f92047dec185084ccf0f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/losses.py",
+      "bytes": 21702,
+      "sha256": "98f67040454cbfbe2bb9d10205f7d23f953efe49345d418d2a7ee38794fcc7a7"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/nn/utils.py",
+      "bytes": 7453,
+      "sha256": "55aab8b6d6cad221f7f6f4c400b65e9f82cb84fe5cb17b82fff0219718dd6247"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/optimizers/__init__.py",
+      "bytes": 117,
+      "sha256": "289a7bcf845366d2f823be75cb25cd8745ad9d8b2692ba1fd7b72a084f71dd42"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/optimizers/optimizers.py",
+      "bytes": 35924,
+      "sha256": "25a57fe00ff9ae1fe836cd504506e16d0e9d890112daed05cef0e2bcb95f7714"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/optimizers/schedulers.py",
+      "bytes": 5099,
+      "sha256": "4276bf0907e24701bc22464a73620fd30d27bd63eb6c9ccb3168a621c9ecd9ae"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx/utils.py",
+      "bytes": 12100,
+      "sha256": "c33a787a429a2736eb10783b087931cdfd0bab9edcf0ad57d48bcbc33b9e49a2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/__init__.py",
+      "bytes": 372,
+      "sha256": "c414708c48b0cd919fa2e155363527566ede53bd58d5d88994050cb9762d3260"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/__main__.py",
+      "bytes": 97,
+      "sha256": "cc0a2e7be2522fa62570799088414b6da673369cfc6ebc75d1fb387f29a24834"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/_version.py",
+      "bytes": 23,
+      "sha256": "321c9bfa1b58c312ba1ab7616324f9e8225e1a9e00e6364b9ae79919792ccc46"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/benchmark.py",
+      "bytes": 4991,
+      "sha256": "0ef83adbe09c75873fd69435cdeef559656a85f4dae5d607927931edba1d16b3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/cache_prompt.py",
+      "bytes": 4248,
+      "sha256": "2d6cab3eb9524584a54b965e0bb8123db5a28fa0eb7f4a140c9187423bef6367"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/chat.py",
+      "bytes": 5424,
+      "sha256": "07fa2fe0aee54a6049b387d34a9c5f27894190a21106ce6e9cbd4ce2e60358ed"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/chat_templates/__init__.py",
+      "bytes": 31,
+      "sha256": "d4132da254c96f33e5800635a932705125462dd8b5d62b48b58389ff7ca18bdb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/chat_templates/deepseek_v32.py",
+      "bytes": 11452,
+      "sha256": "bdbaf9ff5da81313ceba88e211b0dd571fa06fbacb300beeb2ae2834956b0718"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/cli.py",
+      "bytes": 1378,
+      "sha256": "88212797d36748052adc7a7104fe51d0b45ed322c78075e6bc1b10064ee37ac5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/cli_ui.py",
+      "bytes": 9996,
+      "sha256": "268250c76f4fde9374beff0bc7c7483e5953b3124fbd31f90fef913a5551d6d5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/convert.py",
+      "bytes": 7864,
+      "sha256": "68170fda3f3c70a80aa066ab5b104d6022e327903078e58c46bc3cc128a2a890"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/evaluate.py",
+      "bytes": 19818,
+      "sha256": "468f1f519e3af2573ad1ec38f4acd8d2d22fe31d5399c83d18da598a2381220d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/fuse.py",
+      "bytes": 3243,
+      "sha256": "cf6bed1d41acc2442c4f50d04bc59a3ebc1890bfdbdf18914f480b246221f91c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/generate.py",
+      "bytes": 76672,
+      "sha256": "4a3bf57f5679dac73791f069268866ab5b9336e58582d436b31133984e4b6971"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/generate_utils.py",
+      "bytes": 4473,
+      "sha256": "3dba1661ed2c1058d80be286568d092af4517e71f581e66a6784b5612d5414c3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/gguf.py",
+      "bytes": 11467,
+      "sha256": "c889839a926ae2936882a6397d76963c15f917835d48d975a5f25f69873a664c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/lora.py",
+      "bytes": 11907,
+      "sha256": "e366eec6ae2f8a72446f1af65faf189a92a01ca509fb0cafb3fa54b89b4291f7"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/manage.py",
+      "bytes": 4737,
+      "sha256": "54c67ff7500f3c6d7bc90cb3bec38c7d167e25384453ff8f4fb24676aa0d5f58"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/Klear.py",
+      "bytes": 8519,
+      "sha256": "174637a16d466f17c9ea7c34118d01a9231a4965d81a40c3a0ad40fde06fb288"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/__init__.py",
+      "bytes": 31,
+      "sha256": "d4132da254c96f33e5800635a932705125462dd8b5d62b48b58389ff7ca18bdb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/activations.py",
+      "bytes": 1949,
+      "sha256": "6f7d756897deb322af4fe98e040df76e9358a91d76521e51f14d734fdd0fb05f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/afm7.py",
+      "bytes": 12090,
+      "sha256": "8e899c1437ec1591982e310767b00da83d4e0ddf84338a3d829821eb442a4301"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/afmoe.py",
+      "bytes": 12996,
+      "sha256": "186c818247d91621c62163a39f409bd19a0ddd73791e276296248e8067af85de"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/apertus.py",
+      "bytes": 6086,
+      "sha256": "755e2aa840c8c1d9317b043f837ed379dea32d92e0e470afa10ac475619438c3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/baichuan_m1.py",
+      "bytes": 8716,
+      "sha256": "688621fae890c9f7786c5c86d16ab11c28c2da645382184bf94ea3ff68f70610"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bailing_hybrid.py",
+      "bytes": 25161,
+      "sha256": "e193c81387d24d23cf04534cca01ca5a3496adf7cbee81c66ca7333898c0031a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bailing_moe.py",
+      "bytes": 13060,
+      "sha256": "abc91be3c111eacba9b959fe8495fe7faa069d71005745a61d6502e53bf6458d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bailing_moe_linear.py",
+      "bytes": 19257,
+      "sha256": "2ad913ff8929dbe62982289c04381c11fa584ba0bb5ace0c218cf0b0c3b1d6fb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bailing_moe_v3.py",
+      "bytes": 21032,
+      "sha256": "3c3252447e82b7477a48082266bb9057e042079d1d6d6eda7f31ede6c1a6da05"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/base.py",
+      "bytes": 3986,
+      "sha256": "b782b2ac0f55ed8fa9c1afce1f36307d5d8714aad2c0991d63998047f7507174"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bitlinear_layers.py",
+      "bytes": 5046,
+      "sha256": "e5e67f5dcc03eb94a700995abf0fbe7e3bb11142e74cfab141369077f57c614f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/bitnet.py",
+      "bytes": 6489,
+      "sha256": "e5af603c7de1f09415209dfc688fcbdde374197ca93e19a773d66eb6ab3c1c4a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/cache.py",
+      "bytes": 58349,
+      "sha256": "c96cb169fd5e0ec4584a162dd61dc62ab08ccdca03a9850f8a491ce6809145e6"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/cohere.py",
+      "bytes": 5856,
+      "sha256": "4d2cfc2dc7afd94a123875f5a0868d3943c71375d014bd3a145a9e53a5f0fa3e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/cohere2.py",
+      "bytes": 6998,
+      "sha256": "323f67e842a5c1223237816b8c8531ef61f94379344f1824288d93a41239bc7e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/dbrx.py",
+      "bytes": 7913,
+      "sha256": "4e9a0b1b6737479be08c0e007a5cc5f08aab7e7844f7e905a815fb221b35b029"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/deepseek.py",
+      "bytes": 8752,
+      "sha256": "6c8cdff24f51b2e274a63fe5c89aa73471dcc5334f2431d3b7d2eb9d3004acb8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/deepseek_v2.py",
+      "bytes": 17825,
+      "sha256": "4e190c2c053222e120afa5ec1e780cb7cd016538bf8ca7b988d080c3beded140"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/deepseek_v3.py",
+      "bytes": 20267,
+      "sha256": "a6124188b530db449b55fd42d62b366fe4e67905b78108a9a9c8a72520965d04"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/deepseek_v32.py",
+      "bytes": 23620,
+      "sha256": "c2140067fb3e35d5f195b051b2189d1170ba11d144a73aac810cc859f5d2fe4d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/deepseek_v41.py",
+      "bytes": 46820,
+      "sha256": "3d09571ee24efeb519c1879699a7b4d2cbe3a52142c06f3a7db0c1de37114915"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/dots1.py",
+      "bytes": 10218,
+      "sha256": "e97ee97238cbee9c7ac1831e6351b82b9b7b1f1afefa40e34fcc5bf40ea697d8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/ernie4_5.py",
+      "bytes": 5110,
+      "sha256": "384455d502a669b43e40e941e0ff4789fca687bf67606b25ab394124cd524237"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/ernie4_5_moe.py",
+      "bytes": 9316,
+      "sha256": "f67a43f09b6ee1bd123455df94cd46433b78b7f7d0733952e0bbf3e60dc6f8b2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/exaone.py",
+      "bytes": 5234,
+      "sha256": "d4902d790ed42c6edd1fe7494e9800869470ee95bc93024536f688fcc88a2cb1"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/exaone4.py",
+      "bytes": 7056,
+      "sha256": "7eb8216e6649250365cf166869ce6fe751496c8c6e7852568d8ec44f91754ddb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/exaone_moe.py",
+      "bytes": 14970,
+      "sha256": "095da963e5aeee2c5d2e66fcfe5f93073cdee32fe0dae1b1039361b06cf81bb2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/falcon_h1.py",
+      "bytes": 15917,
+      "sha256": "cc3acc9bb4d3c6ed8ff3f67ed6d85ba8828d973712e9ce13c8865a5064f6a999"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gated_delta.py",
+      "bytes": 21102,
+      "sha256": "f69e837ea68641dbb06fdb5dcc024a9a7e1d9353f08ae58c05275253a0c39428"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gear.py",
+      "bytes": 17091,
+      "sha256": "fc0b78c863b3e9a183bb573017a2745b285ae22b1a395986354b00a35b9b74f2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma.py",
+      "bytes": 5313,
+      "sha256": "cd5cd2d8971f5d9a4f4457e35a37c4e30efa06e4ac7840733f9015840bc906e0"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma2.py",
+      "bytes": 6714,
+      "sha256": "7e0b7bb806d7d431651087a90a396fdd4b8aa0c23512718b258473621e95c4d2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma3.py",
+      "bytes": 1808,
+      "sha256": "69d321648629b0f22e8cd9f3c3b597af6f34b5405c761ce089e825deebb2939a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma3_text.py",
+      "bytes": 8663,
+      "sha256": "884bb398288beda5e90caf3de60a15f5d17b8e383d28c85cca07de1e0aeafa38"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma3n.py",
+      "bytes": 21585,
+      "sha256": "7d58d1937afbbd30beb21dc22521f5ed752ffd7c378a51c40ff97b1458bad39b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma4.py",
+      "bytes": 2503,
+      "sha256": "7301367b6ffcfb125f036186650c6f56cb55be6d1e0893edae8308d27049eb47"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gemma4_text.py",
+      "bytes": 24604,
+      "sha256": "73ffa75e9069ce7b2f864ccd8f0267bb80c5b5d4e2b73102b8a2a93fe03f936d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/glm.py",
+      "bytes": 5741,
+      "sha256": "843a355fd4174644b4a20e8b48068a9f0d17f370682964ac85e71e5ee2edf48a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/glm4.py",
+      "bytes": 5599,
+      "sha256": "d0971768b6cd3a3a9b7d54b0244ef2fa92c1d511124fe8547e6f51f3ddd96cb2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/glm4_moe.py",
+      "bytes": 13802,
+      "sha256": "138b24949067e3eba6bede5737b78508e9f23a2c864134cd6d8ffe6a41e36596"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/glm4_moe_lite.py",
+      "bytes": 19336,
+      "sha256": "7aea6ba68f93b64b167155bd2e71cc23bfa99e339bde9999e8e500868abe1fa7"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/glm_moe_dsa.py",
+      "bytes": 1365,
+      "sha256": "ed99c179942f30a1eacb5ca9b14fd8eecd473dedec499aaf220d048488fc15d1"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gpt2.py",
+      "bytes": 6072,
+      "sha256": "6a513397b9f959ea44064dc91df0fd25db3c6eacdee6628c444204e12a549093"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gpt_bigcode.py",
+      "bytes": 5414,
+      "sha256": "dde551c3108a451a6f8a4dcf61d216d16d9a696936f1432ba3f226464717ac1d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gpt_neox.py",
+      "bytes": 6952,
+      "sha256": "fef6560c524b57e745f02ffe11a42b3a8e465d0121fb8bcd0f88d4067d878ed2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gpt_oss.py",
+      "bytes": 11121,
+      "sha256": "21ce2788670c6eda508a794e282e732c7fd3635e1d8b9c62a6efc4c433014d08"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/gptj.py",
+      "bytes": 6485,
+      "sha256": "63becf30abe7dd6fa6bbe10cc050c589caa46a7645373b33852b17dd368974f3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/granite.py",
+      "bytes": 6895,
+      "sha256": "7f43dc50e762520cbdfb147670ccbfdbc8d2412f9b9c1e141dc51d195fabc415"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/granitemoe.py",
+      "bytes": 8053,
+      "sha256": "3d7888e75a4c42f6908e68649e7bccbf4f394a97ae5804b0d368d54605f0cbd3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/granitemoehybrid.py",
+      "bytes": 19793,
+      "sha256": "6af68e8476fd5a7144fca175a8235427caf8681e03f3210772f9c58f6e98d4a6"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/helium.py",
+      "bytes": 5663,
+      "sha256": "a8607988de77c5f51e6a02e6532ea28b600529a0be804003c2cc605b9fefc332"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/hunyuan.py",
+      "bytes": 11240,
+      "sha256": "465acd63adea0c31f2ea3406b0103ee354397a2d199dbf9687e661fee9bdc513"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/hunyuan_v1_dense.py",
+      "bytes": 7181,
+      "sha256": "bc22858761e873b741d4ba4a5c65401da9e07f73e0ace18fe19792ba4c498bf5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/internlm2.py",
+      "bytes": 6269,
+      "sha256": "6d7be0a7d42791070c895f0c03af942705f337472dda68853924f1a4b7388e03"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/internlm3.py",
+      "bytes": 7590,
+      "sha256": "34dfec9d2b97ea802d94e1f8d0cb5f7886be8fec8e83cc914bd62fa48376b70b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/iquestloopcoder.py",
+      "bytes": 9911,
+      "sha256": "c2bba6a7a7f224aa2acf5d812a44484ec10fcb6bffcaf0ef1929cda846d1cd9d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/jamba.py",
+      "bytes": 12881,
+      "sha256": "f0d5e5551127179b79f10dff764aeaa70ab3c1fc06e71487a25ad414561f28bd"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/kimi_k25.py",
+      "bytes": 2432,
+      "sha256": "5388e4355775549b2bacb47ac57c2e4e523673ec789fe524859e26790421d305"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/kimi_k3.py",
+      "bytes": 45727,
+      "sha256": "f61cbcd5dadf77a615ae9e5e6e974cc3fbc0205880e6f055e484927951f75fde"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/kimi_linear.py",
+      "bytes": 21488,
+      "sha256": "aff64c1561dc1994f555beb9126981408659364f2aaf439c3122f928a12cb6c4"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/kimi_vl.py",
+      "bytes": 3402,
+      "sha256": "2d4bdfbb6303828b42264039038f9500a9aae1f7f6a040d1b8c48891f79cc4e0"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/laguna.py",
+      "bytes": 13935,
+      "sha256": "492f87716e333a17accccb678fc031d2029f94c2135ca0ac5454d66acbe9ba96"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/lfm2-vl.py",
+      "bytes": 1297,
+      "sha256": "5ebe2668eb02dc0cd4892ea04f58a502d6539e0ab146943a42cbfe4869cb464d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/lfm2.py",
+      "bytes": 10142,
+      "sha256": "558dcbec61442b1f7216c0122d08d44083ea71d1510be23f4f934e62b0f71376"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/lfm2_moe.py",
+      "bytes": 12944,
+      "sha256": "4234efafa726e94070d6da3a7ace4547dbc7b88a2de38dcbfb88c69ac3a9ff35"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/lille-130m.py",
+      "bytes": 4700,
+      "sha256": "971390eaf6d5d4761460e1b5852ec3351da27248aa4b18442cbae6792c1accca"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/llama.py",
+      "bytes": 9207,
+      "sha256": "dfb656511e6740781cd0563f7994a78b3404c199b9aebaa2fbca28a19e280891"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/llama4.py",
+      "bytes": 10903,
+      "sha256": "9727d2246a7b1cbca89d0453aee287be01bff41656dae321aadfca36426c852a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/llama4_text.py",
+      "bytes": 5754,
+      "sha256": "f6ce3838b18bb6d281de84694639f483209019b1da4bdeb82848909d6af84ad8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/longcat_flash.py",
+      "bytes": 17633,
+      "sha256": "1d9e394e3342bec4b19b1a6a1066c318fba937037e3555833f820d35cf2429f4"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/longcat_flash_ngram.py",
+      "bytes": 6715,
+      "sha256": "1bafd3f7672944ba96c9a1480da706d6a3ad795162192a201d23548f84956370"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mamba.py",
+      "bytes": 7260,
+      "sha256": "a7cd1376163cabd05bbb964c1e4abd653d313e929d2ff0d07714a365163d2a76"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mamba2.py",
+      "bytes": 8567,
+      "sha256": "36d6841678e32dbd132cb1ea94d068f88779287350c58d4b2de34b1317af0fdf"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mellum.py",
+      "bytes": 8757,
+      "sha256": "3c4936dec7a5de121be560104b25b373dd313f14619aa09efbdd327ebf659155"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mimo.py",
+      "bytes": 5999,
+      "sha256": "4068132c9b82d54c914ad77bf6b39b4af07e80b560e4de260fec168b8453c9c8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mimo_v2_flash.py",
+      "bytes": 13002,
+      "sha256": "c110f8deed605277ae070359dd6d2ba0c700981101240c54bcd049e8d60e4847"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/minicpm.py",
+      "bytes": 6358,
+      "sha256": "f6a245da01c61687b7651a5184fb5069cae9abc685e6bc85fcadd2f6682854b3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/minicpm3.py",
+      "bytes": 8161,
+      "sha256": "7cae4617eb0b6c86004c80767875d490f7166c6b2042fa8b895d2f99538f1e1a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/minimax.py",
+      "bytes": 13050,
+      "sha256": "1b183d11feca94d45b1ae54f1f68efc8f165f3301e24f0b83a6420164de975ca"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/minimax_m3_vl.py",
+      "bytes": 24757,
+      "sha256": "5407aabdc94f3fee8aa23d018357cbd1ea1a32346be0f30b4390df2f20ab7b11"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/ministral3.py",
+      "bytes": 11838,
+      "sha256": "9276418fafc1eb753f824d8c1bb0789c154b1514960fcf7a5ec5d1e71e631ac3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mistral3.py",
+      "bytes": 2045,
+      "sha256": "ae71c853faa77152f90f335fefe7cf5849db065a276b5b9ad11c428be5856f59"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mistral4.py",
+      "bytes": 21551,
+      "sha256": "5ca9ef1d962b9f3ecb4dd47f4b837c6d04d09c3c6c4f22479780b66138e99841"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mixtral.py",
+      "bytes": 7589,
+      "sha256": "a7d15990aa42b81b659c8679089b6f1571225466825c71d9350eace1964c3b5c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/mla.py",
+      "bytes": 2207,
+      "sha256": "22877b336255e58d949d982b6ac4730bd0ca1a1a6f40479f736570b3c9f35057"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/muse_glimmer.py",
+      "bytes": 10723,
+      "sha256": "a920933e0b3323d368c082e630fa5022e53265f0fbb44e504ec739a00a2e949c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/nanbeige.py",
+      "bytes": 7481,
+      "sha256": "50334323420502f2e7f2f2b87c6607ee05ae88e1661a3379958897583cceae8c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/nanochat.py",
+      "bytes": 6732,
+      "sha256": "989d414c4c8c3f1ae0d2d9b06c06d45b7dc5fc0bd8b796f585e318586b27dfe4"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/nemotron-nas.py",
+      "bytes": 14128,
+      "sha256": "05b40ddd35fd5b829172b2e40ce9674a787623e5bbb26c55d45ed31f5734a855"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/nemotron.py",
+      "bytes": 7040,
+      "sha256": "e36f21ebd8f66d76380aa43b781f3ffa98d996198773a70b8f030a9e14c2cb18"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/nemotron_h.py",
+      "bytes": 19220,
+      "sha256": "c6d657b2abef8308b395d52a8e35111b87dbaa3fdd3282a0d5da10e52fd2ac63"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/olmo.py",
+      "bytes": 4896,
+      "sha256": "46b0451bc916bb091660da484ef21b8ba9d66002ae2e75f12a3d706955d338e8"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/olmo2.py",
+      "bytes": 6639,
+      "sha256": "9e8829bd07a2b5b43e7353bff32c59ffd65e664db2a8c96735eb44cffe287559"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/olmo3.py",
+      "bytes": 7851,
+      "sha256": "ede2b37d41cff6f73877e8ab4174e9eac10dc37b49962f03c297fe41d9a27393"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/olmo_hybrid.py",
+      "bytes": 13704,
+      "sha256": "c4c7e8ed1c15bf25927e2b6db4cbdaa4df03451ef05f5113c5a0133c27a7c0b2"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/olmoe.py",
+      "bytes": 7430,
+      "sha256": "8ff7eb8447baab1214582a7e5937d13bb6284ab57cac77befc3c019f622739fc"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/openelm.py",
+      "bytes": 6786,
+      "sha256": "dbe420d2148e17d69eba1ba08b33bbceac2e8aecd11e09ce6d98aa93bf03d39f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/phi.py",
+      "bytes": 5560,
+      "sha256": "0892f8f1995a9cba6657aca0d9b0e021336a68ba1161abbda63d2a63f9c60f6b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/phi3.py",
+      "bytes": 7273,
+      "sha256": "863b8af7cd7f00ec24e7196102fc83c243a712b92d09660bab870a47aff0248f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/phi3small.py",
+      "bytes": 10181,
+      "sha256": "952c180419d2999648e95aa4d3d6eb5bfec16f7aaee2920ff97844690d14b8b4"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/phimoe.py",
+      "bytes": 7165,
+      "sha256": "603da320004fb6a6be68b443a109d78d21fa649a2d17c0d2dc8aaeba3540d740"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/phixtral.py",
+      "bytes": 6097,
+      "sha256": "7adde1569363f127a4a3c259a83267d0c3e464093e495673ff1eab92ae9f9aaf"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/pipeline.py",
+      "bytes": 1572,
+      "sha256": "5897f414f550584442594c766fc91ca53d72a8eb1e242ffbc5bababcd7a4ae35"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/pixtral.py",
+      "bytes": 1345,
+      "sha256": "cbccd51a330e724ecc9e98399006b965db5ae7f8fce0698ab03354c6ad119f28"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/plamo.py",
+      "bytes": 6531,
+      "sha256": "592eeb4a1b7bd20c4c5e12367652a3d85f40c9ef9c8f28aa0e18c34c3ac453a5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/plamo2.py",
+      "bytes": 14910,
+      "sha256": "e363b6a0a5050dae2510dabb6a2c1765db1a2e0fd4629f86c29a2b1e51295502"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/plamo3.py",
+      "bytes": 10262,
+      "sha256": "fcbffb87672d95b1c840718e403d6fd635f2ab4348bd07837698a5611b310097"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen.py",
+      "bytes": 4727,
+      "sha256": "a2ad5fca90569fcd753816e9ebc7b24043dd75b20ad36f208c593516f3de49cd"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen2.py",
+      "bytes": 8184,
+      "sha256": "937e0321ef06a34efbd66d2ce0ce1e715aab98da4acefa376c8cd29291a0bc83"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen2_moe.py",
+      "bytes": 7881,
+      "sha256": "5f9ae8bd36299e877b36c38bffc621733b2caa3afee8f2cf2df56a37cad16b9e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen2_vl.py",
+      "bytes": 1759,
+      "sha256": "1d7035a0c7b22404d062d841198963752914a16a6ed3dd8b657d159a8a74ea2e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3.py",
+      "bytes": 7892,
+      "sha256": "7e29b7055d8e526a0ede6e2740a3038ad24d0cef6a1abb446c411d3fbd0efa2d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_5.py",
+      "bytes": 20014,
+      "sha256": "10c59a71d8d739b8cdff38c7e9c7345deb9a9688e821ac37cb774d3086cac42e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_5_moe.py",
+      "bytes": 1789,
+      "sha256": "ef9e8e1f6a5c097b29587c8330e8eb9c9cbdc52fbb4597fbc2362606c1996619"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_moe.py",
+      "bytes": 11428,
+      "sha256": "dee237d7bcec10f503aa18330aab9693f795209e4de64d37e1ea17df64cbd932"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_next.py",
+      "bytes": 17853,
+      "sha256": "67ca08a4d08cb7be124965e95399735e556f1eaeb21a16bc23cb88d1ac035e11"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_vl.py",
+      "bytes": 1759,
+      "sha256": "c8c33091ce54a1777f1d3f1854ac43652bce9c4f08736653bec7fcc7e4ef3149"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/qwen3_vl_moe.py",
+      "bytes": 2485,
+      "sha256": "4c13ca32a4f2d965c0c5aae23876cb98e4b92b0d8abda49727fb9f93ed5bf7ea"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/recurrent_gemma.py",
+      "bytes": 13071,
+      "sha256": "ba0375d5bb3a80e0395ee732c38f65b1dd00d49032acc9a8cee8ee9391b11e02"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/rope_utils.py",
+      "bytes": 12689,
+      "sha256": "06466d57dfe1ccc1e61ba595c0a8f2dd3a14bcb5c6a1d06c67591dc03128606b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/rwkv7.py",
+      "bytes": 14056,
+      "sha256": "198752c041568cd7f04522999533c5c4fac51aac2c581e7762285d25ec9b8583"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/seed_oss.py",
+      "bytes": 5791,
+      "sha256": "451a32421feaae71e6508b0ecb6dc8fecdcaf2e1f9ce7347a56ffea95c871832"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/smollm3.py",
+      "bytes": 2134,
+      "sha256": "89bb60ff0fc8bc5e04dbde5375dd2475aae8e75e5c792b93f85217b99f594179"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/solar_open.py",
+      "bytes": 970,
+      "sha256": "fbf6c1c57de579e3322978464aebb8cddce77718a396cb18f916efa999328125"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/spark2_5.py",
+      "bytes": 12015,
+      "sha256": "d6342b85e6b72a17220dd43a0bd80d2a6a1a472750ed1abdfc11624a64d37452"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/ssm.py",
+      "bytes": 7600,
+      "sha256": "32ccdb827cdd03ad900b90697b48963106b4c7466ba446b56ff7cedeecfb526e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/stablelm.py",
+      "bytes": 6794,
+      "sha256": "cfac4d12ab16498a970c5035a203523056972f3e310ac297740668cccd69b30c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/starcoder2.py",
+      "bytes": 5124,
+      "sha256": "fc2c45fb3c1c2976b227ca81e84fcdd5769387bdc9aa95c3ddf59e91a2cfc08c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/step3p5.py",
+      "bytes": 17403,
+      "sha256": "fe0a9fe74f5068d6c366fb3fe0e37cfe10da53effa3c833d50b2e0a1edf8d845"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/switch_layers.py",
+      "bytes": 6372,
+      "sha256": "b33bf172034d8d3cb8ad446604833ecc85168bbf9f1bd7312e44ecaeb1fddb15"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/talkie.py",
+      "bytes": 7376,
+      "sha256": "6bf0f74376680ace73d705883f24e4e7f03d755edf2aa7aa7b49f4601fb95cbc"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/telechat3.py",
+      "bytes": 6416,
+      "sha256": "14ce1bf6a19044265873233edd65e37586704c85310cfcb756a109b679e6e427"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/models/youtu_llm.py",
+      "bytes": 7980,
+      "sha256": "cc31f3bde475530f0388d18e99bb50b7fc54248cbaea9d0720f7983d38cd444a"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/perplexity.py",
+      "bytes": 5628,
+      "sha256": "139a3854179505adeb4d6889f9c311f1d05ad94833c08ca0864e10f7e023e98b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/__init__.py",
+      "bytes": 31,
+      "sha256": "d4132da254c96f33e5800635a932705125462dd8b5d62b48b58389ff7ca18bdb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/awq.py",
+      "bytes": 18121,
+      "sha256": "b018eca7079a595fb49cfe923b3cd554033b42bda20fad37ddd2e83997bfc11f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/dwq.py",
+      "bytes": 12803,
+      "sha256": "b69285f0f86f1fc9c8151bb31a0cd926df8959dda7f315790680adb64b8f6b84"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/dynamic_quant.py",
+      "bytes": 8075,
+      "sha256": "a1aebc7309cca4bbbeea345624dc06f5d3ab83dfd647e704d850b4c857def5b3"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/gptq.py",
+      "bytes": 6779,
+      "sha256": "bd4c08453a24fe41fea8ce5885f433b718628c16c4e7a0596900fc72553daf16"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/quant/utils.py",
+      "bytes": 998,
+      "sha256": "fbae54a7e39b9ae999bedfebf833e865e6912bada29f4c3fe53383b9d8655e58"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/sample_utils.py",
+      "bytes": 12783,
+      "sha256": "3aac92d804b6b91c82a4e2844697a8723de26f6af57e10013a482b967e739cfa"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py",
+      "bytes": 70765,
+      "sha256": "57392576de114af80ede723976b9dd156dc234f856b9943b8b44b8b78bc27f79"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/share.py",
+      "bytes": 8766,
+      "sha256": "b04a4351097dce15b59ebc083026502217141bdea7d54b0da465de8bf1a7ace5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tokenizer_utils.py",
+      "bytes": 23770,
+      "sha256": "ecb52655e86ff6d6db6a657601ece11f195e85971482eb2d0f40c20de17eb4c5"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/__init__.py",
+      "bytes": 31,
+      "sha256": "d4132da254c96f33e5800635a932705125462dd8b5d62b48b58389ff7ca18bdb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/function_gemma.py",
+      "bytes": 1300,
+      "sha256": "b8531d412cb87d1ceaecd5e2d15b162ff8036e093a4daa9e3f872d005191defc"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/gemma4.py",
+      "bytes": 2166,
+      "sha256": "8806c0593a9ababb7f8617a2ffcb9c50f19a0cebdf659124691adba6e09c826c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/glm47.py",
+      "bytes": 6946,
+      "sha256": "84fc317a7c26864aa5318d7f2c7f6b5e2b8fe2cbd79ff61e51e103e89448c898"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/json_tools.py",
+      "bytes": 186,
+      "sha256": "398c044ebd6bbb5578131d57817753d70b43803da509c14d12a2591e01d9cdb1"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/kimi_k2.py",
+      "bytes": 1831,
+      "sha256": "4ea486e8adaee0bad38f8f93ededac8de3aa0498c92eb33c7feecbbafc6534c9"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/kimi_k3.py",
+      "bytes": 2896,
+      "sha256": "6436e38424d7aa993c85348b19eacada6c675a2d7d2c8df9890907beca0e42d4"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/laguna.py",
+      "bytes": 442,
+      "sha256": "dd1c4573ff03bc3909337e3aadbb79879104e553840a8a46d9ad377a0672d6ae"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/longcat.py",
+      "bytes": 1725,
+      "sha256": "dcf25a84edd35b92b7df8dceef424e12930828159ad315a67dd997d90f2fc531"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/minimax_m2.py",
+      "bytes": 6408,
+      "sha256": "4ade8d1d92cb9755b2bb4cff0d0f881c4470968c3084cba0c76addb558813387"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/mistral.py",
+      "bytes": 2533,
+      "sha256": "06053280d8fe1ddd3027f0efccee004f5de30986ee181b1d15260cfc931f85d7"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/pythonic.py",
+      "bytes": 3427,
+      "sha256": "fa088bc90ca6ab273b8a3e03d2729e10bd58b56b2213d6dfed747da335750a3f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tool_parsers/qwen3_coder.py",
+      "bytes": 4155,
+      "sha256": "2d212e4e6f175178bd80b7db9963ccad613e29419f976e6d6b3272417f953722"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/__init__.py",
+      "bytes": 124,
+      "sha256": "cc5f731de0b94523078bf63a81130eb640e980192a786255df4e5f36995ce35f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/callbacks.py",
+      "bytes": 4023,
+      "sha256": "65e00091ea3daafeac542961bcfcf9aeaa62f87c2602d0a5181c61659c8ea2bb"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/datasets.py",
+      "bytes": 9690,
+      "sha256": "dcd675376d68d1813261c8389236b586b16b9a58a5ea80be8eb535bb9d0e9689"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/dora.py",
+      "bytes": 6807,
+      "sha256": "b2f2d80bc5091efcb56916157b0166210aca9333fd20a621ed04ea53bc45ba10"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/lora.py",
+      "bytes": 8402,
+      "sha256": "4d3a8edab111d4ddba33398ba8700203db7b61621c39e9c348fdd50e57278b45"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/losses.py",
+      "bytes": 26541,
+      "sha256": "fc38353b7b033815762bd8ce0c7af7759f0c9ea57b5f89e26fdecae21f9e3a89"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/trainer.py",
+      "bytes": 12560,
+      "sha256": "0b6027fdb11803e951ceee52c83a81f82daa922ea8c6b7ca6888953461064e8e"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/tuner/utils.py",
+      "bytes": 6821,
+      "sha256": "f59f3c027176a3975fe60e7fbd9f3f38723c27c3f888cf9e591c103f93f68588"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/upload.py",
+      "bytes": 526,
+      "sha256": "d25c543f54c58bdcf755ceeea9d9dda36169a704e2754ea1075fac119038eb3d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/utils.py",
+      "bytes": 39296,
+      "sha256": "d442babbfd891bfa61ec9c6feead9024e206a333a357c5e4a07554c4ea138965"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_multiarray_tests.cpython-312-darwin.so",
+      "bytes": 121192,
+      "sha256": "083ab89907471d9d6af7337ae44f6acbde5e5e23ef173394dc6251c925fc08ba"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_multiarray_umath.cpython-312-darwin.so",
+      "bytes": 3996136,
+      "sha256": "3432cd9093d7e84b4080015b6a889598fea4c305da967063cb916215193bf85d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_operand_flag_tests.cpython-312-darwin.so",
+      "bytes": 51240,
+      "sha256": "e910e6642301f2f28a986d819a3249d5d1013b2ee6ce4e5e9a95082ecc4d3627"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_rational_tests.cpython-312-darwin.so",
+      "bytes": 73352,
+      "sha256": "73d0f8c90654dd97fa2b0ed6c45882eb8fe83a8c4256e38bfc31713e5e07841b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_simd.cpython-312-darwin.so",
+      "bytes": 339640,
+      "sha256": "e78efa667e9cd2d0f319968a7feae06adf7f0945efde8bbcad3bd0f75e199541"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_struct_ufunc_tests.cpython-312-darwin.so",
+      "bytes": 51480,
+      "sha256": "24218eec682f48246b450903e270be19eca1c6c2d828235ddef29949f2cc8950"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/_core/_umath_tests.cpython-312-darwin.so",
+      "bytes": 71904,
+      "sha256": "1c55454c29a1a5f500fc22cf095e862b0af0f17e14c2a1fbe7140832c21a0d66"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/fft/_pocketfft_umath.cpython-312-darwin.so",
+      "bytes": 329912,
+      "sha256": "51add49e0b523ae7b20a10a879a77e0998afb795d6d233ef8936f0a58ce4e36f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/linalg/_umath_linalg.cpython-312-darwin.so",
+      "bytes": 154880,
+      "sha256": "dbaefc13a7379c877dee2618ea6f96d69560743d3ad392d57f3a866f1378728d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/linalg/lapack_lite.cpython-312-darwin.so",
+      "bytes": 53008,
+      "sha256": "a7895a9c0d4afdf3fbbdc2456e016590aa0fbd8d7e203079debee39bd0269b5c"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_bounded_integers.cpython-312-darwin.so",
+      "bytes": 298024,
+      "sha256": "1215997585debe5651a77a52563dc32508e67414ef35761c49afa150ce1f8e1f"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_common.cpython-312-darwin.so",
+      "bytes": 250656,
+      "sha256": "884ecb8d16bbb1572816a89fff6b2b5722bb8210273ff744ec0db5c0496de5fd"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_generator.cpython-312-darwin.so",
+      "bytes": 690960,
+      "sha256": "87a6dfcf15b6107936915f76e1a52b00d68f2e539169aee194af7a3e5bbacc1b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_mt19937.cpython-312-darwin.so",
+      "bytes": 133520,
+      "sha256": "9779d38f6e586d845f2ee652959f3edf1acb44fbeff6f4ee16ec7fb58f23dd6d"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_pcg64.cpython-312-darwin.so",
+      "bytes": 152544,
+      "sha256": "39fbdcf07c23901f4ae0b6ab3be3e05829a83495819a69cda8ddbd11d06ff136"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_philox.cpython-312-darwin.so",
+      "bytes": 133792,
+      "sha256": "5a74868b1a98c3d0a776cf275c88959871376bab0ff15ef0d882229ddd5a2a56"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/_sfc64.cpython-312-darwin.so",
+      "bytes": 98256,
+      "sha256": "6bb290611b7fa2304d28f3c8ddb0156f435ead1aa0f5a997ddfe4e8a6762c200"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/bit_generator.cpython-312-darwin.so",
+      "bytes": 226640,
+      "sha256": "88bbb27d3f58e12c9be2ff6af6eff4e409599a3e6cece3b4144d4aa8878b149b"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/numpy/random/mtrand.cpython-312-darwin.so",
+      "bytes": 580912,
+      "sha256": "0e52c63a090850119f67a570ae2fd094861fcff3a0bad00cbf3a0c86faa82510"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/regex/_regex.cpython-312-darwin.so",
+      "bytes": 809456,
+      "sha256": "0b33109585ab9d92744a374413b078267252ba8173af994b43faf8d59d4e4df0"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/safetensors/_safetensors_rust.abi3.so",
+      "bytes": 1091856,
+      "sha256": "bc2fe2bfd2264af61c12fdea6d32b44318c4701ace0f697b4f35110cb0a1e4af"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/sentencepiece/_sentencepiece.cpython-312-darwin.so",
+      "bytes": 2360472,
+      "sha256": "d1b0f1de11f4d50b558954c955cdfc6fefa2063cfc9a40d73ed085da8edfaa59"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/tokenizers/tokenizers.abi3.so",
+      "bytes": 9585168,
+      "sha256": "447866c1f44704aad07c12f1ea068a63c45b29ecfce301a9d122b549cafc1623"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/yaml/_yaml.cpython-312-darwin.so",
+      "bytes": 381768,
+      "sha256": "e22e20c9ba0922aea16158d839a651b58226eb0e86544879b7d5f5229135d928"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf",
+      "bytes": 7458301152,
+      "sha256": "91898433cf5ce0a8f45516a4cc3e9343b6e01d052d01f684309098c66a326c59"
+    },
+    {
+      "path": "/Users/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/README.md",
+      "bytes": 78888,
+      "sha256": "e50f8066e39c38cbc2da5dd94b9a9a2712b64c4921f107a5adb4b3ca5b6bbac0"
+    }
+  ],
+  "packages": {
+    "mlx": "0.32.3",
+    "mlx-metal": "0.32.3",
+    "mlx-lm": "0.32.0",
+    "transformers": "5.19.0",
+    "tokenizers": "0.23.2",
+    "huggingface-hub": "1.33.0",
+    "numpy": "2.5.3"
+  },
+  "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "scope": "All venv native so/dylib/metallib, MLX/MLX-LM sources, Python core dylibs/dynload, model files and experiment sources; Apple system frameworks fixed by macOS build, not file hashes"
+}
