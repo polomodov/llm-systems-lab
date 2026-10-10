@@ -1,0 +1,222 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB31",
+  "harness_id": null,
+  "session_id": "apple-common-http-20261010",
+  "created_at": "2026-10-10T10:45:36.091Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Сравнить целые GGUF Q6_K/llama.cpp и MLX 4-bit/MLX-LM deployments на одинаковых messages и sampling, не приписывая разницу одному backend.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-10T11:22:28.962Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/mlx-reference.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "gguf-startup",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-cleanup",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-chat-warmup",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-chat-1",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-chat-2",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-chat-3",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-math-warmup",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-math-1",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-math-2",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "gguf-math-3",
+      "configuration_id": "gguf-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-startup",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-cleanup",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-chat-warmup",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-chat-1",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-chat-2",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-chat-3",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-math-warmup",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-math-1",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-math-2",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "mlx-math-3",
+      "configuration_id": "mlx-native-common-http-output256-thinkingfalse",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/artifact-manifest.json",
+    "raw/gguf-reference.json",
+    "raw/http_probe.py",
+    "raw/mlx-reference.json",
+    "raw/pin_runtime.py",
+    "raw/prestart-pins.json",
+    "raw/protocol.md",
+    "raw/run_common.py",
+    "raw/runtime-manifest.json",
+    "raw/server_entry.py",
+    "raw/shared-inputs.json",
+    "raw/source-registration.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Native inference only; no agent harness."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
