@@ -20,6 +20,27 @@
       "published_bytes": 9025
     },
     {
+      "path": "raw/lms-gguf/prestart-verified.json",
+      "original_sha256": "a7b37f2b1f36d1d18c9e5c623f97b485d93f135358145cb2733374a62f8e4c81",
+      "published_sha256": "2f8bdff2dcee3797818fae01cfe96f231c59eb071bd975a0492cd084360d1a78",
+      "original_bytes": 24078,
+      "published_bytes": 23476
+    },
+    {
+      "path": "raw/lms-gguf/runtime-events.jsonl",
+      "original_sha256": "1f0a7f89235173842292753b21867de5efb0f7cffdd6d458c7e4713476c8fa69",
+      "published_sha256": "ce8f528e0ae36984f14323ab9354294939542423c63a8bcbc0607bceee65f0fc",
+      "original_bytes": 38263,
+      "published_bytes": 38256
+    },
+    {
+      "path": "raw/lms-mlx/prestart-verified.json",
+      "original_sha256": "5ba0cbd0956d1e38e8df2cc2d489a65725e187be776437deb72d0ae349c1e69c",
+      "published_sha256": "33971f4bc4af106b16f9340960f6e336ae38acfa5c145041c64f57cda70cd417",
+      "original_bytes": 24078,
+      "published_bytes": 23476
+    },
+    {
       "path": "raw/mlx-artifact-manifest.json",
       "original_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
       "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
@@ -60,6 +81,13 @@
       "published_sha256": "7258f57a930e693409e468fe85d515736226ea1f1bff77bf7a7cb1af522a5a14",
       "original_bytes": 3061,
       "published_bytes": 2977
+    },
+    {
+      "path": "raw/verified-before-window.json",
+      "original_sha256": "1a83e9f3b024121d915c1a2db4678f608055965ea2ef28d2cb9fa04ca860a4cb",
+      "published_sha256": "a613bbd1fdbfb2d29acb18ba18c348e29121c7681a50e03c54da192acb8a8575",
+      "original_bytes": 24046,
+      "published_bytes": 23444
     }
   ]
 }
