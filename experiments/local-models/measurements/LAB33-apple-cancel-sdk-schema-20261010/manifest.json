@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "apple-cancel-sdk-schema-20261010",
   "created_at": "2026-10-10T08:49:09.991Z",
-  "status": "in-progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Явная SDK отмена связывает native request и userStopped; HTTP disconnect может оставаться неподтверждённым. Metal call path приложенного GGUF runtime проверяется отдельно.",
@@ -37,302 +37,308 @@
       "id": "admission",
       "configuration_id": "host-ac-no-models",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/admission.json",
+        "raw/admission.jsonl"
+      ]
     },
     {
       "id": "lms-gguf-startup",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-cleanup",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-warmup",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-1",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-2",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-3",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-warmup",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-1",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-2",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-3",
       "configuration_id": "lms-gguf-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-startup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-cleanup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-warmup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-1",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-2",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-3",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-warmup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-1",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-2",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-3",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-warmup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-1",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-2",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-3",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-warmup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-1",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-2",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-3",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-warmup",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-1",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-2",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-3",
       "configuration_id": "lms-mlx-native-defaults-v3-schema",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Registry pin registration selected GGUF metadata for MLX and failed; no prestart-pins.json, no model launched.",
       "evidence_files": []
     }
   ],
   "evidence_files": [
+    "raw/admission.json",
+    "raw/admission.jsonl",
     "raw/deployments.json",
+    "raw/driver.txt",
     "raw/gguf-deployment-reference.json",
     "raw/mlx-artifact-manifest.json",
     "raw/protocol.md",
@@ -344,14 +350,16 @@
     "raw/sdk-requirements.txt",
     "raw/sdk-schema-smoke.json",
     "raw/sdk-wheels.json",
-    "raw/sdk_probe.py"
+    "raw/sdk_probe.py",
+    "raw/source-registration.json"
   ],
   "unavailable": {
     "conditions.harness_profile": "Нативный HTTP/SDK опыт; agent harness отсутствует.",
     "gpu_budget_gib": "Максимальная GPU allocation не измерена.",
     "physical_gpu_release": "Нет независимого collector физических GPU страниц.",
-    "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers."
+    "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers.",
+    "completion": "Missing model pin manifest after wrong-format registration; no native model launch."
   },
-  "conclusion": null,
+  "conclusion": "CPU admission completed, but model pin preparation failed; native model phase did not start.",
   "reviewer_decision": null
 }
