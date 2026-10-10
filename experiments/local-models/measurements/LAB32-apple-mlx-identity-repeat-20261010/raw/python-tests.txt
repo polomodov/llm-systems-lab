@@ -1,0 +1,75 @@
+test_corrected_tsv_changes_only_the_context_condition (test_lab31_context_metadata.ContextMetadata) ... ok
+test_finalization_keeps_prompt_length_separate_from_unknown_capacity (test_lab31_context_metadata.ContextMetadata) ... ok
+test_original_experimental_evidence_is_unchanged (test_lab31_context_metadata.ContextMetadata) ... ok
+test_cancel_for_another_task_is_not_accepted_by_a_true_flag (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_invalid_primary_tool_contract_is_rejected_before_any_export (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_missing_budget_in_tool_followup_prevents_admission (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_missing_recovery_prevents_admission_even_if_attempt_completed (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_regeneration_admits_only_scoped32k_with_recovery_and_budget (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_release_duration_cannot_disagree_with_the_client_exit_timeline (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_scoped32k_cannot_erase_the_sequential16k_failure (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_sequential_campaign_uses_the_same_tool_verifier (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_tool_result_must_match_primary_call_and_registered_value (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_unobserved_release_is_unavailable_instead_of_a_fabricated_zero (test_lab32_budget_admission.ScopedBudgetAdmission) ... ok
+test_completed_status_requires_primary_context_evidence (test_lab32_context_export.CampaignFinalization) ... ok
+test_failure_keeps_the_attempt_and_marks_remaining_work_not_run (test_lab32_context_export.CampaignFinalization) ... ok
+test_planned_contexts_are_not_reported_as_completed (test_lab32_context_export.CampaignFinalization) ... ok
+test_checkpoint_rejects_future_evidence_before_mutating_files (test_lab32_context_export.ContextExport) ... ok
+test_missing_unsupported_or_conflicting_context_is_rejected (test_lab32_context_export.ContextExport) ... ok
+test_primary_followup_controls_and_effects_keep_their_conditions (test_lab32_context_export.ContextExport) ... ok
+test_failure_cannot_be_relabelled_as_success_before_export (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_forced_end_does_not_make_dirty_final_successful (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_interrupted_finalization_stays_blocked_on_repeated_export (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_only_budget_changes_and_followup_keeps_it (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_original_blocked_campaign_and_current_hashes_are_preserved (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_regeneration_preserves_failure_and_full_admission_boundary (test_lab32_reasoning_diagnostic.ReasoningDiagnostic) ... ok
+test_changed_primary_usage_is_rejected_before_export (test_lab34_complete_export.CompleteExport) ... ok
+test_repeated_export_keeps_sigkill_and_omissions (test_lab34_complete_export.CompleteExport) ... ok
+test_empty_live_register_preserves_primary_failed_block_and_counts (test_lab34_failed_sustained_export.FailedSustainedExport) ... ok
+test_changed_historical_bytes_stop_before_native_start (test_lab34_resume.ResumeAudit) ... STOP prior-short/r1-c2/request-0001.response.bin
+ok
+test_power_stop_cleanup_uses_only_kill_after_exit_deadline (test_lab34_resume.ResumeAudit) ... ok
+test_valid_historical_audit_is_distinct_from_new_measurements (test_lab34_resume.ResumeAudit) ... {"case": "prior-evidence-audit", "accepted": true, "reason": null}
+STOP Synthetic no-GPU stop
+ok
+test_historical_copy_tampering_prevents_export (test_lab34_resume_export.ResumeExport) ... ok
+test_power_stop_and_history_survive_idempotent_export (test_lab34_resume_export.ResumeExport) ... ok
+test_monitor_and_cleanup_cannot_send_two_interrupts (test_lab34_shutdown.ConcurrentInterrupt) ... ok
+test_new_guard_requires_all_measured_signals (test_lab34_shutdown.ConcurrentInterrupt) ... ok
+test_guard_interrupt_is_not_repeated_by_cleanup (test_lab34_shutdown.Shutdown) ... ok
+test_normal_cleanup_sends_one_owned_interrupt (test_lab34_shutdown.Shutdown) ... ok
+test_failed_primary_block_is_registered_before_native_exit_propagates (test_lab34_sustained.SustainedController) ... {"case": "short-evidence-audit", "accepted": true, "reason": null}
+{"case": "startup", "accepted": true, "reason": null}
+{"case": "warmup", "accepted": true, "reason": null}
+STOP Synthetic native exit after primary block
+ok
+test_keyboard_interrupt_terminates_only_the_owned_http_client (test_lab34_sustained.SustainedController) ... ok
+test_completed_interval_is_idempotent_and_history_is_not_recounted (test_lab34_sustained_export.SustainedExport) ... ok
+test_shorter_interval_cannot_be_admitted (test_lab34_sustained_export.SustainedExport) ... ok
+test_swap_in_completed_timeline_cannot_be_admitted (test_lab34_sustained_export.SustainedExport) ... ok
+test_wrong_concurrency_selection_cannot_be_admitted (test_lab34_sustained_export.SustainedExport) ... ok
+test_added_unpinned_versioned_alias_is_rejected (test_lab35_build_pins.BuildPins) ... ok
+test_changed_dylib_stops_before_popen (test_lab35_build_pins.BuildPins) ... ok
+test_complete_reference_covers_bundled_libraries (test_lab35_build_pins.BuildPins) ... ok
+test_missing_library_entry_rejects_reference (test_lab35_build_pins.BuildPins) ... ok
+test_apple_success_does_not_unblock_pair_or_agent_campaign (test_lab35_export.QualificationExport) ... ok
+test_changed_primary_final_content_rejects_admission (test_lab35_export.QualificationExport) ... ok
+test_recorded_usage_cannot_replace_primary_usage (test_lab35_export.QualificationExport) ... ok
+test_all_registered_inputs_pass_actual_driver_validation (test_lab35_qualification.Qualification) ... ok
+test_changed_input_stops_before_any_native_campaign (test_lab35_qualification.Qualification) ... ok
+test_nested_variant_uses_existing_shared_driver (test_lab35_qualification.Qualification) ... ok
+test_changed_primary_bytes_rejected (test_lab35_tensor_export.TensorExport) ... ok
+test_changed_registered_request_rejected (test_lab35_tensor_export.TensorExport) ... ok
+test_fresh_repeat_complete_and_replay_idempotent (test_lab35_tensor_export.TensorExport) ... ok
+test_invalid_chat_content_rejected_even_with_matching_inventory (test_lab35_tensor_export.TensorExport) ... ok
+test_missing_execution_library_pin_cannot_be_inferred_from_reference (test_lab35_tensor_export.TensorExport) ... ok
+test_post_launch_verification_cannot_admit_repeat (test_lab35_tensor_export.TensorExport) ... ok
+test_usage_must_match_primary_response (test_lab35_tensor_export.TensorExport) ... ok
+test_other_format_or_wrong_size_cannot_cover_model_identity (test_lab_artifact_selection.ArtifactSelection) ... ok
+test_reordering_does_not_select_other_format (test_lab_artifact_selection.ArtifactSelection) ... ok
+test_revision_and_uniqueness_are_required (test_lab_artifact_selection.ArtifactSelection) ... ok
+
+----------------------------------------------------------------------
+Ran 63 tests in 5.754s
+
+OK

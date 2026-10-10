@@ -6,11 +6,16 @@ import pathlib
 import sys
 
 root=pathlib.Path(__file__).resolve().parents[3]
+from artifacts import select_artifact,missing_artifact_pins
 directory=(root/sys.argv[1]).resolve()
 assert directory.parent==root/'experiments/local-models/measurements' and directory.name.startswith('LAB32-apple-mlx-')
 raw=directory/'raw'
 def save(path,value):path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
 manifest=json.loads((directory/'manifest.json').read_text())
+pins=json.loads((raw/'prestart-pins.json').read_text())
+runtime=json.loads((raw/'runtime-manifest.json').read_text())
+artifact=select_artifact(json.loads((raw/'artifact-manifest.json').read_text()),format='MLX/safetensors',repository='mlx-community/Qwen3.5-9B-MLX-4bit',revision=runtime['model_revision'])
+missing=missing_artifact_pins(artifact,pins)
 summary=[];measurements=[];table=[]
 for ctx in (8192,16384,32768):
     folder=raw/f'ctx{ctx}'
@@ -44,9 +49,22 @@ identity_gap=json.loads(audit_path.read_text()) if audit_path.exists() else None
 if identity_gap and not identity_gap['model_identity_verified_at_execution']:
     failure=identity_gap['reason']
     manifest['unavailable']['model_identity_at_execution']=failure
-manifest['unavailable'].update(completion=failure or 'Hard context cap/overflow and independent physical GPU release unavailable; input-budget route only.',
+if missing:
+    failure='Required MLX model files absent from execution-time prestart pins; historical deployment identity unverified.'
+    manifest['unavailable']['model_identity_at_execution']=failure
+qualified=[]
+for s in summary:
+    ctx=s['input_budget_label']
+    cases=[a for a in manifest['planned_attempts'] if a['id'].startswith(f'ctx{ctx}-') and not a['id'].endswith(('startup','overflow'))]
+    if not missing and s['execution']['accepted'] and s['execution'].get('verified_before_popen') and len(cases)==24 and all(a['status']=='completed' for a in cases):qualified.append(ctx)
+complete=qualified==[8192,16384,32768] and not failure
+manifest['status']='completed' if complete else 'blocked'
+if complete:manifest['unavailable'].pop('completion',None)
+else:manifest['unavailable']['completion']=failure or 'Registered input-budget route not fully qualified.'
+manifest['unavailable'].update(
     gpu_budget_gib='Maximum GPU allocation not measured; device recommendation is not an observed cap.',energy='No energy collector.',temperature='No verified thermal collector.',physical_gpu_release='GenerationContext.stop and generation routine exit observed; allocator cache/OS GPU release not independently instrumented.')
-manifest['conclusion']='Native MLX input-budget qualification: '+('blocked by '+failure if failure else 'chat/tools/long/cancellation recovery completed at '+','.join(str(s['input_budget_label']) for s in summary)+'; hard cap unavailable.')
+manifest['conclusion']='Native MLX input-budget qualification: '+('blocked by '+failure if failure else 'qualified budgets '+','.join(map(str,qualified))+'; hard cap/physical GPU release unavailable.')
+save(raw/'model-identity-summary.json',dict(required_model_files=len(artifact['files']),missing_prestart_files=missing,qualified_input_budgets=qualified,scope='Prestart coverage and recorded verified_before_popen/accepted proofs; no post-hoc model hash confirmation'))
 manifest['evidence_files']=sorted(str(f.relative_to(directory)) for f in raw.rglob('*') if f.is_file())
 save(directory/'manifest.json',manifest)
 header='observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason'.split()
@@ -57,13 +75,13 @@ for path in sorted(raw.glob('ctx*/cancel-*.proof.json')):
 counts={status:sum(a['status']==status for a in manifest['planned_attempts']) for status in ('completed','failed','not-run','planned')}
 (directory/'report.md').write_text(f'''# LAB32 — нативный MLX: протоколы и бюджеты входа
 
-Сессия `{manifest['session_id']}`, статус **blocked**. {manifest['conclusion']}
+Сессия `{manifest['session_id']}`, статус **{manifest['status']}**. {manifest['conclusion']}
 
 {'**Execution-time MLX model identity unverified.** См. raw/model-pins-audit.json; functional cases не означают допуск конкретного артефакта.' if identity_gap and not identity_gap['model_identity_verified_at_execution'] else ''}
 
 ## Паспорт выполнения
 
-Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC / mode 0. MLX-LM 0.32.0, MLX 0.32.3, Python 3.12.14. Qwen3.5-9B MLX 4-bit affine / group64, revision `938d8919941c6e7efd3c7150eff7fe9d12afa631`. Это отдельный VLM-артефакт с текстовым инференсом; исходный commit конвертации неизвестен. [Артефакт](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [267 закреплённых файлов](raw/prestart-pins.json). Фактически загруженные native images и device proofs сохранены в каталогах ctx*. Системные frameworks закреплены версией macOS; отдельные хеши их файлов не заявлены.
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC / mode 0. MLX-LM 0.32.0, MLX 0.32.3, Python 3.12.14. Qwen3.5-9B MLX 4-bit affine / group64, revision `938d8919941c6e7efd3c7150eff7fe9d12afa631`. Это отдельный VLM-артефакт с текстовым инференсом; исходный commit конвертации неизвестен. [Артефакт](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [{len(pins["files"])} закреплённых файлов](raw/prestart-pins.json), [model identity](raw/model-identity-summary.json). Фактически загруженные native images и device proofs сохранены в каталогах ctx*. Системные frameworks закреплены версией macOS; отдельные хеши их файлов не заявлены.
 
 Hard context cap — **null**. Значения 8192/16384/32768 обозначают бюджеты входа, не резерв KV и не лимиты сервера. Один сервер на `127.0.0.1:8081`; seed 1, temperature 0, top_p 1, output cap 2048, thinking false, prefill step 2048, concurrency 1. Prompt cache size 0, KV без квантизации, без изменения оператором memory limits. Wrapper наблюдений сохраняет исходные алгоритмы MLX-LM; его хеш входит в условия серии.
 
@@ -77,7 +95,7 @@ Hard context cap — **null**. Значения 8192/16384/32768 обознач�
 
 Pins → подготовка tokenizer без весов → offline allowlist → native server → короткие протоколы → long → cancel/recovery → cleanup. [Контроллер](raw/run_series.py), [хеши запросов](raw/request-hashes.json), [allowlist](raw/allowlist.json). Сохранены все исходные запросы, ответы, assembled messages, usage и ошибки. Агентных попыток здесь нет, run_ids пуст.
 
-Сессии разделены. `apple-mlx-protocol-20261010` ошибочно посчитала len(BatchEncoding)=2 и отправила 113613 токенов: это нарушение протокола, не опыт на 8K. Контроллер отказал после несовпадения usage и завершил сервер. `apple-mlx-tokenids-20261010` правильно посчитала 4085 токенов, но получила Markdown в final. `apple-mlx-exact-final-20261010` отдельно запретила Markdown и связала stop/end с одним GenerationContext; все 24 cases на 8K прошли, затем отказал port preflight 16K. `apple-mlx-budget-resume-20261010` проверила SO_REUSEADDR и продолжила с 16K; long-вход 12282 токена завершился, но resource guard отказал при free+spec 7.425 GiB. Старые ошибки не переписаны, нормализация final не введена. 32K не исполнялась.
+Сессии разделены. `apple-mlx-protocol-20261010` ошибочно посчитала len(BatchEncoding)=2 и отправила 113613 токенов: это нарушение протокола, не опыт на 8K. Контроллер отказал после несовпадения usage и завершил сервер. `apple-mlx-tokenids-20261010` правильно посчитала 4085 токенов, но получила Markdown в final. `apple-mlx-exact-final-20261010` отдельно запретила Markdown и связала stop/end с одним GenerationContext; все 24 cases на 8K прошли, затем отказал port preflight 16K. `apple-mlx-budget-resume-20261010` проверила SO_REUSEADDR и продолжила с 16K; long-вход 12282 токена завершился, но resource guard отказал при free+spec 7.425 GiB. Старые ошибки не переписаны, нормализация final не введена. В отдельной `apple-mlx-identity-repeat-20261010` модели выбран правильный артефакт MLX и все 12 файлов включены до Popen; её результаты оцениваются отдельно.
 
 ## Результаты
 
@@ -93,13 +111,13 @@ Attempts: {json.dumps(counts,ensure_ascii=False)}. Прогрев выделен
 
 ## Ошибки и ограничения
 
-{manifest['unavailable']['completion']} Native cancellation в v3 требует client exit 28 без DONE, одинаковый context object, stop flag true, stop до generation end и точный recovery в пределах 60 с. Timeout клиента отдельно не доказывает отмену GPU. Счётчики allocator не измеряют освобождение всех физических GPU-страниц. Cold startup/JIT отличается от прогретых запросов. Первые две неудачные сессии не исполняли отмену; их mutable phase events не используются как доказательство отмены.
+{manifest['unavailable'].get('completion','Протоколы исследованных input budgets завершены; hard cap и физическое освобождение GPU остаются unverified.')} Native cancellation в v3 требует client exit 28 без DONE, одинаковый context object, stop flag true, stop до generation end и точный recovery в пределах 60 с. Timeout клиента отдельно не доказывает отмену GPU. Счётчики allocator не измеряют освобождение всех физических GPU-страниц. Cold startup/JIT отличается от прогретых запросов. Первые две неудачные сессии не исполняли отмену; их mutable phase events не используются как доказательство отмены.
 
 Hard cap и overflow не подтверждены; OOM для их имитации не создавали. Максимальный GPU budget, энергия и температура неизвестны. Отказ resource guard при pressure level 1 и swap 0 не доказывает аппаратную несовместимость: наблюдаемые условия не прошли заранее выбранный резерв.
 
 ## Вывод по гипотезе
 
-{manifest['conclusion']} Функциональные протоколы 8K прошли в отдельной exact-final сессии; допуск конкретного deployment также требует всех model pins до исполнения. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
+{manifest['conclusion']} Полностью квалифицированные бюджеты этой сессии: {qualified}. Это учитывает все model pins до Popen и все 24 cases на условие; функциональные данные старых сессий не подменяют эти требования. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
 
 ## Ответы на контрольные вопросы
 
