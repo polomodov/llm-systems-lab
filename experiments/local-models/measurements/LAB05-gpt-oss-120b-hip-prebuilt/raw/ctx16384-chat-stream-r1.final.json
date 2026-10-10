@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "The user says: \"Ответь ровно LAB_READY без пояснений.\" Means \"Reply exactly LAB_READY without explanations.\" So we should respond with exactly \"LAB_READY\". No extra whitespace? Probably just the text."
+}
