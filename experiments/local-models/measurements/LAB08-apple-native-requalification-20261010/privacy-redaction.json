@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/ctx16-retry/deployment.json",
+      "original_sha256": "8386cd3dc2fe43e4d3040209384bf220e0928cd62743a4899e93ac0dae78d9bc",
+      "published_sha256": "eb92c86992cf45b1e3e4b62c4ba7358a316dbac6f5cf7c6c33297f7ca2660376",
+      "original_bytes": 9208,
+      "published_bytes": 9026
+    },
+    {
+      "path": "raw/ctx16-retry/native/native-server.txt",
+      "original_sha256": "3684871f9fe60244bc3a6d728438b6d214550d6dbc44b31ef3c788ec0237e204",
+      "published_sha256": "a88f6439a27dc02a7a5cd966b333581a5b32692f1ff5c98115e5a2a5628e4e3e",
+      "original_bytes": 22670,
+      "published_bytes": 22656
+    },
+    {
+      "path": "raw/ctx16-retry/native/startup-process.json",
+      "original_sha256": "10fe550aeb1792444579b7cbe14931a39cc63c361319140541e6338a7ab7f29a",
+      "published_sha256": "0cd41a3f69844d62014dae125d0df89a59addcec50bbd68cb0849b05a0fbcf02",
+      "original_bytes": 22222,
+      "published_bytes": 22026
+    },
+    {
+      "path": "raw/ctx16/deployment.json",
+      "original_sha256": "8386cd3dc2fe43e4d3040209384bf220e0928cd62743a4899e93ac0dae78d9bc",
+      "published_sha256": "eb92c86992cf45b1e3e4b62c4ba7358a316dbac6f5cf7c6c33297f7ca2660376",
+      "original_bytes": 9208,
+      "published_bytes": 9026
+    },
+    {
+      "path": "raw/ctx16/native/native-server.txt",
+      "original_sha256": "6b2c098b33d7b4a95ede3db109e8644c4a52773b5cfe97702cb0ce194e4c8398",
+      "published_sha256": "8ac6a6bbe926ed68e176157c3d65d76585bd188dc3f59595287adecc279b6bde",
+      "original_bytes": 22671,
+      "published_bytes": 22657
+    },
+    {
+      "path": "raw/ctx16/native/startup-process.json",
+      "original_sha256": "44711584d1e1d3fa7a57744998e81781b8cd7ae730d200907cb73e6867fcbaf1",
+      "published_sha256": "aeeede51d3bccb90fce803a6dcffba43fdeea2e843e22f79563d7998f9beda0c",
+      "original_bytes": 22223,
+      "published_bytes": 22027
+    },
+    {
+      "path": "raw/deployment.json",
+      "original_sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94",
+      "published_sha256": "85ae69768d62c05acd328e60c9e7a8f00722cb838eb1dd1f4055c026f3012f22",
+      "original_bytes": 9207,
+      "published_bytes": 9025
+    },
+    {
+      "path": "raw/native/native-server.txt",
+      "original_sha256": "e965e0b44fecafe43fc41627468d5778d1bc6138f03e1683e9d0e045b03c81cd",
+      "published_sha256": "9be0b2027842ef81a9572c6394eebf75649c14c215f2743a097c9bcb57f7d804",
+      "original_bytes": 22659,
+      "published_bytes": 22645
+    },
+    {
+      "path": "raw/native/startup-process.json",
+      "original_sha256": "e4fe8aeaa4b544e8b57719d52fea4d287ae9fae7f062bd6f260cf04d8f74bbfa",
+      "published_sha256": "7bd698f92ec85c86ce16b222fc858c524b5a2d078680896fddca7ef5287154aa",
+      "original_bytes": 22221,
+      "published_bytes": 22025
+    }
+  ]
+}

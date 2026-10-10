@@ -1,0 +1,2 @@
+# The TSV schema requires an empty final field for measured observations.
+measurements/**/measurements.tsv whitespace=-blank-at-eol

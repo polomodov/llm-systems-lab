@@ -1,0 +1,175 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB08",
+  "harness_id": null,
+  "session_id": "apple-native-requalification-20261010",
+  "created_at": "2026-10-10T05:25:01.987Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Исправленный native supervisor поддерживает непрерывную телеметрию и штатный cleanup при короткой реальной серии; затем допускается новый T002 pilot.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-10T05:25:43.305Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB08-apple-native-requalification-20261010/raw/deployment.json",
+    "harness_profile": "experiments/pi/harness.json"
+  },
+  "run_ids": [
+    "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+    "2026-10-10-pi-a2-janitor-t002-repo-janitor-2"
+  ],
+  "planned_attempts": [
+    {
+      "id": "native-short",
+      "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/qualification.json"
+      ]
+    },
+    {
+      "id": "pilot-t002",
+      "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
+      "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+      "reason": "Actual pilot aborted: error; see primary trace.",
+      "evidence_files": [
+        "raw/primary-summary.json"
+      ]
+    },
+    {
+      "id": "native-short16",
+      "configuration_id": "pi-q6-metal-16k-wall-stale-v2",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Resource collector failed: Command failed: ps -o rss= -p 40284",
+      "evidence_files": [
+        "raw/ctx16/qualification.json"
+      ]
+    },
+    {
+      "id": "pilot-t00216",
+      "configuration_id": "pi-q6-metal-16k-wall-stale-v2",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "16K native qualification failed resource guard before agent launch.",
+      "evidence_files": []
+    },
+    {
+      "id": "stable-admission",
+      "configuration_id": "host-ac-no-models",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/stable-admission.json",
+        "raw/stable-admission.jsonl"
+      ]
+    },
+    {
+      "id": "native-short16-retry",
+      "configuration_id": "pi-q6-metal-16k-first-guard-v3",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/ctx16-retry/qualification.json"
+      ]
+    },
+    {
+      "id": "pilot-t00216-retry",
+      "configuration_id": "pi-q6-metal-16k-first-guard-v3",
+      "kind": "agent-run",
+      "status": "planned",
+      "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
+      "reason": "Execution finished; independent hidden-check pending, not completed.",
+      "evidence_files": [
+        "raw/primary-summary.json"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "raw/check.txt",
+    "raw/context-amendment.md",
+    "raw/ctx16-retry/deployment.json",
+    "raw/ctx16-retry/native/native-memory.jsonl",
+    "raw/ctx16-retry/native/native-server.txt",
+    "raw/ctx16-retry/native/shutdown-process.json",
+    "raw/ctx16-retry/native/startup-process.json",
+    "raw/ctx16-retry/pilot-driver.txt",
+    "raw/ctx16-retry/pilot-registration.json",
+    "raw/ctx16-retry/prepare.txt",
+    "raw/ctx16-retry/qualification-driver.txt",
+    "raw/ctx16-retry/qualification.json",
+    "raw/ctx16-retry/request.json",
+    "raw/ctx16-retry/response-0.sse",
+    "raw/ctx16-retry/response-1.sse",
+    "raw/ctx16-retry/response-2.sse",
+    "raw/ctx16-retry/response-3.sse",
+    "raw/ctx16-retry/source-registration.json",
+    "raw/ctx16/deployment.json",
+    "raw/ctx16/native/native-memory.jsonl",
+    "raw/ctx16/native/native-server.txt",
+    "raw/ctx16/native/resource-guard.json",
+    "raw/ctx16/native/shutdown-process.json",
+    "raw/ctx16/native/startup-process.json",
+    "raw/ctx16/qualification-driver.txt",
+    "raw/ctx16/qualification.json",
+    "raw/ctx16/request.json",
+    "raw/ctx16/response-0.sse",
+    "raw/ctx16/response-1.sse",
+    "raw/ctx16/response-2.sse",
+    "raw/ctx16/response-3.sse",
+    "raw/deployment.json",
+    "raw/evaluation-pending.json",
+    "raw/evidence-sha256.json",
+    "raw/export-driver.txt",
+    "raw/export_report.py",
+    "raw/first-guard-amendment.md",
+    "raw/first-guard-tests.txt",
+    "raw/lab-check-draft.json",
+    "raw/native/native-memory.jsonl",
+    "raw/native/native-server.txt",
+    "raw/native/shutdown-process.json",
+    "raw/native/startup-process.json",
+    "raw/npm-test.txt",
+    "raw/pilot-driver.txt",
+    "raw/pilot-registration.json",
+    "raw/prepare.txt",
+    "raw/primary-summary.json",
+    "raw/protocol.md",
+    "raw/qualification-driver.txt",
+    "raw/qualification.json",
+    "raw/qualify.mjs",
+    "raw/qualify16-retry.mjs",
+    "raw/qualify16.mjs",
+    "raw/request.json",
+    "raw/response-0.sse",
+    "raw/response-1.sse",
+    "raw/response-2.sse",
+    "raw/response-3.sse",
+    "raw/short-summary.json",
+    "raw/stable-admission.json",
+    "raw/stable-admission.jsonl"
+  ],
+  "unavailable": {
+    "completion": "Нет независимо оценённого успешного T002 pilot.",
+    "energy": "Энергия не измерялась.",
+    "temperature": "Нет подтверждённого thermal collector.",
+    "gpu_budget_gib": "Максимальный GPU budget не измерен.",
+    "ttft": "Bridge buffers SSE; no TTFT measurement."
+  },
+  "conclusion": "Короткие native qualifications завершены; T002 attempts сохранены отдельно. Полный агентный допуск требует independently judged pilot.",
+  "reviewer_decision": null
+}
