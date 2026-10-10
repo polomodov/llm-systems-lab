@@ -40,3 +40,29 @@ docker run --rm --network none --read-only --user 1000:1000 \
 `pi --version` в этой версии пишет в stderr. Поэтому координатор получает версию установленного пакета через `node -p`, как указано в `harness.json`. Offline-проверка выполнена также с `HTTP_PROXY`, `HTTPS_PROXY` и `NODE_USE_ENV_PROXY=1`; отдельный исполняемый cache mount не нужен.
 
 Первичные источники, сверенные по тегу: [SDK](https://github.com/badlogic/pi-mono/blob/v0.73.1/packages/coding-agent/docs/sdk.md), [события JSON](https://github.com/badlogic/pi-mono/blob/v0.73.1/packages/coding-agent/docs/json.md), [подписка и abort](https://github.com/badlogic/pi-mono/blob/v0.73.1/packages/agent/src/agent.ts), [Anthropic model/usage mapping](https://github.com/badlogic/pi-mono/blob/v0.73.1/packages/ai/src/providers/anthropic.ts). После смены версии повторить сборку, offline smoke и проверку формата событий. Успешная задача проверяется только реальным зарегистрированным эпизодом и независимым вердиктом.
+
+## Local provider bridge — первая реализация LAB08
+
+Для Pi добавлен provider `local` / GGUF / native llama.cpp Metal на macOS 26.5. Это отдельная инженерная ветка; прежние cloud providers не меняются. Сначала нужен полный deployment manifest v1, прошедшие LAB32 условия и проверка текущих файлов. Пример исходного manifest: [LAB08 deployment](../local-models/measurements/LAB08-apple-provider-bridge-20261009/raw/deployment.json). Абсолютные пути относятся к этому стенду; подставлять другой endpoint или alias после prepare нельзя.
+
+```sh
+npm run new-run -- --harness pi --agent a2-janitor --task T002 --provider local --model lab-model
+RUN_ID='<реальный ID новой записи>'
+npm run prepare-run -- --run "$RUN_ID" --provider local \
+  --local-deployment experiments/local-models/measurements/LAB08-apple-provider-bridge-20261009/raw/deployment.json
+npm run run -- --run "$RUN_ID" --provider local --model lab-model \
+  --image harness-lab/pi:0.73.1 --proxy-image node:24.13.1-bookworm-slim \
+  --budget-mode observed --timeout 900
+```
+
+Runner запускает собственный native server на loopback Mac после проверки weights/executables/всех bundled dylib hashes и завершает только его. Применяются ресурсный и AC guard. Запечатанный supervisor проверяет PID/props/template/context и файлы до/после каждого HTTP-запроса. Изменённый manifest или runtime identity вызывает отказ; cloud fallback отсутствует. Подключение к произвольному уже работающему серверу пока не поддерживается.
+
+Agent container имеет только internal Docker network, 2 GiB RAM и прежние mounts/permissions. Доверенный broker имеет вторую Docker bridge network для публикации host control port только на loopback; он не пересылает CONNECT и не создаёт upstream sockets. Host-worker инициирует reverse control connection с одноразовой capability и пересылает только POST `/v1/chat/completions` на закреплённый endpoint. GET `/health` доступен агенту; `/props`, `/slots`, `/models`, LAN/cloud и control API без capability запрещены. T001/T003 через local provider пока не допущены; публичный source gateway/replay сохранён для cloud.
+
+Pi использует свой `createAgentSession` и native tools. SDK API — `openai-completions`, provider — `local`; это протокол совместимости, без обращения к OpenAI. Публичный dummy marker `harness-local-dummy` нужен ModelRegistry и не передаётся upstream; `.env` не требуется. Настоящий server auth в этом варианте не поддерживается. SDK требует числовые цены, поэтому их нулевые placeholders не считаются стоимостью: `run.json` содержит cost=null с причиной. Tokens берутся из первичного HTTP usage; при его отсутствии SDK zeros отвергаются.
+
+Первый bridge буферизует SSE до finish/DONE; события tool calls сохранены, но поток не отражает реальный TTFT. Request limit 1 MiB, response 4 MiB, один запрос одновременно, upstream deadline 300 s, автоматические retries/compaction отключены. Отмена client connection закрывает собственный upstream request. `awaiting_review` не является pass; независимую оценку импортируют существующим judge-run.
+
+Проверки: `npm test`, `npm run test:docker`, `npm run test:local-docker` (требует обоих pinned images), `npm run check`. Результаты, исходные отказы и статус pilot — в [LAB08 отчёте](../local-models/measurements/LAB08-apple-provider-bridge-20261009/report.md). Компоненты L024/L025 имеют статус «предложена»; вклад в качество и перенос на другие adapters/platforms не установлены.
+
+После первого настоящего pilot добавлены wall-clock deadline check и отказ при разрыве resource timeline >15 s/движении часов назад. Software/Docker regressions прошли; новый native admission после этой коррекции ещё pending. Guards действуют при возобновлении host и не обещают остановку во время полной его приостановки. Две реальные aborted попытки сохранены в LAB08.

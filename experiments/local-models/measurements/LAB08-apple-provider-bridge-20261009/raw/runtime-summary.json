@@ -1,0 +1,79 @@
+{
+  "status": "blocked",
+  "scope": "First Pi/T002/macOS-Metal bridge implementation; no agent pass or completed LAB08 admission",
+  "runs": [
+    {
+      "run_id": "2026-10-09-pi-a2-janitor-t002-repo-janitor",
+      "status": "aborted",
+      "stop_reason": "runner_error",
+      "configured_timeout_s": 900,
+      "agent_wall_clock_s": null,
+      "leased_jobs": 0,
+      "accepted_http_responses": 0,
+      "failed_jobs": 0,
+      "primary_requests": 0,
+      "partial_prompt_tokens": null,
+      "partial_completion_tokens": null,
+      "complete_usage": false,
+      "samples": 1,
+      "max_sample_gap_s": null,
+      "observed_max_rss_bytes": 7903232000,
+      "max_observed_swap_bytes": 0,
+      "normal_observed_pressure": true,
+      "all_observed_ac": true,
+      "shutdown": {
+        "timestamp": "2026-10-09T22:50:06.115Z",
+        "pid": 48868,
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "error": null,
+        "guard": null,
+        "sigint_count": 1
+      },
+      "identity": "controlled native process; 23 engine pins checked before Popen",
+      "library_identity_verified": true
+    },
+    {
+      "run_id": "2026-10-09-pi-a2-janitor-t002-repo-janitor-2",
+      "status": "aborted",
+      "stop_reason": "timeout",
+      "configured_timeout_s": 900,
+      "agent_wall_clock_s": 1056,
+      "leased_jobs": 13,
+      "accepted_http_responses": 12,
+      "failed_jobs": 1,
+      "primary_requests": 12,
+      "partial_prompt_tokens": 43504,
+      "partial_completion_tokens": 1224,
+      "complete_usage": false,
+      "samples": 73,
+      "max_sample_gap_s": 913.90353,
+      "observed_max_rss_bytes": 8072642560,
+      "max_observed_swap_bytes": 0,
+      "normal_observed_pressure": true,
+      "all_observed_ac": true,
+      "shutdown": {
+        "timestamp": "2026-10-09T23:22:32.717Z",
+        "pid": 53432,
+        "exit": {
+          "code": 0,
+          "signal": null
+        },
+        "error": null,
+        "guard": null,
+        "sigint_count": 1
+      },
+      "identity": "controlled native process; 23 engine pins checked before Popen",
+      "library_identity_verified": true
+    }
+  ],
+  "offline_tests_passed": 171,
+  "offline_tests_skipped": 2,
+  "docker_boundary_passed": true,
+  "docker_sdk_roundtrip_passed": true,
+  "fresh_native_requalification_after_stale_guard": false,
+  "independent_verdicts": null,
+  "full_lab08_completed": false
+}

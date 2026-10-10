@@ -1,0 +1,235 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB08",
+  "harness_id": null,
+  "session_id": "apple-provider-bridge-20261009",
+  "created_at": "2026-10-09T22:30:21.351Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Изолированный local bridge сохраняет штатный Pi tool round-trip и deployment identity без прямого доступа агента к Mac/LAN/cloud.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-09T22:33:47.121Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB08-apple-provider-bridge-20261009/raw/runtime-summary.json",
+    "harness_profile": "experiments/pi/harness.json"
+  },
+  "run_ids": [
+    "2026-10-09-pi-a2-janitor-t002-repo-janitor",
+    "2026-10-09-pi-a2-janitor-t002-repo-janitor-2"
+  ],
+  "planned_attempts": [
+    {
+      "id": "b01",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b02",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b03",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b04",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b05",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b06",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt",
+        "raw/boundary-unit.txt",
+        "raw/docker-local.txt"
+      ]
+    },
+    {
+      "id": "b07",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
+    },
+    {
+      "id": "b08",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
+    },
+    {
+      "id": "b09",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
+    },
+    {
+      "id": "b10",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/npm-tests.txt"
+      ]
+    },
+    {
+      "id": "docker-boundary",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/docker-local.txt",
+        "raw/docker-cloud.txt"
+      ]
+    },
+    {
+      "id": "pilot-t002",
+      "configuration_id": "pi-qwen35-q6-metal-8k",
+      "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-09-pi-a2-janitor-t002-repo-janitor",
+      "reason": "Broker readiness used an overridden Host in fetch; agent container and inference requests did not start. Native startup verified and cleanup exit 0.",
+      "evidence_files": [
+        "raw/pilot-initial-failed.txt",
+        "raw/pilot-registration.json"
+      ]
+    },
+    {
+      "id": "pilot-t002-retry",
+      "configuration_id": "pi-qwen35-q6-metal-8k-readiness-fixed",
+      "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-09-pi-a2-janitor-t002-repo-janitor-2",
+      "reason": "Actual pilot aborted by timeout; telemetry gap 913.904 s, cause unknown. Twelve accepted HTTP responses; canceled job lacks usage. No independent success verdict.",
+      "evidence_files": [
+        "raw/pilot-retry-driver.txt",
+        "raw/runtime-summary.json",
+        "raw/pilot-retry-registration.json"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "raw/boundary-unit-initial-failed.txt",
+    "raw/boundary-unit.txt",
+    "raw/check-after-pilot.txt",
+    "raw/check-final.txt",
+    "raw/check-readiness-fixed.txt",
+    "raw/check.txt",
+    "raw/deployment.json",
+    "raw/docker-cloud-after-pilot.txt",
+    "raw/docker-cloud.txt",
+    "raw/docker-local-after-pilot.txt",
+    "raw/docker-local-initial-failed.txt",
+    "raw/docker-local-readiness-fixed.txt",
+    "raw/docker-local-sdk-initial-failed.txt",
+    "raw/docker-local.txt",
+    "raw/evidence-sha256.json",
+    "raw/export_lab08.py",
+    "raw/lab-check-submission.json",
+    "raw/network-contract-amendment.md",
+    "raw/npm-tests-after-pilot.txt",
+    "raw/npm-tests-final.txt",
+    "raw/npm-tests-readiness-fixed.txt",
+    "raw/npm-tests.txt",
+    "raw/pi-image-build.txt",
+    "raw/pilot-driver.txt",
+    "raw/pilot-initial-failed.txt",
+    "raw/pilot-readiness-amendment.md",
+    "raw/pilot-registration.json",
+    "raw/pilot-retry-driver.txt",
+    "raw/pilot-retry-registration.json",
+    "raw/post-cleanup.json",
+    "raw/primary-runs.json",
+    "raw/protocol.md",
+    "raw/python-tests.txt",
+    "raw/runtime-summary.json",
+    "raw/software-validation.json",
+    "raw/wall-deadline-initial-failed.txt",
+    "raw/wall-deadline-tests.txt",
+    "raw/wall-stale-amendment.md"
+  ],
+  "unavailable": {
+    "completion": "Fresh native requalification after wall/stale guard changes and independently judged T002 pilot absent.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
+    "energy": "No energy collector.",
+    "ttft": "Buffered SSE.",
+    "temperature": "No verified thermal collector.",
+    "telemetry_gap_cause": "No independent sleep/suspension/clock-change evidence; cause remains unknown."
+  },
+  "conclusion": "Pi local bridge and synthetic/Docker acceptance implemented. First pilot failed broker readiness; retry timed out after a 913.904 s telemetry gap. Failures retained; wall/stale guards fixed in software, new native qualification and independent judged pilot remain pending.",
+  "reviewer_decision": null
+}

@@ -1,3 +1,4 @@
+import { localRecordErrors } from './local-inference.mjs';
 import { lstatSync, readFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { inventory, safePath, sha256 } from './files.mjs';
@@ -35,6 +36,15 @@ export function verifyRunIntegrity(root, record) {
   const inputs = ownedPath(dir, relative(dir, dirname(manifestPath)), 'directory');
   const actual = inventory(inputs).filter(row => row.path !== basename(manifestPath));
   if (!Array.isArray(manifest.files) || JSON.stringify(actual) !== JSON.stringify(manifest.files)) throw new Error('Run integrity: sealed input snapshot changed');
+  if(record.model?.provider==='local') {
+    const errors=localRecordErrors(record);if(errors.length)throw new Error('Run integrity: '+errors.join('; '));
+    const text=readFileSync(ownedPath(inputs,'control/local-deployment.json'));
+    if(sha256(text)!==record.local_inference.deployment_sha256 || JSON.stringify(JSON.parse(text))!==JSON.stringify(record.local_inference.deployment))throw new Error('Run integrity: local deployment differs from sealed preparation');
+    if(record.local_inference.observed) {
+      const proof=JSON.parse(readFileSync(ownedPath(dir,'trace/local-native/startup-process.json')));
+      if(JSON.stringify(proof)!==JSON.stringify(record.local_inference.observed))throw new Error('Run integrity: observed native proof differs from record');
+    }
+  }
   if (record.status !== 'prepared' && record.status !== 'completed') return;
   let workspaceExists = false;
   try {
