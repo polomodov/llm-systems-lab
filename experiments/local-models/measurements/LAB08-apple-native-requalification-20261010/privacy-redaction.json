@@ -13,6 +13,20 @@
       "published_bytes": 9026
     },
     {
+      "path": "raw/ctx16-retry/native/native-server.txt",
+      "original_sha256": "3684871f9fe60244bc3a6d728438b6d214550d6dbc44b31ef3c788ec0237e204",
+      "published_sha256": "a88f6439a27dc02a7a5cd966b333581a5b32692f1ff5c98115e5a2a5628e4e3e",
+      "original_bytes": 22670,
+      "published_bytes": 22656
+    },
+    {
+      "path": "raw/ctx16-retry/native/startup-process.json",
+      "original_sha256": "10fe550aeb1792444579b7cbe14931a39cc63c361319140541e6338a7ab7f29a",
+      "published_sha256": "0cd41a3f69844d62014dae125d0df89a59addcec50bbd68cb0849b05a0fbcf02",
+      "original_bytes": 22222,
+      "published_bytes": 22026
+    },
+    {
       "path": "raw/ctx16/deployment.json",
       "original_sha256": "8386cd3dc2fe43e4d3040209384bf220e0928cd62743a4899e93ac0dae78d9bc",
       "published_sha256": "eb92c86992cf45b1e3e4b62c4ba7358a316dbac6f5cf7c6c33297f7ca2660376",

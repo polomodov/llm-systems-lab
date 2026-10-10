@@ -18,7 +18,8 @@
     "harness_profile": "experiments/pi/harness.json"
   },
   "run_ids": [
-    "2026-10-10-pi-a2-janitor-t002-repo-janitor"
+    "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+    "2026-10-10-pi-a2-janitor-t002-repo-janitor-2"
   ],
   "planned_attempts": [
     {
@@ -81,17 +82,19 @@
       "id": "native-short16-retry",
       "configuration_id": "pi-q6-metal-16k-first-guard-v3",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx16-retry/qualification.json"
+      ]
     },
     {
       "id": "pilot-t00216-retry",
       "configuration_id": "pi-q6-metal-16k-first-guard-v3",
       "kind": "agent-run",
       "status": "planned",
-      "run_id": null,
+      "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
       "reason": null,
       "evidence_files": []
     }
@@ -99,6 +102,19 @@
   "evidence_files": [
     "raw/context-amendment.md",
     "raw/ctx16-retry/deployment.json",
+    "raw/ctx16-retry/native/native-memory.jsonl",
+    "raw/ctx16-retry/native/native-server.txt",
+    "raw/ctx16-retry/native/shutdown-process.json",
+    "raw/ctx16-retry/native/startup-process.json",
+    "raw/ctx16-retry/pilot-registration.json",
+    "raw/ctx16-retry/qualification-driver.txt",
+    "raw/ctx16-retry/qualification.json",
+    "raw/ctx16-retry/request.json",
+    "raw/ctx16-retry/response-0.sse",
+    "raw/ctx16-retry/response-1.sse",
+    "raw/ctx16-retry/response-2.sse",
+    "raw/ctx16-retry/response-3.sse",
+    "raw/ctx16-retry/source-registration.json",
     "raw/ctx16/deployment.json",
     "raw/ctx16/native/native-memory.jsonl",
     "raw/ctx16/native/native-server.txt",

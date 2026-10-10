@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
+  "date": "2026-10-10",
+  "status": "planned",
+  "harness": {
+    "name": "pi",
+    "version": "0.73.1",
+    "mode": "cli"
+  },
+  "agent": "a2-janitor",
+  "task": "T002-repo-janitor",
+  "model": {
+    "id": "lab-model",
+    "provider": "local",
+    "selection": null,
+    "lock": false,
+    "reasoning": null,
+    "observed_id": null,
+    "identity_evidence": null
+  },
+  "permissions": {
+    "mode": null,
+    "blocked": [],
+    "asked": null
+  },
+  "sandbox": {
+    "kind": null,
+    "network": null
+  },
+  "loop": {
+    "turns": null,
+    "stop_reason": null,
+    "budget_usd": null,
+    "cost_usd": null,
+    "tokens_in": null,
+    "tokens_out": null,
+    "wall_clock_s": null,
+    "compactions": null,
+    "subagents": null
+  },
+  "metrics_unavailable": {},
+  "inputs": {
+    "manifest_path": null,
+    "manifest_sha256": null,
+    "prepared_at": null
+  },
+  "provenance": {
+    "git_commit": null,
+    "git_dirty": null,
+    "recorded_at": "2026-10-10T06:25:36.987Z",
+    "runner_version": null,
+    "source_revision_reason": null
+  },
+  "execution": {
+    "command": [],
+    "cwd": null,
+    "started_at": null,
+    "finished_at": null,
+    "exit_code": null,
+    "signal": null,
+    "timed_out": false,
+    "image_id": null,
+    "timeout_s": null,
+    "network_policy": null,
+    "budget_policy": null,
+    "proxy_image_id": null
+  },
+  "evaluation": {
+    "method": null,
+    "evaluator": null,
+    "evidence_path": null,
+    "evidence_sha256": null,
+    "evaluated_at": null
+  },
+  "verdict": {
+    "result": "pending",
+    "check_output": "",
+    "human_notes": ""
+  },
+  "harness_changes": [],
+  "trace_path": "trace/",
+  "notes": ""
+}
