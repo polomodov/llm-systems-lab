@@ -1,0 +1,75 @@
+{
+  "scope": "Raw evidence except this inventory; no weights or retrospective runtime confirmation.",
+  "files": [
+    {
+      "path": "raw/concurrency_driver.py",
+      "bytes": 13600,
+      "sha256": "4a8d3f6308ac12a62d62b446efcb3790d5a469fae23db4b79c08598a45583e46"
+    },
+    {
+      "path": "raw/deployment-reference.json",
+      "bytes": 9207,
+      "sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94"
+    },
+    {
+      "path": "raw/load-request.json",
+      "bytes": 671,
+      "sha256": "6611bc3aeea8cd4b222846f8244314e5a65130762565910f32339c9acb465506"
+    },
+    {
+      "path": "raw/protocol.md",
+      "bytes": 4989,
+      "sha256": "9b85188ae4decf7b3f7e8e0f603df7e8bd21c2d6c4317ec7f9d395111a1d6fb2"
+    },
+    {
+      "path": "raw/run_slots.py",
+      "bytes": 14096,
+      "sha256": "12e87e17bb56a260332f4864a6d8093062a1e1a9df2cfa15c618f91e80e8aece"
+    },
+    {
+      "path": "raw/server-help.txt",
+      "bytes": 45764,
+      "sha256": "463282908f953978d6b5e5dc74d1f7201c5b7f9979a6ed7cf9e61187b981369b"
+    },
+    {
+      "path": "raw/slots1/admission-window.jsonl",
+      "bytes": 1121897,
+      "sha256": "650efe1a0c901110c65975ad6aa81bc360aca1f5525561a1bb9397eac6b5a624"
+    },
+    {
+      "path": "raw/slots1/admission.json",
+      "bytes": 4478,
+      "sha256": "4123da4130991dc0f0d206c611ab2fd7424dac281e90d573cf99b2a0a7c99e8a"
+    },
+    {
+      "path": "raw/slots1/error.json",
+      "bytes": 142,
+      "sha256": "1b10f0ecf9239cecd470233206e12f41892e7a9fb21cb59e1d104975beb630c5"
+    },
+    {
+      "path": "raw/slots1/execution.json",
+      "bytes": 4691,
+      "sha256": "0d1ad7aa33ce28e13092af35fbb3385e0b4f694a6ce793484dce2b1e6afd0e74"
+    },
+    {
+      "path": "raw/software-check.txt",
+      "bytes": 1096,
+      "sha256": "9b73972182d54a8da2e9d57cdbed75cdb85b7753e825352555ea8e2adf9ca46b"
+    },
+    {
+      "path": "raw/software-node-tests.txt",
+      "bytes": 17579,
+      "sha256": "3c6ef6f688df6a7e7c1721bc757505dd8c26c0ca6a540eb67658e6b7263c53bd"
+    },
+    {
+      "path": "raw/software-python-tests.txt",
+      "bytes": 526,
+      "sha256": "8bd6eb6fff1efebdcb63c5e264b323751c3f267f7c2333c12759df03c4a33872"
+    },
+    {
+      "path": "raw/source-registration.json",
+      "bytes": 282,
+      "sha256": "1241b5609ef9a5b505a0ece0c87c213d55f1fbd59525a3b2165d71ffaa78725d"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "index": 1,
+  "ok": false,
+  "http_status": 200,
+  "error": "ValueError: expected nonempty assistant text without tool calls",
+  "latency_seconds": 7.97277075,
+  "completion_tokens": null,
+  "prompt_tokens": null,
+  "finish_reason": null,
+  "response_bytes": 3441,
+  "response_truncated": false
+}
