@@ -1,0 +1,423 @@
+/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py:1745: UserWarning: mlx_lm.server is not recommended for production as it only implements basic security checks.
+  warnings.warn(
+2026-10-10 08:36:34,625 - INFO - Starting httpd at 127.0.0.1 on port 8081...
+127.0.0.1 - - [10/Oct/2026 08:36:36] "GET /v1/models HTTP/1.1" 200 -
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,140 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,140 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,140 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,140 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,142 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,224 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,239 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,333 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,334 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,334 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,334 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,335 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,386 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,401 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,475 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,475 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,475 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,475 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,476 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,508 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,523 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,608 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,608 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,608 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,608 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,609 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,658 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,674 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,760 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,760 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,760 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,760 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,761 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,805 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,821 - INFO - Prompt processing progress: 21/21
+2026-10-10 08:36:36,904 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+127.0.0.1 - - [10/Oct/2026 08:36:36] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:36,904 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,904 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,904 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:36,905 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:36,954 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:36,970 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:37] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:37,039 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,039 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,039 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,039 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,040 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:37,071 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:37,087 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:37] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:37,182 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,182 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,182 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,182 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,183 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:37,233 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:37,249 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:37] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:37,333 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,334 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,334 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,334 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,335 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:37,443 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:37,458 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:37] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:37,736 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,737 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,737 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,737 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:37,737 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:37,851 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:37,868 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:38] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:38,011 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,011 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,011 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,011 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,012 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:38,120 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:38,136 - INFO - Prompt processing progress: 315/315
+2026-10-10 08:36:38,416 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+127.0.0.1 - - [10/Oct/2026 08:36:38] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:38,416 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,417 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,417 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,417 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:38,531 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:38,547 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:38] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:38,702 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,702 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,702 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,702 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:38,703 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:38,812 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:38,828 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:39] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:39,110 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,110 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,110 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,110 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,111 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:39,226 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:39,241 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:39] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:39,351 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,352 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,352 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,352 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,353 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:39,460 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:39,476 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:39] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:39,756 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,756 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,756 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,756 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:39,757 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:39,871 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:39,886 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:40] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:40,029 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,029 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,029 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,029 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,031 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:40,139 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:40,155 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:40] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:40,433 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,433 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,433 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,433 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,434 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:40,548 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:40,564 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:40] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:40,725 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,726 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,726 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,726 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:40,727 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:40,835 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:40,851 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:41] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:41,128 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,128 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,128 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,128 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,129 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:41,243 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:41,259 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:41] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:41,382 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,382 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,382 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,382 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,383 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:41,491 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:41,506 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:41] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:41,784 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,784 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,784 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,784 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:41,785 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:41,899 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:41,915 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:42] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:42,064 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,064 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,064 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,064 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,065 - INFO - Prompt processing progress: 0/315
+2026-10-10 08:36:42,173 - INFO - Prompt processing progress: 314/315
+2026-10-10 08:36:42,189 - INFO - Prompt processing progress: 315/315
+127.0.0.1 - - [10/Oct/2026 08:36:42] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:42,470 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,470 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,470 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,470 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,471 - INFO - Prompt processing progress: 0/364
+2026-10-10 08:36:42,585 - INFO - Prompt processing progress: 363/364
+2026-10-10 08:36:42,601 - INFO - Prompt processing progress: 364/364
+127.0.0.1 - - [10/Oct/2026 08:36:42] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:42,735 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,735 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,735 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,735 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:42,736 - INFO - Prompt processing progress: 0/4092
+2026-10-10 08:36:43,288 - INFO - Prompt processing progress: 2048/4092
+2026-10-10 08:36:43,850 - INFO - Prompt processing progress: 4091/4092
+2026-10-10 08:36:43,867 - INFO - Prompt processing progress: 4092/4092
+127.0.0.1 - - [10/Oct/2026 08:36:44] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:44,012 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:44,012 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:44,012 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:44,012 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:44,013 - INFO - Prompt processing progress: 0/4092
+2026-10-10 08:36:44,564 - INFO - Prompt processing progress: 2048/4092
+2026-10-10 08:36:45,126 - INFO - Prompt processing progress: 4091/4092
+2026-10-10 08:36:45,143 - INFO - Prompt processing progress: 4092/4092
+127.0.0.1 - - [10/Oct/2026 08:36:45] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:45,306 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:45,306 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:45,306 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:45,306 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:45,307 - INFO - Prompt processing progress: 0/4092
+2026-10-10 08:36:45,858 - INFO - Prompt processing progress: 2048/4092
+2026-10-10 08:36:46,421 - INFO - Prompt processing progress: 4091/4092
+2026-10-10 08:36:46,438 - INFO - Prompt processing progress: 4092/4092
+127.0.0.1 - - [10/Oct/2026 08:36:46] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:46,573 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:46,573 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:46,573 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:46,573 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:46,574 - INFO - Prompt processing progress: 0/4092
+2026-10-10 08:36:47,139 - INFO - Prompt processing progress: 2048/4092
+2026-10-10 08:36:47,886 - INFO - Prompt processing progress: 4091/4092
+2026-10-10 08:36:47,905 - INFO - Prompt processing progress: 4092/4092
+127.0.0.1 - - [10/Oct/2026 08:36:48] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:48,071 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:48,071 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:48,071 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:48,071 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:48,073 - INFO - Prompt processing progress: 0/4125
+2026-10-10 08:36:49,588 - INFO - Prompt processing progress: 2048/4125
+2026-10-10 08:36:50,373 - INFO - Prompt processing progress: 4096/4125
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63502)
+Traceback (most recent call last):
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1738, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ^^^^^^^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1071, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1200, in do_POST
+    self.handle_completion(request, stop_words)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1459, in handle_completion
+    for gen in response:
+               ^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1042, in _inner
+    progress_callback(*response)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1415, in keepalive_callback
+    self.wfile.write(msg)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [10/Oct/2026 08:36:50] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:50,731 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,731 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,731 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,731 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,733 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:50,786 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:50,802 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:50] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:50,909 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,909 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,909 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,909 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:50,911 - INFO - Prompt processing progress: 0/4125
+2026-10-10 08:36:51,463 - INFO - Prompt processing progress: 2048/4125
+2026-10-10 08:36:52,021 - INFO - Prompt processing progress: 4096/4125
+2026-10-10 08:36:52,056 - INFO - Prompt processing progress: 4124/4125
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63504)
+Traceback (most recent call last):
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1738, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ^^^^^^^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1071, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1200, in do_POST
+    self.handle_completion(request, stop_words)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1459, in handle_completion
+    for gen in response:
+               ^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1042, in _inner
+    progress_callback(*response)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1415, in keepalive_callback
+    self.wfile.write(msg)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [10/Oct/2026 08:36:52] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:52,238 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,238 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,238 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,238 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,239 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:52,294 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:52,310 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:52] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:52,398 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,398 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,398 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,398 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:52,399 - INFO - Prompt processing progress: 0/4125
+2026-10-10 08:36:52,951 - INFO - Prompt processing progress: 2048/4125
+2026-10-10 08:36:53,510 - INFO - Prompt processing progress: 4096/4125
+2026-10-10 08:36:53,545 - INFO - Prompt processing progress: 4124/4125
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63506)
+Traceback (most recent call last):
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1738, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ^^^^^^^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1071, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1200, in do_POST
+    self.handle_completion(request, stop_words)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1459, in handle_completion
+    for gen in response:
+               ^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1042, in _inner
+    progress_callback(*response)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1415, in keepalive_callback
+    self.wfile.write(msg)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [10/Oct/2026 08:36:53] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:53,750 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,750 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,750 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,750 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,751 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:53,803 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:53,819 - INFO - Prompt processing progress: 21/21
+127.0.0.1 - - [10/Oct/2026 08:36:53] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:53,923 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,923 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,923 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,923 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:53,924 - INFO - Prompt processing progress: 0/4125
+2026-10-10 08:36:54,475 - INFO - Prompt processing progress: 2048/4125
+2026-10-10 08:36:55,034 - INFO - Prompt processing progress: 4096/4125
+2026-10-10 08:36:55,069 - INFO - Prompt processing progress: 4124/4125
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63508)
+Traceback (most recent call last):
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1738, in <lambda>
+    lambda *args, **kwargs: handler_class(
+                            ^^^^^^^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1071, in __init__
+    super().__init__(*args, **kwargs)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1200, in do_POST
+    self.handle_completion(request, stop_words)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1459, in handle_completion
+    for gen in response:
+               ^^^^^^^^
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1042, in _inner
+    progress_callback(*response)
+  File "/Users/lab/local-model-lab-artifacts/engines/mlx-lm/0.32.0-mlx-0.32.3/venv/lib/python3.12/site-packages/mlx_lm/server.py", line 1415, in keepalive_callback
+    self.wfile.write(msg)
+  File "/Users/lab/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+127.0.0.1 - - [10/Oct/2026 08:36:55] "POST /v1/chat/completions HTTP/1.1" 200 -
+2026-10-10 08:36:55,294 - INFO - Prompt Cache: 0 sequences, 0.00 GB
+2026-10-10 08:36:55,294 - INFO - - assistant: 0 sequences, 0.00 GB
+2026-10-10 08:36:55,294 - INFO - - user: 0 sequences, 0.00 GB
+2026-10-10 08:36:55,294 - INFO - - system: 0 sequences, 0.00 GB
+2026-10-10 08:36:55,295 - INFO - Prompt processing progress: 0/21
+2026-10-10 08:36:55,345 - INFO - Prompt processing progress: 20/21
+2026-10-10 08:36:55,361 - INFO - Prompt processing progress: 21/21

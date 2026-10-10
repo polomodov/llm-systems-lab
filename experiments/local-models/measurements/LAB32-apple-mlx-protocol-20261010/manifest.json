@@ -918,6 +918,7 @@
     "raw/request-hashes.json",
     "raw/run_series.py",
     "raw/runtime-manifest.json",
+    "raw/runtime-summary.json",
     "raw/series-driver.txt",
     "raw/server_entry.py",
     "raw/source-registration.json",
@@ -936,8 +937,12 @@
     "conditions.harness_profile": "Native HTTP measurement; no agent harness.",
     "hard_context_cap": "No admitted cap in pinned server; input budgets only.",
     "overflow": "No hard cap; deliberately no OOM.",
-    "completion": "AssertionError: Actual input count differs from pinned tokenizer"
+    "completion": "AssertionError: Actual input count differs from pinned tokenizer",
+    "gpu_budget_gib": "Maximum GPU allocation not measured; device recommendation is not an observed cap.",
+    "energy": "No energy collector.",
+    "temperature": "No verified thermal collector.",
+    "physical_gpu_release": "GenerationContext.stop and generation routine exit observed; allocator cache/OS GPU release not independently instrumented."
   },
-  "conclusion": "Input-budget qualification finished; see each attempt and execution.json. Full LAB32 admission limited by unavailable hard cap.",
+  "conclusion": "Native MLX input-budget qualification: blocked by AssertionError: Actual input count differs from pinned tokenizer",
   "reviewer_decision": null
 }

@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-10-10T08:09:33.461309+00:00",
+  "results": {
+    "legacy": {
+      "admitted": false,
+      "errno": 48
+    },
+    "reuse": {
+      "admitted": true
+    },
+    "busy": {
+      "admitted": false,
+      "errno": 48
+    }
+  },
+  "scope": "Synthetic owned loopback TCP regression; not proof of old port owner"
+}

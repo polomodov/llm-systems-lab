@@ -1,0 +1,14 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "432c9005-ee8a-4108-bb26-173b0e665ae5",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\": \"alpha\"}"
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/artifact-manifest.json",
+      "original_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+      "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
+      "original_bytes": 12476,
+      "published_bytes": 12378
+    },
+    {
+      "path": "raw/chat-request.json",
+      "original_sha256": "98f4221ccf43bdfad5a5f80c81a398d54e9ba1eb9ed189a731c972fc9eb91949",
+      "published_sha256": "fbbe23e7d509cb7d2c710776b479ec9efb6559fb89029456e1f193387bc3532e",
+      "original_bytes": 421,
+      "published_bytes": 414
+    },
+    {
+      "path": "raw/chat-stream-request.json",
+      "original_sha256": "47a9bedff78f4dde9d4178c434f6a3bfd29b773b5507176ca8450fa43e7d8aaf",
+      "published_sha256": "40f841ef639e5994df081ac90f12bc743f81a812fc948e46ccec4271ed41b9ba",
+      "original_bytes": 473,
+      "published_bytes": 466
+    },
+    {
+      "path": "raw/prestart-pins.json",
+      "original_sha256": "e50a80983af5577d3f0522662159ffbe87c7803a06bdeb999fe653ae36a56610",
+      "published_sha256": "6def0ecbd0b880b2eb9af7fcb04276f7d42f4b983ad7a54e24e9e09131a73e7e",
+      "original_bytes": 73512,
+      "published_bytes": 71636
+    },
+    {
+      "path": "raw/runtime-manifest.json",
+      "original_sha256": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7",
+      "published_sha256": "ac301752ec840344d0358f39f0c0a8333068297ccbbdbc7b1c852c790b1dca5d",
+      "original_bytes": 4099,
+      "published_bytes": 4085
+    },
+    {
+      "path": "raw/tool-request.json",
+      "original_sha256": "d18c798e0935c580c93078a83125d5f5883f8929363ab4bd1d9c20ae02862d84",
+      "published_sha256": "38dfa8516d8b32abc7bee52d4d31e129a91e53c3cf523267ec2540abf384c4ef",
+      "original_bytes": 1089,
+      "published_bytes": 1082
+    },
+    {
+      "path": "raw/tool-stream-request.json",
+      "original_sha256": "e4c689ba172997a1d2555146afc5b3c9004c5127835c53539138f00cb22c7c8d",
+      "published_sha256": "f4a76c57dc458b3b2b1495557dbd7990740ef7ae3251ef56f7bd6b6b799b43c3",
+      "original_bytes": 1141,
+      "published_bytes": 1134
+    }
+  ]
+}
