@@ -17,31 +17,49 @@
     "runtime_manifest": "experiments/local-models/measurements/LAB08-apple-native-requalification-20261010/raw/deployment.json",
     "harness_profile": "experiments/pi/harness.json"
   },
-  "run_ids": [],
+  "run_ids": [
+    "2026-10-10-pi-a2-janitor-t002-repo-janitor"
+  ],
   "planned_attempts": [
     {
       "id": "native-short",
       "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/short-summary.json",
+        "raw/qualification.json"
+      ]
     },
     {
       "id": "pilot-t002",
       "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
       "kind": "agent-run",
       "status": "planned",
-      "run_id": null,
+      "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
       "reason": null,
       "evidence_files": []
     }
   ],
   "evidence_files": [
-    "raw/protocol.md",
     "raw/deployment.json",
-    "raw/qualify.mjs"
+    "raw/native/native-memory.jsonl",
+    "raw/native/native-server.txt",
+    "raw/native/shutdown-process.json",
+    "raw/native/startup-process.json",
+    "raw/protocol.md",
+    "raw/qualification-driver.txt",
+    "raw/qualification.json",
+    "raw/qualify.mjs",
+    "raw/request.json",
+    "raw/response-0.sse",
+    "raw/response-1.sse",
+    "raw/response-2.sse",
+    "raw/response-3.sse",
+    "raw/short-summary.json",
+    "raw/pilot-registration.json"
   ],
   "unavailable": {},
   "conclusion": null,

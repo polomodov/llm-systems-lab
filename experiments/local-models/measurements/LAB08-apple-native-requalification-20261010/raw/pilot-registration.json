@@ -1,0 +1,10 @@
+{
+  "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+  "registered_at": "2026-10-10T06:12:07.239323+00:00",
+  "qualification_commit": "ae1b9e2bfa85c60deb6e919ec8722fab66c59d82",
+  "runner": "scripts/run.mjs",
+  "timeout_seconds": 900,
+  "budget_mode": "observed",
+  "deployment": "raw/deployment.json",
+  "qualification": "raw/short-summary.json"
+}
