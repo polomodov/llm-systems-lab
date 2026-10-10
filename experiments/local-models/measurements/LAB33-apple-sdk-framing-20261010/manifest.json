@@ -65,7 +65,8 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
-        "raw/lms-mlx/execution.json"
+        "raw/lms-mlx/execution.json",
+        "raw/lms-mlx/lifecycle-audit.json"
       ]
     },
     {
@@ -275,6 +276,7 @@
     "raw/admission.json",
     "raw/admission.jsonl",
     "raw/check.txt",
+    "raw/controller-review-audit.json",
     "raw/deployments.json",
     "raw/driver.txt",
     "raw/evidence-sha256.json",
@@ -290,6 +292,7 @@
     "raw/lms-mlx/chat-warmup/sdk-result.json",
     "raw/lms-mlx/execution.json",
     "raw/lms-mlx/guard.json",
+    "raw/lms-mlx/lifecycle-audit.json",
     "raw/lms-mlx/load.txt",
     "raw/lms-mlx/loaded.json",
     "raw/lms-mlx/memory.jsonl",
@@ -318,6 +321,8 @@
     "raw/prestart-pins.json",
     "raw/protocol.md",
     "raw/python-tests.txt",
+    "raw/review-evidence-sha256.json",
+    "raw/run_lms.executed.py",
     "raw/run_lms.py",
     "raw/runtime-manifest.json",
     "raw/runtime-summary.json",

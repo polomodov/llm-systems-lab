@@ -65,7 +65,8 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
-        "raw/lms-gguf/execution.json"
+        "raw/lms-gguf/execution.json",
+        "raw/lms-gguf/lifecycle-audit.json"
       ]
     },
     {
@@ -345,6 +346,7 @@
     "raw/admission.json",
     "raw/admission.jsonl",
     "raw/check.txt",
+    "raw/controller-review-audit.json",
     "raw/deployments.json",
     "raw/driver.txt",
     "raw/evidence-sha256.json",
@@ -353,6 +355,7 @@
     "raw/lms-gguf/chat-warmup/driver.txt",
     "raw/lms-gguf/chat-warmup/sdk-result.json",
     "raw/lms-gguf/execution.json",
+    "raw/lms-gguf/lifecycle-audit.json",
     "raw/lms-gguf/load.txt",
     "raw/lms-gguf/loaded.json",
     "raw/lms-gguf/memory.jsonl",
@@ -369,6 +372,8 @@
     "raw/prestart-pins.json",
     "raw/protocol.md",
     "raw/python-tests.txt",
+    "raw/review-evidence-sha256.json",
+    "raw/run_lms.executed.py",
     "raw/run_lms.py",
     "raw/runtime-manifest.json",
     "raw/runtime-summary.json",

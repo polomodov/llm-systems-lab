@@ -94,7 +94,17 @@
     "max_gap_seconds": 3.1261420249938965,
     "min_free_spec_gib": 14.874786376953125,
     "max_backend_rss_gib": 7.758941650390625,
-    "max_swap_bytes": 0
+    "max_swap_bytes": 0,
+    "lifecycle_audit": {
+      "original_execution": "raw/lms-gguf/execution.json",
+      "original_sha256": "62995b378ecb380d08997b19f903dc395ce3823773f60b5366f357f5119940eb",
+      "recorded_loaded_flag": true,
+      "loaded_after": false,
+      "models_after": [],
+      "unload_error": null,
+      "server_stop_error": null,
+      "scope": "loaded_after is derived only from the recorded models_after observation; original stale flag is preserved. No new unload or GPU release measurement."
+    }
   },
   {
     "deployment": "lms-mlx",
@@ -191,6 +201,16 @@
     "max_gap_seconds": 2.1942288875579834,
     "min_free_spec_gib": 14.857772827148438,
     "max_backend_rss_gib": 6.728912353515625,
-    "max_swap_bytes": 0
+    "max_swap_bytes": 0,
+    "lifecycle_audit": {
+      "original_execution": "raw/lms-mlx/execution.json",
+      "original_sha256": "506ed0ca62391444af1ab90b0d141ee9fa39b94b8c611b9b2083acaf077a4441",
+      "recorded_loaded_flag": true,
+      "loaded_after": false,
+      "models_after": [],
+      "unload_error": null,
+      "server_stop_error": null,
+      "scope": "loaded_after is derived only from the recorded models_after observation; original stale flag is preserved. No new unload or GPU release measurement."
+    }
   }
 ]

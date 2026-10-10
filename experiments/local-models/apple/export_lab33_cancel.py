@@ -19,7 +19,9 @@ for dep in ['lms-gguf','lms-mlx']:
   table.append(f'| {dep}/{case}/{repeat} | {plan["status"]} | {stats.get("stopReason")} | {repr(record.get("final_content"))} | {record.get("total_seconds")} |')
   for metric,value,unit in [('sdk_total_seconds',record.get('total_seconds'),'s'),('sdk_input_tokens',stats.get('promptTokensCount'),'tokens'),('sdk_output_tokens',stats.get('predictedTokensCount'),'tokens')]:
    rows.append([id+'-'+metric,plan['configuration_id'],'qwen35-9b-q6' if dep=='lms-gguf' else 'qwen35-9b-mlx-4bit','lm-studio','metal','',repeat if repeat!='warmup' else '',metric,str(value) if value is not None else '',unit,'measured' if value is not None else 'unavailable',str(path.relative_to(directory)),'' if value is not None else 'Primary SDK field absent; no zero estimate.'])
- for path in sorted(folder.glob('backend-*/proof.json')):
+ lifecycle=folder/'lifecycle-audit.json'
+ if lifecycle.exists():summaries[-1]['lifecycle_audit']=json.loads(lifecycle.read_text())
+ for path in sorted(folder.glob('backend-*/active-metal-proof.json')):
   proof=json.loads(path.read_text());table.append(f'| {dep}/{path.parent.name} | Metal call path: {proof.get("metal_call_path_observed")} | stream complete: {proof.get("stream_complete")} | all layers: null | — |')
  for path in sorted(folder.glob('http-cancel-*/proof.json')):
   proof=json.loads(path.read_text());table.append(f'| {dep}/{path.parent.name} | HTTP native cancel unverified | exit {proof.get("client_exit")} | physical GPU release: null | recovery {proof.get("recovery_end_seconds")} |')
@@ -68,7 +70,7 @@ Attempts: {json.dumps(counts,ensure_ascii=False)}. В таблице — primary
 
 ## Вывод по гипотезе
 
-{m['conclusion']} Source/API/model identity и cancellation conclusions ограничены конкретной выполненной сессией. Прежние preparation failures и resource refusal не объявляются аппаратной несовместимостью. Полный LAB33 допуск сохраняет перечисленные blockers; unknown показатели не заменяются нулями.
+{m['conclusion']} Source/API/model identity и cancellation conclusions ограничены конкретной выполненной сессией. Offline review audit принимает только counted compute/dispatch frames из Call graph, исключая Binary Images, сводки и wait-only frames. Исходные proof.json/samples/execution и pins не переписаны; active-metal-proof.json и lifecycle-audit.json — отдельные производные результаты. Исполнявшийся source сохранён в run_lms.executed.py с original SHA-256 в controller-review-audit.json. Исправленный run_lms.py требует новой сессии и свежих pins, включая lms_evidence.py. Нормальная успешная выгрузка теперь сбрасывает loaded; историческое loaded=true при models_after=[] оставлено в первичном record и объяснено audit. Старый evidence inventory относится к исходным bytes; соответствие изменённого controller path исходному snapshot задаёт controller-review-audit.json. Прежние preparation failures и resource refusal не объявляются аппаратной несовместимостью. Полный LAB33 допуск сохраняет перечисленные blockers; unknown показатели не заменяются нулями.
 
 ## Ответы на контрольные вопросы
 

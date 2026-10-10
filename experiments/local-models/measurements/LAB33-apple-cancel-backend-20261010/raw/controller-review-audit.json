@@ -1,0 +1,9 @@
+{
+  "audited_at": "2026-10-10T12:49:32.124148+00:00",
+  "executed_source": "raw/run_lms.executed.py",
+  "executed_sha256": "8d8b8698e2dcc4942d72b724cbe19009e30e82e702a962f506b931bbea639a11",
+  "original_pin_record_matches": false,
+  "corrected_source": "raw/run_lms.py",
+  "corrected_sha256": "50527c2f0b9c0b0f38cc82a6abb2cb3de86a00ea13c02c700de81ac7bee1e570",
+  "correction": "Active compute call-graph frames only; successful normal unload clears loaded. Historical pins, primary proofs and execution files retained. Corrected controller requires fresh pins including lms_evidence.py and a new session before execution."
+}

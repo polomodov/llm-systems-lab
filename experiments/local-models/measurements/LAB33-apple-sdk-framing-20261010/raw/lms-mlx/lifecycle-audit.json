@@ -1,0 +1,10 @@
+{
+  "original_execution": "raw/lms-mlx/execution.json",
+  "original_sha256": "13af6fb454c3141084b426e06594df68b08d7c26b595cf745484809044bfcd86",
+  "recorded_loaded_flag": false,
+  "loaded_after": false,
+  "models_after": [],
+  "unload_error": null,
+  "server_stop_error": null,
+  "scope": "loaded_after is derived only from the recorded models_after observation; original stale flag is preserved. No new unload or GPU release measurement."
+}

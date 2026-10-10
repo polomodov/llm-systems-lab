@@ -1,0 +1,41 @@
+{
+  "original_proof": "raw/lms-gguf/backend-1/proof.json",
+  "original_sha256": "1e4992308065ead79b7cbf3e9244e0b05de00635d610ab836d707b829d63ef4d",
+  "parser": "experiments/local-models/apple/lms_evidence.py",
+  "parser_sha256": "9828f3fd25e109d985fb2c8392b0a9284064a011f563c19ecda08385a9384027",
+  "samples": [
+    {
+      "pid": 39699,
+      "returncode": 0,
+      "file": "raw/lms-gguf/backend-1/sample-39699.txt",
+      "active_frames": 18,
+      "sha256": "d269099d74705067fe15dc6b64eb1bc48bcd8244df6b1839f024b3d87ee2264f"
+    }
+  ],
+  "metal_call_path_lines": [
+    "    +         !       |       7 ggml_metal_graph_compute  (in libggml-metal.dylib) + 744  [0x105765dd8]",
+    "    +         !       |       +               2 ggml_metal_op_encode  (in libggml-metal.dylib) + 1912  [0x10576b334]",
+    "    +         !       |       +               ! 2 ggml_metal_op_mul_mat  (in libggml-metal.dylib) + 2748  [0x105771ea0]",
+    "    +         !       |       +               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 332  [0x10576ad08]",
+    "    +         !       |       +               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1624  [0x10576b214]",
+    "    +         !       |       +               ! 1 ggml_metal_op_bin  (in libggml-metal.dylib) + 984  [0x105775918]",
+    "    +         !       |       +               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1688  [0x10576b254]",
+    "    +         !       |       +               ! 1 ggml_metal_op_norm  (in libggml-metal.dylib) + 1588  [0x105776de8]",
+    "    +         !       |       +               !   1 ggml_metal_encoder_dispatch_threadgroups  (in libggml-metal.dylib) + 68  [0x10575797c]",
+    "    +         !       |       +               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 2328  [0x10576b4d4]",
+    "    +         !       |       +               ! 1 ggml_metal_op_ssm_conv  (in libggml-metal.dylib) + 848  [0x10576ef90]",
+    "    +         !       |       +               !   1 ggml_metal_encoder_dispatch_threadgroups  (in libggml-metal.dylib) + 68  [0x10575797c]",
+    "    +         !       |       +               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 2376  [0x10576b504]",
+    "    +         !       |       +                   1 ggml_metal_encoder_dispatch_threadgroups  (in libggml-metal.dylib) + 68  [0x10575797c]",
+    "    +         !       |       2 ggml_metal_graph_compute  (in libggml-metal.dylib) + 608  [0x105765d50]",
+    "    +         !       |           1 ggml_metal_op_encode  (in libggml-metal.dylib) + 388  [0x10576ad40]",
+    "    +         !       |           1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1688  [0x10576b254]",
+    "    +         !       |             1 ggml_metal_op_norm  (in libggml-metal.dylib) + 812  [0x105776ae0]"
+  ],
+  "metal_call_path_observed": true,
+  "curl_exit": 0,
+  "stream_complete": true,
+  "all_layer_offload": null,
+  "physical_gpu_release": null,
+  "scope": "Offline reanalysis of already recorded call graphs; no new model execution, no binary-image or wait-only acceptance."
+}

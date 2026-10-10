@@ -2,6 +2,7 @@
 import datetime,hashlib,json,os,pathlib,re,socket,subprocess,sys,threading,time,urllib.request
 raw=pathlib.Path(__file__).resolve().parent;root=raw.parents[4]
 sys.path.insert(0,str(root/'experiments/common'));from local_resources import sample
+sys.path.insert(0,str(root/'experiments/local-models/apple'));from lms_evidence import active_metal_frames,unload_owned
 python='/Users/lab/local-model-lab-artifacts/engines/lmstudio-sdk/1.5.0/venv/bin/python'
 env={k:os.environ[k] for k in ['PATH','HOME','TMPDIR','USER','LANG'] if k in os.environ};env.update(PYTHONDONTWRITEBYTECODE='1',no_proxy='127.0.0.1,localhost,::1')
 opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
@@ -133,7 +134,7 @@ for dep in deployments if admitted else []:
     symbols=[]
     for row in samples:
      path=raw.parent/row['file']
-     if path.exists():symbols+=re.findall(r'.*(?:ggml.*metal|Metal.*(?:commit|dispatch|wait)|AGX.*(?:command|submit)).*',path.read_text(errors='replace'),re.I)
+     if row['returncode']==0 and path.exists():symbols+=active_metal_frames(path.read_text(errors='replace'))
     frames=[];done=False
     for line in (directory/'response.sse').read_text().splitlines():
      if not line.startswith('data:'):continue
@@ -151,7 +152,7 @@ for dep in deployments if admitted else []:
   stop.set()
   if monitor:monitor.join(timeout=20)
   if state['loaded']:
-   try:cli(['unload',alias],'unload',folder,30)
+   try:unload_owned(cli,alias,folder,state)
    except Exception as e:state['unload_error']=str(e)
   if state['server_started'] and loaded()==[]:
    try:cli(['server','stop'],'server-stop',folder,30)

@@ -65,7 +65,8 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
-        "raw/lms-gguf/execution.json"
+        "raw/lms-gguf/execution.json",
+        "raw/lms-gguf/lifecycle-audit.json"
       ]
     },
     {
@@ -120,6 +121,7 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
+        "raw/lms-gguf/backend-warmup/active-metal-proof.json",
         "raw/lms-gguf/backend-warmup/proof.json"
       ]
     },
@@ -131,6 +133,7 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
+        "raw/lms-gguf/backend-1/active-metal-proof.json",
         "raw/lms-gguf/backend-1/proof.json"
       ]
     },
@@ -142,6 +145,7 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
+        "raw/lms-gguf/backend-2/active-metal-proof.json",
         "raw/lms-gguf/backend-2/proof.json"
       ]
     },
@@ -153,6 +157,7 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
+        "raw/lms-gguf/backend-3/active-metal-proof.json",
         "raw/lms-gguf/backend-3/proof.json"
       ]
     },
@@ -176,7 +181,8 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
-        "raw/lms-mlx/execution.json"
+        "raw/lms-mlx/execution.json",
+        "raw/lms-mlx/lifecycle-audit.json"
       ]
     },
     {
@@ -366,26 +372,31 @@
     "raw/admission.json",
     "raw/admission.jsonl",
     "raw/check.txt",
+    "raw/controller-review-audit.json",
     "raw/deployments.json",
     "raw/driver.txt",
     "raw/evidence-sha256.json",
     "raw/gguf-deployment-reference.json",
     "raw/lab-check-submission.json",
+    "raw/lms-gguf/backend-1/active-metal-proof.json",
     "raw/lms-gguf/backend-1/curl.txt",
     "raw/lms-gguf/backend-1/proof.json",
     "raw/lms-gguf/backend-1/request.json",
     "raw/lms-gguf/backend-1/response.sse",
     "raw/lms-gguf/backend-1/sample-39699.txt",
+    "raw/lms-gguf/backend-2/active-metal-proof.json",
     "raw/lms-gguf/backend-2/curl.txt",
     "raw/lms-gguf/backend-2/proof.json",
     "raw/lms-gguf/backend-2/request.json",
     "raw/lms-gguf/backend-2/response.sse",
     "raw/lms-gguf/backend-2/sample-39699.txt",
+    "raw/lms-gguf/backend-3/active-metal-proof.json",
     "raw/lms-gguf/backend-3/curl.txt",
     "raw/lms-gguf/backend-3/proof.json",
     "raw/lms-gguf/backend-3/request.json",
     "raw/lms-gguf/backend-3/response.sse",
     "raw/lms-gguf/backend-3/sample-39699.txt",
+    "raw/lms-gguf/backend-warmup/active-metal-proof.json",
     "raw/lms-gguf/backend-warmup/curl.txt",
     "raw/lms-gguf/backend-warmup/proof.json",
     "raw/lms-gguf/backend-warmup/request.json",
@@ -400,6 +411,7 @@
     "raw/lms-gguf/chat-warmup/driver.txt",
     "raw/lms-gguf/chat-warmup/sdk-result.json",
     "raw/lms-gguf/execution.json",
+    "raw/lms-gguf/lifecycle-audit.json",
     "raw/lms-gguf/load.txt",
     "raw/lms-gguf/loaded.json",
     "raw/lms-gguf/memory.jsonl",
@@ -415,6 +427,7 @@
     "raw/lms-mlx/chat-warmup/driver.txt",
     "raw/lms-mlx/chat-warmup/sdk-result.json",
     "raw/lms-mlx/execution.json",
+    "raw/lms-mlx/lifecycle-audit.json",
     "raw/lms-mlx/load.txt",
     "raw/lms-mlx/loaded.json",
     "raw/lms-mlx/memory.jsonl",
@@ -430,6 +443,8 @@
     "raw/prestart-pins.json",
     "raw/protocol.md",
     "raw/python-tests.txt",
+    "raw/review-evidence-sha256.json",
+    "raw/run_lms.executed.py",
     "raw/run_lms.py",
     "raw/runtime-manifest.json",
     "raw/runtime-summary.json",
