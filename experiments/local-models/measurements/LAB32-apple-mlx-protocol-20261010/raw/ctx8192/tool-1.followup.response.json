@@ -1,0 +1,25 @@
+{
+  "id": "chatcmpl-b64d4834-78c6-41fb-be14-74c536c6d4fe",
+  "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s",
+  "object": "chat.completion",
+  "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "created": 1791614065,
+  "choices": [
+    {
+      "index": 0,
+      "finish_reason": "stop",
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42"
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 364,
+    "completion_tokens": 6,
+    "total_tokens": 370,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  }
+}
