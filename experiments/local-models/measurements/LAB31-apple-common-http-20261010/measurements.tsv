@@ -1,1 +1,65 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+gguf-chat-1-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	ttft_content_s	0.076437208	s	measured	raw/gguf/chat-1.metrics.json	
+gguf-chat-1-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	duration_s	0.10879091599999999	s	measured	raw/gguf/chat-1.metrics.json	
+gguf-chat-1-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	prompt_tokens	21	tokens	measured	raw/gguf/chat-1.metrics.json	
+gguf-chat-1-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	completion_tokens	3	tokens	measured	raw/gguf/chat-1.metrics.json	
+gguf-chat-2-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	ttft_content_s	0.079898208	s	measured	raw/gguf/chat-2.metrics.json	
+gguf-chat-2-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	duration_s	0.112745458	s	measured	raw/gguf/chat-2.metrics.json	
+gguf-chat-2-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	prompt_tokens	21	tokens	measured	raw/gguf/chat-2.metrics.json	
+gguf-chat-2-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	completion_tokens	3	tokens	measured	raw/gguf/chat-2.metrics.json	
+gguf-chat-3-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	ttft_content_s	0.081706333	s	measured	raw/gguf/chat-3.metrics.json	
+gguf-chat-3-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	duration_s	0.113060208	s	measured	raw/gguf/chat-3.metrics.json	
+gguf-chat-3-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	prompt_tokens	21	tokens	measured	raw/gguf/chat-3.metrics.json	
+gguf-chat-3-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	completion_tokens	3	tokens	measured	raw/gguf/chat-3.metrics.json	
+gguf-chat-warmup-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		ttft_content_s	0.07170083399999999	s	measured	raw/gguf/chat-warmup.metrics.json	
+gguf-chat-warmup-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		duration_s	0.10350800000000002	s	measured	raw/gguf/chat-warmup.metrics.json	
+gguf-chat-warmup-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		prompt_tokens	21	tokens	measured	raw/gguf/chat-warmup.metrics.json	
+gguf-chat-warmup-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		completion_tokens	3	tokens	measured	raw/gguf/chat-warmup.metrics.json	
+gguf-math-1-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	ttft_content_s	0.086885542	s	measured	raw/gguf/math-1.metrics.json	
+gguf-math-1-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	duration_s	0.152877792	s	measured	raw/gguf/math-1.metrics.json	
+gguf-math-1-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	prompt_tokens	38	tokens	measured	raw/gguf/math-1.metrics.json	
+gguf-math-1-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	1	completion_tokens	5	tokens	measured	raw/gguf/math-1.metrics.json	
+gguf-math-2-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	ttft_content_s	0.078216958	s	measured	raw/gguf/math-2.metrics.json	
+gguf-math-2-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	duration_s	0.140562958	s	measured	raw/gguf/math-2.metrics.json	
+gguf-math-2-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	prompt_tokens	38	tokens	measured	raw/gguf/math-2.metrics.json	
+gguf-math-2-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	2	completion_tokens	5	tokens	measured	raw/gguf/math-2.metrics.json	
+gguf-math-3-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	ttft_content_s	0.086700875	s	measured	raw/gguf/math-3.metrics.json	
+gguf-math-3-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	duration_s	0.149507791	s	measured	raw/gguf/math-3.metrics.json	
+gguf-math-3-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	prompt_tokens	38	tokens	measured	raw/gguf/math-3.metrics.json	
+gguf-math-3-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192	3	completion_tokens	5	tokens	measured	raw/gguf/math-3.metrics.json	
+gguf-math-warmup-ttft_content_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		ttft_content_s	0.082754208	s	measured	raw/gguf/math-warmup.metrics.json	
+gguf-math-warmup-duration_s	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		duration_s	0.145564416	s	measured	raw/gguf/math-warmup.metrics.json	
+gguf-math-warmup-prompt_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		prompt_tokens	38	tokens	measured	raw/gguf/math-warmup.metrics.json	
+gguf-math-warmup-completion_tokens	gguf-native-common-http-output256-thinkingfalse	qwen35-9b-q6	llama.cpp	metal	8192		completion_tokens	5	tokens	measured	raw/gguf/math-warmup.metrics.json	
+mlx-chat-1-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	ttft_content_s	0.080767291	s	measured	raw/mlx/chat-1.metrics.json	
+mlx-chat-1-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	duration_s	0.10585329099999999	s	measured	raw/mlx/chat-1.metrics.json	
+mlx-chat-1-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	prompt_tokens	21	tokens	measured	raw/mlx/chat-1.metrics.json	
+mlx-chat-1-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	completion_tokens	3	tokens	measured	raw/mlx/chat-1.metrics.json	
+mlx-chat-2-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	ttft_content_s	0.079054667	s	measured	raw/mlx/chat-2.metrics.json	
+mlx-chat-2-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	duration_s	0.10055858299999999	s	measured	raw/mlx/chat-2.metrics.json	
+mlx-chat-2-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	prompt_tokens	21	tokens	measured	raw/mlx/chat-2.metrics.json	
+mlx-chat-2-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	completion_tokens	3	tokens	measured	raw/mlx/chat-2.metrics.json	
+mlx-chat-3-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	ttft_content_s	0.077916083	s	measured	raw/mlx/chat-3.metrics.json	
+mlx-chat-3-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	duration_s	0.09996825	s	measured	raw/mlx/chat-3.metrics.json	
+mlx-chat-3-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	prompt_tokens	21	tokens	measured	raw/mlx/chat-3.metrics.json	
+mlx-chat-3-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	completion_tokens	3	tokens	measured	raw/mlx/chat-3.metrics.json	
+mlx-chat-warmup-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		ttft_content_s	0.743652667	s	measured	raw/mlx/chat-warmup.metrics.json	
+mlx-chat-warmup-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		duration_s	0.7663239589999999	s	measured	raw/mlx/chat-warmup.metrics.json	
+mlx-chat-warmup-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		prompt_tokens	21	tokens	measured	raw/mlx/chat-warmup.metrics.json	
+mlx-chat-warmup-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		completion_tokens	3	tokens	measured	raw/mlx/chat-warmup.metrics.json	
+mlx-math-1-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	ttft_content_s	0.091429333	s	measured	raw/mlx/math-1.metrics.json	
+mlx-math-1-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	duration_s	0.13389720800000002	s	measured	raw/mlx/math-1.metrics.json	
+mlx-math-1-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	prompt_tokens	38	tokens	measured	raw/mlx/math-1.metrics.json	
+mlx-math-1-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	1	completion_tokens	5	tokens	measured	raw/mlx/math-1.metrics.json	
+mlx-math-2-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	ttft_content_s	0.08099204099999999	s	measured	raw/mlx/math-2.metrics.json	
+mlx-math-2-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	duration_s	0.123695166	s	measured	raw/mlx/math-2.metrics.json	
+mlx-math-2-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	prompt_tokens	38	tokens	measured	raw/mlx/math-2.metrics.json	
+mlx-math-2-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	2	completion_tokens	5	tokens	measured	raw/mlx/math-2.metrics.json	
+mlx-math-3-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	ttft_content_s	0.08191833300000001	s	measured	raw/mlx/math-3.metrics.json	
+mlx-math-3-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	duration_s	0.127045875	s	measured	raw/mlx/math-3.metrics.json	
+mlx-math-3-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	prompt_tokens	38	tokens	measured	raw/mlx/math-3.metrics.json	
+mlx-math-3-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192	3	completion_tokens	5	tokens	measured	raw/mlx/math-3.metrics.json	
+mlx-math-warmup-ttft_content_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		ttft_content_s	0.085290167	s	measured	raw/mlx/math-warmup.metrics.json	
+mlx-math-warmup-duration_s	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		duration_s	0.131980084	s	measured	raw/mlx/math-warmup.metrics.json	
+mlx-math-warmup-prompt_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		prompt_tokens	38	tokens	measured	raw/mlx/math-warmup.metrics.json	
+mlx-math-warmup-completion_tokens	mlx-native-common-http-output256-thinkingfalse	qwen35-9b-mlx-4bit	mlx-lm	metal	8192		completion_tokens	5	tokens	measured	raw/mlx/math-warmup.metrics.json	

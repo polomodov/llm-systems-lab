@@ -7,6 +7,10 @@ for dep in ('gguf','mlx'):
  folder=raw/dep
  if not folder.exists():continue
  execution=json.loads((folder/'execution.json').read_text());memory=[json.loads(l) for l in (folder/'memory.jsonl').read_text().splitlines()] if (folder/'memory.jsonl').exists() else [];summary[dep]=dict(cold_ready_seconds=execution.get('cold_ready_seconds'),max_rss_gib=max((r['server_rss_bytes'] for r in memory),default=None),min_free_spec_gib=min((r['free_speculative_bytes'] for r in memory),default=None),max_swap_bytes=max((r['swap_used_bytes'] for r in memory),default=None),samples=len(memory),cleanup_returncode=execution.get('returncode'),sigint_count=execution.get('sigint_count'),guard=execution.get('guard'))
+ summary[dep]['protocol_accepted']=all(a['status']=='completed' for a in m['planned_attempts'] if a['id'].startswith(dep+'-')) and execution.get('returncode')==0 and execution.get('sigint_count')==1 and execution.get('guard') is None
+ summary[dep]['sampling_period_seconds']=2
+ summary[dep]['rss_peak_coverage']='Sampled RSS only; very short series has one sample, true peak unmeasured.'
+ summary[dep]['cold_ready_scope']='Popen to /v1/models API readiness, not a model-load or cold filesystem measurement.'
  for metric in ('max_rss_gib','min_free_spec_gib'):
   if summary[dep][metric] is not None:summary[dep][metric]/=2**30
  for f in sorted(folder.glob('*.metrics.json')):
@@ -35,7 +39,7 @@ Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. GGUF Q6_K revision 38852
 
 ## Результаты
 
-Attempts: {json.dumps(counts)}. Cold readiness от Popen учитывается отдельно в [runtime summary](raw/runtime-summary.json). TTFT — первое непустое content delta, total — время до полного SSE; usage из первичного ответа.
+Attempts: {json.dumps(counts)}. API readiness от Popen учитывается отдельно в [runtime summary](raw/runtime-summary.json). TTFT — первое непустое content delta, total — время до полного SSE; usage из первичного ответа.
 
 | Deployment/case/repeat | Статус | Raw final | TTFT, с | Total, с | Input/output tokens |
 | --- | --- | --- | --- | --- | --- |
@@ -43,7 +47,7 @@ Attempts: {json.dumps(counts)}. Cold readiness от Popen учитывается
 
 ## Ошибки и ограничения
 
-{m['unavailable'].get('completion','Все зарегистрированные попытки выполнены.')} Одинаковые messages не означают одинаковый prompt token count. GGUF резервирует context 8192; MLX short-input budget 8192 не является hard cap. Три повтора не доказывают статистическую эквивалентность. Энергия, температура и максимальный GPU budget неизвестны. Смена формата и quant исключает вывод о влиянии одного Metal/MLX backend.
+{m['unavailable'].get('completion','Все зарегистрированные попытки выполнены.')} Одинаковые messages не означают одинаковый prompt token count. Readiness /v1/models не подтверждает завершение загрузки MLX: model provider загружает веса по первому запросу, его warmup включает загрузку. Hashing заранее прогревает filesystem cache; cold cache не измерялся. Серии короткие, ресурсный collector сделал по одному sample: sampled RSS не называется истинным peak. Поле execution.accepted осталось false из-за неиспользуемого начального значения контроллера; исходный файл сохранён. Итоговый protocol_accepted в runtime summary выводится из полного attempt register, exit/SIGINT и отсутствия guard, а не из этого поля. GGUF резервирует context 8192; MLX short-input budget 8192 не является hard cap. Три повтора не доказывают статистическую эквивалентность. Энергия, температура и максимальный GPU budget неизвестны. Смена формата и quant исключает вывод о влиянии одного Metal/MLX backend.
 
 ## Вывод по гипотезе
 

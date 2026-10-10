@@ -1,0 +1,17 @@
+{
+  "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вычисли 9 * 256. Верни только число без пояснений, форматирования и знаков препинания."
+    }
+  ],
+  "max_tokens": 256,
+  "temperature": 0,
+  "seed": 1,
+  "top_p": 1,
+  "stream": true,
+  "stream_options": {
+    "include_usage": true
+  }
+}
