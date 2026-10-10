@@ -69,10 +69,13 @@
       "id": "stable-admission",
       "configuration_id": "host-ac-no-models",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/stable-admission.json",
+        "raw/stable-admission.jsonl"
+      ]
     },
     {
       "id": "native-short16-retry",
@@ -112,6 +115,7 @@
     "raw/deployment.json",
     "raw/export_report.py",
     "raw/first-guard-amendment.md",
+    "raw/first-guard-tests.txt",
     "raw/native/native-memory.jsonl",
     "raw/native/native-server.txt",
     "raw/native/shutdown-process.json",
@@ -130,7 +134,9 @@
     "raw/response-1.sse",
     "raw/response-2.sse",
     "raw/response-3.sse",
-    "raw/short-summary.json"
+    "raw/short-summary.json",
+    "raw/stable-admission.json",
+    "raw/stable-admission.jsonl"
   ],
   "unavailable": {},
   "conclusion": null,

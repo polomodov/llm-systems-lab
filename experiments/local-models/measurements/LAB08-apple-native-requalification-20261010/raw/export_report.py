@@ -34,7 +34,8 @@ for rid in manifest['run_ids']:
     else:raise RuntimeError('Export expects actual stopped evidence')
 save(raw/'primary-summary.json',run_summaries)
 qualifications=[]
-for label,folder in [('native-short',raw),('native-short16',raw/'ctx16')]:
+for label,folder in [('native-short',raw),('native-short16',raw/'ctx16'),('native-short16-retry',raw/'ctx16-retry')]:
+    if not (folder/'qualification.json').exists():continue
     q=json.loads((folder/'qualification.json').read_text());qualifications.append((label,q))
     next(a for a in manifest['planned_attempts'] if a['id']==label).update(status='completed' if q['accepted'] else 'failed',reason=None if q['accepted'] else q['error'] or 'qualification rejected',evidence_files=[str((folder/'qualification.json').relative_to(report))])
 manifest.update(status='blocked',conclusion='Короткие native qualifications завершены; T002 attempts сохранены отдельно. Полный агентный допуск требует independently judged pilot.',reviewer_decision=None)
@@ -43,9 +44,11 @@ manifest['evidence_files']=sorted(str(f.relative_to(report)) for f in raw.rglob(
 save(report/'manifest.json',manifest)
 rows=[]
 for label,q in qualifications:
-    context=16384 if label.endswith('16') else 8192
+    context=8192 if label=='native-short' else 16384
+    folder=raw if context==8192 else raw/'ctx16-retry' if label.endswith('retry') else raw/'ctx16'
+    configuration=next(a['configuration_id'] for a in manifest['planned_attempts'] if a['id']==label)
     for request in q['requests']:
-        rows.append([f'{label}-r{request["repeat"]}',f'pi-q6-metal-{context}', 'qwen35-9b-q6','llama-cpp','metal',str(context),str(request['repeat']),'http_total',str(request['wall_seconds']),'s','observed',str(((raw/'ctx16' if context==16384 else raw)/'qualification.json').relative_to(report)),''])
+        rows.append([f'{label}-r{request["repeat"]}',configuration, 'qwen35-9b-q6','llama-cpp','metal',str(context),str(request['repeat']) if request['repeat'] else '','http_total',str(request['wall_seconds']),'s','measured',str((folder/'qualification.json').relative_to(report)),''])
 header='observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason'.split()
 (report/'measurements.tsv').write_text('\t'.join(header)+'\n'+''.join('\t'.join(row)+'\n' for row in rows))
 table='\n'.join(f'| `{s["run_id"]}` | {s["status"]}/{s["stop_reason"]} | {s["accepted_responses"]}/{s["jobs"]} | {s["wall_seconds"]} | {s["max_gap_seconds"]:.3f} | {s["max_rss_gib"]:.3f} |' for s in run_summaries)
@@ -67,7 +70,7 @@ Apple M5 Max / 128GiB / macOS26.5/25F71, AC/mode0; pinned llama.cpp312cf033 + ti
 
 ## Результаты
 
-8K:4/4 exact LAB_READY,30samples/maxgap2.016s/RSSpeak7.422GiB/swap0, total63.514s включая startup/verify/idle/cleanup. Короткие16K результаты в [qualification](raw/ctx16/qualification.json), каждый repeat в TSV. Три повтора отделены отwarmup, coldstartup не считается latency запроса.
+8K:4/4 exact LAB_READY,30samples/maxgap2.016s/RSSpeak7.422GiB/swap0, total63.514s включая startup/verify/idle/cleanup. Первая16K qualification дала4/4HTTP, но **не допущена**: free+spec7.785GiB<8GiB. [Исходный результат](raw/ctx16/qualification.json), [первая unsafe строка](raw/ctx16/native/native-memory.jsonl). Последующая ps ошибка затёрла первичныйguard; новый supervisor сохраняет первую причину и прекращает polling. [Поправка](raw/first-guard-amendment.md) и новый retry имеют отдельную регистрацию. Три повтора отделены отwarmup, coldstartup не считается latency запроса.
 
 | Run | Итог | Accepted/jobs | Agent wall,s | Max gap,s | Peak RSS,GiB |
 | --- | --- | --- | --- | --- | --- |
