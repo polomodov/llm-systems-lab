@@ -99,7 +99,10 @@ PY
            ''.join(f'Строка {i}: нейтральные данные.\n' for i in range(n)) +
            'Верни контрольное значение из первой строки.'}]
    def count(messages):
-       return len(tokenizer.apply_chat_template(messages, tokenize=True, add_generation_prompt=True))
+       ids = tokenizer.apply_chat_template(messages, tokenize=True, return_dict=False,
+           add_generation_prompt=True, enable_thinking=False)
+       assert isinstance(ids, list) and ids and all(isinstance(token, int) for token in ids)
+       return len(ids)
    lo, hi = 0, ctx
    while lo < hi:
        mid = (lo + hi + 1) // 2
@@ -113,6 +116,8 @@ PY
        with (raw / name).open('x') as out: json.dump(data,out,ensure_ascii=False,indent=2)
    PY
    ```
+
+   В Transformers 5.19 `return_dict` по умолчанию равен `True`: `len(BatchEncoding)` считает поля, а не токены. Явный `return_dict=False` и проверка плоского списка ID обязательны; сохраните count и проверьте его до загрузки весов. В этом примере server должен использовать `enable_thinking=false`.
 
    Подтвердите, что server использует тот же template и reasoning options; иначе счёт не доказан. Выполните long request тем же probe: warmup и три повтора, ожидая `LAB_SENTINEL_42`. Проверяйте actual input usage, truncation и память. Нельзя измерять «32K» коротким prompt в большом пустом context.
 

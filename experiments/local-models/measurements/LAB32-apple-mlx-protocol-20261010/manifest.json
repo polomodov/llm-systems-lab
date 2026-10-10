@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "apple-mlx-protocol-20261010",
   "created_at": "2026-10-10T06:12:48.985Z",
-  "status": "in-progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "MLX-LM 0.32.0 / Qwen3.5-9B 4bit сохраняет chat/tool JSON/SSE, long sentinel и native cancellation/recovery на возрастающих input budgets.",
@@ -23,216 +23,266 @@
       "id": "ctx8192-chat-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-warmup.final.json",
+        "raw/ctx8192/chat-warmup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-1.final.json",
+        "raw/ctx8192/chat-1.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-2.final.json",
+        "raw/ctx8192/chat-2.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-3.final.json",
+        "raw/ctx8192/chat-3.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-stream-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-stream-warmup.final.json",
+        "raw/ctx8192/chat-stream-warmup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-stream-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-stream-1.final.json",
+        "raw/ctx8192/chat-stream-1.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-stream-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-stream-2.final.json",
+        "raw/ctx8192/chat-stream-2.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-chat-stream-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/chat-stream-3.final.json",
+        "raw/ctx8192/chat-stream-3.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-warmup.final.json",
+        "raw/ctx8192/tool-warmup.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-1.final.json",
+        "raw/ctx8192/tool-1.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-2.final.json",
+        "raw/ctx8192/tool-2.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-3.final.json",
+        "raw/ctx8192/tool-3.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-stream-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-stream-warmup.final.json",
+        "raw/ctx8192/tool-stream-warmup.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-stream-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-stream-1.final.json",
+        "raw/ctx8192/tool-stream-1.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-stream-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-stream-2.final.json",
+        "raw/ctx8192/tool-stream-2.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-tool-stream-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/ctx8192/tool-stream-3.final.json",
+        "raw/ctx8192/tool-stream-3.followup.metrics.json"
+      ]
     },
     {
       "id": "ctx8192-long-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "failed",
       "run_id": null,
-      "reason": null,
-      "evidence_files": []
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
+      "evidence_files": [
+        "raw/ctx8192/execution.json"
+      ]
     },
     {
       "id": "ctx8192-long-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-long-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-long-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-cancel-recovery-warmup",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-cancel-recovery-1",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-cancel-recovery-2",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx8192-cancel-recovery-3",
       "configuration_id": "mlx-4bit-input8192-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
@@ -248,216 +298,216 @@
       "id": "ctx16384-chat-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-stream-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-stream-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-stream-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-chat-stream-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-stream-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-stream-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-stream-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-tool-stream-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-long-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-long-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-long-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-long-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-cancel-recovery-warmup",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-cancel-recovery-1",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-cancel-recovery-2",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx16384-cancel-recovery-3",
       "configuration_id": "mlx-4bit-input16384-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
@@ -473,216 +523,216 @@
       "id": "ctx32768-chat-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-stream-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-stream-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-stream-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-chat-stream-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-stream-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-stream-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-stream-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-tool-stream-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-long-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-long-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-long-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-long-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-cancel-recovery-warmup",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-cancel-recovery-1",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-cancel-recovery-2",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
       "id": "ctx32768-cancel-recovery-3",
       "configuration_id": "mlx-4bit-input32768-observed-v1",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: Actual input count differs from pinned tokenizer",
       "evidence_files": []
     },
     {
@@ -698,33 +748,196 @@
       "id": "allowlist",
       "configuration_id": "offline-tool-validator",
       "kind": "exercise",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/allowlist.json"
+      ]
     }
   ],
   "evidence_files": [
+    "raw/allowlist.json",
     "raw/artifact-manifest.json",
     "raw/chat-request.json",
     "raw/chat-stream-request.json",
+    "raw/ctx16384-cancel-count.json",
+    "raw/ctx16384-cancel-request.json",
+    "raw/ctx16384-long-count.json",
+    "raw/ctx16384-long-request.json",
+    "raw/ctx32768-cancel-count.json",
+    "raw/ctx32768-cancel-request.json",
+    "raw/ctx32768-long-count.json",
+    "raw/ctx32768-long-request.json",
+    "raw/ctx8192-cancel-count.json",
+    "raw/ctx8192-cancel-request.json",
+    "raw/ctx8192-long-count.json",
+    "raw/ctx8192-long-request.json",
+    "raw/ctx8192/after-loaded-images.json",
+    "raw/ctx8192/before-loaded-images.json",
+    "raw/ctx8192/chat-1.driver.txt",
+    "raw/ctx8192/chat-1.final.json",
+    "raw/ctx8192/chat-1.metrics.json",
+    "raw/ctx8192/chat-1.request.json",
+    "raw/ctx8192/chat-1.response.json",
+    "raw/ctx8192/chat-2.driver.txt",
+    "raw/ctx8192/chat-2.final.json",
+    "raw/ctx8192/chat-2.metrics.json",
+    "raw/ctx8192/chat-2.request.json",
+    "raw/ctx8192/chat-2.response.json",
+    "raw/ctx8192/chat-3.driver.txt",
+    "raw/ctx8192/chat-3.final.json",
+    "raw/ctx8192/chat-3.metrics.json",
+    "raw/ctx8192/chat-3.request.json",
+    "raw/ctx8192/chat-3.response.json",
+    "raw/ctx8192/chat-stream-1.assembled.json",
+    "raw/ctx8192/chat-stream-1.driver.txt",
+    "raw/ctx8192/chat-stream-1.final.json",
+    "raw/ctx8192/chat-stream-1.metrics.json",
+    "raw/ctx8192/chat-stream-1.request.json",
+    "raw/ctx8192/chat-stream-1.sse",
+    "raw/ctx8192/chat-stream-2.assembled.json",
+    "raw/ctx8192/chat-stream-2.driver.txt",
+    "raw/ctx8192/chat-stream-2.final.json",
+    "raw/ctx8192/chat-stream-2.metrics.json",
+    "raw/ctx8192/chat-stream-2.request.json",
+    "raw/ctx8192/chat-stream-2.sse",
+    "raw/ctx8192/chat-stream-3.assembled.json",
+    "raw/ctx8192/chat-stream-3.driver.txt",
+    "raw/ctx8192/chat-stream-3.final.json",
+    "raw/ctx8192/chat-stream-3.metrics.json",
+    "raw/ctx8192/chat-stream-3.request.json",
+    "raw/ctx8192/chat-stream-3.sse",
+    "raw/ctx8192/chat-stream-warmup.assembled.json",
+    "raw/ctx8192/chat-stream-warmup.driver.txt",
+    "raw/ctx8192/chat-stream-warmup.final.json",
+    "raw/ctx8192/chat-stream-warmup.metrics.json",
+    "raw/ctx8192/chat-stream-warmup.request.json",
+    "raw/ctx8192/chat-stream-warmup.sse",
+    "raw/ctx8192/chat-warmup.driver.txt",
+    "raw/ctx8192/chat-warmup.final.json",
+    "raw/ctx8192/chat-warmup.metrics.json",
+    "raw/ctx8192/chat-warmup.request.json",
+    "raw/ctx8192/chat-warmup.response.json",
+    "raw/ctx8192/device-after.json",
+    "raw/ctx8192/device-before.json",
+    "raw/ctx8192/execution.json",
+    "raw/ctx8192/long-warmup.assembled.json",
+    "raw/ctx8192/long-warmup.driver.txt",
+    "raw/ctx8192/long-warmup.final.json",
+    "raw/ctx8192/long-warmup.metrics.json",
+    "raw/ctx8192/long-warmup.request.json",
+    "raw/ctx8192/long-warmup.sse",
+    "raw/ctx8192/memory-before.json",
+    "raw/ctx8192/memory.jsonl",
+    "raw/ctx8192/models.json",
+    "raw/ctx8192/phase.txt",
+    "raw/ctx8192/server-events.jsonl",
+    "raw/ctx8192/server.txt",
+    "raw/ctx8192/tool-1.driver.txt",
+    "raw/ctx8192/tool-1.final.json",
+    "raw/ctx8192/tool-1.followup.metrics.json",
+    "raw/ctx8192/tool-1.followup.request.json",
+    "raw/ctx8192/tool-1.followup.response.json",
+    "raw/ctx8192/tool-1.metrics.json",
+    "raw/ctx8192/tool-1.request.json",
+    "raw/ctx8192/tool-1.response.json",
+    "raw/ctx8192/tool-2.driver.txt",
+    "raw/ctx8192/tool-2.final.json",
+    "raw/ctx8192/tool-2.followup.metrics.json",
+    "raw/ctx8192/tool-2.followup.request.json",
+    "raw/ctx8192/tool-2.followup.response.json",
+    "raw/ctx8192/tool-2.metrics.json",
+    "raw/ctx8192/tool-2.request.json",
+    "raw/ctx8192/tool-2.response.json",
+    "raw/ctx8192/tool-3.driver.txt",
+    "raw/ctx8192/tool-3.final.json",
+    "raw/ctx8192/tool-3.followup.metrics.json",
+    "raw/ctx8192/tool-3.followup.request.json",
+    "raw/ctx8192/tool-3.followup.response.json",
+    "raw/ctx8192/tool-3.metrics.json",
+    "raw/ctx8192/tool-3.request.json",
+    "raw/ctx8192/tool-3.response.json",
+    "raw/ctx8192/tool-stream-1.assembled.json",
+    "raw/ctx8192/tool-stream-1.driver.txt",
+    "raw/ctx8192/tool-stream-1.final.json",
+    "raw/ctx8192/tool-stream-1.followup.assembled.json",
+    "raw/ctx8192/tool-stream-1.followup.metrics.json",
+    "raw/ctx8192/tool-stream-1.followup.request.json",
+    "raw/ctx8192/tool-stream-1.followup.sse",
+    "raw/ctx8192/tool-stream-1.metrics.json",
+    "raw/ctx8192/tool-stream-1.request.json",
+    "raw/ctx8192/tool-stream-1.sse",
+    "raw/ctx8192/tool-stream-2.assembled.json",
+    "raw/ctx8192/tool-stream-2.driver.txt",
+    "raw/ctx8192/tool-stream-2.final.json",
+    "raw/ctx8192/tool-stream-2.followup.assembled.json",
+    "raw/ctx8192/tool-stream-2.followup.metrics.json",
+    "raw/ctx8192/tool-stream-2.followup.request.json",
+    "raw/ctx8192/tool-stream-2.followup.sse",
+    "raw/ctx8192/tool-stream-2.metrics.json",
+    "raw/ctx8192/tool-stream-2.request.json",
+    "raw/ctx8192/tool-stream-2.sse",
+    "raw/ctx8192/tool-stream-3.assembled.json",
+    "raw/ctx8192/tool-stream-3.driver.txt",
+    "raw/ctx8192/tool-stream-3.final.json",
+    "raw/ctx8192/tool-stream-3.followup.assembled.json",
+    "raw/ctx8192/tool-stream-3.followup.metrics.json",
+    "raw/ctx8192/tool-stream-3.followup.request.json",
+    "raw/ctx8192/tool-stream-3.followup.sse",
+    "raw/ctx8192/tool-stream-3.metrics.json",
+    "raw/ctx8192/tool-stream-3.request.json",
+    "raw/ctx8192/tool-stream-3.sse",
+    "raw/ctx8192/tool-stream-warmup.assembled.json",
+    "raw/ctx8192/tool-stream-warmup.driver.txt",
+    "raw/ctx8192/tool-stream-warmup.final.json",
+    "raw/ctx8192/tool-stream-warmup.followup.assembled.json",
+    "raw/ctx8192/tool-stream-warmup.followup.metrics.json",
+    "raw/ctx8192/tool-stream-warmup.followup.request.json",
+    "raw/ctx8192/tool-stream-warmup.followup.sse",
+    "raw/ctx8192/tool-stream-warmup.metrics.json",
+    "raw/ctx8192/tool-stream-warmup.request.json",
+    "raw/ctx8192/tool-stream-warmup.sse",
+    "raw/ctx8192/tool-warmup.driver.txt",
+    "raw/ctx8192/tool-warmup.final.json",
+    "raw/ctx8192/tool-warmup.followup.metrics.json",
+    "raw/ctx8192/tool-warmup.followup.request.json",
+    "raw/ctx8192/tool-warmup.followup.response.json",
+    "raw/ctx8192/tool-warmup.metrics.json",
+    "raw/ctx8192/tool-warmup.request.json",
+    "raw/ctx8192/tool-warmup.response.json",
+    "raw/host-before.json",
     "raw/http_probe.py",
+    "raw/missing-id-message.json",
+    "raw/missing-id.tool-rejected.json",
     "raw/pin_runtime.py",
     "raw/prepare_inputs.py",
     "raw/prestart-pins.json",
     "raw/protocol.md",
     "raw/python-lock.txt",
+    "raw/request-hashes.json",
     "raw/run_series.py",
     "raw/runtime-manifest.json",
+    "raw/series-driver.txt",
     "raw/server_entry.py",
+    "raw/source-registration.json",
+    "raw/tokenizer-preparation.txt",
     "raw/tool-request.json",
-    "raw/tool-stream-request.json"
+    "raw/tool-stream-request.json",
+    "raw/unknown-name-message.json",
+    "raw/unknown-name.tool-rejected.json",
+    "raw/valid-message.json",
+    "raw/valid.tool-validation.json",
+    "raw/verified-before-preparation.json",
+    "raw/wrong-key-message.json",
+    "raw/wrong-key.tool-rejected.json"
   ],
   "unavailable": {
     "conditions.harness_profile": "Native HTTP measurement; no agent harness.",
     "hard_context_cap": "No admitted cap in pinned server; input budgets only.",
-    "overflow": "No hard cap; deliberately no OOM."
+    "overflow": "No hard cap; deliberately no OOM.",
+    "completion": "AssertionError: Actual input count differs from pinned tokenizer"
   },
-  "conclusion": null,
+  "conclusion": "Input-budget qualification finished; see each attempt and execution.json. Full LAB32 admission limited by unavailable hard cap.",
   "reviewer_decision": null
 }
