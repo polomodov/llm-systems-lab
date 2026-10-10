@@ -50,55 +50,59 @@ cancel=[]
 for path in sorted(raw.glob('ctx*/cancel-*.proof.json')):
     row=json.loads(path.read_text());cancel.append(f'| {path.parent.name}/{path.stem} | {row.get("client_exit")} | {row.get("release_observed_seconds")} | {bool(row.get("stop_requested"))} / {bool(row.get("generation_end"))} |')
 counts={status:sum(a['status']==status for a in manifest['planned_attempts']) for status in ('completed','failed','not-run','planned')}
-(directory/'report.md').write_text(f'''# LAB32 — MLX native input-budget qualification
+(directory/'report.md').write_text(f'''# LAB32 — нативный MLX: протоколы и бюджеты входа
 
 Сессия `{manifest['session_id']}`, статус **blocked**. {manifest['conclusion']}
 
 ## Паспорт выполнения
 
-Apple M5 Max /128GiB/macOS26.5/25F71, AC/mode0. MLX-LM0.32.0/MLX0.32.3/Python3.12.14; Qwen3.5-9B MLX4bit affine/group64 revision938d8919941c6e7efd3c7150eff7fe9d12afa631, отдельный VLM artifact в text-only inference. Исходнаяconversion revision неизвестна. [Artifact](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [267prestartpins](raw/prestart-pins.json), actual before/after loaded-images и device proofs вctx* directories. System frameworks закреплены macOSbuild, отдельноfilehashне заявлен.
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC / mode 0. MLX-LM 0.32.0, MLX 0.32.3, Python 3.12.14. Qwen3.5-9B MLX 4-bit affine / group64, revision `938d8919941c6e7efd3c7150eff7fe9d12afa631`. Это отдельный VLM-артефакт с текстовым инференсом; исходный commit конвертации неизвестен. [Артефакт](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [267 закреплённых файлов](raw/prestart-pins.json). Фактически загруженные native images и device proofs сохранены в каталогах ctx*. Системные frameworks закреплены версией macOS; отдельные хеши их файлов не заявлены.
 
-Context hardcap **null**:8192/16384/32768 — labels input budgets, не KVreservation и не server caps. Один active server127.0.0.1:8081, seed1/temp0/top_p1/output2048/thinkingfalse/prefill2048/concurrency1. Prompt cache size0, full precision KV, без operator memory tuning. Observed entry wrapper не меняет оригинальные MLX-LM generation sources; его hash — часть конфигурации.
+Hard context cap — **null**. Значения 8192/16384/32768 обозначают бюджеты входа, не резерв KV и не лимиты сервера. Один сервер на `127.0.0.1:8081`; seed 1, temperature 0, top_p 1, output cap 2048, thinking false, prefill step 2048, concurrency 1. Prompt cache size 0, KV без квантизации, без изменения оператором memory limits. Wrapper наблюдений сохраняет исходные алгоритмы MLX-LM; его хеш входит в условия серии.
 
 ## Гипотеза и протокол до запуска
 
-[Protocol](raw/protocol.md) и source-registration.json закреплены commit до каждого исполнения. Четыре chat/tool JSON/SSE fixtures, long и cancel/recovery: warmup+3 наbudget, новый owned server междуbudgets. Expected values exact LAB_READY/LAB_VALUE_42/LAB_SENTINEL_42, однаallowlisted lookup_lab_value/keyalpha/nonemptyid. Код модели не исполняется. Actualusage/tokenizer equality, DONE/finish, no-cacheusage, memoryguard2s/gap15s/free+spec8GiB/pressure1/ACmode0/swap0/RSS24GiB, wall900s/request240s. Послеотказаfuturebudgetnot-run.
+[Протокол](raw/protocol.md) и source-registration.json закреплены commit до исполнения каждой серии. На условие — прогрев и три повтора четырёх chat/tool JSON/SSE cases, длинного входа и отмены с recovery. Ожидаются ровно LAB_READY, LAB_VALUE_42, LAB_SENTINEL_42; одна lookup_lab_value с key alpha и непустым ID. Код модели не исполняется.
+
+Проверяются actual usage, число токенов, DONE и finish reason. Resource guard: samples каждые 2 с, gap максимум 15 с, free+spec минимум 8 GiB, pressure level 1, AC/mode 0, swap 0, RSS максимум 24 GiB. Wall limit 900 с на условие и 240 с на запрос. После отказа следующие бюджеты не выполняются. В новых сериях дополнительно требуется cached_tokens=0.
 
 ## Ход выполнения
 
-Source pins→CPUtokenization/shape/budget preparation→offlineallowlist→native server→shortprotocols→long→cancel/recovery→cleanup. [Controller](raw/run_series.py), [request hashes](raw/request-hashes.json), [offlineallowlist](raw/allowlist.json). Все rawrequests/responses/assembled/usage/errors сохранены; realagentepisodes не выполнялись, run_ids=[].
+Pins → подготовка tokenizer без весов → offline allowlist → native server → короткие протоколы → long → cancel/recovery → cleanup. [Контроллер](raw/run_series.py), [хеши запросов](raw/request-hashes.json), [allowlist](raw/allowlist.json). Сохранены все исходные запросы, ответы, assembled messages, usage и ошибки. Агентных попыток здесь нет, run_ids пуст.
 
-Три сессии разделены: исходная `apple-mlx-protocol-20261010` ошибочнопосчиталаlen(BatchEncoding)=2 и отправила113613actualtokens. Это protocol-invalid, не8Kопыт;контроллеротказалпослеusage mismatch иcleanup. `apple-mlx-tokenids-20261010` исправила flatIDs/count4085, но получила **LAB_SENTINEL_42** и отказалаexact-final. `apple-mlx-exact-final-20261010` отдельно запретилаMarkdown вlonginstruction и связала stop/end с одним nativeGenerationContext. Старые failures остаются неизменными; normalization не введена.
+Сессии разделены. `apple-mlx-protocol-20261010` ошибочно посчитала len(BatchEncoding)=2 и отправила 113613 токенов: это нарушение протокола, не опыт на 8K. Контроллер отказал после несовпадения usage и завершил сервер. `apple-mlx-tokenids-20261010` правильно посчитала 4085 токенов, но получила Markdown в final. `apple-mlx-exact-final-20261010` отдельно запретила Markdown и связала stop/end с одним GenerationContext; все 24 cases на 8K прошли, затем отказал port preflight 16K. `apple-mlx-budget-resume-20261010` проверила SO_REUSEADDR и продолжила с 16K; long-вход 12282 токена завершился, но resource guard отказал при free+spec 7.425 GiB. Старые ошибки не переписаны, нормализация final не введена. 32K не исполнялась.
 
 ## Результаты
 
-Attempts: {json.dumps(counts,ensure_ascii=False)}. Warmup не включается в median/p95; здесь приведены индивидуальные наблюдения. `context_tokens` вTSV пуст: hardcapнеизвестен. Runtime samples/RSS/allocator peaks/swap/exit/signal в [summary](raw/runtime-summary.json).
+Attempts: {json.dumps(counts,ensure_ascii=False)}. Прогрев выделен в таблице отдельно. Столбец context_tokens в TSV пуст: hard cap неизвестен. RSS, allocator peaks, swap, gaps и cleanup — в [сводке](raw/runtime-summary.json).
 
-| Input-budget label | Case/repeat | Actualinput/output | TTFTcontent,s | Total,s | Attemptstatus |
+| Бюджет входа | Case / повтор | Actual input / output | TTFT content, с | Total, с | Статус attempt |
 | --- | --- | --- | --- | --- | --- |
 {chr(10).join(table)}
 
-| Cancel condition | Clientexit | End observed after clientexit,s | Stop/end observed |
+| Условие отмены | Client exit | Generation end замечен после client exit, с | Stop / end замечены |
 | --- | --- | --- | --- |
-{chr(10).join(cancel) or '| — | — | — | Not executed |'}
+{chr(10).join(cancel) or '| — | — | — | Не исполнялась |'}
 
 ## Ошибки и ограничения
 
-{manifest['unavailable']['completion']} Native generation cancellation требуетclientexit28/noDONE + samecontextobject/stopflagtrue/stop≤end и exactrecovery ≤60s в наблюдаемойv3конфигурации. Clienttimeout отдельно не доказывает GPUcancel. Getter allocator counters не измеряет физическоеосвобождениевсехGPUстраниц. Coldstartup/JIT отличается отwarmrequests. Первые две failedсессииcancelнеисполняли, ихmutablephaseeventsнеиспользуемкакcancelproof. Hardcap/overflowне имитируемOOM. Energy/thermal/maxGPUunknown с причинами.
+{manifest['unavailable']['completion']} Native cancellation в v3 требует client exit 28 без DONE, одинаковый context object, stop flag true, stop до generation end и точный recovery в пределах 60 с. Timeout клиента отдельно не доказывает отмену GPU. Счётчики allocator не измеряют освобождение всех физических GPU-страниц. Cold startup/JIT отличается от прогретых запросов. Первые две неудачные сессии не исполняли отмену; их mutable phase events не используются как доказательство отмены.
+
+Hard cap и overflow не подтверждены; OOM для их имитации не создавали. Максимальный GPU budget, энергия и температура неизвестны. Отказ resource guard при pressure level 1 и swap 0 не доказывает аппаратную несовместимость: наблюдаемые условия не прошли заранее выбранный резерв.
 
 ## Вывод по гипотезе
 
-{manifest['conclusion']} Результаты дают допуск только перечисленным input-budget protocols. Нельзя сравнивать label32K сllama.cpp hardcontext32K как одинаковуюKVreservation или переносить GGUFQ6_K size/performance наMLX4bit. НастоящийagentbridgeдляMLX остаётся отдельной инженерной задачей; эти HTTPзапросы неagentattempts.
+{manifest['conclusion']} Получен полный допуск протоколов на 8K input budget в отдельной exact-final сессии. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
 
 ## Ответы на контрольные вопросы
 
-1. Non-streamingtotal включаетполнуюgeneration;TTFTиз него не извлекается, null.
-2. ClientCTX и architecturemaxposition не задаютadmittedservercap. TokenIDs считаются явноreturn_dict=False и actualusage подтверждается отдельно.
-3. Sockettimeout не прерываетGPUсам по себе: нужныnative stopflag/routineexit/queue recovery;physicalrelease требуетдругогоcollector.
-4. Cache/reasoning меняютработуиTTFT: здесьthinkingfalse/cache0/seed1, usagecached0проверяется отдельно вновыхсериях;Gguf thinkingtrue — другойdeployment.
+1. Non-streaming total включает всю генерацию: TTFT из него не извлекается, остаётся null.
+2. Client CTX и architecture max_position_embeddings не задают подтверждённый server cap. IDs считаются с return_dict=False и отдельно сверяются с actual usage.
+3. Socket timeout требует подтверждения native stop flag, завершения routine и recovery; физическое освобождение памяти требует другого collector.
+4. Cache и reasoning меняют работу и задержки. Здесь thinking false и cache size 0; GGUF с thinking true — другой deployment.
 
 ## Комплект сдачи
 
-Manifest/TSV/protocol/sourcepins/loadedimages/device/modelidentity, requests/hashes, allHTTP/SSE/usage/finals, nativeevents/cancel/recovery, continuousresources/cleanup, offlineallowlist иsoftwarevalidation. Submissioncheck оцениваеткомплектностьblockedотчёта; reviewerdecision **не проверено**, experimentpassнеавтоматический.
+Manifest, TSV, protocol, source pins, loaded images, device/model identity, запросы и хеши, HTTP/SSE/usage/finals, native events, отмена/recovery, ресурсы и cleanup, offline allowlist и software validation сохранены. Submission проверяет комплектность blocked отчёта. Решение проверяющего: **не проверено**; experiment pass не назначается автоматически.
 ''')
 print(json.dumps(dict(report=str(directory.relative_to(root)),attempts=counts),ensure_ascii=False))
