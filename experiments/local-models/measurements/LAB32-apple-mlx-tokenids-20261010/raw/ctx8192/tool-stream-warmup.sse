@@ -1,0 +1,13 @@
+: keepalive 0/315
+
+: keepalive 314/315
+
+: keepalive 315/315
+
+data: {"id": "chatcmpl-42b9aa79-75e8-4204-8d6a-7c8dcd9942aa", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791614610, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "tool_calls": [{"function": {"name": "lookup_lab_value", "arguments": "{\"key\": \"alpha\"}"}, "type": "function", "id": "30a833fb-eb5e-4282-bf72-b0371f5a9ed2", "index": 0}]}}]}
+
+data: {"id": "chatcmpl-42b9aa79-75e8-4204-8d6a-7c8dcd9942aa", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791614610, "choices": [{"index": 0, "finish_reason": "tool_calls", "delta": {"role": "assistant"}}]}
+
+data: {"id": "chatcmpl-42b9aa79-75e8-4204-8d6a-7c8dcd9942aa", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791614610, "choices": [], "usage": {"prompt_tokens": 315, "completion_tokens": 27, "total_tokens": 342, "prompt_tokens_details": {"cached_tokens": 0}}}
+
+data: [DONE]

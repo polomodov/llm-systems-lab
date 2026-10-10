@@ -1,0 +1,730 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB32",
+  "harness_id": null,
+  "session_id": "apple-mlx-exact-final-20261010",
+  "created_at": "2026-10-10T07:34:31.636Z",
+  "status": "in-progress",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "MLX-LM 0.32.0 / Qwen3.5-9B 4bit сохраняет chat/tool JSON/SSE, long sentinel и native cancellation/recovery на возрастающих input budgets.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-10T07:34:31.676Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB32-apple-mlx-exact-final-20261010/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB32-apple-mlx-exact-final-20261010/raw/runtime-manifest.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "ctx8192-chat-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-stream-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-stream-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-stream-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-chat-stream-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-stream-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-stream-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-stream-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-tool-stream-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-long-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-long-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-long-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-long-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-cancel-recovery-warmup",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-cancel-recovery-1",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-cancel-recovery-2",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-cancel-recovery-3",
+      "configuration_id": "mlx-4bit-input8192-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx8192-overflow",
+      "configuration_id": "mlx-4bit-input8192-observed-v1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Pinned MLX-LM server exposes no hard context cap; no OOM imitation.",
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-stream-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-stream-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-stream-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-chat-stream-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-stream-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-stream-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-stream-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-tool-stream-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-long-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-long-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-long-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-long-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-cancel-recovery-warmup",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-cancel-recovery-1",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-cancel-recovery-2",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-cancel-recovery-3",
+      "configuration_id": "mlx-4bit-input16384-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx16384-overflow",
+      "configuration_id": "mlx-4bit-input16384-observed-v1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Pinned MLX-LM server exposes no hard context cap; no OOM imitation.",
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-stream-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-stream-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-stream-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-chat-stream-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-stream-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-stream-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-stream-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-tool-stream-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-long-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-long-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-long-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-long-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-cancel-recovery-warmup",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-cancel-recovery-1",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-cancel-recovery-2",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-cancel-recovery-3",
+      "configuration_id": "mlx-4bit-input32768-observed-v3-exact-final",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "ctx32768-overflow",
+      "configuration_id": "mlx-4bit-input32768-observed-v1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Pinned MLX-LM server exposes no hard context cap; no OOM imitation.",
+      "evidence_files": []
+    },
+    {
+      "id": "allowlist",
+      "configuration_id": "offline-tool-validator",
+      "kind": "exercise",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/artifact-manifest.json",
+    "raw/chat-request.json",
+    "raw/chat-stream-request.json",
+    "raw/http_probe.py",
+    "raw/pin_runtime.py",
+    "raw/prepare_inputs.py",
+    "raw/prestart-pins.json",
+    "raw/protocol.md",
+    "raw/python-lock.txt",
+    "raw/run_series.py",
+    "raw/runtime-manifest.json",
+    "raw/server_entry.py",
+    "raw/tool-request.json",
+    "raw/tool-stream-request.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Native HTTP measurement; no agent harness.",
+    "hard_context_cap": "No admitted cap in pinned server; input budgets only.",
+    "overflow": "No hard cap; deliberately no OOM."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
