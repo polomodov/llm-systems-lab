@@ -20,11 +20,32 @@
       "published_bytes": 9025
     },
     {
+      "path": "raw/lms-gguf/prestart-verified.json",
+      "original_sha256": "8b63248b795594a6671ad1009dbd22eea8dcec0a0a999a594234830317efd231",
+      "published_sha256": "a559ef0cf23de19213fcdb5a9232a27ed6be991ae0ef512e1bf3e845c886dd3c",
+      "original_bytes": 15534,
+      "published_bytes": 15163
+    },
+    {
+      "path": "raw/lms-gguf/runtime-events.jsonl",
+      "original_sha256": "d6e40a93d5865fc24fb9026da7359fd786b9489d08eff7113f045900f78a5b03",
+      "published_sha256": "bf842137ef0f0d9b188c4fc8844c9eefe6f28247e23326089863cad43b1ec976",
+      "original_bytes": 5010,
+      "published_bytes": 5003
+    },
+    {
       "path": "raw/mlx-artifact-manifest.json",
       "original_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
       "published_sha256": "1134e3e56b2b9036d843c649a3549ccc132825040dff574fa2f319d97d9d944f",
       "original_bytes": 12476,
       "published_bytes": 12378
+    },
+    {
+      "path": "raw/pin-reference-consistency.json",
+      "original_sha256": "cab1b62c8ab204d7136b34d109fff12cd65648c9df784849ce0b956457a39e63",
+      "published_sha256": "b14c378943e91ce019d73c46d5c996e24f0949fad0fba7080d1057e450488802",
+      "original_bytes": 1294,
+      "published_bytes": 1273
     },
     {
       "path": "raw/prestart-pins.json",

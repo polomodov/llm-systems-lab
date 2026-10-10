@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "apple-cancel-backend-20261010",
   "created_at": "2026-10-10T08:21:52.689Z",
-  "status": "in-progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Явная SDK отмена связывает native request и userStopped; HTTP disconnect может оставаться неподтверждённым. Metal call path приложенного GGUF runtime проверяется отдельно.",
@@ -37,304 +37,331 @@
       "id": "admission",
       "configuration_id": "host-ac-no-models",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/admission.json",
+        "raw/admission.jsonl"
+      ]
     },
     {
       "id": "lms-gguf-startup",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/lms-gguf/loaded.json",
+        "raw/lms-gguf/prestart-verified.json"
+      ]
     },
     {
       "id": "lms-gguf-cleanup",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "completed",
       "run_id": null,
       "reason": null,
-      "evidence_files": []
+      "evidence_files": [
+        "raw/lms-gguf/execution.json"
+      ]
     },
     {
       "id": "lms-gguf-chat-warmup",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "failed",
       "run_id": null,
-      "reason": null,
-      "evidence_files": []
+      "reason": "KeyError: 'identifier'",
+      "evidence_files": [
+        "raw/lms-gguf/chat-warmup/sdk-result.json"
+      ]
     },
     {
       "id": "lms-gguf-chat-1",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-2",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-chat-3",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-warmup",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-1",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-2",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-gguf-backend-3",
       "configuration_id": "lms-gguf-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-startup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-cleanup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-warmup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-1",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-2",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-chat-3",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-warmup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-1",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-2",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-cancel-3",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-warmup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-1",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-2",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-sdk-recovery-3",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-warmup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-1",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-2",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-cancel-3",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-warmup",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-1",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-2",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     },
     {
       "id": "lms-mlx-http-recovery-3",
       "configuration_id": "lms-mlx-native-defaults-v2",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "AssertionError: SDK chat failed",
       "evidence_files": []
     }
   ],
   "evidence_files": [
+    "raw/admission.json",
+    "raw/admission.jsonl",
     "raw/deployments.json",
+    "raw/driver.txt",
     "raw/gguf-deployment-reference.json",
+    "raw/lms-gguf/chat-warmup/driver.txt",
+    "raw/lms-gguf/chat-warmup/sdk-result.json",
+    "raw/lms-gguf/execution.json",
+    "raw/lms-gguf/load.txt",
+    "raw/lms-gguf/loaded.json",
+    "raw/lms-gguf/memory.jsonl",
+    "raw/lms-gguf/models.json",
+    "raw/lms-gguf/native-models.json",
+    "raw/lms-gguf/prestart-verified.json",
+    "raw/lms-gguf/runtime-events.jsonl",
+    "raw/lms-gguf/server-start.txt",
+    "raw/lms-gguf/server-stop.txt",
+    "raw/lms-gguf/unload.txt",
     "raw/mlx-artifact-manifest.json",
+    "raw/pin-reference-consistency.json",
     "raw/prestart-pins.json",
     "raw/protocol.md",
     "raw/run_lms.py",
@@ -345,14 +372,16 @@
     "raw/sdk-requirements.txt",
     "raw/sdk-schema-smoke.json",
     "raw/sdk-wheels.json",
-    "raw/sdk_probe.py"
+    "raw/sdk_probe.py",
+    "raw/source-registration.json"
   ],
   "unavailable": {
     "conditions.harness_profile": "Нативный HTTP/SDK опыт; agent harness отсутствует.",
     "gpu_budget_gib": "Максимальная GPU allocation не измерена.",
     "physical_gpu_release": "Нет независимого collector физических GPU страниц.",
-    "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers."
+    "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers.",
+    "completion": "AssertionError: SDK chat failed"
   },
-  "conclusion": null,
+  "conclusion": "SDK/HTTP cancellation and backend evidence retained; physical GPU release and all-layer offload require separate proof.",
   "reviewer_decision": null
 }
