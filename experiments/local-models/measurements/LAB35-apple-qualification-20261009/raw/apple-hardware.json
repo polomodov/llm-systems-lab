@@ -1,0 +1,35 @@
+{
+  "os": {
+    "command": [
+      "sw_vers",
+      "-productVersion"
+    ],
+    "stdout": "26.5",
+    "exit_code": 0
+  },
+  "build": {
+    "command": [
+      "sw_vers",
+      "-buildVersion"
+    ],
+    "stdout": "25F71",
+    "exit_code": 0
+  },
+  "architecture": {
+    "command": [
+      "uname",
+      "-m"
+    ],
+    "stdout": "arm64",
+    "exit_code": 0
+  },
+  "memory_bytes": {
+    "command": [
+      "sysctl",
+      "-n",
+      "hw.memsize"
+    ],
+    "stdout": "137438953472",
+    "exit_code": 0
+  }
+}

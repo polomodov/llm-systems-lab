@@ -1,0 +1,54 @@
+{
+  "kind": "offline-validation",
+  "recorded_at": "2026-10-09T19:39:33.435363+00:00",
+  "python": {
+    "command": "python3 -B -m unittest discover -s experiments/local-models -p test_lab*.py -v",
+    "passed": 53,
+    "tail": [
+      "test_recorded_usage_cannot_replace_primary_usage (test_lab35_export.QualificationExport.test_recorded_usage_cannot_replace_primary_usage) ... ok",
+      "test_all_registered_inputs_pass_actual_driver_validation (test_lab35_qualification.Qualification.test_all_registered_inputs_pass_actual_driver_validation) ... ok",
+      "test_changed_input_stops_before_any_native_campaign (test_lab35_qualification.Qualification.test_changed_input_stops_before_any_native_campaign) ... ok",
+      "test_nested_variant_uses_existing_shared_driver (test_lab35_qualification.Qualification.test_nested_variant_uses_existing_shared_driver) ... ok",
+      "",
+      "----------------------------------------------------------------------",
+      "Ran 53 tests in 5.117s",
+      "",
+      "OK"
+    ]
+  },
+  "npm": {
+    "command": "npm test",
+    "passed": 152,
+    "failed": 0,
+    "skipped": 1,
+    "tail": [
+      "ℹ tests 153",
+      "ℹ suites 0",
+      "ℹ pass 152",
+      "ℹ fail 0",
+      "ℹ cancelled 0",
+      "ℹ skipped 1",
+      "ℹ todo 0",
+      "ℹ duration_ms 2600.017042"
+    ]
+  },
+  "project_check": {
+    "command": "npm run check",
+    "exit_code": 0
+  },
+  "submission": {
+    "reports": [
+      "LAB35-apple-qualification-20261009",
+      "LAB35-apple-qualification-retry-20261009",
+      "LAB35-apple-http-preregistered-20261009"
+    ],
+    "errors": [],
+    "ready_for_review": true,
+    "experiment_pass": null
+  },
+  "review_checks": {
+    "bundled_dylib_pins": "missing/modified/new alias reject before Popen",
+    "read_only_live_check": "22 standard / 23 tensor entries match; no GPU run",
+    "historical_tensor_library_identity": "unverified, not upgraded by post-review hash match"
+  }
+}

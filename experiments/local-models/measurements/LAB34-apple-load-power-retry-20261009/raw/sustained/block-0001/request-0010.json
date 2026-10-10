@@ -1,0 +1,12 @@
+{
+  "index": 10,
+  "ok": false,
+  "http_status": null,
+  "error": "ConnectionResetError: [Errno 54] Connection reset by peer",
+  "latency_seconds": 0.003082917013671249,
+  "completion_tokens": null,
+  "prompt_tokens": null,
+  "finish_reason": null,
+  "response_bytes": 0,
+  "response_truncated": false
+}

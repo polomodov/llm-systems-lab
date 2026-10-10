@@ -1,0 +1,11 @@
+Usage: lms runtime [options] [command]
+
+Manage and update the inference runtime
+
+Commands:
+   ls                List installed LLM engines
+   select            Select installed LLM engines
+   remove            Remove installed runtime extension packs
+   update            Update installed runtime extensions.
+   get               Download or list runtime extensions.
+   survey            Survey hardware available to selected runtime engines

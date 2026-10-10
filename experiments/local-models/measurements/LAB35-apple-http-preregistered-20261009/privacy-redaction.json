@@ -1,0 +1,352 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/archive/apple/raw/binaries.sha256",
+      "original_sha256": "3b5b19a402a1b02ffd466504563ae162e5d0f97399a978f10f8782814fd6cc11",
+      "published_sha256": "18452e854aaf567c48b7e6dcdab8ed68e072b1ab9c63d9cb9138a089d31196f6",
+      "original_bytes": 407,
+      "published_bytes": 393
+    },
+    {
+      "path": "raw/archive/apple/raw/runtime-manifest.json",
+      "original_sha256": "fb5358633ea9fb23de35bf4101a29705390087c67cc76dbd222d94230103a91f",
+      "published_sha256": "7f00b5eb96ba09ab76abb84d02ad840189cfa9617d4be91f5c644f08aab2e19d",
+      "original_bytes": 7567,
+      "published_bytes": 7420
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-binaries.sha256",
+      "original_sha256": "ba8d6398471bd9b9e459b025578a7f9dc096a663d83647676282df001b2b8436",
+      "published_sha256": "28eda9f7c3509f5f3421d5ee5974040802d0bebd4b0f8e6e08d3717ed84aafb4",
+      "original_bytes": 403,
+      "published_bytes": 389
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r1-pp.json",
+      "original_sha256": "8fc16764d6ab18580ad758e1fa264c22175d78bb9321bd43a2ab09c4e5709276",
+      "published_sha256": "4538d36a098623cb31e1e983abbf17707a3078b10989dae1b598074565dffeb3",
+      "original_bytes": 1224,
+      "published_bytes": 1217
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r2-pp.json",
+      "original_sha256": "5f5ac82db7ff834c61401ee26e0224fd6626b4b999406a1f6f233ac3611db2db",
+      "published_sha256": "6fcaefb06910c387a17c9fa3c4f7fb620519c0bc4b905454420fc8869f6e0fbe",
+      "original_bytes": 1223,
+      "published_bytes": 1216
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r3-pp.json",
+      "original_sha256": "1af809b4fdfee22172f453d33d162b82d8f196db5df071fc1e88ff5400b47a1f",
+      "published_sha256": "d11fe97e8ea5d25942f0435f18e4a0b0ec93553639d9ce4c94be01604c19cd85",
+      "original_bytes": 1224,
+      "published_bytes": 1217
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-binaries.sha256",
+      "original_sha256": "de4e4d57354d6297acc0343b6aa5293ae85412668de5e272d79d92094868245e",
+      "published_sha256": "33be2cf11df9b4aa8bbfb3b8033a0d4526b134dfd076dc30245cb1463586eefd",
+      "original_bytes": 299,
+      "published_bytes": 285
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r1-pp.json",
+      "original_sha256": "d9313827dff9ba45d18936c452ced44c99a8e5899d98463297793395affb764d",
+      "published_sha256": "7746bb3b5989d2b044ff5ac5107923c39cd8d6b2f49f055c9d9375ced2cad9e4",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r2-pp.json",
+      "original_sha256": "d5eb873e0ff6d86f8166cfef480aff114ec3c62c6106c1a787985e14fae02835",
+      "published_sha256": "9b0ec4447d9cb7eb6b67e42ff35bdb95512702fb9435b2edae53e8af605e03ce",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r3-pp.json",
+      "original_sha256": "f48e384fd1cf16ede6e2681fa349ae9c3a289e9eb03c4b2d8e7729921bb6ed1d",
+      "published_sha256": "603d029099f3b881f45ff4342c76da6dfc533617d981e162474c3a7676c2ca12",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-version.txt",
+      "original_sha256": "8c6aac2053247af4eac0ed451588ca537f65bf1c5000303951ddb2ce162202fb",
+      "published_sha256": "2b7cd67cec51304ef937435001961ec07b9436b32ea2e1b16a926707d90565c4",
+      "original_bytes": 653,
+      "published_bytes": 632
+    },
+    {
+      "path": "raw/archive/ryzen/raw/weights.sha256",
+      "original_sha256": "b6d70965d7580b0b7095d526ffeb96e084896346e49fb0da68c3718b8fb29c64",
+      "published_sha256": "055ed0859475da463da043629b70a6bb75805a92cfa1eb1b7896831f51bf6010",
+      "original_bytes": 195,
+      "published_bytes": 188
+    },
+    {
+      "path": "raw/metal-standard/build-reference.json",
+      "original_sha256": "88a0dab7d7ce0a99d2a5e2b64b60da809b63431688b18e80b4b21ea4b4f2d30a",
+      "published_sha256": "8089d8692718f94583df950cb85d70d18e3938902a046f39d0f29c4f1971cb62",
+      "original_bytes": 4849,
+      "published_bytes": 4695
+    },
+    {
+      "path": "raw/metal-standard/chat-r1-execution.json",
+      "original_sha256": "84df98a072d7cd22a17e67a41ed24514e31258ac4ef3159794462eaf3e1f67c5",
+      "published_sha256": "4b785012b16732a29220433311661575263b23dc956d6653ee7f87ad4ff63884",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/chat-r2-execution.json",
+      "original_sha256": "0264da5feb326cfe0c082cbb7289f81007e3cb9f3e565bf522ba9356221b06ea",
+      "published_sha256": "75f84bb1ae1205a3feda151299274e7c90e9191895c478e9391db1e60bf71b76",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/chat-r3-execution.json",
+      "original_sha256": "5f8090cd64cdf5ee732fab14cfec128dc73e069d1efd5a3f4fa450f705cfb368",
+      "published_sha256": "f4fbd84f498b957e02eb5953023aaafed1f09744c2fc67249043e4b2fc526295",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/chat-warmup-execution.json",
+      "original_sha256": "41a55f451268c8c55c5e6723f691aae7dcab08a3cea7706bc7724ec816fe2d6a",
+      "published_sha256": "eb32b60dc7626956934d5e261e1ae07a10ace22bbd9da1fa788ff33c510a0eaa",
+      "original_bytes": 1072,
+      "published_bytes": 1044
+    },
+    {
+      "path": "raw/metal-standard/load-r1-execution.json",
+      "original_sha256": "5747aeeea612755d290b91b55b0eb5def6ba0bf6f7e21ad22fdc7cecb788c114",
+      "published_sha256": "3cd872c42505c2737bfb337f1a9db1386923233311451dad674338c4d43468e2",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/load-r2-execution.json",
+      "original_sha256": "a5391e0b7a0cef9dd1de0c1345bc2990f0572408bf78cc52f9ec6dd5df71e9f1",
+      "published_sha256": "99eed853e26d7c50357d755b5521c7ec6e018a8f11368bdecbe4a0b5614c1264",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/load-r3-execution.json",
+      "original_sha256": "1b7c64cb3cc1638dc1fb539a5e3e2c26aeb41663fce25e474725891dedbd6838",
+      "published_sha256": "229656fb7ca32d49ce1b7cbf6d7d4572b1dc1887aab1334411bf41685cbbde7a",
+      "original_bytes": 1064,
+      "published_bytes": 1036
+    },
+    {
+      "path": "raw/metal-standard/load-warmup-execution.json",
+      "original_sha256": "c2bcfca06e907d309fdb7883dc94a21cc54132fd09a0ff5aabccbdc819807a74",
+      "published_sha256": "7440d7a323e08d171a6a8f57452fcd44820a312716cf10d299dc1c4f0090af16",
+      "original_bytes": 1072,
+      "published_bytes": 1044
+    },
+    {
+      "path": "raw/metal-standard/runtime-manifest.json",
+      "original_sha256": "986e562e25adfa1fa1933d29efa1742edb92e4be1d170d19bdd5130e5a2501a1",
+      "published_sha256": "1d8aed96ae1208c74640c4094823e846a5b453a29cb12aec5ee402482a5aaf71",
+      "original_bytes": 1615,
+      "published_bytes": 1601
+    },
+    {
+      "path": "raw/metal-standard/server.txt",
+      "original_sha256": "8d258fdaf52e0fccbc1b02ed55c97d9a5cb85287f102b6e7ea4ffc56b6a32735",
+      "published_sha256": "4e85402975f3275bc891a271d901c065b2f48e9dc10c8dac760cb7bf8db3f6a0",
+      "original_bytes": 32117,
+      "published_bytes": 32103
+    },
+    {
+      "path": "raw/metal-standard/shutdown-execution.json",
+      "original_sha256": "413e99c5ae476371b3af837693d255709fec3105836db32a5c2b13671a702e86",
+      "published_sha256": "0c08f118b53dae4ff948a43abfc39eb1de881d692e4077348d390db13e5af2b5",
+      "original_bytes": 14746,
+      "published_bytes": 14578
+    },
+    {
+      "path": "raw/metal-standard/startup-process.json",
+      "original_sha256": "311330f257896f827a5f0af36c60c307b5d854779df57840153b8475213f28fd",
+      "published_sha256": "d2517c04e02b263b5d38702b9bdf39075e573b896a52346e7cf2ed6993af1ccc",
+      "original_bytes": 10171,
+      "published_bytes": 10003
+    },
+    {
+      "path": "raw/metal-standard/startup-props.json",
+      "original_sha256": "6aa9642da20fac7a9421e1f6c500b0723d84000a816009451fbc5e614b8fca50",
+      "published_sha256": "42ba6e9d1e058a8c19bbd5ee2442cd8f7339e006e33888daa0750b0415d16105",
+      "original_bytes": 10520,
+      "published_bytes": 10513
+    },
+    {
+      "path": "raw/metal-tensor/build-reference.json",
+      "original_sha256": "07976d3b6d7788a78c90851c16b12d3ad3af2326e2abd8882c29925dc0741a7c",
+      "published_sha256": "46b57edddc97febda893ab7bdd533f20dc828aa5958d2a1aa1dfa536ae993c44",
+      "original_bytes": 5383,
+      "published_bytes": 5222
+    },
+    {
+      "path": "raw/metal-tensor/build-reference.json.before-review-20261009",
+      "original_sha256": "45f82b70d7948fadfc2ec41bb3fb992885f5688728bba694c4039750f5701d8a",
+      "published_sha256": "952dd5d957359672820528fd12bf392eed7eb4808d341117e5bccccc28b72d21",
+      "original_bytes": 476,
+      "published_bytes": 462
+    },
+    {
+      "path": "raw/metal-tensor/chat-r1-execution.json",
+      "original_sha256": "36c2f98d08baa17ecbdfac7933b2132dc58d7ee2f17e9bc215ee75e08f608083",
+      "published_sha256": "464ea7889f7f242fdbf8d478661eb5a550ee0740fca4d943228512aa60bc4dcf",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/chat-r2-execution.json",
+      "original_sha256": "dc74fe54cc2c2f6cdf586b115ee27c09dc14f40137987a226a031fc7cc3eed8f",
+      "published_sha256": "2608e462d3a543787fe24afa3ee7f7bcb2a6a690ae552f27324c5965472970b2",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/chat-r3-execution.json",
+      "original_sha256": "6f85acd8cf2a005ec05b328858a58178dbe7f88f5875e58dafb5c4634a02e896",
+      "published_sha256": "c7de1e80b3310bed635a42e7e72d74a2c7e5375111fff8b61d3dda6447177261",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/chat-warmup-execution.json",
+      "original_sha256": "5e8a767047d17465e0fe5afeb63716124092a7b180fae644c51d3d88019c8097",
+      "published_sha256": "ee9ac8c7f31037bc18b46a3c8cfb22ecba5e3c3b761898e62273c7701fb3c1e1",
+      "original_bytes": 1066,
+      "published_bytes": 1038
+    },
+    {
+      "path": "raw/metal-tensor/load-r1-execution.json",
+      "original_sha256": "3188e27c9c00c4b5cd60431bc8e7c8341467ee110be5180257a606ccf641381e",
+      "published_sha256": "276302aa0ec8c8f53091bfda0b3514b2d647f63c74c356ba65e7a8800a208135",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/load-r2-execution.json",
+      "original_sha256": "2d06e27867ea4cae3844bbe01f888e98bccec0b16f0a5230545affd0eb37023a",
+      "published_sha256": "d089851fa2f148310dd939f142ecc8ea8ca76015538dce6b7aaf05af5f6c8c4f",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/load-r3-execution.json",
+      "original_sha256": "d1cdd63fc9f092e5654f7ae6e1a9119a7ad21b8c7fed9049be16236629f97c28",
+      "published_sha256": "ffdde8b3f6001e729afb1d5882ad726353325d0b9924dbb7aaee404a0c965869",
+      "original_bytes": 1058,
+      "published_bytes": 1030
+    },
+    {
+      "path": "raw/metal-tensor/load-warmup-execution.json",
+      "original_sha256": "683e9d530a626270f0dfeb7b1315e2f17e98778dc83ca52e32fa944b6ed76f59",
+      "published_sha256": "ba0824f2d0eb329374910f436b62da5f2aeb4e387e59ef2bb336faa4c65d5d31",
+      "original_bytes": 1066,
+      "published_bytes": 1038
+    },
+    {
+      "path": "raw/metal-tensor/runtime-manifest.json",
+      "original_sha256": "f686c3e86ac3ce466be5ee08562084263b86ced6feb9f4e00f7b3860aad0d752",
+      "published_sha256": "d06afe80464606211e402c7833a9c90d171c930c2cdb43c749ac5067536c51a6",
+      "original_bytes": 1623,
+      "published_bytes": 1609
+    },
+    {
+      "path": "raw/metal-tensor/server.txt",
+      "original_sha256": "0f85c4557534b6eaf12f79551c93040628bcd248414146e671739cb958421d0f",
+      "published_sha256": "db7c59468de2e42632a42f4a0e73772cb046384c85d2ba01e8ed11fbf02bfe9f",
+      "original_bytes": 32622,
+      "published_bytes": 32608
+    },
+    {
+      "path": "raw/metal-tensor/shutdown-execution.json",
+      "original_sha256": "4d1ca0ea0e2ffb008709fb39a97dd9fcbe2b891134f0f394fda76169cdf54913",
+      "published_sha256": "789d281e10ef84019b48ec403bcc37dd66b759fca510a7e243fb110cf21cada2",
+      "original_bytes": 10387,
+      "published_bytes": 10359
+    },
+    {
+      "path": "raw/metal-tensor/startup-process.json",
+      "original_sha256": "4a713a3936cecdb31aa17e59bca4ecbdb0ce2676bbb9c3737c50d85dc880e7c8",
+      "published_sha256": "365cbefa3dd251c8d88ea7e8e55da9e23226d57a5169951adba0b4df12b430ca",
+      "original_bytes": 5812,
+      "published_bytes": 5784
+    },
+    {
+      "path": "raw/metal-tensor/startup-props.json",
+      "original_sha256": "6aa9642da20fac7a9421e1f6c500b0723d84000a816009451fbc5e614b8fca50",
+      "published_sha256": "42ba6e9d1e058a8c19bbd5ee2442cd8f7339e006e33888daa0750b0415d16105",
+      "original_bytes": 10520,
+      "published_bytes": 10513
+    },
+    {
+      "path": "raw/run_qualification.py",
+      "original_sha256": "9b8c936316d31b99fb67e0ff737dea2af8a2943e8325a55135ec886c2ce0902f",
+      "published_sha256": "d2caf1cc9741ddbb30b076df7bb49d51a90b80e42eb194eda6b8716b8f700309",
+      "original_bytes": 15570,
+      "published_bytes": 15556
+    },
+    {
+      "path": "raw/run_qualification.py.before-review-20261009",
+      "original_sha256": "3a3b13378c87963b5a0cf82a7a25dc031f0c6c28ccd5c037de5c0deb3e95f57e",
+      "published_sha256": "b9305569b59f482072e7cd3c474c2e3d1cb69b9879860615f8e98a6f784e05a6",
+      "original_bytes": 14969,
+      "published_bytes": 14955
+    },
+    {
+      "path": "raw/summary.json",
+      "original_sha256": "4fa7ac57bfb9f554171fc18d451a21b5464753683222cdd086a30f3ae3e21064",
+      "published_sha256": "f63124c6851b0512dface6b909e31f3a870391e048d3bd731d5aa98004871c2c",
+      "original_bytes": 44421,
+      "published_bytes": 44078
+    },
+    {
+      "path": "raw/summary.json.before-review-20261009",
+      "original_sha256": "3694e68de95a7682575c7b5797419ddaa816090feabb14adc277f1bf75f091a8",
+      "published_sha256": "ed2d1a5e64c7e19b890b1f94249441f41add7112aab5275f36083e40c8631369",
+      "original_bytes": 40574,
+      "published_bytes": 40378
+    },
+    {
+      "path": "raw/tensor-library-review-verification.json",
+      "original_sha256": "4a5cc28200b474be8f940b5fa448bf32e33be8744d105a54aa089ebf78987542",
+      "published_sha256": "9b5c85ea198ea8b205550fc11e12fd553afbff5fc164553e289b30c760293da1",
+      "original_bytes": 26816,
+      "published_bytes": 26354
+    },
+    {
+      "path": "raw/tensor-library-source.sha256",
+      "original_sha256": "111ebb5c7db1af11d0b3ad6088ded72c724d1c03f0bb4a2b1c0746072c287a97",
+      "published_sha256": "3410bf4537c7bfe2804b4219e4911af37a986ece3e8f8f204fea2c1c0470033a",
+      "original_bytes": 5153,
+      "published_bytes": 4992
+    },
+    {
+      "path": "raw/variants.json",
+      "original_sha256": "6432931eea10a50ad7002f9495b0773b2dddecdd9b2e2c1eebb19a36a16d7fe4",
+      "published_sha256": "5e30ef7c8fed5e674212ca236e62a65798f4798243eb7f1b9a95a1eab48ca4a6",
+      "original_bytes": 11042,
+      "published_bytes": 10713
+    },
+    {
+      "path": "raw/variants.json.before-review-20261009",
+      "original_sha256": "0369f01b42788f8d01f3019c1b75a505cae9b8fcf0dfea3149273701ec3551ad",
+      "published_sha256": "774f6eda8264e55e90994732dba1b07f06adf9edf211d84270554a7d35f83cca",
+      "original_bytes": 6093,
+      "published_bytes": 5911
+    }
+  ]
+}

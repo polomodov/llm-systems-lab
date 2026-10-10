@@ -1,0 +1,1117 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB33",
+  "harness_id": null,
+  "session_id": "apple-lifecycle-20261008",
+  "created_at": "2026-10-08T14:46:14.935Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Стабильный service process сохраняет MLX HTTP/tool session; предыдущий отказ не повторится в новом зарегистрированном deployment.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:47:12.773Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB28-apple-first-20261007/raw/hardware-snapshot.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-lifecycle-20261008/raw/mlx-artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB33-apple-lifecycle-20261008/raw/lms-mlx-startup-runtime.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "lms-mlx-startup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-startup-execution.json",
+        "raw/lms-mlx-startup-load.txt",
+        "raw/lms-mlx-startup-loaded.txt",
+        "raw/lms-mlx-startup-models.json",
+        "raw/lms-mlx-startup-models.txt",
+        "raw/lms-mlx-startup-native-models.json",
+        "raw/lms-mlx-startup-runtime.json",
+        "raw/lms-mlx-startup-runtimes.txt",
+        "raw/lms-mlx-startup-selected-model.json",
+        "raw/lms-mlx-startup-server.txt",
+        "raw/lms-mlx-startup-weights.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-warmup-execution.json",
+        "raw/lms-mlx-chat-warmup-input.json",
+        "raw/lms-mlx-chat-warmup-probe.txt",
+        "raw/lms-mlx-chat-warmup-server-fragment.txt",
+        "raw/lms-mlx-chat-warmup.final.json",
+        "raw/lms-mlx-chat-warmup.metrics.json",
+        "raw/lms-mlx-chat-warmup.request.json",
+        "raw/lms-mlx-chat-warmup.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-r1-execution.json",
+        "raw/lms-mlx-chat-r1-input.json",
+        "raw/lms-mlx-chat-r1-probe.txt",
+        "raw/lms-mlx-chat-r1-server-fragment.txt",
+        "raw/lms-mlx-chat-r1.final.json",
+        "raw/lms-mlx-chat-r1.metrics.json",
+        "raw/lms-mlx-chat-r1.request.json",
+        "raw/lms-mlx-chat-r1.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-r2-execution.json",
+        "raw/lms-mlx-chat-r2-input.json",
+        "raw/lms-mlx-chat-r2-probe.txt",
+        "raw/lms-mlx-chat-r2-server-fragment.txt",
+        "raw/lms-mlx-chat-r2.final.json",
+        "raw/lms-mlx-chat-r2.metrics.json",
+        "raw/lms-mlx-chat-r2.request.json",
+        "raw/lms-mlx-chat-r2.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-r3-execution.json",
+        "raw/lms-mlx-chat-r3-input.json",
+        "raw/lms-mlx-chat-r3-probe.txt",
+        "raw/lms-mlx-chat-r3-server-fragment.txt",
+        "raw/lms-mlx-chat-r3.final.json",
+        "raw/lms-mlx-chat-r3.metrics.json",
+        "raw/lms-mlx-chat-r3.request.json",
+        "raw/lms-mlx-chat-r3.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-stream-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-stream-warmup-execution.json",
+        "raw/lms-mlx-chat-stream-warmup-input.json",
+        "raw/lms-mlx-chat-stream-warmup-probe.txt",
+        "raw/lms-mlx-chat-stream-warmup-server-fragment.txt",
+        "raw/lms-mlx-chat-stream-warmup.assembled.json",
+        "raw/lms-mlx-chat-stream-warmup.final.json",
+        "raw/lms-mlx-chat-stream-warmup.metrics.json",
+        "raw/lms-mlx-chat-stream-warmup.request.json",
+        "raw/lms-mlx-chat-stream-warmup.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-stream-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-stream-r1-execution.json",
+        "raw/lms-mlx-chat-stream-r1-input.json",
+        "raw/lms-mlx-chat-stream-r1-probe.txt",
+        "raw/lms-mlx-chat-stream-r1-server-fragment.txt",
+        "raw/lms-mlx-chat-stream-r1.assembled.json",
+        "raw/lms-mlx-chat-stream-r1.final.json",
+        "raw/lms-mlx-chat-stream-r1.metrics.json",
+        "raw/lms-mlx-chat-stream-r1.request.json",
+        "raw/lms-mlx-chat-stream-r1.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-stream-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-stream-r2-execution.json",
+        "raw/lms-mlx-chat-stream-r2-input.json",
+        "raw/lms-mlx-chat-stream-r2-probe.txt",
+        "raw/lms-mlx-chat-stream-r2-server-fragment.txt",
+        "raw/lms-mlx-chat-stream-r2.assembled.json",
+        "raw/lms-mlx-chat-stream-r2.final.json",
+        "raw/lms-mlx-chat-stream-r2.metrics.json",
+        "raw/lms-mlx-chat-stream-r2.request.json",
+        "raw/lms-mlx-chat-stream-r2.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-chat-stream-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-chat-stream-r3-execution.json",
+        "raw/lms-mlx-chat-stream-r3-input.json",
+        "raw/lms-mlx-chat-stream-r3-probe.txt",
+        "raw/lms-mlx-chat-stream-r3-server-fragment.txt",
+        "raw/lms-mlx-chat-stream-r3.assembled.json",
+        "raw/lms-mlx-chat-stream-r3.final.json",
+        "raw/lms-mlx-chat-stream-r3.metrics.json",
+        "raw/lms-mlx-chat-stream-r3.request.json",
+        "raw/lms-mlx-chat-stream-r3.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-warmup-execution.json",
+        "raw/lms-mlx-tool-warmup-input.json",
+        "raw/lms-mlx-tool-warmup-probe.txt",
+        "raw/lms-mlx-tool-warmup-server-fragment.txt",
+        "raw/lms-mlx-tool-warmup.final.json",
+        "raw/lms-mlx-tool-warmup.followup.metrics.json",
+        "raw/lms-mlx-tool-warmup.followup.request.json",
+        "raw/lms-mlx-tool-warmup.followup.response.json",
+        "raw/lms-mlx-tool-warmup.metrics.json",
+        "raw/lms-mlx-tool-warmup.request.json",
+        "raw/lms-mlx-tool-warmup.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-r1-execution.json",
+        "raw/lms-mlx-tool-r1-input.json",
+        "raw/lms-mlx-tool-r1-probe.txt",
+        "raw/lms-mlx-tool-r1-server-fragment.txt",
+        "raw/lms-mlx-tool-r1.final.json",
+        "raw/lms-mlx-tool-r1.followup.metrics.json",
+        "raw/lms-mlx-tool-r1.followup.request.json",
+        "raw/lms-mlx-tool-r1.followup.response.json",
+        "raw/lms-mlx-tool-r1.metrics.json",
+        "raw/lms-mlx-tool-r1.request.json",
+        "raw/lms-mlx-tool-r1.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-r2-execution.json",
+        "raw/lms-mlx-tool-r2-input.json",
+        "raw/lms-mlx-tool-r2-probe.txt",
+        "raw/lms-mlx-tool-r2-server-fragment.txt",
+        "raw/lms-mlx-tool-r2.final.json",
+        "raw/lms-mlx-tool-r2.followup.metrics.json",
+        "raw/lms-mlx-tool-r2.followup.request.json",
+        "raw/lms-mlx-tool-r2.followup.response.json",
+        "raw/lms-mlx-tool-r2.metrics.json",
+        "raw/lms-mlx-tool-r2.request.json",
+        "raw/lms-mlx-tool-r2.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-r3-execution.json",
+        "raw/lms-mlx-tool-r3-input.json",
+        "raw/lms-mlx-tool-r3-probe.txt",
+        "raw/lms-mlx-tool-r3-server-fragment.txt",
+        "raw/lms-mlx-tool-r3.final.json",
+        "raw/lms-mlx-tool-r3.followup.metrics.json",
+        "raw/lms-mlx-tool-r3.followup.request.json",
+        "raw/lms-mlx-tool-r3.followup.response.json",
+        "raw/lms-mlx-tool-r3.metrics.json",
+        "raw/lms-mlx-tool-r3.request.json",
+        "raw/lms-mlx-tool-r3.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-stream-warmup",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-stream-warmup-execution.json",
+        "raw/lms-mlx-tool-stream-warmup-input.json",
+        "raw/lms-mlx-tool-stream-warmup-probe.txt",
+        "raw/lms-mlx-tool-stream-warmup-server-fragment.txt",
+        "raw/lms-mlx-tool-stream-warmup.assembled.json",
+        "raw/lms-mlx-tool-stream-warmup.final.json",
+        "raw/lms-mlx-tool-stream-warmup.followup.assembled.json",
+        "raw/lms-mlx-tool-stream-warmup.followup.metrics.json",
+        "raw/lms-mlx-tool-stream-warmup.followup.request.json",
+        "raw/lms-mlx-tool-stream-warmup.followup.sse",
+        "raw/lms-mlx-tool-stream-warmup.metrics.json",
+        "raw/lms-mlx-tool-stream-warmup.request.json",
+        "raw/lms-mlx-tool-stream-warmup.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-stream-r1",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-stream-r1-execution.json",
+        "raw/lms-mlx-tool-stream-r1-input.json",
+        "raw/lms-mlx-tool-stream-r1-probe.txt",
+        "raw/lms-mlx-tool-stream-r1-server-fragment.txt",
+        "raw/lms-mlx-tool-stream-r1.assembled.json",
+        "raw/lms-mlx-tool-stream-r1.final.json",
+        "raw/lms-mlx-tool-stream-r1.followup.assembled.json",
+        "raw/lms-mlx-tool-stream-r1.followup.metrics.json",
+        "raw/lms-mlx-tool-stream-r1.followup.request.json",
+        "raw/lms-mlx-tool-stream-r1.followup.sse",
+        "raw/lms-mlx-tool-stream-r1.metrics.json",
+        "raw/lms-mlx-tool-stream-r1.request.json",
+        "raw/lms-mlx-tool-stream-r1.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-stream-r2",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-stream-r2-execution.json",
+        "raw/lms-mlx-tool-stream-r2-input.json",
+        "raw/lms-mlx-tool-stream-r2-probe.txt",
+        "raw/lms-mlx-tool-stream-r2-server-fragment.txt",
+        "raw/lms-mlx-tool-stream-r2.assembled.json",
+        "raw/lms-mlx-tool-stream-r2.final.json",
+        "raw/lms-mlx-tool-stream-r2.followup.assembled.json",
+        "raw/lms-mlx-tool-stream-r2.followup.metrics.json",
+        "raw/lms-mlx-tool-stream-r2.followup.request.json",
+        "raw/lms-mlx-tool-stream-r2.followup.sse",
+        "raw/lms-mlx-tool-stream-r2.metrics.json",
+        "raw/lms-mlx-tool-stream-r2.request.json",
+        "raw/lms-mlx-tool-stream-r2.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-tool-stream-r3",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-tool-stream-r3-execution.json",
+        "raw/lms-mlx-tool-stream-r3-input.json",
+        "raw/lms-mlx-tool-stream-r3-probe.txt",
+        "raw/lms-mlx-tool-stream-r3-server-fragment.txt",
+        "raw/lms-mlx-tool-stream-r3.assembled.json",
+        "raw/lms-mlx-tool-stream-r3.final.json",
+        "raw/lms-mlx-tool-stream-r3.followup.assembled.json",
+        "raw/lms-mlx-tool-stream-r3.followup.metrics.json",
+        "raw/lms-mlx-tool-stream-r3.followup.request.json",
+        "raw/lms-mlx-tool-stream-r3.followup.sse",
+        "raw/lms-mlx-tool-stream-r3.metrics.json",
+        "raw/lms-mlx-tool-stream-r3.request.json",
+        "raw/lms-mlx-tool-stream-r3.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-cancel",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Client cancellation/native cancellation log not jointly proven",
+      "evidence_files": [
+        "raw/lms-mlx-cancel-curl.txt",
+        "raw/lms-mlx-cancel-execution.json",
+        "raw/lms-mlx-cancel-request.json",
+        "raw/lms-mlx-cancel-server-fragment.txt",
+        "raw/lms-mlx-cancel.sse"
+      ]
+    },
+    {
+      "id": "lms-mlx-cancel-recovery",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-cancel-recovery-execution.json",
+        "raw/lms-mlx-cancel-recovery-input.json",
+        "raw/lms-mlx-cancel-recovery-probe.txt",
+        "raw/lms-mlx-cancel-recovery-server-fragment.txt",
+        "raw/lms-mlx-cancel-recovery.final.json",
+        "raw/lms-mlx-cancel-recovery.metrics.json",
+        "raw/lms-mlx-cancel-recovery.request.json",
+        "raw/lms-mlx-cancel-recovery.response.json"
+      ]
+    },
+    {
+      "id": "lms-mlx-shutdown",
+      "configuration_id": "lms-mlx-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-mlx-shutdown-execution.json",
+        "raw/lms-mlx-shutdown-server.txt",
+        "raw/lms-mlx-shutdown-unload.txt"
+      ]
+    },
+    {
+      "id": "lms-metal-startup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-chat-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-tool-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-cancel",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-cancel-recovery",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: startup-import failed",
+      "evidence_files": [
+        "raw/lms-metal-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-shutdown",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-metal-shutdown-execution.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-startup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/lms-metal-existing-startup-execution.json",
+        "raw/lms-metal-existing-startup-existing-import.json",
+        "raw/lms-metal-existing-startup-load.txt",
+        "raw/lms-metal-existing-startup-loaded.txt",
+        "raw/lms-metal-existing-startup-models.json",
+        "raw/lms-metal-existing-startup-models.txt",
+        "raw/lms-metal-existing-startup-native-models.json",
+        "raw/lms-metal-existing-startup-runtime.json",
+        "raw/lms-metal-existing-startup-runtimes.txt",
+        "raw/lms-metal-existing-startup-selected-model.json",
+        "raw/lms-metal-existing-startup-server.txt",
+        "raw/lms-metal-existing-startup-weights.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-chat-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-stream-warmup",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-stream-r1",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-stream-r2",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-tool-stream-r3",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-cancel",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-cancel-recovery",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Stopped deployment: Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-fatal.json"
+      ]
+    },
+    {
+      "id": "lms-metal-existing-shutdown",
+      "configuration_id": "lms-metal-ctx8192-service",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Memory/power guard failed; own alias will be unloaded, application is not killed",
+      "evidence_files": [
+        "raw/lms-metal-existing-shutdown-execution.json",
+        "raw/lms-metal-existing-shutdown-server.txt",
+        "raw/lms-metal-existing-shutdown-unload.txt"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "raw/chat-request.json",
+    "raw/chat-stream-request.json",
+    "raw/evidence-sha256.json",
+    "raw/export_lifecycle.py",
+    "raw/gguf-existing-registry-amendment.md",
+    "raw/http_probe.py",
+    "raw/lab33_runner.py",
+    "raw/lms-metal-existing-fatal.json",
+    "raw/lms-metal-existing-memory.jsonl",
+    "raw/lms-metal-existing-server.txt",
+    "raw/lms-metal-existing-shutdown-execution.json",
+    "raw/lms-metal-existing-shutdown-server.txt",
+    "raw/lms-metal-existing-shutdown-unload.txt",
+    "raw/lms-metal-existing-startup-execution.json",
+    "raw/lms-metal-existing-startup-existing-import.json",
+    "raw/lms-metal-existing-startup-load.txt",
+    "raw/lms-metal-existing-startup-loaded.txt",
+    "raw/lms-metal-existing-startup-models.json",
+    "raw/lms-metal-existing-startup-models.txt",
+    "raw/lms-metal-existing-startup-native-models.json",
+    "raw/lms-metal-existing-startup-runtime.json",
+    "raw/lms-metal-existing-startup-runtimes.txt",
+    "raw/lms-metal-existing-startup-selected-model.json",
+    "raw/lms-metal-existing-startup-server.txt",
+    "raw/lms-metal-existing-startup-weights.json",
+    "raw/lms-metal-fatal.json",
+    "raw/lms-metal-memory.jsonl",
+    "raw/lms-metal-server.txt",
+    "raw/lms-metal-shutdown-execution.json",
+    "raw/lms-metal-startup-import.txt",
+    "raw/lms-metal-startup-runtime.json",
+    "raw/lms-metal-startup-runtimes.txt",
+    "raw/lms-mlx-cancel-curl.txt",
+    "raw/lms-mlx-cancel-execution.json",
+    "raw/lms-mlx-cancel-recovery-execution.json",
+    "raw/lms-mlx-cancel-recovery-input.json",
+    "raw/lms-mlx-cancel-recovery-probe.txt",
+    "raw/lms-mlx-cancel-recovery-server-fragment.txt",
+    "raw/lms-mlx-cancel-recovery-window.json",
+    "raw/lms-mlx-cancel-recovery.final.json",
+    "raw/lms-mlx-cancel-recovery.metrics.json",
+    "raw/lms-mlx-cancel-recovery.request.json",
+    "raw/lms-mlx-cancel-recovery.response.json",
+    "raw/lms-mlx-cancel-request.json",
+    "raw/lms-mlx-cancel-server-fragment.txt",
+    "raw/lms-mlx-cancel.sse",
+    "raw/lms-mlx-chat-r1-execution.json",
+    "raw/lms-mlx-chat-r1-input.json",
+    "raw/lms-mlx-chat-r1-probe.txt",
+    "raw/lms-mlx-chat-r1-server-fragment.txt",
+    "raw/lms-mlx-chat-r1.final.json",
+    "raw/lms-mlx-chat-r1.metrics.json",
+    "raw/lms-mlx-chat-r1.request.json",
+    "raw/lms-mlx-chat-r1.response.json",
+    "raw/lms-mlx-chat-r2-execution.json",
+    "raw/lms-mlx-chat-r2-input.json",
+    "raw/lms-mlx-chat-r2-probe.txt",
+    "raw/lms-mlx-chat-r2-server-fragment.txt",
+    "raw/lms-mlx-chat-r2.final.json",
+    "raw/lms-mlx-chat-r2.metrics.json",
+    "raw/lms-mlx-chat-r2.request.json",
+    "raw/lms-mlx-chat-r2.response.json",
+    "raw/lms-mlx-chat-r3-execution.json",
+    "raw/lms-mlx-chat-r3-input.json",
+    "raw/lms-mlx-chat-r3-probe.txt",
+    "raw/lms-mlx-chat-r3-server-fragment.txt",
+    "raw/lms-mlx-chat-r3.final.json",
+    "raw/lms-mlx-chat-r3.metrics.json",
+    "raw/lms-mlx-chat-r3.request.json",
+    "raw/lms-mlx-chat-r3.response.json",
+    "raw/lms-mlx-chat-stream-r1-execution.json",
+    "raw/lms-mlx-chat-stream-r1-input.json",
+    "raw/lms-mlx-chat-stream-r1-probe.txt",
+    "raw/lms-mlx-chat-stream-r1-server-fragment.txt",
+    "raw/lms-mlx-chat-stream-r1.assembled.json",
+    "raw/lms-mlx-chat-stream-r1.final.json",
+    "raw/lms-mlx-chat-stream-r1.metrics.json",
+    "raw/lms-mlx-chat-stream-r1.request.json",
+    "raw/lms-mlx-chat-stream-r1.sse",
+    "raw/lms-mlx-chat-stream-r2-execution.json",
+    "raw/lms-mlx-chat-stream-r2-input.json",
+    "raw/lms-mlx-chat-stream-r2-probe.txt",
+    "raw/lms-mlx-chat-stream-r2-server-fragment.txt",
+    "raw/lms-mlx-chat-stream-r2.assembled.json",
+    "raw/lms-mlx-chat-stream-r2.final.json",
+    "raw/lms-mlx-chat-stream-r2.metrics.json",
+    "raw/lms-mlx-chat-stream-r2.request.json",
+    "raw/lms-mlx-chat-stream-r2.sse",
+    "raw/lms-mlx-chat-stream-r3-execution.json",
+    "raw/lms-mlx-chat-stream-r3-input.json",
+    "raw/lms-mlx-chat-stream-r3-probe.txt",
+    "raw/lms-mlx-chat-stream-r3-server-fragment.txt",
+    "raw/lms-mlx-chat-stream-r3.assembled.json",
+    "raw/lms-mlx-chat-stream-r3.final.json",
+    "raw/lms-mlx-chat-stream-r3.metrics.json",
+    "raw/lms-mlx-chat-stream-r3.request.json",
+    "raw/lms-mlx-chat-stream-r3.sse",
+    "raw/lms-mlx-chat-stream-warmup-execution.json",
+    "raw/lms-mlx-chat-stream-warmup-input.json",
+    "raw/lms-mlx-chat-stream-warmup-probe.txt",
+    "raw/lms-mlx-chat-stream-warmup-server-fragment.txt",
+    "raw/lms-mlx-chat-stream-warmup.assembled.json",
+    "raw/lms-mlx-chat-stream-warmup.final.json",
+    "raw/lms-mlx-chat-stream-warmup.metrics.json",
+    "raw/lms-mlx-chat-stream-warmup.request.json",
+    "raw/lms-mlx-chat-stream-warmup.sse",
+    "raw/lms-mlx-chat-warmup-execution.json",
+    "raw/lms-mlx-chat-warmup-input.json",
+    "raw/lms-mlx-chat-warmup-probe.txt",
+    "raw/lms-mlx-chat-warmup-server-fragment.txt",
+    "raw/lms-mlx-chat-warmup.final.json",
+    "raw/lms-mlx-chat-warmup.metrics.json",
+    "raw/lms-mlx-chat-warmup.request.json",
+    "raw/lms-mlx-chat-warmup.response.json",
+    "raw/lms-mlx-fatal.json",
+    "raw/lms-mlx-memory.jsonl",
+    "raw/lms-mlx-server.txt",
+    "raw/lms-mlx-shutdown-execution.json",
+    "raw/lms-mlx-shutdown-server.txt",
+    "raw/lms-mlx-shutdown-unload.txt",
+    "raw/lms-mlx-startup-execution.json",
+    "raw/lms-mlx-startup-load.txt",
+    "raw/lms-mlx-startup-loaded.txt",
+    "raw/lms-mlx-startup-models.json",
+    "raw/lms-mlx-startup-models.txt",
+    "raw/lms-mlx-startup-native-models.json",
+    "raw/lms-mlx-startup-runtime.json",
+    "raw/lms-mlx-startup-runtimes.txt",
+    "raw/lms-mlx-startup-selected-model.json",
+    "raw/lms-mlx-startup-server.txt",
+    "raw/lms-mlx-startup-weights.json",
+    "raw/lms-mlx-tool-r1-execution.json",
+    "raw/lms-mlx-tool-r1-input.json",
+    "raw/lms-mlx-tool-r1-probe.txt",
+    "raw/lms-mlx-tool-r1-server-fragment.txt",
+    "raw/lms-mlx-tool-r1.final.json",
+    "raw/lms-mlx-tool-r1.followup.metrics.json",
+    "raw/lms-mlx-tool-r1.followup.request.json",
+    "raw/lms-mlx-tool-r1.followup.response.json",
+    "raw/lms-mlx-tool-r1.metrics.json",
+    "raw/lms-mlx-tool-r1.request.json",
+    "raw/lms-mlx-tool-r1.response.json",
+    "raw/lms-mlx-tool-r2-execution.json",
+    "raw/lms-mlx-tool-r2-input.json",
+    "raw/lms-mlx-tool-r2-probe.txt",
+    "raw/lms-mlx-tool-r2-server-fragment.txt",
+    "raw/lms-mlx-tool-r2.final.json",
+    "raw/lms-mlx-tool-r2.followup.metrics.json",
+    "raw/lms-mlx-tool-r2.followup.request.json",
+    "raw/lms-mlx-tool-r2.followup.response.json",
+    "raw/lms-mlx-tool-r2.metrics.json",
+    "raw/lms-mlx-tool-r2.request.json",
+    "raw/lms-mlx-tool-r2.response.json",
+    "raw/lms-mlx-tool-r3-execution.json",
+    "raw/lms-mlx-tool-r3-input.json",
+    "raw/lms-mlx-tool-r3-probe.txt",
+    "raw/lms-mlx-tool-r3-server-fragment.txt",
+    "raw/lms-mlx-tool-r3.final.json",
+    "raw/lms-mlx-tool-r3.followup.metrics.json",
+    "raw/lms-mlx-tool-r3.followup.request.json",
+    "raw/lms-mlx-tool-r3.followup.response.json",
+    "raw/lms-mlx-tool-r3.metrics.json",
+    "raw/lms-mlx-tool-r3.request.json",
+    "raw/lms-mlx-tool-r3.response.json",
+    "raw/lms-mlx-tool-stream-r1-execution.json",
+    "raw/lms-mlx-tool-stream-r1-input.json",
+    "raw/lms-mlx-tool-stream-r1-probe.txt",
+    "raw/lms-mlx-tool-stream-r1-server-fragment.txt",
+    "raw/lms-mlx-tool-stream-r1.assembled.json",
+    "raw/lms-mlx-tool-stream-r1.final.json",
+    "raw/lms-mlx-tool-stream-r1.followup.assembled.json",
+    "raw/lms-mlx-tool-stream-r1.followup.metrics.json",
+    "raw/lms-mlx-tool-stream-r1.followup.request.json",
+    "raw/lms-mlx-tool-stream-r1.followup.sse",
+    "raw/lms-mlx-tool-stream-r1.metrics.json",
+    "raw/lms-mlx-tool-stream-r1.request.json",
+    "raw/lms-mlx-tool-stream-r1.sse",
+    "raw/lms-mlx-tool-stream-r2-execution.json",
+    "raw/lms-mlx-tool-stream-r2-input.json",
+    "raw/lms-mlx-tool-stream-r2-probe.txt",
+    "raw/lms-mlx-tool-stream-r2-server-fragment.txt",
+    "raw/lms-mlx-tool-stream-r2.assembled.json",
+    "raw/lms-mlx-tool-stream-r2.final.json",
+    "raw/lms-mlx-tool-stream-r2.followup.assembled.json",
+    "raw/lms-mlx-tool-stream-r2.followup.metrics.json",
+    "raw/lms-mlx-tool-stream-r2.followup.request.json",
+    "raw/lms-mlx-tool-stream-r2.followup.sse",
+    "raw/lms-mlx-tool-stream-r2.metrics.json",
+    "raw/lms-mlx-tool-stream-r2.request.json",
+    "raw/lms-mlx-tool-stream-r2.sse",
+    "raw/lms-mlx-tool-stream-r3-execution.json",
+    "raw/lms-mlx-tool-stream-r3-input.json",
+    "raw/lms-mlx-tool-stream-r3-probe.txt",
+    "raw/lms-mlx-tool-stream-r3-server-fragment.txt",
+    "raw/lms-mlx-tool-stream-r3.assembled.json",
+    "raw/lms-mlx-tool-stream-r3.final.json",
+    "raw/lms-mlx-tool-stream-r3.followup.assembled.json",
+    "raw/lms-mlx-tool-stream-r3.followup.metrics.json",
+    "raw/lms-mlx-tool-stream-r3.followup.request.json",
+    "raw/lms-mlx-tool-stream-r3.followup.sse",
+    "raw/lms-mlx-tool-stream-r3.metrics.json",
+    "raw/lms-mlx-tool-stream-r3.request.json",
+    "raw/lms-mlx-tool-stream-r3.sse",
+    "raw/lms-mlx-tool-stream-warmup-execution.json",
+    "raw/lms-mlx-tool-stream-warmup-input.json",
+    "raw/lms-mlx-tool-stream-warmup-probe.txt",
+    "raw/lms-mlx-tool-stream-warmup-server-fragment.txt",
+    "raw/lms-mlx-tool-stream-warmup.assembled.json",
+    "raw/lms-mlx-tool-stream-warmup.final.json",
+    "raw/lms-mlx-tool-stream-warmup.followup.assembled.json",
+    "raw/lms-mlx-tool-stream-warmup.followup.metrics.json",
+    "raw/lms-mlx-tool-stream-warmup.followup.request.json",
+    "raw/lms-mlx-tool-stream-warmup.followup.sse",
+    "raw/lms-mlx-tool-stream-warmup.metrics.json",
+    "raw/lms-mlx-tool-stream-warmup.request.json",
+    "raw/lms-mlx-tool-stream-warmup.sse",
+    "raw/lms-mlx-tool-warmup-execution.json",
+    "raw/lms-mlx-tool-warmup-input.json",
+    "raw/lms-mlx-tool-warmup-probe.txt",
+    "raw/lms-mlx-tool-warmup-server-fragment.txt",
+    "raw/lms-mlx-tool-warmup.final.json",
+    "raw/lms-mlx-tool-warmup.followup.metrics.json",
+    "raw/lms-mlx-tool-warmup.followup.request.json",
+    "raw/lms-mlx-tool-warmup.followup.response.json",
+    "raw/lms-mlx-tool-warmup.metrics.json",
+    "raw/lms-mlx-tool-warmup.request.json",
+    "raw/lms-mlx-tool-warmup.response.json",
+    "raw/lms_runner-at-first-start.py",
+    "raw/lms_runner.py",
+    "raw/mlx-artifact-manifest.json",
+    "raw/native-2026-10-08.1.log",
+    "raw/native-log-offsets-before.json",
+    "raw/native-main.log",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/resources.py",
+    "raw/summary.json",
+    "raw/tool-request.json",
+    "raw/tool-stream-request.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Аппаратный HTTP опыт без agent harness.",
+    "gpu_budget_gib": "Maximum GPU allocation budget не измеряется.",
+    "energy": "Не измеряется.",
+    "temperature": "Проверенный thermal collector отсутствует.",
+    "completion": "MLX native cancellation/GPU release not proven; GGUF retry stopped at free-only resource guard before chat; no complete new serving admission."
+  },
+  "conclusion": "MLX service process completed16/16 short chat/tool cases and recovery without app disappearance; native cancellation remains unverified. GGUF startup/import/resource failures preserved; original interruption cause remains unknown.",
+  "reviewer_decision": null
+}

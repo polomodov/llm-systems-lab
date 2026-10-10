@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/build-reference.json",
+      "original_sha256": "1cf590e09378d94ad5cd0281fc3c29c87b6ee88b6e5c05c20f46440a87de238c",
+      "published_sha256": "5dbef63d7788fb83488981f9a41c8cc250055809dde6ed3aeb7b5e713e133281",
+      "original_bytes": 1855,
+      "published_bytes": 1813
+    },
+    {
+      "path": "raw/prior-campaign-summary.json",
+      "original_sha256": "6b39f4df1cfa7a007fdad2c04a996512af94c69f23891b48796ca57cb79b9768",
+      "published_sha256": "28dd2dadd6ce478dafcb1bc7f34231cbef1a2baac02a764f707752726efe8609",
+      "original_bytes": 22401,
+      "published_bytes": 22373
+    },
+    {
+      "path": "raw/r2-c1-execution.json",
+      "original_sha256": "4beb919090a6b818f3fb114404818195f2aa2c062720a2b6d72943e5f7056503",
+      "published_sha256": "3e3c2a40f54aaef64436347ed74ff988fe8888ba81e45446b4ed37cdb99fe12b",
+      "original_bytes": 1010,
+      "published_bytes": 982
+    },
+    {
+      "path": "raw/r2-c4-execution.json",
+      "original_sha256": "9d8889ae13b744dde0d64a442aff61ef43ca725612cf029a6cac7197393130df",
+      "published_sha256": "013fbb77de596d68c5dd2c90bde127ad82ab26bbcae1abf867af393221afee41",
+      "original_bytes": 1010,
+      "published_bytes": 982
+    },
+    {
+      "path": "raw/r3-c1-execution.json",
+      "original_sha256": "80606a0c8e2163153b987653bc55f815db8da9e641f56d9529b7b276e4ee9535",
+      "published_sha256": "ca18265446de60100edb04800fedcec1a3cd7f07b565538fa7fe3275cfd1e063",
+      "original_bytes": 1010,
+      "published_bytes": 982
+    },
+    {
+      "path": "raw/r3-c2-execution.json",
+      "original_sha256": "d88b9921ec844468d73ba3b5b63e6a60aa9b1e506e0a79ea707ded586ee358f1",
+      "published_sha256": "408b7f3057597d9b07388eb013818d1e5f64fb76f46c708837f5f87af1bc3000",
+      "original_bytes": 1010,
+      "published_bytes": 982
+    },
+    {
+      "path": "raw/r3-c4-execution.json",
+      "original_sha256": "cdd34eb68d57746b7f1f608d57b0e76f6d802aec8136f834d4235a7c78e3ff38",
+      "published_sha256": "2274ada3283ce24f626da6b6199f221944f816176f6654ee0cba78f7bc19a48f",
+      "original_bytes": 1010,
+      "published_bytes": 982
+    },
+    {
+      "path": "raw/run_load.py",
+      "original_sha256": "168b33e2832f879369054bdcd239d783ec2f776753ae42d7e05314396e68ead5",
+      "published_sha256": "f5d642d84ea86e26faf0116e8d0a28f341fd9fcbd187dbe8896b4f582f40e159",
+      "original_bytes": 15439,
+      "published_bytes": 15425
+    },
+    {
+      "path": "raw/runtime-manifest.json",
+      "original_sha256": "1ceea2584772ae2912e1cdadf2bb049d23a9cee0d363eb22a88518f420848b8d",
+      "published_sha256": "c16464f1b3533bbeef79cdd9700e400743bdbe8a7708bd663ed417e82c380f50",
+      "original_bytes": 1633,
+      "published_bytes": 1619
+    },
+    {
+      "path": "raw/server.txt",
+      "original_sha256": "c2e6c01d9e29f927667890a7ab77b096a90c96527e13be3547a9eb68a91c0b26",
+      "published_sha256": "f979d4b0828ac4d6dc982de5651e4d7dfad9de876e05a5f867343e94fc0e11e1",
+      "original_bytes": 175792,
+      "published_bytes": 175778
+    },
+    {
+      "path": "raw/shutdown-execution.json",
+      "original_sha256": "458f4fc39ac89269efae6c1e312bc5af3cdf717ace323182d82b8a63e7a723d8",
+      "published_sha256": "a9b739546a798f87d0c8e981820a996607a583fac0fe55ad2a0676aae54fcda3",
+      "original_bytes": 10267,
+      "published_bytes": 10239
+    },
+    {
+      "path": "raw/startup-process.json",
+      "original_sha256": "ffc106f60a07ead9419767d8e3ba0140a228a03aab7311846c2e5206141901cc",
+      "published_sha256": "c162b09fffb7134dc9a6a17b22cabd7492211c4189bbbe236cafe6b7415c35dc",
+      "original_bytes": 5821,
+      "published_bytes": 5793
+    },
+    {
+      "path": "raw/startup-props.json",
+      "original_sha256": "226b1aa892958d71069f68bab61b40c1f1cc142522e92468041c50813680c541",
+      "published_sha256": "b7a5b1cba014518bbfecfc540d5ff14a639d7922123938e78b9acba8a86b7c2c",
+      "original_bytes": 10529,
+      "published_bytes": 10522
+    },
+    {
+      "path": "raw/summary.json",
+      "original_sha256": "76fb50ec8aa6214616733097c6c0839f50d710b4aa25dc6db779c18d46e84dd7",
+      "published_sha256": "c538940cb7456fcee8ec3941d2391d12e65799b399263cf98ae7820ce8433c1f",
+      "original_bytes": 27775,
+      "published_bytes": 27747
+    },
+    {
+      "path": "raw/sustained-block-0001-execution.json",
+      "original_sha256": "4b40f53663d3b0efc86380727aa1a946bd3c8443d87c6ba6fe70736c922391cd",
+      "published_sha256": "a6f82315bdd00fe2f1bfa51aee1ba630822139518fe8634594e6c8096e0c8f26",
+      "original_bytes": 1041,
+      "published_bytes": 1013
+    },
+    {
+      "path": "raw/warmup-execution.json",
+      "original_sha256": "1dce2fcad73c0c2c92f4c5c5d66af655cafec86cbd202629b0e8c452af9d11ed",
+      "published_sha256": "860d7caea8f109141273378fde30ae6f9d337c6b1b8722fa2d24eb2630c33d80",
+      "original_bytes": 1011,
+      "published_bytes": 983
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{"role":"assistant","content":"LAB"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{"content":"_VALUE"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{"content":"_"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{"content":"4"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{"content":"2"},"finish_reason":null}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[{"index":0,"delta":{},"finish_reason":"stop"}]}
+
+data: {"id":"chatcmpl-235","object":"chat.completion.chunk","created":1791463097,"model":"lab-apple-qwen35-9b-q6-k","system_fingerprint":"fp_ollama","choices":[],"usage":{"prompt_tokens":357,"prompt_tokens_details":{"cached_tokens":304},"completion_tokens":8,"total_tokens":365},"timings":{"prompt_n":357,"prompt_ms":99,"prompt_per_token_ms":0.2773109243697479,"prompt_per_second":3606.060606060606,"predicted_n":8,"predicted_ms":107,"predicted_per_token_ms":13.375,"predicted_per_second":74.76635514018692}}
+
+data: [DONE]

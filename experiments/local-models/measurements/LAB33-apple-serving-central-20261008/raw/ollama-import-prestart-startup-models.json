@@ -1,0 +1,14 @@
+{
+  "http_status": 200,
+  "body": {
+    "object": "list",
+    "data": [
+      {
+        "id": "lab-apple-qwen35-9b-q6-k:latest",
+        "object": "model",
+        "created": 1791462974,
+        "owned_by": "library"
+      }
+    ]
+  }
+}

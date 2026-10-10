@@ -1,0 +1,35 @@
+{
+  "planned_seconds": 1800,
+  "actual_seconds": 2130.7800738750084,
+  "started_at": "2026-10-09T16:50:27.057113+00:00",
+  "ended_at": "2026-10-09T17:25:57.871576+00:00",
+  "status": "completed",
+  "reason": null,
+  "blocks": [
+    {
+      "directory": "sustained/block-0001",
+      "accepted": true,
+      "requests": 12,
+      "summary": "raw/sustained/block-0001/summary.json"
+    },
+    {
+      "directory": "sustained/block-0002",
+      "accepted": true,
+      "requests": 12,
+      "summary": "raw/sustained/block-0002/summary.json"
+    },
+    {
+      "directory": "sustained/block-0003",
+      "accepted": true,
+      "requests": 12,
+      "summary": "raw/sustained/block-0003/summary.json"
+    },
+    {
+      "directory": "sustained/block-0004",
+      "accepted": true,
+      "requests": 12,
+      "summary": "raw/sustained/block-0004/summary.json"
+    }
+  ],
+  "concurrency": 1
+}

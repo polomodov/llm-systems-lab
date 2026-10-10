@@ -1,0 +1,82 @@
+{
+  "archive/ryzen/manifest.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/manifest.json",
+    "sha256": "2ce4a1e69b99aec6887c3dadc77a4c10d714254cadf341fc4d245fc39dd247cc",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/weights.sha256": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/weights.sha256",
+    "sha256": "b6d70965d7580b0b7095d526ffeb96e084896346e49fb0da68c3718b8fb29c64",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/vulkan-version.txt": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/vulkan-version.txt",
+    "sha256": "8c6aac2053247af4eac0ed451588ca537f65bf1c5000303951ddb2ce162202fb",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/hip-version.txt": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/hip-version.txt",
+    "sha256": "02d3cdef64718d90678a0f89fb5b78ebf75a7dc59a1287c88b2ad8f4cb1ff480",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/vulkan-binaries.sha256": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/vulkan-binaries.sha256",
+    "sha256": "de4e4d57354d6297acc0343b6aa5293ae85412668de5e272d79d92094868245e",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/hip-binaries.sha256": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/hip-binaries.sha256",
+    "sha256": "ba8d6398471bd9b9e459b025578a7f9dc096a663d83647676282df001b2b8436",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/artifact.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/artifact.json",
+    "sha256": "7288738d81a635854d1300a1e9a35378a99b456abf3af68e76b7a80142c4b242",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/vulkan-r1-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/vulkan-r1-pp.json",
+    "sha256": "d9313827dff9ba45d18936c452ced44c99a8e5899d98463297793395affb764d",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/vulkan-r2-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/vulkan-r2-pp.json",
+    "sha256": "d5eb873e0ff6d86f8166cfef480aff114ec3c62c6106c1a787985e14fae02835",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/vulkan-r3-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/vulkan-r3-pp.json",
+    "sha256": "f48e384fd1cf16ede6e2681fa349ae9c3a289e9eb03c4b2d8e7729921bb6ed1d",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/hip-r1-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/hip-r1-pp.json",
+    "sha256": "8fc16764d6ab18580ad758e1fa264c22175d78bb9321bd43a2ab09c4e5709276",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/hip-r2-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/hip-r2-pp.json",
+    "sha256": "5f5ac82db7ff834c61401ee26e0224fd6626b4b999406a1f6f233ac3611db2db",
+    "historical_only": true
+  },
+  "archive/ryzen/raw/hip-r3-pp.json": {
+    "source": "experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/raw/hip-r3-pp.json",
+    "sha256": "1af809b4fdfee22172f453d33d162b82d8f196db5df071fc1e88ff5400b47a1f",
+    "historical_only": true
+  },
+  "archive/apple/manifest.json": {
+    "source": "experiments/local-models/measurements/LAB30-apple-qwen35-9b-metal-20261007/manifest.json",
+    "sha256": "174258bc6a2d78be64521fa926389a8afd0eb861f291e09d016743fc2db72e48",
+    "historical_only": true
+  },
+  "archive/apple/raw/runtime-manifest.json": {
+    "source": "experiments/local-models/measurements/LAB30-apple-qwen35-9b-metal-20261007/raw/runtime-manifest.json",
+    "sha256": "fb5358633ea9fb23de35bf4101a29705390087c67cc76dbd222d94230103a91f",
+    "historical_only": true
+  },
+  "archive/apple/raw/binaries.sha256": {
+    "source": "experiments/local-models/measurements/LAB30-apple-qwen35-9b-metal-20261007/raw/binaries.sha256",
+    "sha256": "3b5b19a402a1b02ffd466504563ae162e5d0f97399a978f10f8782814fd6cc11",
+    "historical_only": true
+  }
+}

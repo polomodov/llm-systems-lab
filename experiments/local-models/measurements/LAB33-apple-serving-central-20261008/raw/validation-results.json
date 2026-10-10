@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-08T14:05:43.411+00:00",
+  "npm_test": {
+    "total": 153,
+    "passed": 152,
+    "failed": 0,
+    "skipped": 1,
+    "skip_reason": "Docker-dependent existing integration test"
+  },
+  "lab32_regression_tests": {
+    "total": 18,
+    "passed": 18
+  },
+  "npm_run_check": {
+    "exit_code": 0,
+    "manuals": 35,
+    "hardware_catalogs": 2,
+    "pins": 9,
+    "agent_completed_runs": 0
+  },
+  "submission_checks": {
+    "initial_battery_report": "ready_for_review, status blocked",
+    "central_report": "ready_for_review, status blocked",
+    "experimental_pass": null
+  },
+  "note": "Completeness/software regression are not model admission or hidden-check success."
+}

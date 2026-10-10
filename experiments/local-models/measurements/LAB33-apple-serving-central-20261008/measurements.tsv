@@ -1,0 +1,543 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+o1	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	4.845657500000001	s	measured	raw/ollama-chat-warmup-execution.json	
+o2	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-warmup.metrics.json	
+o3	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	242	tokens	measured	raw/ollama-chat-warmup.metrics.json	
+o4	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens	0	tokens	measured	raw/ollama-chat-warmup.metrics.json	
+o5	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/ollama-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o6	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/ollama-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o7	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.5157941249999998	s	measured	raw/ollama-chat-r1-execution.json	
+o8	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-r1.metrics.json	
+o9	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-r1.metrics.json	
+o10	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-r1.metrics.json	
+o11	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/ollama-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o12	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/ollama-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o13	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.546975292	s	measured	raw/ollama-chat-r2-execution.json	
+o14	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-r2.metrics.json	
+o15	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-r2.metrics.json	
+o16	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-r2.metrics.json	
+o17	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/ollama-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o18	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/ollama-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o19	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.5627434580000004	s	measured	raw/ollama-chat-r3-execution.json	
+o20	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-r3.metrics.json	
+o21	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-r3.metrics.json	
+o22	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-r3.metrics.json	
+o23	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/ollama-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o24	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/ollama-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o25	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.5698774170000003	s	measured	raw/ollama-chat-stream-warmup-execution.json	
+o26	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-stream-warmup.metrics.json	
+o27	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	242	tokens	measured	raw/ollama-chat-stream-warmup.metrics.json	
+o28	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens	15	tokens	measured	raw/ollama-chat-stream-warmup.metrics.json	
+o29	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s	3.540034625	s	measured	raw/ollama-chat-stream-warmup.metrics.json	
+o30	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.03611454199999999	s	measured	raw/ollama-chat-stream-warmup.metrics.json	
+o31	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.574648958	s	measured	raw/ollama-chat-stream-r1-execution.json	
+o32	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-stream-r1.metrics.json	
+o33	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-stream-r1.metrics.json	
+o34	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-stream-r1.metrics.json	
+o35	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s	3.544684	s	measured	raw/ollama-chat-stream-r1.metrics.json	
+o36	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.028359000000000002	s	measured	raw/ollama-chat-stream-r1.metrics.json	
+o37	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.584461708	s	measured	raw/ollama-chat-stream-r2-execution.json	
+o38	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-stream-r2.metrics.json	
+o39	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-stream-r2.metrics.json	
+o40	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-stream-r2.metrics.json	
+o41	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s	3.554358041	s	measured	raw/ollama-chat-stream-r2.metrics.json	
+o42	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.029054375	s	measured	raw/ollama-chat-stream-r2.metrics.json	
+o43	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.607406292	s	measured	raw/ollama-chat-stream-r3-execution.json	
+o44	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/ollama-chat-stream-r3.metrics.json	
+o45	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	242	tokens	measured	raw/ollama-chat-stream-r3.metrics.json	
+o46	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens	15	tokens	measured	raw/ollama-chat-stream-r3.metrics.json	
+o47	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s	3.577060667	s	measured	raw/ollama-chat-stream-r3.metrics.json	
+o48	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.0292395	s	measured	raw/ollama-chat-stream-r3.metrics.json	
+o49	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	1.625489376	s	measured	raw/ollama-tool-warmup-execution.json	
+o50	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-warmup.metrics.json	
+o51	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	73	tokens	measured	raw/ollama-tool-warmup.metrics.json	
+o52	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens	0	tokens	measured	raw/ollama-tool-warmup.metrics.json	
+o53	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/ollama-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o54	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/ollama-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o55	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-warmup.followup.metrics.json	
+o56	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	8	tokens	measured	raw/ollama-tool-warmup.followup.metrics.json	
+o57	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens	304	tokens	measured	raw/ollama-tool-warmup.followup.metrics.json	
+o58	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s		s	unavailable	raw/ollama-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o59	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o60	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	1.2934830419999999	s	measured	raw/ollama-tool-r1-execution.json	
+o61	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-r1.metrics.json	
+o62	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-r1.metrics.json	
+o63	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-r1.metrics.json	
+o64	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/ollama-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o65	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o66	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-r1.followup.metrics.json	
+o67	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-r1.followup.metrics.json	
+o68	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-r1.followup.metrics.json	
+o69	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s		s	unavailable	raw/ollama-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o70	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o71	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	1.3194279169999998	s	measured	raw/ollama-tool-r2-execution.json	
+o72	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-r2.metrics.json	
+o73	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-r2.metrics.json	
+o74	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-r2.metrics.json	
+o75	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/ollama-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o76	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o77	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-r2.followup.metrics.json	
+o78	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-r2.followup.metrics.json	
+o79	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-r2.followup.metrics.json	
+o80	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s		s	unavailable	raw/ollama-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o81	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o82	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	1.323723709	s	measured	raw/ollama-tool-r3-execution.json	
+o83	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-r3.metrics.json	
+o84	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-r3.metrics.json	
+o85	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-r3.metrics.json	
+o86	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/ollama-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o87	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o88	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-r3.followup.metrics.json	
+o89	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-r3.followup.metrics.json	
+o90	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-r3.followup.metrics.json	
+o91	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s		s	unavailable	raw/ollama-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o92	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o93	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	1.323891251	s	measured	raw/ollama-tool-stream-warmup-execution.json	
+o94	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-stream-warmup.metrics.json	
+o95	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	73	tokens	measured	raw/ollama-tool-stream-warmup.metrics.json	
+o96	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-warmup.metrics.json	
+o97	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/ollama-tool-stream-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o98	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.030811334000000003	s	measured	raw/ollama-tool-stream-warmup.metrics.json	
+o99	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-stream-warmup.followup.metrics.json	
+o100	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	8	tokens	measured	raw/ollama-tool-stream-warmup.followup.metrics.json	
+o101	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-warmup.followup.metrics.json	
+o102	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s	0.13929500000000017	s	measured	raw/ollama-tool-stream-warmup.followup.metrics.json	
+o103	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-stream-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o104	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	1.3217075839999999	s	measured	raw/ollama-tool-stream-r1-execution.json	
+o105	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-stream-r1.metrics.json	
+o106	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-stream-r1.metrics.json	
+o107	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r1.metrics.json	
+o108	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/ollama-tool-stream-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o109	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.03166575	s	measured	raw/ollama-tool-stream-r1.metrics.json	
+o110	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-stream-r1.followup.metrics.json	
+o111	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-stream-r1.followup.metrics.json	
+o112	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r1.followup.metrics.json	
+o113	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s	0.14074104199999993	s	measured	raw/ollama-tool-stream-r1.followup.metrics.json	
+o114	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-stream-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o115	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	1.316933167	s	measured	raw/ollama-tool-stream-r2-execution.json	
+o116	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-stream-r2.metrics.json	
+o117	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-stream-r2.metrics.json	
+o118	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r2.metrics.json	
+o119	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/ollama-tool-stream-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o120	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.0298355	s	measured	raw/ollama-tool-stream-r2.metrics.json	
+o121	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-stream-r2.followup.metrics.json	
+o122	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-stream-r2.followup.metrics.json	
+o123	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r2.followup.metrics.json	
+o124	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s	0.13957212499999994	s	measured	raw/ollama-tool-stream-r2.followup.metrics.json	
+o125	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-stream-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o126	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	1.3197082079999998	s	measured	raw/ollama-tool-stream-r3-execution.json	
+o127	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	308	tokens	measured	raw/ollama-tool-stream-r3.metrics.json	
+o128	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	73	tokens	measured	raw/ollama-tool-stream-r3.metrics.json	
+o129	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r3.metrics.json	
+o130	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/ollama-tool-stream-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o131	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.030582707999999993	s	measured	raw/ollama-tool-stream-r3.metrics.json	
+o132	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	357	tokens	measured	raw/ollama-tool-stream-r3.followup.metrics.json	
+o133	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	8	tokens	measured	raw/ollama-tool-stream-r3.followup.metrics.json	
+o134	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens	304	tokens	measured	raw/ollama-tool-stream-r3.followup.metrics.json	
+o135	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s	0.14027191699999997	s	measured	raw/ollama-tool-stream-r3.followup.metrics.json	
+o136	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s		s	unavailable	raw/ollama-tool-stream-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o137	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		min_free_pages_bytes	19842940928	bytes	measured	raw/ollama-memory.jsonl	
+o138	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		max_observed_tree_rss_bytes	8793849856	bytes	measured	raw/ollama-memory.jsonl	
+o139	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		swap_used_bytes_max	0	bytes	measured	raw/ollama-memory.jsonl	
+o140	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		client_timeout_seconds	1.0493831659999984	s	measured	raw/ollama-cancel-execution.json	
+o141	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		client_exit_to_recovery_end_seconds	5.804152250000001	s	measured	raw/ollama-cancel-recovery-window.json	
+o142	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		gpu_slot_release_seconds		s	unavailable	raw/ollama-cancel-execution.json	No verified native GPU slot monitor; cancel log and recovery do not measure GPU release.
+o143	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.805581417	s	measured	raw/direct-chat-warmup-execution.json	
+o144	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/direct-chat-warmup.metrics.json	
+o145	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	242	tokens	measured	raw/direct-chat-warmup.metrics.json	
+o146	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/direct-chat-warmup.metrics.json	Runtime did not report cached tokens.
+o147	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/direct-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o148	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/direct-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o149	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.7676126659999998	s	measured	raw/direct-chat-r1-execution.json	
+o150	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-r1.metrics.json	
+o151	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	242	tokens	measured	raw/direct-chat-r1.metrics.json	
+o152	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/direct-chat-r1.metrics.json	Runtime did not report cached tokens.
+o153	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/direct-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o154	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/direct-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o155	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.7568168749999997	s	measured	raw/direct-chat-r2-execution.json	
+o156	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-r2.metrics.json	
+o157	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	242	tokens	measured	raw/direct-chat-r2.metrics.json	
+o158	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/direct-chat-r2.metrics.json	Runtime did not report cached tokens.
+o159	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/direct-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o160	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/direct-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o161	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.724419	s	measured	raw/direct-chat-r3-execution.json	
+o162	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-r3.metrics.json	
+o163	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	242	tokens	measured	raw/direct-chat-r3.metrics.json	
+o164	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/direct-chat-r3.metrics.json	Runtime did not report cached tokens.
+o165	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/direct-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o166	direct-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/direct-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o167	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.782985333	s	measured	raw/direct-chat-stream-warmup-execution.json	
+o168	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/direct-chat-stream-warmup.metrics.json	
+o169	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	242	tokens	measured	raw/direct-chat-stream-warmup.metrics.json	
+o170	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/direct-chat-stream-warmup.metrics.json	Runtime did not report cached tokens.
+o171	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s	3.751754958	s	measured	raw/direct-chat-stream-warmup.metrics.json	
+o172	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.067573125	s	measured	raw/direct-chat-stream-warmup.metrics.json	
+o173	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.772105709	s	measured	raw/direct-chat-stream-r1-execution.json	
+o174	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-stream-r1.metrics.json	
+o175	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	242	tokens	measured	raw/direct-chat-stream-r1.metrics.json	
+o176	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/direct-chat-stream-r1.metrics.json	Runtime did not report cached tokens.
+o177	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s	3.7407804999999996	s	measured	raw/direct-chat-stream-r1.metrics.json	
+o178	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.059650084	s	measured	raw/direct-chat-stream-r1.metrics.json	
+o179	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.780291625	s	measured	raw/direct-chat-stream-r2-execution.json	
+o180	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-stream-r2.metrics.json	
+o181	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	242	tokens	measured	raw/direct-chat-stream-r2.metrics.json	
+o182	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/direct-chat-stream-r2.metrics.json	Runtime did not report cached tokens.
+o183	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s	3.7489600829999996	s	measured	raw/direct-chat-stream-r2.metrics.json	
+o184	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.059433083000000005	s	measured	raw/direct-chat-stream-r2.metrics.json	
+o185	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.791379917	s	measured	raw/direct-chat-stream-r3-execution.json	
+o186	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/direct-chat-stream-r3.metrics.json	
+o187	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	242	tokens	measured	raw/direct-chat-stream-r3.metrics.json	
+o188	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/direct-chat-stream-r3.metrics.json	Runtime did not report cached tokens.
+o189	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s	3.759871125	s	measured	raw/direct-chat-stream-r3.metrics.json	
+o190	direct-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.05988924999999999	s	measured	raw/direct-chat-stream-r3.metrics.json	
+o191	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	2.269073	s	measured	raw/direct-tool-warmup-execution.json	
+o192	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	313	tokens	measured	raw/direct-tool-warmup.metrics.json	
+o193	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	73	tokens	measured	raw/direct-tool-warmup.metrics.json	
+o194	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/direct-tool-warmup.metrics.json	Runtime did not report cached tokens.
+o195	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/direct-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o196	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/direct-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o197	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	406	tokens	measured	raw/direct-tool-warmup.followup.metrics.json	
+o198	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	41	tokens	measured	raw/direct-tool-warmup.followup.metrics.json	
+o199	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens		tokens	unavailable	raw/direct-tool-warmup.followup.metrics.json	Runtime did not report cached tokens.
+o200	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s		s	unavailable	raw/direct-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o201	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s		s	unavailable	raw/direct-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o202	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	2.260969042	s	measured	raw/direct-tool-r1-execution.json	
+o203	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-r1.metrics.json	
+o204	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	73	tokens	measured	raw/direct-tool-r1.metrics.json	
+o205	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/direct-tool-r1.metrics.json	Runtime did not report cached tokens.
+o206	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/direct-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o207	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/direct-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o208	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-r1.followup.metrics.json	
+o209	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	41	tokens	measured	raw/direct-tool-r1.followup.metrics.json	
+o210	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens		tokens	unavailable	raw/direct-tool-r1.followup.metrics.json	Runtime did not report cached tokens.
+o211	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s		s	unavailable	raw/direct-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o212	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s		s	unavailable	raw/direct-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o213	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	2.2581849590000003	s	measured	raw/direct-tool-r2-execution.json	
+o214	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-r2.metrics.json	
+o215	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	73	tokens	measured	raw/direct-tool-r2.metrics.json	
+o216	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/direct-tool-r2.metrics.json	Runtime did not report cached tokens.
+o217	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/direct-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o218	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/direct-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o219	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-r2.followup.metrics.json	
+o220	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	41	tokens	measured	raw/direct-tool-r2.followup.metrics.json	
+o221	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens		tokens	unavailable	raw/direct-tool-r2.followup.metrics.json	Runtime did not report cached tokens.
+o222	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s		s	unavailable	raw/direct-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o223	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s		s	unavailable	raw/direct-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o224	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	2.267586375	s	measured	raw/direct-tool-r3-execution.json	
+o225	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-r3.metrics.json	
+o226	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	73	tokens	measured	raw/direct-tool-r3.metrics.json	
+o227	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/direct-tool-r3.metrics.json	Runtime did not report cached tokens.
+o228	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/direct-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o229	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/direct-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o230	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-r3.followup.metrics.json	
+o231	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	41	tokens	measured	raw/direct-tool-r3.followup.metrics.json	
+o232	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens		tokens	unavailable	raw/direct-tool-r3.followup.metrics.json	Runtime did not report cached tokens.
+o233	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s		s	unavailable	raw/direct-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o234	direct-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s		s	unavailable	raw/direct-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o235	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	2.2673478750000005	s	measured	raw/direct-tool-stream-warmup-execution.json	
+o236	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	313	tokens	measured	raw/direct-tool-stream-warmup.metrics.json	
+o237	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	73	tokens	measured	raw/direct-tool-stream-warmup.metrics.json	
+o238	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/direct-tool-stream-warmup.metrics.json	Runtime did not report cached tokens.
+o239	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/direct-tool-stream-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o240	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.225302625	s	measured	raw/direct-tool-stream-warmup.metrics.json	
+o241	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	406	tokens	measured	raw/direct-tool-stream-warmup.followup.metrics.json	
+o242	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	41	tokens	measured	raw/direct-tool-stream-warmup.followup.metrics.json	
+o243	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens		tokens	unavailable	raw/direct-tool-stream-warmup.followup.metrics.json	Runtime did not report cached tokens.
+o244	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s	0.8469573749999999	s	measured	raw/direct-tool-stream-warmup.followup.metrics.json	
+o245	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s	0.29705712500000003	s	measured	raw/direct-tool-stream-warmup.followup.metrics.json	
+o246	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	2.273720833	s	measured	raw/direct-tool-stream-r1-execution.json	
+o247	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-stream-r1.metrics.json	
+o248	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	73	tokens	measured	raw/direct-tool-stream-r1.metrics.json	
+o249	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r1.metrics.json	Runtime did not report cached tokens.
+o250	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/direct-tool-stream-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o251	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.22599266699999998	s	measured	raw/direct-tool-stream-r1.metrics.json	
+o252	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-stream-r1.followup.metrics.json	
+o253	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	41	tokens	measured	raw/direct-tool-stream-r1.followup.metrics.json	
+o254	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r1.followup.metrics.json	Runtime did not report cached tokens.
+o255	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s	0.8533539160000001	s	measured	raw/direct-tool-stream-r1.followup.metrics.json	
+o256	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s	0.30219816600000016	s	measured	raw/direct-tool-stream-r1.followup.metrics.json	
+o257	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	2.281431125	s	measured	raw/direct-tool-stream-r2-execution.json	
+o258	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-stream-r2.metrics.json	
+o259	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	73	tokens	measured	raw/direct-tool-stream-r2.metrics.json	
+o260	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r2.metrics.json	Runtime did not report cached tokens.
+o261	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/direct-tool-stream-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o262	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.22846341600000003	s	measured	raw/direct-tool-stream-r2.metrics.json	
+o263	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-stream-r2.followup.metrics.json	
+o264	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	41	tokens	measured	raw/direct-tool-stream-r2.followup.metrics.json	
+o265	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r2.followup.metrics.json	Runtime did not report cached tokens.
+o266	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s	0.8549231249999998	s	measured	raw/direct-tool-stream-r2.followup.metrics.json	
+o267	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s	0.30375204199999994	s	measured	raw/direct-tool-stream-r2.followup.metrics.json	
+o268	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	2.277007083	s	measured	raw/direct-tool-stream-r3-execution.json	
+o269	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	313	tokens	measured	raw/direct-tool-stream-r3.metrics.json	
+o270	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	73	tokens	measured	raw/direct-tool-stream-r3.metrics.json	
+o271	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r3.metrics.json	Runtime did not report cached tokens.
+o272	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/direct-tool-stream-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o273	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.226698208	s	measured	raw/direct-tool-stream-r3.metrics.json	
+o274	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	406	tokens	measured	raw/direct-tool-stream-r3.followup.metrics.json	
+o275	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	41	tokens	measured	raw/direct-tool-stream-r3.followup.metrics.json	
+o276	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens		tokens	unavailable	raw/direct-tool-stream-r3.followup.metrics.json	Runtime did not report cached tokens.
+o277	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s	0.8542537080000001	s	measured	raw/direct-tool-stream-r3.followup.metrics.json	
+o278	direct-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s	0.30364820800000003	s	measured	raw/direct-tool-stream-r3.followup.metrics.json	
+o279	direct-8k	Qwen3.5-9B	llama.cpp	metal	8192		min_free_pages_bytes	19471204352	bytes	measured	raw/direct-memory.jsonl	
+o280	direct-8k	Qwen3.5-9B	llama.cpp	metal	8192		max_observed_tree_rss_bytes	8088813568	bytes	measured	raw/direct-memory.jsonl	
+o281	direct-8k	Qwen3.5-9B	llama.cpp	metal	8192		swap_used_bytes_max	0	bytes	measured	raw/direct-memory.jsonl	
+o282	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.7657497920000003	s	measured	raw/lms-metal-chat-warmup-execution.json	
+o283	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-warmup.metrics.json	
+o284	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-warmup.metrics.json	
+o285	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-warmup.metrics.json	Runtime did not report cached tokens.
+o286	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/lms-metal-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o287	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-chat-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o288	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	4.781986791	s	measured	raw/lms-metal-chat-r1-execution.json	
+o289	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-r1.metrics.json	
+o290	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-r1.metrics.json	
+o291	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-r1.metrics.json	Runtime did not report cached tokens.
+o292	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/lms-metal-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o293	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-chat-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o294	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	4.338833291	s	measured	raw/lms-metal-chat-r2-execution.json	
+o295	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-r2.metrics.json	
+o296	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-r2.metrics.json	
+o297	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-r2.metrics.json	Runtime did not report cached tokens.
+o298	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/lms-metal-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o299	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-chat-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o300	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	4.135617375	s	measured	raw/lms-metal-chat-r3-execution.json	
+o301	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-r3.metrics.json	
+o302	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-r3.metrics.json	
+o303	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-r3.metrics.json	Runtime did not report cached tokens.
+o304	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/lms-metal-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o305	lms-metal-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-chat-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o306	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	4.081955458	s	measured	raw/lms-metal-chat-stream-warmup-execution.json	
+o307	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-stream-warmup.metrics.json	
+o308	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-stream-warmup.metrics.json	
+o309	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-stream-warmup.metrics.json	Runtime did not report cached tokens.
+o310	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s	4.0382005	s	measured	raw/lms-metal-chat-stream-warmup.metrics.json	
+o311	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.040134875	s	measured	raw/lms-metal-chat-stream-warmup.metrics.json	
+o312	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	4.200001875	s	measured	raw/lms-metal-chat-stream-r1-execution.json	
+o313	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-stream-r1.metrics.json	
+o314	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-stream-r1.metrics.json	
+o315	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-stream-r1.metrics.json	Runtime did not report cached tokens.
+o316	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s	4.161347125	s	measured	raw/lms-metal-chat-stream-r1.metrics.json	
+o317	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.042907375	s	measured	raw/lms-metal-chat-stream-r1.metrics.json	
+o318	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	4.452203708	s	measured	raw/lms-metal-chat-stream-r2-execution.json	
+o319	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-stream-r2.metrics.json	
+o320	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-stream-r2.metrics.json	
+o321	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-stream-r2.metrics.json	Runtime did not report cached tokens.
+o322	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s	4.41076875	s	measured	raw/lms-metal-chat-stream-r2.metrics.json	
+o323	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.03536825	s	measured	raw/lms-metal-chat-stream-r2.metrics.json	
+o324	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	4.371132125	s	measured	raw/lms-metal-chat-stream-r3-execution.json	
+o325	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	19	tokens	measured	raw/lms-metal-chat-stream-r3.metrics.json	
+o326	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	215	tokens	measured	raw/lms-metal-chat-stream-r3.metrics.json	
+o327	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/lms-metal-chat-stream-r3.metrics.json	Runtime did not report cached tokens.
+o328	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s	4.330558042	s	measured	raw/lms-metal-chat-stream-r3.metrics.json	
+o329	lms-metal-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.046045	s	measured	raw/lms-metal-chat-stream-r3.metrics.json	
+o330	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.6135792920000003	s	measured	raw/lms-metal-tool-warmup-execution.json	
+o331	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-warmup.metrics.json	
+o332	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-warmup.metrics.json	
+o333	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-warmup.metrics.json	Runtime did not report cached tokens.
+o334	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o335	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o336	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-warmup.followup.metrics.json	
+o337	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-warmup.followup.metrics.json	
+o338	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-warmup.followup.metrics.json	Runtime did not report cached tokens.
+o339	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s		s	unavailable	raw/lms-metal-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o340	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-warmup.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o341	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.340494959	s	measured	raw/lms-metal-tool-r1-execution.json	
+o342	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-r1.metrics.json	
+o343	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-r1.metrics.json	
+o344	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r1.metrics.json	Runtime did not report cached tokens.
+o345	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o346	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o347	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-r1.followup.metrics.json	
+o348	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-r1.followup.metrics.json	
+o349	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r1.followup.metrics.json	Runtime did not report cached tokens.
+o350	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s		s	unavailable	raw/lms-metal-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o351	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r1.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o352	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.300512542	s	measured	raw/lms-metal-tool-r2-execution.json	
+o353	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-r2.metrics.json	
+o354	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-r2.metrics.json	
+o355	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r2.metrics.json	Runtime did not report cached tokens.
+o356	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o357	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o358	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-r2.followup.metrics.json	
+o359	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-r2.followup.metrics.json	
+o360	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r2.followup.metrics.json	Runtime did not report cached tokens.
+o361	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s		s	unavailable	raw/lms-metal-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o362	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r2.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o363	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.278856208	s	measured	raw/lms-metal-tool-r3-execution.json	
+o364	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-r3.metrics.json	
+o365	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-r3.metrics.json	
+o366	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r3.metrics.json	Runtime did not report cached tokens.
+o367	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o368	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o369	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-r3.followup.metrics.json	
+o370	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-r3.followup.metrics.json	
+o371	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-r3.followup.metrics.json	Runtime did not report cached tokens.
+o372	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s		s	unavailable	raw/lms-metal-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o373	lms-metal-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s		s	unavailable	raw/lms-metal-tool-r3.followup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o374	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_round_trip_s	3.354431542	s	measured	raw/lms-metal-tool-stream-warmup-execution.json	
+o375	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-stream-warmup.metrics.json	
+o376	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-stream-warmup.metrics.json	
+o377	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-warmup.metrics.json	Runtime did not report cached tokens.
+o378	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-stream-warmup.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o379	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_initial_ttft_reasoning_s	0.037382083	s	measured	raw/lms-metal-tool-stream-warmup.metrics.json	
+o380	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-stream-warmup.followup.metrics.json	
+o381	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-stream-warmup.followup.metrics.json	
+o382	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-warmup.followup.metrics.json	Runtime did not report cached tokens.
+o383	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_content_s	0.8608784169999999	s	measured	raw/lms-metal-tool-stream-warmup.followup.metrics.json	
+o384	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	warmup_followup_ttft_reasoning_s	0.12309912499999998	s	measured	raw/lms-metal-tool-stream-warmup.followup.metrics.json	
+o385	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	round_trip_s	3.335370792	s	measured	raw/lms-metal-tool-stream-r1-execution.json	
+o386	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-stream-r1.metrics.json	
+o387	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-stream-r1.metrics.json	
+o388	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r1.metrics.json	Runtime did not report cached tokens.
+o389	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-stream-r1.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o390	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	initial_ttft_reasoning_s	0.036933333	s	measured	raw/lms-metal-tool-stream-r1.metrics.json	
+o391	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-stream-r1.followup.metrics.json	
+o392	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-stream-r1.followup.metrics.json	
+o393	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r1.followup.metrics.json	Runtime did not report cached tokens.
+o394	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_content_s	0.8509865419999998	s	measured	raw/lms-metal-tool-stream-r1.followup.metrics.json	
+o395	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	1	followup_ttft_reasoning_s	0.12341337499999971	s	measured	raw/lms-metal-tool-stream-r1.followup.metrics.json	
+o396	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	round_trip_s	3.29163925	s	measured	raw/lms-metal-tool-stream-r2-execution.json	
+o397	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-stream-r2.metrics.json	
+o398	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-stream-r2.metrics.json	
+o399	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r2.metrics.json	Runtime did not report cached tokens.
+o400	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-stream-r2.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o401	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	initial_ttft_reasoning_s	0.034920916999999996	s	measured	raw/lms-metal-tool-stream-r2.metrics.json	
+o402	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-stream-r2.followup.metrics.json	
+o403	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-stream-r2.followup.metrics.json	
+o404	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r2.followup.metrics.json	Runtime did not report cached tokens.
+o405	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_content_s	0.8649099580000001	s	measured	raw/lms-metal-tool-stream-r2.followup.metrics.json	
+o406	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	2	followup_ttft_reasoning_s	0.12511850000000013	s	measured	raw/lms-metal-tool-stream-r2.followup.metrics.json	
+o407	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	round_trip_s	3.437849375	s	measured	raw/lms-metal-tool-stream-r3-execution.json	
+o408	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_prompt_tokens	313	tokens	measured	raw/lms-metal-tool-stream-r3.metrics.json	
+o409	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_completion_tokens	128	tokens	measured	raw/lms-metal-tool-stream-r3.metrics.json	
+o410	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r3.metrics.json	Runtime did not report cached tokens.
+o411	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_content_s		s	unavailable	raw/lms-metal-tool-stream-r3.metrics.json	JSON has no arrival timing; or this SSE phase has no corresponding content/reasoning delta.
+o412	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	initial_ttft_reasoning_s	0.0369715	s	measured	raw/lms-metal-tool-stream-r3.metrics.json	
+o413	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_prompt_tokens	461	tokens	measured	raw/lms-metal-tool-stream-r3.followup.metrics.json	
+o414	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_completion_tokens	44	tokens	measured	raw/lms-metal-tool-stream-r3.followup.metrics.json	
+o415	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_cached_tokens		tokens	unavailable	raw/lms-metal-tool-stream-r3.followup.metrics.json	Runtime did not report cached tokens.
+o416	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_content_s	0.8619065420000003	s	measured	raw/lms-metal-tool-stream-r3.followup.metrics.json	
+o417	lms-metal-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192	3	followup_ttft_reasoning_s	0.11660812499999995	s	measured	raw/lms-metal-tool-stream-r3.followup.metrics.json	
+o418	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		min_free_pages_bytes	17311121408	bytes	measured	raw/lms-metal-memory.jsonl	
+o419	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		max_observed_tree_rss_bytes	10634149888	bytes	measured	raw/lms-metal-memory.jsonl	
+o420	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		swap_used_bytes_max	0	bytes	measured	raw/lms-metal-memory.jsonl	
+o421	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		client_timeout_seconds	1.0598432919999965	s	measured	raw/lms-metal-cancel-execution.json	
+o422	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		client_exit_to_recovery_end_seconds	5.880228708000004	s	measured	raw/lms-metal-cancel-recovery-window.json	
+o423	lms-metal-8k	Qwen3.5-9B	llama.cpp	metal	8192		gpu_slot_release_seconds		s	unavailable	raw/lms-metal-cancel-execution.json	No verified native GPU slot monitor; cancel log and recovery do not measure GPU release.
+o424	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192	1	failed_request_duration_s	0.42577175	s	measured	raw/lms-mlx-chat-warmup.metrics.json	
+o425	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192	1	round_trip_s		s	failed	raw/lms-mlx-chat-warmup.metrics.json	Remote end closed connection without response
+o426	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-startup		status	failed	raw/ollama-prestart-fatal.json	Port11434 occupied by central GUI-server; no model imported/loaded.
+o427	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-warmup		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o428	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-r1		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o429	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-r2		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o430	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-r3		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o431	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-stream-warmup		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o432	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-stream-r1		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o433	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-stream-r2		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o434	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-chat-stream-r3		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o435	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-warmup		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o436	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-r1		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o437	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-r2		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o438	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-r3		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o439	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-stream-warmup		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o440	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-stream-r1		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o441	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-stream-r2		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o442	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-tool-stream-r3		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o443	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-cancel		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o444	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-cancel-recovery		status	not-run	raw/ollama-prestart-fatal.json	Stopped deployment: [Errno 48] Address already in use
+o445	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart-shutdown		status	not-run	raw/ollama-prestart-fatal.json	No owned server launched; shutdown not needed.
+o446	lms-mlx-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-startup		status	failed	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o447	lms-mlx-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-warmup		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o448	lms-mlx-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-r1		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o449	lms-mlx-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-r2		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o450	lms-mlx-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-r3		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o451	lms-mlx-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-stream-warmup		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o452	lms-mlx-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-stream-r1		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o453	lms-mlx-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-stream-r2		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o454	lms-mlx-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-chat-stream-r3		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o455	lms-mlx-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-warmup		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o456	lms-mlx-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-r1		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o457	lms-mlx-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-r2		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o458	lms-mlx-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-r3		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o459	lms-mlx-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-stream-warmup		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o460	lms-mlx-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-stream-r1		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o461	lms-mlx-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-stream-r2		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o462	lms-mlx-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-tool-stream-r3		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o463	lms-mlx-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-cancel		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o464	lms-mlx-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-cancel-recovery		status	not-run	raw/lms-mlx-first-fatal.json	Stopped deployment: []
+o465	lms-mlx-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-first-shutdown		status	failed	raw/lms-mlx-first-shutdown-execution.json	Memory/power guard failed
+o466	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-startup		status	failed	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o467	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-warmup		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o468	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-r1		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o469	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-r2		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o470	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-r3		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o471	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-stream-warmup		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o472	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-stream-r1		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o473	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-stream-r2		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o474	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-chat-stream-r3		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o475	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-warmup		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o476	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-r1		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o477	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-r2		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o478	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-r3		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o479	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-stream-warmup		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o480	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-stream-r1		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o481	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-stream-r2		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o482	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-tool-stream-r3		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o483	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-cancel		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o484	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-cancel-recovery		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o485	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-prestart2-shutdown		status	not-run	raw/ollama-prestart2-fatal.json	Central application restarted server on11434; model/import not started.
+o486	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-startup		status	failed	raw/ollama-import-prestart-startup-health.json	Imported blob exists; verifier expected legacy manifests directory absent in0.40.1. No inference.
+o487	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-warmup		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o488	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-r1		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o489	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-r2		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o490	ollama-8k-chat	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-r3		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o491	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-stream-warmup		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o492	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-stream-r1		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o493	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-stream-r2		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o494	ollama-8k-chat-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-chat-stream-r3		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o495	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-warmup		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o496	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-r1		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o497	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-r2		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o498	ollama-8k-tool	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-r3		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o499	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-stream-warmup		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o500	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-stream-r1		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o501	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-stream-r2		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o502	ollama-8k-tool-stream	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-tool-stream-r3		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o503	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-cancel		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o504	ollama-8k	Qwen3.5-9B	llama.cpp	metal	8192		attempt_ollama-import-prestart-cancel-recovery		status	not-run	raw/ollama-import-prestart-fatal.json	Stopped deployment: 
+o505	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-startup		status	failed	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o506	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-warmup		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o507	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-r1		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o508	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-r2		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o509	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-r3		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o510	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-stream-warmup		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o511	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-stream-r1		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o512	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-stream-r2		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o513	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-chat-stream-r3		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o514	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-warmup		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o515	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-r1		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o516	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-r2		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o517	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-r3		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o518	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-stream-warmup		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o519	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-stream-r1		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o520	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-stream-r2		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o521	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-tool-stream-r3		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o522	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-cancel		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o523	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-selector-cancel-recovery		status	not-run	raw/lms-mlx-selector-fatal.json	Stopped deployment: startup-load failed
+o524	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-warmup		status	failed	raw/lms-mlx-chat-warmup-execution.json	Probe failed
+o525	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-r1		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o526	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-r2		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o527	lms-mlx-cache-aware-8k-chat	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-r3		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o528	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-stream-warmup		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o529	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-stream-r1		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o530	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-stream-r2		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o531	lms-mlx-cache-aware-8k-chat-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-chat-stream-r3		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o532	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-warmup		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o533	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-r1		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o534	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-r2		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o535	lms-mlx-cache-aware-8k-tool	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-r3		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o536	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-stream-warmup		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o537	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-stream-r1		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o538	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-stream-r2		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o539	lms-mlx-cache-aware-8k-tool-stream	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-tool-stream-r3		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o540	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-cancel		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o541	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-cancel-recovery		status	not-run	raw/lms-mlx-fatal.json	Stopped deployment: lms-mlx-chat-warmup: Probe failed
+o542	lms-mlx-cache-aware-8k	Qwen3.5-9B	mlx-llm	metal	8192		attempt_lms-mlx-shutdown		status	failed	raw/lms-mlx-shutdown-execution.json	shutdown-server failed

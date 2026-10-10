@@ -1,0 +1,256 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB34",
+  "harness_id": null,
+  "session_id": "apple-direct-load-20261008",
+  "created_at": "2026-10-08T14:48:26.418Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Client concurrency2/4 даст>=10%medianthroughput gain при fixed slot1 и p95<=60s; прошедшаяконфигурация устойчива30min.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-08T14:52:19.556Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB28-apple-first-20261007/raw/hardware-snapshot.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-serving-central-20261008/raw/baseline-artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB34-apple-direct-load-20261008/raw/runtime-manifest.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "startup",
+      "configuration_id": "direct-ctx8192-slot1-startup",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/startup-execution.json",
+        "raw/startup-process.json",
+        "raw/startup-props.json",
+        "raw/startup-slots.json"
+      ]
+    },
+    {
+      "id": "warmup",
+      "configuration_id": "direct-ctx8192-slot1-warmup",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/warmup-driver.txt",
+        "raw/warmup-execution.json",
+        "raw/warmup/config.json",
+        "raw/warmup/request-0001.json",
+        "raw/warmup/request-0001.response.bin",
+        "raw/warmup/request-0002.json",
+        "raw/warmup/request-0002.response.bin",
+        "raw/warmup/request.json",
+        "raw/warmup/summary.json",
+        "raw/warmup/system-memory.jsonl"
+      ]
+    },
+    {
+      "id": "r1-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r1-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r1-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r2-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r2-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r2-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r3-c4",
+      "configuration_id": "direct-ctx8192-slot1-c4",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r3-c1",
+      "configuration_id": "direct-ctx8192-slot1-c1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "r3-c2",
+      "configuration_id": "direct-ctx8192-slot1-c2",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "sustained",
+      "configuration_id": "direct-ctx8192-slot1-sustained",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier failure: Memory/power admission failed",
+      "evidence_files": [
+        "raw/campaign-error.json"
+      ]
+    },
+    {
+      "id": "shutdown",
+      "configuration_id": "direct-ctx8192-slot1-shutdown",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Memory/power admission failed",
+      "evidence_files": [
+        "raw/shutdown-execution.json"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "raw/build-reference.json",
+    "raw/campaign-error.json",
+    "raw/concurrency_driver.py",
+    "raw/concurrency_test.py",
+    "raw/evidence-sha256.json",
+    "raw/finalize_load.py",
+    "raw/load-request.json",
+    "raw/memory-timeline.jsonl",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/r1-c1-driver.txt",
+    "raw/r1-c1-execution.json",
+    "raw/r1-c1/config.json",
+    "raw/r1-c1/request-0001.json",
+    "raw/r1-c1/request-0001.response.bin",
+    "raw/r1-c1/request-0002.json",
+    "raw/r1-c1/request-0002.response.bin",
+    "raw/r1-c1/request-0003.json",
+    "raw/r1-c1/request-0003.response.bin",
+    "raw/r1-c1/request-0004.json",
+    "raw/r1-c1/request-0004.response.bin",
+    "raw/r1-c1/request-0005.json",
+    "raw/r1-c1/request-0005.response.bin",
+    "raw/r1-c1/request-0006.json",
+    "raw/r1-c1/request-0006.response.bin",
+    "raw/r1-c1/request-0007.json",
+    "raw/r1-c1/request-0007.response.bin",
+    "raw/r1-c1/request-0008.json",
+    "raw/r1-c1/request-0008.response.bin",
+    "raw/r1-c1/request-0009.json",
+    "raw/r1-c1/request-0009.response.bin",
+    "raw/r1-c1/request-0010.json",
+    "raw/r1-c1/request-0010.response.bin",
+    "raw/r1-c1/request-0011.json",
+    "raw/r1-c1/request-0011.response.bin",
+    "raw/r1-c1/request-0012.json",
+    "raw/r1-c1/request-0012.response.bin",
+    "raw/r1-c1/request.json",
+    "raw/r1-c1/summary.json",
+    "raw/r1-c1/system-memory.jsonl",
+    "raw/registered-source-hashes.json",
+    "raw/resources.py",
+    "raw/run_load-at-start.py",
+    "raw/run_load.py",
+    "raw/runtime-manifest.json",
+    "raw/server.txt",
+    "raw/shutdown-controller-erratum.md",
+    "raw/shutdown-execution.json",
+    "raw/sleep-assertion.json",
+    "raw/startup-execution.json",
+    "raw/startup-process.json",
+    "raw/startup-props.json",
+    "raw/startup-slots.json",
+    "raw/summary.json",
+    "raw/warmup-driver.txt",
+    "raw/warmup-execution.json",
+    "raw/warmup/config.json",
+    "raw/warmup/request-0001.json",
+    "raw/warmup/request-0001.response.bin",
+    "raw/warmup/request-0002.json",
+    "raw/warmup/request-0002.response.bin",
+    "raw/warmup/request.json",
+    "raw/warmup/summary.json",
+    "raw/warmup/system-memory.jsonl"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "HTTP load exercise without agent harness.",
+    "gpu_budget_gib": "No maximal allocationcampaign.",
+    "energy": "Notmeasured.",
+    "temperature": "Verifiedthermalcollector absent.",
+    "ttft": "Non-streamingHTTP only.",
+    "completion": "Memory guard interrupted first short block; subsequent cells/sustained not-run. Original cleanup sent a second SIGINT, native exit -6; fixed controller has not been rerun.",
+    "concurrency_scaling": "No full three-repeat matrix; no parallelism inference.",
+    "sustained": "1800s sustained series not admitted."
+  },
+  "conclusion": "Warmup2/2 passed. First c1 block stopped at free+speculative16GiB guard,1/12 successful,11 failures retained; c2/c4 and30min not run. Second controller SIGINT caused native Metal teardown assertion; no spontaneous GPU crash claim.",
+  "reviewer_decision": null
+}

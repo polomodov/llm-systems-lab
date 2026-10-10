@@ -1,6 +1,17 @@
 # Apple M5 Max / 128 GB / macOS
 
-Второй стенд кампании локальных моделей. Профили дополнены первыми аппаратными измерениями от 07–08.10.2026; условия и ограничения сохранены в отчётах. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` ссылается на архивированный паспорт LAB28 для RAM/ОС; резервы остаются гипотезами, свободный GPU budget — неизвестным.
+Второй стенд кампании локальных моделей. Профили дополнены первыми аппаратными измерениями от 07–09.10.2026; условия и ограничения сохранены в отчётах. Матрица моделей общая с Ryzen, но совместимость архитектуры, размер MLX-артефакта и бюджет GPU проверяются заново. `hardware.json` ссылается на архивированный паспорт LAB28 для RAM/ОС; резервы остаются гипотезами, свободный GPU budget — неизвестным.
+
+Последнее продолжение от 09.10.2026:
+
+- [LAB35: Apple qualification и подготовка общей пары](../measurements/LAB35-apple-http-preregistered-20261009/report.md): исходный Metal и отдельная tensor/tile16 сборка прошли **16/16** общих chat/load случаев с warmup + тремя repeats, context 8192 / concurrency 1. Median chat **3,771 / 4,803 s**, load **34,316 / 40,031 s**, completion usage соответственно 242 / 2048 одинаков в обеих ветвях. RSS peak около **7,640 GiB**, swap 0, штатный cleanup. Порядок standard→tensor и отсутствие thermal measurements не позволяют приписать разницу одному tensor API. Review correction: tensor startup проверил только executables; 21 dylib pins добавлены после серии, execution-time library identity остаётся unverified. Все HTTP результаты сохранены, полной tensor qualification пока нет. **LAB35 blocked:** нет свежей чередованной Ryzen HTTP-серии, SSH/endpoint не предоставлен; agent LAB08/LAB09 pending. Две подготовки с driver path/schema errors сохранены до HTTP. Основная будущая пара — unmodified Metal против HIP b8407, source patch tensor рассматривается отдельно.
+- [LAB34: завершённая длительная серия](../measurements/LAB34-apple-sustained-resume-20261009/report.md): direct llama.cpp b8407+tile16 / Metal / Qwen3.5-9B Q6_K / context 8192, один server slot. После свежего прогрева c1 выполнил **35,51 минуты, 48/48 без ошибок**, whole-interval throughput **46,135 completion tokens/s**. Peak native RSS **7,584 GiB**, swap **0**, normal pressure, AC/mode 0; native exit 0, один SIGINT. Девять успешных коротких клеток c1/c2/c4 проверены по primary copies двух предыдущих сессий; новый long использует отдельный процесс. Это допуск клиентской очереди к одному GPU-слоту, без проверки 2/4 одновременных GPU-слотов или максимального GPU budget.
+- [LAB34: короткая матрица и предыдущий failed long](../measurements/LAB34-apple-load-power-retry-20261009/report.md): пять новых блоков 12/12 вместе с четырьмя успешными блоками 08.10 дают три повтора для c1/c2/c4. Median throughput отличаются менее чем на 2%, очередь увеличивает latency. Первые 337 секунд long завершились 8 successes/4 errors и SIGKILL неизвестного происхождения; исходный register/evidence сохранён, отчёт остаётся blocked.
+- [Первое продолжение LAB34](../measurements/LAB34-apple-load-resume-20261009/report.md) остаётся blocked: r2-c4 retry 11/12 после перехода AC→Battery, один timeout; owned native завершился с одним SIGINT / exit 0. [Первая полная кампания](../measurements/LAB34-apple-load-complete-20261008/report.md) также остаётся blocked после SIGKILL неизвестного происхождения. Исторические copies и ошибки не считаются повторно.
+- [Первый нагрузочный опыт](../measurements/LAB34-apple-direct-load-20261008/report.md): memory guard остановил c1 после 1/12; второй SIGINT вызвал teardown assertion. Cleanup исправлен; последующие штатные и guarded завершения с одним SIGINT сохранены отдельно.
+- [LAB33: диагностика service lifecycle](../measurements/LAB33-apple-lifecycle-20261008/report.md): MLX прошёл 16/16 chat/tool cases и recovery при сохранённом app PID; native cancellation остаётся unverified. GGUF retry остановлен free-only guard до chat.
+
+Для завершения начатой LAB35 нужен доступ к Ryzen и новая парная регистрация с чередованием стендов. Агентная часть требует реализации/приёмки LAB08 и LAB09. Семь ошибок трёх предыдущих учитываемых LAB34-сессий сохраняются; zero-error нового long их не отменяет. GPU budget остаётся null, профили conditional; пользовательские настройки памяти не менялись.
 
 ## Первые результаты — 07–08.10.2026
 
@@ -16,6 +27,21 @@
 - [LAB32: самостоятельный допуск32K и recovery при budget128](../measurements/LAB32-apple-qwen35-9b-32k-recovery-20261008/report.md): на основании прежней32K диагностики проведена отдельная регистрация с повторной проверкой четырёх short cases и long input28670 (warmup+3), затем cancel/overflow/recovery в одном resident process. **28/28 попыток прошли**. Long median **29.639s**, tool round trip JSON/SSE **2.322/2.335s**. Cancel: curl exit28/DONE отсутствует, active/canceled taskID совпадает; слот освободился через **27.154s после client exit** в заранее зарегистрированном окне60s, recovery успешен без restart. Overflow input **57331** при hard32768 отклонёнHTTP400, recovery успешен. Nativeexit0, maxRSS **9.866GiB**, swap0. Это операционный допуск отдельного32K deployment при budget128; **полныймаршрутLAB32 не завершён** из-за сохранённого16K failure. Отмена не мгновенная; harness должен отдельно принять её задержку. Изменения контроллера и различие окна15/60s описаны в protocol/report.
 
 В архивном Ryzen/Vulkan при совпавших параметрах PP2048 median857.88, TG128@4096 median29.40 tokens/s; отношение исходного Mac/Vulkan — 1.017×/2.172×. Это измеренное сравнение deployments с разными hardware/OS/compiler, не изолированный эффект backend и не агентское качество. Исходная Mac baseline работала на standard Metal SIMD после отказа tensor probe; новая диагностика выше установила причину и проверила исправление отдельно. Полный GPU allocation limit не установлен; HTTP8K/16K подтверждены для LAB32 fixtures, 32K long final contract не прошёл. Failed downloads, checker correction и pilot без power timeline сохранены вместе с подтверждающей серией.
+
+
+## LAB33 и обычный запуск приложений — 08.10.2026
+
+По запросу владельца установлены `/Applications/Ollama.app`0.40.1 и `/Applications/LM Studio.app`0.4.25+1; `ollama` и `lms` доступны через обычный PATH. Официальные архивы и code signatures проверены; версии/hashes сохранены в [отчёте LAB33](../measurements/LAB33-apple-serving-central-20261008/report.md). Запуск вне лаборатории:
+
+```sh
+open -a Ollama
+open -a 'LM Studio'
+ollama --version
+lms --version
+lms ls
+```
+
+[Исходный Battery preflight](../measurements/LAB33-apple-ollama-qwen35-9b-20261008/report.md) отдельно blocked до модели. Новая AC серия: Ollama16/16 и LMS/GGUF16/16 short chat/tool JSON/SSE, cancel/recovery; direct baseline16/16. Medians tool JSON1.319/3.301/2.261s соответственно — сравнение разных deployments. Actual Ollama Metal/M5/33of33offload подтверждён; у LMS actual package2.54.0 известен, device/offload доказательство неполно. LMS MLX1.13.1 загрузился, но первый HTTP chat оборвался при исчезновении GUI процесса; причина неизвестна, вся LAB33 остаётся blocked. Подробности, resource amendments и failures в отчёте; GPU budget/null и общие conditional профили не изменены.
 
 ## Команды планирования
 

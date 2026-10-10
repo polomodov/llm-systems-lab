@@ -1,0 +1,71 @@
+{
+  "path": "/Users/lab/.lmstudio/extensions/backends/llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0",
+  "manifest": {
+    "version": "2.54.0",
+    "domains": [
+      "llm",
+      "embedding"
+    ],
+    "engine": "llama.cpp",
+    "target_libraries": [
+      {
+        "name": "llm_engine.node",
+        "type": "llm_engine",
+        "version": "0.1.2"
+      },
+      {
+        "name": "liblmstudio_bindings.node",
+        "type": "liblmstudio",
+        "version": "0.2.26"
+      }
+    ],
+    "platform": "mac",
+    "cpu": {
+      "architecture": "ARM64",
+      "instruction_set_extensions": [
+        "AdvSIMD"
+      ]
+    },
+    "gpu": {
+      "make": "Apple",
+      "framework": "Metal"
+    },
+    "supported_model_formats": [
+      "gguf"
+    ],
+    "manifest_version": "4",
+    "extension_type": "engine",
+    "minimum_lmstudio_version": "0.4.0+15",
+    "minimum_llmster_version": "0.0.1+9",
+    "engine_protocol_server": {
+      "runtime_kind": "llama-server",
+      "executable_relative_path": "llama-server"
+    },
+    "name": "llama.cpp-mac-arm64-apple-metal-advsimd"
+  },
+  "files": {
+    "liblmstudio_bindings.node": "41a3ad523e7be0b5e6f15d49e6a23446e4d329f9038f0af6aea3c2e3a263a68b",
+    "libllama-common.0.6.0.dylib": "d9976cff05c9e30debcec02c047f61941508edc9f440d21ec9fb949b59d40061",
+    "libmtmd.dylib": "8beecb7e9935d535632dcdc406238a331415aa4948cd5f3adb2dc82c8269b392",
+    "libllama-server-impl.dylib": "e4c2a277cf8c59c8b6e42ea283d9c0e03caacaa71f964313394a91982e2c8b60",
+    "backend-manifest.json": "1ef558a0edd44933fa28836420befb4c63e4ffc08a45f39dfb815486ed83bd98",
+    "libggml-base.dylib": "d709e76b524475b783b8a3cb246106766451cd52e097952dff62addfd8a89988",
+    "libggml_llamacpp.dylib": "1c481ba14660562d6264aa21e75d43d7548f5c782b799ba7e3188de836d28526",
+    "libggml-blas.dylib": "8e9d3d82f90f3fdd20331849a5e47af66faa210aac949d17f086888c8ee091bc",
+    "libllama-common.0.dylib": "d9976cff05c9e30debcec02c047f61941508edc9f440d21ec9fb949b59d40061",
+    "libllama.dylib": "b53ea1d361d16d8691f37061602f7eedf024a56ea1f05c9be303bd98b8b54d28",
+    "libllm_engine.dylib": "1109bfbd62c46c2fef1b2e06031d1b26c27d0ca08d4727fa70f9ba003e10914f",
+    "display-data.json": "f982e3e22ec13327273716b2fa07181522eff6d15af94e24e3807ff36b885980",
+    "libggml-cpu.dylib": "14fba2ed2b1d218e86e7e5a70b976033d509129aa7265d453e08f80644c75984",
+    "libggml-metal.dylib": "1a796f9cf9d1f23793966288cce15b63811441b76d745165a24cd3cb7ca5b971",
+    "engine-protocol-server-artifacts.json": "def243cb43340b4a2e30c9c2f8bea1ebe2f91d6681b32785ae4d62d4fb0320f9",
+    "llama-server": "973fe1a5056e37dd6b56569d94f80b9e1bc1e9b851d107e3976927c817eb5fcf",
+    "libllama-common.dylib": "d9976cff05c9e30debcec02c047f61941508edc9f440d21ec9fb949b59d40061",
+    "llm_engine.node": "14717469a81471e65c47be5c6546c76d082552fbc511e0b3b039c1029737069d"
+  },
+  "selected_inventory": "LLM ENGINE                                          SELECTED    MODEL FORMAT\nllama.cpp-mac-arm64-apple-metal-advsimd@2.54.0         ✓            GGUF    \nllama.cpp-mac-arm64-apple-metal-advsimd@2.41.0                      GGUF    \nmlx-llm-mac-arm64-apple-metal-advsimd@1.11.0                        MLX     \nmlx-llm-mac-arm64-apple-metal-nax-advsimd@1.13.1       ✓            MLX     \n",
+  "reasoning": "native default; requested effort omitted as unsupported/unverified",
+  "kv_cache_dtype": null,
+  "cache_policy": null,
+  "unavailable": "CLI does not pin all KV/cache/default-reasoning parameters; actual logs retained"
+}

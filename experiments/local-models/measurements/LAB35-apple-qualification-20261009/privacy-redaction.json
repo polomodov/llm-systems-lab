@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "manifest.json",
+      "original_sha256": "1294cbf46d30fca295aa8152f1068bd22b7e12c881becdf95afc14488a8883d4",
+      "published_sha256": "300e40854d63ef3f00dc37ba00f39898817242ed35c7cb8ee4cb479b3fffd552",
+      "original_bytes": 19533,
+      "published_bytes": 19407
+    },
+    {
+      "path": "raw/archive/apple/raw/binaries.sha256",
+      "original_sha256": "3b5b19a402a1b02ffd466504563ae162e5d0f97399a978f10f8782814fd6cc11",
+      "published_sha256": "18452e854aaf567c48b7e6dcdab8ed68e072b1ab9c63d9cb9138a089d31196f6",
+      "original_bytes": 407,
+      "published_bytes": 393
+    },
+    {
+      "path": "raw/archive/apple/raw/runtime-manifest.json",
+      "original_sha256": "fb5358633ea9fb23de35bf4101a29705390087c67cc76dbd222d94230103a91f",
+      "published_sha256": "7f00b5eb96ba09ab76abb84d02ad840189cfa9617d4be91f5c644f08aab2e19d",
+      "original_bytes": 7567,
+      "published_bytes": 7420
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-binaries.sha256",
+      "original_sha256": "ba8d6398471bd9b9e459b025578a7f9dc096a663d83647676282df001b2b8436",
+      "published_sha256": "28eda9f7c3509f5f3421d5ee5974040802d0bebd4b0f8e6e08d3717ed84aafb4",
+      "original_bytes": 403,
+      "published_bytes": 389
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r1-pp.json",
+      "original_sha256": "8fc16764d6ab18580ad758e1fa264c22175d78bb9321bd43a2ab09c4e5709276",
+      "published_sha256": "4538d36a098623cb31e1e983abbf17707a3078b10989dae1b598074565dffeb3",
+      "original_bytes": 1224,
+      "published_bytes": 1217
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r2-pp.json",
+      "original_sha256": "5f5ac82db7ff834c61401ee26e0224fd6626b4b999406a1f6f233ac3611db2db",
+      "published_sha256": "6fcaefb06910c387a17c9fa3c4f7fb620519c0bc4b905454420fc8869f6e0fbe",
+      "original_bytes": 1223,
+      "published_bytes": 1216
+    },
+    {
+      "path": "raw/archive/ryzen/raw/hip-r3-pp.json",
+      "original_sha256": "1af809b4fdfee22172f453d33d162b82d8f196db5df071fc1e88ff5400b47a1f",
+      "published_sha256": "d11fe97e8ea5d25942f0435f18e4a0b0ec93553639d9ce4c94be01604c19cd85",
+      "original_bytes": 1224,
+      "published_bytes": 1217
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-binaries.sha256",
+      "original_sha256": "de4e4d57354d6297acc0343b6aa5293ae85412668de5e272d79d92094868245e",
+      "published_sha256": "33be2cf11df9b4aa8bbfb3b8033a0d4526b134dfd076dc30245cb1463586eefd",
+      "original_bytes": 299,
+      "published_bytes": 285
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r1-pp.json",
+      "original_sha256": "d9313827dff9ba45d18936c452ced44c99a8e5899d98463297793395affb764d",
+      "published_sha256": "7746bb3b5989d2b044ff5ac5107923c39cd8d6b2f49f055c9d9375ced2cad9e4",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r2-pp.json",
+      "original_sha256": "d5eb873e0ff6d86f8166cfef480aff114ec3c62c6106c1a787985e14fae02835",
+      "published_sha256": "9b0ec4447d9cb7eb6b67e42ff35bdb95512702fb9435b2edae53e8af605e03ce",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-r3-pp.json",
+      "original_sha256": "f48e384fd1cf16ede6e2681fa349ae9c3a289e9eb03c4b2d8e7729921bb6ed1d",
+      "published_sha256": "603d029099f3b881f45ff4342c76da6dfc533617d981e162474c3a7676c2ca12",
+      "original_bytes": 1241,
+      "published_bytes": 1234
+    },
+    {
+      "path": "raw/archive/ryzen/raw/vulkan-version.txt",
+      "original_sha256": "8c6aac2053247af4eac0ed451588ca537f65bf1c5000303951ddb2ce162202fb",
+      "published_sha256": "2b7cd67cec51304ef937435001961ec07b9436b32ea2e1b16a926707d90565c4",
+      "original_bytes": 653,
+      "published_bytes": 632
+    },
+    {
+      "path": "raw/archive/ryzen/raw/weights.sha256",
+      "original_sha256": "b6d70965d7580b0b7095d526ffeb96e084896346e49fb0da68c3718b8fb29c64",
+      "published_sha256": "055ed0859475da463da043629b70a6bb75805a92cfa1eb1b7896831f51bf6010",
+      "original_bytes": 195,
+      "published_bytes": 188
+    },
+    {
+      "path": "raw/metal-standard/build-reference.json",
+      "original_sha256": "88a0dab7d7ce0a99d2a5e2b64b60da809b63431688b18e80b4b21ea4b4f2d30a",
+      "published_sha256": "8089d8692718f94583df950cb85d70d18e3938902a046f39d0f29c4f1971cb62",
+      "original_bytes": 4849,
+      "published_bytes": 4695
+    },
+    {
+      "path": "raw/metal-standard/campaign-error.json",
+      "original_sha256": "ad1038a38bf547fdd7a7345d1c4420eeb0a3c404c7033f520ff18228f3b1e760",
+      "published_sha256": "be5512182194bdb645aa4f8879fa2d6c6c4049b912f6e4fe2cff5374529b0715",
+      "original_bytes": 328,
+      "published_bytes": 321
+    },
+    {
+      "path": "raw/metal-standard/chat-warmup-driver.txt",
+      "original_sha256": "842883c09b44122366cb0a761d2ed86bf4ab5258d7099e88fc53b2a99e3cb849",
+      "published_sha256": "efc355134d8c418c9bef6810c071c8f04e28365f4c33c26aaf0cbe2ede740d56",
+      "original_bytes": 325,
+      "published_bytes": 311
+    },
+    {
+      "path": "raw/metal-standard/runtime-manifest.json",
+      "original_sha256": "dda8fcef14963d3ad9d3c1e39beae3e4dfa5241c1c43233ab230475de57cca03",
+      "published_sha256": "945cc986fbac5b2a7708cb879620cda7eee3d9bbf8b3e8e0d92e981d2f46d850",
+      "original_bytes": 1629,
+      "published_bytes": 1615
+    },
+    {
+      "path": "raw/metal-standard/server.txt",
+      "original_sha256": "dc7c97c3db6fffe5b2733403971700d6547e0715684e4295810ff7a010b91d8e",
+      "published_sha256": "b12ff2bd4409f748a70ece61f8b52b29187c0924d50173fb5a01183fd4fe1afc",
+      "original_bytes": 15147,
+      "published_bytes": 15133
+    },
+    {
+      "path": "raw/metal-standard/shutdown-execution.json",
+      "original_sha256": "78e60a69eb890d74c56295f56be34338733659c91f6a2a9c53eee3914ce7f8fd",
+      "published_sha256": "b6ff07b3ae3ba5a84a0760b0f9406d3e525887bd838d5d8d2f62167308fbe147",
+      "original_bytes": 14764,
+      "published_bytes": 14596
+    },
+    {
+      "path": "raw/metal-standard/startup-process.json",
+      "original_sha256": "c703edd28ea10b311a881446fa90b5fd05f8b4979439df5af9d562d578397a20",
+      "published_sha256": "8c430076d4865a17d72d1f24852a54e2dc36efee17811721f8f5883adda468ed",
+      "original_bytes": 10180,
+      "published_bytes": 10012
+    },
+    {
+      "path": "raw/metal-standard/startup-props.json",
+      "original_sha256": "6aa9642da20fac7a9421e1f6c500b0723d84000a816009451fbc5e614b8fca50",
+      "published_sha256": "42ba6e9d1e058a8c19bbd5ee2442cd8f7339e006e33888daa0750b0415d16105",
+      "original_bytes": 10520,
+      "published_bytes": 10513
+    },
+    {
+      "path": "raw/metal-tensor/build-reference.json",
+      "original_sha256": "45f82b70d7948fadfc2ec41bb3fb992885f5688728bba694c4039750f5701d8a",
+      "published_sha256": "952dd5d957359672820528fd12bf392eed7eb4808d341117e5bccccc28b72d21",
+      "original_bytes": 476,
+      "published_bytes": 462
+    },
+    {
+      "path": "raw/run_qualification.py",
+      "original_sha256": "2c4b3341641b0a5666c72206855c24e3feb7feaa67e5bf8d66ce2484e57c1684",
+      "published_sha256": "5319fa3cc8ba859bad786b3e6b2e6be19228571e9151fc9ca83a07d31905e9bf",
+      "original_bytes": 14746,
+      "published_bytes": 14732
+    },
+    {
+      "path": "raw/variants.json",
+      "original_sha256": "0369f01b42788f8d01f3019c1b75a505cae9b8fcf0dfea3149273701ec3551ad",
+      "published_sha256": "774f6eda8264e55e90994732dba1b07f06adf9edf211d84270554a7d35f83cca",
+      "original_bytes": 6093,
+      "published_bytes": 5911
+    }
+  ]
+}

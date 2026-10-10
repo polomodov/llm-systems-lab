@@ -1,0 +1,498 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB35",
+  "harness_id": null,
+  "session_id": "apple-qualification-20261009",
+  "created_at": "2026-10-09T17:54:15.259Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Оба Apple deployments завершат одинаковые chat/load fixtures; сравнение со стендом Ryzen и агенты требуют отдельного допуска.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-09T17:59:02.887Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/runtime-manifest.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "archive-bridge-audit",
+      "configuration_id": "source-audit",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/archive-bridge-audit-execution.json"
+      ]
+    },
+    {
+      "id": "metal-standard-startup",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/metal-standard/startup-execution.json",
+        "raw/metal-standard/startup-process.json",
+        "raw/metal-standard/startup-props.json",
+        "raw/metal-standard/startup-slots.json"
+      ]
+    },
+    {
+      "id": "metal-standard-chat-warmup",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "[Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/metal-standard/campaign-error.json"
+      ]
+    },
+    {
+      "id": "metal-standard-chat-r1",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-chat-r2",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-chat-r3",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-load-warmup",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-load-r1",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-load-r2",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-load-r3",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-standard-shutdown",
+      "configuration_id": "metal-standard-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/metal-standard/shutdown-execution.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-startup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-chat-warmup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-chat-r1",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-chat-r2",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-chat-r3",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-load-warmup",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-load-r1",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-load-r2",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-load-r3",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "metal-tensor-shutdown",
+      "configuration_id": "metal-tensor-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Earlier qualification stop: [Errno 2] No such file or directory: '/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB35-apple-qualification-20261009/raw/metal-standard/chat-warmup/summary.json'",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-startup",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-chat-warmup",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-chat-r1",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-chat-r2",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-chat-r3",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-load-warmup",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-load-r1",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-load-r2",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-load-r3",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "ryzen-hip-shutdown",
+      "configuration_id": "ryzen-hip-ctx8192-slot1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Ryzen SSH/endpoint not provided; a fresh paired session is required.",
+      "evidence_files": [
+        "raw/access-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-apple-r1",
+      "configuration_id": "t002-a2-pi-apple",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-apple-r2",
+      "configuration_id": "t002-a2-pi-apple",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-apple-r3",
+      "configuration_id": "t002-a2-pi-apple",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-ryzen-r1",
+      "configuration_id": "t002-a2-pi-ryzen",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-ryzen-r2",
+      "configuration_id": "t002-a2-pi-ryzen",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    },
+    {
+      "id": "agent-ryzen-r3",
+      "configuration_id": "t002-a2-pi-ryzen",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "LAB08 bridge/LAB09 pending; no real agent run.",
+      "evidence_files": [
+        "raw/bridge-readiness.json"
+      ]
+    }
+  ],
+  "evidence_files": [
+    "raw/access-readiness.json",
+    "raw/apple-hardware.json",
+    "raw/archive-bridge-audit-execution.json",
+    "raw/archive-sources.json",
+    "raw/archive/apple/manifest.json",
+    "raw/archive/apple/raw/binaries.sha256",
+    "raw/archive/apple/raw/runtime-manifest.json",
+    "raw/archive/ryzen/manifest.json",
+    "raw/archive/ryzen/raw/artifact.json",
+    "raw/archive/ryzen/raw/hip-binaries.sha256",
+    "raw/archive/ryzen/raw/hip-r1-pp.json",
+    "raw/archive/ryzen/raw/hip-r2-pp.json",
+    "raw/archive/ryzen/raw/hip-r3-pp.json",
+    "raw/archive/ryzen/raw/hip-version.txt",
+    "raw/archive/ryzen/raw/vulkan-binaries.sha256",
+    "raw/archive/ryzen/raw/vulkan-r1-pp.json",
+    "raw/archive/ryzen/raw/vulkan-r2-pp.json",
+    "raw/archive/ryzen/raw/vulkan-r3-pp.json",
+    "raw/archive/ryzen/raw/vulkan-version.txt",
+    "raw/archive/ryzen/raw/weights.sha256",
+    "raw/bridge-readiness.json",
+    "raw/chat-request.json",
+    "raw/concurrency_driver.py",
+    "raw/concurrency_test.py",
+    "raw/evidence-sha256.json",
+    "raw/load-request.json",
+    "raw/metal-standard/build-reference.json",
+    "raw/metal-standard/campaign-error.json",
+    "raw/metal-standard/chat-request.json",
+    "raw/metal-standard/chat-warmup-driver.txt",
+    "raw/metal-standard/load-request.json",
+    "raw/metal-standard/memory-timeline.jsonl",
+    "raw/metal-standard/runtime-manifest.json",
+    "raw/metal-standard/server.txt",
+    "raw/metal-standard/shutdown-execution.json",
+    "raw/metal-standard/sleep-assertion.json",
+    "raw/metal-standard/startup-execution.json",
+    "raw/metal-standard/startup-process.json",
+    "raw/metal-standard/startup-props.json",
+    "raw/metal-standard/startup-slots.json",
+    "raw/metal-tensor/build-reference.json",
+    "raw/metal-tensor/chat-request.json",
+    "raw/metal-tensor/load-request.json",
+    "raw/preflight-power.jsonl",
+    "raw/protocol.md",
+    "raw/protocol.sha256",
+    "raw/registered-source-hashes.json",
+    "raw/resources.py",
+    "raw/run_qualification.py",
+    "raw/variants.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "No agent run while LAB08/LAB09 pending.",
+    "ryzen_access": "No SSH alias or endpoint provided; question pending.",
+    "agent_comparison": "Local provider bridge not implemented.",
+    "gpu_budget_gib": "Maximum allocation not measured.",
+    "energy": "Not measured.",
+    "temperature": "No verified thermal collector.",
+    "ttft": "Non-streaming.",
+    "completion": "HTTP driver path failed before any request; paired/agent minimum not performed.",
+    "measurements": "No HTTP request was sent; startup/shutdown evidence is preserved without invented latency."
+  },
+  "conclusion": "Preparation stop: HTTP driver path missing, no HTTP request sent; standard Metal model load/offload and clean shutdown recorded. Retry uses separate session.",
+  "reviewer_decision": null
+}

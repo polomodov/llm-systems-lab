@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/build-reference.json",
+      "original_sha256": "1cf590e09378d94ad5cd0281fc3c29c87b6ee88b6e5c05c20f46440a87de238c",
+      "published_sha256": "5dbef63d7788fb83488981f9a41c8cc250055809dde6ed3aeb7b5e713e133281",
+      "original_bytes": 1855,
+      "published_bytes": 1813
+    },
+    {
+      "path": "raw/r1-c1-execution.json",
+      "original_sha256": "728203b326c1f6581c9bc73952e4f111d5d8eb00991941f6861f6c2feb584017",
+      "published_sha256": "6ada9caf56aaded9008f0bb9690f0dd85b216028691fde47cbea7352f2565f0f",
+      "original_bytes": 1001,
+      "published_bytes": 973
+    },
+    {
+      "path": "raw/r1-c2-execution.json",
+      "original_sha256": "1083f1a060a4e1c8a0610a86f33ce39e10295eace08687a6abc82e41bccc9e59",
+      "published_sha256": "441b4de85d081020921d98811ba752366a85012d39fe655b048b9ecfea9131c6",
+      "original_bytes": 1001,
+      "published_bytes": 973
+    },
+    {
+      "path": "raw/r1-c4-execution.json",
+      "original_sha256": "8339ec1b28378d12e1a12eaadedb041bd69a5b5e528b19de4a010a649c938672",
+      "published_sha256": "1e2bab00f7ea6a4a47180c8e903669d581a622e0dd4ba54bc984096c65fc0c93",
+      "original_bytes": 1001,
+      "published_bytes": 973
+    },
+    {
+      "path": "raw/r2-c2-execution.json",
+      "original_sha256": "4f7eaa20c143e1ca3b18a1a9663c41517b3b571817867c9194873d4f320f7638",
+      "published_sha256": "c58f2f60c01181838a433d67a4fb1dbe5cbc00b4bc671b915bb0b4a1cdcf5827",
+      "original_bytes": 1001,
+      "published_bytes": 973
+    },
+    {
+      "path": "raw/r2-c4-execution.json",
+      "original_sha256": "a081a5229ff8b24c21340152022ca828a10653b329e6ca6cb44f66bb88855c43",
+      "published_sha256": "ae3e0001815ce8259b643fced6146531707a4d0f0be08e665e9359e6ecf5f74a",
+      "original_bytes": 1002,
+      "published_bytes": 974
+    },
+    {
+      "path": "raw/run_load.py",
+      "original_sha256": "943c21d7c9274935830c568005db45a9f55efc97c9ad41fcb0d47536f0ac6db7",
+      "published_sha256": "2ae3b791d113abdf5ebbb57ca853c89d9b4e33db37f701417bcfed16f4b35132",
+      "original_bytes": 13942,
+      "published_bytes": 13928
+    },
+    {
+      "path": "raw/runtime-manifest.json",
+      "original_sha256": "1ceea2584772ae2912e1cdadf2bb049d23a9cee0d363eb22a88518f420848b8d",
+      "published_sha256": "c16464f1b3533bbeef79cdd9700e400743bdbe8a7708bd663ed417e82c380f50",
+      "original_bytes": 1633,
+      "published_bytes": 1619
+    },
+    {
+      "path": "raw/server.txt",
+      "original_sha256": "6e3fc54e73739e6815d74ac8ddbbfe93c7a38e1d7b4e6b7c1f587ccf115f6f6c",
+      "published_sha256": "574299863da7fb31922f2512ab23e047f023fad51e0b46e4105142b76cee709c",
+      "original_bytes": 152449,
+      "published_bytes": 152435
+    },
+    {
+      "path": "raw/shutdown-execution.json",
+      "original_sha256": "325f2436e21b7fd95466cf806e2382be7a276fd4b8d043040594cdeb90b63522",
+      "published_sha256": "e0c950992538e39c0d0f5e842a29a35a917a9bc9f5a2e097520f4a312a3e978b",
+      "original_bytes": 10265,
+      "published_bytes": 10237
+    },
+    {
+      "path": "raw/startup-process.json",
+      "original_sha256": "510728a459fbeef1a41bb0504c264fc15ac0a3f0269e83a232ff4642174316a6",
+      "published_sha256": "9c15956221f1ba766ff05864c3cb159ab2a8d2ac692408b7cda8a28355b362c6",
+      "original_bytes": 5820,
+      "published_bytes": 5792
+    },
+    {
+      "path": "raw/startup-props.json",
+      "original_sha256": "226b1aa892958d71069f68bab61b40c1f1cc142522e92468041c50813680c541",
+      "published_sha256": "b7a5b1cba014518bbfecfc540d5ff14a639d7922123938e78b9acba8a86b7c2c",
+      "original_bytes": 10529,
+      "published_bytes": 10522
+    },
+    {
+      "path": "raw/summary.json",
+      "original_sha256": "47dfb46800b2f7ffb047a4f9be73dfd303aaa54b5f997f0dd95d879cf10a897c",
+      "published_sha256": "8170e472b929c019134d9f047570097d534d42013f592eae8735aecd12a904ca",
+      "original_bytes": 21577,
+      "published_bytes": 21549
+    },
+    {
+      "path": "raw/warmup-execution.json",
+      "original_sha256": "2df637bc1b3e972fdc44faecf4cdee76eb058d08fef00207635e7348bcedc118",
+      "published_sha256": "4a040e2ca7975ce0becfcdb2d5057814638b954d61e9a07b8e19edb5b2c643a7",
+      "original_bytes": 1002,
+      "published_bytes": 974
+    }
+  ]
+}

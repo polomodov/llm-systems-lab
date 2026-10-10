@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-10-09T08:17:05.923351+00:00",
+  "command": [
+    "pmset",
+    "-g",
+    "batt"
+  ],
+  "new_gpu_runs_started": false,
+  "exit_code": 0,
+  "stdout": "Now drawing from 'Battery Power'\n -InternalBattery-0 (id=5439587)\t26%; discharging; 1:10 remaining present: true\n",
+  "stderr": "",
+  "reason": "AC power required by registered protocol; observed Battery Power."
+}
