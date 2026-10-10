@@ -1,0 +1,72 @@
+{
+  "commit": "64d17b0cf302e606206b3b8c29022b9b6071da49",
+  "head": "HEAD",
+  "execution_started_at": "2026-10-10T11:31:31.819526+00:00",
+  "verified": true,
+  "files": [
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/protocol.md",
+      "sha256": "7901f8af8fb3e7914baeb44b3b6fab5190e6cf69b3e9bc280980973db2701071",
+      "expected_sha256": "7901f8af8fb3e7914baeb44b3b6fab5190e6cf69b3e9bc280980973db2701071",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/run_common.py",
+      "sha256": "c317eb6c20bc9f193f513a083d9e3c6eafcf9be7c8be8a01341c2b1bcf179c59",
+      "expected_sha256": "c317eb6c20bc9f193f513a083d9e3c6eafcf9be7c8be8a01341c2b1bcf179c59",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/prestart-pins.json",
+      "sha256": "e47f0fd516aa08469acd6983862715362c590a8e2ab25689c28a20ae30d86908",
+      "expected_sha256": "e47f0fd516aa08469acd6983862715362c590a8e2ab25689c28a20ae30d86908",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/shared-inputs.json",
+      "sha256": "3550af70a4bd0641a904bb884f48d4de6349363b23f83b0f7c41bb1a80f5b8d6",
+      "expected_sha256": "3550af70a4bd0641a904bb884f48d4de6349363b23f83b0f7c41bb1a80f5b8d6",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/artifact-manifest.json",
+      "sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+      "expected_sha256": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/runtime-manifest.json",
+      "sha256": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7",
+      "expected_sha256": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/gguf-reference.json",
+      "sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94",
+      "expected_sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/pin_runtime.py",
+      "sha256": "2f838b6313a56c2a9b818b9ee3474911e5ab918d2a3690e7a4aba3ca4259c02a",
+      "expected_sha256": "2f838b6313a56c2a9b818b9ee3474911e5ab918d2a3690e7a4aba3ca4259c02a",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/server_entry.py",
+      "sha256": "9f6736718a7617b54626d895e758c0fcbd9080e5e8cdd40de4fff1c8db74f5d5",
+      "expected_sha256": "9f6736718a7617b54626d895e758c0fcbd9080e5e8cdd40de4fff1c8db74f5d5",
+      "matches": true
+    },
+    {
+      "path": "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/http_probe.py",
+      "sha256": "37182a66a435ad441b6457761c93780f214ef034862a451a06130ad437dbf200",
+      "expected_sha256": "37182a66a435ad441b6457761c93780f214ef034862a451a06130ad437dbf200",
+      "matches": true
+    }
+  ],
+  "errors": [],
+  "scope": "Retained Git ancestry, committed bytes and recorded timestamps; Git timestamps are author-controlled, not an independent clock attestation.",
+  "reviewed_head": "7bc2132b451a639508a57f2b5c0f8726e9c9705b",
+  "committed_at": "2026-10-10T12:31:31+01:00"
+}

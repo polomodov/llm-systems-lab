@@ -1,0 +1,22 @@
+[
+  {
+    "id": "chat",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Ответь ровно LAB_READY без пояснений."
+      }
+    ],
+    "expected": "LAB_READY"
+  },
+  {
+    "id": "math",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Вычисли 9 * 256. Верни только число без пояснений, форматирования и знаков препинания."
+      }
+    ],
+    "expected": "2304"
+  }
+]

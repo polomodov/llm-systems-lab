@@ -1,0 +1,30 @@
+{
+  "gguf": {
+    "cold_ready_seconds": 1.0113927079999998,
+    "max_rss_gib": 7.3705596923828125,
+    "min_free_spec_gib": 17.209716796875,
+    "max_swap_bytes": 0,
+    "samples": 1,
+    "cleanup_returncode": 0,
+    "sigint_count": 1,
+    "guard": null,
+    "protocol_accepted": true,
+    "sampling_period_seconds": 2,
+    "rss_peak_coverage": "Sampled RSS only; very short series has one sample, true peak unmeasured.",
+    "cold_ready_scope": "Popen to /v1/models API readiness, not a model-load or cold filesystem measurement."
+  },
+  "mlx": {
+    "cold_ready_seconds": 1.0377333330000003,
+    "max_rss_gib": 5.191558837890625,
+    "min_free_spec_gib": 12.794570922851562,
+    "max_swap_bytes": 0,
+    "samples": 1,
+    "cleanup_returncode": 0,
+    "sigint_count": 1,
+    "guard": null,
+    "protocol_accepted": true,
+    "sampling_period_seconds": 2,
+    "rss_peak_coverage": "Sampled RSS only; very short series has one sample, true peak unmeasured.",
+    "cold_ready_scope": "Popen to /v1/models API readiness, not a model-load or cold filesystem measurement."
+  }
+}

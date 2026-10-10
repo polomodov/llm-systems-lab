@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-10-10T11:22:28.962991+00:00",
+  "parent_commit": "efab7f2e6ded0fa2300c4036c17f3d0057979a36",
+  "protocol": "raw/protocol.md",
+  "controller": "raw/run_common.py",
+  "pins": "raw/prestart-pins.json",
+  "preregistration_commit": "64d17b0cf302e606206b3b8c29022b9b6071da49",
+  "parent_commit_scope": "Preparation parent before the registration commit, not the registration proof.",
+  "registered_files": {
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/protocol.md": "7901f8af8fb3e7914baeb44b3b6fab5190e6cf69b3e9bc280980973db2701071",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/run_common.py": "c317eb6c20bc9f193f513a083d9e3c6eafcf9be7c8be8a01341c2b1bcf179c59",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/prestart-pins.json": "e47f0fd516aa08469acd6983862715362c590a8e2ab25689c28a20ae30d86908",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/shared-inputs.json": "3550af70a4bd0641a904bb884f48d4de6349363b23f83b0f7c41bb1a80f5b8d6",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/artifact-manifest.json": "cc0bea1f264261489e0e3e7f4b4e609cb21771be11e403529bacc9be7ca5c1e6",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/runtime-manifest.json": "3f6e8571b8a4a545d1169123204ff533b873c331fd5f17070cf6c1889253a1c7",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/gguf-reference.json": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/pin_runtime.py": "2f838b6313a56c2a9b818b9ee3474911e5ab918d2a3690e7a4aba3ca4259c02a",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/server_entry.py": "9f6736718a7617b54626d895e758c0fcbd9080e5e8cdd40de4fff1c8db74f5d5",
+    "experiments/local-models/measurements/LAB31-apple-common-http-20261010/raw/http_probe.py": "37182a66a435ad441b6457761c93780f214ef034862a451a06130ad437dbf200"
+  },
+  "original_registration": "raw/source-registration.original.json"
+}
