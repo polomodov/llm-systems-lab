@@ -1,0 +1,60 @@
+{
+  "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "tool_calls": [
+        {
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\": \"alpha\"}"
+          },
+          "type": "function",
+          "id": "543f4d5e-9486-4ed4-925b-eb655bccfe24"
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "543f4d5e-9486-4ed4-925b-eb655bccfe24",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false,
+  "temperature": 0,
+  "seed": 1,
+  "top_p": 1,
+  "chat_template_kwargs": {
+    "enable_thinking": false
+  }
+}
