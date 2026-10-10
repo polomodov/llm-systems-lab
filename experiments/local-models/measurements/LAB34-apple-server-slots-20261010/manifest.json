@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "apple-server-slots-20261010",
   "created_at": "2026-10-10T09:35:12.394Z",
-  "status": "in-progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Фактические серверные слоты 1/2/4 при 8192 токенах на слот изменяют throughput и latency; 30 минут нагрузки проверяют устойчивость прошедшей короткие проверки конфигурации.",
@@ -23,171 +23,175 @@
       "id": "slots1-startup",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "failed",
       "run_id": null,
-      "reason": null,
-      "evidence_files": []
+      "reason": "Admission changed during pin verification",
+      "evidence_files": [
+        "raw/slots1/error.json"
+      ]
     },
     {
       "id": "slots1-warmup",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots1-r1",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots1-r2",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots1-r3",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots1-cleanup",
       "configuration_id": "tensor-q6-slot1-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
-      "evidence_files": []
+      "reason": "No native process started",
+      "evidence_files": [
+        "raw/slots1/execution.json"
+      ]
     },
     {
       "id": "slots2-startup",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots2-warmup",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots2-r1",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots2-r2",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots2-r3",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots2-cleanup",
       "configuration_id": "tensor-q6-slot2-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-startup",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-warmup",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-r1",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-r2",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-r3",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-cleanup",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     },
     {
       "id": "slots4-sustained",
       "configuration_id": "tensor-q6-slot4-ctx8192-output512",
       "kind": "measurement",
-      "status": "planned",
+      "status": "not-run",
       "run_id": null,
-      "reason": null,
+      "reason": "Admission changed during pin verification",
       "evidence_files": []
     }
   ],
@@ -198,11 +202,20 @@
     "raw/protocol.md",
     "raw/run_slots.py",
     "raw/server-help.txt",
+    "raw/slots1/admission-after-pins.json",
+    "raw/slots1/admission.json",
+    "raw/slots1/error.json",
+    "raw/slots1/execution.json",
     "raw/source-registration.json"
   ],
   "unavailable": {
-    "conditions.harness_profile": "Native inference stress; no agent harness."
+    "conditions.harness_profile": "Native inference stress; no agent harness.",
+    "completion": "Admission changed during pin verification",
+    "energy": "No energy collector.",
+    "temperature": "No temperature collector.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
+    "ttft": "Non-streaming complete-response probe."
   },
-  "conclusion": null,
+  "conclusion": "Actual server-slot campaign stopped: Admission changed during pin verification",
   "reviewer_decision": null
 }
