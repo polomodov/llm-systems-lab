@@ -100,3 +100,6 @@ npm run check
 ```
 
 `ready_for_review` означает комплектность, а не правильность вывода. `blocked` с evidence — допустимая сдача, но не успешный аппаратный допуск. Provider bridge остаётся инженерной [LAB08](../../../docs/labs/LAB08-local-bridge.md); `run --provider local` пока не поддерживается.
+
+- [LAB33: центральный LM Studio, Metal call path](../measurements/LAB33-apple-sdk-stable-window-20261010/report.md): GGUF SDK chat и четыре sampled load cases прошли; фактический Metal call path наблюдался во всех четырёх ответах, app PID сохранён. Полное число offloaded layers не измерено.
+- [LAB33: явная MLX SDK отмена](../measurements/LAB33-apple-sdk-framing-20261010/report.md): три отмены с primary userStopped и три recovery прошли; следующий repeat остановил resource guard free+spec7.699<8GiB и выгрузил свой alias. HTTP disconnect не запускался. Raw SDK final имеет две LF перед LAB_READY; это отдельное API-framing условие, без trim. Physical GPU release unknown; LAB33 остаётся blocked.

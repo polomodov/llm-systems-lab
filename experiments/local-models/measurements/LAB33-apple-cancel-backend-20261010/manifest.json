@@ -344,9 +344,12 @@
   "evidence_files": [
     "raw/admission.json",
     "raw/admission.jsonl",
+    "raw/check.txt",
     "raw/deployments.json",
     "raw/driver.txt",
+    "raw/evidence-sha256.json",
     "raw/gguf-deployment-reference.json",
+    "raw/lab-check-submission.json",
     "raw/lms-gguf/chat-warmup/driver.txt",
     "raw/lms-gguf/chat-warmup/sdk-result.json",
     "raw/lms-gguf/execution.json",
@@ -361,11 +364,14 @@
     "raw/lms-gguf/server-stop.txt",
     "raw/lms-gguf/unload.txt",
     "raw/mlx-artifact-manifest.json",
+    "raw/npm-test.txt",
     "raw/pin-reference-consistency.json",
     "raw/prestart-pins.json",
     "raw/protocol.md",
+    "raw/python-tests.txt",
     "raw/run_lms.py",
     "raw/runtime-manifest.json",
+    "raw/runtime-summary.json",
     "raw/sdk-download.txt",
     "raw/sdk-install.txt",
     "raw/sdk-registration.json",
@@ -377,11 +383,13 @@
   ],
   "unavailable": {
     "conditions.harness_profile": "Нативный HTTP/SDK опыт; agent harness отсутствует.",
-    "gpu_budget_gib": "Максимальная GPU allocation не измерена.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
     "physical_gpu_release": "Нет независимого collector физических GPU страниц.",
     "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers.",
-    "completion": "AssertionError: SDK chat failed"
+    "completion": "AssertionError: SDK chat failed",
+    "energy": "No energy collector.",
+    "temperature": "No thermal collector."
   },
-  "conclusion": "SDK/HTTP cancellation and backend evidence retained; physical GPU release and all-layer offload require separate proof.",
+  "conclusion": "API cancellation/backend observations recorded; full LAB33 admission still requires attributable native HTTP cancellation and physical GPU/all-layer evidence.",
   "reviewer_decision": null
 }

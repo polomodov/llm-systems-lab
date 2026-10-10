@@ -337,13 +337,19 @@
   "evidence_files": [
     "raw/admission.json",
     "raw/admission.jsonl",
+    "raw/check.txt",
     "raw/deployments.json",
     "raw/driver.txt",
+    "raw/evidence-sha256.json",
     "raw/gguf-deployment-reference.json",
+    "raw/lab-check-submission.json",
     "raw/mlx-artifact-manifest.json",
+    "raw/npm-test.txt",
     "raw/protocol.md",
+    "raw/python-tests.txt",
     "raw/run_lms.py",
     "raw/runtime-manifest.json",
+    "raw/runtime-summary.json",
     "raw/sdk-download.txt",
     "raw/sdk-install.txt",
     "raw/sdk-registration.json",
@@ -355,11 +361,14 @@
   ],
   "unavailable": {
     "conditions.harness_profile": "Нативный HTTP/SDK опыт; agent harness отсутствует.",
-    "gpu_budget_gib": "Максимальная GPU allocation не измерена.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
     "physical_gpu_release": "Нет независимого collector физических GPU страниц.",
     "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers.",
-    "completion": "Missing model pin manifest after wrong-format registration; no native model launch."
+    "completion": "Missing model pin manifest after wrong-format registration; no native model launch.",
+    "energy": "No energy collector.",
+    "temperature": "No thermal collector.",
+    "measurements": "No completed SDK/HTTP inference; model phase did not start. Admission/resource observations are in raw files."
   },
-  "conclusion": "CPU admission completed, but model pin preparation failed; native model phase did not start.",
+  "conclusion": "API cancellation/backend observations recorded; full LAB33 admission still requires attributable native HTTP cancellation and physical GPU/all-layer evidence.",
   "reviewer_decision": null
 }

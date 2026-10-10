@@ -1,1 +1,16 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+lms-gguf-chat-1-sdk_total_seconds	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		1	sdk_total_seconds	3.270073890686035	s	measured	raw/lms-gguf/chat-1/sdk-result.json	
+lms-gguf-chat-1-sdk_input_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		1	sdk_input_tokens	19	tokens	measured	raw/lms-gguf/chat-1/sdk-result.json	
+lms-gguf-chat-1-sdk_output_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		1	sdk_output_tokens	215	tokens	measured	raw/lms-gguf/chat-1/sdk-result.json	
+lms-gguf-chat-2-sdk_total_seconds	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		2	sdk_total_seconds	3.2762398719787598	s	measured	raw/lms-gguf/chat-2/sdk-result.json	
+lms-gguf-chat-2-sdk_input_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		2	sdk_input_tokens	19	tokens	measured	raw/lms-gguf/chat-2/sdk-result.json	
+lms-gguf-chat-2-sdk_output_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		2	sdk_output_tokens	215	tokens	measured	raw/lms-gguf/chat-2/sdk-result.json	
+lms-gguf-chat-3-sdk_total_seconds	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		3	sdk_total_seconds	3.306475877761841	s	measured	raw/lms-gguf/chat-3/sdk-result.json	
+lms-gguf-chat-3-sdk_input_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		3	sdk_input_tokens	19	tokens	measured	raw/lms-gguf/chat-3/sdk-result.json	
+lms-gguf-chat-3-sdk_output_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal		3	sdk_output_tokens	215	tokens	measured	raw/lms-gguf/chat-3/sdk-result.json	
+lms-gguf-chat-warmup-sdk_total_seconds	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal			sdk_total_seconds	3.295073986053467	s	measured	raw/lms-gguf/chat-warmup/sdk-result.json	
+lms-gguf-chat-warmup-sdk_input_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal			sdk_input_tokens	19	tokens	measured	raw/lms-gguf/chat-warmup/sdk-result.json	
+lms-gguf-chat-warmup-sdk_output_tokens	lms-gguf-native-defaults-v6-window-after-pins	qwen35-9b-q6	lm-studio	metal			sdk_output_tokens	215	tokens	measured	raw/lms-gguf/chat-warmup/sdk-result.json	
+lms-mlx-chat-warmup-sdk_total_seconds	lms-mlx-native-defaults-v6-window-after-pins	qwen35-9b-mlx-4bit	lm-studio	metal			sdk_total_seconds	2.794051170349121	s	measured	raw/lms-mlx/chat-warmup/sdk-result.json	
+lms-mlx-chat-warmup-sdk_input_tokens	lms-mlx-native-defaults-v6-window-after-pins	qwen35-9b-mlx-4bit	lm-studio	metal			sdk_input_tokens	19	tokens	measured	raw/lms-mlx/chat-warmup/sdk-result.json	
+lms-mlx-chat-warmup-sdk_output_tokens	lms-mlx-native-defaults-v6-window-after-pins	qwen35-9b-mlx-4bit	lm-studio	metal			sdk_output_tokens	278	tokens	measured	raw/lms-mlx/chat-warmup/sdk-result.json	

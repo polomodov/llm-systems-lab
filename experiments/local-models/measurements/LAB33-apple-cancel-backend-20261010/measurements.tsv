@@ -1,1 +1,4 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+lms-gguf-chat-warmup-sdk_total_seconds	lms-gguf-native-defaults-v2	qwen35-9b-q6	lm-studio	metal			sdk_total_seconds	3.322200059890747	s	measured	raw/lms-gguf/chat-warmup/sdk-result.json	
+lms-gguf-chat-warmup-sdk_input_tokens	lms-gguf-native-defaults-v2	qwen35-9b-q6	lm-studio	metal			sdk_input_tokens	19	tokens	measured	raw/lms-gguf/chat-warmup/sdk-result.json	
+lms-gguf-chat-warmup-sdk_output_tokens	lms-gguf-native-defaults-v2	qwen35-9b-q6	lm-studio	metal			sdk_output_tokens	215	tokens	measured	raw/lms-gguf/chat-warmup/sdk-result.json	

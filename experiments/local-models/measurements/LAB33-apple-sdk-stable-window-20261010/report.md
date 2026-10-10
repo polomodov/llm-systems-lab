@@ -1,61 +1,56 @@
-# LAB33 — Ollama и LM Studio на Apple Silicon
+# LAB33 — LM Studio: явная отмена и фактический backend
 
-Сессия: `apple-sdk-stable-window-20261010`
-
-Создано: 2026-10-10T10:36:49.585Z
-
-Статус: **не начато**. Это черновик отчёта, не доказательство выполнения эксперимента.
+Сессия `apple-sdk-stable-window-20261010`, статус **blocked**. AssertionError: SDK chat failed
 
 ## Паспорт выполнения
 
-| Поле | Значение |
-| --- | --- |
-| Исполнитель, дата начала/окончания | — |
-| Машина, ОС, kernel, BIOS, режим питания | — |
-| Модель/артефакт: revision, shards, SHA-256, quant | — |
-| Engine, backend, image/binary hash | — |
-| Context, KV/state dtype, slots, sampling, reasoning | — |
-| Harness/provider/version, если применимо | — |
-| Предыдущие отчёты / run IDs | — |
-| Отличия от задания и причины | — |
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. Существующий центральный LM Studio 0.4.25+1 и selected runtimes llama.cpp/Metal 2.54.0, MLX/Metal 1.13.1. [Runtime](raw/runtime-manifest.json), [deployments](raw/deployments.json). GGUF Q6_K и MLX 4-bit — разные артефакты. SDK 1.5.0 установлен в отдельном venv; его wheels/dependencies закреплены hashes. Веса не скачивались, центральный app не переустанавливался.
+
+Loader context 8192/parallel 1/gpu max — запрошенные настройки, не доказательство hard cap или всех 33 layers. SDK temperature 0/top_p 1/output cap 2048; seed, reasoning, KV и cache — defaults приложения с явными ограничениями. Точный source и pins для этой сессии находятся в её raw; отсутствие pinfile в неудачной preparation-сессии означает отсутствие модельной фазы, а не успешную проверку.
 
 ## Гипотеза и протокол до запуска
 
-Сформулируйте опровержимую гипотезу. Укажите изменяемый фактор, неизменные условия, минимальное число повторов, порядок запусков, критерий остановки и заранее выбранное правило принятия решения. Сохраните этот текст до измерения; поправки после начала серии отмечайте отдельно.
+[Протокол](raw/protocol.md) и source-registration закреплены commit до модели. Принимаются только собственные alias, один сервер 127.0.0.1:1234 и один loaded model. Admission — 120 с стабильно free+spec ≥16 GiB, pressure level 1, swap 0, AC/mode 0. Resource guard сохраняет минимум 8 GiB, RSS mapped backend ≤24 GiB, samples каждые 2 с/gap ≤15 с, bounded wall/request. Пороги не ослаблялись.
 
-Сохраните исходный протокол отдельным файлом `raw/protocol.md`, укажите его в `protocol_before_run` и `evidence_files` учебного manifest v2. Заполните `protocol_recorded_at` и `planned_attempts` до исполнения; после каждого шага дополните его статус, evidence и фактический run ID. Формат и команды проверки: `docs/labs/report-validation.md` в корне репозитория. Дата в manifest — утверждение автора; для подтверждения сохраните commit или независимую отметку времени.
+SDK chat/cancel/recovery и HTTP disconnect/recovery — отдельные условия, с прогревом и тремя повторами. SDK cancel после start и 1 с; iterator продолжается до primary stats, критерий userStopped и recovery. Final извлекается только по declared fragment reasoning_type, без trim/Markdown normalization. HTTP timeout и recovery не заменяют attributable request-id native stop. Физическое освобождение GPU страниц оценивается отдельно и остаётся unknown без collector.
 
 ## Ход выполнения
 
-| Шаг задания | Действие и фактическая команда / config | Результат / ошибка | Ссылка на raw evidence |
-| --- | --- | --- | --- |
-| — | — | — | — |
+SDK schema/wheel verification → model/registry/backend pins → stable admission → controlled load → SDK/HTTP observations → собственный unload/server stop. Root PID и foreign models наблюдаются; чужие процессы не завершаются. [Контроллер](raw/run_lms.py), [клиент](raw/sdk_probe.py), [сводка](raw/runtime-summary.json).
+
+Первый prototype сохранил SDK KeyError identifier после реального ответа LAB_READY. Result.model_info — LlmInfo с path/modelKey, instance identifier находится в loaded handle. Следующая preparation отказала при выборе GGUF вместо MLX и не создала pins; модели не запускались. Исправленный full-pin вариант сначала отказал на baseline resource admission. Эти сессии не переписаны; retry создаётся отдельно после стабильного resource window. Новая модельная фаза использует exact format/repository/revision selector и все 12 MLX registry bindings.
 
 ## Результаты
 
-Скопируйте сюда специальные таблицы из своей лабораторной и заполните их. Одна строка `measurements.tsv` — одно наблюдение, не среднее без исходных данных. Приводите единицы, определение метрики и условия. Пустое/`null` означает неизвестное или неизмеренное; причину записывайте явно. Нулевое значение допустимо только как измеренный ноль.
+Attempts: {"completed": 14, "failed": 1, "not-run": 19, "planned": 0}. В таблице — primary SDK status, raw final и фактическое время. Sample влияет на latency, поэтому sampled GGUF requests не сравниваются с unsampled baseline как одинаковые условия.
+
+| Deployment/case/repeat | Статус | Primary stop / proof | Final / limit | Total / recovery, с |
+| --- | --- | --- | --- | --- |
+| lms-gguf/chat/1 | completed | eosFound | 'LAB_READY' | 3.270073890686035 |
+| lms-gguf/chat/2 | completed | eosFound | 'LAB_READY' | 3.2762398719787598 |
+| lms-gguf/chat/3 | completed | eosFound | 'LAB_READY' | 3.306475877761841 |
+| lms-gguf/chat/warmup | completed | eosFound | 'LAB_READY' | 3.295073986053467 |
+| lms-gguf/backend-1 | Metal call path: True | stream complete: True | all layers: null | — |
+| lms-gguf/backend-2 | Metal call path: True | stream complete: True | all layers: null | — |
+| lms-gguf/backend-3 | Metal call path: True | stream complete: True | all layers: null | — |
+| lms-gguf/backend-warmup | Metal call path: True | stream complete: True | all layers: null | — |
+| lms-mlx/chat/warmup | failed | eosFound | '\n\nLAB_READY' | 2.794051170349121 |
 
 ## Ошибки и ограничения
 
-Перечислите несовместимости, OOM, таймауты, GPU reset, проблемы parser, пропущенные клетки и причины. Укажите `not-run`, если запрос не выполнялся. Начатые неудачные агентные попытки сохраняйте вместе с успешными.
+AssertionError: SDK chat failed SDK userStopped — измеренный API status, не самостоятельный счётчик физических GPU страниц. OS stack sample доказывает наблюдаемый Metal call path во время контролируемого ответа; он не считает все offloaded layers. Runtime name/gpu ratio не заменяют фактическое доказательство. В частности, `stopGenerating() without a request_id … Taking no action` — отрицательное свидетельство, не pass отмены.
 
 ## Вывод по гипотезе
 
-Выберите: **поддержана данными / не поддержана / данных недостаточно**. Обоснуйте ссылками на конкретные измерения и run IDs. Отделите влияние одного фактора от сравнения разных deployments. Не называйте отсутствие различия в трёх повторах доказанной эквивалентностью.
+API cancellation/backend observations recorded; full LAB33 admission still requires attributable native HTTP cancellation and physical GPU/all-layer evidence. Source/API/model identity и cancellation conclusions ограничены конкретной выполненной сессией. Прежние preparation failures и resource refusal не объявляются аппаратной несовместимостью. Полный LAB33 допуск сохраняет перечисленные blockers; unknown показатели не заменяются нулями.
 
 ## Ответы на контрольные вопросы
 
-Приведите вопрос и свой ответ для каждого пункта лабораторной.
+1. Общий API не удостоверяет backend: нужны version/package pins, loaded identity и фактические события/call path.
+2. GPU ratio — конфигурация, не счётчик исполненных layers. Model path и registry hashes проверяются отдельно.
+3. HTTP disconnect, SDK cancel, recovery, unload и освобождение физических GPU страниц — разные наблюдения.
+4. Разные GGUF/MLX quantization/template/defaults исключают вывод об эффекте одного frontend по общей latency.
 
 ## Комплект сдачи
 
-- [ ] Заполнен manifest.json; пропуски снабжены причинами.
-- [ ] Все запланированные попытки перечислены в planned_attempts, включая ошибки и not-run; synthetic отделено от experimental.
-- [ ] Сохранены исходные команды, конфигурации и сырые логи без секретов.
-- [ ] Заполнены таблицы результатов и measurements.tsv, если были измерения.
-- [ ] Указаны все связанные run IDs; реальные run records находятся в results/runs/.
-- [ ] Проверены индивидуальные критерии завершения работы.
-- [ ] Сформулированы вывод, ограничения и ответы на вопросы.
-- [ ] Выполнен lab:check в режиме submission; содержательное решение остаётся за проверяющим.
-
-Решение проверяющего: **не проверено**. Оценка полноты учебного отчёта не является `pass` скрытой проверки задачи.
+Manifest/TSV/protocol/source registrations, SDK wheel hashes/schema, model/backend/registry pins, raw SDK/HTTP/runtime events/OS samples, resources и cleanup сохранены. Агентных episodes нет, run_ids пуст. Submission проверяет комплектность; reviewer decision **не проверено**, experiment pass автоматически не назначается.
