@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-10-10T06:19:23.352Z",
+  "pid": 40284,
+  "exit": {
+    "code": 0,
+    "signal": null
+  },
+  "error": null,
+  "guard": "Resource collector failed: Command failed: ps -o rss= -p 40284",
+  "sigint_count": 1
+}

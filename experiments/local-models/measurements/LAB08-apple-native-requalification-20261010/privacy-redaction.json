@@ -6,11 +6,32 @@
   "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
   "files": [
     {
+      "path": "raw/ctx16-retry/deployment.json",
+      "original_sha256": "8386cd3dc2fe43e4d3040209384bf220e0928cd62743a4899e93ac0dae78d9bc",
+      "published_sha256": "eb92c86992cf45b1e3e4b62c4ba7358a316dbac6f5cf7c6c33297f7ca2660376",
+      "original_bytes": 9208,
+      "published_bytes": 9026
+    },
+    {
       "path": "raw/ctx16/deployment.json",
       "original_sha256": "8386cd3dc2fe43e4d3040209384bf220e0928cd62743a4899e93ac0dae78d9bc",
       "published_sha256": "eb92c86992cf45b1e3e4b62c4ba7358a316dbac6f5cf7c6c33297f7ca2660376",
       "original_bytes": 9208,
       "published_bytes": 9026
+    },
+    {
+      "path": "raw/ctx16/native/native-server.txt",
+      "original_sha256": "6b2c098b33d7b4a95ede3db109e8644c4a52773b5cfe97702cb0ce194e4c8398",
+      "published_sha256": "8ac6a6bbe926ed68e176157c3d65d76585bd188dc3f59595287adecc279b6bde",
+      "original_bytes": 22671,
+      "published_bytes": 22657
+    },
+    {
+      "path": "raw/ctx16/native/startup-process.json",
+      "original_sha256": "44711584d1e1d3fa7a57744998e81781b8cd7ae730d200907cb73e6867fcbaf1",
+      "published_sha256": "aeeede51d3bccb90fce803a6dcffba43fdeea2e843e22f79563d7998f9beda0c",
+      "original_bytes": 22223,
+      "published_bytes": 22027
     },
     {
       "path": "raw/deployment.json",
