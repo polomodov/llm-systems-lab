@@ -37,29 +37,54 @@
       "id": "pilot-t002",
       "configuration_id": "pi-q6-metal-8k-wall-stale-v2",
       "kind": "agent-run",
-      "status": "planned",
+      "status": "failed",
       "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+      "reason": "22nd upstream request rejected: 8265 input tokens exceeds8192; 21 accepted responses, native cleanup0, no telemetry gap.",
+      "evidence_files": [
+        "raw/pilot-driver.txt"
+      ]
+    },
+    {
+      "id": "native-short16",
+      "configuration_id": "pi-q6-metal-16k-wall-stale-v2",
+      "kind": "measurement",
+      "status": "planned",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": []
+    },
+    {
+      "id": "pilot-t00216",
+      "configuration_id": "pi-q6-metal-16k-wall-stale-v2",
+      "kind": "agent-run",
+      "status": "planned",
+      "run_id": null,
       "reason": null,
       "evidence_files": []
     }
   ],
   "evidence_files": [
+    "raw/context-amendment.md",
+    "raw/ctx16/deployment.json",
     "raw/deployment.json",
     "raw/native/native-memory.jsonl",
     "raw/native/native-server.txt",
     "raw/native/shutdown-process.json",
     "raw/native/startup-process.json",
+    "raw/pilot-driver.txt",
+    "raw/pilot-registration.json",
+    "raw/prepare.txt",
     "raw/protocol.md",
     "raw/qualification-driver.txt",
     "raw/qualification.json",
     "raw/qualify.mjs",
+    "raw/qualify16.mjs",
     "raw/request.json",
     "raw/response-0.sse",
     "raw/response-1.sse",
     "raw/response-2.sse",
     "raw/response-3.sse",
-    "raw/short-summary.json",
-    "raw/pilot-registration.json"
+    "raw/short-summary.json"
   ],
   "unavailable": {},
   "conclusion": null,
