@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "apple-native-requalification-20261010",
   "created_at": "2026-10-10T05:25:01.987Z",
-  "status": "in-progress",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "Codex по запросу владельца",
   "hypothesis": "Исправленный native supervisor поддерживает непрерывную телеметрию и штатный cleanup при короткой реальной серии; затем допускается новый T002 pilot.",
@@ -30,7 +30,6 @@
       "run_id": null,
       "reason": null,
       "evidence_files": [
-        "raw/short-summary.json",
         "raw/qualification.json"
       ]
     },
@@ -40,9 +39,9 @@
       "kind": "agent-run",
       "status": "failed",
       "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
-      "reason": "22nd upstream request rejected: 8265 input tokens exceeds8192; 21 accepted responses, native cleanup0, no telemetry gap.",
+      "reason": "Actual pilot aborted: error; see primary trace.",
       "evidence_files": [
-        "raw/pilot-driver.txt"
+        "raw/primary-summary.json"
       ]
     },
     {
@@ -51,10 +50,9 @@
       "kind": "measurement",
       "status": "failed",
       "run_id": null,
-      "reason": "Actual minimum free+spec7.785GiB<8GiB triggered resource guard; then ps error overwrote it in old supervisor. 4/4HTTP; no admission.",
+      "reason": "Resource collector failed: Command failed: ps -o rss= -p 40284",
       "evidence_files": [
-        "raw/ctx16/qualification.json",
-        "raw/ctx16/native/native-memory.jsonl"
+        "raw/ctx16/qualification.json"
       ]
     },
     {
@@ -95,18 +93,23 @@
       "kind": "agent-run",
       "status": "planned",
       "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
-      "reason": null,
-      "evidence_files": []
+      "reason": "Execution finished; independent hidden-check pending, not completed.",
+      "evidence_files": [
+        "raw/primary-summary.json"
+      ]
     }
   ],
   "evidence_files": [
+    "raw/check.txt",
     "raw/context-amendment.md",
     "raw/ctx16-retry/deployment.json",
     "raw/ctx16-retry/native/native-memory.jsonl",
     "raw/ctx16-retry/native/native-server.txt",
     "raw/ctx16-retry/native/shutdown-process.json",
     "raw/ctx16-retry/native/startup-process.json",
+    "raw/ctx16-retry/pilot-driver.txt",
     "raw/ctx16-retry/pilot-registration.json",
+    "raw/ctx16-retry/prepare.txt",
     "raw/ctx16-retry/qualification-driver.txt",
     "raw/ctx16-retry/qualification.json",
     "raw/ctx16-retry/request.json",
@@ -129,16 +132,22 @@
     "raw/ctx16/response-2.sse",
     "raw/ctx16/response-3.sse",
     "raw/deployment.json",
+    "raw/evaluation-pending.json",
+    "raw/evidence-sha256.json",
+    "raw/export-driver.txt",
     "raw/export_report.py",
     "raw/first-guard-amendment.md",
     "raw/first-guard-tests.txt",
+    "raw/lab-check-draft.json",
     "raw/native/native-memory.jsonl",
     "raw/native/native-server.txt",
     "raw/native/shutdown-process.json",
     "raw/native/startup-process.json",
+    "raw/npm-test.txt",
     "raw/pilot-driver.txt",
     "raw/pilot-registration.json",
     "raw/prepare.txt",
+    "raw/primary-summary.json",
     "raw/protocol.md",
     "raw/qualification-driver.txt",
     "raw/qualification.json",
@@ -154,7 +163,13 @@
     "raw/stable-admission.json",
     "raw/stable-admission.jsonl"
   ],
-  "unavailable": {},
-  "conclusion": null,
+  "unavailable": {
+    "completion": "Нет независимо оценённого успешного T002 pilot.",
+    "energy": "Энергия не измерялась.",
+    "temperature": "Нет подтверждённого thermal collector.",
+    "gpu_budget_gib": "Максимальный GPU budget не измерен.",
+    "ttft": "Bridge buffers SSE; no TTFT measurement."
+  },
+  "conclusion": "Короткие native qualifications завершены; T002 attempts сохранены отдельно. Полный агентный допуск требует independently judged pilot.",
   "reviewer_decision": null
 }

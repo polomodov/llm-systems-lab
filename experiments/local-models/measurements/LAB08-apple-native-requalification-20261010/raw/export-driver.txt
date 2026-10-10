@@ -1,0 +1,56 @@
+[
+  {
+    "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor",
+    "status": "aborted",
+    "stop_reason": "error",
+    "wall_seconds": 290,
+    "turns": 22,
+    "exit_code": 1,
+    "accepted_responses": 21,
+    "jobs": 22,
+    "partial_tokens_in": 106126,
+    "partial_tokens_out": 2752,
+    "samples": 146,
+    "max_gap_seconds": 2.1608219146728516,
+    "max_rss_gib": 7.525299072265625,
+    "max_swap_bytes": 0,
+    "shutdown": {
+      "timestamp": "2026-10-10T06:17:05.318Z",
+      "pid": 20453,
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "error": null,
+      "guard": null,
+      "sigint_count": 1
+    }
+  },
+  {
+    "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
+    "status": "awaiting_review",
+    "stop_reason": "length",
+    "wall_seconds": 244,
+    "turns": 16,
+    "exit_code": 0,
+    "accepted_responses": 16,
+    "jobs": 16,
+    "partial_tokens_in": 68121,
+    "partial_tokens_out": 3701,
+    "samples": 123,
+    "max_gap_seconds": 2.0150671005249023,
+    "max_rss_gib": 7.7785797119140625,
+    "max_swap_bytes": 0,
+    "shutdown": {
+      "timestamp": "2026-10-10T06:29:48.796Z",
+      "pid": 44369,
+      "exit": {
+        "code": 0,
+        "signal": null
+      },
+      "error": null,
+      "guard": null,
+      "sigint_count": 1
+    }
+  }
+]

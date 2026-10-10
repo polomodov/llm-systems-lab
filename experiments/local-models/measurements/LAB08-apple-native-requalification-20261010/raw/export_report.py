@@ -78,6 +78,8 @@ Apple M5 Max / 128GiB / macOS26.5/25F71, AC/mode0; pinned llama.cpp312cf033 + ti
 
 [Primary summary](raw/primary-summary.json) содержит partial usage, samples и cleanup. Partial tokens не выданы за полный итог interrupted request. Cost/energy/temperature/maxGPU остаютсяnull с причиной. Primary inputs/trace inventories доступны в каждом run; native pre-Popen hashes включают все23enginepaths/21dylibpaths, GGUF и passport.
 
+16K pilot: exit0 после16turns/244s, **stop_reason=length**, последний ответ исчерпал2048output tokens. Это завершение процесса, не доказательство завершения задачи. Usage всех16HTTP известно:68121input/3701output; SDK final получен. Awaiting_review/pending сохраняется до независимого judge; нельзя считать length успешнымfinal. Native RSSpeak7.779GiB/maxgap2.015s/swap0, cleanup0/одинSIGINT. Короткий16Kretry:4/4HTTP/64.371s/guardnull. Stable preflight120.023s/59samples/minfree+spec21.029GiB.
+
 ## Ошибки и ограничения
 
 8K pilot22-й запрос: HTTP400 `exceed_context_size_error`,8265prompttokens>8192. 21ответ принят, nativeexit0/одинSIGINT,146samples/maxgap2.161s/swap0. Это другой отказ, не повтор прежнего telemetry gap. Менять задним числом context или aborted нельзя. Новый16K — отдельная конфигурация с новымfingerprint и run ID. Ни CLIexit0, ни tool transport не заменяют независимую оценку задачи. При awaiting_review отчёт остаётся draft, пока judge pending; aborted не judge-ятся как pass. Идентичность/runtime safeguards проверены, вклад bridge в качество не установлен.
