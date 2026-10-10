@@ -1,7 +1,14 @@
 """Matched messages compare whole deployments, never infer an isolated backend effect."""
 import datetime,json,pathlib,statistics,sys
+from preregistration import verify_preregistration
 root=pathlib.Path(__file__).resolve().parents[3];directory=(root/sys.argv[1]).resolve();raw=directory/'raw';m=json.loads((directory/'manifest.json').read_text());rows=[];table=[];summary={}
 def save(p,v):p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+'\n')
+registration=json.loads((raw/'source-registration.json').read_text())
+starts=[json.loads(f.read_text())['started_at'] for f in raw.glob('*/execution.json')]
+receipt=verify_preregistration(root,registration.get('preregistration_commit'),registration.get('registered_files',{}),min(starts))
+save(raw/'preregistration-audit.json',receipt)
+if not receipt['verified']:
+ m['status']='blocked';m['unavailable']['completion']='Preregistration history/blob verification failed: '+str(receipt['errors']);m['conclusion']='Matched HTTP observations preserved; preregistration not verified.'
 def add(id,config,dep,repeat,metric,value,unit,path):rows.append([id+'-'+metric,config,'qwen35-9b-'+('q6' if dep=='gguf' else 'mlx-4bit'),'llama.cpp' if dep=='gguf' else 'mlx-lm','metal','8192',repeat if repeat!='warmup' else '',metric,str(value) if value is not None else '',unit,'measured' if value is not None else 'unavailable',str(path.relative_to(directory)),'' if value is not None else 'Primary field absent; no estimate.'])
 for dep in ('gguf','mlx'):
  folder=raw/dep
@@ -31,7 +38,7 @@ Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. GGUF Q6_K revision 38852
 
 ## Гипотеза и протокол до запуска
 
-[Протокол](raw/protocol.md) и source-registration закреплены commit до исполнения. Порядок GGUF → MLX, один собственный сервер. [Входы](raw/shared-inputs.json) совпадают по messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. На каждый вход — один прогрев и три повтора. Final сравнивается буквально, без trim и нормализации. Внутренние templates, token IDs и квантизация могут различаться: оцениваются целые deployments.
+[Протокол](raw/protocol.md) и source-registration закреплены commit до исполнения: `64d17b0cf302e606206b3b8c29022b9b6071da49`, сохранённый ancestor текущей ветки. [Audit](raw/preregistration-audit.json) проверяет 10 точных blobs и recorded commit time 11:31:31Z перед началом GGUF 11:31:31.819526Z. `parent_commit=efab7f2` означает preparation parent, не registration proof. Git timestamps не являются независимой аттестацией часов. При отсутствующем ancestor, файле, несовпадающих bytes или позднем commit exporter переводит сессию в blocked. Порядок GGUF → MLX, один собственный сервер. [Входы](raw/shared-inputs.json) совпадают по messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. На каждый вход — один прогрев и три повтора. Final сравнивается буквально, без trim и нормализации. Внутренние templates, token IDs и квантизация могут различаться: оцениваются целые deployments.
 
 ## Ход выполнения
 

@@ -8,7 +8,7 @@ Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. GGUF Q6_K revision 38852
 
 ## Гипотеза и протокол до запуска
 
-[Протокол](raw/protocol.md) и source-registration закреплены commit до исполнения. Порядок GGUF → MLX, один собственный сервер. [Входы](raw/shared-inputs.json) совпадают по messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. На каждый вход — один прогрев и три повтора. Final сравнивается буквально, без trim и нормализации. Внутренние templates, token IDs и квантизация могут различаться: оцениваются целые deployments.
+[Протокол](raw/protocol.md) и source-registration закреплены commit до исполнения: `64d17b0cf302e606206b3b8c29022b9b6071da49`, сохранённый ancestor текущей ветки. [Audit](raw/preregistration-audit.json) проверяет 10 точных blobs и recorded commit time 11:31:31Z перед началом GGUF 11:31:31.819526Z. `parent_commit=efab7f2` означает preparation parent, не registration proof. Git timestamps не являются независимой аттестацией часов. При отсутствующем ancestor, файле, несовпадающих bytes или позднем commit exporter переводит сессию в blocked. Порядок GGUF → MLX, один собственный сервер. [Входы](raw/shared-inputs.json) совпадают по messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. На каждый вход — один прогрев и три повтора. Final сравнивается буквально, без trim и нормализации. Внутренние templates, token IDs и квантизация могут различаться: оцениваются целые deployments.
 
 ## Ход выполнения
 
