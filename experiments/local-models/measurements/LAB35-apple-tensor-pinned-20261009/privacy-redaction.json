@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/metal-tensor/build-reference.json",
+      "original_sha256": "07976d3b6d7788a78c90851c16b12d3ad3af2326e2abd8882c29925dc0741a7c",
+      "published_sha256": "46b57edddc97febda893ab7bdd533f20dc828aa5958d2a1aa1dfa536ae993c44",
+      "original_bytes": 5383,
+      "published_bytes": 5222
+    },
+    {
+      "path": "raw/metal-tensor/chat-r1-execution.json",
+      "original_sha256": "4212e898e6a7c11627bca4bf3c9774fd04bc59feefc1f093f9d0d38a9aa5f8bb",
+      "published_sha256": "f9cf243a29088ddc70d46792ca419f10d45f4169e91d0ac8c27580626df8c598",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/chat-r2-execution.json",
+      "original_sha256": "68596445401d5b5c2cedd7906961ee94254faa7bc54a00d7de00a3d9ad4918a6",
+      "published_sha256": "321b9ed8fef9649f0f61445a50f141d0b7c0366bfc7136078b620d7cbc10e139",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/chat-r3-execution.json",
+      "original_sha256": "def48770cf3c79697ef9ed41604419ab25913776f7b8c2d573725efa4f6d49e3",
+      "published_sha256": "9b5d07264647957e0d22aff3e84cdff4b7bbef1209c51b714c5a38386304b05f",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/chat-warmup-execution.json",
+      "original_sha256": "94386272adcab021107557c64c008345f91b63d6f3a895a3b3e664a26938936e",
+      "published_sha256": "544a3ea9d9e7f808acdcd7b8602006e88b55dcac3ad635b791e8c9c20020ff38",
+      "original_bytes": 1051,
+      "published_bytes": 1023
+    },
+    {
+      "path": "raw/metal-tensor/load-r1-execution.json",
+      "original_sha256": "ff139f1b10844a19e47f20d98507962f42f66f36fd562b08d3a3a758a6302ec4",
+      "published_sha256": "833fd7edc226c6aa43391bc9cc28c002bb74066aea35fd7089538640ca8b2a54",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/load-r2-execution.json",
+      "original_sha256": "f0fbb99f962cf02311a00e97c8dfe40f482562c3f3c23f7aaa1e191cbbc56476",
+      "published_sha256": "1f044d135eb4d8d570f96e41669c6735ab560b54e8da4aed2c0c6ab6f04e4939",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/load-r3-execution.json",
+      "original_sha256": "abaf231ff5be10d21e97419d2232e107f14f785f029c28f1af4a94fe6f2f66d0",
+      "published_sha256": "dcd2c8c750a3f6aea6f908b016424287f6114d729336549c29915e894e6012d4",
+      "original_bytes": 1043,
+      "published_bytes": 1015
+    },
+    {
+      "path": "raw/metal-tensor/load-warmup-execution.json",
+      "original_sha256": "9b66e853ca934e1a7b9513c1c7f53f491daef9995cb9e862a30df55e552ee88e",
+      "published_sha256": "777af820576c4160eccaf905beff6b44616a47d63591899e42796aca40630436",
+      "original_bytes": 1051,
+      "published_bytes": 1023
+    },
+    {
+      "path": "raw/metal-tensor/runtime-manifest.json",
+      "original_sha256": "f686c3e86ac3ce466be5ee08562084263b86ced6feb9f4e00f7b3860aad0d752",
+      "published_sha256": "d06afe80464606211e402c7833a9c90d171c930c2cdb43c749ac5067536c51a6",
+      "original_bytes": 1623,
+      "published_bytes": 1609
+    },
+    {
+      "path": "raw/metal-tensor/server.txt",
+      "original_sha256": "8f66e4af4d909543b3004a0b8cc1276ca6404a73b46db4e4437ea8caebe1597b",
+      "published_sha256": "d087c065a264de4e8b8ec5901230e762f0946c89ea6403085eb49cd0bf81bc3a",
+      "original_bytes": 32622,
+      "published_bytes": 32608
+    },
+    {
+      "path": "raw/metal-tensor/shutdown-execution.json",
+      "original_sha256": "d7ea753a133c040119d5627352706dee98de901e6e5cced6fafad6a5d0e8b252",
+      "published_sha256": "795151c7404cea7efb9d9f4122577d4be0e54e92569f497ad7a0e6ad1ac24423",
+      "original_bytes": 15414,
+      "published_bytes": 15239
+    },
+    {
+      "path": "raw/metal-tensor/startup-process.json",
+      "original_sha256": "cb03670b6be498b76f687e57c1d9f70cf99cf4ad9531dd5c4bbe04c1bd6c230a",
+      "published_sha256": "544231318452430475db2c3701f588692190344368fc888dd2384acade05a620",
+      "original_bytes": 10839,
+      "published_bytes": 10664
+    },
+    {
+      "path": "raw/metal-tensor/startup-props.json",
+      "original_sha256": "6aa9642da20fac7a9421e1f6c500b0723d84000a816009451fbc5e614b8fca50",
+      "published_sha256": "42ba6e9d1e058a8c19bbd5ee2442cd8f7339e006e33888daa0750b0415d16105",
+      "original_bytes": 10520,
+      "published_bytes": 10513
+    },
+    {
+      "path": "raw/pin-audit-execution.json",
+      "original_sha256": "30e52aff6479dae81d0f3e9ff80b4da78ef62159dab831350c3587f31d820894",
+      "published_sha256": "00bbe7171eb13104ad48bb04b03cec05e93184cd93c87ff8b40d164fbbe6fa65",
+      "original_bytes": 5554,
+      "published_bytes": 5393
+    },
+    {
+      "path": "raw/run_tensor.py",
+      "original_sha256": "74258863d234b3b44b63ce364212215da70a50b792ee3a5902b60f4d1d357e93",
+      "published_sha256": "ee03e5a69f71bd94e8387cd6b4bf75f2a102ec838cb3e53e2321cb18242121f5",
+      "original_bytes": 16087,
+      "published_bytes": 16073
+    },
+    {
+      "path": "raw/summary.json",
+      "original_sha256": "97d860393292d38df5695221148504c16300746c18cb2f56d345fff0858b14ad",
+      "published_sha256": "bd7a42df7eef9cf03e09c726f84f9b8a450e69e906d9d4dbb91451f832297dcf",
+      "original_bytes": 23651,
+      "published_bytes": 23476
+    },
+    {
+      "path": "raw/variants.json",
+      "original_sha256": "eba8b66401b71f26fe0775ca1ade6e7cd8b06363b5d0e9be6b5f02fc4371b319",
+      "published_sha256": "b2091e1437ed41ccd3728c5c93ed0a22dafd93f8b8ca7f972d9e41eee611f0ed",
+      "original_bytes": 5794,
+      "published_bytes": 5626
+    }
+  ]
+}

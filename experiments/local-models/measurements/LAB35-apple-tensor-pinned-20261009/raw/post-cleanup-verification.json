@@ -1,0 +1,21 @@
+{
+  "server": {
+    "pid": 94821,
+    "ps_exit_code": 1,
+    "ps_stdout": "",
+    "present": false
+  },
+  "caffeinate": {
+    "pid": 94822,
+    "ps_exit_code": 1,
+    "ps_stdout": "",
+    "present": false
+  },
+  "owned_port_18080": {
+    "listener": false,
+    "lsof_exit_code": 1
+  },
+  "lm_studio_loaded_models": [],
+  "ollama_loaded_models": [],
+  "timestamp": "2026-10-09T21:08:25.694011+00:00"
+}
