@@ -1,0 +1,30 @@
+{
+  "original_proof": "raw/lms-gguf/backend-2/proof.json",
+  "original_sha256": "39ca1514f372e02bb5ff3ec1fc12b101af786a42f3d4be2c02ff1e3f5eaee690",
+  "parser": "experiments/local-models/apple/lms_evidence.py",
+  "parser_sha256": "20930205b3429648adb7be3bbc5d15bbe16b5fa4846f6532b87e9fff76a2f324",
+  "samples": [
+    {
+      "pid": 39699,
+      "returncode": 0,
+      "file": "raw/lms-gguf/backend-2/sample-39699.txt",
+      "active_frames": 7,
+      "sha256": "1ebdd086ff022d9135daf7b4d79c5ccfc4705747d288a8294a1109e8e5d8a8bb"
+    }
+  ],
+  "metal_call_path_lines": [
+    "    +         !               5 ggml_metal_graph_compute  (in libggml-metal.dylib) + 744  [0x105765dd8]",
+    "    +         !               |               2 ggml_metal_op_encode  (in libggml-metal.dylib) + 468  [0x10576ad90]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1608  [0x10576b204]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1912  [0x10576b334]",
+    "    +         !               |               + 1 ggml_metal_op_mul_mat  (in libggml-metal.dylib) + 2748  [0x105771ea0]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1960  [0x10576b364]",
+    "    +         !               1 ggml_metal_graph_compute  (in libggml-metal.dylib) + 608  [0x105765d50]"
+  ],
+  "metal_call_path_observed": true,
+  "curl_exit": 0,
+  "stream_complete": true,
+  "all_layer_offload": null,
+  "physical_gpu_release": null,
+  "scope": "Offline reanalysis of already recorded call graphs; no new model execution, no binary-image or wait-only acceptance."
+}

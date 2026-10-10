@@ -1,0 +1,380 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB33",
+  "harness_id": null,
+  "session_id": "apple-native-sdk-cancel-20261010",
+  "created_at": "2026-10-10T09:29:06.678Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Явная SDK отмена связывает native request и userStopped; HTTP disconnect может оставаться неподтверждённым. Metal call path приложенного GGUF runtime проверяется отдельно.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-10T09:29:06.711Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB33-apple-native-sdk-cancel-20261010/raw/mlx-artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB33-apple-native-sdk-cancel-20261010/raw/runtime-manifest.json",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "sdk-setup",
+      "configuration_id": "sdk-1-5-0-offline",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "reason": null,
+      "evidence_files": [
+        "raw/sdk-registration.json",
+        "raw/sdk-wheels.json",
+        "raw/sdk-requirements.txt",
+        "raw/sdk-install.txt"
+      ]
+    },
+    {
+      "id": "admission",
+      "configuration_id": "host-ac-no-models",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "reason": "Stable baseline free+spec16GiB/AC/pressure/swap admission failed",
+      "evidence_files": [
+        "raw/admission.json",
+        "raw/admission.jsonl"
+      ]
+    },
+    {
+      "id": "lms-gguf-startup",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-cleanup",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-chat-warmup",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-chat-1",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-chat-2",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-chat-3",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-backend-warmup",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-backend-1",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-backend-2",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-gguf-backend-3",
+      "configuration_id": "lms-gguf-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-startup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-cleanup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-warmup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-1",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-2",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-chat-3",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-cancel-warmup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-cancel-1",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-cancel-2",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-cancel-3",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-recovery-warmup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-recovery-1",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-recovery-2",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-sdk-recovery-3",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-cancel-warmup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-cancel-1",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-cancel-2",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-cancel-3",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-recovery-warmup",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-recovery-1",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-recovery-2",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    },
+    {
+      "id": "lms-mlx-http-recovery-3",
+      "configuration_id": "lms-mlx-native-defaults-v4-full-pins",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "reason": "Admission failed before model; no result",
+      "evidence_files": []
+    }
+  ],
+  "evidence_files": [
+    "raw/admission.json",
+    "raw/admission.jsonl",
+    "raw/check.txt",
+    "raw/controller-review-audit.json",
+    "raw/deployments.json",
+    "raw/driver.txt",
+    "raw/evidence-sha256.json",
+    "raw/gguf-deployment-reference.json",
+    "raw/lab-check-submission.json",
+    "raw/mlx-artifact-manifest.json",
+    "raw/npm-test.txt",
+    "raw/prestart-pins.json",
+    "raw/protocol.md",
+    "raw/python-tests.txt",
+    "raw/resource-window.json",
+    "raw/resource-window.jsonl",
+    "raw/review-evidence-sha256.json",
+    "raw/run_lms.executed.py",
+    "raw/run_lms.py",
+    "raw/runtime-manifest.json",
+    "raw/runtime-summary.json",
+    "raw/sdk-download.txt",
+    "raw/sdk-install.txt",
+    "raw/sdk-registration.json",
+    "raw/sdk-requirements.txt",
+    "raw/sdk-schema-smoke.json",
+    "raw/sdk-wheels.json",
+    "raw/sdk_probe.py",
+    "raw/source-registration.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Нативный HTTP/SDK опыт; agent harness отсутствует.",
+    "gpu_budget_gib": "Maximum GPU allocation not measured.",
+    "physical_gpu_release": "Нет независимого collector физических GPU страниц.",
+    "all_layer_offload": "Нет подтверждённого счётчика всех 33 layers.",
+    "completion": "Memory admission failed before model",
+    "energy": "No energy collector.",
+    "temperature": "No thermal collector.",
+    "measurements": "No completed SDK/HTTP inference; model phase did not start. Admission/resource observations are in raw files."
+  },
+  "conclusion": "API cancellation/backend observations recorded; full LAB33 admission still requires attributable native HTTP cancellation and physical GPU/all-layer evidence.",
+  "reviewer_decision": null
+}

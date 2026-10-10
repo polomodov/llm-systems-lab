@@ -1,0 +1,12 @@
+{
+  "model": "lab33-native-proof-gguf",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Пиши целые числа от 1 до 10000, каждое на новой строке, не останавливайся."
+    }
+  ],
+  "max_tokens": 2048,
+  "temperature": 0,
+  "stream": true
+}

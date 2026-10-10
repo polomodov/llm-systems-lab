@@ -1,0 +1,20 @@
+[
+  {
+    "id": "lms-gguf",
+    "alias": "lab33-native-proof-gguf",
+    "model_key": "qwen3.5-9b",
+    "format": "gguf",
+    "backend_path": "/Users/lab/.lmstudio/extensions/backends/llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0",
+    "resource_library": "/Users/lab/.lmstudio/extensions/backends/llama.cpp-mac-arm64-apple-metal-advsimd-2.54.0/libggml-metal.dylib",
+    "registry_path": "unsloth/Qwen3.5-9B-GGUF/Qwen3.5-9B-Q6_K.gguf"
+  },
+  {
+    "id": "lms-mlx",
+    "alias": "lab33-native-proof-mlx",
+    "model_key": "qwen3.5-9b-mlx",
+    "format": "safetensors",
+    "backend_path": "/Users/lab/.lmstudio/extensions/backends/mlx-llm-mac-arm64-apple-metal-nax-advsimd-1.13.1",
+    "resource_library": "/Users/lab/.lmstudio/extensions/backends/mlx-llm-mac-arm64-apple-metal-nax-advsimd-1.13.1/libllm_engine.dylib",
+    "registry_path": "mlx-community/Qwen3.5-9B-MLX-4bit"
+  }
+]

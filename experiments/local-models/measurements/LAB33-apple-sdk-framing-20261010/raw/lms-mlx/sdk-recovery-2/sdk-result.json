@@ -1,0 +1,1424 @@
+{
+  "started_at": "2026-10-10T10:58:00.310292+00:00",
+  "kind": "chat",
+  "alias": "lab33-sdk-framing-mlx",
+  "api_host": "127.0.0.1:1234",
+  "prompt": "Ответь ровно LAB_READY без пояснений.",
+  "config": {
+    "maxTokens": 2048,
+    "temperature": 0,
+    "topPSampling": 1
+  },
+  "cancel_called_at": null,
+  "fragments": [
+    {
+      "content": "Thinking",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.11793303489685059
+    },
+    {
+      "content": " Process",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.16726398468017578
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1674633026123047
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1676161289215088
+    },
+    {
+      "content": "1",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1676950454711914
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1770191192626953
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1875011920928955
+    },
+    {
+      "content": "An",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.18773508071899414
+    },
+    {
+      "content": "alyze",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1878373622894287
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.20743513107299805
+    },
+    {
+      "content": " Request",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2479391098022461
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2481379508972168
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.24840402603149414
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2698700428009033
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2800419330596924
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2801363468170166
+    },
+    {
+      "content": " Input",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.30196714401245117
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3023250102996826
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.30250024795532227
+    },
+    {
+      "content": "Ответ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.31991028785705566
+    },
+    {
+      "content": "ь",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3200199604034424
+    },
+    {
+      "content": " ровно",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.32950401306152344
+    },
+    {
+      "content": " LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.33933329582214355
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3495030403137207
+    },
+    {
+      "content": " без",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.35919618606567383
+    },
+    {
+      "content": " пояс",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3787350654602051
+    },
+    {
+      "content": "нений",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3884139060974121
+    },
+    {
+      "content": ".\"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.38878631591796875
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3888859748840332
+    },
+    {
+      "content": "Answer",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.39871811866760254
+    },
+    {
+      "content": " exactly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.418093204498291
+    },
+    {
+      "content": " LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.41820216178894043
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.42789316177368164
+    },
+    {
+      "content": " without",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.42800426483154297
+    },
+    {
+      "content": " explanations",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4866812229156494
+    },
+    {
+      "content": ".)",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.48687314987182617
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.48699522018432617
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4870891571044922
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4871501922607422
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4964761734008789
+    },
+    {
+      "content": " Constraint",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.516005277633667
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5161070823669434
+    },
+    {
+      "content": " The",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5258891582489014
+    },
+    {
+      "content": " response",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5549492835998535
+    },
+    {
+      "content": " must",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5647571086883545
+    },
+    {
+      "content": " be",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5844259262084961
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5940392017364502
+    },
+    {
+      "content": "ex",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.605323076248169
+    },
+    {
+      "content": "actly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6055490970611572
+    },
+    {
+      "content": "*",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6169049739837646
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6264891624450684
+    },
+    {
+      "content": "LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6354990005493164
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6454262733459473
+    },
+    {
+      "content": "\".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6455302238464355
+    },
+    {
+      "content": " No",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6553871631622314
+    },
+    {
+      "content": " extra",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6754601001739502
+    },
+    {
+      "content": " text",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6756341457366943
+    },
+    {
+      "content": ",",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6757991313934326
+    },
+    {
+      "content": " no",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6758861541748047
+    },
+    {
+      "content": " punctuation",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7047019004821777
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7147703170776367
+    },
+    {
+      "content": "unless",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7244911193847656
+    },
+    {
+      "content": " part",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7347002029418945
+    },
+    {
+      "content": " of",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7448298931121826
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7554969787597656
+    },
+    {
+      "content": " string",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7662901878356934
+    },
+    {
+      "content": "),",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7666411399841309
+    },
+    {
+      "content": " no",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7668542861938477
+    },
+    {
+      "content": " explanations",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8272511959075928
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8276300430297852
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8278820514678955
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8280050754547119
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8370151519775391
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8469481468200684
+    },
+    {
+      "content": " Language",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8673689365386963
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8674821853637695
+    },
+    {
+      "content": " Russian",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8873441219329834
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.887458086013794
+    },
+    {
+      "content": "based",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8970470428466797
+    },
+    {
+      "content": " on",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9070770740509033
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9272251129150391
+    },
+    {
+      "content": " prompt",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9765100479125977
+    },
+    {
+      "content": ").",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9766652584075928
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9768261909484863
+    },
+    {
+      "content": "2",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9769420623779297
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9770021438598633
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9861140251159668
+    },
+    {
+      "content": "D",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9862151145935059
+    },
+    {
+      "content": "etermine",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0058050155639648
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0258471965789795
+    },
+    {
+      "content": " Output",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0555591583251953
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0556752681732178
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0654592514038086
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0655763149261475
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0756170749664307
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0757942199707031
+    },
+    {
+      "content": " The",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0758881568908691
+    },
+    {
+      "content": " user",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.085747241973877
+    },
+    {
+      "content": " explicitly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1066701412200928
+    },
+    {
+      "content": " asked",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.11765718460083
+    },
+    {
+      "content": " for",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1285572052001953
+    },
+    {
+      "content": " a",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1287012100219727
+    },
+    {
+      "content": " specific",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1586081981658936
+    },
+    {
+      "content": " string",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.168853998184204
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.179448127746582
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1901350021362305
+    },
+    {
+      "content": "LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.1997270584106445
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.230248212814331
+    },
+    {
+      "content": "\".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.2304823398590088
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.2305841445922852
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.240293264389038
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.2405281066894531
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.240631103515625
+    },
+    {
+      "content": " They",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.250162124633789
+    },
+    {
+      "content": " emphasized",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.2989802360534668
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.308622121810913
+    },
+    {
+      "content": "ров",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3087351322174072
+    },
+    {
+      "content": "но",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3276691436767578
+    },
+    {
+      "content": "\"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3278210163116455
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3279139995574951
+    },
+    {
+      "content": "ex",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.338353157043457
+    },
+    {
+      "content": "actly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3583080768585205
+    },
+    {
+      "content": ")",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3584201335906982
+    },
+    {
+      "content": " and",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3682701587677002
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3684182167053223
+    },
+    {
+      "content": "без",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3881752490997314
+    },
+    {
+      "content": " пояс",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.3980531692504883
+    },
+    {
+      "content": "нений",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4079029560089111
+    },
+    {
+      "content": "\"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.408081293106079
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4082162380218506
+    },
+    {
+      "content": "without",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.408290147781372
+    },
+    {
+      "content": " explanations",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4814951419830322
+    },
+    {
+      "content": ").",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4819493293762207
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4911580085754395
+    },
+    {
+      "content": "3",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4914240837097168
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.4915430545806885
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5081632137298584
+    },
+    {
+      "content": "Form",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5198931694030762
+    },
+    {
+      "content": "ulate",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5248823165893555
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5368421077728271
+    },
+    {
+      "content": " Response",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5953471660614014
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.595592975616455
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.595757007598877
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.5959951877593994
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.6171021461486816
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.6173419952392578
+    },
+    {
+      "content": " Content",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.644045114517212
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.649287223815918
+    },
+    {
+      "content": " LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.6595051288604736
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.6858842372894287
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.6860380172729492
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7095041275024414
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7188160419464111
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7191622257232666
+    },
+    {
+      "content": " Format",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7294321060180664
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.744030237197876
+    },
+    {
+      "content": " Plain",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.764829158782959
+    },
+    {
+      "content": " text",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7651011943817139
+    },
+    {
+      "content": ",",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7652122974395752
+    },
+    {
+      "content": " no",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.775428056716919
+    },
+    {
+      "content": " markdown",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.787473201751709
+    },
+    {
+      "content": " code",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.7982611656188965
+    },
+    {
+      "content": " blocks",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.853652000427246
+    },
+    {
+      "content": " unless",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.8672409057617188
+    },
+    {
+      "content": " necessary",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.893050193786621
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.903465986251831
+    },
+    {
+      "content": "but",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.918140172958374
+    },
+    {
+      "content": " usually",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.968750238418579
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.9689652919769287
+    },
+    {
+      "content": "ex",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.9690971374511719
+    },
+    {
+      "content": "actly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.989626169204712
+    },
+    {
+      "content": "\"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.989774227142334
+    },
+    {
+      "content": " means",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.013028144836426
+    },
+    {
+      "content": " raw",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.0227761268615723
+    },
+    {
+      "content": " text",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.0363430976867676
+    },
+    {
+      "content": "),",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.0365171432495117
+    },
+    {
+      "content": " no",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.0460691452026367
+    },
+    {
+      "content": " extra",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.062504291534424
+    },
+    {
+      "content": " new",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.0752451419830322
+    },
+    {
+      "content": "lines",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.075437068939209
+    },
+    {
+      "content": " if",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.097149133682251
+    },
+    {
+      "content": " possible",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.1318740844726562
+    },
+    {
+      "content": ",",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.1320841312408447
+    },
+    {
+      "content": " but",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.144561290740967
+    },
+    {
+      "content": " a",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.144728183746338
+    },
+    {
+      "content": " single",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.1680941581726074
+    },
+    {
+      "content": " line",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.168241262435913
+    },
+    {
+      "content": " is",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.2048890590667725
+    },
+    {
+      "content": " standard",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.2384231090545654
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.238697052001953
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.238793134689331
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.2498691082000732
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.25002121925354
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.260730266571045
+    },
+    {
+      "content": " Check",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.273327112197876
+    },
+    {
+      "content": " for",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.273632049560547
+    },
+    {
+      "content": " hidden",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.2737951278686523
+    },
+    {
+      "content": " constraints",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.3060190677642822
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.306185007095337
+    },
+    {
+      "content": " Sometimes",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.3306162357330322
+    },
+    {
+      "content": " users",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.3421201705932617
+    },
+    {
+      "content": " want",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.366702079772949
+    },
+    {
+      "content": " to",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.366868019104004
+    },
+    {
+      "content": " test",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.3931541442871094
+    },
+    {
+      "content": " if",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.393280029296875
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.4035720825195312
+    },
+    {
+      "content": " AI",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.4037771224975586
+    },
+    {
+      "content": " follows",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.4158530235290527
+    },
+    {
+      "content": " strict",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.4160282611846924
+    },
+    {
+      "content": " instructions",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5029172897338867
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5031752586364746
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.514270305633545
+    },
+    {
+      "content": "4",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.514559030532837
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5148720741271973
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.515001058578491
+    },
+    {
+      "content": "Final",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5269582271575928
+    },
+    {
+      "content": " Decision",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5806052684783936
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.580925941467285
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.5810980796813965
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.591365098953247
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.602607250213623
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.6028380393981934
+    },
+    {
+      "content": " Output",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.627606153488159
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.627951145172119
+    },
+    {
+      "content": " LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.6696839332580566
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.6831560134887695
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.6834182739257812
+    },
+    {
+      "content": "5",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.695042133331299
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.6953909397125244
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.695664167404175
+    },
+    {
+      "content": "Review",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7068521976470947
+    },
+    {
+      "content": " against",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7070562839508057
+    },
+    {
+      "content": " constraints",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7758421897888184
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.787827968597412
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7880351543426514
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7981040477752686
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.798548936843872
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.7987592220306396
+    },
+    {
+      "content": " Is",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.8109281063079834
+    },
+    {
+      "content": " it",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.8264992237091064
+    },
+    {
+      "content": " exactly",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.8477001190185547
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.8579399585723877
+    },
+    {
+      "content": "LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.8581082820892334
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.900130033493042
+    },
+    {
+      "content": "\"?",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.911372184753418
+    },
+    {
+      "content": " Yes",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.9226810932159424
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.9228742122650146
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.933648109436035
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.934101104736328
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.934300184249878
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.9447641372680664
+    },
+    {
+      "content": " Are",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.945190191268921
+    },
+    {
+      "content": " there",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 2.9453701972961426
+    },
+    {
+      "content": " explanations",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.031966209411621
+    },
+    {
+      "content": "?",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0322301387786865
+    },
+    {
+      "content": " No",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0422730445861816
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.042574167251587
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0430521965026855
+    },
+    {
+      "content": "6",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.043239116668701
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0434532165527344
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.053147077560425
+    },
+    {
+      "content": "Construct",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0752251148223877
+    },
+    {
+      "content": " Output",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.0860023498535156
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.106786012649536
+    },
+    {
+      "content": " LAB",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.1071250438690186
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.1075172424316406
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 3.107706069946289
+    },
+    {
+      "content": "</think>",
+      "reasoning_type": "reasoningEndTag",
+      "observed_seconds": 3.107811212539673
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "none",
+      "observed_seconds": 3.147905111312866
+    },
+    {
+      "content": "LAB",
+      "reasoning_type": "none",
+      "observed_seconds": 3.1482181549072266
+    },
+    {
+      "content": "_READY",
+      "reasoning_type": "none",
+      "observed_seconds": 3.1486053466796875
+    },
+    {
+      "content": "",
+      "reasoning_type": "none",
+      "observed_seconds": 3.148893356323242
+    }
+  ],
+  "accepted": true,
+  "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no punctuation (unless part of the string), no explanations.\n    *   Language: Russian (based on the prompt).\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for a specific string: \"LAB_READY\".\n    *   They emphasized \"ровно\" (exactly) and \"без пояснений\" (without explanations).\n\n3.  **Formulate the Response:**\n    *   Content: LAB_READY\n    *   Format: Plain text, no markdown code blocks unless necessary (but usually \"exactly\" means raw text), no extra newlines if possible, but a single line is standard.\n    *   Check for hidden constraints: Sometimes users want to test if the AI follows strict instructions.\n\n4.  **Final Decision:**\n    *   Output: LAB_READY\n\n5.  **Review against constraints:**\n    *   Is it exactly \"LAB_READY\"? Yes.\n    *   Are there explanations? No.\n\n6.  **Construct Output:** LAB_READY\n</think>\n\nLAB_READY",
+  "stats": {
+    "stopReason": "eosFound",
+    "tokensPerSecond": 90.5817342974805,
+    "numGpuLayers": -1.0,
+    "timeToFirstTokenSec": 0.055,
+    "promptTokensCount": 19,
+    "predictedTokensCount": 278,
+    "totalTokensCount": 297
+  },
+  "model_info": {
+    "type": "llm",
+    "modelKey": "qwen3.5-9b-mlx",
+    "format": "safetensors",
+    "displayName": "Qwen3.5 9B",
+    "path": "mlx-community/Qwen3.5-9B-MLX-4bit",
+    "sizeBytes": 5977073021,
+    "vision": true,
+    "trainedForToolUse": true,
+    "maxContextLength": 262144,
+    "paramsString": "9B",
+    "architecture": "qwen3_5"
+  },
+  "load_config": {
+    "contextLength": 8192
+  },
+  "prediction_config": {
+    "maxTokens": 2048,
+    "temperature": 0.0,
+    "rawTools": {
+      "type": "none"
+    },
+    "topKSampling": 100.0,
+    "repeatPenalty": 1.1,
+    "topPSampling": 1,
+    "promptTemplate": {
+      "type": "jinja",
+      "stopStrings": [],
+      "jinjaPromptTemplate": {
+        "template": "{%- set image_count = namespace(value=0) %}\n{%- set video_count = namespace(value=0) %}\n{%- macro render_content(content, do_vision_count, is_system_content=false) %}\n    {%- if content is string %}\n        {{- content }}\n    {%- elif content is iterable and content is not mapping %}\n        {%- for item in content %}\n            {%- if 'image' in item or 'image_url' in item or item.type == 'image' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain images.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set image_count.value = image_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Picture ' ~ image_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|image_pad|><|vision_end|>' }}\n            {%- elif 'video' in item or item.type == 'video' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain videos.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set video_count.value = video_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Video ' ~ video_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|video_pad|><|vision_end|>' }}\n            {%- elif 'text' in item %}\n                {{- item.text }}\n            {%- else %}\n                {{- raise_exception('Unexpected item type in content.') }}\n            {%- endif %}\n        {%- endfor %}\n    {%- elif content is none or content is undefined %}\n        {{- '' }}\n    {%- else %}\n        {{- raise_exception('Unexpected content type.') }}\n    {%- endif %}\n{%- endmacro %}\n{%- if not messages %}\n    {{- raise_exception('No messages provided.') }}\n{%- endif %}\n{%- if tools and tools is iterable and tools is not mapping %}\n    {{- '<|im_start|>system\\n' }}\n    {{- \"# Tools\\n\\nYou have access to the following functions:\\n\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\" }}\n    {{- '\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n<tool_call>\\n<function=example_function_name>\\n<parameter=example_parameter_1>\\nvalue_1\\n</parameter>\\n<parameter=example_parameter_2>\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n</parameter>\\n</function>\\n</tool_call>\\n\\n<IMPORTANT>\\nReminder:\\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n</IMPORTANT>' }}\n    {%- if messages[0].role == 'system' %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {%- if content %}\n            {{- '\\n\\n' + content }}\n        {%- endif %}\n    {%- endif %}\n    {{- '<|im_end|>\\n' }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {{- '<|im_start|>system\\n' + content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" %}\n        {%- set content = render_content(message.content, false)|trim %}\n        {%- if not(content.startswith('<tool_response>') and content.endswith('</tool_response>')) %}\n            {%- set ns.multi_step_tool = false %}\n            {%- set ns.last_query_index = index %}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if ns.multi_step_tool %}\n    {{- raise_exception('No user query found in messages.') }}\n{%- endif %}\n{%- for message in messages %}\n    {%- set content = render_content(message.content, true)|trim %}\n    {%- if message.role == \"system\" %}\n        {%- if not loop.first %}\n            {{- raise_exception('System message must be at the beginning.') }}\n        {%- endif %}\n    {%- elif message.role == \"user\" %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- set reasoning_content = reasoning_content|trim %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content + '\\n</think>\\n\\n' + content }}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls and message.tool_calls is iterable and message.tool_calls is not mapping %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if tool_call.function is defined %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {%- if loop.first %}\n                    {%- if content|trim %}\n                        {{- '\\n\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- else %}\n                        {{- '<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- endif %}\n                {%- else %}\n                    {{- '\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                {%- endif %}\n                {%- if tool_call.arguments is defined %}\n                    {%- for args_name, args_value in tool_call.arguments|items %}\n                        {{- '<parameter=' + args_name + '>\\n' }}\n                        {%- set args_value = args_value | tojson if args_value is mapping or (args_value is iterable and args_value is not string) else args_value | string %}\n                        {{- args_value }}\n                        {{- '\\n</parameter>\\n' }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- '</function>\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.previtem and loop.previtem.role != \"tool\" %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if not loop.last and loop.nextitem.role != \"tool\" %}\n            {{- '<|im_end|>\\n' }}\n        {%- elif loop.last %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- else %}\n        {{- raise_exception('Unexpected message role.') }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- else %}\n        {{- '<think>\\n' }}\n    {%- endif %}\n{%- endif %}"
+      }
+    }
+  },
+  "final_content": "\n\nLAB_READY",
+  "response_alias": null,
+  "response_alias_unavailable": "SDK PredictionResult.model_info is LlmInfo without instance identifier; loaded handle selector and observed path validate this controlled deployment",
+  "ended_at": "2026-10-10T10:58:03.461325+00:00",
+  "total_seconds": 3.1510441303253174
+}

@@ -1,0 +1,489 @@
+{
+  "started_at": "2026-10-10T10:57:54.919739+00:00",
+  "kind": "cancel",
+  "alias": "lab33-sdk-framing-mlx",
+  "api_host": "127.0.0.1:1234",
+  "prompt": "Пиши целые числа от 1 до 10000, каждое на новой строке, не останавливайся.",
+  "config": {
+    "maxTokens": 2048,
+    "temperature": 0,
+    "topPSampling": 1
+  },
+  "cancel_called_at": "2026-10-10T10:57:55.946826+00:00",
+  "fragments": [
+    {
+      "content": "Thinking",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.136016845703125
+    },
+    {
+      "content": " Process",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.18645977973937988
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.18665695190429688
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.18678689002990723
+    },
+    {
+      "content": "1",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.18686580657958984
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.1969149112701416
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.20687580108642578
+    },
+    {
+      "content": "An",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.20702004432678223
+    },
+    {
+      "content": "alyze",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.20709586143493652
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.22695684432983398
+    },
+    {
+      "content": " Request",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.26916003227233887
+    },
+    {
+      "content": ":**",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2694108486175537
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2695789337158203
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.28941893577575684
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2896249294281006
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2897160053253174
+    },
+    {
+      "content": " Task",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.2997708320617676
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.29988980293273926
+    },
+    {
+      "content": " Write",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.3098907470703125
+    },
+    {
+      "content": " integers",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.36086392402648926
+    },
+    {
+      "content": " from",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.41126585006713867
+    },
+    {
+      "content": " 1",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.43180179595947266
+    },
+    {
+      "content": " to",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.44191598892211914
+    },
+    {
+      "content": " 1",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.452268123626709
+    },
+    {
+      "content": "0",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4622800350189209
+    },
+    {
+      "content": ",",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.46238183975219727
+    },
+    {
+      "content": "0",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4723658561706543
+    },
+    {
+      "content": "0",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.47255396842956543
+    },
+    {
+      "content": "0",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4726998805999756
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.47279906272888184
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4728548526763916
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4824528694152832
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4927859306335449
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.4929208755493164
+    },
+    {
+      "content": " Format",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5025680065155029
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5026848316192627
+    },
+    {
+      "content": " Each",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5232429504394531
+    },
+    {
+      "content": " number",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5431058406829834
+    },
+    {
+      "content": " on",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5533628463745117
+    },
+    {
+      "content": " a",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5737528800964355
+    },
+    {
+      "content": " new",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.5836727619171143
+    },
+    {
+      "content": " line",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6044418811798096
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6046278476715088
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6047499179840088
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6048498153686523
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6049158573150635
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.614771842956543
+    },
+    {
+      "content": " Constraint",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6554069519042969
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6555149555206299
+    },
+    {
+      "content": " \"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6652727127075195
+    },
+    {
+      "content": "Do",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6758608818054199
+    },
+    {
+      "content": " not",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6957969665527344
+    },
+    {
+      "content": " stop",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6959948539733887
+    },
+    {
+      "content": "\"",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6961207389831543
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.6961879730224609
+    },
+    {
+      "content": "не",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7061467170715332
+    },
+    {
+      "content": " останавли",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7369399070739746
+    },
+    {
+      "content": "вай",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7468979358673096
+    },
+    {
+      "content": "ся",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7470526695251465
+    },
+    {
+      "content": ").",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7471287250518799
+    },
+    {
+      "content": " This",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7672567367553711
+    },
+    {
+      "content": " implies",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7673537731170654
+    },
+    {
+      "content": " a",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7773289680480957
+    },
+    {
+      "content": " continuous",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.7975878715515137
+    },
+    {
+      "content": " stream",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8179178237915039
+    },
+    {
+      "content": " of",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8279440402984619
+    },
+    {
+      "content": " output",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8582658767700195
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.858508825302124
+    },
+    {
+      "content": "\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8586559295654297
+    },
+    {
+      "content": "   ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8587257862091064
+    },
+    {
+      "content": " *",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.868535041809082
+    },
+    {
+      "content": "  ",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8788349628448486
+    },
+    {
+      "content": " Language",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8993649482727051
+    },
+    {
+      "content": ":",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.8994817733764648
+    },
+    {
+      "content": " Russian",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9198458194732666
+    },
+    {
+      "content": " (",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9199438095092773
+    },
+    {
+      "content": "based",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9304440021514893
+    },
+    {
+      "content": " on",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9401910305023193
+    },
+    {
+      "content": " the",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 0.9604396820068359
+    },
+    {
+      "content": " prompt",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0019867420196533
+    },
+    {
+      "content": ").",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0022008419036865
+    },
+    {
+      "content": "\n\n",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0023939609527588
+    },
+    {
+      "content": "2",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0025107860565186
+    },
+    {
+      "content": ".",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.00258207321167
+    },
+    {
+      "content": "  **",
+      "reasoning_type": "reasoning",
+      "observed_seconds": 1.0122108459472656
+    }
+  ],
+  "accepted": true,
+  "content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Write integers from 1 to 10,000.\n    *   Format: Each number on a new line.\n    *   Constraint: \"Do not stop\" (не останавливайся). This implies a continuous stream of output.\n    *   Language: Russian (based on the prompt).\n\n2.  **",
+  "stats": {
+    "stopReason": "userStopped",
+    "tokensPerSecond": 95.08547008547008,
+    "numGpuLayers": -1.0,
+    "timeToFirstTokenSec": 0.072,
+    "promptTokensCount": 37,
+    "predictedTokensCount": 93,
+    "totalTokensCount": 130
+  },
+  "model_info": {
+    "type": "llm",
+    "modelKey": "qwen3.5-9b-mlx",
+    "format": "safetensors",
+    "displayName": "Qwen3.5 9B",
+    "path": "mlx-community/Qwen3.5-9B-MLX-4bit",
+    "sizeBytes": 5977073021,
+    "vision": true,
+    "trainedForToolUse": true,
+    "maxContextLength": 262144,
+    "paramsString": "9B",
+    "architecture": "qwen3_5"
+  },
+  "load_config": {
+    "contextLength": 8192
+  },
+  "prediction_config": {
+    "maxTokens": 2048,
+    "temperature": 0.0,
+    "rawTools": {
+      "type": "none"
+    },
+    "topKSampling": 100.0,
+    "repeatPenalty": 1.1,
+    "topPSampling": 1,
+    "promptTemplate": {
+      "type": "jinja",
+      "stopStrings": [],
+      "jinjaPromptTemplate": {
+        "template": "{%- set image_count = namespace(value=0) %}\n{%- set video_count = namespace(value=0) %}\n{%- macro render_content(content, do_vision_count, is_system_content=false) %}\n    {%- if content is string %}\n        {{- content }}\n    {%- elif content is iterable and content is not mapping %}\n        {%- for item in content %}\n            {%- if 'image' in item or 'image_url' in item or item.type == 'image' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain images.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set image_count.value = image_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Picture ' ~ image_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|image_pad|><|vision_end|>' }}\n            {%- elif 'video' in item or item.type == 'video' %}\n                {%- if is_system_content %}\n                    {{- raise_exception('System message cannot contain videos.') }}\n                {%- endif %}\n                {%- if do_vision_count %}\n                    {%- set video_count.value = video_count.value + 1 %}\n                {%- endif %}\n                {%- if add_vision_id %}\n                    {{- 'Video ' ~ video_count.value ~ ': ' }}\n                {%- endif %}\n                {{- '<|vision_start|><|video_pad|><|vision_end|>' }}\n            {%- elif 'text' in item %}\n                {{- item.text }}\n            {%- else %}\n                {{- raise_exception('Unexpected item type in content.') }}\n            {%- endif %}\n        {%- endfor %}\n    {%- elif content is none or content is undefined %}\n        {{- '' }}\n    {%- else %}\n        {{- raise_exception('Unexpected content type.') }}\n    {%- endif %}\n{%- endmacro %}\n{%- if not messages %}\n    {{- raise_exception('No messages provided.') }}\n{%- endif %}\n{%- if tools and tools is iterable and tools is not mapping %}\n    {{- '<|im_start|>system\\n' }}\n    {{- \"# Tools\\n\\nYou have access to the following functions:\\n\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\" }}\n    {{- '\\n\\nIf you choose to call a function ONLY reply in the following format with NO suffix:\\n\\n<tool_call>\\n<function=example_function_name>\\n<parameter=example_parameter_1>\\nvalue_1\\n</parameter>\\n<parameter=example_parameter_2>\\nThis is the value for the second parameter\\nthat can span\\nmultiple lines\\n</parameter>\\n</function>\\n</tool_call>\\n\\n<IMPORTANT>\\nReminder:\\n- Function calls MUST follow the specified format: an inner <function=...></function> block must be nested within <tool_call></tool_call> XML tags\\n- Required parameters MUST be specified\\n- You may provide optional reasoning for your function call in natural language BEFORE the function call, but NOT after\\n- If there is no function call available, answer the question like normal with your current knowledge and do not tell the user about function calls\\n</IMPORTANT>' }}\n    {%- if messages[0].role == 'system' %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {%- if content %}\n            {{- '\\n\\n' + content }}\n        {%- endif %}\n    {%- endif %}\n    {{- '<|im_end|>\\n' }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {%- set content = render_content(messages[0].content, false, true)|trim %}\n        {{- '<|im_start|>system\\n' + content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" %}\n        {%- set content = render_content(message.content, false)|trim %}\n        {%- if not(content.startswith('<tool_response>') and content.endswith('</tool_response>')) %}\n            {%- set ns.multi_step_tool = false %}\n            {%- set ns.last_query_index = index %}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if ns.multi_step_tool %}\n    {{- raise_exception('No user query found in messages.') }}\n{%- endif %}\n{%- for message in messages %}\n    {%- set content = render_content(message.content, true)|trim %}\n    {%- if message.role == \"system\" %}\n        {%- if not loop.first %}\n            {{- raise_exception('System message must be at the beginning.') }}\n        {%- endif %}\n    {%- elif message.role == \"user\" %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- set reasoning_content = reasoning_content|trim %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content + '\\n</think>\\n\\n' + content }}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls and message.tool_calls is iterable and message.tool_calls is not mapping %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if tool_call.function is defined %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {%- if loop.first %}\n                    {%- if content|trim %}\n                        {{- '\\n\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- else %}\n                        {{- '<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                    {%- endif %}\n                {%- else %}\n                    {{- '\\n<tool_call>\\n<function=' + tool_call.name + '>\\n' }}\n                {%- endif %}\n                {%- if tool_call.arguments is defined %}\n                    {%- for args_name, args_value in tool_call.arguments|items %}\n                        {{- '<parameter=' + args_name + '>\\n' }}\n                        {%- set args_value = args_value | tojson if args_value is mapping or (args_value is iterable and args_value is not string) else args_value | string %}\n                        {{- args_value }}\n                        {{- '\\n</parameter>\\n' }}\n                    {%- endfor %}\n                {%- endif %}\n                {{- '</function>\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.previtem and loop.previtem.role != \"tool\" %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if not loop.last and loop.nextitem.role != \"tool\" %}\n            {{- '<|im_end|>\\n' }}\n        {%- elif loop.last %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- else %}\n        {{- raise_exception('Unexpected message role.') }}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- else %}\n        {{- '<think>\\n' }}\n    {%- endif %}\n{%- endif %}"
+      }
+    }
+  },
+  "final_content": "",
+  "response_alias": null,
+  "response_alias_unavailable": "SDK PredictionResult.model_info is LlmInfo without instance identifier; loaded handle selector and observed path validate this controlled deployment",
+  "ended_at": "2026-10-10T10:57:55.952932+00:00",
+  "total_seconds": 1.0332059860229492
+}

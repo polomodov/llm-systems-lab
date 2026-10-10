@@ -1,0 +1,42 @@
+{
+  "curl_exit": 0,
+  "stream_complete": true,
+  "samples": [
+    {
+      "pid": 39699,
+      "returncode": 0,
+      "file": "raw/lms-gguf/backend-2/sample-39699.txt"
+    }
+  ],
+  "metal_call_path_lines": [
+    "    +         !     :   73 ggml_metal_synchronize  (in libggml-metal.dylib) + 40  [0x105765424]",
+    "    +         !               5 ggml_metal_graph_compute  (in libggml-metal.dylib) + 744  [0x105765dd8]",
+    "    +         !               |             5 __ggml_metal_set_n_cb_block_invoke  (in libggml-metal.dylib) + 180  [0x1057661a0]",
+    "    +         !               |               2 ggml_metal_op_encode  (in libggml-metal.dylib) + 468  [0x10576ad90]",
+    "    +         !               |               +   2 AGX::ComputeContext<AGX::HAL300::Encoders, AGX::HAL300::Classes, AGX::HAL300::ObjClasses, AGX::HAL300::CommandEncoding, AGX::HAL300::EncoderComputeServiceClasses>::insertIndirectTGOptKernel(eAGXDataBufferPools, indirectTGOptParams*&, unsigned short*&, AGX::CDMEncoderGen7<AGX::HAL300::ESLEncoder, AGX::HAL300::DeviceConstants>::InstanceTokenImproved*&, AGX::CDMEncoderGen7<AGX::HAL300::ESLEncoder, AGX::HAL300::DeviceConstants>::FenceToken*&)  (in AGXMetalG17X) + 456  [0x11565048c]",
+    "    +         !               |               +     1 AGX::ComputeContext<AGX::HAL300::Encoders, AGX::HAL300::Classes, AGX::HAL300::ObjClasses, AGX::HAL300::CommandEncoding, AGX::HAL300::EncoderComputeServiceClasses>::performEnqueueKernel(eAGXDataBufferPools, unsigned long long, unsigned int, unsigned long long*)  (in AGXMetalG17X) + 860  [0x115651038]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1608  [0x10576b204]",
+    "    +         !               |               + 1 ggml_metal_op_unary  (in libggml-metal.dylib) + 532  [0x10576c4c4]",
+    "    +         !               |               +   1 ggml_metal_library_get_pipeline_unary  (in libggml-metal.dylib) + 320  [0x10575b314]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1912  [0x10576b334]",
+    "    +         !               |               + 1 ggml_metal_op_mul_mat  (in libggml-metal.dylib) + 2748  [0x105771ea0]",
+    "    +         !               |               +   1 ggml_metal_library_get_pipeline_mul_mv  (in libggml-metal.dylib) + 572  [0x10575d658]",
+    "    +         !               |               +     1 ggml_metal_library_get_pipeline  (in libggml-metal.dylib) + 60  [0x1057574c4]",
+    "    +         !               |               +       1 ggml_metal_pipelines_get  (in libggml-metal.dylib) + 100  [0x10575a710]",
+    "    +         !               |               1 ggml_metal_op_encode  (in libggml-metal.dylib) + 1960  [0x10576b364]",
+    "    +         !               |                 1 ggml_metal_op_get_rows  (in libggml-metal.dylib) + 196  [0x10576d380]",
+    "    +         !               |                   1 ggml_metal_library_get_pipeline_get_rows  (in libggml-metal.dylib) + 120  [0x10575adc8]",
+    "    +         !               |                     1 ggml_metal_library_get_pipeline  (in libggml-metal.dylib) + 60  [0x1057574c4]",
+    "    +         !               |                       1 ggml_metal_pipelines_get  (in libggml-metal.dylib) + 148  [0x10575a740]",
+    "    +         !               |                         1 std::__hash_table<std::__hash_value_type<std::basic_string<char>, ggml_metal_pipeline*>>::find<std::basic_string<char>>(std::basic_string<char> const&)  (in libggml-metal.dylib) + 64  [0x1057626b8]",
+    "    +         !               |                           1 std::__murmur2_or_cityhash<unsigned long, 64ul>::operator()[abi:ue170006](void const*, unsigned long) const  (in libggml-metal.dylib) + 524  [0x10576223c]",
+    "    +         !               1 ggml_metal_graph_compute  (in libggml-metal.dylib) + 608  [0x105765d50]",
+    "    +         !                 1 __ggml_metal_set_n_cb_block_invoke  (in libggml-metal.dylib) + 148  [0x105766180]",
+    "    +         !                   1 ggml_metal_op_init  (in libggml-metal.dylib) + 120  [0x10576ab18]",
+    "    +         !                     1 ggml_metal_op::ggml_metal_op(ggml_metal_device*, void*, ggml_cgraph*, ggml_metal_fusion_info*, int, int, bool, bool, int)  (in libggml-metal.dylib) + 180  [0x10577a4dc]",
+    "       0x105750000 -        0x105783ff3 +libggml-metal.dylib (0) <DF14790A-015F-37AF-AA8D-8F5940ECACE3> /Users/*/libggml-metal.dylib"
+  ],
+  "metal_call_path_observed": true,
+  "all_layer_offload": null,
+  "reason": "A sampled Metal call path does not count all 33 layers or measure GPU physical release"
+}
