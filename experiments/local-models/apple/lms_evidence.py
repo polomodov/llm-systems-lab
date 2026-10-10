@@ -1,4 +1,6 @@
 """Measurement helpers: active compute frames and successful owned-model unload."""
+import hashlib
+import pathlib
 import re
 
 # Only counted call-graph frames, never image names, summaries or wait-only frames.
@@ -21,3 +23,10 @@ def active_metal_frames(text):
 def unload_owned(cli, alias, folder, state):
     cli(['unload', alias], 'unload', folder, 30)
     state['loaded'] = False
+
+
+def require_helper_pin(pins, path=None):
+    path = pathlib.Path(path or __file__).resolve()
+    sha = hashlib.sha256(path.read_bytes()).hexdigest()
+    if not any(pathlib.Path(record['path']).resolve() == path and record['bytes'] == path.stat().st_size and record['sha256'] == sha for record in pins['files']):
+        raise ValueError('Fresh prestart pins must include lms_evidence.py')

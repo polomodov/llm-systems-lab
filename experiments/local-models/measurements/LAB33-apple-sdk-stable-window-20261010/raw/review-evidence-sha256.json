@@ -19,7 +19,7 @@
     {
       "path": "raw/controller-review-audit.json",
       "bytes": 624,
-      "sha256": "b12905c895a3380ed105fa881cb94972cc13dd77f3751881f9b570b9317edc92"
+      "sha256": "008a3c50b39645cb07eda4a8f419262fcb5c4a0f06cb99a1b8a028f85168d3a7"
     },
     {
       "path": "raw/deployments.json",
@@ -49,7 +49,7 @@
     {
       "path": "raw/lms-gguf/backend-1/active-metal-proof.json",
       "bytes": 3083,
-      "sha256": "ce4f31bc4024222f5473524640ea264d464ead963192d617d4878f42b3850c1d"
+      "sha256": "27f8d03f161b43231d34c83c17fd08ebfea5f4cefa3b5d3a46aee4dc62c10854"
     },
     {
       "path": "raw/lms-gguf/backend-1/curl.txt",
@@ -79,7 +79,7 @@
     {
       "path": "raw/lms-gguf/backend-2/active-metal-proof.json",
       "bytes": 1689,
-      "sha256": "9414c8ffa6390ee541230e804c158979487660d7ff387bee29b262cf5b22bc7e"
+      "sha256": "1c05573bac72aeaf29819e48901bf822ac9fc9c96ef350b59cd4e8ed0b2604e4"
     },
     {
       "path": "raw/lms-gguf/backend-2/curl.txt",
@@ -109,7 +109,7 @@
     {
       "path": "raw/lms-gguf/backend-3/active-metal-proof.json",
       "bytes": 1944,
-      "sha256": "7fa3a654a01f6a02f1550e538a7327b40c5ae493d0c914550951bed959209c6b"
+      "sha256": "d95d3e96a0755368cf84df3c93f25cbcfa2e2195ad9d9f81d67488c5bf9e98b7"
     },
     {
       "path": "raw/lms-gguf/backend-3/curl.txt",
@@ -139,7 +139,7 @@
     {
       "path": "raw/lms-gguf/backend-warmup/active-metal-proof.json",
       "bytes": 1562,
-      "sha256": "0cc92ca3c312dd3748fc1cd5fc2d4a6e1709dd43d7673ade7b172e3bf77bd6e7"
+      "sha256": "126dd0e07e4fa7a63e8879327a6f0ec076a92359614de639aa32b19ab7c3994f"
     },
     {
       "path": "raw/lms-gguf/backend-warmup/curl.txt",
@@ -378,8 +378,8 @@
     },
     {
       "path": "raw/run_lms.py",
-      "bytes": 16932,
-      "sha256": "8ae60e3f19cc79eb1e7787e6194c2640d5cf6c40bfa1afdf744ad23d4bc65cbc"
+      "bytes": 16976,
+      "sha256": "11330a85022f44680dfe58d7068f4d0e8ce44d5b5f5d8b7012f7a258a8bc2cc0"
     },
     {
       "path": "raw/runtime-manifest.json",

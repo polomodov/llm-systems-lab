@@ -2,7 +2,7 @@
 import datetime,hashlib,json,os,pathlib,re,socket,subprocess,sys,threading,time,urllib.request
 raw=pathlib.Path(__file__).resolve().parent;root=raw.parents[4]
 sys.path.insert(0,str(root/'experiments/common'));from local_resources import sample
-sys.path.insert(0,str(root/'experiments/local-models/apple'));from lms_evidence import active_metal_frames,unload_owned
+sys.path.insert(0,str(root/'experiments/local-models/apple'));from lms_evidence import active_metal_frames,unload_owned,require_helper_pin
 python='/Users/lab/local-model-lab-artifacts/engines/lmstudio-sdk/1.5.0/venv/bin/python'
 env={k:os.environ[k] for k in ['PATH','HOME','TMPDIR','USER','LANG'] if k in os.environ};env.update(PYTHONDONTWRITEBYTECODE='1',no_proxy='127.0.0.1,localhost,::1')
 opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
@@ -30,6 +30,7 @@ def update(id,status,reason=None,evidence=()):
  m=json.loads((raw.parent/'manifest.json').read_text());a=next(a for a in m['planned_attempts'] if a['id']==id);a.update(status=status,reason=reason,evidence_files=list(evidence));m['evidence_files']=sorted(str(p.relative_to(raw.parent)) for p in raw.rglob('*') if p.is_file());save(raw.parent/'manifest.json',m)
 # Hashes first, then the stable window: verification IO may change free/spec pages.
 deployments=json.loads((raw/'deployments.json').read_text());pins=json.loads((raw/'prestart-pins.json').read_text())
+require_helper_pin(pins)
 verified_stat={}
 for pin in pins['files']:
  path=pathlib.Path(pin['path']);assert path.stat().st_size==pin['bytes'] and digest(path)==pin['sha256'], 'Registered pin changed'

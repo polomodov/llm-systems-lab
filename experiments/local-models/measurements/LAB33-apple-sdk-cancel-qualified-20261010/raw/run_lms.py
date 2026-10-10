@@ -2,7 +2,7 @@
 import datetime,hashlib,json,os,pathlib,re,socket,subprocess,sys,threading,time,urllib.request
 raw=pathlib.Path(__file__).resolve().parent;root=raw.parents[4]
 sys.path.insert(0,str(root/'experiments/common'));from local_resources import sample
-sys.path.insert(0,str(root/'experiments/local-models/apple'));from lms_evidence import active_metal_frames,unload_owned
+sys.path.insert(0,str(root/'experiments/local-models/apple'));from lms_evidence import active_metal_frames,unload_owned,require_helper_pin
 python='/Users/lab/local-model-lab-artifacts/engines/lmstudio-sdk/1.5.0/venv/bin/python'
 env={k:os.environ[k] for k in ['PATH','HOME','TMPDIR','USER','LANG'] if k in os.environ};env.update(PYTHONDONTWRITEBYTECODE='1',no_proxy='127.0.0.1,localhost,::1')
 opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
@@ -38,6 +38,7 @@ with (raw/'admission.jsonl').open('x') as out:
 save(raw/'admission.json',dict(accepted=admitted,wall_seconds=time.time()-start))
 update('admission','completed' if admitted else 'failed',None if admitted else 'Stable baseline free+spec16GiB/AC/pressure/swap admission failed',evidence=['raw/admission.json','raw/admission.jsonl'])
 deployments=json.loads((raw/'deployments.json').read_text());pins=json.loads((raw/'prestart-pins.json').read_text())
+require_helper_pin(pins)
 failure=None
 for dep in deployments if admitted else []:
  folder=raw/dep['id'];folder.mkdir();alias=dep['alias'];state=dict(started_at=now(),alias=alias,loaded=False,server_started=False,error=None,guards=[],own_logger_pid=None,startup_accepted=False,app_root_pids_before=app_roots())

@@ -1,5 +1,7 @@
 import importlib.util
 import pathlib
+import hashlib
+import tempfile
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
@@ -47,3 +49,13 @@ Binary Images:
         with self.assertRaisesRegex(RuntimeError, 'unload failed'):
             evidence.unload_owned(failure, 'owned-alias', 'folder', state)
         self.assertTrue(state['loaded'])
+
+    def test_new_helper_requires_a_complete_matching_pin(self):
+        with tempfile.TemporaryDirectory() as temp:
+            helper=pathlib.Path(temp)/'lms_evidence.py'
+            helper.write_text('registered source')
+            pin=dict(path=str(helper),bytes=helper.stat().st_size,sha256=hashlib.sha256(helper.read_bytes()).hexdigest())
+            evidence.require_helper_pin(dict(files=[pin]),helper)
+            for files in ([],[dict(pin,sha256='0'*64)],[dict(pin,bytes=0)]):
+                with self.assertRaisesRegex(ValueError,'Fresh prestart pins'):
+                    evidence.require_helper_pin(dict(files=files),helper)
