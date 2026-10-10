@@ -1,0 +1,16 @@
+{
+  "ttft_content_s": 0.061631459,
+  "ttft_reasoning_s": null,
+  "usage": {
+    "prompt_tokens": 21,
+    "completion_tokens": 3,
+    "total_tokens": 24,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "http_status": 200,
+  "finish_reason": "stop",
+  "stream_done": true,
+  "duration_s": 0.08333779200000001
+}
