@@ -1,0 +1,145 @@
+{
+  "scope": "Raw evidence except this inventory; no weights or retrospective runtime confirmation.",
+  "files": [
+    {
+      "path": "raw/concurrency_driver.py",
+      "bytes": 13600,
+      "sha256": "4a8d3f6308ac12a62d62b446efcb3790d5a469fae23db4b79c08598a45583e46"
+    },
+    {
+      "path": "raw/deployment-reference.json",
+      "bytes": 9207,
+      "sha256": "7247abf541176252241e026cb298551f6f1d308f5ac1743f39313af8467d4a94"
+    },
+    {
+      "path": "raw/load-request.json",
+      "bytes": 671,
+      "sha256": "6611bc3aeea8cd4b222846f8244314e5a65130762565910f32339c9acb465506"
+    },
+    {
+      "path": "raw/protocol.md",
+      "bytes": 4621,
+      "sha256": "7760bf1fd7cdfd29918c626645509a876fdbe56fd04eaea5b6fb50f11d048588"
+    },
+    {
+      "path": "raw/run_slots.py",
+      "bytes": 14095,
+      "sha256": "1f08ce99e02736d564b72269ad760ca95777d48cf1d585e642800cf4a388292f"
+    },
+    {
+      "path": "raw/server-help.txt",
+      "bytes": 45764,
+      "sha256": "463282908f953978d6b5e5dc74d1f7201c5b7f9979a6ed7cf9e61187b981369b"
+    },
+    {
+      "path": "raw/slots1/admission-after-pins.json",
+      "bytes": 4192,
+      "sha256": "666de2955c8cfbc6ad51ae5e33734a5e7eadee9f123de99beac701b756f50630"
+    },
+    {
+      "path": "raw/slots1/admission-window.jsonl",
+      "bytes": 228120,
+      "sha256": "29ba958c41df5030304940b06b5d9fc8c1a111a8955267669f3b48d90aa13c0a"
+    },
+    {
+      "path": "raw/slots1/admission.json",
+      "bytes": 4478,
+      "sha256": "ef7a93101b983ba3187fde2bc8cd1a5aa37639e4211bac9f4050255b770dbaae"
+    },
+    {
+      "path": "raw/slots1/error.json",
+      "bytes": 148,
+      "sha256": "7909e078a74716fb8078225b4793021e456fa3cc9a07c3695e5b32224f52876c"
+    },
+    {
+      "path": "raw/slots1/execution.json",
+      "bytes": 13209,
+      "sha256": "cde75cf6f818eb6dbebde30a42602a2fbb7618d756e3d7d25131cf7e7f90713a"
+    },
+    {
+      "path": "raw/slots1/memory.jsonl",
+      "bytes": 15336,
+      "sha256": "05d150c2571e8c67b2754a2a0d6bfeb59aed85c9959146a25baa49b8973aefa9"
+    },
+    {
+      "path": "raw/slots1/props.json",
+      "bytes": 10531,
+      "sha256": "9e6c57f2989f1956d7476cd53b6d0f8e7f1e68df49c95cbb7b0d7b1a5486bf20"
+    },
+    {
+      "path": "raw/slots1/server.txt",
+      "bytes": 24728,
+      "sha256": "db95a11b7ebceee84ff9d6466f6741564a1ea63461c15e91d1b15c3d5a3e0dec"
+    },
+    {
+      "path": "raw/slots1/slots.jsonl",
+      "bytes": 187418,
+      "sha256": "1e159a1683350d71deaaf63d88cdec0eb476ab50284ffe587a0925e58a5299c9"
+    },
+    {
+      "path": "raw/slots1/startup-slots.json",
+      "bytes": 97,
+      "sha256": "d447761785798e648cae238b194eeacc7bd2a98d312b790e4aeed04ce4b41613"
+    },
+    {
+      "path": "raw/slots1/warmup/config.json",
+      "bytes": 369,
+      "sha256": "a348a9d1e63ad5f42b29f98b4afbc613cb719450d757fcb70dc698a1c9e66532"
+    },
+    {
+      "path": "raw/slots1/warmup/request-0001.json",
+      "bytes": 301,
+      "sha256": "8571f710f5bac643e553c2a7ed75fc8c0cad4faa45b9a848604f461bcdf86287"
+    },
+    {
+      "path": "raw/slots1/warmup/request-0001.response.bin",
+      "bytes": 3441,
+      "sha256": "0eaa328848724f9b60931ff0a4f5ddf331b1bc1bc42fcc9b29576c5da5e148c8"
+    },
+    {
+      "path": "raw/slots1/warmup/request.json",
+      "bytes": 612,
+      "sha256": "47dbd58e3f6cf7e8d537400412d436064b4e093c0d24537c4da3519167a87d78"
+    },
+    {
+      "path": "raw/slots1/warmup/slot-proof.json",
+      "bytes": 228,
+      "sha256": "866e1519512aaea0b0b8f8703872f8190f7bdfbdab35e9a3046f04a03e1cd7b4"
+    },
+    {
+      "path": "raw/slots1/warmup/summary.json",
+      "bytes": 1149,
+      "sha256": "b48279bd804dfbae9cf4f57fb94c841bf29fc161e4bea99297b23222ab3c8353"
+    },
+    {
+      "path": "raw/slots1/warmup/system-memory.jsonl",
+      "bytes": 1980,
+      "sha256": "a19d103e6d942023c958f6e17f0653933559962cb7f45f299935ec2c7d2840fb"
+    },
+    {
+      "path": "raw/slots1/warmup-driver.txt",
+      "bytes": 105,
+      "sha256": "3cdc2d58d451b98d4ff01cdfb1377d78ec96e65c34a04e7f261eb450a0cface9"
+    },
+    {
+      "path": "raw/software-check.txt",
+      "bytes": 1096,
+      "sha256": "9b73972182d54a8da2e9d57cdbed75cdb85b7753e825352555ea8e2adf9ca46b"
+    },
+    {
+      "path": "raw/software-node-tests.txt",
+      "bytes": 17579,
+      "sha256": "3c6ef6f688df6a7e7c1721bc757505dd8c26c0ca6a540eb67658e6b7263c53bd"
+    },
+    {
+      "path": "raw/software-python-tests.txt",
+      "bytes": 526,
+      "sha256": "8bd6eb6fff1efebdcb63c5e264b323751c3f267f7c2333c12759df03c4a33872"
+    },
+    {
+      "path": "raw/source-registration.json",
+      "bytes": 283,
+      "sha256": "99141ba5996d7cacdbe3b4b779602478994d7dd77d9585be47ca76a8aae72d76"
+    }
+  ]
+}

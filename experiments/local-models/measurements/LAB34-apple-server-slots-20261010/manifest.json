@@ -198,6 +198,7 @@
   "evidence_files": [
     "raw/concurrency_driver.py",
     "raw/deployment-reference.json",
+    "raw/evidence-sha256.json",
     "raw/load-request.json",
     "raw/protocol.md",
     "raw/run_slots.py",
@@ -206,6 +207,9 @@
     "raw/slots1/admission.json",
     "raw/slots1/error.json",
     "raw/slots1/execution.json",
+    "raw/software-check.txt",
+    "raw/software-node-tests.txt",
+    "raw/software-python-tests.txt",
     "raw/source-registration.json"
   ],
   "unavailable": {

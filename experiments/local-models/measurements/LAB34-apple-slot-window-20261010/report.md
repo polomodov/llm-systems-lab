@@ -8,7 +8,7 @@ Apple M5 Max / 128 GiB / macOS 26.5, AC/mode 0. Qwen3.5-9B GGUF Q6_K, revision 3
 
 ## Гипотеза и протокол до запуска
 
-[Протокол](raw/protocol.md) и [source registration](raw/source-registration.json) закреплены commit до исполнения. Серверные слоты 1/2/4, общий контекст slots×8192 и фактический контекст 8192 на каждом слоте. Параметры: KV f16/f16, FA on, threads 8, batch 512, ubatch 256, reasoning auto/thinking true, cache-ram 0, no-cache-prompt. HTTP output cap 512, temp 0, seed 1, top_p 1. Прогрев + три когорты на условие; 30 минут slots4 только после всех коротких проверок. Baseline free+spec ≥24 GiB, runtime ≥8 GiB, swap 0, pressure level 1, AC/mode 0. Порог не ослабляется после отказа.
+[Протокол](raw/protocol.md) и [source registration](raw/source-registration.json) закреплены commit до исполнения. Серверные слоты 1/2/4, общий контекст slots×8192 и фактический контекст 8192 на каждом слоте. Параметры: KV f16/f16, FA on, threads 8, batch 512, ubatch 256, reasoning auto; thinking=true, cache-ram 0, no-cache-prompt. HTTP output cap 512, temp 0, seed 1, top_p 1. Прогрев + три когорты на условие; 30 минут slots4 только после всех коротких проверок. Baseline free+spec ≥24 GiB, runtime ≥8 GiB, swap 0, pressure level 1, AC/mode 0. Порог не ослабляется после отказа.
 
 ## Ход выполнения
 
@@ -34,11 +34,10 @@ Actual server-slot campaign stopped: Protocol/latency/actual busy slots criterio
 
 ## Ответы на контрольные вопросы
 
-1. Concurrency клиентов и slots сервера проверяются отдельно: очередь на одном слоте не равна четырём processing slots.
-2. Фиксированный контекст на слот требует общего context slots×8192 и проверки actual slots[*].n_ctx.
-3. Стабильность требует primary ошибок/latency/usage и непрерывного resource collector, не только завершения клиента.
-4. Cold start, прогрев и повторы разделены; 30 минут не запускаются после короткого отказа.
-5. RSS и free+spec — разные показатели, физические GPU страницы и максимальный budget не выдумываются.
+1. Client concurrency может образовать очередь на одном слоте; processing slots подтверждают логический параллелизм, но не одновременные GPU kernels.
+2. Короткие когорты дают мало наблюдений для p95, это описательная оценка этих запросов, не устойчивый tail SLA.
+3. Общий throughput считается как сумма primary completion tokens / сумма wall блоков; среднее отдельных tokens/s без весов ошибочно.
+4. Для вывода о throttling нужны измеренные температура/питание/частоты и timeline нагрузки; этих collectors нет, снижение throughput само по себе недостаточно.
 
 ## Комплект сдачи
 

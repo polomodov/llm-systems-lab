@@ -6,3 +6,6 @@ s1-warmup-batch_wall_seconds	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llam
 s1-warmup-successful_completion_tokens_per_second	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		successful_completion_tokens_per_second		tokens/s	unavailable	raw/slots1/warmup/summary.json	Primary field absent; no estimate.
 s1-warmup-failed	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		failed	1	requests	measured	raw/slots1/warmup/summary.json	
 s1-warmup-busy	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		max_busy_slots	1	slots	measured	raw/slots1/warmup/slot-proof.json	
+s1-warmup-request-0001-latency	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		request_latency_seconds	7.97277075	s	measured	raw/slots1/warmup/request-0001.json	
+s1-warmup-request-0001-prompt_tokens	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		primary_prompt_tokens	77	tokens	measured	raw/slots1/warmup/request-0001.response.bin	
+s1-warmup-request-0001-completion_tokens	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		primary_completion_tokens	512	tokens	measured	raw/slots1/warmup/request-0001.response.bin	
