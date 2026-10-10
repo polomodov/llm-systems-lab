@@ -992,6 +992,7 @@
     "raw/lab-check-submission.json",
     "raw/missing-id-message.json",
     "raw/missing-id.tool-rejected.json",
+    "raw/model-pins-audit.json",
     "raw/npm-test.txt",
     "raw/pin_runtime.py",
     "raw/post-failure-port.json",
@@ -1022,12 +1023,13 @@
     "conditions.harness_profile": "Native HTTP measurement; no agent harness.",
     "hard_context_cap": "No admitted cap in pinned server; input budgets only.",
     "overflow": "No hard cap; deliberately no OOM.",
-    "completion": "OSError: [Errno 48] Address already in use",
+    "completion": "Pin registration selected manifest artifacts[0], which is GGUF. Historical MLX byte identity cannot be confirmed after execution; functional API observations retained.",
     "gpu_budget_gib": "Maximum GPU allocation not measured; device recommendation is not an observed cap.",
     "energy": "No energy collector.",
     "temperature": "No verified thermal collector.",
-    "physical_gpu_release": "GenerationContext.stop and generation routine exit observed; allocator cache/OS GPU release not independently instrumented."
+    "physical_gpu_release": "GenerationContext.stop and generation routine exit observed; allocator cache/OS GPU release not independently instrumented.",
+    "model_identity_at_execution": "Pin registration selected manifest artifacts[0], which is GGUF. Historical MLX byte identity cannot be confirmed after execution; functional API observations retained."
   },
-  "conclusion": "Native MLX input-budget qualification: blocked by OSError: [Errno 48] Address already in use",
+  "conclusion": "Функциональные API наблюдения сохранены; точный MLX artifact identity в момент исполнения не подтверждён. Требуется отдельный свежий повтор.",
   "reviewer_decision": null
 }

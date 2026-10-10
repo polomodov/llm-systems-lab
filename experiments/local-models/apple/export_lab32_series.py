@@ -39,6 +39,11 @@ save(raw/'runtime-summary.json',summary)
 manifest['status']='blocked'
 failed=[a for a in manifest['planned_attempts'] if a['status']=='failed']
 failure=failed[0]['reason'] if failed else next((s['execution']['error'] or 'Native execution not accepted' for s in summary if not s['execution']['accepted']),None)
+audit_path=raw/'model-pins-audit.json'
+identity_gap=json.loads(audit_path.read_text()) if audit_path.exists() else None
+if identity_gap and not identity_gap['model_identity_verified_at_execution']:
+    failure=identity_gap['reason']
+    manifest['unavailable']['model_identity_at_execution']=failure
 manifest['unavailable'].update(completion=failure or 'Hard context cap/overflow and independent physical GPU release unavailable; input-budget route only.',
     gpu_budget_gib='Maximum GPU allocation not measured; device recommendation is not an observed cap.',energy='No energy collector.',temperature='No verified thermal collector.',physical_gpu_release='GenerationContext.stop and generation routine exit observed; allocator cache/OS GPU release not independently instrumented.')
 manifest['conclusion']='Native MLX input-budget qualification: '+('blocked by '+failure if failure else 'chat/tools/long/cancellation recovery completed at '+','.join(str(s['input_budget_label']) for s in summary)+'; hard cap unavailable.')
@@ -53,6 +58,8 @@ counts={status:sum(a['status']==status for a in manifest['planned_attempts']) fo
 (directory/'report.md').write_text(f'''# LAB32 — нативный MLX: протоколы и бюджеты входа
 
 Сессия `{manifest['session_id']}`, статус **blocked**. {manifest['conclusion']}
+
+{'**Execution-time MLX model identity unverified.** См. raw/model-pins-audit.json; functional cases не означают допуск конкретного артефакта.' if identity_gap and not identity_gap['model_identity_verified_at_execution'] else ''}
 
 ## Паспорт выполнения
 
@@ -92,7 +99,7 @@ Hard cap и overflow не подтверждены; OOM для их имитац
 
 ## Вывод по гипотезе
 
-{manifest['conclusion']} Получен полный допуск протоколов на 8K input budget в отдельной exact-final сессии. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
+{manifest['conclusion']} Функциональные протоколы 8K прошли в отдельной exact-final сессии; допуск конкретного deployment также требует всех model pins до исполнения. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
 
 ## Ответы на контрольные вопросы
 

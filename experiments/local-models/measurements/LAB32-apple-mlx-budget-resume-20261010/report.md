@@ -1,5 +1,7 @@
 # LAB32 — нативный MLX: протоколы и бюджеты входа
 
+**Поправка: точный MLX artifact identity при исполнении unverified.** Зарегистрированы GGUF pins вместо MLX; см. [аудит](raw/model-pins-audit.json). Функциональные результаты не являются полным допуском deployment.
+
 Сессия `apple-mlx-budget-resume-20261010`, статус **blocked**. Native MLX input-budget qualification: blocked by RuntimeError: owned native process stopped: [{'timestamp': '2026-10-10T08:10:41.359780+00:00', 'reason': 'resource/power guard'}]
 
 ## Паспорт выполнения
@@ -64,7 +66,7 @@ Hard cap и overflow не подтверждены; OOM для их имитац
 
 ## Вывод по гипотезе
 
-Native MLX input-budget qualification: blocked by RuntimeError: owned native process stopped: [{'timestamp': '2026-10-10T08:10:41.359780+00:00', 'reason': 'resource/power guard'}] Получен полный допуск протоколов на 8K input budget в отдельной exact-final сессии. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
+Native MLX input-budget qualification: blocked by RuntimeError: owned native process stopped: [{'timestamp': '2026-10-10T08:10:41.359780+00:00', 'reason': 'resource/power guard'}] Функциональные протоколы 8K прошли, но допуск конкретного MLX deployment отсутствует из-за пробела execution-time identity. На 16K прошли короткие протоколы; длинный вход не получил resource admission. 32K и следующая отмена остаются неисполненными. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
 
 ## Ответы на контрольные вопросы
 
@@ -76,3 +78,7 @@ Native MLX input-budget qualification: blocked by RuntimeError: owned native pro
 ## Комплект сдачи
 
 Manifest, TSV, protocol, source pins, loaded images, device/model identity, запросы и хеши, HTTP/SSE/usage/finals, native events, отмена/recovery, ресурсы и cleanup, offline allowlist и software validation сохранены. Submission проверяет комплектность blocked отчёта. Решение проверяющего: **не проверено**; experiment pass не назначается автоматически.
+
+## Поправка model identity после аудита
+
+Регистрация pins ошибочно выбрала первый артефакт GGUF. Ни один из 12 файлов фактически использованного MLX-артефакта не входит в prestart pins. Поэтому точные MLX weights/tokenizer/template bytes при исполнении остаются **unverified**. Device/backend/API observations сохранены, 24/24 функциональных cases не объявляются полным допуском deployment. Новые hashes не добавляются задним числом. [Аудит](raw/model-pins-audit.json); требуется отдельная новая серия.
