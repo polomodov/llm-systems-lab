@@ -1,0 +1,14 @@
+{
+  "device": {
+    "device_name": "Apple M5 Max",
+    "max_recommended_working_set_size": 115448725504,
+    "memory_size": 137438953472,
+    "architecture": "applegpu_g17s",
+    "max_buffer_length": 86586540032,
+    "resource_limit": 499000
+  },
+  "default_device": "Device(gpu, 0)",
+  "peak_memory_bytes": 7039543866,
+  "active_memory_bytes": 8,
+  "cache_memory_bytes": 5133412846
+}

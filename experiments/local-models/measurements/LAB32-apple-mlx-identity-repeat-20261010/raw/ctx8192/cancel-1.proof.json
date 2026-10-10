@@ -1,0 +1,25 @@
+{
+  "client_exit": 28,
+  "client_wall_seconds": 1.0512073040008545,
+  "client_ended_at": "2026-10-10T09:07:16.873805+00:00",
+  "generation_end": {
+    "timestamp": "2026-10-10T09:07:17.055192+00:00",
+    "event": "generation_end",
+    "phase": "ctx8192-cancel-recovery-1",
+    "active_memory_bytes": 5038041618,
+    "cache_memory_bytes": 237805538,
+    "peak_memory_bytes": 6771108410,
+    "context_object": 16260428864,
+    "stop_flag": true
+  },
+  "stop_requested": {
+    "timestamp": "2026-10-10T09:07:17.033889+00:00",
+    "event": "stop_requested",
+    "phase": "ctx8192-cancel-recovery-1",
+    "active_memory_bytes": 5232358514,
+    "cache_memory_bytes": 9912320,
+    "peak_memory_bytes": 6771108410,
+    "context_object": 16260428864
+  },
+  "release_observed_seconds": 0.25229978561401367
+}

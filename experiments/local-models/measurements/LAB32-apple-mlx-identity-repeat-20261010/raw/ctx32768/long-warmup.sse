@@ -1,0 +1,51 @@
+: keepalive 0/28667
+
+: keepalive 2048/28667
+
+: keepalive 4096/28667
+
+: keepalive 6144/28667
+
+: keepalive 8192/28667
+
+: keepalive 10240/28667
+
+: keepalive 12288/28667
+
+: keepalive 14336/28667
+
+: keepalive 16384/28667
+
+: keepalive 18432/28667
+
+: keepalive 20480/28667
+
+: keepalive 22528/28667
+
+: keepalive 24576/28667
+
+: keepalive 26624/28667
+
+: keepalive 28666/28667
+
+: keepalive 28667/28667
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "LAB"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "_SENT"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "IN"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "EL"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "_"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "4"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "2"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [{"index": 0, "finish_reason": "stop", "delta": {"role": "assistant"}}]}
+
+data: {"id": "chatcmpl-6e211e8b-51ea-4205-8c15-122d28a39d94", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623300, "choices": [], "usage": {"prompt_tokens": 28667, "completion_tokens": 8, "total_tokens": 28675, "prompt_tokens_details": {"cached_tokens": 0}}}
+
+data: [DONE]

@@ -1,0 +1,10 @@
+{
+  "required_model_files": 12,
+  "missing_prestart_files": [],
+  "qualified_input_budgets": [
+    8192,
+    16384,
+    32768
+  ],
+  "scope": "Prestart coverage and recorded verified_before_popen/accepted proofs; no post-hoc model hash confirmation"
+}

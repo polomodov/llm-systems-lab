@@ -1,0 +1,35 @@
+: keepalive 0/12282
+
+: keepalive 2048/12282
+
+: keepalive 4096/12282
+
+: keepalive 6144/12282
+
+: keepalive 8192/12282
+
+: keepalive 10240/12282
+
+: keepalive 12281/12282
+
+: keepalive 12282/12282
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "LAB"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "_SENT"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "IN"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "EL"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "_"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "4"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": null, "delta": {"role": "assistant", "content": "2"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion.chunk", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [{"index": 0, "finish_reason": "stop", "delta": {"role": "assistant"}}]}
+
+data: {"id": "chatcmpl-5d4b083d-0855-4e75-8030-2ac8ec306eac", "system_fingerprint": "0.32.0-0.32.3-macOS-26.5-arm64-arm-64bit-applegpu_g17s", "object": "chat.completion", "model": "/Users/lab/local-model-lab-artifacts/mlx-community/Qwen3.5-9B-MLX-4bit/938d8919941c6e7efd3c7150eff7fe9d12afa631", "created": 1791623251, "choices": [], "usage": {"prompt_tokens": 12282, "completion_tokens": 8, "total_tokens": 12290, "prompt_tokens_details": {"cached_tokens": 0}}}
+
+data: [DONE]
