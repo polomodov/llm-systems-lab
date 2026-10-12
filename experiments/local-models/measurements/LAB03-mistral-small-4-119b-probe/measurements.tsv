@@ -1,1 +1,2 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+mistral-small-4-119b-bytes	mistral-small-4-119b-verify	mistralai/Mistral-Small-4-119B-2603	sha256sum	-		1	file_bytes	7875616	B	measured	raw/verification.json	
