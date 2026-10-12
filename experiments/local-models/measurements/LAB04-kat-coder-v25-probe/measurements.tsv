@@ -1,1 +1,17 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+kat-coder-v25-vulkan-pp-r1	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		1	pp2048_avg_ts	718.022235	tokens/s	measured	raw/vulkan-r1-pp.json	
+kat-coder-v25-vulkan-tg-r1	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		1	tg128_d4096_avg_ts	55.983797	tokens/s	measured	raw/vulkan-r1-tg.json	
+kat-coder-v25-vulkan-pp-r2	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		2	pp2048_avg_ts	714.920279	tokens/s	measured	raw/vulkan-r2-pp.json	
+kat-coder-v25-vulkan-tg-r2	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		2	tg128_d4096_avg_ts	56.084611	tokens/s	measured	raw/vulkan-r2-tg.json	
+kat-coder-v25-vulkan-pp-r3	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		3	pp2048_avg_ts	714.934676	tokens/s	measured	raw/vulkan-r3-pp.json	
+kat-coder-v25-vulkan-tg-r3	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		3	tg128_d4096_avg_ts	55.779493	tokens/s	measured	raw/vulkan-r3-tg.json	
+kat-coder-v25-vulkan-rss	kat-coder-v25-vulkan	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		1	max_rss	24614940	KiB	measured	raw/vulkan-r1-pp-process.txt	
+kat-coder-v25-vulkan-gpulayers	kat-coder-v25-offload	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	vulkan		1	gpu_assigned_layers	41	layers	measured	raw/vulkan-offload-proof.log	
+kat-coder-v25-hip-pp-r1	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		1	pp2048_avg_ts	675.108344	tokens/s	measured	raw/hip-r1-pp.json	
+kat-coder-v25-hip-tg-r1	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		1	tg128_d4096_avg_ts	48.599189	tokens/s	measured	raw/hip-r1-tg.json	
+kat-coder-v25-hip-pp-r2	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		2	pp2048_avg_ts	677.244296	tokens/s	measured	raw/hip-r2-pp.json	
+kat-coder-v25-hip-tg-r2	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		2	tg128_d4096_avg_ts	48.537607	tokens/s	measured	raw/hip-r2-tg.json	
+kat-coder-v25-hip-pp-r3	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		3	pp2048_avg_ts	676.135065	tokens/s	measured	raw/hip-r3-pp.json	
+kat-coder-v25-hip-tg-r3	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		3	tg128_d4096_avg_ts	48.653414	tokens/s	measured	raw/hip-r3-tg.json	
+kat-coder-v25-hip-rss	kat-coder-v25-hip	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		1	max_rss	24761988	KiB	measured	raw/hip-r1-pp-process.txt	
+kat-coder-v25-hip-gpulayers	kat-coder-v25-offload	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip		1	gpu_assigned_layers	41	layers	measured	raw/hip-offload-proof.log	
