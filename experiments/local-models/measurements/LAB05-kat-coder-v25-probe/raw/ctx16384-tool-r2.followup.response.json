@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "Пользователь просил вернуть только значение, полученное от инструмента. Значение равно LAB_VALUE_42.\n"
+      }
+    }
+  ],
+  "created": 1791834309,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 36,
+    "prompt_tokens": 389,
+    "total_tokens": 425
+  },
+  "id": "chatcmpl-XciS5uIeprAkVUq7aqx6qjlSvt7Ssra4",
+  "timings": {
+    "cache_n": 309,
+    "prompt_n": 80,
+    "prompt_ms": 225.416,
+    "prompt_per_token_ms": 2.8177,
+    "prompt_per_second": 354.8993860240622,
+    "predicted_n": 36,
+    "predicted_ms": 703.022,
+    "predicted_per_token_ms": 19.52838888888889,
+    "predicted_per_second": 51.2075013299726
+  }
+}
