@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "mistral-small-4-119b-probe",
+  "created_at": "2026-10-12T19:48:25Z",
+  "status": "in_progress",
+  "evidence_class": "protocol",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-12T19:48:25Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-mistral-small-4-119b-probe/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "hypothesis": "Локальная копия артефакта mistral-small-4-119b совпадает с публикацией unsloth/Mistral-Small-4-119B-2603-GGUF@bd93c721735aa32c035c0f19e738cb3371fd56ff по размеру и SHA-256.",
+  "unavailable": {
+    "conditions.runtime_manifest": "LAB03 не запускает runtime.",
+    "conditions.harness_profile": "LAB03 не использует обвязку."
+  },
+  "conclusion": null,
+  "reviewer_decision": null
+}
