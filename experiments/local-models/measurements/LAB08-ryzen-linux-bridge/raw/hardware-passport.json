@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "kind": "hardware-passport",
+  "hardware_id": "ryzen-ai-max-395-128gb-linux",
+  "measured_at": "2026-10-12T13:36:00Z",
+  "os": "Ubuntu 24.04.4 LTS",
+  "kernel": "7.0.0-38-generic",
+  "cpu": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+  "memory": {
+    "MemTotal_bytes": 134153334784,
+    "MemAvailable_bytes": 125247705088,
+    "SwapTotal_bytes": 8589930496,
+    "SwapFree_bytes": 8589930496,
+    "page_size_bytes": 4096
+  },
+  "gpu": {
+    "marketing_name": "AMD RYZEN AI MAX+ 395 w/ Radeon 8060S",
+    "rocm_arch": "gfx1151",
+    "rocm_version": "7.2.0",
+    "vram_total_mib": 102400,
+    "devices": ["/dev/kfd", "/dev/dri/renderD128"]
+  },
+  "power": {
+    "power_profile": "balanced",
+    "on_ac_power": null,
+    "note": "No Mains power_supply node exposed; host treated as mains-powered, power mode recorded as 0 (not applicable)"
+  },
+  "sources": [
+    "experiments/local-models/measurements/LAB02-first-pass/raw",
+    "experiments/local-models/measurements/LAB02-after-rocm/raw"
+  ]
+}

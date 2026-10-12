@@ -6,7 +6,7 @@ import { mkdtempSync,writeFileSync,rmSync,mkdirSync,readFileSync } from 'node:fs
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createLocalBroker } from './local-broker.mjs';
-import { startWorker,requestLocal,verifyFiles } from './local-runtime.mjs';
+import { startWorker,requestLocal,verifyFiles,parseMeminfo,linuxResourceRow } from './local-runtime.mjs';
 import { deployment,request,stream } from './local-fixture.mjs';
 import { validateDeployment,validateLocalResponse,fingerprint,localRecordErrors } from '../../scripts/lib/local-inference.mjs';
 const token='synthetic-private-control-capability-0123456789';
@@ -54,4 +54,16 @@ test('B09 artifact tamper rejects pre-start identity',async t=>{
 });
 test('B02 private/LAN/IPv6 deployment endpoints are rejected before worker connection',()=>{for(const host of ['localhost','192.168.0.1','::1','127.0.0.2']){const d=deployment();d.endpoint.host=host;assert.throws(()=>validateDeployment(d),/loopback/);}});
 
+test('B11 linux native resource row derives memory, pressure and power fields',()=>{
+  const meminfo=['MemTotal:       131072000 kB','MemAvailable:   114000000 kB','SwapTotal:      0 kB','SwapFree:       0 kB'].join('\n');
+  assert.equal(parseMeminfo(meminfo).MemAvailable,114000000*1024);
+  const row=linuxResourceRow({meminfo,swaps:'',pressure:'some avg10=0.00 avg60=0.00 avg300=0.00 total=0',power:{onAc:true,listing:'AC0'}});
+  assert.equal(row.pressure_level,1);assert.equal(row.pressure_free_percentage,86);
+  assert.equal(row.swap_used_bytes,0);assert.equal(row.on_ac_power,true);assert.equal(row.ac_power_mode,0);
+  assert.ok(row.free_speculative_bytes>=8*2**30);
+  const noMains=linuxResourceRow({meminfo,power:{onAc:null,listing:''}});
+  assert.equal(noMains.on_ac_power,null);assert.equal(Object.values(noMains.commands).every(c=>c.returncode===0),true);
+  const busy=linuxResourceRow({meminfo:['MemTotal:       131072000 kB','MemAvailable:   20000000 kB','SwapTotal: 1000 kB','SwapFree: 0 kB'].join('\n'),pressure:'some avg10=20.00'});
+  assert.notEqual(busy.pressure_level,1);
+});
 test('B05 oversized agent body cannot reach upstream',async t=>{const x=await setup(t,(_q,r)=>r.end('forbidden'),{maxBody:100});x.start();try{const result=await x.send({...request(),messages:[{role:'user',content:'x'.repeat(500)}]});assert.equal(result.status,400);}catch(error){assert.match(error.message,/reset|socket hang up/);}assert.equal(x.calls(),0);});

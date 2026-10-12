@@ -1,0 +1,94 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB08",
+  "harness_id": null,
+  "session_id": "ryzen-linux-bridge",
+  "created_at": "2026-10-12T12:36:28.029Z",
+  "status": "completed",
+  "evidence_class": "experimental",
+  "operator": "opencode (agent) по заданию polomodov",
+  "hypothesis": "Linux/ROCm-ветвь того же изолированного local bridge применима к Ryzen: агент не выбирает upstream, identity весов/template/backend подтверждается до и после старта, а существенные смены условий различаются fingerprint. Критерий опровержения: доступ к другому адресу/порту/admin/cloud, потерянный tool-result, две конфигурации в одной группе, отсутствующий usage как 0.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-12T12:36:28Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB08-ryzen-linux-bridge/raw/hardware-passport.json",
+    "model_artifact_manifest": null,
+    "runtime_manifest": null,
+    "harness_profile": "experiments/pi/harness.json"
+  },
+  "run_ids": [
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor",
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-2",
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-3",
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-4"
+  ],
+  "planned_attempts": [
+    {
+      "id": "bridge-b01-b11",
+      "configuration_id": "lab08-broker-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/test-run.txt"
+      ],
+      "reason": null
+    },
+    {
+      "id": "local-pilot-8192",
+      "configuration_id": "lab08-local-8192",
+      "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor",
+      "evidence_files": [],
+      "reason": "aborted: запрос 8195>8192 токенов контекста, llama-server HTTP 400"
+    },
+    {
+      "id": "local-pilot-16384-portfail",
+      "configuration_id": "lab08-local-16384",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-2",
+      "evidence_files": [],
+      "reason": "aborted до старта агента: runner EADDRINUSE (остаток native-порта прошлого прогона)"
+    },
+    {
+      "id": "local-pilot-16384-timeout",
+      "configuration_id": "lab08-local-16384",
+      "kind": "agent-run",
+      "status": "failed",
+      "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-3",
+      "evidence_files": [],
+      "reason": "aborted: внешний timeout 900 s (30 ответов)"
+    },
+    {
+      "id": "local-pilot-32768-1800",
+      "configuration_id": "lab08-local-32768-1800",
+      "kind": "agent-run",
+      "status": "completed",
+      "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
+      "evidence_files": [],
+      "reason": null
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md",
+    "raw/hardware-passport.json",
+    "raw/tokenizer-source.json",
+    "raw/deployment.json",
+    "raw/deployment-16k.json",
+    "raw/deployment-32k.json",
+    "raw/test-run.txt",
+    "raw/comparison.json",
+    "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.txt",
+    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.json"
+  ],
+  "unavailable": {
+    "conditions.model_artifact_manifest": "Артефакт весов запечатан внутри raw/deployment*.json (path/bytes/sha256), отдельный model manifest не требуется",
+    "conditions.runtime_manifest": "Движок запечатан внутри raw/deployment*.json (executable+files hashes, backend, commit)",
+    "measurements": "Инженерная работа: численных лабораторных измерений нет; токены/время сохранены в run records и приведены в отчёте."
+  },
+  "conclusion": "Linux/ROCm-ветвь local bridge реализована и подтверждена реальным запуском: native llama.cpp b8407 ROCm на gfx1151 стартовал, /props identity и offloaded 33/33 совпали, agent container остался изолирован. Первый независимо оценённый pilot группы 32768/1800 s (run -4) — completed/fail: агент сделал git stash и не закоммитил до native cap 30 ходов. Три более ранних попытки сохранены как aborted. Ограничение: допущен только Pi/T002; B01–B10 проверены существующими broker-тестами и добавленным B11 на Linux-сэмплер, но полная native-матрица на Linux как отдельный прогон не выполнялась.",
+  "reviewer_decision": null
+}

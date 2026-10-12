@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
+  "seal_repair": "native-v1-seals",
+  "description": "Публичная производная запись: личные метаданные обезличены; контрольные суммы публикации пересчитаны без повторного запуска или оценивания. Исходные суммы и границы преобразования: privacy-redaction.json. Численные результаты и вердикт сохранены.",
+  "limitations": [
+    "Исходный запуск и оценивание не повторялись. Новые суммы связывают обезличенные копии.",
+    "Внешние бинарные артефакты, их измеренные суммы и исходные ревизии не изменялись.",
+    "Пути запуска и отпечатки публичной копии не являются дословным доказательством исходного запуска.",
+    "Не включённые в Git рабочие каталоги не восстанавливались и не пересчитывались."
+  ],
+  "files": [
+    {
+      "path": "inputs/control/local-deployment.json",
+      "reason": "personal-metadata-redaction",
+      "original_sha256": "a2d5b4f2ef419e628da39001a19ec8106edb75038c4368bb33c2a77dc5d03a10",
+      "published_sha256": "d758208ba338376075e7c3615444e2a9570c33e152d4f18bb5c726ce98a18670",
+      "original_bytes": 16868,
+      "published_bytes": 16490
+    },
+    {
+      "path": "inputs/manifest.json",
+      "reason": "dependent-seal-or-disclosure",
+      "original_sha256": "973db8a864f83722fd0515dbab9bf92d25656654c7244ab5167a0555318fa11b",
+      "published_sha256": "3f93527fb2526857e80708abe6a0ca92627066d9875e3d1bd206a9acd7236b34",
+      "original_bytes": 12631,
+      "published_bytes": 12631
+    },
+    {
+      "path": "run.json",
+      "reason": "personal-metadata-redaction",
+      "original_sha256": "9ca4e6adda9d743ad03a2bcf072b933599699ab079f5020f26b45e91dba0ecea",
+      "published_sha256": "2c1cf3d41dc62f6c4b83ca46d0e66c38230ec34ff7ccc88df6c6d8348eb9450d",
+      "original_bytes": 50256,
+      "published_bytes": 49929
+    },
+    {
+      "path": "runtime-control/local-deployment.json",
+      "reason": "personal-metadata-redaction",
+      "original_sha256": "a2d5b4f2ef419e628da39001a19ec8106edb75038c4368bb33c2a77dc5d03a10",
+      "published_sha256": "d758208ba338376075e7c3615444e2a9570c33e152d4f18bb5c726ce98a18670",
+      "original_bytes": 16868,
+      "published_bytes": 16490
+    },
+    {
+      "path": "trace/local-native/native-server.txt",
+      "reason": "personal-metadata-redaction",
+      "original_sha256": "9d7cbec5d300e7848e0998ce7c90358a086665de004661366d9a0f84bd0d1519",
+      "published_sha256": "59394c63015a98cb3b1f343c6272efc9e39864605e3903c18ad8b8da7b0124da",
+      "original_bytes": 159563,
+      "published_bytes": 159549
+    },
+    {
+      "path": "trace/local-native/startup-process.json",
+      "reason": "personal-metadata-redaction",
+      "original_sha256": "908072fecdb758b762cc76b97d0dc76562a38113ee7f5e9fcded35dd20e9a15c",
+      "published_sha256": "3b1373fd6c68e081ce5f229bd63b25000b0d1a21da73cb1b6044ae8847169e0d",
+      "original_bytes": 26426,
+      "published_bytes": 26034
+    }
+  ],
+  "local_deployment_fingerprint": {
+    "original": "d333cabc4a6fedcc943f7173a57c1e5d4dd852fcd9b714668cf2e4a04db1fea7",
+    "published": "b46d2991b90c13379ab426bc9dc7a575195bed712b723217b3eb8fd04211f352"
+  }
+}

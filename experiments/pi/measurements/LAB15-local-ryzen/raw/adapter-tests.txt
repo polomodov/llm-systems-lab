@@ -1,0 +1,12 @@
+✔ Pi launch uses exact SDK model and transports literal prompt without a shell (1.043095ms)
+✔ Pi sums complete message_end usage once, including input cache; configured model is not observed identity (0.357374ms)
+✔ Pi interrupted/error traces do not invent complete usage or zero cost (3.928372ms)
+✔ Pi OpenAI snapshot requests preserve exact ID even when catalog only has the family (0.540035ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 42.761854
