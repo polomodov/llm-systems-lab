@@ -52,6 +52,7 @@
 | Слот | Run ID | Native turns | Tokens in / out | USD | Wall-clock s | Lifecycle / verdict |
 | --- | --- | --- | --- | --- | --- | --- |
 | T002 baseline, local 32K | `2026-10-12-pi-a2-janitor-t002-repo-janitor-4` | 31 | 196202 / 5680 | null (local) | 956 | completed / **fail** |
+| T002 baseline repeat, local 32K | `2026-10-12-pi-a2-janitor-t002-repo-janitor-5` | 31 | — | null (local) | 889 | completed / **fail** |
 
 Учёт: входные токены — сумма `input` завершённых `message_end`; `turn_end` не добавляет
 вторую копию usage. `observed_id=lab-model` подтверждён controlled native process, а не
@@ -59,11 +60,12 @@
 
 ## Ошибки и ограничения
 
-- Вердикт `fail`: агент отредактировал `src/slugify.js` и `package.json`, но сделал
-  `git stash` и не закоммитил до native cap 30 ходов; clean clone `npm test` красный
-  (`✖ npm test red`). Это поведение модели, а не отказ SDK.
+- Вердикты `fail` (run `-4` и repeat `-5`): агент редактировал `src/slugify.js` и
+  `package.json`, но не закоммитил изменения к native cap 30 ходов (в `-4` — `git stash`,
+  в `-5` — незакоммиченные правки); clean clone `npm test` красный. Это поведение модели,
+  а не отказ SDK; повтор воспроизвёл исход.
 - Cloud-маршрут (anthropic/openai) не выполнялся: нет `.env`.
-- Один `fail` не доказывает устойчивость; повторы не назначались.
+- Два `fail` с одинаковой причиной усиливают, но не доказывают устойчивость поведения.
 - Более ранние aborted попытки сохранены в отчёте LAB08 (не переписаны).
 
 ## Вывод по гипотезе

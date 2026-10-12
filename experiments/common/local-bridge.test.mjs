@@ -6,7 +6,7 @@ import { mkdtempSync,writeFileSync,rmSync,mkdirSync,readFileSync } from 'node:fs
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createLocalBroker } from './local-broker.mjs';
-import { startWorker,requestLocal,verifyFiles,parseMeminfo,linuxResourceRow } from './local-runtime.mjs';
+import { startWorker,requestLocal,verifyFiles,parseMeminfo,linuxResourceRow,startNative } from './local-runtime.mjs';
 import { deployment,request,stream } from './local-fixture.mjs';
 import { validateDeployment,validateLocalResponse,fingerprint,localRecordErrors } from '../../scripts/lib/local-inference.mjs';
 const token='synthetic-private-control-capability-0123456789';
@@ -65,5 +65,15 @@ test('B11 linux native resource row derives memory, pressure and power fields',(
   assert.equal(noMains.on_ac_power,null);assert.equal(Object.values(noMains.commands).every(c=>c.returncode===0),true);
   const busy=linuxResourceRow({meminfo:['MemTotal:       131072000 kB','MemAvailable:   20000000 kB','SwapTotal: 1000 kB','SwapFree: 0 kB'].join('\n'),pressure:'some avg10=20.00'});
   assert.notEqual(busy.pressure_level,1);
+});
+test('B12 native supervisor admits only the matching platform/backend before any process start',async()=>{
+  const d=deployment();
+  if(process.platform==='linux'){
+    const wrong=structuredClone(d);wrong.engine.backend='metal';
+    await assert.rejects(startNative(wrong,join(tmpdir(),'b12-'+Date.now())),/requires the ROCm or Vulkan backend/);
+  } else if(process.platform==='darwin'){
+    const wrong=structuredClone(d);wrong.engine.backend='rocm';
+    await assert.rejects(startNative(wrong,join(tmpdir(),'b12-'+Date.now())),/requires the Metal backend/);
+  }
 });
 test('B05 oversized agent body cannot reach upstream',async t=>{const x=await setup(t,(_q,r)=>r.end('forbidden'),{maxBody:100});x.start();try{const result=await x.send({...request(),messages:[{role:'user',content:'x'.repeat(500)}]});assert.equal(result.status,400);}catch(error){assert.match(error.message,/reset|socket hang up/);}assert.equal(x.calls(),0);});

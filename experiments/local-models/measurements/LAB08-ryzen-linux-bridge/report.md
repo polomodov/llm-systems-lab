@@ -53,6 +53,7 @@ Run IDs:
 | pilot | 16384 / 900 s | `…janitor-2` | aborted | — (EADDRINUSE до старта) |
 | pilot | 16384 / 900 s | `…janitor-3` | aborted | — (timeout) |
 | pilot (группа 1800 s) | 32768 / 1800 s | `…janitor-4` | completed | **fail** |
+| pilot repeat (группа 1800 s) | 32768 / 1800 s | `…janitor-5` | completed | **fail** (31 ход, 889 s) |
 
 Native identity: `/props` совпал с sealed deployment (`model_alias=lab-model`, `n_ctx`,
 `build_info=b8407-312cf0332`, chat template SHA `7f0e5290…`), лог `offloaded 33/33 layers

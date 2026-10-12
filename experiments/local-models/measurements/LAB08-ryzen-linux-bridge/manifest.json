@@ -21,7 +21,8 @@
     "2026-10-12-pi-a2-janitor-t002-repo-janitor",
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-2",
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-3",
-    "2026-10-12-pi-a2-janitor-t002-repo-janitor-4"
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-5"
   ],
   "planned_attempts": [
     {
@@ -70,6 +71,15 @@
       "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
       "evidence_files": [],
       "reason": null
+    },
+    {
+      "id": "local-pilot-32768-1800-r2",
+      "configuration_id": "lab08-local-32768-1800",
+      "kind": "agent-run",
+      "status": "completed",
+      "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
+      "evidence_files": [],
+      "reason": null
     }
   ],
   "evidence_files": [
@@ -82,13 +92,15 @@
     "raw/test-run.txt",
     "raw/comparison.json",
     "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.txt",
-    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.json"
+    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.json",
+    "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.txt",
+    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.json"
   ],
   "unavailable": {
     "conditions.model_artifact_manifest": "Артефакт весов запечатан внутри raw/deployment*.json (path/bytes/sha256), отдельный model manifest не требуется",
     "conditions.runtime_manifest": "Движок запечатан внутри raw/deployment*.json (executable+files hashes, backend, commit)",
     "measurements": "Инженерная работа: численных лабораторных измерений нет; токены/время сохранены в run records и приведены в отчёте."
   },
-  "conclusion": "Linux/ROCm-ветвь local bridge реализована и подтверждена реальным запуском: native llama.cpp b8407 ROCm на gfx1151 стартовал, /props identity и offloaded 33/33 совпали, agent container остался изолирован. Первый независимо оценённый pilot группы 32768/1800 s (run -4) — completed/fail: агент сделал git stash и не закоммитил до native cap 30 ходов. Три более ранних попытки сохранены как aborted. Ограничение: допущен только Pi/T002; B01–B10 проверены существующими broker-тестами и добавленным B11 на Linux-сэмплер, но полная native-матрица на Linux как отдельный прогон не выполнялась.",
+  "conclusion": "Linux/ROCm-ветвь local bridge реализована и подтверждена реальным запуском: native llama.cpp b8407 ROCm на gfx1151 стартовал, /props identity и offloaded 33/33 совпали, agent container остался изолирован. Первый независимо оценённый pilot группы 32768/1800 s (run -4) — completed/fail: агент сделал git stash и не закоммитил до native cap 30 ходов. Три более ранних попытки сохранены как aborted. Повтор группы 32768/1800 s (run -5) — также completed/fail. Ограничение: допущен только Pi/T002; B01–B10 проверены существующими broker-тестами и добавленным B11 на Linux-сэмплер, но полная native-матрица на Linux как отдельный прогон не выполнялась. Оба независимо оценённых прогона (run -4 и -5) имеют один и тот же исход fail: модель редактирует файлы, но не коммитит их к native cap 30 ходов.",
   "reviewer_decision": null
 }

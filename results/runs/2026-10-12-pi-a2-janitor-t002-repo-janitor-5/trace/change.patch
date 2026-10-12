@@ -1,0 +1,27 @@
+diff --git a/package.json b/package.json
+index 122af5f..41bf488 100644
+--- a/package.json
++++ b/package.json
+@@ -8,6 +8,6 @@
+     "test": "npm run lint && node --test test/"
+   },
+   "dependencies": {
+-    "lodash": "4.17.15"
++    "lodash": "4.17.21"
+   }
+ }
+diff --git a/src/slugify.js b/src/slugify.js
+index 4709cac..a0ed347 100644
+--- a/src/slugify.js
++++ b/src/slugify.js
+@@ -1,8 +1,7 @@
+-// TODO make it faster
+ export function slugify(title) {
+-  console.log("slugify", title);
+   return title
+     .toLowerCase()
+     .replace(/[^a-z0-9]+/g, "-")
+-    .replace(/^-|-$/, "");
++    .replace(/^[-]+/, "")
++    .replace(/[-]+$/, "");
+ }
