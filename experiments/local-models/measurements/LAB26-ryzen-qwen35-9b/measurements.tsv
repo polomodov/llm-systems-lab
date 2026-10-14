@@ -1,0 +1,21 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+warmup-successful_requests_per_second	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_requests_per_second	0.06062696134678722	requests/s	measured	raw/warmup/summary.json	
+warmup-success_latency_median_seconds	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_median_seconds	16.49309258798894	s	measured	raw/warmup/summary.json	
+warmup-success_latency_p95_seconds	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_p95_seconds	16.539945342985447	s	measured	raw/warmup/summary.json	
+warmup-successful_completion_tokens_per_second	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_completion_tokens_per_second	27.312446086727643	tokens/s	measured	raw/warmup/summary.json	
+warmup-minimum_sampled_mem_available_bytes	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	minimum_sampled_mem_available_bytes	118977187840	B	measured	raw/warmup/summary.json	
+r1-c1-successful_requests_per_second	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_requests_per_second	0.05578341752626574	requests/s	measured	raw/r1-c1/summary.json	
+r1-c1-success_latency_median_seconds	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_median_seconds	18.271916677505942	s	measured	raw/r1-c1/summary.json	
+r1-c1-success_latency_p95_seconds	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_p95_seconds	18.70962545601651	s	measured	raw/r1-c1/summary.json	
+r1-c1-successful_completion_tokens_per_second	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_completion_tokens_per_second	27.47333313168588	tokens/s	measured	raw/r1-c1/summary.json	
+r1-c1-minimum_sampled_mem_available_bytes	qwen35-9b-c1	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	minimum_sampled_mem_available_bytes	119131967488	B	measured	raw/r1-c1/summary.json	
+r1-c2-successful_requests_per_second	qwen35-9b-c2	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_requests_per_second	0.05496738953789926	requests/s	measured	raw/r1-c2/summary.json	
+r1-c2-success_latency_median_seconds	qwen35-9b-c2	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_median_seconds	36.23907492849685	s	measured	raw/r1-c2/summary.json	
+r1-c2-success_latency_p95_seconds	qwen35-9b-c2	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_p95_seconds	37.41632452601334	s	measured	raw/r1-c2/summary.json	
+r1-c2-successful_completion_tokens_per_second	qwen35-9b-c2	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_completion_tokens_per_second	27.44704984259103	tokens/s	measured	raw/r1-c2/summary.json	
+r1-c2-minimum_sampled_mem_available_bytes	qwen35-9b-c2	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	minimum_sampled_mem_available_bytes	117546446848	B	measured	raw/r1-c2/summary.json	
+r1-c4-successful_requests_per_second	qwen35-9b-c4	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_requests_per_second	0.0555111684613472	requests/s	measured	raw/r1-c4/summary.json	
+r1-c4-success_latency_median_seconds	qwen35-9b-c4	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_median_seconds	71.34925832450972	s	measured	raw/r1-c4/summary.json	
+r1-c4-success_latency_p95_seconds	qwen35-9b-c4	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	success_latency_p95_seconds	73.5728636450076	s	measured	raw/r1-c4/summary.json	
+r1-c4-successful_completion_tokens_per_second	qwen35-9b-c4	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	successful_completion_tokens_per_second	27.445646873431077	tokens/s	measured	raw/r1-c4/summary.json	
+r1-c4-minimum_sampled_mem_available_bytes	qwen35-9b-c4	Qwen/Qwen3.5-9B	llama.cpp b8407 HIP	rocm	8192	1	minimum_sampled_mem_available_bytes	116069101568	B	measured	raw/r1-c4/summary.json	

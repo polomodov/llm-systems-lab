@@ -1,0 +1,12 @@
+{
+  "endpoint": "http://127.0.0.1:8080/v1/chat/completions",
+  "concurrency": 2,
+  "requests": 12,
+  "timeout_seconds": 120.0,
+  "request_sha256": "fc22cd008b21662659ae1e587aa3a12ccae834f3038636c62a48ee456df87536",
+  "response_limit_bytes": 1048576,
+  "retries": 0,
+  "created_at": "2026-10-14T06:57:54.006151+00:00",
+  "kind": "http-load-probe",
+  "agent_run": false
+}
