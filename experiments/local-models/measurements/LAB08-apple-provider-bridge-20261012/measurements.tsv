@@ -1,0 +1,5 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+free_speculative_bytes	pi-local-bridge-v1	lab-model	llama-cpp	metal	8192	1	free_speculative_bytes	3725459456	bytes	measured	raw/native/resource-guard.json	
+server_rss_bytes	pi-local-bridge-v1	lab-model	llama-cpp	metal	8192	1	server_rss_bytes	7903182848	bytes	measured	raw/native/resource-guard.json	
+swap_used_bytes	pi-local-bridge-v1	lab-model	llama-cpp	metal	8192	1	swap_used_bytes	0	bytes	measured	raw/native/resource-guard.json	
+pressure_free_percentage	pi-local-bridge-v1	lab-model	llama-cpp	metal	8192	1	pressure_free_percentage	88	percent	measured	raw/native/resource-guard.json	
