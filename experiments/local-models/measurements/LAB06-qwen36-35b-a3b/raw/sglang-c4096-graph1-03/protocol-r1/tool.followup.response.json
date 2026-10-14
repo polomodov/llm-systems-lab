@@ -1,0 +1,37 @@
+{
+  "id": "1e99425903e74499b7b9c578a1b93ce2",
+  "object": "chat.completion",
+  "created": 1791964235,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_VALUE_42",
+        "reasoning_content": "The user asked to call `lookup_lab_value` with `key` \"alpha\" and return only the value. The tool returned \"LAB_VALUE_42\". I will now return this value.\n",
+        "tool_calls": null
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "matched_stop": 248046
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 504,
+    "total_tokens": 553,
+    "completion_tokens": 49,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 42
+  },
+  "metadata": {
+    "weight_version": "default",
+    "weight_versions": [
+      {
+        "version": "default",
+        "start": 0,
+        "end": 49
+      }
+    ]
+  }
+}

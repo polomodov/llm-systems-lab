@@ -1,0 +1,59 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": null,
+      "refusal": null,
+      "annotations": null,
+      "audio": null,
+      "function_call": null,
+      "tool_calls": [
+        {
+          "id": "chatcmpl-tool-b2792f782f5148f3",
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\": \"alpha\"}"
+          }
+        }
+      ],
+      "reasoning": "The user wants me to call a tool named `lookup_lab_value` with the parameter `key` set to \"alpha\".\nThe output should only be the value returned by the tool.\n\n1.  **Identify the tool:** `lookup_lab_value`.\n2.  **Identify the parameters:** `key`: \"alpha\".\n3.  **Construct the tool call:** `lookup_lab_value(key=\"alpha\")`.\n4.  **Execute the tool call.**\n5.  **Return the result:** The prompt asks to \"return only the value\" after receiving the result.\n\nLet's make the tool call.\n"
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "chatcmpl-tool-b2792f782f5148f3",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}

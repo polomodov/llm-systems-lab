@@ -1,0 +1,56 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "\n\n",
+      "reasoning_content": "The user wants to call the function `lookup_lab_value` with the argument `key` set to `alpha`.\nAfter receiving the result, I should return only the value.\n\n1.  **Function Call**: I need to use the `lookup_lab_value` function.\n2.  **Arguments**: The argument is `key: \"alpha\"`.\n3.  **Execution**: I will execute the tool call.\n4.  **Response**: Based on the tool output, I will return the value. Since I don't know the value yet, I must call the tool first.\n\nLet's make the tool call.\n",
+      "tool_calls": [
+        {
+          "id": "call_9c5f3b884f60402ea47cd8f6",
+          "index": 0,
+          "type": "function",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\": \"alpha\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "call_9c5f3b884f60402ea47cd8f6",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}

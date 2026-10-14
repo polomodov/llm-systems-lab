@@ -1,0 +1,42 @@
+{
+  "id": "chatcmpl-af77ec5a138d53fc",
+  "object": "chat.completion",
+  "created": 1791963323,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_VALUE_42",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "reasoning": "The tool returned the value \"LAB_VALUE_42\". The user asked to return only the value after receiving the result.\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-948b417f",
+  "usage": {
+    "prompt_tokens": 493,
+    "total_tokens": 527,
+    "completion_tokens": 34,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 26
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

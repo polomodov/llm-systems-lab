@@ -1,0 +1,52 @@
+{
+  "id": "chatcmpl-b2e463f919f8b077",
+  "object": "chat.completion",
+  "created": 1791963315,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "tool_calls": [
+          {
+            "id": "chatcmpl-tool-b2792f782f5148f3",
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\": \"alpha\"}"
+            }
+          }
+        ],
+        "reasoning": "The user wants me to call a tool named `lookup_lab_value` with the parameter `key` set to \"alpha\".\nThe output should only be the value returned by the tool.\n\n1.  **Identify the tool:** `lookup_lab_value`.\n2.  **Identify the parameters:** `key`: \"alpha\".\n3.  **Construct the tool call:** `lookup_lab_value(key=\"alpha\")`.\n4.  **Execute the tool call.**\n5.  **Return the result:** The prompt asks to \"return only the value\" after receiving the result.\n\nLet's make the tool call.\n"
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-948b417f",
+  "usage": {
+    "prompt_tokens": 313,
+    "total_tokens": 473,
+    "completion_tokens": 160,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 131
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}
