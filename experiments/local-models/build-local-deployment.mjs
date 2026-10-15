@@ -46,7 +46,7 @@ await main(async () => {
       commit: '312cf03328496df9c56fe843952cf02a8964c59a',
       backend,
       build_flags: ['Release', 'x86_64', `GGML_${backend === 'rocm' ? 'HIP' : 'VULKAN'}=ON`, 'prebuilt ggml-org bundle b8407 (ROCm 7.2.1 gfx110X/gfx115X/gfx120X)'],
-      executable: a.executable,
+      executable: executablePath,
       files: engineFiles
     },
     hardware: {

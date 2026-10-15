@@ -54,6 +54,14 @@ Run IDs:
 | pilot | 16384 / 900 s | `…janitor-3` | aborted | — (timeout) |
 | pilot (группа 1800 s) | 32768 / 1800 s | `…janitor-4` | completed | **fail** |
 | pilot repeat (группа 1800 s) | 32768 / 1800 s | `…janitor-5` | completed | **fail** (31 ход, 889 s) |
+| pilot (группа 1800 s, host↔passport gate) | 32768 / 1800 s | `2026-10-15-pi-a2-janitor-t002-repo-janitor` | completed | **pass** (28 ходов, 851 s, `report.md` сдан) |
+
+Admission Linux host↔passport: run `2026-10-15-…janitor` прошёл новый gate — `startNative` сверил
+живой хост с запечатанным паспортом и записал `host_identity` в trace: kernel `7.0.0-38-generic`,
+OS `Ubuntu 24.04.4 LTS`, CPU `AMD RYZEN AI MAX+ 395 w/ Radeon 8060S`, MemTotal 134153789440 B
+(≈ паспорт, расхождение 0.0003%), устройства `/dev/kfd` и `/dev/dri/renderD128` присутствуют.
+Этот же run — первый `completed/pass` Pi/T002 на локальном провайдере (clean clone `npm test`
+зелёный, отчёт сдан).
 
 Native identity: `/props` совпал с sealed deployment (`model_alias=lab-model`, `n_ctx`,
 `build_info=b8407-312cf0332`, chat template SHA `7f0e5290…`), лог `offloaded 33/33 layers

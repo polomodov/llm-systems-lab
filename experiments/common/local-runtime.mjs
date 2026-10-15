@@ -43,18 +43,51 @@ function sampleMacos(){
 const macosSafe=row=>Object.values(row.commands).every(c=>c.returncode===0) && row.pressure_level===1 && row.pressure_free_percentage>=50 && row.free_speculative_bytes>=8*GIB && row.swap_used_bytes===0 && row.on_ac_power===true && row.ac_power_mode===0;
 // Linux resource sampling from /proc and /sys; no Python dependency.
 export function parseMeminfo(text){const out={};for(const line of text.split(/\r?\n/)){const m=/^(\w+):\s+(\d+)\s*kB$/.exec(line);if(m)out[m[1]]=Number(m[2])*1024;}return out;}
+export function parseOsRelease(text){const out={};for(const line of text.split(/\r?\n/)){const m=/^([A-Z0-9_]+)=(.*)$/.exec(line.trim());if(m)out[m[1]]=m[2].replace(/^"(.*)"$/,'$1');}return out;}
+const normalizeText=value=>String(value??'').toLowerCase().replace(/\s+/g,' ').trim();
+// Live host identity is compared with the sealed passport so measurements from a
+// different machine can never be attributed to the pinned Ryzen conditions.
+export function linuxHostIdentity({osRelease='',cpuinfo='',meminfo='',kernel='',devices={}}={}){
+  const os=parseOsRelease(osRelease),info=parseMeminfo(meminfo);
+  const cpu=(/^model name\s*:\s*(.+)$/m.exec(cpuinfo)?.[1]??'').trim();
+  return {os_id:os.ID??null,os_version_id:os.VERSION_ID??null,os_pretty_name:os.PRETTY_NAME??null,kernel:(kernel||'').trim()||null,cpu:cpu||null,mem_total_bytes:info.MemTotal??null,devices:{kfd:devices.kfd===true,renderD128:devices.renderD128===true}};
+}
+export function assertLinuxHostMatchesPassport(passport,identity){
+  if(!passport || passport.kind!=='hardware-passport')throw new Error('Native supervisor requires a sealed hardware passport');
+  const problems=[];
+  if(passport.kernel && identity.kernel!==passport.kernel)problems.push(`kernel ${identity.kernel} != ${passport.kernel}`);
+  const os=normalizeText(passport.os);
+  if(os){
+    const pretty=normalizeText(identity.os_pretty_name);
+    const idOk=identity.os_id && os.includes(normalizeText(identity.os_id));
+    const versionOk=identity.os_version_id && new RegExp(`\\b${String(identity.os_version_id).split('.').slice(0,2).join('\\.')}\\b`).test(os);
+    if(pretty!==os && !(idOk && versionOk))problems.push(`OS ${identity.os_pretty_name} != ${passport.os}`);
+  }
+  const cpu=normalizeText(passport.cpu),liveCpu=normalizeText(identity.cpu);
+  if(cpu && liveCpu && liveCpu!==cpu && !liveCpu.includes(cpu) && !cpu.includes(liveCpu))problems.push(`CPU ${identity.cpu} != ${passport.cpu}`);
+  const expected=passport.memory?.MemTotal_bytes,live=identity.mem_total_bytes;
+  if(expected && live!=null && Math.abs(live-expected)>Math.max(expected*0.02,64*2**20))problems.push(`MemTotal ${live} != ${expected}`);
+  for(const device of passport.gpu?.devices??[]){
+    if(device==='/dev/kfd' && !identity.devices.kfd)problems.push('missing /dev/kfd');
+    if(device==='/dev/dri/renderD128' && !identity.devices.renderD128)problems.push('missing /dev/dri/renderD128');
+  }
+  if(problems.length)throw new Error('Live Linux host differs from sealed hardware passport: '+problems.join('; '));
+  return identity;
+}
 export function linuxResourceRow({meminfo='',swaps='',pressure='',power={onAc:null,listing:''}}={}){
   const info=parseMeminfo(meminfo),total=info.MemTotal??null,available=info.MemAvailable??null;
   const swapUsed=(info.SwapTotal??0)-(info.SwapFree??0);
   const pct=total&&available!=null?Math.floor(available/total*100):null;
   const some=/^some\s+avg10=([0-9.]+)/m.exec(pressure);const someValue=some?Number(some[1]):null;
   const level=pct===null?null:(someValue!==null&&someValue>=10)?3:(pct>=50?1:pct>=25?2:3);
+  // A missing /proc read must stay visible: the empty string is a read failure,
+  // not a sampled value, and linuxSafe() rejects any command with a nonzero code.
   return {
     timestamp:now(),
     commands:{
-      meminfo:{argv:['cat','/proc/meminfo'],returncode:0,stdout:meminfo,stderr:''},
-      swaps:{argv:['cat','/proc/swaps'],returncode:0,stdout:swaps,stderr:''},
-      pressure_memory:{argv:['cat','/proc/pressure/memory'],returncode:0,stdout:pressure,stderr:''},
+      meminfo:{argv:['cat','/proc/meminfo'],returncode:meminfo?0:1,stdout:meminfo,stderr:meminfo?'':'meminfo unavailable'},
+      swaps:{argv:['cat','/proc/swaps'],returncode:swaps?0:1,stdout:swaps,stderr:swaps?'':'swaps unavailable'},
+      pressure_memory:{argv:['cat','/proc/pressure/memory'],returncode:pressure?0:1,stdout:pressure,stderr:pressure?'':'PSI memory pressure unavailable'},
       power_supply:{argv:['ls','/sys/class/power_supply'],returncode:0,stdout:power.listing??'',stderr:''}
     },
     free_pages_bytes:available,
@@ -77,6 +110,11 @@ function sampleLinux(){
   const read=path=>{try{return readFileSync(path,'utf8');}catch{return '';}};
   return linuxResourceRow({meminfo:read('/proc/meminfo'),swaps:read('/proc/swaps'),pressure:read('/proc/pressure/memory'),power:readLinuxPower()});
 }
+function readLinuxHost(){
+  const read=path=>{try{return readFileSync(path,'utf8');}catch{return '';}};
+  let kernel='';try{kernel=execFileSync('uname',['-r'],{encoding:'utf8'});}catch{}
+  return linuxHostIdentity({osRelease:read('/etc/os-release'),cpuinfo:read('/proc/cpuinfo'),meminfo:read('/proc/meminfo'),kernel,devices:{kfd:existsSync('/dev/kfd'),renderD128:existsSync('/dev/dri/renderD128')}});
+}
 const linuxSafe=row=>Object.values(row.commands).every(c=>c.returncode===0) && row.pressure_level===1 && row.pressure_free_percentage!==null && row.pressure_free_percentage>=50 && row.free_speculative_bytes!==null && row.free_speculative_bytes>=8*GIB && row.swap_used_bytes!==null && row.swap_used_bytes<=1*GIB && row.on_ac_power!==false;
 export async function startNative(d,trace) {
   validateDeployment(d);
@@ -90,6 +128,11 @@ export async function startNative(d,trace) {
     if(process.arch!=='arm64' || Number(execFileSync('sysctl',['-n','hw.memsize'],{encoding:'utf8'}).trim())!==128*GIB || execFileSync('sw_vers',['-productVersion'],{encoding:'utf8'}).trim()!=='26.5' || execFileSync('sw_vers',['-buildVersion'],{encoding:'utf8'}).trim()!=='25F71')throw new Error('Native supervisor requires admitted M5 macOS/RAM conditions');
   }
   const before=sample();if(!safe(before))throw new Error('Native resource/power admission failed');
+  let hostIdentity=null;
+  if(linux){
+    const passport=JSON.parse(readFileSync(d.hardware.passport.path,'utf8'));
+    hostIdentity=assertLinuxHostMatchesPassport(passport,readLinuxHost());
+  }
   if(macos){
     const loaded=JSON.parse(execFileSync('/opt/homebrew/bin/lms',['ps','--json'],{encoding:'utf8',timeout:10000}));const ollama=JSON.parse((await requestLocal('http://127.0.0.1:11434/api/ps',{timeout:5000})).body);
     if(loaded.length || ollama.models.length)throw new Error('Foreign model loaded; refusing native startup');
@@ -98,7 +141,7 @@ export async function startNative(d,trace) {
     if(foreign)throw new Error('Foreign llama-server process present; refusing native startup');
   }
   const net=await import('node:net');await new Promise((resolve,reject)=>{const socket=net.createServer();socket.once('error',reject);socket.listen(d.endpoint.port,'127.0.0.1',()=>socket.close(resolve));});
-  const verified=await verifyFiles(d),command=nativeCommand(d),proof={fingerprint:fingerprint(d),verified_files:verified,verified_before_popen:true,verified_at:now(),popen_invoked_at:now(),command,pid:null,properties:null,resources_before:before};
+  const verified=await verifyFiles(d),command=nativeCommand(d),proof={fingerprint:fingerprint(d),verified_files:verified,verified_before_popen:true,verified_at:now(),popen_invoked_at:now(),command,pid:null,properties:null,resources_before:before,host_identity:hostIdentity};
   const env=Object.fromEntries(['PATH','HOME','TMPDIR','USER','LANG'].filter(k=>process.env[k]).map(k=>[k,process.env[k]]));
   if(linux)env.LD_LIBRARY_PATH=dirname(command[0]);
   const log=createWriteStream(join(trace,'native-server.txt'),{flags:'wx'});const child=spawn(command[0],command.slice(1),{cwd:dirname(command[0]),env,detached:true,stdio:['ignore','pipe','pipe']});
