@@ -34,6 +34,9 @@ test('course prerequisites cannot contain missing works, cycles or escaping file
     value => { value.labs[0].harness = 'pi'; },
     value => { value.require_harness_coverage = 'yes'; },
     value => { for (const lab of value.labs) Object.assign(lab, { kind: 'agent', harness: 'pi' }); },
+    value => { value.labs[1].area = '../escape'; },
+    value => { value.labs[1].area = 'local-models'; },
+    value => { Object.assign(value.labs[1], { kind: 'agent', harness: 'pi', area: 'space' }); },
   ]) { const value = catalog(); mutate(value); assert.throws(() => validateLabCatalog(value)); }
 });
 
@@ -62,6 +65,17 @@ test('harness reports are routed to their own directory and preserve old common 
   rmSync(join(root, 'experiments/pi/harness.json'));
   assert.throws(() => createLabReport(root, { lab: 'LAB11', session: 'missing-profile' }), /ENOENT/);
   assert.equal(existsSync(join(root, 'experiments/pi/measurements/LAB11-missing-profile')), false);
+});
+
+test('area reports are routed to the area directory without a harness identity', t => {
+  const root = fixture(t);
+  const value = catalog();
+  value.labs[1].area = 'space';
+  writeFileSync(join(root, 'docs/labs/catalog.json'), JSON.stringify(value));
+  const report = createLabReport(root, { lab: 'LAB02', session: 'ryzen-01' });
+  assert.equal(report.directory, 'experiments/space/measurements/LAB02-ryzen-01');
+  assert.equal(JSON.parse(readFileSync(join(root, report.directory, 'manifest.json'))).harness_id, null);
+  assert.equal(createLabReport(root, { lab: 'LAB01', session: 'ryzen-01' }).directory, 'experiments/local-models/measurements/LAB01-ryzen-01');
 });
 
 test('course coverage rejects an omitted harness or a lab pointing to an unknown harness', t => {
@@ -154,7 +168,8 @@ test('alternative prerequisites are validated, traversed for cycles and displaye
   duplicate.labs[1].prerequisites = ['LAB01'];
   assert.throws(() => validateLabCatalog(duplicate), /alternative prerequisites/);
   const actual = loadLabCatalog(repository, { checkDocuments: true });
-  assert.equal(actual.labs.length, 35);
+  assert.equal(actual.labs.length, 42);
+  assert.ok(actual.labs.filter(lab => lab.area === 'space').every(lab => !lab.harness && /^LAB(3[6-9]|4[0-2])$/.test(lab.id)));
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites, ['LAB01']);
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites_any, ['LAB05', 'LAB32']);
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB32').prerequisites_any, ['LAB30', 'LAB31']);

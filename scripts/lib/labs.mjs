@@ -20,6 +20,7 @@ export function validateLabCatalog(catalog) {
       if (typeof lab.harness !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lab.harness) || lab.kind !== 'agent' || harnesses.has(lab.harness)) throw new Error(`Invalid or duplicate lab harness: ${lab.id}`);
       harnesses.add(lab.harness);
     }
+    if (lab.area !== undefined && (typeof lab.area !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lab.area) || lab.harness !== undefined || lab.area === 'local-models')) throw new Error(`Invalid lab area: ${lab.id}`);
     if (!['available', 'target-machine', 'implementation-required'].includes(lab.readiness)) throw new Error(`Invalid lab readiness: ${lab.id}`);
     if (typeof lab.effort !== 'string' || !lab.effort.trim()) throw new Error(`Missing lab effort: ${lab.id}`);
     if (!Array.isArray(lab.prerequisites) || new Set(lab.prerequisites).size !== lab.prerequisites.length) throw new Error(`Invalid lab prerequisites: ${lab.id}`);
@@ -39,12 +40,18 @@ export function validateLabCatalog(catalog) {
   return catalog;
 }
 
+/** Reports live with their harness, then with their non-harness area, then in the shared local-models tree. */
+export function labReportParent(lab) {
+  return `experiments/${lab.harness ?? lab.area ?? 'local-models'}/measurements`;
+}
+
 export function loadLabCatalog(root, { checkDocuments = false } = {}) {
   const catalog = validateLabCatalog(JSON.parse(readFileSync(safePath(root, 'docs/labs/catalog.json'), 'utf8')));
   if (checkDocuments) for (const lab of catalog.labs) {
     const content = readFileSync(safePath(root, `docs/labs/${lab.file}`), 'utf8');
     for (const section of sections) if (!content.split('\n').some(line => line.trim() === `## ${section}`)) throw new Error(`${lab.id}: missing section ${section}`);
     if (lab.harness) loadProfile(root, lab.harness);
+    if (lab.area && existsSync(safePath(root, `experiments/${lab.area}/harness.json`))) throw new Error(`${lab.id}: area ${lab.area} is a harness profile; use harness`);
   }
   if (checkDocuments && catalog.require_harness_coverage) {
     const experiments = safePath(root, 'experiments');
@@ -77,7 +84,7 @@ export function createLabReport(root, { lab: id, session }) {
   const created = new Date().toISOString();
   for (const [name, value] of Object.entries({ LAB_ID: id, LAB_TITLE: lab.title, SESSION_ID: session, CREATED_AT: created })) report = report.replaceAll(`{{${name}}}`, value);
   Object.assign(manifest, { lab_id: id, session_id: session, created_at: created, harness_id: lab.harness ?? null });
-  const reportParent = `experiments/${lab.harness ?? 'local-models'}/measurements`;
+  const reportParent = labReportParent(lab);
   const parent = safePath(root, reportParent);
   mkdirSync(parent, { recursive: true });
   const dir = safePath(root, `${reportParent}/${id}-${session}`);
