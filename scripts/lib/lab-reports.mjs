@@ -1,6 +1,6 @@
 import { readFileSync, lstatSync } from 'node:fs';
 import { safePath } from './files.mjs';
-import { loadLabCatalog } from './labs.mjs';
+import { labReportParent, loadLabCatalog } from './labs.mjs';
 import { readRun } from './records.mjs';
 import { verifyRunIntegrity } from './integrity.mjs';
 
@@ -25,7 +25,7 @@ function localFile(base, path) {
 /** Read-only completeness check. It never grades an experiment or changes its status. */
 export function checkLabReport(root, { report, mode = 'draft' }) {
   if (!['draft', 'submission'].includes(mode)) throw new Error('Mode must be draft or submission');
-  if (typeof report !== 'string' || !/^experiments\/[a-z0-9]+(?:-[a-z0-9]+)*\/measurements\/LAB\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(report)) throw new Error('Report must be an experiments/<harness>/measurements/LABxx-session directory');
+  if (typeof report !== 'string' || !/^experiments\/[a-z0-9]+(?:-[a-z0-9]+)*\/measurements\/LAB\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(report)) throw new Error('Report must be an experiments/<harness-or-area>/measurements/LABxx-session directory');
   const dir = safePath(root, report);
   const manifest = JSON.parse(readFileSync(localFile(dir, 'manifest.json'), 'utf8'));
   if (!object(manifest) || manifest.kind !== 'lab-report' || ![1, 2].includes(manifest.schema_version)) throw new Error('Expected a lab-report manifest v1 or v2, not a practice trace or run record');
@@ -38,7 +38,7 @@ export function checkLabReport(root, { report, mode = 'draft' }) {
   check(slug(manifest.session_id) && manifest.session_id.length <= 64, 'Invalid session_id');
   if (lab) {
     check(manifest.harness_id === (lab.harness ?? null), 'harness_id differs from lab catalog');
-    check(report === `experiments/${lab.harness ?? 'local-models'}/measurements/${lab.id}-${manifest.session_id}`, 'Report directory differs from manifest identity');
+    check(report === `${labReportParent(lab)}/${lab.id}-${manifest.session_id}`, 'Report directory differs from manifest identity');
   }
   check(stamp(manifest.created_at), 'Invalid created_at');
   check(['not-started', 'in-progress', 'completed', 'blocked'].includes(manifest.status), 'Invalid report status');

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-07",
+  "updated_at": "2026-10-18",
   "require_harness_coverage": true,
   "labs": [
     { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
@@ -37,6 +37,13 @@
     { "id": "LAB32", "title": "Контекст, streaming и инструменты на Mac", "file": "LAB32-apple-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB29"], "effort": "3–5 часов", "prerequisites_any": ["LAB30", "LAB31"] },
     { "id": "LAB33", "title": "Ollama и LM Studio на Apple Silicon", "file": "LAB33-apple-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "3–5 часов плюс установка" },
     { "id": "LAB34", "title": "Параллельная нагрузка и устойчивость Mac", "file": "LAB34-apple-load.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "2–4 часа плюс 30-минутная серия" },
-    { "id": "LAB35", "title": "Apple против Ryzen на одинаковых задачах", "file": "LAB35-apple-ryzen-comparison.md", "kind": "agent", "readiness": "implementation-required", "prerequisites": ["LAB04", "LAB08", "LAB09", "LAB32", "LAB34"], "effort": "4–8 часов плюс исполнение и оценка" }
+    { "id": "LAB35", "title": "Apple против Ryzen на одинаковых задачах", "file": "LAB35-apple-ryzen-comparison.md", "kind": "agent", "readiness": "implementation-required", "prerequisites": ["LAB04", "LAB08", "LAB09", "LAB32", "LAB34"], "effort": "4–8 часов плюс исполнение и оценка" },
+    { "id": "LAB36", "title": "SPACE: паспорт хоста, развёртывание в Kind и smoke", "file": "LAB36-space-deploy-smoke.md", "kind": "measurement", "area": "space", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "3–6 часов на стенд" },
+    { "id": "LAB37", "title": "Pi и OpenHands в микро-VM SPACE", "file": "LAB37-space-harness-vm.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36", "LAB15", "LAB17"], "effort": "1–2 дня инженерной работы плюс прогоны" },
+    { "id": "LAB38", "title": "Слой инструментов: SPACE как исполнитель для любой обвязки", "file": "LAB38-space-tool-layer.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36"], "effort": "1–2 дня инженерной работы плюс прогоны" },
+    { "id": "LAB39", "title": "Слой состояния: suspend/restore и fork для эпизодов", "file": "LAB39-space-state-layer.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36"], "effort": "1 день плюс прогоны", "prerequisites_any": ["LAB37", "LAB38"] },
+    { "id": "LAB40", "title": "Латентность песочниц: cold, pool, base snapshot, restore", "file": "LAB40-space-latency-pools.md", "kind": "measurement", "area": "space", "readiness": "target-machine", "prerequisites": ["LAB36"], "effort": "3–4 часа на стенд" },
+    { "id": "LAB41", "title": "Сеть и секреты: VM агента с доступом только к API провайдера", "file": "LAB41-space-network-secrets.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB37"], "effort": "1 день" },
+    { "id": "LAB42", "title": "Агентные кампании на SPACE и сравнение с Docker", "file": "LAB42-space-campaign.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB09", "LAB37", "LAB41"], "effort": "1 день плюс время серии" }
   ]
 }
