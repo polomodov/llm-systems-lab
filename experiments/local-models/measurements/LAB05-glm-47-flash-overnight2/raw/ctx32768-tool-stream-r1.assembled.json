@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "y4rJ6mwHUg0ybvYWrNxS3VMTOrbqPLOs",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "Пользователь просит вызвать функцию lookup_lab_value с ключом \"alpha\" и вернуть только значение. Это straightforward - нужно вызвать функцию с параметром key равным \"alpha\", а затем вернуть только полученное значение."
+}

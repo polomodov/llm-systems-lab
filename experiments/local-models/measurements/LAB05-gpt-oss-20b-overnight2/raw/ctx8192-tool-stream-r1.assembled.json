@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "96KoIP5uwMOYmrjPsMD1CQjZyKNOFCC5",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user wants to call function lookup_lab_value with key \"alpha\". Then return only the value from the result. According to tool spec, the function returns any. We need to call the function via the tool. Then output only the value.\n\nWe need to use the tool. The function signature: lookup_lab_value({_}) -> any. We'll call with key: \"alpha\".\n\nWe need to produce JSON call: {\"name\":\"lookup_lab_value\",\"arguments\":\"{\\\"key\\\":\\\"alpha\\\"}\"}.\n\nThen after receiving response, we need to output only the value. But the instructions: \"Получив результат инструмента, верни только значение.\" So we just output the value from the response.\n\nWe have to produce a function call. Then the result will be returned by the system. So we respond with the function call.\n\nThus answer: call the tool.\n\n"
+}

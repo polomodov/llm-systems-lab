@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB04",
+  "harness_id": null,
+  "session_id": "gemma4-31b-it-overnight",
+  "created_at": "2026-10-08T18:48:30Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-08T18:48:30Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gemma4-31b-it-overnight/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB04-gemma4-31b-it-overnight/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "gemma4-31b-it-offload",
+      "configuration_id": "gemma4-31b-it-offload",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/vulkan-offload-proof.log",
+        "raw/hip-offload-proof.log"
+      ],
+      "conclusion": null,
+      "reason": "unknown model architecture: 'gemma4' (llama.cpp b8407)"
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md",
+    "raw/build-provenance.txt",
+    "raw/vulkan-offload-proof.log",
+    "raw/hip-offload-proof.log",
+    "raw/vulkan-devices.txt",
+    "raw/hip-devices.txt"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "LAB04 не использует обвязку.",
+    "completion": "Движок b8407 не знает архитектуру gemma4; ветвь HIP и Vulkan не загрузили модель. Результат получен на llama.cpp b10000 в отдельной сессии.",
+    "measurements": "Числовых наблюдений нет: ветвь не дошла до измерений."
+  },
+  "conclusion": "llama.cpp b8407 не поддерживает архитектуру gemma4: обе ветви завершились ошибкой `unknown model architecture: 'gemma4'`. См. raw/*-offload-proof.log. Повторено на llama.cpp b10000 в LAB04-gemma4-31b-it-b10000.",
+  "hypothesis": "Один GGUF gemma4-31b-it полностью выгружается на GPU в обеих prebuilt-сборках llama.cpp b8407 (Vulkan/RADV и ROCm/HIP); backend влияет на скорость prefill/decode.",
+  "reviewer_decision": null
+}

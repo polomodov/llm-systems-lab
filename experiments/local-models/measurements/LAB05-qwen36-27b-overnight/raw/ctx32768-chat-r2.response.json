@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\"\n   - Translation: \"Reply exactly LAB_READY without explanations.\"\n   - Language: Russian\n   - Requirement: Output exactly \"LAB_READY\" and nothing else.\n\n2.  **Identify Constraints:**\n   - Must be exactly \"LAB_READY\"\n   - No additional text, explanations, or formatting\n   - Language doesn't matter for the output, but the constraint is strict\n\n3.  **Formulate Response:**\n   - Simply output: LAB_READY\n\n4.  **Self-Correction/Verification:**\n   - Check if any extra characters, spaces, or newlines are included. The prompt says \"ровно LAB_READY без пояснений\" (exactly LAB_READY without explanations).\n   - I will output just the string as requested.\n\n   All constraints met. Proceed.✅\n"
+      }
+    }
+  ],
+  "created": 1791481553,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 205,
+    "prompt_tokens": 19,
+    "total_tokens": 224
+  },
+  "id": "chatcmpl-oeZPE02wmsbnR38B8hT5oqmhkS377BvL",
+  "timings": {
+    "cache_n": 0,
+    "prompt_n": 19,
+    "prompt_ms": 290.744,
+    "prompt_per_token_ms": 15.302315789473687,
+    "prompt_per_second": 65.34958588999257,
+    "predicted_n": 205,
+    "predicted_ms": 19192.945,
+    "predicted_per_token_ms": 93.62412195121951,
+    "predicted_per_second": 10.681008047488284
+  }
+}

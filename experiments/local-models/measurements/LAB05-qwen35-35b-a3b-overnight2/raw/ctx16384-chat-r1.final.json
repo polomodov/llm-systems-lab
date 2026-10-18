@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The output must be exactly \"LAB_READY\". No extra text, no punctuation, no explanations.\n\n2.  **Determine the Output:**\n    *   The user wants a specific string: \"LAB_READY\".\n    *   I need to ensure there are no markdown blocks, no quotes, no introductory or concluding remarks.\n\n3.  **Final Verification:**\n    *   Does \"LAB_READY\" match the requirement? Yes.\n    *   Are there any explanations? No.\n    *   Is it exact? Yes.\n\n4.  **Construct Output:**\n    *   LAB_READY\n\n5.  **Final Decision:**\n    *   Output just the string.cw\n"
+}

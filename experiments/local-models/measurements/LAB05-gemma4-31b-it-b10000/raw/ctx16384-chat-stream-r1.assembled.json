@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_READY",
+  "reasoning_content": "*   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint 1: Exact phrase \"LAB_READY\".\n    *   Constraint 2: No explanations.\n\n    *   Target string: \"LAB_READY\""
+}

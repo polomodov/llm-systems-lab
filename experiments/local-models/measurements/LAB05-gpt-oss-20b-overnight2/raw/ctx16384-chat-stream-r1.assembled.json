@@ -1,0 +1,5 @@
+{
+  "role": "assistant",
+  "content": "LAB_READY",
+  "reasoning_content": "The user says: \"Ответь ровно LAB_READY без пояснений.\" That means \"Answer exactly LAB_READY without explanations.\" So we need to output just \"LAB_READY\". No explanation. So the final answer is: LAB_READY."
+}

@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user says: \"Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение.\" So we need to call the function lookup_lab_value with key \"alpha\", get the result, and return only the value. The response should be only the value, no extra text. According to instructions: \"Вызови lookup_lab_value\" and \"верни только значение.\" So we must call the function. There's no actual data; but we assume function returns something. We'll call the function.",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "xfOsPW94oLo9vWrsG24uiSFrGfvy7VSE"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791476794,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 131,
+    "prompt_tokens": 151,
+    "total_tokens": 282
+  },
+  "id": "chatcmpl-bmBPBHqOzkPMgGjF7FXMZFqA0Ltf2v4A",
+  "timings": {
+    "cache_n": 59,
+    "prompt_n": 92,
+    "prompt_ms": 171.894,
+    "prompt_per_token_ms": 1.8684130434782609,
+    "prompt_per_second": 535.2135618462542,
+    "predicted_n": 131,
+    "predicted_ms": 1820.26,
+    "predicted_per_token_ms": 13.895114503816794,
+    "predicted_per_second": 71.9677408721831
+  }
+}

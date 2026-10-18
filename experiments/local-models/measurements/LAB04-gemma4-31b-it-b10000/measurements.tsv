@@ -1,0 +1,17 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+gemma4-31b-it-vulkan-pp-r1	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		1	pp2048_avg_ts	200.011077	tokens/s	measured	raw/vulkan-r1-pp.json	
+gemma4-31b-it-vulkan-tg-r1	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		1	tg128_d4096_avg_ts	9.102908	tokens/s	measured	raw/vulkan-r1-tg.json	
+gemma4-31b-it-vulkan-pp-r2	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		2	pp2048_avg_ts	201.899824	tokens/s	measured	raw/vulkan-r2-pp.json	
+gemma4-31b-it-vulkan-tg-r2	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		2	tg128_d4096_avg_ts	9.137674	tokens/s	measured	raw/vulkan-r2-tg.json	
+gemma4-31b-it-vulkan-pp-r3	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		3	pp2048_avg_ts	201.754154	tokens/s	measured	raw/vulkan-r3-pp.json	
+gemma4-31b-it-vulkan-tg-r3	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		3	tg128_d4096_avg_ts	9.127119	tokens/s	measured	raw/vulkan-r3-tg.json	
+gemma4-31b-it-vulkan-rss	gemma4-31b-it-vulkan	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		1	max_rss	21365804	KiB	measured	raw/vulkan-r1-pp-process.txt	
+gemma4-31b-it-vulkan-gpulayers	gemma4-31b-it-offload	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	vulkan		1	gpu_assigned_layers	61	layers	measured	raw/vulkan-offload-proof.log	
+gemma4-31b-it-hip-pp-r1	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		1	pp2048_avg_ts	177.505226	tokens/s	measured	raw/hip-r1-pp.json	
+gemma4-31b-it-hip-tg-r1	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		1	tg128_d4096_avg_ts	8.408526	tokens/s	measured	raw/hip-r1-tg.json	
+gemma4-31b-it-hip-pp-r2	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		2	pp2048_avg_ts	180.073152	tokens/s	measured	raw/hip-r2-pp.json	
+gemma4-31b-it-hip-tg-r2	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		2	tg128_d4096_avg_ts	8.522479	tokens/s	measured	raw/hip-r2-tg.json	
+gemma4-31b-it-hip-pp-r3	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		3	pp2048_avg_ts	182.13782	tokens/s	measured	raw/hip-r3-pp.json	
+gemma4-31b-it-hip-tg-r3	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		3	tg128_d4096_avg_ts	8.564334	tokens/s	measured	raw/hip-r3-tg.json	
+gemma4-31b-it-hip-rss	gemma4-31b-it-hip	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		1	max_rss	21537860	KiB	measured	raw/hip-r1-pp-process.txt	
+gemma4-31b-it-hip-gpulayers	gemma4-31b-it-offload	google/gemma-4-31B-it	llama.cpp b10000 (ROCm 7.2 / Vulkan)	hip		1	gpu_assigned_layers	61	layers	measured	raw/hip-offload-proof.log	

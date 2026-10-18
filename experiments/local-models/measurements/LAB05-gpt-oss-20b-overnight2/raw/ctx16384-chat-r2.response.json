@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "The user says: \"Ответь ровно LAB_READY без пояснений.\" That means: \"Answer exactly LAB_READY without explanations.\" So I should output exactly the string \"LAB_READY\". No extra whitespace or newlines? Usually a newline is fine, but just output the string. No explanation. So final: LAB_READY."
+      }
+    }
+  ],
+  "created": 1791535321,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 77,
+    "prompt_tokens": 77,
+    "total_tokens": 154
+  },
+  "id": "chatcmpl-NK3Obz4qcCBDVLPvaBHacObuW0zlqnjM",
+  "timings": {
+    "cache_n": 76,
+    "prompt_n": 1,
+    "prompt_ms": 15.161,
+    "prompt_per_token_ms": 15.161,
+    "prompt_per_second": 65.95870984763538,
+    "predicted_n": 77,
+    "predicted_ms": 1079.394,
+    "predicted_per_token_ms": 14.018103896103897,
+    "predicted_per_second": 71.33632390026256
+  }
+}

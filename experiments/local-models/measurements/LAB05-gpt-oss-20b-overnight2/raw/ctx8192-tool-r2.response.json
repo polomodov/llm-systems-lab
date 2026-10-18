@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "We need to call the function lookup_lab_value with key \"alpha\". Then return only the value. The function returns any. We need to produce the output of the function. Since we don't know what it returns, we assume it returns some value. We need to call the function. According to guidelines, we should call the function and then output the result. So produce a function call.",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "NHECfy8aR8I7vRuI4bggcUktMXzDIYgV"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791535274,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 103,
+    "prompt_tokens": 151,
+    "total_tokens": 254
+  },
+  "id": "chatcmpl-2LRE6is0lrSP6CCdVvIoLZDmtmpHB4RC",
+  "timings": {
+    "cache_n": 59,
+    "prompt_n": 92,
+    "prompt_ms": 172.649,
+    "prompt_per_token_ms": 1.8766195652173914,
+    "prompt_per_second": 532.8730545789433,
+    "predicted_n": 103,
+    "predicted_ms": 1444.267,
+    "predicted_per_token_ms": 14.022009708737865,
+    "predicted_per_second": 71.3164532596812
+  }
+}

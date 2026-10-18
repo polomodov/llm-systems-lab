@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "1.  **Analyze the Request:**\n    *   **Input:** \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Answer exactly LAB_READY without explanations.\")\n    *   **Constraint:** The output must be *exactly* the string \"LAB_READY\" and nothing else (no newlines, no spaces, no additional text).\n    *   **Language:** Russian prompt, but the target output is an English acronym.\n\n2.  **Determine the Output:**\n    *   The user explicitly stated the desired output: \"LAB_READY\".\n    *   The user explicitly prohibited explanations: \"без пояснений\".\n\n3.  **Final Verification:**\n    *   Does \"LAB_READY\" match the request? Yes.\n    *   Is there any extra text? No.\n\n4.  **Construct the Response:**\n    *   LAB_READY"
+}

@@ -1,0 +1,17 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+qwen35-35b-a3b-vulkan-pp-r1	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		1	pp2048_avg_ts	714.29986	tokens/s	measured	raw/vulkan-r1-pp.json	
+qwen35-35b-a3b-vulkan-tg-r1	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		1	tg128_d4096_avg_ts	51.825825	tokens/s	measured	raw/vulkan-r1-tg.json	
+qwen35-35b-a3b-vulkan-pp-r2	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		2	pp2048_avg_ts	712.766161	tokens/s	measured	raw/vulkan-r2-pp.json	
+qwen35-35b-a3b-vulkan-tg-r2	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		2	tg128_d4096_avg_ts	51.96828	tokens/s	measured	raw/vulkan-r2-tg.json	
+qwen35-35b-a3b-vulkan-pp-r3	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		3	pp2048_avg_ts	710.989518	tokens/s	measured	raw/vulkan-r3-pp.json	
+qwen35-35b-a3b-vulkan-tg-r3	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		3	tg128_d4096_avg_ts	51.833317	tokens/s	measured	raw/vulkan-r3-tg.json	
+qwen35-35b-a3b-vulkan-rss	qwen35-35b-a3b-vulkan	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		1	max_rss	25817240	KiB	measured	raw/vulkan-r1-pp-process.txt	
+qwen35-35b-a3b-vulkan-gpulayers	qwen35-35b-a3b-offload	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	vulkan		1	gpu_assigned_layers	41	layers	measured	raw/vulkan-offload-proof.log	
+qwen35-35b-a3b-hip-pp-r1	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		1	pp2048_avg_ts	664.370891	tokens/s	measured	raw/hip-r1-pp.json	
+qwen35-35b-a3b-hip-tg-r1	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		1	tg128_d4096_avg_ts	45.18165	tokens/s	measured	raw/hip-r1-tg.json	
+qwen35-35b-a3b-hip-pp-r2	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		2	pp2048_avg_ts	660.48108	tokens/s	measured	raw/hip-r2-pp.json	
+qwen35-35b-a3b-hip-tg-r2	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		2	tg128_d4096_avg_ts	45.17747	tokens/s	measured	raw/hip-r2-tg.json	
+qwen35-35b-a3b-hip-pp-r3	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		3	pp2048_avg_ts	659.898902	tokens/s	measured	raw/hip-r3-pp.json	
+qwen35-35b-a3b-hip-tg-r3	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		3	tg128_d4096_avg_ts	45.280921	tokens/s	measured	raw/hip-r3-tg.json	
+qwen35-35b-a3b-hip-rss	qwen35-35b-a3b-hip	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		1	max_rss	25953468	KiB	measured	raw/hip-r1-pp-process.txt	
+qwen35-35b-a3b-hip-gpulayers	qwen35-35b-a3b-offload	Qwen/Qwen3.5-35B-A3B	llama.cpp b8407	hip		1	gpu_assigned_layers	41	layers	measured	raw/hip-offload-proof.log	

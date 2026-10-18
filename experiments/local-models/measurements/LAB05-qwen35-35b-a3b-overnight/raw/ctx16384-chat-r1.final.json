@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The output must be exactly \"LAB_READY\".\n    *   Language: Russian (implied by the instruction), but the required output is an English string/code.\n    *   Tone: Strict compliance.\n\n2.  **Verify Constraints:**\n    *   No extra text.\n    *   No newlines before or after (unless implied by standard output, but usually \"exactly\" means just the string).\n    *   Case sensitivity: \"LAB_READY\".\n\n3.  **Formulate Output:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it match the instruction? Yes.\n    *   Are there explanations? No.\n\n5.  **Execute:** Output \"LAB_READY\".ot\n"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "gemma4-31b-it",
+  "model_id": "google/gemma-4-31B-it",
+  "quantization": "Q5_K_M",
+  "artifact": {
+    "repository": "unsloth/gemma-4-31B-it-GGUF",
+    "revision": "c1ac76e99d5513b141e8adde7288b85c3f9c32ec",
+    "files": [
+      {
+        "path": "gemma-4-31B-it-Q5_K_M.gguf",
+        "bytes": 21658401728,
+        "sha256": "95192e41190ef5eb72db92b669cea0ed733049c2265a03a64ac5a080d8605958"
+      }
+    ],
+    "total_bytes": 21658401728
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "1.  **Analyze the user's request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Answer exactly LAB_READY without explanations.\")\n    *   Intent: The user wants a specific string of characters as the output and explicitly forbids any extra text or explanations.\n\n2.  **Identify the safety/policy implications:**\n    *   This request is extremely simple and benign.\n    *   It does not violate any safety guidelines (no hate speech, no dangerous content, no PII, no prompt injection, etc.).\n    *   It is a direct instruction to output a specific string.\n\n3.  **Determine the appropriate response:**\n    *   The user requested \"exactly\" and \"without explanations\".\n    *   Therefore, the output must be *only* the string \"LAB_READY\".\n\n4.  **Final Output Generation:**\n    *   String: LAB_READY"
+}

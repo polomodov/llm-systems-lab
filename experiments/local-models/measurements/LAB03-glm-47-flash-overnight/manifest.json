@@ -1,0 +1,44 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "glm-47-flash-overnight",
+  "created_at": "2026-10-08T21:31:39Z",
+  "status": "blocked",
+  "evidence_class": "protocol",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-08T21:31:39Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-glm-47-flash-overnight/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "glm-47-flash-aborted",
+      "configuration_id": "glm-47-flash-aborted",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "Недоступно/прервано в ночной кампании."
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "LAB03 не запускает runtime.",
+    "conditions.harness_profile": "LAB03 не использует обвязку.",
+    "completion": "Прогон прерван/не завершён; см. experiments/local-models/campaign/overnight-repair-plan.md",
+    "measurements": "Числовых наблюдений нет: ветвь не дошла до измерений."
+  },
+  "conclusion": "Сессия заблокирована: см. attempts и unavailable.completion.",
+  "hypothesis": "Локальная копия артефакта glm-47-flash совпадает с публикацией по размеру и SHA-256.",
+  "reviewer_decision": null
+}

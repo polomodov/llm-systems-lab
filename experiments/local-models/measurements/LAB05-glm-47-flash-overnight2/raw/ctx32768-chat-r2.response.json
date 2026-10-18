@@ -1,0 +1,34 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "The user wants a specific output: \"LAB_READY\" without any explanations or additional text. This is a command to act as a system that is ready for input, likely in the context of some AI interaction or a specific protocol.\n\n1.  **Analyze the Request:** The user said \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations).\n2.  **Identify the Intent:** The intent is to receive the string \"LAB_READY\" as the sole response. There is no malicious intent detected. It's a simple formatting constraint.\n3.  **Formulate the Output:** I need to output the literal string \"LAB_READY\".\n4.  **Check Constraints:** The user explicitly requested *no* explanations. I must ensure no extra text follows the string.\n5.  **Final Output Generation:** LAB_READY"
+      }
+    }
+  ],
+  "created": 1791542063,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 176,
+    "prompt_tokens": 15,
+    "total_tokens": 191
+  },
+  "id": "chatcmpl-qSWmtX7fYqsSZvv7qbnhge9sQqQl42ge",
+  "timings": {
+    "cache_n": 2,
+    "prompt_n": 13,
+    "prompt_ms": 77.433,
+    "prompt_per_token_ms": 5.956384615384616,
+    "prompt_per_second": 167.88707656942128,
+    "predicted_n": 176,
+    "predicted_ms": 4172.253,
+    "predicted_per_token_ms": 23.70598295454545,
+    "predicted_per_second": 42.18344381321075
+  }
+}

@@ -1,0 +1,17 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+qwen36-27b-vulkan-pp-r1	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		1	pp2048_avg_ts	253.437815	tokens/s	measured	raw/vulkan-r1-pp.json	
+qwen36-27b-vulkan-tg-r1	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		1	tg128_d4096_avg_ts	10.662838	tokens/s	measured	raw/vulkan-r1-tg.json	
+qwen36-27b-vulkan-pp-r2	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		2	pp2048_avg_ts	256.508829	tokens/s	measured	raw/vulkan-r2-pp.json	
+qwen36-27b-vulkan-tg-r2	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		2	tg128_d4096_avg_ts	10.707652	tokens/s	measured	raw/vulkan-r2-tg.json	
+qwen36-27b-vulkan-pp-r3	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		3	pp2048_avg_ts	255.63012	tokens/s	measured	raw/vulkan-r3-pp.json	
+qwen36-27b-vulkan-tg-r3	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		3	tg128_d4096_avg_ts	10.717813	tokens/s	measured	raw/vulkan-r3-tg.json	
+qwen36-27b-vulkan-rss	qwen36-27b-vulkan	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		1	max_rss	19235348	KiB	measured	raw/vulkan-r1-pp-process.txt	
+qwen36-27b-vulkan-gpulayers	qwen36-27b-offload	Qwen/Qwen3.6-27B	llama.cpp b8407	vulkan		1	gpu_assigned_layers	65	layers	measured	raw/vulkan-offload-proof.log	
+qwen36-27b-hip-pp-r1	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		1	pp2048_avg_ts	285.081653	tokens/s	measured	raw/hip-r1-pp.json	
+qwen36-27b-hip-tg-r1	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		1	tg128_d4096_avg_ts	10.277699	tokens/s	measured	raw/hip-r1-tg.json	
+qwen36-27b-hip-pp-r2	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		2	pp2048_avg_ts	282.642095	tokens/s	measured	raw/hip-r2-pp.json	
+qwen36-27b-hip-tg-r2	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		2	tg128_d4096_avg_ts	10.283423	tokens/s	measured	raw/hip-r2-tg.json	
+qwen36-27b-hip-pp-r3	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		3	pp2048_avg_ts	283.010421	tokens/s	measured	raw/hip-r3-pp.json	
+qwen36-27b-hip-tg-r3	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		3	tg128_d4096_avg_ts	10.314539	tokens/s	measured	raw/hip-r3-tg.json	
+qwen36-27b-hip-rss	qwen36-27b-hip	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		1	max_rss	19372688	KiB	measured	raw/hip-r1-pp-process.txt	
+qwen36-27b-hip-gpulayers	qwen36-27b-offload	Qwen/Qwen3.6-27B	llama.cpp b8407	hip		1	gpu_assigned_layers	65	layers	measured	raw/hip-offload-proof.log	

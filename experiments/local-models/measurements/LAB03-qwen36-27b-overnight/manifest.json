@@ -1,0 +1,53 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "qwen36-27b-overnight",
+  "created_at": "2026-10-08T16:28:41Z",
+  "status": "completed",
+  "evidence_class": "protocol",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-08T16:28:41Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-qwen36-27b-overnight/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "qwen36-27b-verify",
+      "configuration_id": "qwen36-27b-verify",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/artifact.json",
+        "raw/verification.json",
+        "raw/verification.txt",
+        "raw/weights.sha256"
+      ],
+      "conclusion": "verified.",
+      "reason": null
+    }
+  ],
+  "evidence_files": [
+    "raw/artifact.json",
+    "raw/download-verification.json",
+    "raw/fetch_artifact.py",
+    "raw/protocol.md",
+    "raw/verification.json",
+    "raw/verification.txt",
+    "raw/weights.sha256"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "LAB03 не запускает runtime.",
+    "conditions.harness_profile": "LAB03 не использует обвязку."
+  },
+  "conclusion": "Проверка unsloth/Qwen3.6-27B-GGUF@82d411acf4a06cfb8d9b073a5211bf410bfc29bf: verified.",
+  "hypothesis": "Локальная копия артефакта qwen36-27b совпадает с публикацией по размеру и SHA-256.",
+  "reviewer_decision": null
+}

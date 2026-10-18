@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "ugbcniNYbMdJ3aRWmGQb1KEi9X1zJhZb",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user wants me to call the `lookup_lab_value` tool with the argument `key=\"alpha\"`.\nAfter receiving the result from the tool, I should return only the value of that result.\n\nPlan:\n1. Call `lookup_lab_value(key=\"alpha\")`.\n2. Extract the value from the tool response.\n3. Output only that value."
+}

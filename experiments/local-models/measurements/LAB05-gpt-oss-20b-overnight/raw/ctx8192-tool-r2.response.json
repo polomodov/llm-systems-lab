@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "We need to call the tool. Use the function.",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "2lSuP6TtsWaHuP6jEQ6AShQgvy6ni3vk"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791476796,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 36,
+    "prompt_tokens": 151,
+    "total_tokens": 187
+  },
+  "id": "chatcmpl-5rpa5JMFajUph6O0Ku4hPWUPRLohNnKD",
+  "timings": {
+    "cache_n": 150,
+    "prompt_n": 1,
+    "prompt_ms": 14.634,
+    "prompt_per_token_ms": 14.634,
+    "prompt_per_second": 68.33401667350007,
+    "predicted_n": 36,
+    "predicted_ms": 499.229,
+    "predicted_per_token_ms": 13.867472222222222,
+    "predicted_per_second": 72.11119546340457
+  }
+}

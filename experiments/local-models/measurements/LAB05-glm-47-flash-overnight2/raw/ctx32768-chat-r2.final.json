@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "The user wants a specific output: \"LAB_READY\" without any explanations or additional text. This is a command to act as a system that is ready for input, likely in the context of some AI interaction or a specific protocol.\n\n1.  **Analyze the Request:** The user said \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations).\n2.  **Identify the Intent:** The intent is to receive the string \"LAB_READY\" as the sole response. There is no malicious intent detected. It's a simple formatting constraint.\n3.  **Formulate the Output:** I need to output the literal string \"LAB_READY\".\n4.  **Check Constraints:** The user explicitly requested *no* explanations. I must ensure no extra text follows the string.\n5.  **Final Output Generation:** LAB_READY"
+}

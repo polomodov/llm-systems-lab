@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB05",
+  "harness_id": null,
+  "session_id": "gemma4-31b-it-overnight",
+  "created_at": "2026-10-08T18:48:32Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "overnight campaign",
+  "protocol_recorded_at": "2026-10-08T18:48:32Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-gemma4-31b-it-overnight/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB04-gemma4-31b-it-overnight/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "gemma4-31b-it-ctx8192",
+      "configuration_id": "gemma4-31b-it-ctx8192",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/context-8192-bench.log"
+      ],
+      "conclusion": null,
+      "reason": "bench exit 1"
+    }
+  ],
+  "evidence_files": [
+    "raw/protocol.md",
+    "raw/context-8192-bench.log",
+    "raw/context-8192-exit.txt",
+    "raw/chat-request.json",
+    "raw/tool-request.json"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "LAB05 не использует обвязку.",
+    "completion": "Движок b8407 не знает архитектуру gemma4; bench и сервер не запустились. Результат получен на llama.cpp b10000 в отдельной сессии.",
+    "measurements": "Числовых наблюдений нет: ветвь не дошла до измерений."
+  },
+  "conclusion": "llama.cpp b8407 не поддерживает архитектуру gemma4: bench ctx8192 завершился exit 1 (`unknown model architecture: 'gemma4'`). Повторено на llama.cpp b10000 в LAB05-gemma4-31b-it-b10000 (8/8 во всех контекстах).",
+  "hypothesis": "gemma4-31b-it на HIP llama.cpp b8407 проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.",
+  "reviewer_decision": null
+}

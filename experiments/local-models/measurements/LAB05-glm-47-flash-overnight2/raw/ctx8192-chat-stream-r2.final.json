@@ -1,0 +1,5 @@
+{
+  "content": "LAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "1.  **Analyze the user's request:** The user wants me to answer exactly the phrase \"LAB_READY\" without any explanations.\n\n2.  **Identify the intent:** The intent is to get a specific string output (\"LAB_READY\") and nothing else.\n\n3.  **Check for safety/policy violations:**\n    *   Is it asking for hate speech, sexual content, dangerous activities, or PII? No.\n    *   Is it a prompt injection or jailbreak attempt? It looks like a test of instruction following or a specific system status check.\n    *   Is it asking for my internal Chain of Thought? No, it's asking for a specific output string.\n\n4.  **Formulate the response:** The user requested exactly \"LAB_READY\" with no explanations.\n    *   Output: LAB_READY\n\n5.  **Final verification:** Does \"LAB_READY\" contain any disallowed content? No. Does it meet the strict format requirement? Yes."
+}

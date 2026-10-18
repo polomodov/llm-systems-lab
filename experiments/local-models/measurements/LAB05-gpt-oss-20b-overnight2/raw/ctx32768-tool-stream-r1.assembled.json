@@ -1,0 +1,15 @@
+{
+  "role": "assistant",
+  "content": "",
+  "tool_calls": [
+    {
+      "id": "qMzqXefsbzyrrgTFwGx9nGEwk7sDn0eo",
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "arguments": "{\"key\":\"alpha\"}"
+      }
+    }
+  ],
+  "reasoning_content": "The user says: \"Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение.\" So they want to call the function lookup_lab_value with key \"alpha\" and then return only the value. So we need to invoke the function. We must use the function call via the function tool. The function signature: lookup_lab_value takes argument {key: \"alpha\"} and returns any. After we get result, we output only the value, not JSON. Just the value. The instructions: \"Получив результат инструмента, верни только значение.\" So we call the function. The tool invocation: { \"name\": \"lookup_lab_value\", \"arguments\": {\"key\":\"alpha\"} }.\n\nWe will do that."
+}

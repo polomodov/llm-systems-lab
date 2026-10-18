@@ -1,0 +1,2 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+qwen3-coder-30b-a3b-bytes	qwen3-coder-30b-a3b-verify	Qwen/Qwen3-Coder-30B-A3B-Instruct	sha256sum	-		1	file_bytes	21725584544	B	measured	raw/verification.json	

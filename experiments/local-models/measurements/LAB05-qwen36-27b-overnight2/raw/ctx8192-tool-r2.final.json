@@ -1,0 +1,5 @@
+{
+  "content": "LAB_VALUE_42",
+  "tool_calls": null,
+  "reasoning_content": "The user asked to call the tool `lookup_lab_value` with key \"alpha\" and return only the value.\nI have received the result: \"LAB_VALUE_42\".\nThe user requested *only* the value.\nTherefore, I should output \"LAB_VALUE_42\" without any extra text.\n"
+}

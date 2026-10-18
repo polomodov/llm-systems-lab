@@ -1,0 +1,43 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "OvCRqK5ZYIlpuspMHoMRB6VNXl16coy1"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791489320,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 23,
+    "prompt_tokens": 317,
+    "total_tokens": 340
+  },
+  "id": "chatcmpl-fMFICsNdagA00QRC06vz9Jx5Q8OlW9Hl",
+  "timings": {
+    "cache_n": 1,
+    "prompt_n": 316,
+    "prompt_ms": 626.654,
+    "prompt_per_token_ms": 1.9830822784810127,
+    "prompt_per_second": 504.2655117497055,
+    "predicted_n": 23,
+    "predicted_ms": 343.515,
+    "predicted_per_token_ms": 14.935434782608695,
+    "predicted_per_second": 66.95486368863078
+  }
+}
