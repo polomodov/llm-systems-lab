@@ -168,9 +168,10 @@ test('alternative prerequisites are validated, traversed for cycles and displaye
   duplicate.labs[1].prerequisites = ['LAB01'];
   assert.throws(() => validateLabCatalog(duplicate), /alternative prerequisites/);
   const actual = loadLabCatalog(repository, { checkDocuments: true });
-  assert.equal(actual.labs.length, 47);
+  assert.equal(actual.labs.length, 52);
   assert.ok(actual.labs.filter(lab => lab.area === 'space').every(lab => !lab.harness && /^LAB(3[6-9]|4[0-2])$/.test(lab.id)));
   assert.ok(actual.labs.filter(lab => lab.area === 'k8s-gpu').every(lab => !lab.harness && /^LAB4[3-7]$/.test(lab.id)));
+  assert.ok(actual.labs.filter(lab => lab.area === 'aws').every(lab => !lab.harness && /^LAB(4[89]|5[0-2])$/.test(lab.id)));
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites, ['LAB01']);
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB08').prerequisites_any, ['LAB05', 'LAB32']);
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB32').prerequisites_any, ['LAB30', 'LAB31']);

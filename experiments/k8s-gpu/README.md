@@ -17,10 +17,10 @@
 | Путь | Содержимое | Появляется в |
 | --- | --- | --- |
 | `measurements/LABxx-session/` | Отчёты; создаются `npm run lab:new -- --lab LAB43 --session ryzen-01` | ЛР43–47 |
-| `manifests/LABxx/` | Манифесты Kubernetes по работам | ЛР43, 45, 46 |
+| `manifests/LABxx/` | Манифесты Kubernetes по работам | ЛР43, 45, 46, 51, 52 |
 | `sim/` | KWOK-флот, конфигурация Kueue, детерминированный генератор потока job'ов | ЛР44 |
 | `bench/` | Генераторы нагрузки для движков инференса | ЛР45, 46 |
-| `terraform/` | EKS, Karpenter, KEDA | ЛР47 |
+| `terraform/` | EKS, Karpenter, KEDA; изменения ЛР51–52 из [ветки AWS](../aws/README.md) | ЛР47, 51, 52 |
 
 Подкаталоги создаются той работой, которой они нужны.
 

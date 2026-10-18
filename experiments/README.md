@@ -10,6 +10,8 @@
 
 `k8s-gpu/` — каталог ветки [ЛР43–47](../docs/labs/README.md#маршрут-kubernetes-и-gpu): оркестрация GPU-нагрузок в Kubernetes на стендах Ryzen и HONOR и в учебном AWS-аккаунте. Не обвязка, `harness.json` нет.
 
+`aws/` — каталог ветки [ЛР48–52](../docs/labs/README.md#маршрут-aws-и-terraform): учебный AWS-аккаунт, Terraform, сеть, CI, холодный старт и надёжность GPU-сервинга. Не обвязка, `harness.json` нет.
+
 ## Общий цикл
 
 1. `npm run new-run` создаёт отдельную запись эпизода.
