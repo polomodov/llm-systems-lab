@@ -8,6 +8,8 @@
 
 `space/` — каталог ветки [ЛР36–42](../docs/labs/README.md#маршрут-space): платформа песочниц SPACE как среда исполнения агентов. Это тоже не обвязка и не имеет `harness.json`.
 
+`k8s-gpu/` — каталог ветки [ЛР43–47](../docs/labs/README.md#маршрут-kubernetes-и-gpu): оркестрация GPU-нагрузок в Kubernetes на стендах Ryzen и HONOR и в учебном AWS-аккаунте. Не обвязка, `harness.json` нет.
+
 ## Общий цикл
 
 1. `npm run new-run` создаёт отдельную запись эпизода.
