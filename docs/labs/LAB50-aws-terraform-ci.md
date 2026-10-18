@@ -6,7 +6,7 @@
 | --- | --- |
 | Предпосылка | [ЛР49](LAB49-aws-network-iam.md) (модуль VPC); GitHub-репозиторий, где можно включить Actions |
 | Стенд | AWS, сессии `aws-NN`; GitHub Actions; для тестов модуля GPU-инстансы не создаются |
-| Минимум | Собственный модуль GPU-пула (Karpenter NodePool и EC2NodeClass либо EKS managed node group) с переменными и проверками входа; `terraform test` с mock-провайдером; tflint и сканер конфигурации (Checkov или Trivy); GitHub Actions с OIDC-ролью в AWS: plan на pull request, apply в dev-окружение по merge |
+| Минимум | Собственный модуль GPU-пула (Karpenter NodePool и EC2NodeClass либо EKS managed node group) с переменными и проверками входа; `terraform test` с mock-провайдером; tflint и сканер конфигурации (Checkov или Trivy); GitHub Actions с OIDC-ролями в AWS: read-only plan на pull request, apply в dev-окружение по merge в main |
 | Расширения | Два окружения (dev и prod) с разными лимитами из одного модуля; policy as code через OPA/Conftest по JSON-плану; Atlantis или Terraform Cloud как альтернатива самописному CI |
 | Время | Ориентир 1 день |
 | Готовность | `target-machine`; требует AWS-аккаунта и репозитория с Actions |
@@ -19,7 +19,7 @@
 ## Проверяемая гипотеза
 
 1. Из 10 заранее внесённых ошибок конфигурации (список фиксируется в протоколе до прогона: публичный бакет, открытый `0.0.0.0/0` на SSH, GPU-пул без лимита, не тот тип инстанса, отсутствующий тег, незашифрованный том и т. п.) связка `terraform validate` + `terraform test` + tflint + сканер ловит до apply не меньше 8, и для каждой пойманной известно, каким инструментом.
-2. CI-пайплайн работает без единого долгоживущего ключа AWS: в секретах репозитория нет `AWS_ACCESS_KEY_ID`, а роль OIDC нельзя взять из другого репозитория или ветки.
+2. CI-пайплайн работает без единого долгоживущего ключа AWS: в секретах репозитория нет `AWS_ACCESS_KEY_ID`, а роль с правом apply нельзя взять из pull request, другой ветки или другого репозитория.
 
 ## Подготовка
 
@@ -38,8 +38,8 @@ LAB_DIR='experiments/aws/measurements/LAB50-aws-01'
 2. **Тесты.** `terraform test` с mock-провайдером AWS: позитивные сценарии и сценарии, где ожидается ошибка валидации (`expect_failures`). Запишите время прогона тестов.
 3. **Статика.** tflint с плагином AWS и сканер конфигурации. Зафиксируйте версии и включённые правила.
 4. **Ошибки.** Внесите по очереди 10 ошибок из протокола, для каждой запишите, какой инструмент её поймал или что она дошла бы до apply.
-5. **OIDC.** Terraform создаёт OIDC-провайдер GitHub и роль с trust policy, ограниченной репозиторием и веткой (`sub`). Проверьте отказ из другой ветки.
-6. **Пайплайн.** На pull request: fmt, validate, test, tflint, сканер, `plan` с публикацией краткого плана в комментарий. По merge в main: `apply` в dev. Замерьте время пайплайна.
+5. **OIDC.** Terraform создаёт OIDC-провайдер GitHub и две роли. Роль plan только читает (state и описание ресурсов); её trust policy допускает `sub` вида `repo:<owner>/<repo>:pull_request`. Роль apply может менять dev; её trust policy допускает только `repo:<owner>/<repo>:ref:refs/heads/main`, либо, если job ссылается на protected environment, `repo:<owner>/<repo>:environment:dev`. У pull request и у job с environment `sub` другой, чем у ветки, поэтому одна роль на «ветку main» план в pull request не пустит. Проверьте отказ роли apply из pull request и из другой ветки.
+6. **Пайплайн.** На pull request с ролью plan: fmt, validate, test, tflint, сканер, `plan` с публикацией краткого плана в комментарий. По merge в main с ролью apply: `apply` в dev. Замерьте время пайплайна.
 7. **Teardown.** Удалите dev-окружение, оставьте роль OIDC только если она нужна дальше; `janitor.sh` из ЛР48.
 
 ## Таблицы результатов
@@ -60,8 +60,11 @@ LAB_DIR='experiments/aws/measurements/LAB50-aws-01'
 | Проверка OIDC | Ожидание | Факт |
 | --- | --- | --- |
 | Долгоживущих ключей в секретах | 0 | |
-| Assume role из main | успех | |
-| Assume role из другой ветки | отказ | |
+| Роль plan из pull request | успех | |
+| Роль plan: попытка изменить ресурс | отказ | |
+| Роль apply из main | успех | |
+| Роль apply из pull request | отказ | |
+| Роль apply из другой ветки | отказ | |
 
 | Этап пайплайна | Время, s |
 | --- | --- |
