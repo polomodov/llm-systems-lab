@@ -1,0 +1,5 @@
+# Model / sampling settings from LAB05 baseline (Qwen-style), applied equally to all contexts
+model: Mistral-Small-4-119B-2603 (UD-Q4_K_M), prebuilt llama.cpp b8407 Vulkan
+sampling: server defaults (no custom temperature/top_p/top_k/seed)
+reasoning: thinking enabled; reasoning extracted via --reasoning-format (server default) if present
+template: GGUF embedded (--jinja), alias lab-model, --no-context-shift

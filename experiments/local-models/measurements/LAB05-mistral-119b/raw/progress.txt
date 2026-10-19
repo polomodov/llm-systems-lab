@@ -1,0 +1,60 @@
+ctx=8192 bench start 2026-10-15T13:02:59Z
+ctx=8192 bench exit=0 2026-10-15T13:04:30Z
+ctx=8192 server ready ok=1 2026-10-15T13:05:25Z
+ctx=8192 chat r1 exit=0
+ctx=8192 chat-stream r1 exit=0
+ctx=8192 tool r1 exit=0
+ctx=8192 tool-stream r1 exit=0
+ctx=8192 chat r2 exit=0
+ctx=8192 chat-stream r2 exit=0
+ctx=8192 tool r2 exit=0
+ctx=8192 tool-stream r2 exit=0
+ctx=8192 offline checks exit=0
+ctx=8192 long-gen exit=0
+ctx=8192 long r1 exit=0
+ctx=8192 long r2 exit=0
+ctx=8192 overflow exit=1
+ctx=8192 overflow-recovery exit=0
+ctx=8192 cancel exit=28 recovery exit=0
+ctx=8192 server stopped 2026-10-15T13:06:07Z
+ctx=8192 done
+ctx=16384 bench start 2026-10-15T13:10:35Z
+ctx=16384 bench exit=0 2026-10-15T13:13:04Z
+ctx=16384 server ready ok=1 2026-10-15T13:13:54Z
+ctx=16384 chat r1 exit=0
+ctx=16384 chat-stream r1 exit=0
+ctx=16384 tool r1 exit=0
+ctx=16384 tool-stream r1 exit=0
+ctx=16384 chat r2 exit=0
+ctx=16384 chat-stream r2 exit=0
+ctx=16384 tool r2 exit=0
+ctx=16384 tool-stream r2 exit=0
+ctx=16384 offline checks exit=0
+ctx=16384 long-gen exit=0
+ctx=16384 long r1 exit=0
+ctx=16384 long r2 exit=0
+ctx=16384 overflow exit=1
+ctx=16384 overflow-recovery exit=0
+ctx=16384 cancel exit=0 recovery exit=0
+ctx=16384 server stopped 2026-10-15T13:15:20Z
+ctx=16384 done
+ctx=32768 bench start 2026-10-15T13:15:21Z
+ctx=32768 bench exit=0 2026-10-15T13:20:50Z
+ctx=32768 server ready ok=1 2026-10-15T13:21:35Z
+ctx=32768 chat r1 exit=0
+ctx=32768 chat-stream r1 exit=0
+ctx=32768 tool r1 exit=0
+ctx=32768 tool-stream r1 exit=0
+ctx=32768 chat r2 exit=0
+ctx=32768 chat-stream r2 exit=0
+ctx=32768 tool r2 exit=0
+ctx=32768 tool-stream r2 exit=0
+ctx=32768 offline checks exit=0
+ctx=32768 long-gen exit=0
+ctx=32768 long r1 exit=0
+ctx=32768 long r2 exit=0
+ctx=32768 overflow exit=1
+ctx=32768 overflow-recovery exit=0
+ctx=32768 cancel exit=0 recovery exit=0
+ctx=32768 server stopped 2026-10-15T13:25:13Z
+ctx=32768 done

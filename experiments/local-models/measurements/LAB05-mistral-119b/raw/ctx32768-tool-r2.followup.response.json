@@ -1,0 +1,33 @@
+{
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42"
+      }
+    }
+  ],
+  "created": 1792070505,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 6,
+    "prompt_tokens": 682,
+    "total_tokens": 688
+  },
+  "id": "chatcmpl-AhUXaheYVGAAtLgj5bMuDQBpnZDLS7KV",
+  "timings": {
+    "cache_n": 674,
+    "prompt_n": 8,
+    "prompt_ms": 100.389,
+    "prompt_per_token_ms": 12.548625,
+    "prompt_per_second": 79.69000587713793,
+    "predicted_n": 6,
+    "predicted_ms": 155.69,
+    "predicted_per_token_ms": 25.948333333333334,
+    "predicted_per_second": 38.53812062431756
+  }
+}
