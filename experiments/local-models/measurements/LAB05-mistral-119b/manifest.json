@@ -419,7 +419,8 @@
     "conditions.harness_profile": "Лаборатория прямого HTTP без обвязки; harness profile не применим.",
     "reasoning_ttft": "Модель не отдала отдельного reasoning в этих пробах; reasoning TTFT не измерен.",
     "cancel_16k_32k": "Cancel-запрос на 16K/32K вернулся <1 с из-за warm prefix cache; реальная отмена подтверждена только на 8K.",
-    "tool_final_marker": "Часть повторов вернула final \"42\" вместо LAB_VALUE_42; сам tool call валиден."
+    "tool_final_marker": "Часть повторов вернула final \"42\" вместо LAB_VALUE_42; сам tool call валиден.",
+    "protocol_recorded_at": "Протокол записан 2026-10-15T13:31:23Z ПОСЛЕ фактического выполнения (raw/progress.txt: 8K bench 13:02:59Z–13:04:30Z, последняя запись 32K 13:25:13Z). Это ретроспективный протокол, а не pre-registration: план описывает то, что реально выполнялось (порядок, fill-probe, long/overflow/cancel, стоп-критерии), но фиксация случилась после завершения. Восстановлен по памяти сессии и по фактическим командам в raw/run-context.sh."
   },
   "conclusion": "Mistral-Small-4-119B UD-Q4_K_M на Vulkan (b8407) проходит 8K/16K/32K: заполнение (tg128 29.82/25.78/21.08 t/s), long-вход без обрезания (4090/12282/28663 токена, LAB_SENTINEL_42), overflow HTTP 400, recovery LAB_READY, offload 37/37, RSS ~72.19 GiB. Отмена доказана на 8K; tool final marker нестабилен; HIP blocked.",
   "reviewer_decision": null
