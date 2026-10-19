@@ -1,0 +1,32 @@
+=== selected runtime (lms runtime ls) ===
+Waking up LM Studio service...
+LLM ENGINE                                        SELECTED    MODEL FORMAT
+llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0          ✓            GGUF    
+llama.cpp-linux-x86_64-avx2@2.41.0                                GGUF    
+llama.cpp-linux-x86_64-nvidia-cuda-avx2@2.41.0                    GGUF    
+llama.cpp-linux-x86_64-vulkan-avx2@2.41.0                         GGUF    
+
+=== engine selection (server log) ===
+  "query": "llama.cpp:amd-rocm",
+  "query": "llama.cpp:amd-rocm",
+  "query": "llama.cpp-linux-x86_64-amd-rocm-avx2",
+[2026-10-15 08:58:09][INFO][LMSAuthenticator][Client=lms-cli][Endpoint=downloadRuntimeExtension] Downloading runtime extension llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0
+[2026-10-15 08:58:09][INFO][LMSAuthenticator][Client=lms-cli][Endpoint=downloadRuntimeExtension] Start downloading: backendDownload:llama.cpp-linux-x86_64-amd-rocm-avx2:2.58.0
+[2026-10-15 09:03:46][INFO][LMSAuthenticator][Client=lms-cli][Endpoint=selectEngine] Handling selectRuntimeEngine {
+    "engine": "llama.cpp-linux-x86_64-amd-rocm-avx2",
+
+=== estimate (lms load --estimate-only) ===
+
+Model: qwen35-9b
+Context Length: 8,192
+GPU Offload: 100%
+Estimated GPU Memory:   8.13 GiB
+Estimated Total Memory: 8.13 GiB
+
+Estimate: This model may be loaded based on your resource guardrails settings.
+
+=== lms ps (loaded) ===
+
+IDENTIFIER    MODEL        STATUS    SIZE       CONTEXT    PARALLEL    DEVICE    TTL
+lab-model     qwen35-9b    IDLE      7.46 GB    8192       1           Local        
+

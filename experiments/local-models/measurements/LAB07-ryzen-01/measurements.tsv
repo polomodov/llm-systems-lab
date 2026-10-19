@@ -1,0 +1,17 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+ollama-chat-cold-r1	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	chat_request_duration	10.760	s	measured	raw/ollama-rocm-smoke-8k-cold-r1-chat.metrics.json	
+ollama-chat-warm-r1	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	chat_request_duration	8.100	s	measured	raw/ollama-rocm-smoke-8k-warm-r1-chat.metrics.json	
+ollama-chat-warm-r2	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	2	chat_request_duration	8.634	s	measured	raw/ollama-rocm-smoke-8k-warm-r2-chat.metrics.json	
+ollama-chat-warm-r3	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	3	chat_request_duration	8.459	s	measured	raw/ollama-rocm-smoke-8k-warm-r3-chat.metrics.json	
+ollama-stream-ttft-content	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	stream_ttft_content	7.979	s	measured	raw/ollama-rocm-stream-8k-warm-r1.metrics.json	
+ollama-tool-followup-duration	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	tool_followup_duration	0.429	s	measured	raw/ollama-rocm-smoke-8k-tool.followup.metrics.json	
+ollama-gpu-gtt-used	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	gpu_gtt_used_while_loaded	8184750080	bytes	measured	raw/ollama-rocm-memory-loaded.txt	
+lms-chat-cold-r1	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	chat_request_duration	8.037	s	measured	raw/lms-rocm-smoke-8k-cold-r1-chat.metrics.json	
+lms-chat-warm-r1	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	chat_request_duration	5.874	s	measured	raw/lms-rocm-smoke-8k-warm-r1-chat.metrics.json	
+lms-chat-warm-r2	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	2	chat_request_duration	8.932	s	measured	raw/lms-rocm-smoke-8k-warm-r2-chat.metrics.json	
+lms-chat-warm-r3	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	3	chat_request_duration	7.189	s	measured	raw/lms-rocm-smoke-8k-warm-r3-chat.metrics.json	
+lms-stream-ttft-content	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	stream_ttft_content	7.861	s	measured	raw/lms-rocm-stream-8k-warm-r1.metrics.json	
+lms-stream-ttft-reasoning	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	stream_ttft_reasoning	0.195	s	measured	raw/lms-rocm-stream-8k-warm-r1.metrics.json	
+lms-tool-followup-duration	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	tool_followup_duration	1.701	s	measured	raw/lms-rocm-smoke-8k-tool.followup.metrics.json	
+lms-gpu-gtt-used	lms-rocm-8k	qwen35-9b	llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0	ROCm	8192	1	gpu_gtt_used_while_loaded	8286720000	bytes	measured	raw/lms-rocm-memory-loaded.txt	
+ollama-reasoning-ttft	ollama-rocm-8k	qwen35-9b	ollama-0.34.2	ROCm	8192	1	stream_ttft_reasoning		s	unavailable	raw/ollama-rocm-stream-8k-warm-r1.metrics.json	Ollama OpenAI-compat отдаёт рассуждение в поле message.reasoning (не reasoning_content), поэтому http_probe не выделяет ttft рассуждения; сам reasoning сохранён в raw/ollama-rocm-smoke-8k-cold-r1-chat.response.json

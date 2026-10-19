@@ -1,0 +1,330 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB07",
+  "harness_id": null,
+  "session_id": "ryzen-01",
+  "created_at": "2026-10-15T07:45:29.072Z",
+  "status": "completed",
+  "evidence_class": "experimental",
+  "operator": "open (agent) по заданию polomodov",
+  "hypothesis": "Ollama 0.34.2 и LM Studio (llmster CLI + runtime llama.cpp ROCm 2.58.0) импортируют один и тот же Qwen3.5-9B-Q6_K, используют ROCm/gfx1151 и проходят одинаковые chat/streaming/tool fixtures при context 8192, concurrency 1, output 2048.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-15T10:49:50Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-qwen35-9b/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB05-qwen35-9b-hip-prebuilt/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "ollama-import",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-import.txt",
+        "raw/ollama-effective-modelfile.txt",
+        "raw/ollama-list.txt"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-cold",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-smoke-8k-cold-r1-chat.response.json",
+        "raw/ollama-rocm-smoke-8k-cold-r1-chat.metrics.json",
+        "raw/ollama-rocm-smoke-8k-cold-r1-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-warm-1",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-smoke-8k-warm-r1-chat.metrics.json",
+        "raw/ollama-rocm-smoke-8k-warm-r1-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-warm-2",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-smoke-8k-warm-r2-chat.metrics.json",
+        "raw/ollama-rocm-smoke-8k-warm-r2-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-chat-warm-3",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-smoke-8k-warm-r3-chat.metrics.json",
+        "raw/ollama-rocm-smoke-8k-warm-r3-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-stream",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-stream-8k-warm-r1.assembled.json",
+        "raw/ollama-rocm-stream-8k-warm-r1.metrics.json",
+        "raw/ollama-rocm-stream-8k-warm-r1.sse"
+      ],
+      "reason": null
+    },
+    {
+      "id": "ollama-tool",
+      "configuration_id": "ollama-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/ollama-rocm-smoke-8k-tool.response.json",
+        "raw/ollama-rocm-smoke-8k-tool.followup.response.json",
+        "raw/ollama-rocm-smoke-8k-tool.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-import",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-import.txt",
+        "raw/lms-loaded.txt",
+        "raw/lms-models-json.txt"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-chat-cold",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-smoke-8k-cold-r1-chat.response.json",
+        "raw/lms-rocm-smoke-8k-cold-r1-chat.metrics.json",
+        "raw/lms-rocm-smoke-8k-cold-r1-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-chat-warm-1",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-smoke-8k-warm-r1-chat.metrics.json",
+        "raw/lms-rocm-smoke-8k-warm-r1-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-chat-warm-2",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-smoke-8k-warm-r2-chat.metrics.json",
+        "raw/lms-rocm-smoke-8k-warm-r2-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-chat-warm-3",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-smoke-8k-warm-r3-chat.metrics.json",
+        "raw/lms-rocm-smoke-8k-warm-r3-chat.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-stream",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-stream-8k-warm-r1.assembled.json",
+        "raw/lms-rocm-stream-8k-warm-r1.metrics.json",
+        "raw/lms-rocm-stream-8k-warm-r1.sse"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lms-tool",
+      "configuration_id": "lms-rocm-8k",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/lms-rocm-smoke-8k-tool.response.json",
+        "raw/lms-rocm-smoke-8k-tool.followup.response.json",
+        "raw/lms-rocm-smoke-8k-tool.final.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "lemonade-branch",
+      "configuration_id": "lemonade-rocm-8k",
+      "kind": "exercise",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": "Бинарь Lemonade 11.9.0 собран под Debian 13 и не стартует на Ubuntu 24.04 (нет libcpp-httplib0.41/libmbedcrypto16/libwebsockets19t64, libstdc++<14); PPA/snap требуют root. Расширение, не входит в минимум."
+    }
+  ],
+  "evidence_files": [
+    "raw/Modelfile",
+    "raw/app-paths.txt",
+    "raw/artifact.json",
+    "raw/chat-request.json",
+    "raw/gpu-pci-id.txt",
+    "raw/hipconfig.txt",
+    "raw/host.txt",
+    "raw/http_probe.py",
+    "raw/install-notes.md",
+    "raw/lemonade-version.txt",
+    "raw/lemond-help.txt",
+    "raw/lms-estimate.txt",
+    "raw/lms-import.txt",
+    "raw/lms-load.txt",
+    "raw/lms-loaded.txt",
+    "raw/lms-logstream.pid",
+    "raw/lms-models-before.txt",
+    "raw/lms-models-json.txt",
+    "raw/lms-models.txt",
+    "raw/lms-prompt-log.txt",
+    "raw/lms-rocm-chat-request.json",
+    "raw/lms-rocm-gpu-proof.txt",
+    "raw/lms-rocm-memory-after-stop.txt",
+    "raw/lms-rocm-memory-loaded.txt",
+    "raw/lms-rocm-smoke-8k-cold-r1-api-models.json",
+    "raw/lms-rocm-smoke-8k-cold-r1-chat.final.json",
+    "raw/lms-rocm-smoke-8k-cold-r1-chat.metrics.json",
+    "raw/lms-rocm-smoke-8k-cold-r1-chat.request.json",
+    "raw/lms-rocm-smoke-8k-cold-r1-chat.response.json",
+    "raw/lms-rocm-smoke-8k-cold-r1-process.txt",
+    "raw/lms-rocm-smoke-8k-tool.final.json",
+    "raw/lms-rocm-smoke-8k-tool.followup.metrics.json",
+    "raw/lms-rocm-smoke-8k-tool.followup.request.json",
+    "raw/lms-rocm-smoke-8k-tool.followup.response.json",
+    "raw/lms-rocm-smoke-8k-tool.metrics.json",
+    "raw/lms-rocm-smoke-8k-tool.request.json",
+    "raw/lms-rocm-smoke-8k-tool.response.json",
+    "raw/lms-rocm-smoke-8k-warm-r1-chat.final.json",
+    "raw/lms-rocm-smoke-8k-warm-r1-chat.metrics.json",
+    "raw/lms-rocm-smoke-8k-warm-r1-chat.request.json",
+    "raw/lms-rocm-smoke-8k-warm-r1-chat.response.json",
+    "raw/lms-rocm-smoke-8k-warm-r2-chat.final.json",
+    "raw/lms-rocm-smoke-8k-warm-r2-chat.metrics.json",
+    "raw/lms-rocm-smoke-8k-warm-r2-chat.request.json",
+    "raw/lms-rocm-smoke-8k-warm-r2-chat.response.json",
+    "raw/lms-rocm-smoke-8k-warm-r3-chat.final.json",
+    "raw/lms-rocm-smoke-8k-warm-r3-chat.metrics.json",
+    "raw/lms-rocm-smoke-8k-warm-r3-chat.request.json",
+    "raw/lms-rocm-smoke-8k-warm-r3-chat.response.json",
+    "raw/lms-rocm-stream-8k-warm-r1.assembled.json",
+    "raw/lms-rocm-stream-8k-warm-r1.final.json",
+    "raw/lms-rocm-stream-8k-warm-r1.metrics.json",
+    "raw/lms-rocm-stream-8k-warm-r1.request.json",
+    "raw/lms-rocm-stream-8k-warm-r1.sse",
+    "raw/lms-rocm-stream-request.json",
+    "raw/lms-rocm-tool-request.json",
+    "raw/lms-runtimes-before.txt",
+    "raw/lms-runtimes-selected.txt",
+    "raw/lms-server-start.txt",
+    "raw/lms-server-stop.txt",
+    "raw/lms-unload.txt",
+    "raw/lms-version.txt",
+    "raw/ollama-effective-modelfile.txt",
+    "raw/ollama-import.txt",
+    "raw/ollama-list.txt",
+    "raw/ollama-rocm-8k-server.log",
+    "raw/ollama-rocm-8k-server.pid",
+    "raw/ollama-rocm-chat-request.json",
+    "raw/ollama-rocm-gpu-proof.txt",
+    "raw/ollama-rocm-memory-after-stop.txt",
+    "raw/ollama-rocm-memory-loaded.txt",
+    "raw/ollama-rocm-smoke-8k-cold-r1-api-models.json",
+    "raw/ollama-rocm-smoke-8k-cold-r1-chat.final.json",
+    "raw/ollama-rocm-smoke-8k-cold-r1-chat.metrics.json",
+    "raw/ollama-rocm-smoke-8k-cold-r1-chat.request.json",
+    "raw/ollama-rocm-smoke-8k-cold-r1-chat.response.json",
+    "raw/ollama-rocm-smoke-8k-cold-r1-process.txt",
+    "raw/ollama-rocm-smoke-8k-tool.final.json",
+    "raw/ollama-rocm-smoke-8k-tool.followup.metrics.json",
+    "raw/ollama-rocm-smoke-8k-tool.followup.request.json",
+    "raw/ollama-rocm-smoke-8k-tool.followup.response.json",
+    "raw/ollama-rocm-smoke-8k-tool.metrics.json",
+    "raw/ollama-rocm-smoke-8k-tool.request.json",
+    "raw/ollama-rocm-smoke-8k-tool.response.json",
+    "raw/ollama-rocm-smoke-8k-warm-r1-chat.final.json",
+    "raw/ollama-rocm-smoke-8k-warm-r1-chat.metrics.json",
+    "raw/ollama-rocm-smoke-8k-warm-r1-chat.request.json",
+    "raw/ollama-rocm-smoke-8k-warm-r1-chat.response.json",
+    "raw/ollama-rocm-smoke-8k-warm-r2-chat.final.json",
+    "raw/ollama-rocm-smoke-8k-warm-r2-chat.metrics.json",
+    "raw/ollama-rocm-smoke-8k-warm-r2-chat.request.json",
+    "raw/ollama-rocm-smoke-8k-warm-r2-chat.response.json",
+    "raw/ollama-rocm-smoke-8k-warm-r3-chat.final.json",
+    "raw/ollama-rocm-smoke-8k-warm-r3-chat.metrics.json",
+    "raw/ollama-rocm-smoke-8k-warm-r3-chat.request.json",
+    "raw/ollama-rocm-smoke-8k-warm-r3-chat.response.json",
+    "raw/ollama-rocm-stream-8k-warm-r1.assembled.json",
+    "raw/ollama-rocm-stream-8k-warm-r1.final.json",
+    "raw/ollama-rocm-stream-8k-warm-r1.metrics.json",
+    "raw/ollama-rocm-stream-8k-warm-r1.request.json",
+    "raw/ollama-rocm-stream-8k-warm-r1.sse",
+    "raw/ollama-rocm-stream-request.json",
+    "raw/ollama-rocm-tool-request.json",
+    "raw/ollama-version.txt",
+    "raw/os-release.txt",
+    "raw/protocol.md",
+    "raw/rocm-info.txt",
+    "raw/source-recheck.txt",
+    "raw/source-verification.json",
+    "raw/tool-request.json",
+    "raw/vulkan-summary.txt",
+    "raw/weights.sha256"
+  ],
+  "unavailable": {
+    "conditions.harness_profile": "Лаборатория локального serving без агентной обвязки: harness profile не применим.",
+    "hipconfig": "Отсутствует в минимальном ROCm-наборе /opt/rocm-7.2.0/bin; ROCm подтверждён rocminfo и server logs.",
+    "ollama_stream_ttft_reasoning": "Ollama OpenAI-compat кладёт рассуждение в message.reasoning, а не reasoning_content; probe не выделяет TTFT рассуждения.",
+    "lemonade": "Расширение не выполнено: сборка Debian 13 несовместима с Ubuntu 24.04, установка требует root."
+  },
+  "conclusion": "Гипотеза поддержана для двух выбранных сервисов: Ollama 0.34.2 и LM Studio (llama.cpp-linux-x86_64-amd-rocm-avx2@2.58.0) импортировали один и тот же Qwen3.5-9B-Q6_K (sha256 совпал), работали на ROCm/gfx1151 (GTT ~8.2 GB) и прошли chat/streaming/full tool round trip при 8192/1/2048. Lemonade 11.9.0 — not-run (несовместимые libs Debian 13).",
+  "reviewer_decision": null
+}

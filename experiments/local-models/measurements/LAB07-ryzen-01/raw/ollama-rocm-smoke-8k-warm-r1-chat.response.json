@@ -1,0 +1,26 @@
+{
+  "id": "chatcmpl-203",
+  "object": "chat.completion",
+  "created": 1792061505,
+  "model": "lab-model",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* the string \"LAB_READY\".\n    *   Language: Russian (request), but the target string is English.\n    *   Goal: Comply strictly with the constraint.\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for no explanations, only the specific string.\n    *   Output should be: LAB_READY\n\n3.  **Final Verification:**\n    *   Does it match the constraint? Yes.\n    *   Are there extra characters (newlines, spaces, quotes)? Should avoid them if possible to be \"ровно\" (exactly).\n    *   The prompt is in Russian, but the required output is a specific code-like string.\n\n4.  **Construct Response:**\n    *   LAB_READY\n\n5.  **Final Decision:** Just output the string.cw\n"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "prompt_tokens_details": {
+      "cached_tokens": 15
+    },
+    "completion_tokens": 230,
+    "total_tokens": 249
+  }
+}

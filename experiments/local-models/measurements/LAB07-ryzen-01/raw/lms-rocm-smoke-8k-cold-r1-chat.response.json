@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-lfp8gzvfhrx1fpz230rec",
+  "object": "chat.completion",
+  "created": 1792061813,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no punctuation unless part of the string (which it isn't), no Russian words, no explanations.\n\n2.  **Determine the Output:**\n    *   Target string: `LAB_READY`\n\n3.  **Verify Constraints:**\n    *   Must be exact? Yes.\n    *   No explanations? Yes.\n    *   Language? English (as per the target string), though the prompt is in Russian. The instruction says \"Answer exactly LAB_READY\", so I should output that string only.\n\n4.  **Final Decision:** Output `LAB_READY`.\n\n5.  **Safety Check:** Does this violate any policies? No, it's a simple text output request.\n\n6.  **Execution:** Print the string.cw\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 220,
+    "total_tokens": 239,
+    "completion_tokens_details": {
+      "reasoning_tokens": 215
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-model"
+}

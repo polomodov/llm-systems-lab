@@ -1,0 +1,8 @@
+date: 2026-10-15T10:58:00Z (loaded)
+--- free -b ---
+               total        used        free      shared  buff/cache   available
+Mem:     134153789440 16002441216 93875638272   144007168 26493087744 118151348224
+mem_info_vram_used: 483778560
+mem_info_gtt_used: 8286720000
+--- lmstudio procs RSS ---
+  13874 2156844 llama-server

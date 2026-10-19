@@ -1,0 +1,13 @@
+date: 2026-10-15T10:53:12Z
+--- free -b ---
+               total        used        free      shared  buff/cache   available
+Mem:     134153789440 15266500608 101979869184   144007168 18268299264 118887288832
+Swap:    34359734272           0 34359734272
+--- card1 vram/gtt used (bytes) ---
+mem_info_vram_used: 474828800
+mem_info_gtt_used: 8184750080
+mem_info_vram_total: 536870912
+mem_info_gtt_total: 107374182400
+--- ollama procs RSS ---
+    PID   RSS    VSZ CMD
+  10387 39408 2935476 /home/lab/local-model-lab-artifacts/lab07-apps/ollama/bin/ollama serve

@@ -1,0 +1,26 @@
+{
+  "id": "chatcmpl-9",
+  "object": "chat.completion",
+  "created": 1792061514,
+  "model": "lab-model",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Respond exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\".\n    *   Language: The user is speaking Russian, but the required output is an English string.\n    *   Tone/Style: Strict, no extra text, no punctuation (unless part of the string, which it isn't here), no explanations.\n\n2.  **Verify the Content:**\n    *   Required string: \"LAB_READY\"\n    *   Case sensitivity: Usually important in such commands. The prompt specifies \"LAB_READY\" in uppercase.\n    *   No other characters: No newlines, no spaces around it, no quotes.\n\n3.  **Draft the Response:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it meet the \"without explanations\" constraint? Yes.\n    *   Is it exactly \"LAB_READY\"? Yes.\n\n5.  **Output Generation:**\n    *   LAB_READY\n"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "prompt_tokens_details": {
+      "cached_tokens": 15
+    },
+    "completion_tokens": 243,
+    "total_tokens": 262
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/Modelfile",
+      "original_sha256": "1d216fabebf97ac51be0fa08e2f78579e415e7c4f6bb8158d04f2a3828804d6b",
+      "published_sha256": "d72006ac6acfd618a4a9b10e8b67cf6b6f22a83d2c53a6792661711de600698c",
+      "original_bytes": 186,
+      "published_bytes": 179
+    },
+    {
+      "path": "raw/app-paths.txt",
+      "original_sha256": "c8e829cff406ce4d0d4c5ae6cea553bf5001e4bf03d3ff79bf4a91473537e38b",
+      "published_sha256": "0a2eea733df710c50cd836187f900eeb3791cca07da198407bf62212c99139f1",
+      "original_bytes": 530,
+      "published_bytes": 516
+    },
+    {
+      "path": "raw/host.txt",
+      "original_sha256": "e7c4688dec644d75069db7025f3f8926565b439bfd68392c91f260cd4d4538fa",
+      "published_sha256": "e1797e4f51b4138fb6469a2f236432fb0548cda6c997253951fc707489cf3181",
+      "original_bytes": 138,
+      "published_bytes": 128
+    },
+    {
+      "path": "raw/lemonade-version.txt",
+      "original_sha256": "deff55c2e5fd285e7c33261e33243dbe154f7770ede575bd4a59c2c2afdf8915",
+      "published_sha256": "753d924b40f6f69a906e7517eb1f6af3ec99589c55b688c2c515680951d91bd5",
+      "original_bytes": 203,
+      "published_bytes": 196
+    },
+    {
+      "path": "raw/lemond-help.txt",
+      "original_sha256": "54a696e8c95719c0c70b2b0605adfa11ed71346fe52864faa443efa54a5b9d7e",
+      "published_sha256": "354878cc32fbe1e24c463e221ab692a9acf5467442f01b0cd716cc1dff398c49",
+      "original_bytes": 204,
+      "published_bytes": 197
+    },
+    {
+      "path": "raw/lms-import.txt",
+      "original_sha256": "5e1df04c361125e9f5140fcd5694b8235fff9f0671fca55e2276438b10113731",
+      "published_sha256": "17a704d8bfef18cc82aaf1d34ac15776bbaaee7da0f56b072b28dbfca2d21671",
+      "original_bytes": 84,
+      "published_bytes": 77
+    },
+    {
+      "path": "raw/lms-rocm-smoke-8k-cold-r1-process.txt",
+      "original_sha256": "3b10b033e42790f3ab781b7964fd1b08c4461a9a859c09af51b19e596d271126",
+      "published_sha256": "a79297a802f4640cb4133c57c0da880b42bdb21d05fdbcfb42dbd0329562d08a",
+      "original_bytes": 1150,
+      "published_bytes": 1129
+    },
+    {
+      "path": "raw/ollama-effective-modelfile.txt",
+      "original_sha256": "692694b4949da5c355ae4fe4d119c9479e2ac5174865ee4e4a8d24207e83f599",
+      "published_sha256": "234cb3870e7893dfda64f29a9d5e92357d000db05d5e7f6dc81ddd9971db7b02",
+      "original_bytes": 400,
+      "published_bytes": 393
+    },
+    {
+      "path": "raw/ollama-rocm-gpu-proof.txt",
+      "original_sha256": "90643690f207f93a84a6f4a227110f3fa3adf567e9f7a477fedfbb689a77df64",
+      "published_sha256": "3e1d20e5cf0bd252afb8cc43fd404d83ba5877b442e422bd82f92a1e93a5e282",
+      "original_bytes": 6672,
+      "published_bytes": 6588
+    },
+    {
+      "path": "raw/ollama-rocm-memory-loaded.txt",
+      "original_sha256": "d5f0cc3417d6b99a515dbcaa144f82bc8d54c2f7a2d12671dd22cf6a1d866d0c",
+      "published_sha256": "c21e057743f3ed427f4b428a55f82dc55015729ac1c0bf94a102eedb0b019d0d",
+      "original_bytes": 563,
+      "published_bytes": 556
+    },
+    {
+      "path": "raw/ollama-rocm-smoke-8k-cold-r1-process.txt",
+      "original_sha256": "2b6adc890a6daa8a64a1f00b30db2e2585c5ad0fac7acb6c3dbf6303b62890ad",
+      "published_sha256": "c40ce7c0f81983f44b9f67956fed4fcb3d76541b1b47da43adb779b5b171ec20",
+      "original_bytes": 1158,
+      "published_bytes": 1137
+    },
+    {
+      "path": "raw/source-recheck.txt",
+      "original_sha256": "6a406101c4294168d2d4b18704f1f6169e46d0e819823a36e371fce3eb9d5530",
+      "published_sha256": "15dfd35d50efa01357a52aed20005ee02dec9c393f0a6f9e618c40227e9f57ad",
+      "original_bytes": 133,
+      "published_bytes": 126
+    },
+    {
+      "path": "raw/source-verification.json",
+      "original_sha256": "62373b1336c6998d8a9e7d844fe6de2d439d42b13a3a85c967eb9ca784f83a82",
+      "published_sha256": "a5a90848e618970b5576180424c2706b451146dd32db41d58aca43101dead4f7",
+      "original_bytes": 456,
+      "published_bytes": 449
+    },
+    {
+      "path": "raw/weights.sha256",
+      "original_sha256": "b6d70965d7580b0b7095d526ffeb96e084896346e49fb0da68c3718b8fb29c64",
+      "published_sha256": "055ed0859475da463da043629b70a6bb75805a92cfa1eb1b7896831f51bf6010",
+      "original_bytes": 195,
+      "published_bytes": 188
+    }
+  ]
+}

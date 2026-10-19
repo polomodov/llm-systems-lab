@@ -1,0 +1,37 @@
+{
+  "id": "chatcmpl-405",
+  "object": "chat.completion",
+  "created": 1792061565,
+  "model": "lab-model",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning": "用户要求我调用 lookup_lab_value 函数，传入 key 参数为 \"alpha\"，然后返回结果。我需要使用 lookup_lab_value 工具，传入 key=\"alpha\"。\n",
+        "tool_calls": [
+          {
+            "id": "VVYUR6j4Hu3d0EDpwRcn3ctsUl7Gw2NB",
+            "index": 0,
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            }
+          }
+        ]
+      },
+      "finish_reason": "tool_calls"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 308,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens": 67,
+    "total_tokens": 375
+  }
+}
