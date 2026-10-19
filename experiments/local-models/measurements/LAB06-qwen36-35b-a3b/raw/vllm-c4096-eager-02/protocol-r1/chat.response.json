@@ -1,0 +1,42 @@
+{
+  "id": "chatcmpl-8c3275fc5960842d",
+  "object": "chat.completion",
+  "created": 1791963295,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "\n\nLAB_READY",
+        "refusal": null,
+        "annotations": null,
+        "audio": null,
+        "function_call": null,
+        "reasoning": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Reply exactly LAB_READY without explanations.\")\n   - Key constraints: \n     - Must reply exactly \"LAB_READY\"\n     - No explanations, no extra text, no formatting beyond the exact string.\n\n2.  **Identify Core Requirement:**\n   - The instruction is extremely explicit and leaves no room for deviation.\n   - I need to output only the string \"LAB_READY\".\n\n3.  **Formulate Response:**\n   - Check exact match: \"LAB_READY\"\n   - Ensure no additional characters, spaces, or newlines (unless necessary for exact match, but typically just the string itself).\n   - In Russian/English context, it's case-sensitive, so \"LAB_READY\" exactly.\n\n4.  **Final Output Generation:**\n   - Output: LAB_READY\n   - Verify against constraints: Matches exactly, no explanations.✅\n\n   Proceed. \n   Output matches requirement.✅\n"
+      },
+      "logprobs": null,
+      "finish_reason": "stop",
+      "stop_reason": null,
+      "token_ids": null,
+      "routed_experts": null
+    }
+  ],
+  "service_tier": null,
+  "system_fingerprint": "vllm-0.29.0-948b417f",
+  "usage": {
+    "prompt_tokens": 19,
+    "total_tokens": 249,
+    "completion_tokens": 230,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": {
+      "reasoning_tokens": 225
+    }
+  },
+  "prompt_logprobs": null,
+  "prompt_token_ids": null,
+  "prompt_text": null,
+  "kv_transfer_params": null,
+  "ec_transfer_params": null,
+  "metrics": null
+}

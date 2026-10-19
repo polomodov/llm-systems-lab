@@ -1,0 +1,222 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB06",
+  "harness_id": null,
+  "session_id": "qwen36-35b-a3b",
+  "created_at": "2026-10-14T07:10:00.718Z",
+  "status": "completed",
+  "evidence_class": "experimental",
+  "operator": "opencode probe pipeline",
+  "hypothesis": "BF16 native checkpoint Qwen3.6-35B-A3B загружается на gfx1151 в vLLM, SGLang и reference и проходит контрольный chat; серверы — tool round trip.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-14T07:10:18Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB06-qwen36-35b-a3b/raw/native-artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "verify-native",
+      "configuration_id": "qwen36-35b-a3b-native",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/native-artifact.json",
+        "raw/native-verification.json"
+      ],
+      "conclusion": "BF16 артефакт 71 926 799 705 B, 38 файлов, verified (exit 0).",
+      "reason": null
+    },
+    {
+      "id": "gpu-probe",
+      "configuration_id": "gfx1151",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/gpu-probe-01/vllm-gpu.json",
+        "raw/gpu-probe-01/sglang-gpu.json"
+      ],
+      "conclusion": "Оба образа: gfx1151, HIP 7.2, total_memory 100 GiB.",
+      "reason": null
+    },
+    {
+      "id": "vllm-c4096-util090",
+      "configuration_id": "vllm-c4096-util090",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/vllm-c4096-eager-01/server.log"
+      ],
+      "conclusion": null,
+      "reason": "KV cache negative: weights 73.03 GiB при gpu_memory_utilization 0.90 не оставили места под cache"
+    },
+    {
+      "id": "vllm-c4096",
+      "configuration_id": "vllm-c4096-util097",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/vllm-c4096-eager-02/server.log",
+        "raw/vllm-c4096-eager-02/models.json",
+        "raw/vllm-c4096-eager-02/protocol-r1/chat.final.json",
+        "raw/vllm-c4096-eager-02/protocol-r1/tool.final.json"
+      ],
+      "conclusion": "util 0.97 → KV 6.73 GiB; chat/chat-stream LAB_READY, tool LAB_VALUE_42, tool-stream — content='42' или 6 tool_calls (raw/vllm-c4096-eager-02/protocol-r1/tool-stream.*). Streaming round trip не завершается на vLLM (raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.metrics.json: finish_reason=tool_calls, content=3924 символа).",
+      "reason": "vLLM не даёт финальный текст после tool-call в streaming; модель снова зовёт lookup_lab_value 6 раз. Codex review: поспешный pass; http_probe.py дополнен validate_followup (raw/http_probe.py)."
+    },
+    {
+      "id": "sglang-c4096-mem080",
+      "configuration_id": "sglang-c4096-mem090",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/sglang-c4096-graph1-02/server.log"
+      ],
+      "conclusion": null,
+      "reason": "HIP OOM при mem-fraction-static 0.90: PyTorch выделил 99.38 GiB"
+    },
+    {
+      "id": "sglang-c4096",
+      "configuration_id": "sglang-c4096-mem080",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/sglang-c4096-graph1-03/server.log",
+        "raw/sglang-c4096-graph1-03/protocol-r1/chat.final.json",
+        "raw/sglang-c4096-graph1-03/protocol-r1/tool.final.json"
+      ],
+      "conclusion": "mem-fraction 0.80 → готов; chat/chat-stream LAB_READY, tool/tool-stream LAB_VALUE_42.",
+      "reason": null
+    },
+    {
+      "id": "reference-dense-class",
+      "configuration_id": "reference-wrong-class",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/reference-result.json",
+        "raw/reference.stderr"
+      ],
+      "conclusion": null,
+      "reason": "Неверный класс Qwen3_5ForConditionalGeneration: MoE-веса MISSING, результат невалиден"
+    },
+    {
+      "id": "reference-moe",
+      "configuration_id": "reference-moe-greedy",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/reference-moe-result.json",
+        "raw/reference.py"
+      ],
+      "conclusion": "Qwen3_5MoeForConditionalGeneration, greedy non-thinking: final LAB_READY, 3 токена, 6.0 s, peak 70.39 GB.",
+      "reason": null
+    }
+  ],
+  "evidence_files": [
+    "raw/chat-request.json",
+    "raw/chat-stream-request.json",
+    "raw/docker-version.txt",
+    "raw/fetch_artifact.py",
+    "raw/gpu-probe-01/sglang-exit.txt",
+    "raw/gpu-probe-01/sglang-gpu.json",
+    "raw/gpu-probe-01/sglang-gpu.stderr",
+    "raw/gpu-probe-01/vllm-exit.txt",
+    "raw/gpu-probe-01/vllm-gpu.json",
+    "raw/gpu-probe-01/vllm-gpu.stderr",
+    "raw/http_probe.py",
+    "raw/native-artifact.json",
+    "raw/native-publisher-metadata.json",
+    "raw/native-verification.exit",
+    "raw/native-verification.json",
+    "raw/native-verification.stderr",
+    "raw/protocol.md",
+    "raw/reference-moe-result.json",
+    "raw/reference-moe.exit",
+    "raw/reference-moe.stderr",
+    "raw/reference-prompt.txt",
+    "raw/reference-result.json",
+    "raw/reference.exit",
+    "raw/reference.py",
+    "raw/reference.stderr",
+    "raw/sglang-c4096-graph1-02/server.log",
+    "raw/sglang-c4096-graph1-03/models.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat-stream.assembled.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat-stream.final.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat-stream.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat-stream.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat-stream.sse",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat.final.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/chat.response.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.assembled.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.final.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.followup.assembled.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.followup.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.followup.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.followup.sse",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool-stream.sse",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.final.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.followup.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.followup.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.followup.response.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.metrics.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.request.json",
+    "raw/sglang-c4096-graph1-03/protocol-r1/tool.response.json",
+    "raw/sglang-c4096-graph1-03/server.log",
+    "raw/tool-request.json",
+    "raw/tool-stream-request.json",
+    "raw/vllm-c4096-eager-01/help.txt",
+    "raw/vllm-c4096-eager-01/server.log",
+    "raw/vllm-c4096-eager-02/models.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat-stream.assembled.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat-stream.final.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat-stream.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat-stream.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat-stream.sse",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat.final.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/chat.response.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.assembled.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.final.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.assembled.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.sse",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool-stream.sse",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.final.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.followup.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.followup.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.followup.response.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.metrics.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.request.json",
+    "raw/vllm-c4096-eager-02/protocol-r1/tool.response.json",
+    "raw/vllm-c4096-eager-02/server.log"
+  ],
+  "unavailable": {
+    "conditions.runtime_manifest": "образы vLLM/SGLang закреплены ID в raw/gpu-probe-01/*-ready-image.txt и server logs",
+    "conditions.harness_profile": "LAB06 не использует агентную обвязку",
+    "energy": "Нет измерителя энергии",
+    "vllm.tool_stream_round_trip": "vLLM streaming tool-stream follow-up возвращает finish_reason=tool_calls, content длинный, tool_calls=6. Стриминговый round trip не сходится: модель не отдаёт финальный LAB_VALUE_42, а продолжает вызывать инструмент. См. raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.*. probe-скрипт raw/http_probe.py дополнен validate_followup для последующих прогонов."
+  },
+  "conclusion": "LAB06 расширена на Qwen3.6-35B-A3B BF16 (67 GiB). gfx1151 подтверждён probe для обоих образов. vLLM v0.29.0 требует util 0.97 (KV 6.73 GiB) и проходит chat/chat-stream/tool/tool-stream с LAB_READY/LAB_VALUE_42; при 0.90 — fail (нет места под cache). SGLang v0.5.20 (fixed) падает по OOM при mem-fraction 0.90, но на 0.80 проходит все protocol cases. Reference Transformers (Qwen3_5MoeForConditionalGeneration, greedy non-thinking) даёт LAB_READY; первый прогон с dense-классом был невалиден (MoE-веса MISSING). Это проверка совместимости/доступности, не сравнение скорости.",
+  "reviewer_decision": null
+}

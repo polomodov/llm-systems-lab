@@ -1,0 +1,5 @@
+{
+  "content": "\n\nLAB_READY",
+  "tool_calls": null,
+  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\"\n   - Translation: \"Answer exactly LAB_READY without explanations.\"\n   - Language: Russian\n   - Key instruction: Respond with exactly \"LAB_READY\" and nothing else.\n\n2.  **Identify Constraints:**\n   - Exact match required: \"LAB_READY\"\n   - No additional text, no explanations, no greetings, no formatting (unless it's just the plain text)\n   - Must comply strictly.\n\n3.  **Formulate Response:**\n   - The only valid response is: `LAB_READY`\n   - Check against constraints: Exact match? Yes. No explanations? Yes.\n\n4.  **Final Output Generation:**\n   - Output: `LAB_READY` (exactly as requested)\n   - Self-Correction/Verification during thought: \n     - Should I add quotes? No, the instruction says \"ровно LAB_READY\", so just the raw text.\n     - Should I maintain case? Yes, \"LAB_READY\" is uppercase with underscore.\n     - Language doesn't matter here since it's a fixed string.\n     - Ready.✅\n"
+}
