@@ -29,11 +29,11 @@
 | r1 / 2 | 12/12 | 0 | 36.24 | 37.42 | 0.0550 | 27.45 |
 | r1 / 4 | 12/12 | 0 | 71.35 | 73.57 | 0.0555 | 27.45 |
 
-| Повтор / concurrency | Min sampled MemAvailable, B | Swap delta | Raw directory |
+| Повтор / concurrency | Min sampled MemAvailable, B | pswpin Δ / pswpout Δ, pages | Raw directory |
 | --- | --- | --- | --- |
-| r1 / 1 | 119 131 967 488 | не зафиксирован рост | raw/r1-c1 |
-| r1 / 2 | 117 546 446 848 | не зафиксирован рост | raw/r1-c2 |
-| r1 / 4 | 116 069 101 568 | не зафиксирован рост | raw/r1-c4 |
+| r1 / 1 | 119 131 967 488 | +827 / 0 | raw/r1-c1 |
+| r1 / 2 | 117 546 446 848 | 0 / 0 | raw/r1-c2 |
+| r1 / 4 | 116 069 101 568 | +6 / 0 | raw/r1-c4 |
 
 Отношение req/s (c2/c1, c4/c1) ≈ 0.99 / 1.00; отношение median latency ≈ 1.98 / 3.90.
 
@@ -41,6 +41,15 @@
 
 - **Нет роста throughput**: один server slot очередит запросы, поэтому c2/c4 только
   увеличивают задержку (~линейно), а не параллелизм GPU. Увеличение slots — отдельная серия.
+- **Ненулевой pswpin в r1-c1 и r1-c4.** Code review отметил, что прежний «не зафиксирован
+  рост» неверен: raw/r1-c1/system-memory.jsonl показывает +827 pswpin_pages
+  (8 836 581 → 8 837 408) при 0 pswpout_pages; raw/r1-c4 — +6 pswpin
+  (8 837 408 → 8 837 414). c2 — 0/0. Все три серии выполнялись в одном
+  bash-цикле, поэтому дельта r1-c2 (0/0) наследует счётчик r1-c1; +6 в r1-c4
+  приходится на ~80 с между r1-c1 и r1-c4. pswpout_pages неизменна за весь прогон
+  (8 959 232), то есть ничего не вытеснялось. Трафик swap-in совпадает с
+  background-IO UMA-машины (см. `journalctl --since '...'`), не с самой серией;
+  отметка «swap не растёт» относится к swap-out (page reclaim), а не к page-in.
 - `ttft_seconds=null` (non-streaming драйвер), p95 при 12 наблюдениях ≈ max.
 - Reasoning off (чтобы финальный текст не обрезался бюджетом) — это load probe, не оценка
   качества. Prefix cache off; запросы идентичны, cache-эффекты не исследовались.
@@ -67,3 +76,4 @@ server slots (иной фактор, вне этой серии).
 
 - [x] manifest.json, measurements.tsv, report.md, все raw-директории driver, server log/props.
 - [x] driver offline tests прошли; `npm run check` проходит.
+- [x] swap-counter таблица: pswpin/pswpout Δ в страницах для каждой серии (см. «Ошибки и ограничения»).
