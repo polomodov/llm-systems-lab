@@ -1,5 +1,5 @@
 import { localRecordErrors } from './local-inference.mjs';
-import { lstatSync, readFileSync } from 'node:fs';
+import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { inventory, safePath, sha256 } from './files.mjs';
 
@@ -75,6 +75,16 @@ export function verifyRunIntegrity(root, record) {
     if (!Array.isArray(snapshot)) throw new Error(`Run integrity: ${path} must contain an inventory`);
     // Workspaces are intentionally git-ignored. The committed final manifest is
     // still bound to evaluation when checking a clone of the empirical archive.
-    if (directory !== 'workspace' || workspaceExists) sameInventory(ownedPath(dir, directory, 'directory'), snapshot, label);
+    if (directory === 'workspace') {
+      if (workspaceExists) sameInventory(ownedPath(dir, directory, 'directory'), snapshot, label);
+      continue;
+    }
+    // Git cannot retain an empty directory, so a clean checkout may legitimately
+    // lack artifacts/. Absence is only acceptable for an empty sealed inventory.
+    if (!existsSync(join(dir, directory))) {
+      if (snapshot.length !== 0) throw new Error(`Run integrity: ${label} directory is missing but the sealed inventory is not empty`);
+      continue;
+    }
+    sameInventory(ownedPath(dir, directory, 'directory'), snapshot, label);
   }
 }

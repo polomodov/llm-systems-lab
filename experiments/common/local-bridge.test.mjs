@@ -6,7 +6,7 @@ import { mkdtempSync,writeFileSync,rmSync,mkdirSync,readFileSync } from 'node:fs
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createLocalBroker } from './local-broker.mjs';
-import { startWorker,requestLocal,verifyFiles } from './local-runtime.mjs';
+import { startWorker,requestLocal,verifyFiles,parseMeminfo,linuxResourceRow,startNative,linuxHostIdentity,assertLinuxHostMatchesPassport } from './local-runtime.mjs';
 import { deployment,request,stream } from './local-fixture.mjs';
 import { validateDeployment,validateLocalResponse,fingerprint,localRecordErrors } from '../../scripts/lib/local-inference.mjs';
 const token='synthetic-private-control-capability-0123456789';
@@ -54,4 +54,37 @@ test('B09 artifact tamper rejects pre-start identity',async t=>{
 });
 test('B02 private/LAN/IPv6 deployment endpoints are rejected before worker connection',()=>{for(const host of ['localhost','192.168.0.1','::1','127.0.0.2']){const d=deployment();d.endpoint.host=host;assert.throws(()=>validateDeployment(d),/loopback/);}});
 
+test('B11 linux native resource row derives memory, pressure and power fields',()=>{
+  const meminfo=['MemTotal:       131072000 kB','MemAvailable:   114000000 kB','SwapTotal:      0 kB','SwapFree:       0 kB'].join('\n');
+  assert.equal(parseMeminfo(meminfo).MemAvailable,114000000*1024);
+  const row=linuxResourceRow({meminfo,swaps:'',pressure:'some avg10=0.00 avg60=0.00 avg300=0.00 total=0',power:{onAc:true,listing:'AC0'}});
+  assert.equal(row.pressure_level,1);assert.equal(row.pressure_free_percentage,86);
+  assert.equal(row.swap_used_bytes,0);assert.equal(row.on_ac_power,true);assert.equal(row.ac_power_mode,0);
+  assert.ok(row.free_speculative_bytes>=8*2**30);
+  const noMains=linuxResourceRow({meminfo,swaps:'Filename\t\tType\t\tSize\t\tUsed\t\tPriority\n/swap.img file 0 0 -1\n',pressure:'some avg10=0.00 avg60=0.00 avg300=0.00 total=0',power:{onAc:null,listing:''}});
+  assert.equal(noMains.on_ac_power,null);assert.equal(Object.values(noMains.commands).every(c=>c.returncode===0),true);
+  const busy=linuxResourceRow({meminfo:['MemTotal:       131072000 kB','MemAvailable:   20000000 kB','SwapTotal: 1000 kB','SwapFree: 0 kB'].join('\n'),pressure:'some avg10=20.00'});
+  assert.notEqual(busy.pressure_level,1);
+  const noPsi=linuxResourceRow({meminfo,swaps:'Filename\t\tType\t\tSize\t\tUsed\t\tPriority\n/swap.img file 0 0 -1\n',pressure:'',power:{onAc:true,listing:'AC0'}});
+  assert.notEqual(noPsi.commands.pressure_memory.returncode,0);
+});
+test('B13 linux admission binds the live host to the sealed hardware passport',()=>{
+  const passport={kind:'hardware-passport',os:'Ubuntu 24.04.4 LTS',kernel:'7.0.0-38-generic',cpu:'AMD RYZEN AI MAX+ 395 w/ Radeon 8060S',memory:{MemTotal_bytes:134153334784},gpu:{rocm_arch:'gfx1151',devices:['/dev/kfd','/dev/dri/renderD128']}};
+  const identity=linuxHostIdentity({osRelease:'PRETTY_NAME="Ubuntu 24.04.4 LTS"\nID=ubuntu\nVERSION_ID="24.04"\n',cpuinfo:'model name\t: AMD RYZEN AI MAX+ 395 w/ Radeon 8060S\n',meminfo:'MemTotal:       131009568 kB\n',kernel:'7.0.0-38-generic\n',devices:{kfd:true,renderD128:true}});
+  assert.equal(assertLinuxHostMatchesPassport(passport,identity),identity);
+  assert.throws(()=>assertLinuxHostMatchesPassport(passport,{...identity,kernel:'6.8.0-31-generic'}),/kernel/);
+  assert.throws(()=>assertLinuxHostMatchesPassport(passport,{...identity,mem_total_bytes:64*2**30}),/MemTotal/);
+  assert.throws(()=>assertLinuxHostMatchesPassport(passport,{...identity,devices:{kfd:false,renderD128:true}}),/kfd/);
+  assert.throws(()=>assertLinuxHostMatchesPassport({kind:'other'},identity),/hardware passport/);
+});
+test('B12 native supervisor admits only the matching platform/backend before any process start',async()=>{
+  const d=deployment();
+  if(process.platform==='linux'){
+    const wrong=structuredClone(d);wrong.engine.backend='metal';
+    await assert.rejects(startNative(wrong,join(tmpdir(),'b12-'+Date.now())),/requires the ROCm or Vulkan backend/);
+  } else if(process.platform==='darwin'){
+    const wrong=structuredClone(d);wrong.engine.backend='rocm';
+    await assert.rejects(startNative(wrong,join(tmpdir(),'b12-'+Date.now())),/requires the Metal backend/);
+  }
+});
 test('B05 oversized agent body cannot reach upstream',async t=>{const x=await setup(t,(_q,r)=>r.end('forbidden'),{maxBody:100});x.start();try{const result=await x.send({...request(),messages:[{role:'user',content:'x'.repeat(500)}]});assert.equal(result.status,400);}catch(error){assert.match(error.message,/reset|socket hang up/);}assert.equal(x.calls(),0);});

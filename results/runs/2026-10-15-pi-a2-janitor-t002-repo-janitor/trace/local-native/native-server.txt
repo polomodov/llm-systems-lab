@@ -1,0 +1,1498 @@
+ggml_cuda_init: found 1 ROCm devices (Total VRAM: 102400 MiB):
+  Device 0: AMD Radeon Graphics, gfx1151 (0x1151), VMM: no, Wave Size: 32, VRAM: 102400 MiB
+Setting 'enable_thinking' via --chat-template-kwargs is deprecated. Use --reasoning on / --reasoning off instead.
+build: 8407 (312cf0332) with GNU 13.3.0 for Linux 
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 32
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 32 | ROCm : NO_VMM = 1 | PEER_MAX_BATCH_SIZE = 128 | CPU : LLAMAFILE = 1 | OPENMP = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 31 threads for HTTP server
+start: binding port with default address family
+main: loading model
+srv    load_model: loading model '/home/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf'
+common_init_result: fitting params to device memory, for bugs during this step try to reproduce them with -fit off, or provide --verbose logs if the bug only occurs with -fit on
+llama_params_fit_impl: projected to use 7631 MiB of device memory vs. 120453 MiB of free device memory
+llama_params_fit_impl: will leave 112822 >= 1024 MiB of free device memory, no changes needed
+llama_params_fit: successfully fit params to free device memory
+llama_params_fit: fitting params to free memory took 0.35 seconds
+llama_model_load_from_file_impl: using device ROCm0 (AMD Radeon Graphics) (0000:c4:00.0) - 120505 MiB free
+llama_model_loader: loaded meta data with 46 key-value pairs and 427 tensors from /home/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf (version GGUF V3 (latest))
+llama_model_loader: Dumping metadata keys/values. Note: KV overrides do not apply in this output.
+llama_model_loader: - kv   0:                       general.architecture str              = qwen35
+llama_model_loader: - kv   1:                               general.type str              = model
+llama_model_loader: - kv   2:                               general.name str              = Qwen3.5-9B
+llama_model_loader: - kv   3:                           general.basename str              = Qwen3.5-9B
+llama_model_loader: - kv   4:                       general.quantized_by str              = Unsloth
+llama_model_loader: - kv   5:                         general.size_label str              = 9B
+llama_model_loader: - kv   6:                            general.license str              = apache-2.0
+llama_model_loader: - kv   7:                       general.license.link str              = https://huggingface.co/Qwen/Qwen3.5-9...
+llama_model_loader: - kv   8:                           general.repo_url str              = https://huggingface.co/unsloth
+llama_model_loader: - kv   9:                   general.base_model.count u32              = 1
+llama_model_loader: - kv  10:                  general.base_model.0.name str              = Qwen3.5 9B
+llama_model_loader: - kv  11:          general.base_model.0.organization str              = Qwen
+llama_model_loader: - kv  12:              general.base_model.0.repo_url str              = https://huggingface.co/Qwen/Qwen3.5-9B
+llama_model_loader: - kv  13:                               general.tags arr[str,2]       = ["unsloth", "image-text-to-text"]
+llama_model_loader: - kv  14:                         qwen35.block_count u32              = 32
+llama_model_loader: - kv  15:                      qwen35.context_length u32              = 262144
+llama_model_loader: - kv  16:                    qwen35.embedding_length u32              = 4096
+llama_model_loader: - kv  17:                 qwen35.feed_forward_length u32              = 12288
+llama_model_loader: - kv  18:                qwen35.attention.head_count u32              = 16
+llama_model_loader: - kv  19:             qwen35.attention.head_count_kv u32              = 4
+llama_model_loader: - kv  20:             qwen35.rope.dimension_sections arr[i32,4]       = [11, 11, 10, 0]
+llama_model_loader: - kv  21:                      qwen35.rope.freq_base f32              = 10000000.000000
+llama_model_loader: - kv  22:    qwen35.attention.layer_norm_rms_epsilon f32              = 0.000001
+llama_model_loader: - kv  23:                qwen35.attention.key_length u32              = 256
+llama_model_loader: - kv  24:              qwen35.attention.value_length u32              = 256
+llama_model_loader: - kv  25:                     qwen35.ssm.conv_kernel u32              = 4
+llama_model_loader: - kv  26:                      qwen35.ssm.state_size u32              = 128
+llama_model_loader: - kv  27:                     qwen35.ssm.group_count u32              = 16
+llama_model_loader: - kv  28:                  qwen35.ssm.time_step_rank u32              = 32
+llama_model_loader: - kv  29:                      qwen35.ssm.inner_size u32              = 4096
+llama_model_loader: - kv  30:             qwen35.full_attention_interval u32              = 4
+llama_model_loader: - kv  31:                qwen35.rope.dimension_count u32              = 64
+llama_model_loader: - kv  32:                       tokenizer.ggml.model str              = gpt2
+llama_model_loader: - kv  33:                         tokenizer.ggml.pre str              = qwen35
+llama_model_loader: - kv  34:                      tokenizer.ggml.tokens arr[str,248320]  = ["!", "\"", "#", "$", "%", "&", "'", ...
+llama_model_loader: - kv  35:                  tokenizer.ggml.token_type arr[i32,248320]  = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+llama_model_loader: - kv  36:                      tokenizer.ggml.merges arr[str,247587]  = ["Ġ Ġ", "ĠĠ ĠĠ", "i n", "Ġ t",...
+llama_model_loader: - kv  37:                tokenizer.ggml.eos_token_id u32              = 248046
+llama_model_loader: - kv  38:            tokenizer.ggml.padding_token_id u32              = 248055
+llama_model_loader: - kv  39:                    tokenizer.chat_template str              = {%- set image_count = namespace(value...
+llama_model_loader: - kv  40:               general.quantization_version u32              = 2
+llama_model_loader: - kv  41:                          general.file_type u32              = 18
+llama_model_loader: - kv  42:                      quantize.imatrix.file str              = Qwen3.5-9B-GGUF/imatrix_unsloth.gguf
+llama_model_loader: - kv  43:                   quantize.imatrix.dataset str              = unsloth_calibration_Qwen3.5-9B.txt
+llama_model_loader: - kv  44:             quantize.imatrix.entries_count u32              = 248
+llama_model_loader: - kv  45:              quantize.imatrix.chunks_count u32              = 80
+llama_model_loader: - type  f32:  177 tensors
+llama_model_loader: - type q8_0:   72 tensors
+llama_model_loader: - type q6_K:  178 tensors
+print_info: file format = GGUF V3 (latest)
+print_info: file type   = Q6_K
+print_info: file size   = 6.94 GiB (6.65 BPW) 
+load: 0 unused tokens
+load: printing all EOG tokens:
+load:   - 248044 ('<|endoftext|>')
+load:   - 248046 ('<|im_end|>')
+load:   - 248063 ('<|fim_pad|>')
+load:   - 248064 ('<|repo_name|>')
+load:   - 248065 ('<|file_sep|>')
+load: special tokens cache size = 33
+load: token to piece cache size = 1.7581 MB
+print_info: arch                  = qwen35
+print_info: vocab_only            = 0
+print_info: no_alloc              = 0
+print_info: n_ctx_train           = 262144
+print_info: n_embd                = 4096
+print_info: n_embd_inp            = 4096
+print_info: n_layer               = 32
+print_info: n_head                = 16
+print_info: n_head_kv             = 4
+print_info: n_rot                 = 64
+print_info: n_swa                 = 0
+print_info: is_swa_any            = 0
+print_info: n_embd_head_k         = 256
+print_info: n_embd_head_v         = 256
+print_info: n_gqa                 = 4
+print_info: n_embd_k_gqa          = 1024
+print_info: n_embd_v_gqa          = 1024
+print_info: f_norm_eps            = 0.0e+00
+print_info: f_norm_rms_eps        = 1.0e-06
+print_info: f_clamp_kqv           = 0.0e+00
+print_info: f_max_alibi_bias      = 0.0e+00
+print_info: f_logit_scale         = 0.0e+00
+print_info: f_attn_scale          = 0.0e+00
+print_info: n_ff                  = 12288
+print_info: n_expert              = 0
+print_info: n_expert_used         = 0
+print_info: n_expert_groups       = 0
+print_info: n_group_used          = 0
+print_info: causal attn           = 1
+print_info: pooling type          = 0
+print_info: rope type             = 40
+print_info: rope scaling          = linear
+print_info: freq_base_train       = 10000000.0
+print_info: freq_scale_train      = 1
+print_info: n_ctx_orig_yarn       = 262144
+print_info: rope_yarn_log_mul     = 0.0000
+print_info: rope_finetuned        = unknown
+print_info: mrope sections        = [11, 11, 10, 0]
+print_info: ssm_d_conv            = 4
+print_info: ssm_d_inner           = 4096
+print_info: ssm_d_state           = 128
+print_info: ssm_dt_rank           = 32
+print_info: ssm_n_group           = 16
+print_info: ssm_dt_b_c_rms        = 0
+print_info: model type            = 9B
+print_info: model params          = 8.95 B
+print_info: general.name          = Qwen3.5-9B
+print_info: vocab type            = BPE
+print_info: n_vocab               = 248320
+print_info: n_merges              = 247587
+print_info: BOS token             = 11 ','
+print_info: EOS token             = 248046 '<|im_end|>'
+print_info: EOT token             = 248046 '<|im_end|>'
+print_info: PAD token             = 248055 '<|vision_pad|>'
+print_info: LF token              = 198 'Ċ'
+print_info: FIM PRE token         = 248060 '<|fim_prefix|>'
+print_info: FIM SUF token         = 248062 '<|fim_suffix|>'
+print_info: FIM MID token         = 248061 '<|fim_middle|>'
+print_info: FIM PAD token         = 248063 '<|fim_pad|>'
+print_info: FIM REP token         = 248064 '<|repo_name|>'
+print_info: FIM SEP token         = 248065 '<|file_sep|>'
+print_info: EOG token             = 248044 '<|endoftext|>'
+print_info: EOG token             = 248046 '<|im_end|>'
+print_info: EOG token             = 248063 '<|fim_pad|>'
+print_info: EOG token             = 248064 '<|repo_name|>'
+print_info: EOG token             = 248065 '<|file_sep|>'
+print_info: max token length      = 256
+load_tensors: loading model tensors, this can take a while... (mmap = true, direct_io = false)
+load_tensors: offloading output layer to GPU
+load_tensors: offloading 31 repeating layers to GPU
+load_tensors: offloaded 33/33 layers to GPU
+load_tensors:   CPU_Mapped model buffer size =   795.70 MiB
+load_tensors:        ROCm0 model buffer size =  6306.63 MiB
+................................................................................
+common_init_result: added <|endoftext|> logit bias = -inf
+common_init_result: added <|im_end|> logit bias = -inf
+common_init_result: added <|fim_pad|> logit bias = -inf
+common_init_result: added <|repo_name|> logit bias = -inf
+common_init_result: added <|file_sep|> logit bias = -inf
+llama_context: constructing llama_context
+llama_context: n_seq_max     = 1
+llama_context: n_ctx         = 32768
+llama_context: n_ctx_seq     = 32768
+llama_context: n_batch       = 512
+llama_context: n_ubatch      = 256
+llama_context: causal_attn   = 1
+llama_context: flash_attn    = enabled
+llama_context: kv_unified    = false
+llama_context: freq_base     = 10000000.0
+llama_context: freq_scale    = 1
+llama_context: n_ctx_seq (32768) < n_ctx_train (262144) -- the full capacity of the model will not be utilized
+llama_context:  ROCm_Host  output buffer size =     0.95 MiB
+llama_kv_cache:      ROCm0 KV buffer size =  1024.00 MiB
+llama_kv_cache: size = 1024.00 MiB ( 32768 cells,   8 layers,  1/1 seqs), K (f16):  512.00 MiB, V (f16):  512.00 MiB
+llama_memory_recurrent:      ROCm0 RS buffer size =    50.25 MiB
+llama_memory_recurrent: size =   50.25 MiB (     1 cells,  32 layers,  1 seqs), R (f32):    2.25 MiB, S (f32):   48.00 MiB
+sched_reserve: reserving ...
+sched_reserve: resolving fused Gated Delta Net support:
+sched_reserve: fused Gated Delta Net (autoregressive) enabled
+sched_reserve: fused Gated Delta Net (chunked) enabled
+sched_reserve:      ROCm0 compute buffer size =   250.50 MiB
+sched_reserve:  ROCm_Host compute buffer size =    40.01 MiB
+sched_reserve: graph nodes  = 1833
+sched_reserve: graph splits = 2
+sched_reserve: reserve took 16.39 ms, sched copies = 1
+common_init_from_params: warming up the model with an empty run - please wait ... (--no-warmup to disable)
+srv    load_model: initializing slots, n_slots = 1
+common_speculative_is_compat: the target context does not support partial sequence removal
+srv    load_model: speculative decoding not supported by this context
+slot   load_model: id  0 | task -1 | new slot, n_ctx = 32768
+srv    load_model: prompt cache is enabled, size limit: 8192 MiB
+srv    load_model: use `--cache-ram 0` to disable the prompt cache
+srv    load_model: for more info see https://github.com/ggml-org/llama.cpp/pull/16391
+init: chat template, example_format: '<|im_start|>system
+You are a helpful assistant<|im_end|>
+<|im_start|>user
+Hello<|im_end|>
+<|im_start|>assistant
+Hi there<|im_end|>
+<|im_start|>user
+How are you?<|im_end|>
+<|im_start|>assistant
+<think>
+'
+srv          init: init: chat template, thinking = 1
+main: model loaded
+main: server is listening on http://127.0.0.1:18080
+main: starting the main loop...
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+slot update_slots: id  0 | task 0 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 2361
+slot update_slots: id  0 | task 0 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.216857
+slot update_slots: id  0 | task 0 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.433715
+slot update_slots: id  0 | task 0 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.650572
+slot update_slots: id  0 | task 0 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.867429
+slot update_slots: id  0 | task 0 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 2101, batch.n_tokens = 53, progress = 0.889877
+slot update_slots: id  0 | task 0 | n_tokens = 2101, memory_seq_rm [2101, end)
+slot update_slots: id  0 | task 0 | prompt processing progress, n_tokens = 2357, batch.n_tokens = 256, progress = 0.998306
+slot update_slots: id  0 | task 0 | created context checkpoint 1 of 32 (pos_min = 2100, pos_max = 2100, n_tokens = 2101, size = 50.251 MiB)
+slot update_slots: id  0 | task 0 | n_tokens = 2357, memory_seq_rm [2357, end)
+slot init_sampler: id  0 | task 0 | init sampler, took 0.20 ms, tokens: text = 2361, total = 2361
+slot update_slots: id  0 | task 0 | prompt processing done, n_tokens = 2361, batch.n_tokens = 4
+slot update_slots: id  0 | task 0 | created context checkpoint 2 of 32 (pos_min = 2356, pos_max = 2356, n_tokens = 2357, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 0 | 
+prompt eval time =    3163.87 ms /  2361 tokens (    1.34 ms per token,   746.24 tokens per second)
+       eval time =    7386.68 ms /   205 tokens (   36.03 ms per token,    27.75 tokens per second)
+      total time =   10550.54 ms /  2566 tokens
+slot      release: id  0 | task 0 | stop processing: n_tokens = 2565, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.915 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 212 | processing task, is_child = 0
+slot update_slots: id  0 | task 212 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 2804
+slot update_slots: id  0 | task 212 | erased invalidated context checkpoint (pos_min = 2100, pos_max = 2100, n_tokens = 2101, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 212 | erased invalidated context checkpoint (pos_min = 2356, pos_max = 2356, n_tokens = 2357, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 212 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.182596
+slot update_slots: id  0 | task 212 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.365193
+slot update_slots: id  0 | task 212 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.547789
+slot update_slots: id  0 | task 212 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.730385
+slot update_slots: id  0 | task 212 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 2544, batch.n_tokens = 496, progress = 0.907275
+slot update_slots: id  0 | task 212 | n_tokens = 2544, memory_seq_rm [2544, end)
+slot update_slots: id  0 | task 212 | prompt processing progress, n_tokens = 2800, batch.n_tokens = 256, progress = 0.998573
+slot update_slots: id  0 | task 212 | created context checkpoint 1 of 32 (pos_min = 2543, pos_max = 2543, n_tokens = 2544, size = 50.251 MiB)
+slot update_slots: id  0 | task 212 | n_tokens = 2800, memory_seq_rm [2800, end)
+slot init_sampler: id  0 | task 212 | init sampler, took 0.23 ms, tokens: text = 2804, total = 2804
+slot update_slots: id  0 | task 212 | prompt processing done, n_tokens = 2804, batch.n_tokens = 4
+slot update_slots: id  0 | task 212 | created context checkpoint 2 of 32 (pos_min = 2799, pos_max = 2799, n_tokens = 2800, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 212 | 
+prompt eval time =    3948.56 ms /  2804 tokens (    1.41 ms per token,   710.13 tokens per second)
+       eval time =    1823.99 ms /    51 tokens (   35.76 ms per token,    27.96 tokens per second)
+      total time =    5772.55 ms /  2855 tokens
+slot      release: id  0 | task 212 | stop processing: n_tokens = 2854, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.947 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 270 | processing task, is_child = 0
+slot update_slots: id  0 | task 270 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3015
+slot update_slots: id  0 | task 270 | erased invalidated context checkpoint (pos_min = 2543, pos_max = 2543, n_tokens = 2544, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 270 | erased invalidated context checkpoint (pos_min = 2799, pos_max = 2799, n_tokens = 2800, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 270 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.169818
+slot update_slots: id  0 | task 270 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.339635
+slot update_slots: id  0 | task 270 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.509453
+slot update_slots: id  0 | task 270 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.679270
+slot update_slots: id  0 | task 270 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.849088
+slot update_slots: id  0 | task 270 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 2755, batch.n_tokens = 195, progress = 0.913765
+slot update_slots: id  0 | task 270 | n_tokens = 2755, memory_seq_rm [2755, end)
+slot update_slots: id  0 | task 270 | prompt processing progress, n_tokens = 3011, batch.n_tokens = 256, progress = 0.998673
+slot update_slots: id  0 | task 270 | created context checkpoint 1 of 32 (pos_min = 2754, pos_max = 2754, n_tokens = 2755, size = 50.251 MiB)
+slot update_slots: id  0 | task 270 | n_tokens = 3011, memory_seq_rm [3011, end)
+slot init_sampler: id  0 | task 270 | init sampler, took 0.29 ms, tokens: text = 3015, total = 3015
+slot update_slots: id  0 | task 270 | prompt processing done, n_tokens = 3015, batch.n_tokens = 4
+slot update_slots: id  0 | task 270 | created context checkpoint 2 of 32 (pos_min = 3010, pos_max = 3010, n_tokens = 3011, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 270 | 
+prompt eval time =    4281.75 ms /  3015 tokens (    1.42 ms per token,   704.15 tokens per second)
+       eval time =    1970.23 ms /    55 tokens (   35.82 ms per token,    27.92 tokens per second)
+      total time =    6251.98 ms /  3070 tokens
+slot      release: id  0 | task 270 | stop processing: n_tokens = 3069, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.964 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 333 | processing task, is_child = 0
+slot update_slots: id  0 | task 333 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3185
+slot update_slots: id  0 | task 333 | erased invalidated context checkpoint (pos_min = 2754, pos_max = 2754, n_tokens = 2755, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 333 | erased invalidated context checkpoint (pos_min = 3010, pos_max = 3010, n_tokens = 3011, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 333 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.160754
+slot update_slots: id  0 | task 333 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.321507
+slot update_slots: id  0 | task 333 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.482261
+slot update_slots: id  0 | task 333 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.643014
+slot update_slots: id  0 | task 333 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.803768
+slot update_slots: id  0 | task 333 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 2925, batch.n_tokens = 365, progress = 0.918367
+slot update_slots: id  0 | task 333 | n_tokens = 2925, memory_seq_rm [2925, end)
+slot update_slots: id  0 | task 333 | prompt processing progress, n_tokens = 3181, batch.n_tokens = 256, progress = 0.998744
+slot update_slots: id  0 | task 333 | created context checkpoint 1 of 32 (pos_min = 2924, pos_max = 2924, n_tokens = 2925, size = 50.251 MiB)
+slot update_slots: id  0 | task 333 | n_tokens = 3181, memory_seq_rm [3181, end)
+slot init_sampler: id  0 | task 333 | init sampler, took 0.26 ms, tokens: text = 3185, total = 3185
+slot update_slots: id  0 | task 333 | prompt processing done, n_tokens = 3185, batch.n_tokens = 4
+slot update_slots: id  0 | task 333 | created context checkpoint 2 of 32 (pos_min = 3180, pos_max = 3180, n_tokens = 3181, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 333 | 
+prompt eval time =    4568.10 ms /  3185 tokens (    1.43 ms per token,   697.23 tokens per second)
+       eval time =    3368.38 ms /    94 tokens (   35.83 ms per token,    27.91 tokens per second)
+      total time =    7936.49 ms /  3279 tokens
+slot      release: id  0 | task 333 | stop processing: n_tokens = 3278, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.989 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 435 | processing task, is_child = 0
+slot update_slots: id  0 | task 435 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3315
+slot update_slots: id  0 | task 435 | erased invalidated context checkpoint (pos_min = 2924, pos_max = 2924, n_tokens = 2925, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 435 | erased invalidated context checkpoint (pos_min = 3180, pos_max = 3180, n_tokens = 3181, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 435 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.154449
+slot update_slots: id  0 | task 435 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.308899
+slot update_slots: id  0 | task 435 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.463348
+slot update_slots: id  0 | task 435 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.617798
+slot update_slots: id  0 | task 435 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.772247
+slot update_slots: id  0 | task 435 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 3055, batch.n_tokens = 495, progress = 0.921569
+slot update_slots: id  0 | task 435 | n_tokens = 3055, memory_seq_rm [3055, end)
+slot update_slots: id  0 | task 435 | prompt processing progress, n_tokens = 3311, batch.n_tokens = 256, progress = 0.998793
+slot update_slots: id  0 | task 435 | created context checkpoint 1 of 32 (pos_min = 3054, pos_max = 3054, n_tokens = 3055, size = 50.251 MiB)
+slot update_slots: id  0 | task 435 | n_tokens = 3311, memory_seq_rm [3311, end)
+slot init_sampler: id  0 | task 435 | init sampler, took 0.27 ms, tokens: text = 3315, total = 3315
+slot update_slots: id  0 | task 435 | prompt processing done, n_tokens = 3315, batch.n_tokens = 4
+slot update_slots: id  0 | task 435 | created context checkpoint 2 of 32 (pos_min = 3310, pos_max = 3310, n_tokens = 3311, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 435 | 
+prompt eval time =    4773.64 ms /  3315 tokens (    1.44 ms per token,   694.44 tokens per second)
+       eval time =    1610.72 ms /    45 tokens (   35.79 ms per token,    27.94 tokens per second)
+      total time =    6384.36 ms /  3360 tokens
+slot      release: id  0 | task 435 | stop processing: n_tokens = 3359, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.978 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 488 | processing task, is_child = 0
+slot update_slots: id  0 | task 488 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3435
+slot update_slots: id  0 | task 488 | erased invalidated context checkpoint (pos_min = 3054, pos_max = 3054, n_tokens = 3055, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 488 | erased invalidated context checkpoint (pos_min = 3310, pos_max = 3310, n_tokens = 3311, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 488 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.149054
+slot update_slots: id  0 | task 488 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.298108
+slot update_slots: id  0 | task 488 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.447162
+slot update_slots: id  0 | task 488 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.596215
+slot update_slots: id  0 | task 488 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.745269
+slot update_slots: id  0 | task 488 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.894323
+slot update_slots: id  0 | task 488 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 3175, batch.n_tokens = 103, progress = 0.924309
+slot update_slots: id  0 | task 488 | n_tokens = 3175, memory_seq_rm [3175, end)
+slot update_slots: id  0 | task 488 | prompt processing progress, n_tokens = 3431, batch.n_tokens = 256, progress = 0.998836
+slot update_slots: id  0 | task 488 | created context checkpoint 1 of 32 (pos_min = 3174, pos_max = 3174, n_tokens = 3175, size = 50.251 MiB)
+slot update_slots: id  0 | task 488 | n_tokens = 3431, memory_seq_rm [3431, end)
+slot init_sampler: id  0 | task 488 | init sampler, took 0.29 ms, tokens: text = 3435, total = 3435
+slot update_slots: id  0 | task 488 | prompt processing done, n_tokens = 3435, batch.n_tokens = 4
+slot update_slots: id  0 | task 488 | created context checkpoint 2 of 32 (pos_min = 3430, pos_max = 3430, n_tokens = 3431, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 488 | 
+prompt eval time =    5039.07 ms /  3435 tokens (    1.47 ms per token,   681.67 tokens per second)
+       eval time =    1745.73 ms /    49 tokens (   35.63 ms per token,    28.07 tokens per second)
+      total time =    6784.79 ms /  3484 tokens
+slot      release: id  0 | task 488 | stop processing: n_tokens = 3483, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.966 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 546 | processing task, is_child = 0
+slot update_slots: id  0 | task 546 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3604
+slot update_slots: id  0 | task 546 | erased invalidated context checkpoint (pos_min = 3174, pos_max = 3174, n_tokens = 3175, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 546 | erased invalidated context checkpoint (pos_min = 3430, pos_max = 3430, n_tokens = 3431, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 546 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.142064
+slot update_slots: id  0 | task 546 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.284129
+slot update_slots: id  0 | task 546 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.426193
+slot update_slots: id  0 | task 546 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.568258
+slot update_slots: id  0 | task 546 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.710322
+slot update_slots: id  0 | task 546 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.852386
+slot update_slots: id  0 | task 546 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 3344, batch.n_tokens = 272, progress = 0.927858
+slot update_slots: id  0 | task 546 | n_tokens = 3344, memory_seq_rm [3344, end)
+slot update_slots: id  0 | task 546 | prompt processing progress, n_tokens = 3600, batch.n_tokens = 256, progress = 0.998890
+slot update_slots: id  0 | task 546 | created context checkpoint 1 of 32 (pos_min = 3343, pos_max = 3343, n_tokens = 3344, size = 50.251 MiB)
+slot update_slots: id  0 | task 546 | n_tokens = 3600, memory_seq_rm [3600, end)
+slot init_sampler: id  0 | task 546 | init sampler, took 0.31 ms, tokens: text = 3604, total = 3604
+slot update_slots: id  0 | task 546 | prompt processing done, n_tokens = 3604, batch.n_tokens = 4
+slot update_slots: id  0 | task 546 | created context checkpoint 2 of 32 (pos_min = 3599, pos_max = 3599, n_tokens = 3600, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 546 | 
+prompt eval time =    5360.71 ms /  3604 tokens (    1.49 ms per token,   672.30 tokens per second)
+       eval time =    1830.98 ms /    50 tokens (   36.62 ms per token,    27.31 tokens per second)
+      total time =    7191.68 ms /  3654 tokens
+slot      release: id  0 | task 546 | stop processing: n_tokens = 3653, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.957 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 605 | processing task, is_child = 0
+slot update_slots: id  0 | task 605 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 3818
+slot update_slots: id  0 | task 605 | erased invalidated context checkpoint (pos_min = 3343, pos_max = 3343, n_tokens = 3344, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 605 | erased invalidated context checkpoint (pos_min = 3599, pos_max = 3599, n_tokens = 3600, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 605 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.134102
+slot update_slots: id  0 | task 605 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.268203
+slot update_slots: id  0 | task 605 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.402305
+slot update_slots: id  0 | task 605 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.536407
+slot update_slots: id  0 | task 605 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.670508
+slot update_slots: id  0 | task 605 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.804610
+slot update_slots: id  0 | task 605 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 3558, batch.n_tokens = 486, progress = 0.931902
+slot update_slots: id  0 | task 605 | n_tokens = 3558, memory_seq_rm [3558, end)
+slot update_slots: id  0 | task 605 | prompt processing progress, n_tokens = 3814, batch.n_tokens = 256, progress = 0.998952
+slot update_slots: id  0 | task 605 | created context checkpoint 1 of 32 (pos_min = 3557, pos_max = 3557, n_tokens = 3558, size = 50.251 MiB)
+slot update_slots: id  0 | task 605 | n_tokens = 3814, memory_seq_rm [3814, end)
+slot init_sampler: id  0 | task 605 | init sampler, took 0.32 ms, tokens: text = 3818, total = 3818
+slot update_slots: id  0 | task 605 | prompt processing done, n_tokens = 3818, batch.n_tokens = 4
+slot update_slots: id  0 | task 605 | created context checkpoint 2 of 32 (pos_min = 3813, pos_max = 3813, n_tokens = 3814, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 605 | 
+prompt eval time =    5715.71 ms /  3818 tokens (    1.50 ms per token,   667.98 tokens per second)
+       eval time =   10376.35 ms /   280 tokens (   37.06 ms per token,    26.98 tokens per second)
+      total time =   16092.07 ms /  4098 tokens
+slot      release: id  0 | task 605 | stop processing: n_tokens = 4097, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.979 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 894 | processing task, is_child = 0
+slot update_slots: id  0 | task 894 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 4185
+slot update_slots: id  0 | task 894 | erased invalidated context checkpoint (pos_min = 3557, pos_max = 3557, n_tokens = 3558, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 894 | erased invalidated context checkpoint (pos_min = 3813, pos_max = 3813, n_tokens = 3814, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 894 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.122342
+slot update_slots: id  0 | task 894 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.244683
+slot update_slots: id  0 | task 894 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.367025
+slot update_slots: id  0 | task 894 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.489367
+slot update_slots: id  0 | task 894 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.611708
+slot update_slots: id  0 | task 894 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.734050
+slot update_slots: id  0 | task 894 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.856392
+slot update_slots: id  0 | task 894 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 3925, batch.n_tokens = 341, progress = 0.937873
+slot update_slots: id  0 | task 894 | n_tokens = 3925, memory_seq_rm [3925, end)
+slot update_slots: id  0 | task 894 | prompt processing progress, n_tokens = 4181, batch.n_tokens = 256, progress = 0.999044
+slot update_slots: id  0 | task 894 | created context checkpoint 1 of 32 (pos_min = 3924, pos_max = 3924, n_tokens = 3925, size = 50.251 MiB)
+slot update_slots: id  0 | task 894 | n_tokens = 4181, memory_seq_rm [4181, end)
+slot init_sampler: id  0 | task 894 | init sampler, took 0.34 ms, tokens: text = 4185, total = 4185
+slot update_slots: id  0 | task 894 | prompt processing done, n_tokens = 4185, batch.n_tokens = 4
+slot update_slots: id  0 | task 894 | created context checkpoint 2 of 32 (pos_min = 4180, pos_max = 4180, n_tokens = 4181, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 894 | 
+prompt eval time =    6401.67 ms /  4185 tokens (    1.53 ms per token,   653.74 tokens per second)
+       eval time =    4569.55 ms /   124 tokens (   36.85 ms per token,    27.14 tokens per second)
+      total time =   10971.22 ms /  4309 tokens
+slot      release: id  0 | task 894 | stop processing: n_tokens = 4308, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.993 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1028 | processing task, is_child = 0
+slot update_slots: id  0 | task 1028 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 4338
+slot update_slots: id  0 | task 1028 | erased invalidated context checkpoint (pos_min = 3924, pos_max = 3924, n_tokens = 3925, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1028 | erased invalidated context checkpoint (pos_min = 4180, pos_max = 4180, n_tokens = 4181, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1028 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.118027
+slot update_slots: id  0 | task 1028 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.236053
+slot update_slots: id  0 | task 1028 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.354080
+slot update_slots: id  0 | task 1028 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.472107
+slot update_slots: id  0 | task 1028 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.590134
+slot update_slots: id  0 | task 1028 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.708160
+slot update_slots: id  0 | task 1028 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.826187
+slot update_slots: id  0 | task 1028 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 4078, batch.n_tokens = 494, progress = 0.940065
+slot update_slots: id  0 | task 1028 | n_tokens = 4078, memory_seq_rm [4078, end)
+slot update_slots: id  0 | task 1028 | prompt processing progress, n_tokens = 4334, batch.n_tokens = 256, progress = 0.999078
+slot update_slots: id  0 | task 1028 | created context checkpoint 1 of 32 (pos_min = 4077, pos_max = 4077, n_tokens = 4078, size = 50.251 MiB)
+slot update_slots: id  0 | task 1028 | n_tokens = 4334, memory_seq_rm [4334, end)
+slot init_sampler: id  0 | task 1028 | init sampler, took 0.35 ms, tokens: text = 4338, total = 4338
+slot update_slots: id  0 | task 1028 | prompt processing done, n_tokens = 4338, batch.n_tokens = 4
+slot update_slots: id  0 | task 1028 | created context checkpoint 2 of 32 (pos_min = 4333, pos_max = 4333, n_tokens = 4334, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1028 | 
+prompt eval time =    6653.80 ms /  4338 tokens (    1.53 ms per token,   651.96 tokens per second)
+       eval time =    6974.00 ms /   188 tokens (   37.10 ms per token,    26.96 tokens per second)
+      total time =   13627.80 ms /  4526 tokens
+slot      release: id  0 | task 1028 | stop processing: n_tokens = 4525, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.988 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1226 | processing task, is_child = 0
+slot update_slots: id  0 | task 1226 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 4578
+slot update_slots: id  0 | task 1226 | erased invalidated context checkpoint (pos_min = 4077, pos_max = 4077, n_tokens = 4078, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1226 | erased invalidated context checkpoint (pos_min = 4333, pos_max = 4333, n_tokens = 4334, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1226 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.111839
+slot update_slots: id  0 | task 1226 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.223678
+slot update_slots: id  0 | task 1226 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.335518
+slot update_slots: id  0 | task 1226 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.447357
+slot update_slots: id  0 | task 1226 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.559196
+slot update_slots: id  0 | task 1226 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.671035
+slot update_slots: id  0 | task 1226 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.782875
+slot update_slots: id  0 | task 1226 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.894714
+slot update_slots: id  0 | task 1226 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 4318, batch.n_tokens = 222, progress = 0.943207
+slot update_slots: id  0 | task 1226 | n_tokens = 4318, memory_seq_rm [4318, end)
+slot update_slots: id  0 | task 1226 | prompt processing progress, n_tokens = 4574, batch.n_tokens = 256, progress = 0.999126
+slot update_slots: id  0 | task 1226 | created context checkpoint 1 of 32 (pos_min = 4317, pos_max = 4317, n_tokens = 4318, size = 50.251 MiB)
+slot update_slots: id  0 | task 1226 | n_tokens = 4574, memory_seq_rm [4574, end)
+slot init_sampler: id  0 | task 1226 | init sampler, took 0.37 ms, tokens: text = 4578, total = 4578
+slot update_slots: id  0 | task 1226 | prompt processing done, n_tokens = 4578, batch.n_tokens = 4
+slot update_slots: id  0 | task 1226 | created context checkpoint 2 of 32 (pos_min = 4573, pos_max = 4573, n_tokens = 4574, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1226 | 
+prompt eval time =    7161.14 ms /  4578 tokens (    1.56 ms per token,   639.28 tokens per second)
+       eval time =    9626.94 ms /   259 tokens (   37.17 ms per token,    26.90 tokens per second)
+      total time =   16788.08 ms /  4837 tokens
+slot      release: id  0 | task 1226 | stop processing: n_tokens = 4836, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.993 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1496 | processing task, is_child = 0
+slot update_slots: id  0 | task 1496 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 4869
+slot update_slots: id  0 | task 1496 | erased invalidated context checkpoint (pos_min = 4317, pos_max = 4317, n_tokens = 4318, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1496 | erased invalidated context checkpoint (pos_min = 4573, pos_max = 4573, n_tokens = 4574, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1496 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.105155
+slot update_slots: id  0 | task 1496 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.210310
+slot update_slots: id  0 | task 1496 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.315465
+slot update_slots: id  0 | task 1496 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.420620
+slot update_slots: id  0 | task 1496 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.525775
+slot update_slots: id  0 | task 1496 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.630930
+slot update_slots: id  0 | task 1496 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.736085
+slot update_slots: id  0 | task 1496 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.841241
+slot update_slots: id  0 | task 1496 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.946396
+slot update_slots: id  0 | task 1496 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 4609, batch.n_tokens = 1, progress = 0.946601
+slot update_slots: id  0 | task 1496 | n_tokens = 4609, memory_seq_rm [4609, end)
+slot update_slots: id  0 | task 1496 | prompt processing progress, n_tokens = 4865, batch.n_tokens = 256, progress = 0.999178
+slot update_slots: id  0 | task 1496 | created context checkpoint 1 of 32 (pos_min = 4608, pos_max = 4608, n_tokens = 4609, size = 50.251 MiB)
+slot update_slots: id  0 | task 1496 | n_tokens = 4865, memory_seq_rm [4865, end)
+slot init_sampler: id  0 | task 1496 | init sampler, took 0.42 ms, tokens: text = 4869, total = 4869
+slot update_slots: id  0 | task 1496 | prompt processing done, n_tokens = 4869, batch.n_tokens = 4
+slot update_slots: id  0 | task 1496 | created context checkpoint 2 of 32 (pos_min = 4864, pos_max = 4864, n_tokens = 4865, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1496 | 
+prompt eval time =    7749.78 ms /  4869 tokens (    1.59 ms per token,   628.28 tokens per second)
+       eval time =    6012.16 ms /   161 tokens (   37.34 ms per token,    26.78 tokens per second)
+      total time =   13761.94 ms /  5030 tokens
+slot      release: id  0 | task 1496 | stop processing: n_tokens = 5029, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.994 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1669 | processing task, is_child = 0
+slot update_slots: id  0 | task 1669 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 5059
+slot update_slots: id  0 | task 1669 | erased invalidated context checkpoint (pos_min = 4608, pos_max = 4608, n_tokens = 4609, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1669 | erased invalidated context checkpoint (pos_min = 4864, pos_max = 4864, n_tokens = 4865, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1669 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.101206
+slot update_slots: id  0 | task 1669 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.202412
+slot update_slots: id  0 | task 1669 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.303617
+slot update_slots: id  0 | task 1669 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.404823
+slot update_slots: id  0 | task 1669 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.506029
+slot update_slots: id  0 | task 1669 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.607235
+slot update_slots: id  0 | task 1669 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.708440
+slot update_slots: id  0 | task 1669 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.809646
+slot update_slots: id  0 | task 1669 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.910852
+slot update_slots: id  0 | task 1669 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 4799, batch.n_tokens = 191, progress = 0.948606
+slot update_slots: id  0 | task 1669 | n_tokens = 4799, memory_seq_rm [4799, end)
+slot update_slots: id  0 | task 1669 | prompt processing progress, n_tokens = 5055, batch.n_tokens = 256, progress = 0.999209
+slot update_slots: id  0 | task 1669 | created context checkpoint 1 of 32 (pos_min = 4798, pos_max = 4798, n_tokens = 4799, size = 50.251 MiB)
+slot update_slots: id  0 | task 1669 | n_tokens = 5055, memory_seq_rm [5055, end)
+slot init_sampler: id  0 | task 1669 | init sampler, took 0.42 ms, tokens: text = 5059, total = 5059
+slot update_slots: id  0 | task 1669 | prompt processing done, n_tokens = 5059, batch.n_tokens = 4
+slot update_slots: id  0 | task 1669 | created context checkpoint 2 of 32 (pos_min = 5054, pos_max = 5054, n_tokens = 5055, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1669 | 
+prompt eval time =    8119.61 ms /  5059 tokens (    1.60 ms per token,   623.06 tokens per second)
+       eval time =    2289.49 ms /    62 tokens (   36.93 ms per token,    27.08 tokens per second)
+      total time =   10409.10 ms /  5121 tokens
+slot      release: id  0 | task 1669 | stop processing: n_tokens = 5120, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.925 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1743 | processing task, is_child = 0
+slot update_slots: id  0 | task 1743 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 5536
+slot update_slots: id  0 | task 1743 | erased invalidated context checkpoint (pos_min = 4798, pos_max = 4798, n_tokens = 4799, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1743 | erased invalidated context checkpoint (pos_min = 5054, pos_max = 5054, n_tokens = 5055, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1743 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.092486
+slot update_slots: id  0 | task 1743 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.184971
+slot update_slots: id  0 | task 1743 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.277457
+slot update_slots: id  0 | task 1743 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.369942
+slot update_slots: id  0 | task 1743 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.462428
+slot update_slots: id  0 | task 1743 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.554913
+slot update_slots: id  0 | task 1743 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.647399
+slot update_slots: id  0 | task 1743 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.739884
+slot update_slots: id  0 | task 1743 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.832370
+slot update_slots: id  0 | task 1743 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.924855
+slot update_slots: id  0 | task 1743 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 5276, batch.n_tokens = 156, progress = 0.953035
+slot update_slots: id  0 | task 1743 | n_tokens = 5276, memory_seq_rm [5276, end)
+slot update_slots: id  0 | task 1743 | prompt processing progress, n_tokens = 5532, batch.n_tokens = 256, progress = 0.999277
+slot update_slots: id  0 | task 1743 | created context checkpoint 1 of 32 (pos_min = 5275, pos_max = 5275, n_tokens = 5276, size = 50.251 MiB)
+slot update_slots: id  0 | task 1743 | n_tokens = 5532, memory_seq_rm [5532, end)
+slot init_sampler: id  0 | task 1743 | init sampler, took 0.46 ms, tokens: text = 5536, total = 5536
+slot update_slots: id  0 | task 1743 | prompt processing done, n_tokens = 5536, batch.n_tokens = 4
+slot update_slots: id  0 | task 1743 | created context checkpoint 2 of 32 (pos_min = 5531, pos_max = 5531, n_tokens = 5532, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1743 | 
+prompt eval time =    9108.61 ms /  5536 tokens (    1.65 ms per token,   607.78 tokens per second)
+       eval time =    4785.31 ms /   128 tokens (   37.39 ms per token,    26.75 tokens per second)
+      total time =   13893.92 ms /  5664 tokens
+slot      release: id  0 | task 1743 | stop processing: n_tokens = 5663, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.982 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1884 | processing task, is_child = 0
+slot update_slots: id  0 | task 1884 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 5767
+slot update_slots: id  0 | task 1884 | erased invalidated context checkpoint (pos_min = 5275, pos_max = 5275, n_tokens = 5276, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1884 | erased invalidated context checkpoint (pos_min = 5531, pos_max = 5531, n_tokens = 5532, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1884 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.088781
+slot update_slots: id  0 | task 1884 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.177562
+slot update_slots: id  0 | task 1884 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.266343
+slot update_slots: id  0 | task 1884 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.355124
+slot update_slots: id  0 | task 1884 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.443905
+slot update_slots: id  0 | task 1884 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.532686
+slot update_slots: id  0 | task 1884 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.621467
+slot update_slots: id  0 | task 1884 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.710248
+slot update_slots: id  0 | task 1884 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.799029
+slot update_slots: id  0 | task 1884 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.887810
+slot update_slots: id  0 | task 1884 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 5507, batch.n_tokens = 387, progress = 0.954916
+slot update_slots: id  0 | task 1884 | n_tokens = 5507, memory_seq_rm [5507, end)
+slot update_slots: id  0 | task 1884 | prompt processing progress, n_tokens = 5763, batch.n_tokens = 256, progress = 0.999306
+slot update_slots: id  0 | task 1884 | created context checkpoint 1 of 32 (pos_min = 5506, pos_max = 5506, n_tokens = 5507, size = 50.251 MiB)
+slot update_slots: id  0 | task 1884 | n_tokens = 5763, memory_seq_rm [5763, end)
+slot init_sampler: id  0 | task 1884 | init sampler, took 0.47 ms, tokens: text = 5767, total = 5767
+slot update_slots: id  0 | task 1884 | prompt processing done, n_tokens = 5767, batch.n_tokens = 4
+slot update_slots: id  0 | task 1884 | created context checkpoint 2 of 32 (pos_min = 5762, pos_max = 5762, n_tokens = 5763, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1884 | 
+prompt eval time =    9671.73 ms /  5767 tokens (    1.68 ms per token,   596.27 tokens per second)
+       eval time =    2608.74 ms /    70 tokens (   37.27 ms per token,    26.83 tokens per second)
+      total time =   12280.47 ms /  5837 tokens
+slot      release: id  0 | task 1884 | stop processing: n_tokens = 5836, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.933 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 1967 | processing task, is_child = 0
+slot update_slots: id  0 | task 1967 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 6252
+slot update_slots: id  0 | task 1967 | erased invalidated context checkpoint (pos_min = 5506, pos_max = 5506, n_tokens = 5507, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1967 | erased invalidated context checkpoint (pos_min = 5762, pos_max = 5762, n_tokens = 5763, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 1967 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.081894
+slot update_slots: id  0 | task 1967 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.163788
+slot update_slots: id  0 | task 1967 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.245681
+slot update_slots: id  0 | task 1967 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.327575
+slot update_slots: id  0 | task 1967 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.409469
+slot update_slots: id  0 | task 1967 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.491363
+slot update_slots: id  0 | task 1967 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.573257
+slot update_slots: id  0 | task 1967 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.655150
+slot update_slots: id  0 | task 1967 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.737044
+slot update_slots: id  0 | task 1967 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.818938
+slot update_slots: id  0 | task 1967 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.900832
+slot update_slots: id  0 | task 1967 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 5992, batch.n_tokens = 360, progress = 0.958413
+slot update_slots: id  0 | task 1967 | n_tokens = 5992, memory_seq_rm [5992, end)
+slot update_slots: id  0 | task 1967 | prompt processing progress, n_tokens = 6248, batch.n_tokens = 256, progress = 0.999360
+slot update_slots: id  0 | task 1967 | created context checkpoint 1 of 32 (pos_min = 5991, pos_max = 5991, n_tokens = 5992, size = 50.251 MiB)
+slot update_slots: id  0 | task 1967 | n_tokens = 6248, memory_seq_rm [6248, end)
+slot init_sampler: id  0 | task 1967 | init sampler, took 0.52 ms, tokens: text = 6252, total = 6252
+slot update_slots: id  0 | task 1967 | prompt processing done, n_tokens = 6252, batch.n_tokens = 4
+slot update_slots: id  0 | task 1967 | created context checkpoint 2 of 32 (pos_min = 6247, pos_max = 6247, n_tokens = 6248, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 1967 | 
+prompt eval time =   10759.30 ms /  6252 tokens (    1.72 ms per token,   581.08 tokens per second)
+       eval time =   24933.91 ms /   656 tokens (   38.01 ms per token,    26.31 tokens per second)
+      total time =   35693.21 ms /  6908 tokens
+slot      release: id  0 | task 1967 | stop processing: n_tokens = 6907, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.995 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 2637 | processing task, is_child = 0
+slot update_slots: id  0 | task 2637 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 6940
+slot update_slots: id  0 | task 2637 | erased invalidated context checkpoint (pos_min = 5991, pos_max = 5991, n_tokens = 5992, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2637 | erased invalidated context checkpoint (pos_min = 6247, pos_max = 6247, n_tokens = 6248, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2637 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.073775
+slot update_slots: id  0 | task 2637 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.147550
+slot update_slots: id  0 | task 2637 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.221326
+slot update_slots: id  0 | task 2637 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.295101
+slot update_slots: id  0 | task 2637 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.368876
+slot update_slots: id  0 | task 2637 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.442651
+slot update_slots: id  0 | task 2637 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.516427
+slot update_slots: id  0 | task 2637 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.590202
+slot update_slots: id  0 | task 2637 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.663977
+slot update_slots: id  0 | task 2637 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.737752
+slot update_slots: id  0 | task 2637 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.811527
+slot update_slots: id  0 | task 2637 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.885303
+slot update_slots: id  0 | task 2637 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.959078
+slot update_slots: id  0 | task 2637 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 6680, batch.n_tokens = 24, progress = 0.962536
+slot update_slots: id  0 | task 2637 | n_tokens = 6680, memory_seq_rm [6680, end)
+slot update_slots: id  0 | task 2637 | prompt processing progress, n_tokens = 6936, batch.n_tokens = 256, progress = 0.999424
+slot update_slots: id  0 | task 2637 | created context checkpoint 1 of 32 (pos_min = 6679, pos_max = 6679, n_tokens = 6680, size = 50.251 MiB)
+slot update_slots: id  0 | task 2637 | n_tokens = 6936, memory_seq_rm [6936, end)
+slot init_sampler: id  0 | task 2637 | init sampler, took 0.56 ms, tokens: text = 6940, total = 6940
+slot update_slots: id  0 | task 2637 | prompt processing done, n_tokens = 6940, batch.n_tokens = 4
+slot update_slots: id  0 | task 2637 | created context checkpoint 2 of 32 (pos_min = 6935, pos_max = 6935, n_tokens = 6936, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 2637 | 
+prompt eval time =   12438.33 ms /  6940 tokens (    1.79 ms per token,   557.95 tokens per second)
+       eval time =    1917.45 ms /    51 tokens (   37.60 ms per token,    26.60 tokens per second)
+      total time =   14355.78 ms /  6991 tokens
+slot      release: id  0 | task 2637 | stop processing: n_tokens = 6990, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.944 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 2704 | processing task, is_child = 0
+slot update_slots: id  0 | task 2704 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 7407
+slot update_slots: id  0 | task 2704 | erased invalidated context checkpoint (pos_min = 6679, pos_max = 6679, n_tokens = 6680, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2704 | erased invalidated context checkpoint (pos_min = 6935, pos_max = 6935, n_tokens = 6936, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2704 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.069124
+slot update_slots: id  0 | task 2704 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.138248
+slot update_slots: id  0 | task 2704 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.207371
+slot update_slots: id  0 | task 2704 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.276495
+slot update_slots: id  0 | task 2704 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.345619
+slot update_slots: id  0 | task 2704 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.414743
+slot update_slots: id  0 | task 2704 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.483867
+slot update_slots: id  0 | task 2704 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.552990
+slot update_slots: id  0 | task 2704 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.622114
+slot update_slots: id  0 | task 2704 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.691238
+slot update_slots: id  0 | task 2704 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.760362
+slot update_slots: id  0 | task 2704 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.829486
+slot update_slots: id  0 | task 2704 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.898609
+slot update_slots: id  0 | task 2704 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 7147, batch.n_tokens = 491, progress = 0.964898
+slot update_slots: id  0 | task 2704 | n_tokens = 7147, memory_seq_rm [7147, end)
+slot update_slots: id  0 | task 2704 | prompt processing progress, n_tokens = 7403, batch.n_tokens = 256, progress = 0.999460
+slot update_slots: id  0 | task 2704 | created context checkpoint 1 of 32 (pos_min = 7146, pos_max = 7146, n_tokens = 7147, size = 50.251 MiB)
+slot update_slots: id  0 | task 2704 | n_tokens = 7403, memory_seq_rm [7403, end)
+slot init_sampler: id  0 | task 2704 | init sampler, took 0.61 ms, tokens: text = 7407, total = 7407
+slot update_slots: id  0 | task 2704 | prompt processing done, n_tokens = 7407, batch.n_tokens = 4
+slot update_slots: id  0 | task 2704 | created context checkpoint 2 of 32 (pos_min = 7402, pos_max = 7402, n_tokens = 7403, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 2704 | 
+prompt eval time =   13464.93 ms /  7407 tokens (    1.82 ms per token,   550.10 tokens per second)
+       eval time =    3993.41 ms /   105 tokens (   38.03 ms per token,    26.29 tokens per second)
+      total time =   17458.34 ms /  7512 tokens
+slot      release: id  0 | task 2704 | stop processing: n_tokens = 7511, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.984 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 2825 | processing task, is_child = 0
+slot update_slots: id  0 | task 2825 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 7631
+slot update_slots: id  0 | task 2825 | erased invalidated context checkpoint (pos_min = 7146, pos_max = 7146, n_tokens = 7147, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2825 | erased invalidated context checkpoint (pos_min = 7402, pos_max = 7402, n_tokens = 7403, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 2825 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.067095
+slot update_slots: id  0 | task 2825 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.134189
+slot update_slots: id  0 | task 2825 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.201284
+slot update_slots: id  0 | task 2825 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.268379
+slot update_slots: id  0 | task 2825 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.335474
+slot update_slots: id  0 | task 2825 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.402568
+slot update_slots: id  0 | task 2825 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.469663
+slot update_slots: id  0 | task 2825 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.536758
+slot update_slots: id  0 | task 2825 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.603853
+slot update_slots: id  0 | task 2825 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.670947
+slot update_slots: id  0 | task 2825 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.738042
+slot update_slots: id  0 | task 2825 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.805137
+slot update_slots: id  0 | task 2825 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.872232
+slot update_slots: id  0 | task 2825 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.939326
+slot update_slots: id  0 | task 2825 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 7371, batch.n_tokens = 203, progress = 0.965928
+slot update_slots: id  0 | task 2825 | n_tokens = 7371, memory_seq_rm [7371, end)
+slot update_slots: id  0 | task 2825 | prompt processing progress, n_tokens = 7627, batch.n_tokens = 256, progress = 0.999476
+slot update_slots: id  0 | task 2825 | created context checkpoint 1 of 32 (pos_min = 7370, pos_max = 7370, n_tokens = 7371, size = 50.251 MiB)
+slot update_slots: id  0 | task 2825 | n_tokens = 7627, memory_seq_rm [7627, end)
+slot init_sampler: id  0 | task 2825 | init sampler, took 0.62 ms, tokens: text = 7631, total = 7631
+slot update_slots: id  0 | task 2825 | prompt processing done, n_tokens = 7631, batch.n_tokens = 4
+slot update_slots: id  0 | task 2825 | created context checkpoint 2 of 32 (pos_min = 7626, pos_max = 7626, n_tokens = 7627, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 2825 | 
+prompt eval time =   14049.55 ms /  7631 tokens (    1.84 ms per token,   543.15 tokens per second)
+       eval time =   14554.86 ms /   379 tokens (   38.40 ms per token,    26.04 tokens per second)
+      total time =   28604.41 ms /  8010 tokens
+slot      release: id  0 | task 2825 | stop processing: n_tokens = 8009, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.985 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 3221 | processing task, is_child = 0
+slot update_slots: id  0 | task 3221 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 8128
+slot update_slots: id  0 | task 3221 | erased invalidated context checkpoint (pos_min = 7370, pos_max = 7370, n_tokens = 7371, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3221 | erased invalidated context checkpoint (pos_min = 7626, pos_max = 7626, n_tokens = 7627, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3221 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.062992
+slot update_slots: id  0 | task 3221 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.125984
+slot update_slots: id  0 | task 3221 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.188976
+slot update_slots: id  0 | task 3221 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.251969
+slot update_slots: id  0 | task 3221 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.314961
+slot update_slots: id  0 | task 3221 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.377953
+slot update_slots: id  0 | task 3221 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.440945
+slot update_slots: id  0 | task 3221 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.503937
+slot update_slots: id  0 | task 3221 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.566929
+slot update_slots: id  0 | task 3221 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.629921
+slot update_slots: id  0 | task 3221 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.692913
+slot update_slots: id  0 | task 3221 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.755906
+slot update_slots: id  0 | task 3221 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.818898
+slot update_slots: id  0 | task 3221 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.881890
+slot update_slots: id  0 | task 3221 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.944882
+slot update_slots: id  0 | task 3221 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 7868, batch.n_tokens = 188, progress = 0.968012
+slot update_slots: id  0 | task 3221 | n_tokens = 7868, memory_seq_rm [7868, end)
+slot update_slots: id  0 | task 3221 | prompt processing progress, n_tokens = 8124, batch.n_tokens = 256, progress = 0.999508
+slot update_slots: id  0 | task 3221 | created context checkpoint 1 of 32 (pos_min = 7867, pos_max = 7867, n_tokens = 7868, size = 50.251 MiB)
+slot update_slots: id  0 | task 3221 | n_tokens = 8124, memory_seq_rm [8124, end)
+slot init_sampler: id  0 | task 3221 | init sampler, took 0.66 ms, tokens: text = 8128, total = 8128
+slot update_slots: id  0 | task 3221 | prompt processing done, n_tokens = 8128, batch.n_tokens = 4
+slot update_slots: id  0 | task 3221 | created context checkpoint 2 of 32 (pos_min = 8123, pos_max = 8123, n_tokens = 8124, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 3221 | 
+prompt eval time =   15340.19 ms /  8128 tokens (    1.89 ms per token,   529.85 tokens per second)
+       eval time =   16916.69 ms /   437 tokens (   38.71 ms per token,    25.83 tokens per second)
+      total time =   32256.88 ms /  8565 tokens
+slot      release: id  0 | task 3221 | stop processing: n_tokens = 8564, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.997 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 3676 | processing task, is_child = 0
+slot update_slots: id  0 | task 3676 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 8594
+slot update_slots: id  0 | task 3676 | erased invalidated context checkpoint (pos_min = 7867, pos_max = 7867, n_tokens = 7868, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3676 | erased invalidated context checkpoint (pos_min = 8123, pos_max = 8123, n_tokens = 8124, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3676 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.059576
+slot update_slots: id  0 | task 3676 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.119153
+slot update_slots: id  0 | task 3676 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.178729
+slot update_slots: id  0 | task 3676 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.238306
+slot update_slots: id  0 | task 3676 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.297882
+slot update_slots: id  0 | task 3676 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.357459
+slot update_slots: id  0 | task 3676 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.417035
+slot update_slots: id  0 | task 3676 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.476612
+slot update_slots: id  0 | task 3676 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.536188
+slot update_slots: id  0 | task 3676 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.595764
+slot update_slots: id  0 | task 3676 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.655341
+slot update_slots: id  0 | task 3676 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.714917
+slot update_slots: id  0 | task 3676 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.774494
+slot update_slots: id  0 | task 3676 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.834070
+slot update_slots: id  0 | task 3676 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.893647
+slot update_slots: id  0 | task 3676 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.953223
+slot update_slots: id  0 | task 3676 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 3676 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8334
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 8334, batch.n_tokens = 142, progress = 0.969746
+slot update_slots: id  0 | task 3676 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 3676 | n_tokens = 8334, memory_seq_rm [8334, end)
+slot update_slots: id  0 | task 3676 | prompt processing progress, n_tokens = 8590, batch.n_tokens = 256, progress = 0.999535
+slot update_slots: id  0 | task 3676 | created context checkpoint 2 of 32 (pos_min = 8333, pos_max = 8333, n_tokens = 8334, size = 50.251 MiB)
+slot update_slots: id  0 | task 3676 | n_tokens = 8590, memory_seq_rm [8590, end)
+slot init_sampler: id  0 | task 3676 | init sampler, took 0.70 ms, tokens: text = 8594, total = 8594
+slot update_slots: id  0 | task 3676 | prompt processing done, n_tokens = 8594, batch.n_tokens = 4
+slot update_slots: id  0 | task 3676 | created context checkpoint 3 of 32 (pos_min = 8589, pos_max = 8589, n_tokens = 8590, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 3676 | 
+prompt eval time =   16675.93 ms /  8594 tokens (    1.94 ms per token,   515.35 tokens per second)
+       eval time =    1907.75 ms /    50 tokens (   38.15 ms per token,    26.21 tokens per second)
+      total time =   18583.67 ms /  8644 tokens
+slot      release: id  0 | task 3676 | stop processing: n_tokens = 8643, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.981 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 3745 | processing task, is_child = 0
+slot update_slots: id  0 | task 3745 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 8808
+slot update_slots: id  0 | task 3745 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3745 | erased invalidated context checkpoint (pos_min = 8333, pos_max = 8333, n_tokens = 8334, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3745 | erased invalidated context checkpoint (pos_min = 8589, pos_max = 8589, n_tokens = 8590, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 3745 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.058129
+slot update_slots: id  0 | task 3745 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.116258
+slot update_slots: id  0 | task 3745 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.174387
+slot update_slots: id  0 | task 3745 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.232516
+slot update_slots: id  0 | task 3745 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.290645
+slot update_slots: id  0 | task 3745 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.348774
+slot update_slots: id  0 | task 3745 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.406903
+slot update_slots: id  0 | task 3745 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.465032
+slot update_slots: id  0 | task 3745 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.523161
+slot update_slots: id  0 | task 3745 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.581290
+slot update_slots: id  0 | task 3745 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.639419
+slot update_slots: id  0 | task 3745 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.697548
+slot update_slots: id  0 | task 3745 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.755677
+slot update_slots: id  0 | task 3745 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.813806
+slot update_slots: id  0 | task 3745 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.871935
+slot update_slots: id  0 | task 3745 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.930064
+slot update_slots: id  0 | task 3745 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 3745 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8548
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 8548, batch.n_tokens = 356, progress = 0.970481
+slot update_slots: id  0 | task 3745 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 3745 | n_tokens = 8548, memory_seq_rm [8548, end)
+slot update_slots: id  0 | task 3745 | prompt processing progress, n_tokens = 8804, batch.n_tokens = 256, progress = 0.999546
+slot update_slots: id  0 | task 3745 | created context checkpoint 2 of 32 (pos_min = 8547, pos_max = 8547, n_tokens = 8548, size = 50.251 MiB)
+slot update_slots: id  0 | task 3745 | n_tokens = 8804, memory_seq_rm [8804, end)
+slot init_sampler: id  0 | task 3745 | init sampler, took 0.72 ms, tokens: text = 8808, total = 8808
+slot update_slots: id  0 | task 3745 | prompt processing done, n_tokens = 8808, batch.n_tokens = 4
+slot update_slots: id  0 | task 3745 | created context checkpoint 3 of 32 (pos_min = 8803, pos_max = 8803, n_tokens = 8804, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 3745 | 
+prompt eval time =   17271.36 ms /  8808 tokens (    1.96 ms per token,   509.98 tokens per second)
+       eval time =   10517.44 ms /   271 tokens (   38.81 ms per token,    25.77 tokens per second)
+      total time =   27788.81 ms /  9079 tokens
+slot      release: id  0 | task 3745 | stop processing: n_tokens = 9078, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.987 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 4035 | processing task, is_child = 0
+slot update_slots: id  0 | task 4035 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 9195
+slot update_slots: id  0 | task 4035 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4035 | erased invalidated context checkpoint (pos_min = 8547, pos_max = 8547, n_tokens = 8548, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4035 | erased invalidated context checkpoint (pos_min = 8803, pos_max = 8803, n_tokens = 8804, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4035 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.055682
+slot update_slots: id  0 | task 4035 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.111365
+slot update_slots: id  0 | task 4035 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.167047
+slot update_slots: id  0 | task 4035 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.222730
+slot update_slots: id  0 | task 4035 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.278412
+slot update_slots: id  0 | task 4035 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.334095
+slot update_slots: id  0 | task 4035 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.389777
+slot update_slots: id  0 | task 4035 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.445459
+slot update_slots: id  0 | task 4035 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.501142
+slot update_slots: id  0 | task 4035 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.556824
+slot update_slots: id  0 | task 4035 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.612507
+slot update_slots: id  0 | task 4035 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.668189
+slot update_slots: id  0 | task 4035 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.723872
+slot update_slots: id  0 | task 4035 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.779554
+slot update_slots: id  0 | task 4035 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.835237
+slot update_slots: id  0 | task 4035 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.890919
+slot update_slots: id  0 | task 4035 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 4035 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.946601
+slot update_slots: id  0 | task 4035 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 4035 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 8935, batch.n_tokens = 231, progress = 0.971724
+slot update_slots: id  0 | task 4035 | n_tokens = 8935, memory_seq_rm [8935, end)
+slot update_slots: id  0 | task 4035 | prompt processing progress, n_tokens = 9191, batch.n_tokens = 256, progress = 0.999565
+slot update_slots: id  0 | task 4035 | created context checkpoint 2 of 32 (pos_min = 8934, pos_max = 8934, n_tokens = 8935, size = 50.251 MiB)
+slot update_slots: id  0 | task 4035 | n_tokens = 9191, memory_seq_rm [9191, end)
+slot init_sampler: id  0 | task 4035 | init sampler, took 0.75 ms, tokens: text = 9195, total = 9195
+slot update_slots: id  0 | task 4035 | prompt processing done, n_tokens = 9195, batch.n_tokens = 4
+slot update_slots: id  0 | task 4035 | created context checkpoint 3 of 32 (pos_min = 9190, pos_max = 9190, n_tokens = 9191, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 4035 | 
+prompt eval time =   18433.61 ms /  9195 tokens (    2.00 ms per token,   498.82 tokens per second)
+       eval time =    5743.71 ms /   148 tokens (   38.81 ms per token,    25.77 tokens per second)
+      total time =   24177.32 ms /  9343 tokens
+slot      release: id  0 | task 4035 | stop processing: n_tokens = 9342, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.991 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 4203 | processing task, is_child = 0
+slot update_slots: id  0 | task 4203 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 9425
+slot update_slots: id  0 | task 4203 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4203 | erased invalidated context checkpoint (pos_min = 8934, pos_max = 8934, n_tokens = 8935, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4203 | erased invalidated context checkpoint (pos_min = 9190, pos_max = 9190, n_tokens = 9191, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4203 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.054324
+slot update_slots: id  0 | task 4203 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.108647
+slot update_slots: id  0 | task 4203 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.162971
+slot update_slots: id  0 | task 4203 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.217294
+slot update_slots: id  0 | task 4203 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.271618
+slot update_slots: id  0 | task 4203 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.325942
+slot update_slots: id  0 | task 4203 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.380265
+slot update_slots: id  0 | task 4203 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.434589
+slot update_slots: id  0 | task 4203 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.488912
+slot update_slots: id  0 | task 4203 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.543236
+slot update_slots: id  0 | task 4203 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.597560
+slot update_slots: id  0 | task 4203 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.651883
+slot update_slots: id  0 | task 4203 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.706207
+slot update_slots: id  0 | task 4203 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.760531
+slot update_slots: id  0 | task 4203 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.814854
+slot update_slots: id  0 | task 4203 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.869178
+slot update_slots: id  0 | task 4203 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 4203 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.923501
+slot update_slots: id  0 | task 4203 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 4203 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 9165, batch.n_tokens = 461, progress = 0.972414
+slot update_slots: id  0 | task 4203 | n_tokens = 9165, memory_seq_rm [9165, end)
+slot update_slots: id  0 | task 4203 | prompt processing progress, n_tokens = 9421, batch.n_tokens = 256, progress = 0.999576
+slot update_slots: id  0 | task 4203 | created context checkpoint 2 of 32 (pos_min = 9164, pos_max = 9164, n_tokens = 9165, size = 50.251 MiB)
+slot update_slots: id  0 | task 4203 | n_tokens = 9421, memory_seq_rm [9421, end)
+slot init_sampler: id  0 | task 4203 | init sampler, took 0.78 ms, tokens: text = 9425, total = 9425
+slot update_slots: id  0 | task 4203 | prompt processing done, n_tokens = 9425, batch.n_tokens = 4
+slot update_slots: id  0 | task 4203 | created context checkpoint 3 of 32 (pos_min = 9420, pos_max = 9420, n_tokens = 9421, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 4203 | 
+prompt eval time =   18974.04 ms /  9425 tokens (    2.01 ms per token,   496.73 tokens per second)
+       eval time =    2901.56 ms /    75 tokens (   38.69 ms per token,    25.85 tokens per second)
+      total time =   21875.60 ms /  9500 tokens
+slot      release: id  0 | task 4203 | stop processing: n_tokens = 9499, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.998 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 4298 | processing task, is_child = 0
+slot update_slots: id  0 | task 4298 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 9518
+slot update_slots: id  0 | task 4298 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4298 | erased invalidated context checkpoint (pos_min = 9164, pos_max = 9164, n_tokens = 9165, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4298 | erased invalidated context checkpoint (pos_min = 9420, pos_max = 9420, n_tokens = 9421, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4298 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.053793
+slot update_slots: id  0 | task 4298 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.107586
+slot update_slots: id  0 | task 4298 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.161378
+slot update_slots: id  0 | task 4298 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.215171
+slot update_slots: id  0 | task 4298 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.268964
+slot update_slots: id  0 | task 4298 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.322757
+slot update_slots: id  0 | task 4298 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.376550
+slot update_slots: id  0 | task 4298 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.430342
+slot update_slots: id  0 | task 4298 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.484135
+slot update_slots: id  0 | task 4298 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.537928
+slot update_slots: id  0 | task 4298 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.591721
+slot update_slots: id  0 | task 4298 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.645514
+slot update_slots: id  0 | task 4298 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.699307
+slot update_slots: id  0 | task 4298 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.753099
+slot update_slots: id  0 | task 4298 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.806892
+slot update_slots: id  0 | task 4298 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.860685
+slot update_slots: id  0 | task 4298 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 4298 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.914478
+slot update_slots: id  0 | task 4298 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 4298 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 9216, batch.n_tokens = 512, progress = 0.968271
+slot update_slots: id  0 | task 4298 | n_tokens = 9216, memory_seq_rm [9216, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 9258, batch.n_tokens = 42, progress = 0.972683
+slot update_slots: id  0 | task 4298 | n_tokens = 9258, memory_seq_rm [9258, end)
+slot update_slots: id  0 | task 4298 | prompt processing progress, n_tokens = 9514, batch.n_tokens = 256, progress = 0.999580
+slot update_slots: id  0 | task 4298 | created context checkpoint 2 of 32 (pos_min = 9257, pos_max = 9257, n_tokens = 9258, size = 50.251 MiB)
+slot update_slots: id  0 | task 4298 | n_tokens = 9514, memory_seq_rm [9514, end)
+slot init_sampler: id  0 | task 4298 | init sampler, took 0.78 ms, tokens: text = 9518, total = 9518
+slot update_slots: id  0 | task 4298 | prompt processing done, n_tokens = 9518, batch.n_tokens = 4
+slot update_slots: id  0 | task 4298 | created context checkpoint 3 of 32 (pos_min = 9513, pos_max = 9513, n_tokens = 9514, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 4298 | 
+prompt eval time =   19240.46 ms /  9518 tokens (    2.02 ms per token,   494.69 tokens per second)
+       eval time =   24706.45 ms /   629 tokens (   39.28 ms per token,    25.46 tokens per second)
+      total time =   43946.91 ms / 10147 tokens
+slot      release: id  0 | task 4298 | stop processing: n_tokens = 10146, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.974 (> 0.100 thold), f_keep = 0.977
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 4948 | processing task, is_child = 0
+slot update_slots: id  0 | task 4948 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 10176
+slot update_slots: id  0 | task 4948 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4948 | erased invalidated context checkpoint (pos_min = 9257, pos_max = 9257, n_tokens = 9258, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4948 | erased invalidated context checkpoint (pos_min = 9513, pos_max = 9513, n_tokens = 9514, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 4948 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.050314
+slot update_slots: id  0 | task 4948 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.100629
+slot update_slots: id  0 | task 4948 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.150943
+slot update_slots: id  0 | task 4948 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.201258
+slot update_slots: id  0 | task 4948 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.251572
+slot update_slots: id  0 | task 4948 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.301887
+slot update_slots: id  0 | task 4948 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.352201
+slot update_slots: id  0 | task 4948 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.402516
+slot update_slots: id  0 | task 4948 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.452830
+slot update_slots: id  0 | task 4948 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.503145
+slot update_slots: id  0 | task 4948 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.553459
+slot update_slots: id  0 | task 4948 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.603774
+slot update_slots: id  0 | task 4948 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.654088
+slot update_slots: id  0 | task 4948 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.704403
+slot update_slots: id  0 | task 4948 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.754717
+slot update_slots: id  0 | task 4948 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.805031
+slot update_slots: id  0 | task 4948 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 4948 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.855346
+slot update_slots: id  0 | task 4948 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 4948 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 9216, batch.n_tokens = 512, progress = 0.905660
+slot update_slots: id  0 | task 4948 | n_tokens = 9216, memory_seq_rm [9216, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 9728, batch.n_tokens = 512, progress = 0.955975
+slot update_slots: id  0 | task 4948 | n_tokens = 9728, memory_seq_rm [9728, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 9916, batch.n_tokens = 188, progress = 0.974450
+slot update_slots: id  0 | task 4948 | n_tokens = 9916, memory_seq_rm [9916, end)
+slot update_slots: id  0 | task 4948 | prompt processing progress, n_tokens = 10172, batch.n_tokens = 256, progress = 0.999607
+slot update_slots: id  0 | task 4948 | created context checkpoint 2 of 32 (pos_min = 9915, pos_max = 9915, n_tokens = 9916, size = 50.251 MiB)
+slot update_slots: id  0 | task 4948 | n_tokens = 10172, memory_seq_rm [10172, end)
+slot init_sampler: id  0 | task 4948 | init sampler, took 0.83 ms, tokens: text = 10176, total = 10176
+slot update_slots: id  0 | task 4948 | prompt processing done, n_tokens = 10176, batch.n_tokens = 4
+slot update_slots: id  0 | task 4948 | created context checkpoint 3 of 32 (pos_min = 10171, pos_max = 10171, n_tokens = 10172, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 4948 | 
+prompt eval time =   21230.56 ms / 10176 tokens (    2.09 ms per token,   479.31 tokens per second)
+       eval time =    2640.47 ms /    68 tokens (   38.83 ms per token,    25.75 tokens per second)
+      total time =   23871.03 ms / 10244 tokens
+slot      release: id  0 | task 4948 | stop processing: n_tokens = 10243, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.984 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 5038 | processing task, is_child = 0
+slot update_slots: id  0 | task 5038 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 10408
+slot update_slots: id  0 | task 5038 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5038 | erased invalidated context checkpoint (pos_min = 9915, pos_max = 9915, n_tokens = 9916, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5038 | erased invalidated context checkpoint (pos_min = 10171, pos_max = 10171, n_tokens = 10172, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5038 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.049193
+slot update_slots: id  0 | task 5038 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.098386
+slot update_slots: id  0 | task 5038 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.147579
+slot update_slots: id  0 | task 5038 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.196772
+slot update_slots: id  0 | task 5038 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.245965
+slot update_slots: id  0 | task 5038 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.295158
+slot update_slots: id  0 | task 5038 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.344350
+slot update_slots: id  0 | task 5038 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.393543
+slot update_slots: id  0 | task 5038 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.442736
+slot update_slots: id  0 | task 5038 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.491929
+slot update_slots: id  0 | task 5038 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.541122
+slot update_slots: id  0 | task 5038 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.590315
+slot update_slots: id  0 | task 5038 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.639508
+slot update_slots: id  0 | task 5038 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.688701
+slot update_slots: id  0 | task 5038 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.737894
+slot update_slots: id  0 | task 5038 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.787087
+slot update_slots: id  0 | task 5038 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 5038 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.836280
+slot update_slots: id  0 | task 5038 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 5038 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 9216, batch.n_tokens = 512, progress = 0.885473
+slot update_slots: id  0 | task 5038 | n_tokens = 9216, memory_seq_rm [9216, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 9728, batch.n_tokens = 512, progress = 0.934666
+slot update_slots: id  0 | task 5038 | n_tokens = 9728, memory_seq_rm [9728, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 10148, batch.n_tokens = 420, progress = 0.975019
+slot update_slots: id  0 | task 5038 | n_tokens = 10148, memory_seq_rm [10148, end)
+slot update_slots: id  0 | task 5038 | prompt processing progress, n_tokens = 10404, batch.n_tokens = 256, progress = 0.999616
+slot update_slots: id  0 | task 5038 | created context checkpoint 2 of 32 (pos_min = 10147, pos_max = 10147, n_tokens = 10148, size = 50.251 MiB)
+slot update_slots: id  0 | task 5038 | n_tokens = 10404, memory_seq_rm [10404, end)
+slot init_sampler: id  0 | task 5038 | init sampler, took 0.86 ms, tokens: text = 10408, total = 10408
+slot update_slots: id  0 | task 5038 | prompt processing done, n_tokens = 10408, batch.n_tokens = 4
+slot update_slots: id  0 | task 5038 | created context checkpoint 3 of 32 (pos_min = 10403, pos_max = 10403, n_tokens = 10404, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 5038 | 
+prompt eval time =   22013.28 ms / 10408 tokens (    2.12 ms per token,   472.81 tokens per second)
+       eval time =    2262.51 ms /    58 tokens (   39.01 ms per token,    25.64 tokens per second)
+      total time =   24275.79 ms / 10466 tokens
+slot      release: id  0 | task 5038 | stop processing: n_tokens = 10465, truncated = 0
+srv  update_slots: all slots are idle
+srv  params_from_: Chat format: peg-native
+slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, sim_best = 0.996 (> 0.100 thold), f_keep = 1.000
+slot launch_slot_: id  0 | task -1 | sampler chain: logits -> ?penalties -> ?dry -> ?top-n-sigma -> top-k -> ?typical -> ?top-p -> min-p -> ?xtc -> temp-ext -> dist 
+slot launch_slot_: id  0 | task 5118 | processing task, is_child = 0
+slot update_slots: id  0 | task 5118 | new prompt, n_ctx_slot = 32768, n_keep = 0, task.n_tokens = 10512
+slot update_slots: id  0 | task 5118 | erased invalidated context checkpoint (pos_min = 8191, pos_max = 8191, n_tokens = 8192, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5118 | erased invalidated context checkpoint (pos_min = 10147, pos_max = 10147, n_tokens = 10148, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5118 | erased invalidated context checkpoint (pos_min = 10403, pos_max = 10403, n_tokens = 10404, n_swa = 1, pos_next = 0, size = 50.251 MiB)
+slot update_slots: id  0 | task 5118 | n_tokens = 0, memory_seq_rm [0, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 512, batch.n_tokens = 512, progress = 0.048706
+slot update_slots: id  0 | task 5118 | n_tokens = 512, memory_seq_rm [512, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 1024, batch.n_tokens = 512, progress = 0.097412
+slot update_slots: id  0 | task 5118 | n_tokens = 1024, memory_seq_rm [1024, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 1536, batch.n_tokens = 512, progress = 0.146119
+slot update_slots: id  0 | task 5118 | n_tokens = 1536, memory_seq_rm [1536, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 2048, batch.n_tokens = 512, progress = 0.194825
+slot update_slots: id  0 | task 5118 | n_tokens = 2048, memory_seq_rm [2048, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 2560, batch.n_tokens = 512, progress = 0.243531
+slot update_slots: id  0 | task 5118 | n_tokens = 2560, memory_seq_rm [2560, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 3072, batch.n_tokens = 512, progress = 0.292237
+slot update_slots: id  0 | task 5118 | n_tokens = 3072, memory_seq_rm [3072, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 3584, batch.n_tokens = 512, progress = 0.340944
+slot update_slots: id  0 | task 5118 | n_tokens = 3584, memory_seq_rm [3584, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 4096, batch.n_tokens = 512, progress = 0.389650
+slot update_slots: id  0 | task 5118 | n_tokens = 4096, memory_seq_rm [4096, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 4608, batch.n_tokens = 512, progress = 0.438356
+slot update_slots: id  0 | task 5118 | n_tokens = 4608, memory_seq_rm [4608, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 5120, batch.n_tokens = 512, progress = 0.487062
+slot update_slots: id  0 | task 5118 | n_tokens = 5120, memory_seq_rm [5120, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 5632, batch.n_tokens = 512, progress = 0.535769
+slot update_slots: id  0 | task 5118 | n_tokens = 5632, memory_seq_rm [5632, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 6144, batch.n_tokens = 512, progress = 0.584475
+slot update_slots: id  0 | task 5118 | n_tokens = 6144, memory_seq_rm [6144, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 6656, batch.n_tokens = 512, progress = 0.633181
+slot update_slots: id  0 | task 5118 | n_tokens = 6656, memory_seq_rm [6656, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 7168, batch.n_tokens = 512, progress = 0.681887
+slot update_slots: id  0 | task 5118 | n_tokens = 7168, memory_seq_rm [7168, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 7680, batch.n_tokens = 512, progress = 0.730594
+slot update_slots: id  0 | task 5118 | n_tokens = 7680, memory_seq_rm [7680, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 8192, batch.n_tokens = 512, progress = 0.779300
+slot update_slots: id  0 | task 5118 | n_tokens = 8192, memory_seq_rm [8192, end)
+slot update_slots: id  0 | task 5118 | 8192 tokens since last checkpoint at 0, creating new checkpoint during processing at position 8704
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 8704, batch.n_tokens = 512, progress = 0.828006
+slot update_slots: id  0 | task 5118 | created context checkpoint 1 of 32 (pos_min = 8191, pos_max = 8191, n_tokens = 8192, size = 50.251 MiB)
+slot update_slots: id  0 | task 5118 | n_tokens = 8704, memory_seq_rm [8704, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 9216, batch.n_tokens = 512, progress = 0.876712
+slot update_slots: id  0 | task 5118 | n_tokens = 9216, memory_seq_rm [9216, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 9728, batch.n_tokens = 512, progress = 0.925419
+slot update_slots: id  0 | task 5118 | n_tokens = 9728, memory_seq_rm [9728, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 10240, batch.n_tokens = 512, progress = 0.974125
+slot update_slots: id  0 | task 5118 | n_tokens = 10240, memory_seq_rm [10240, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 10252, batch.n_tokens = 12, progress = 0.975266
+slot update_slots: id  0 | task 5118 | n_tokens = 10252, memory_seq_rm [10252, end)
+slot update_slots: id  0 | task 5118 | prompt processing progress, n_tokens = 10508, batch.n_tokens = 256, progress = 0.999619
+slot update_slots: id  0 | task 5118 | created context checkpoint 2 of 32 (pos_min = 10251, pos_max = 10251, n_tokens = 10252, size = 50.251 MiB)
+slot update_slots: id  0 | task 5118 | n_tokens = 10508, memory_seq_rm [10508, end)
+slot init_sampler: id  0 | task 5118 | init sampler, took 0.86 ms, tokens: text = 10512, total = 10512
+slot update_slots: id  0 | task 5118 | prompt processing done, n_tokens = 10512, batch.n_tokens = 4
+slot update_slots: id  0 | task 5118 | created context checkpoint 3 of 32 (pos_min = 10507, pos_max = 10507, n_tokens = 10508, size = 50.251 MiB)
+srv  log_server_r: done request: POST /v1/chat/completions 127.0.0.1 200
+slot print_timing: id  0 | task 5118 | 
+prompt eval time =   22229.26 ms / 10512 tokens (    2.11 ms per token,   472.89 tokens per second)
+       eval time =   18980.34 ms /   477 tokens (   39.79 ms per token,    25.13 tokens per second)
+      total time =   41209.60 ms / 10989 tokens
+slot      release: id  0 | task 5118 | stop processing: n_tokens = 10988, truncated = 0
+srv  update_slots: all slots are idle
+srv    operator(): operator(): cleaning up before exit...
+llama_memory_breakdown_print: | memory breakdown [MiB] |  total     free    self   model   context   compute       unaccounted |
+llama_memory_breakdown_print: |   - ROCm0 (Graphics)   | 102400 = 112384 + (7631 =  6306 +    1074 +     250) + 17592186026800 |
+llama_memory_breakdown_print: |   - Host               |                     835 =   795 +       0 +      40                   |

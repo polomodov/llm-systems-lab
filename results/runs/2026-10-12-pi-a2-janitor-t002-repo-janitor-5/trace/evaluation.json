@@ -1,0 +1,10 @@
+{
+  "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
+  "result": "fail",
+  "method": "hidden-check",
+  "evaluator": "operator-side hidden-check (T002 check.sh), recorded by opencode",
+  "check_output": "✖ npm test red",
+  "human_notes": "Repeat run: agent again edited src/slugify.js and package.json but never committed to janitor/2026-10-12-pi-a2-janitor-t002-repo-janitor-5 (branch tree = T002 start state), so clean clone npm test is red. No artifacts/report.md. Independent verdict: fail.",
+  "artifacts_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+  "workspace_sha256": "a0d6216947a00a8c8f3538f1c19858b6e99a80bee1ff8116f8c0c1c9a27570c2"
+}
