@@ -6,7 +6,7 @@
   "session_id": "offline",
   "created_at": "2026-10-14T06:54:01.085Z",
   "status": "completed",
-  "evidence_class": "synthetic",
+  "evidence_class": "experimental",
   "operator": "opencode (агент), две независимые проходки одной модели",
   "hypothesis": "Два оценщика независимо применяют одну рубрику так, что совпадают все четыре verdict и не менее 18 из 20 решений.",
   "protocol_before_run": "raw/protocol.md",
@@ -54,9 +54,10 @@
   "unavailable": {
     "conditions.hardware_snapshot": "Учебная оценка синтетических ответов без запуска моделей",
     "conditions.model_artifact_manifest": "Артефакты модели не используются",
-    "conditions.runtime_manifest": "Инференс не выполнялся",
+    "conditions.runtime_manifest": "Рейтинг применяется моделью opencode/deepseek-v4.1-flash; model card и runtime хранятся в evidence_files (raw/rater-r1.tsv, raw/rater-r2.tsv) — runtime_manifest как отдельный документ не выделен, evidence_class=experimental достаточно.",
     "conditions.harness_profile": "Рубрика применяется вручную, без agent run",
-    "measurements": "Численных лабораторных измерений нет; числа согласия приведены в report.md"
+    "measurements": "Численных лабораторных измерений нет; числа согласия приведены в report.md",
+    "evidence_class.legacy": "До правки evidence_class=synthetic. R1/R2 — два прохода модели opencode/deepseek-v4.1-flash, поэтому report-validation.md:26 требует experimental; строки 55–58 отчёта, утверждавшие 'no inference/runtime/model artifact', обновлены."
   },
   "conclusion": "Зависимый эксперимент (одна модель, две проходки): согласие критериев 20/20 (20 известных пар), согласие verdict 4/4; ложных pass/fail относительно публичного эталона — 0. Минимум ЛР20 (два человека) не закрыт: оба оценщика — одна модель.",
   "reviewer_decision": null

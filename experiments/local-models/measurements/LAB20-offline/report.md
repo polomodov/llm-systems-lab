@@ -51,4 +51,5 @@ R1: a→b→c→d; R2: d→c→b→a; затем вскрыт публичный
 ## Комплект сдачи
 
 - [x] manifest.json, measurements.tsv, report.md, raw (protocol, hashes, две таблицы).
+- [x] evidence_class=experimental: модель opencode/deepseek-v4.1-flash фактически вызывается для двух проходов (R1, R2); прежний synthetic был ошибочен и убирал inference-условия.
 - [x] `npm run check` проходит.
