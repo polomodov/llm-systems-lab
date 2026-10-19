@@ -6,7 +6,7 @@
   "session_id": "kat-coder-v25-probe",
   "created_at": "2026-10-12T19:39:56Z",
   "status": "completed",
-  "evidence_class": "protocol",
+  "evidence_class": "experimental",
   "operator": "overnight campaign",
   "protocol_recorded_at": "2026-10-12T19:39:56Z",
   "protocol_before_run": "raw/protocol.md",
@@ -46,7 +46,8 @@
   "hypothesis": "Локальная копия артефакта kat-coder-v25 совпадает с публикацией bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF@d8f684f08d2950ea9d2db6a35ef7dada0707858b по размеру и SHA-256.",
   "unavailable": {
     "conditions.runtime_manifest": "LAB03 не запускает runtime.",
-    "conditions.harness_profile": "LAB03 не использует обвязку."
+    "conditions.harness_profile": "LAB03 не использует обвязку.",
+    "evidence_class.legacy": "До правки evidence_class=protocol. Сессия содержит реальные measurement (kind=measurement, TSV observation verification.json), а не только протокол — manual docs/labs/report-validation.md:26 требует experimental."
   },
   "conclusion": "Проверка bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF@d8f684f08d2950ea9d2db6a35ef7dada0707858b: verified.",
   "reviewer_decision": null
