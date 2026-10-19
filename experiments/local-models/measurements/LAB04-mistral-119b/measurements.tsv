@@ -1,0 +1,14 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+vulkan-pp-r1	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	8192	1	pp2048_tokens_per_second	196.88	tokens/s	measured	raw/vulkan-r1-pp.json	
+vulkan-pp-r1-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72190932	0	KiB	measured	raw/vulkan-r1-pp-process.txt	
+vulkan-tg-r1	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	4096	1	tg128_depth4096_tokens_per_second	31.37	tokens/s	measured	raw/vulkan-r1-tg.json	
+vulkan-tg-r1-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72191632	0	KiB	measured	raw/vulkan-r1-tg-process.txt	
+vulkan-pp-r2	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	8192	2	pp2048_tokens_per_second	196.44	tokens/s	measured	raw/vulkan-r2-pp.json	
+vulkan-pp-r2-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72190572	0	KiB	measured	raw/vulkan-r2-pp-process.txt	
+vulkan-tg-r2	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	4096	2	tg128_depth4096_tokens_per_second	31.26	tokens/s	measured	raw/vulkan-r2-tg.json	
+vulkan-tg-r2-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72191036	0	KiB	measured	raw/vulkan-r2-tg-process.txt	
+vulkan-pp-r3	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	8192	3	pp2048_tokens_per_second	194.24	tokens/s	measured	raw/vulkan-r3-pp.json	
+vulkan-pp-r3-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72192080	0	KiB	measured	raw/vulkan-r3-pp-process.txt	
+vulkan-tg-r3	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan	4096	3	tg128_depth4096_tokens_per_second	31.28	tokens/s	measured	raw/vulkan-r3-tg.json	
+vulkan-tg-r3-rss	mistral-119b-vulkan	mistral-small-4-119b	llama.cpp-b8407	Vulkan			72191484	0	KiB	measured	raw/vulkan-r3-tg-process.txt	
+hip-loadtest	mistral-119b-hip	mistral-small-4-119b	llama.cpp-b8407	ROCm			tiny_run_completed			unavailable	raw/hip-blocker.txt	HIP: модель грузится 37/37 на ROCm0, но -p 64 -n 16 не завершился за >19 мин при 88% CPU (arch mistral4 на gfx1151)

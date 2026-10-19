@@ -1,0 +1,9 @@
+HIP backend blocker for mistral-small-4-119b (b8407)
+Дата: 2026-10-15T12:48:41Z
+Модель грузится на ROCm0 (GTT достигал ~74 GiB), но первый прогон
+llama-bench -p 64 -n 16 -r 1 не завершился за >19 минут при 88% CPU.
+Это указывает на CPU-heavy путь / отсутствие оптимизированных kernels
+для архитектуры mistral4 на gfx1151 в prebuilt b8407 ROCm-бандле.
+GTT used (bytes): 699752448
+Решение: ветвь HIP в LAB04/05 для этой модели помечена blocked;
+основная ветвь — Vulkan (pp512 206.97 t/s, tg128 32.59 t/s, warmup).

@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/build-provenance.txt",
+      "original_sha256": "41e83d5cc826cbadc58cc3be325bf64b05facc40046ec3341a24fa0bf23f3b16",
+      "published_sha256": "10caed8d2ef1b9dcf101283539a8d41e524bc950e6d18ea3f4aad4bcb9d1fcbf",
+      "original_bytes": 633,
+      "published_bytes": 619
+    },
+    {
+      "path": "raw/hip-bench-help.txt",
+      "original_sha256": "dcd5d74bfcb18dbf7fcf4d04c72717d1d93aa407e2b32d55fe5bd57e77379de7",
+      "published_sha256": "fb6968ea21779742f4f87603abdcac1a927a4339ac1758464134d8b7d8aa467e",
+      "original_bytes": 3841,
+      "published_bytes": 3834
+    },
+    {
+      "path": "raw/hip-binaries.sha256",
+      "original_sha256": "ba8d6398471bd9b9e459b025578a7f9dc096a663d83647676282df001b2b8436",
+      "published_sha256": "28eda9f7c3509f5f3421d5ee5974040802d0bebd4b0f8e6e08d3717ed84aafb4",
+      "original_bytes": 403,
+      "published_bytes": 389
+    },
+    {
+      "path": "raw/verification-before.txt",
+      "original_sha256": "2255040652ebfba0500a45a8178a81e946710ea0a7edc07e2ce48a72efaa3a34",
+      "published_sha256": "193f20a7bfeeb520c124f9b9b8069b33dbc2be4c65f6b6b7b87590d4dc2843b8",
+      "original_bytes": 579,
+      "published_bytes": 558
+    },
+    {
+      "path": "raw/vulkan-bench-help.txt",
+      "original_sha256": "674bb0bef91e50d2914ad0a2e91c36c1cedf2f36794389c0d9528a526d8076e1",
+      "published_sha256": "6ce9c16e4ea8145d21bc07339a3ebc7491ef43ad9b20fadb7084da4d2bd26df7",
+      "original_bytes": 4307,
+      "published_bytes": 4279
+    },
+    {
+      "path": "raw/vulkan-binaries.sha256",
+      "original_sha256": "de4e4d57354d6297acc0343b6aa5293ae85412668de5e272d79d92094868245e",
+      "published_sha256": "33be2cf11df9b4aa8bbfb3b8033a0d4526b134dfd076dc30245cb1463586eefd",
+      "original_bytes": 299,
+      "published_bytes": 285
+    },
+    {
+      "path": "raw/vulkan-devices.txt",
+      "original_sha256": "95c9e56b4385988d2350069ab6e0577ed9843dc6cf17363d4410612f5303ffcd",
+      "published_sha256": "956f67ffd3081a073f70820cff90d08ea255f85e3cab2478a6a9b70b299c78b9",
+      "original_bytes": 683,
+      "published_bytes": 662
+    },
+    {
+      "path": "raw/vulkan-r1-pp-process.txt",
+      "original_sha256": "a8f72794aeb27aa511bb7868efda12ef264385e6b5d6d6048cfdd697e013ee05",
+      "published_sha256": "926e1df4414dfeaae02b3d39980889187445e601e6bdd85b045f5702cdbec2ef",
+      "original_bytes": 1099,
+      "published_bytes": 1085
+    },
+    {
+      "path": "raw/vulkan-r1-pp.json",
+      "original_sha256": "3ef0d6b31ac312b8fea93366c850b132337b4cbdb70108ec1f20145043a3af46",
+      "published_sha256": "888747dc153be0f4278e3082e72e623e09d678609bf263c84623b3e2b93b37bf",
+      "original_bytes": 1317,
+      "published_bytes": 1310
+    },
+    {
+      "path": "raw/vulkan-r1-tg-process.txt",
+      "original_sha256": "36af90b1a5b9d0c7f400ff4b6f1ea139ad52f313cc56827e9257c7f8cdc879bb",
+      "published_sha256": "2a442ea11803cb845af0b0c81b76107a9a6294e861e5a8e2c3fe0becf3e1cb82",
+      "original_bytes": 1103,
+      "published_bytes": 1089
+    },
+    {
+      "path": "raw/vulkan-r1-tg.json",
+      "original_sha256": "5051c912b1d3d50f1ad45ab4c3c50f922dee25f34964c4300e6917cffb041911",
+      "published_sha256": "32eea0ddd21dd8af4703f8f715549894b413ffa671d35a628cff912452f88de1",
+      "original_bytes": 1316,
+      "published_bytes": 1309
+    },
+    {
+      "path": "raw/vulkan-r2-pp-process.txt",
+      "original_sha256": "751711efe60e8b0c8eabd34ed82e089c6adae3336720bb75fc88f688784982e4",
+      "published_sha256": "a5730638a3b007ed30b7c09d067ce059eea5bbc92fd87293e52eb9c86d82b5fb",
+      "original_bytes": 1099,
+      "published_bytes": 1085
+    },
+    {
+      "path": "raw/vulkan-r2-pp.json",
+      "original_sha256": "3eea9f80e04fac6db8de9372bc4f6d6d03f11aed82d6e82d8dca77db6f639089",
+      "published_sha256": "ec47dcf045272ee12022d41b431cc662ec8eaee8cb0a073de97b3407411dc61d",
+      "original_bytes": 1317,
+      "published_bytes": 1310
+    },
+    {
+      "path": "raw/vulkan-r2-tg-process.txt",
+      "original_sha256": "df508c9ca3dbda8e1bcb7ff96173b7fdefaf7f0b33b7222cf031b92d36918624",
+      "published_sha256": "88879de04bb2f0aac1292ca0ebd21f2b09a9df979634f63643a9357310a3ed63",
+      "original_bytes": 1108,
+      "published_bytes": 1094
+    },
+    {
+      "path": "raw/vulkan-r2-tg.json",
+      "original_sha256": "fdd456fa52a9c9310eccdf19a802f452c6f2d237f91ef034b4789eee54a1e224",
+      "published_sha256": "955531698b4c4ac7d9994d9045dee15f7cb7e7802c7b178cc178c657e6608b31",
+      "original_bytes": 1316,
+      "published_bytes": 1309
+    },
+    {
+      "path": "raw/vulkan-r3-pp-process.txt",
+      "original_sha256": "7a22c83dfdb1a38494968811460ee4e4b8179816571eb9888ad3eca53532043c",
+      "published_sha256": "0499dceb7a545ae34efc60288ed2a7966c91ae8a9b8275cfbf2c26fc2d2b5038",
+      "original_bytes": 1096,
+      "published_bytes": 1082
+    },
+    {
+      "path": "raw/vulkan-r3-pp.json",
+      "original_sha256": "1d6738dd987954be42f61db87a747875c3270f454cc62a8c286d8a29c5c9d6e5",
+      "published_sha256": "339fb35c854432f07cb9230359b43daa730f645c0a55a08a4ea42bd7f6255a99",
+      "original_bytes": 1317,
+      "published_bytes": 1310
+    },
+    {
+      "path": "raw/vulkan-r3-tg-process.txt",
+      "original_sha256": "ce619e747775e4f367bdddc25de907f5478abfad96c49028796cb2f0dc8b91ba",
+      "published_sha256": "14613594c7ea1dfe9834c45e9993edd7ff00d2fa7928a472bad121ac92f0d0e9",
+      "original_bytes": 1105,
+      "published_bytes": 1091
+    },
+    {
+      "path": "raw/vulkan-r3-tg.json",
+      "original_sha256": "a4b5ccf52b1666b5ddba2d02d848cef2fd09c8152748dedcc37ea6a9c9f5a284",
+      "published_sha256": "dbd569807c02faa2a7c41ff5156e67793b8355accd07c20d5a6fe3073e41a5ba",
+      "original_bytes": 1316,
+      "published_bytes": 1309
+    },
+    {
+      "path": "raw/vulkan-version.txt",
+      "original_sha256": "8c6aac2053247af4eac0ed451588ca537f65bf1c5000303951ddb2ce162202fb",
+      "published_sha256": "2b7cd67cec51304ef937435001961ec07b9436b32ea2e1b16a926707d90565c4",
+      "original_bytes": 653,
+      "published_bytes": 632
+    },
+    {
+      "path": "raw/vulkan-warmup.json",
+      "original_sha256": "00749110e1154f6c419ad2eaf375c2ef6df83028350d203a79251db790bf904a",
+      "published_sha256": "b0dc64a7dc72b9e203ac64e64c9770ed708d585c4f9c35154488d23c4a0c1e65",
+      "original_bytes": 2624,
+      "published_bytes": 2610
+    },
+    {
+      "path": "raw/weights.sha256",
+      "original_sha256": "c08888163d37b6e291d3ebf705fa3f25e2da4a9da66a687a002178980c4b6c4f",
+      "published_sha256": "c75b812ca2952e6030dac5bd11fa3b7d73202a84bce2ada7f4073f3de9c40555",
+      "original_bytes": 765,
+      "published_bytes": 744
+    }
+  ]
+}

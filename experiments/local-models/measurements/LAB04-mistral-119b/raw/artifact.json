@@ -1,0 +1,46 @@
+{
+  "id": "mistral-small-4-119b",
+  "model_id": "mistralai/Mistral-Small-4-119B-2603",
+  "architecture": "hybrid-moe",
+  "parameters_total_b": 119,
+  "parameters_active_b": null,
+  "quantization": "UD-Q4_K_M",
+  "weights_gib_estimate": 73.6,
+  "weights_basis": "Сумма bytes 3 шардов из artifact/metadata издателя; размер файлов, не измеренный RAM/VRAM.",
+  "context_tokens": [
+    8192,
+    16384,
+    32768
+  ],
+  "sources": [
+    "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603",
+    "https://huggingface.co/unsloth/Mistral-Small-4-119B-2603-GGUF/tree/bd93c721735aa32c035c0f19e738cb3371fd56ff"
+  ],
+  "fit": "extension",
+  "reason": "Самая крупная скачанная модель (MoE 36 слоёв, 128 экспертов, 4 active, n_head_kv=1 -> малый KV). Проба подтвердила full offload на HIP (ROCm0 69 794.53 MiB) и Vulkan.",
+  "model_revision": null,
+  "artifact": {
+    "repository": "unsloth/Mistral-Small-4-119B-2603-GGUF",
+    "revision": "bd93c721735aa32c035c0f19e738cb3371fd56ff",
+    "files": [
+      {
+        "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00001-of-00003.gguf",
+        "bytes": 7875616,
+        "sha256": "fd3cc46082e4e64eb623eea4611b02583d1de4c20a59411bf1820925d5117dfe"
+      },
+      {
+        "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00002-of-00003.gguf",
+        "bytes": 49299298464,
+        "sha256": "f357d8dc029824fa4515ae60d7a8b7e108546763614f16c00a1b4ea0cd94145c"
+      },
+      {
+        "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00003-of-00003.gguf",
+        "bytes": 24456006464,
+        "sha256": "9dc960d67fb1ef23029d24878b4cf6c63b743ab26cf9137402549591bd770c50"
+      }
+    ],
+    "total_bytes": 73760980544,
+    "checksum_status": "verified_after_download"
+  },
+  "note": "model_id/revision взяты со страницы модели; GGUF-ревизия от unsloth. params_active/architecture - из GGUF metadata пробы."
+}
