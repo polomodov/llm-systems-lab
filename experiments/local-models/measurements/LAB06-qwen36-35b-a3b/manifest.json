@@ -69,8 +69,8 @@
         "raw/vllm-c4096-eager-02/protocol-r1/chat.final.json",
         "raw/vllm-c4096-eager-02/protocol-r1/tool.final.json"
       ],
-      "conclusion": "util 0.97 → KV 6.73 GiB; chat/chat-stream LAB_READY, tool/tool-stream LAB_VALUE_42.",
-      "reason": null
+      "conclusion": "util 0.97 → KV 6.73 GiB; chat/chat-stream LAB_READY, tool LAB_VALUE_42, tool-stream — content='42' или 6 tool_calls (raw/vllm-c4096-eager-02/protocol-r1/tool-stream.*). Streaming round trip не завершается на vLLM (raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.metrics.json: finish_reason=tool_calls, content=3924 символа).",
+      "reason": "vLLM не даёт финальный текст после tool-call в streaming; модель снова зовёт lookup_lab_value 6 раз. Codex review: поспешный pass; http_probe.py дополнен validate_followup (raw/http_probe.py)."
     },
     {
       "id": "sglang-c4096-mem080",
@@ -214,7 +214,8 @@
   "unavailable": {
     "conditions.runtime_manifest": "образы vLLM/SGLang закреплены ID в raw/gpu-probe-01/*-ready-image.txt и server logs",
     "conditions.harness_profile": "LAB06 не использует агентную обвязку",
-    "energy": "Нет измерителя энергии"
+    "energy": "Нет измерителя энергии",
+    "vllm.tool_stream_round_trip": "vLLM streaming tool-stream follow-up возвращает finish_reason=tool_calls, content длинный, tool_calls=6. Стриминговый round trip не сходится: модель не отдаёт финальный LAB_VALUE_42, а продолжает вызывать инструмент. См. raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.*. probe-скрипт raw/http_probe.py дополнен validate_followup для последующих прогонов."
   },
   "conclusion": "LAB06 расширена на Qwen3.6-35B-A3B BF16 (67 GiB). gfx1151 подтверждён probe для обоих образов. vLLM v0.29.0 требует util 0.97 (KV 6.73 GiB) и проходит chat/chat-stream/tool/tool-stream с LAB_READY/LAB_VALUE_42; при 0.90 — fail (нет места под cache). SGLang v0.5.20 (fixed) падает по OOM при mem-fraction 0.90, но на 0.80 проходит все protocol cases. Reference Transformers (Qwen3_5MoeForConditionalGeneration, greedy non-thinking) даёт LAB_READY; первый прогон с dense-классом был невалиден (MoE-веса MISSING). Это проверка совместимости/доступности, не сравнение скорости.",
   "reviewer_decision": null

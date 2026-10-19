@@ -52,7 +52,7 @@ dtype bfloat16, parsers `qwen3`/`qwen3_coder`, alias `lab-model`, порты 800
 
 | Configuration | Cold/warm | Chat final | Tools / streaming | Output / finish | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| vLLM c4096 | cold | `LAB_READY` | tool + stream → `LAB_VALUE_42` | см. protocol-r1 | raw/vllm-c4096-eager-02/protocol-r1 |
+| vLLM c4096 | cold | `LAB_READY` | tool → `LAB_VALUE_42`; tool-stream — **fail** (round trip не сходится) | finish_reason=tool_calls, content=3924 символа, 6 повторных tool_calls | raw/vllm-c4096-eager-02/protocol-r1 |
 | SGLang c4096 | cold | `LAB_READY` | tool + stream → `LAB_VALUE_42` | + reasoning_content | raw/sglang-c4096-graph1-03/protocol-r1 |
 | reference | cold | `LAB_READY` | not-applicable | 3 токена, 6.0 s | raw/reference-moe-result.json |
 
@@ -62,6 +62,10 @@ dtype bfloat16, parsers `qwen3`/`qwen3_coder`, alias `lab-model`, порты 800
   `gpu_memory_utilization 0.97` (KV 6.73 GiB); при 0.90 — fail. SGLang при 0.80 прошёл,
   при 0.90 — HIP OOM. Это практический лимит 35B BF16 на 100 GiB VRAM/UMA при работе через
   эти рантаймы.
+- **vLLM tool-stream не сходится.** `raw/vllm-c4096-eager-02/protocol-r1/tool-stream.followup.*`
+  показывает `finish_reason=tool_calls`, content=3924 символа, 6 повторных
+  `lookup_lab_value{key:alpha}`. `raw/http_probe.py` дополнен `validate_followup`, чтобы
+  будущие прогоны не считали такой follow-up проходом.
 - **Reference.** Первый прогон использовал dense-класс `Qwen3_5ForConditionalGeneration`
   вместо MoE — веса были MISSING, результат невалиден (сохранён как `failed`). Правильный
   класс — `Qwen3_5MoeForConditionalGeneration`.
@@ -74,9 +78,12 @@ dtype bfloat16, parsers `qwen3`/`qwen3_coder`, alias `lab-model`, порты 800
 
 ## Вывод по гипотезе
 
-**Поддержана.** BF16 Qwen3.6-35B-A3B загрузился на gfx1151 в vLLM и SGLang (при более
-высоком лимите памяти, чем для 9B) и прошёл chat/stream/tool/tool-stream; reference
-Transformers дал контрольный ответ. Проверка совместимости, не сравнение производительности.
+**Поддержана частично.** BF16 Qwen3.6-35B-A3B загрузился на gfx1151 в vLLM и SGLang (при
+более высоком лимите памяти, чем для 9B) и прошёл chat/stream/tool; tool-stream round trip
+прошёл только на SGLang. На vLLM streaming tool-stream follow-up не сходится:
+`finish_reason=tool_calls`, модель снова вызывает `lookup_lab_value` 6 раз и не отдаёт
+финальный `LAB_VALUE_42`. Reference Transformers (greedy non-thinking) дал `LAB_READY`.
+Проверка совместимости, не сравнение производительности.
 
 ## Ответы на контрольные вопросы
 

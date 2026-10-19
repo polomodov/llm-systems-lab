@@ -25,6 +25,17 @@ def validate_tool(message):
         raise ValueError('missing tool call id')
     return tool
 
+def validate_followup(message, metrics):
+    calls = message.get('tool_calls') or []
+    if calls:
+        raise ValueError(f'follow-up still requested {len(calls)} tool call(s); round trip did not terminate')
+    if metrics.get('finish_reason') and metrics['finish_reason'] != 'stop':
+        raise ValueError(f'follow-up finish_reason={metrics["finish_reason"]} != stop')
+    content = (message.get('content') or '').strip()
+    if content != 'LAB_VALUE_42':
+        raise ValueError(f'follow-up content={content!r} != "LAB_VALUE_42"')
+    return message
+
 if args.validate_tool_message:
     try:
         validate_tool(json.loads(pathlib.Path(args.validate_tool_message).read_text()))
@@ -112,6 +123,7 @@ def call(payload, prefix):
 
 payload = json.loads(pathlib.Path(args.request).read_text())
 message = call(payload, args.out)
+followup_metrics_path = args.out + '.followup.metrics.json'
 if args.follow_tool:
     try:
         tool = validate_tool(message)
@@ -122,5 +134,14 @@ if args.follow_tool:
     followup['messages'] = payload['messages'] + [message, {
         'role': 'tool', 'tool_call_id': tool['id'], 'content': 'LAB_VALUE_42'}]
     message = call(followup, args.out + '.followup')
+    try:
+        followup_metrics = json.loads(pathlib.Path(followup_metrics_path).read_text())
+    except Exception as error:
+        raise ValueError(f'follow-up metrics unreadable: {error}') from error
+    try:
+        validate_followup(message, followup_metrics)
+    except Exception as error:
+        save(args.out + '.followup-rejected.json', {'reason': str(error)})
+        raise
 save(args.out + '.final.json', {'content': message.get('content'),
     'tool_calls': message.get('tool_calls'), 'reasoning_content': message.get('reasoning_content')})
