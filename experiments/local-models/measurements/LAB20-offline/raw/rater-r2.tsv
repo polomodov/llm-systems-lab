@@ -1,0 +1,21 @@
+candidate	criterion	value	evidence
+candidate-d	C1	true	чисел не приводит, неподтверждённых не вводит
+candidate-d	C2	true	"заявление поставщика [S1]; ""независимое измерение [S2]"""
+candidate-d	C3	true	различия машин/prompt/concurrency; лучший результат ≠ медиана
+candidate-d	C4	true	не доказано; парный опыт с одинаковыми условиями
+candidate-d	C5	true	64 слова, непустой
+candidate-c	C1	true	числа со ссылками и условиями
+candidate-c	C2	false	Два независимых измерения — заявление поставщика S1 названо независимым измерением
+candidate-c	C3	true	числа нельзя сравнивать напрямую
+candidate-c	C4	true	не доказано; предложен опыт на machine A, prompt 8192, tools
+candidate-c	C5	true	68 слов, непустой
+candidate-b	C1	true	числа со ссылками и условиями
+candidate-b	C2	true	"Поставщик заявляет; ""независимая группа измерила"""
+candidate-b	C3	false	доказанно вдвое быстрее; различия условий объявлены несущественными
+candidate-b	C4	false	нет утверждения о недоказанности и плана опыта
+candidate-b	C5	true	57 слов, непустой
+candidate-a	C1	true	числа 40/20 со ссылками [S1]/[S2] и условиями prompt/concurrency/machine
+candidate-a	C2	true	"Заявление поставщика North; ""Независимое измерение South"""
+candidate-a	C3	true	различия условий объяснены; числа не выданы за доказательство ускорения
+candidate-a	C4	true	не доказано для S3; предложен парный опыт на machine A, prompt 8192, tools
+candidate-a	C5	true	84 слова, непустой, не пересказ
