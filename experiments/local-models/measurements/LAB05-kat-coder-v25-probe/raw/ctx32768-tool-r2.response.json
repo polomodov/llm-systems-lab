@@ -1,0 +1,44 @@
+{
+  "choices": [
+    {
+      "finish_reason": "tool_calls",
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "Пользователь просит вызвать lookup_lab_value с key alpha и вернуть только значение.\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            },
+            "id": "lSGZioVqiecweaAJwawtAclY039BGzcd"
+          }
+        ]
+      }
+    }
+  ],
+  "created": 1791834503,
+  "model": "lab-model",
+  "system_fingerprint": "b8407-312cf0332",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 48,
+    "prompt_tokens": 313,
+    "total_tokens": 361
+  },
+  "id": "chatcmpl-UcDW4dGXPieqyCRMS1CtL3wFc2TBkjP0",
+  "timings": {
+    "cache_n": 309,
+    "prompt_n": 4,
+    "prompt_ms": 37.971,
+    "prompt_per_token_ms": 9.49275,
+    "prompt_per_second": 105.34355165784416,
+    "predicted_n": 48,
+    "predicted_ms": 941.111,
+    "predicted_per_token_ms": 19.606479166666666,
+    "predicted_per_second": 51.003547934303185
+  }
+}

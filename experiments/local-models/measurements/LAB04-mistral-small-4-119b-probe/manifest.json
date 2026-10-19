@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB04",
+  "harness_id": null,
+  "session_id": "mistral-small-4-119b-probe",
+  "created_at": "2026-10-12T19:50:11Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "opencode probe pipeline",
+  "protocol_recorded_at": "2026-10-12T19:50:11Z",
+  "protocol_before_run": "raw/protocol.md",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-mistral-small-4-119b-probe/raw/artifact.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB04-mistral-small-4-119b-probe/raw/build-provenance.txt",
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "mistral-vulkan-offload",
+      "configuration_id": "mistral-small-4-119b-vulkan",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/vulkan-offload-proof.json",
+        "raw/vulkan-offload-proof.log",
+        "raw/vulkan-devices.txt"
+      ],
+      "conclusion": "Vulkan offload-proof: 68.69 GiB, offloaded на GPU, pp8 77.38 t/s, tg1 33.26 t/s, build 8407.",
+      "reason": null
+    },
+    {
+      "id": "mistral-hip-offload",
+      "configuration_id": "mistral-small-4-119b-hip",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/hip-offload-proof.log",
+        "raw/hip-devices.txt"
+      ],
+      "conclusion": null,
+      "reason": "HIP/ROCm offload-proof завис на загрузке модели: лог остановился после «offloaded 37/37 layers to GPU», ROCm0 buffer 69794.53 MiB, без результата (>14 ч без прогресса)"
+    },
+    {
+      "id": "mistral-paired-repeats",
+      "configuration_id": "mistral-small-4-119b",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "conclusion": null,
+      "reason": "не достигнуто: HIP-ветвь зависла до парных повторов pp2048/tg128"
+    }
+  ],
+  "evidence_files": [
+    "raw/build-provenance.txt",
+    "raw/hip-devices.txt",
+    "raw/hip-offload-proof.json",
+    "raw/hip-offload-proof.log",
+    "raw/protocol.md",
+    "raw/vulkan-devices.txt",
+    "raw/vulkan-offload-proof.json",
+    "raw/vulkan-offload-proof.log"
+  ],
+  "hypothesis": "Один GGUF mistral-small-4-119b полностью выгружается на GPU в обеих prebuilt-сборках llama.cpp b8407 (312cf0332) (Vulkan/RADV и ROCm/HIP); backend влияет на скорость, направление неизвестно.",
+  "unavailable": {
+    "conditions.harness_profile": "LAB04 не использует обвязку.",
+    "completion": "LAB04 не завершён: Vulkan offload-proof прошёл, но HIP-ветвь не загрузила модель (stall при ~69.8 GiB GPU buffer), парные повторы не получены.",
+    "measurements": "Численных парных повторов нет: HIP-ветвь не дала результат, Vulkan остановлен на offload-proof."
+  },
+  "conclusion": "Mistral-Small-4-119B-2603 UD-Q4_K_M (68.69 GiB, Vulkan) загружается и работает на gfx1151, но HIP/ROCm-ветвь b8407 зависла на загрузке 37/37 слоёв (ROCm0 buffer 69794 MiB) — модель не допущена к парной серии в этом бюджете. Итог — blocked (partial): получен только Vulkan offload-proof.",
+  "reviewer_decision": null
+}

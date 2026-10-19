@@ -1,0 +1,4 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+kat-coder-v25-ctx8192-tg	kat-coder-v25-ctx8192	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip	8192	1	tg128_avg_ts	46.874599	tokens/s	measured	raw/context-8192-bench.json	
+kat-coder-v25-ctx16384-tg	kat-coder-v25-ctx16384	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip	16384	1	tg128_avg_ts	42.162376	tokens/s	measured	raw/context-16384-bench.json	
+kat-coder-v25-ctx32768-tg	kat-coder-v25-ctx32768	Kwaipilot/KAT-Coder-V2.5-Dev	llama.cpp b8407 (312cf0332)	hip	32768	1	tg128_avg_ts	36.148879	tokens/s	measured	raw/context-32768-bench.json	

@@ -1,0 +1,2 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+kat-coder-v25-bytes	kat-coder-v25-verify	Kwaipilot/KAT-Coder-V2.5-Dev	sha256sum	-		1	file_bytes	25017457056	B	measured	raw/verification.json	
