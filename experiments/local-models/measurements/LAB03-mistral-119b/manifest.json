@@ -1,0 +1,88 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB03",
+  "harness_id": null,
+  "session_id": "mistral-119b",
+  "created_at": "2026-10-15T11:14:18.207Z",
+  "status": "completed",
+  "evidence_class": "experimental",
+  "operator": "open (agent) по заданию polomodov",
+  "hypothesis": "Выбранные 3 shard mistral-small-4-119b соответствуют закреплённой ревизии и SHA-256 издателя; модель проходит предварительный бюджет памяти при 8192/1.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-15T11:17:07Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB03-mistral-119b/raw/artifact.json",
+    "runtime_manifest": null,
+    "harness_profile": null
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "artifact-verify",
+      "configuration_id": "mistral-119b-udq4km",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/verification.json",
+        "raw/download-verification.json",
+        "raw/weights.sha256",
+        "raw/checksums-recheck.txt",
+        "raw/artifact.json"
+      ],
+      "reason": null
+    },
+    {
+      "id": "memory-plan-12",
+      "configuration_id": "mistral-119b-udq4km",
+      "kind": "measurement",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/plan-default.json",
+        "raw/control-plan.json",
+        "raw/disk-before.txt",
+        "raw/disk-after.txt"
+      ],
+      "reason": null
+    },
+    {
+      "id": "inference-8k",
+      "configuration_id": "mistral-119b-udq4km",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": "Инференс не входит в ЛР03; выполняется в ЛР04 (backend) и ЛР05 (context/tools)."
+    }
+  ],
+  "evidence_files": [
+    "raw/artifact.json",
+    "raw/catalog.json",
+    "raw/checksums-recheck.txt",
+    "raw/control-plan.json",
+    "raw/disk-after.txt",
+    "raw/disk-before.txt",
+    "raw/download-verification.json",
+    "raw/fetch_artifact.py",
+    "raw/input-hashes.txt",
+    "raw/plan-default.err",
+    "raw/plan-default.json",
+    "raw/planning-hardware.json",
+    "raw/protocol.md",
+    "raw/python-version.txt",
+    "raw/repository-revision.txt",
+    "raw/verification.json",
+    "raw/weights.sha256"
+  ],
+  "unavailable": {
+    "real_inference": "Инференс (llama-bench / llama-server) в этой сессии не запускается: ответственность ЛР04/05.",
+    "conditions.runtime_manifest": "Runtime не выбран в ЛР03; бинарь и build-provenance фиксируются в ЛР04.",
+    "conditions.harness_profile": "Лаборатория локального инференса без обвязки; harness profile не применим.",
+    "model_revision": "Ревизия основной модели (mistralai/Mistral-Small-4-119B-2603) не привязана к локальному файлу весов; веса закреплены ревизией GGUF unsloth."
+  },
+  "conclusion": "Артефакт mistral-small-4-119b (3 shard, 73 760 980 544 B) проверен: bytes и SHA-256 совпали с метаданными издателя, weights.sha256 перепроверен 3/3 OK. Модель отсутствует в models.json (взята из campaign/probe-models.json), это расширение к контролю qwen35-9b. Вместимость при инференсе остаётся unverified до ЛР04/05.",
+  "reviewer_decision": null
+}
