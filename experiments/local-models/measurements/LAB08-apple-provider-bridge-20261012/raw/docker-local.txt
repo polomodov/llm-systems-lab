@@ -1,0 +1,12 @@
+npm notice run agent-harnesses-exps@0.1.0 test:local-docker
+npm notice run HARNESS_LOCAL_DOCKER_TEST=1 node --test tests/local-docker.test.mjs
+{"acceptance":"B01/B02/B03/B04/B06","sdk_version":"0.73.1","sdk_requests":2,"canceled_requests":1,"native_tool_result":true,"cloud_requests":0,"isolated":true,"control_denied":true}
+✔ Docker B01–B04: native Pi round-trip, isolated agent and private reverse control (3405.263167ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3444.72325

@@ -1,0 +1,91 @@
+{
+  "schema_version": 2,
+  "kind": "lab-report",
+  "lab_id": "LAB08",
+  "harness_id": null,
+  "session_id": "apple-provider-bridge-20261012",
+  "created_at": "2026-10-12T12:36:54.628Z",
+  "status": "blocked",
+  "evidence_class": "experimental",
+  "operator": "Codex по запросу владельца",
+  "hypothesis": "Нативные wall/stale guards сохраняют изоляцию и останавливают работу после разрыва наблюдений.",
+  "protocol_before_run": "raw/protocol.md",
+  "protocol_recorded_at": "2026-10-12T12:38:00.808Z",
+  "conditions": {
+    "hardware_snapshot": "experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/raw/apple-hardware.json",
+    "model_artifact_manifest": "experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/raw/artifact-manifest.json",
+    "runtime_manifest": "experiments/local-models/measurements/LAB08-apple-provider-bridge-20261012/raw/deployment.json",
+    "harness_profile": "experiments/pi/harness.json"
+  },
+  "run_ids": [],
+  "planned_attempts": [
+    {
+      "id": "boundary",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "exercise",
+      "status": "completed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/unit-tests.txt",
+        "raw/docker-local.txt",
+        "raw/docker-cloud.txt"
+      ],
+      "reason": null
+    },
+    {
+      "id": "native-admission",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "measurement",
+      "status": "failed",
+      "run_id": null,
+      "evidence_files": [
+        "raw/native-qualification.json",
+        "raw/native/resource-guard.json",
+        "raw/native/shutdown-process.json"
+      ],
+      "reason": "Native memory/power guard: free+speculative ниже закреплённого порога8GiB до chat."
+    },
+    {
+      "id": "native-stale",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "measurement",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": "Предшествующая native admission не прошла; по исходному протоколу дальнейшее исполнение остановлено."
+    },
+    {
+      "id": "pilot",
+      "configuration_id": "pi-local-bridge-v1",
+      "kind": "agent-run",
+      "status": "not-run",
+      "run_id": null,
+      "evidence_files": [],
+      "reason": "Предшествующая native admission не прошла; по исходному протоколу дальнейшее исполнение остановлено."
+    }
+  ],
+  "evidence_files": [
+    "raw/docker-local.txt",
+    "raw/docker-cloud.txt",
+    "raw/deployment.json",
+    "raw/native-qualification.txt",
+    "raw/check.txt",
+    "raw/native-qualification.json",
+    "raw/native-qualification.mjs",
+    "raw/unit-tests.txt",
+    "raw/protocol.md",
+    "raw/native/native-server.txt",
+    "raw/native/native-memory.jsonl",
+    "raw/native/shutdown-process.json",
+    "raw/native/resource-guard.json",
+    "raw/native/startup-process.json"
+  ],
+  "unavailable": {
+    "completion": "Native admission остановлена: free+speculative 3.47GiB <8GiB.",
+    "agent_verdict": "Pilot не запускался после отказа квалификации; независимый verdict отсутствует.",
+    "energy": "Измерение энергии не выполнено.",
+    "temperature": "Температура не измерена."
+  },
+  "conclusion": "Offline/Docker boundary прошли; native admission прервана free+speculative guard. Stale qualification и pilot не запускались.",
+  "reviewer_decision": null
+}
