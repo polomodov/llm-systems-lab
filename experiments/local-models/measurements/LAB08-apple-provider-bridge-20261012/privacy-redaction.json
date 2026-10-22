@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "kind": "privacy-redacted-derivative",
+  "transformation": "personal-metadata-v1",
+  "published_on": "2026-11-06",
+  "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
+  "files": [
+    {
+      "path": "raw/deployment.json",
+      "original_sha256": "e4f7d1e552dd4feb6f7fe742cabb446ab2b3a410260821c32ae8470c23752b0b",
+      "published_sha256": "6556fe4e8373feb714ace53de91e89272fe2ba18fff8e9f7285736487b1a059c",
+      "original_bytes": 9207,
+      "published_bytes": 9025
+    },
+    {
+      "path": "raw/native-qualification.json",
+      "original_sha256": "d5842ffacf69fa163dce9c7ee1fffc598816fc03580fb2ca971a38b42e78592a",
+      "published_sha256": "01a42166bb2989c3aaf3c12944408a0797e1dccc5194eec52fe24affdddc15d2",
+      "original_bytes": 698,
+      "published_bytes": 677
+    },
+    {
+      "path": "raw/native-qualification.txt",
+      "original_sha256": "7bbcf4a145005745c67976d9f6a4b0c89acfc45dab5178a1a296e1fa805e0930",
+      "published_sha256": "6f1320f991480b8ab4eba90c822744ccda4a10982152a3a01c96391ab7e90c55",
+      "original_bytes": 681,
+      "published_bytes": 660
+    },
+    {
+      "path": "raw/native/native-server.txt",
+      "original_sha256": "3776fd59b5ad561025354530e693c130d358eeb47c947f12f4804b4cce3b7346",
+      "published_sha256": "f26b8d6b486600609dc44ea5f9e77dcd6cf4ae4bae7cf9cdd9efedb8f9efe2c7",
+      "original_bytes": 15460,
+      "published_bytes": 15446
+    },
+    {
+      "path": "raw/native/startup-process.json",
+      "original_sha256": "47074803a935b253c2f25c63bbb484d07a2a1d2090d2f8e95817952a2ae6aedc",
+      "published_sha256": "bb6d2fd0a877204d6e5cde4a6e999ba63c621739008c285b7c0cf5921339ad25",
+      "original_bytes": 22220,
+      "published_bytes": 22024
+    }
+  ]
+}
