@@ -37,6 +37,8 @@ MLXclienttimeout1.037187s, recoverycompleted4.889602s послеexit, sameappPID
 
 Runtime packages,KV/cache/template defaults, visionloader и quant разные; чистыйoverhead и чистаяразницаengine неизвестны. RSS включаетGUI/helpers/пересекающиесястраницы, неMetalheap. GPUbudget/energy/temperature неизвестны. ПервичнаяLAB33остаётсяblocked, новаясерия не выдаётся заfulladmission илиagent run.
 
+При сверке 22.10.2026 обнаружено отсутствие двух архивных native logs: `raw/native-main.log` и `raw/native-2026-10-08.1.log`. Их исторические SHA-256 и исходные пути сохранены, но содержимое недоступно. Manifest учитывает их в `unavailable`, а доступными доказательствами остаются сохранённые server fragments, HTTP/metrics и resource timelines. Это ограничивает проверку полного native log; выводы о неподтверждённых cancellation/offload остаются прежними. [Аудит учёта](accounting-audit-20261022.md).
+
 ## Вывод по гипотезе
 
 Стабильная MLXservice session поддержана16/16shortfixtures и recoveryбезисчезновенияприложения; полныйLAB33критерий не выполнен из-за nativecancel/offload/resourceguard. ДляLAB34 используется уже квалифицированныйdirectGGUF8K, не новаяMLXветвь. Причинаисходногосбояunknown.
@@ -50,4 +52,4 @@ Runtime packages,KV/cache/template defaults, visionloader и quant разные;
 
 ## Комплект сдачи
 
-Manifestv2/60attempts,protocol/hash,controller-at-first-start и amendment, weights/runtime hashes,actualPID/load logs,JSON/SSE/followups,metrics,timelines,rawnativefragments,offlineexport и163observations. SHA inventoryпроверяется отдельно. Submissionlab:check означаеткомплектность, reviewer_decision=null до независимойоценки.
+Manifestv2/60attempts,protocol/hash,controller-at-first-start и amendment, weights/runtime hashes,actualPID/load logs,JSON/SSE/followups,metrics,timelines,rawnativefragments,offlineexport и163observations. Исторический SHA inventory сохранён неизменным; два отсутствующих native logs перечислены в `unavailable` и исключены из списка доступных `evidence_files`. Submissionlab:check означаеткомплектность, reviewer_decision=null до независимойоценки.

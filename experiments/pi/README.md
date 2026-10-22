@@ -2,7 +2,7 @@
 
 Учебный маршрут: [ЛР15 — Pi: исходный SDK-цикл, события и воспроизводимый T002](../../docs/labs/LAB15-pi.md). Работа содержит offline smoke, реальный эпизод, независимую оценку и задания по учёту native событий.
 
-Статус: **SDK-адаптер реализован; сборка и offline-инициализация проверены 20.09.2026; реальные эпизоды unverified**. Закреплён `@mariozechner/pi-coding-agent@0.73.1`, Node.js 24.13.1. Используется исходный `createAgentSession`: системный prompt, инструменты и цикл Pi. `run.mjs` только настраивает сессию, передаёт prompt, сохраняет события и останавливает цикл на границе ходов. Компонент реестра — L011.
+Статус: **SDK-адаптер реализован; сборка и offline-инициализация проверены 20.09.2026; Pi/local/T002 имеет два независимо оценённых fail и один pass на Ryzen (12–15.10.2026); cloud-эпизоды unverified**. Закреплён `@mariozechner/pi-coding-agent@0.73.1`, Node.js 24.13.1. Используется исходный `createAgentSession`: системный prompt, инструменты и цикл Pi. `run.mjs` только настраивает сессию, передаёт prompt, сохраняет события и останавливает цикл на границе ходов. Компонент реестра — L011.
 
 ## Запуск
 
@@ -43,7 +43,7 @@ docker run --rm --network none --read-only --user 1000:1000 \
 
 ## Local provider bridge — первая реализация LAB08
 
-Для Pi добавлен provider `local` / GGUF / native llama.cpp Metal на macOS 26.5. Это отдельная инженерная ветка; прежние cloud providers не меняются. Сначала нужен полный deployment manifest v1, прошедшие LAB32 условия и проверка текущих файлов. Пример исходного manifest: [LAB08 deployment](../local-models/measurements/LAB08-apple-provider-bridge-20261009/raw/deployment.json). Абсолютные пути относятся к этому стенду; подставлять другой endpoint или alias после prepare нельзя.
+Для Pi добавлен provider `local` / GGUF / controlled native llama.cpp Metal на macOS и ROCm на Linux. [LAB15 Ryzen](measurements/LAB15-local-ryzen/report.md) содержит оценённые T002; сводный отчёт blocked по предрегистрации повторов. Ниже сохранён пример Apple deployment, чей pilot ожидает независимой оценки. Это отдельная инженерная ветка; прежние cloud providers не меняются. Сначала нужен полный deployment manifest v1, прошедшие LAB32 условия и проверка текущих файлов. Пример исходного manifest: [LAB08 deployment](../local-models/measurements/LAB08-apple-provider-bridge-20261009/raw/deployment.json). Абсолютные пути относятся к этому стенду; подставлять другой endpoint или alias после prepare нельзя.
 
 ```sh
 npm run new-run -- --harness pi --agent a2-janitor --task T002 --provider local --model lab-model
@@ -65,4 +65,4 @@ Pi использует свой `createAgentSession` и native tools. SDK API �
 
 Проверки: `npm test`, `npm run test:docker`, `npm run test:local-docker` (требует обоих pinned images), `npm run check`. Результаты, исходные отказы и статус pilot — в [LAB08 отчёте](../local-models/measurements/LAB08-apple-provider-bridge-20261009/report.md). Компоненты L024/L025 имеют статус «предложена»; вклад в качество и перенос на другие adapters/platforms не установлены.
 
-После первого настоящего pilot добавлены wall-clock deadline check и отказ при разрыве resource timeline >15 s/движении часов назад. Software/Docker regressions прошли; новый native admission после этой коррекции ещё pending. Guards действуют при возобновлении host и не обещают остановку во время полной его приостановки. Две реальные aborted попытки сохранены в LAB08.
+После первого настоящего pilot добавлены wall-clock deadline check и отказ при разрыве resource timeline >15 s/движении часов назад. Software/Docker regressions прошли; новая [Apple-квалификация](../local-models/measurements/LAB08-apple-native-requalification-20261010/report.md) выполнена, её 16K pilot остаётся awaiting_review. [Ryzen-продолжение](../local-models/measurements/LAB08-ryzen-linux-bridge/report.md) имеет оценённые fail/pass; это другие условия. Guards действуют при возобновлении host и не обещают остановку во время полной его приостановки. Две реальные aborted попытки сохранены в LAB08.

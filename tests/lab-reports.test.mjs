@@ -119,7 +119,7 @@ function runFixture(f, { status = 'planned', started = false } = {}) {
   if (status !== 'planned') {
     record.status = status;
     record.loop.stop_reason = 'Synthetic fixture';
-    record.verdict.result = status === 'completed' ? 'fail' : 'aborted';
+    record.verdict.result = status === 'completed' ? 'fail' : status === 'awaiting_review' ? 'pending' : 'aborted';
     if (started) {
       writeFileSync(join(dir, 'artifacts/inputs.json'), '{}');
       record.inputs = { manifest_path: 'artifacts/inputs.json', manifest_sha256: sha256('{}'), prepared_at: '2026-09-21T00:01:00.000Z' };
@@ -173,6 +173,48 @@ test('started failures cannot be relabeled as omissions, and late protocols are 
   f.save(); assert.deepEqual(check(f).errors, []);
   f.manifest.status = 'completed'; f.save();
   assert.match(check(f).errors.join('\n'), /protocol_before_run: required/);
+});
+
+test('a finished unjudged run is retained as awaiting-review only in a blocked submission', t => {
+  const f = submission(fixture(t));
+  const record = runFixture(f, { status: 'awaiting_review', started: true });
+  const runPath = join(f.root, 'results/runs', record.run_id, 'run.json');
+  const before = readFileSync(runPath, 'utf8');
+  Object.assign(f.manifest, { status: 'blocked' });
+  f.manifest.unavailable.completion = 'Independent verdict is pending';
+  Object.assign(f.manifest.planned_attempts[0], { status: 'awaiting-review', reason: 'Execution finished; no independent evaluation yet' });
+  const header = readFileSync(join(f.dir, 'measurements.tsv'), 'utf8');
+  writeFileSync(join(f.dir, 'measurements.tsv'), header + ['obs-01', 'baseline', '', '', '', '', '1', 'wall-clock', '60', 's', 'measured', 'raw/review.json', ''].join('\t') + '\n');
+  f.save();
+  assert.deepEqual(check(f).errors, []);
+  assert.equal(check(f).ready_for_review, true);
+  assert.equal(check(f).experiment_pass, null);
+  assert.equal(readFileSync(runPath, 'utf8'), before);
+  f.manifest.status = 'completed'; f.save();
+  assert.match(check(f).errors.join('\n'), /awaiting-review requires a blocked report/);
+  f.manifest.status = 'blocked'; f.manifest.planned_attempts[0].reason = null; f.save();
+  assert.match(check(f).errors.join('\n'), /awaiting-review needs a reason/);
+  f.manifest.planned_attempts[0].reason = 'Pending';
+  f.manifest.planned_attempts[0].status = 'not-run'; f.save();
+  assert.match(check(f).errors.join('\n'), /started run cannot be omitted/);
+  f.manifest.planned_attempts[0].status = 'completed'; f.save();
+  assert.match(check(f).errors.join('\n'), /status disagrees with run record/);
+});
+
+test('awaiting-review rejects missing, unstarted, aborted or already judged runs and non-agent attempts', t => {
+  for (const status of ['planned', 'aborted', 'completed']) {
+    const f = submission(fixture(t));
+    runFixture(f, { status, started: status !== 'planned' });
+    f.manifest.status = 'blocked'; f.manifest.unavailable.completion = 'Fixture blocker';
+    Object.assign(f.manifest.planned_attempts[0], { status: 'awaiting-review', reason: 'Pending' }); f.save();
+    assert.match(check(f).errors.join('\n'), /awaiting-review requires a finished run/);
+  }
+  const f = submission(fixture(t));
+  f.manifest.status = 'blocked'; f.manifest.unavailable.completion = 'Fixture blocker';
+  Object.assign(f.manifest.planned_attempts[0], { status: 'awaiting-review', reason: 'Pending' }); f.save();
+  assert.match(check(f).errors.join('\n'), /awaiting-review is only for agent-run/);
+  f.manifest.planned_attempts[0].kind = 'agent-run'; f.manifest.evidence_class = 'experimental'; f.save();
+  assert.match(check(f).errors.join('\n'), /missing run record/);
 });
 
 test('an unperformed configuration cannot yield measured data or a completed report', t => {

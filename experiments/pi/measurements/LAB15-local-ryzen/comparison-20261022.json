@@ -1,0 +1,112 @@
+{
+  "pending": [],
+  "excluded": [],
+  "groups": [
+    {
+      "conditions": {
+        "task": "T002-repo-janitor",
+        "agent": "a2-janitor",
+        "model": "lab-model",
+        "provider": "local",
+        "model_selection": "explicit",
+        "model_lock": false,
+        "inputs": "4ef2ea45cb96651297c15caf951ed0469dd62db756147fa578e39f9d443f50e2",
+        "variant": "baseline",
+        "budget_policy": "observed",
+        "budget_usd": 2,
+        "timeout_s": 1800,
+        "sandbox": "container",
+        "network": "allowlist",
+        "evaluation": "hidden-check",
+        "source_mode": "none",
+        "local_inference": "d333cabc4a6fedcc943f7173a57c1e5d4dd852fcd9b714668cf2e4a04db1fea7",
+        "local_bridge": "0148edabf5ce7975f8a67861f8672cd34d7a0f7d2f611c5c9cbc5f987833f1ed"
+      },
+      "harnesses": [
+        {
+          "name": "pi",
+          "version": "0.73.1",
+          "mode": "sdk",
+          "image_id": "sha256:1bcc87a81bb4a12e41115d3e8bac1e9e6b67c4b67079f27fdafc42a2efcac16e",
+          "runs": [
+            {
+              "id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
+              "result": "fail"
+            },
+            {
+              "id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
+              "result": "fail"
+            }
+          ],
+          "model_identity_observed": 2,
+          "workspace_available": 0,
+          "pass": 0,
+          "total": 2,
+          "mean_cost_usd": {
+            "value": null,
+            "measured": 0,
+            "total": 2
+          },
+          "mean_wall_clock_s": {
+            "value": 922.5,
+            "measured": 2,
+            "total": 2
+          },
+          "triples": [],
+          "unbatched_runs": 2
+        }
+      ]
+    },
+    {
+      "conditions": {
+        "task": "T002-repo-janitor",
+        "agent": "a2-janitor",
+        "model": "lab-model",
+        "provider": "local",
+        "model_selection": "explicit",
+        "model_lock": false,
+        "inputs": "4ef2ea45cb96651297c15caf951ed0469dd62db756147fa578e39f9d443f50e2",
+        "variant": "baseline",
+        "budget_policy": "observed",
+        "budget_usd": 2,
+        "timeout_s": 1800,
+        "sandbox": "container",
+        "network": "allowlist",
+        "evaluation": "hidden-check",
+        "source_mode": "none",
+        "local_inference": "d333cabc4a6fedcc943f7173a57c1e5d4dd852fcd9b714668cf2e4a04db1fea7",
+        "local_bridge": "9e3a6abe610b51d537b0f03eeaee9064487bbb91dd89311045fe5a4fd2e36a39"
+      },
+      "harnesses": [
+        {
+          "name": "pi",
+          "version": "0.73.1",
+          "mode": "sdk",
+          "image_id": "sha256:1bcc87a81bb4a12e41115d3e8bac1e9e6b67c4b67079f27fdafc42a2efcac16e",
+          "runs": [
+            {
+              "id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
+              "result": "pass"
+            }
+          ],
+          "model_identity_observed": 1,
+          "workspace_available": 0,
+          "pass": 1,
+          "total": 1,
+          "mean_cost_usd": {
+            "value": null,
+            "measured": 0,
+            "total": 1
+          },
+          "mean_wall_clock_s": {
+            "value": 851,
+            "measured": 1,
+            "total": 1
+          },
+          "triples": [],
+          "unbatched_runs": 1
+        }
+      ]
+    }
+  ]
+}

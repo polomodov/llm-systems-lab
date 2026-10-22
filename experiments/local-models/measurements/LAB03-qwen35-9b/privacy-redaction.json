@@ -6,6 +6,13 @@
   "description": "# Обезличенная копия архива\n\nДля публикации 2026-11-06 из этого исторического снимка удалены личные\nметаданные: домашние пути, имя машины и подтверждённые адреса из access logs.\nЭто производные материалы; измерения и оценивание повторно не выполнялись.\nЧисленные результаты сохранены. Файлы и их исходные/публичные SHA-256\nперечислены в `privacy-redaction.json`.\n\nСуммы внешних моделей, бинарников и fixtures, записанные при измерении,\nостаются свидетельством исходных внешних байтов. Они не являются суммами\nобезличенных логов. Исходные ревизии также описывают исходный эксперимент.\n",
   "files": [
     {
+      "path": "raw/backup/before-reconciliation-report.md",
+      "original_sha256": "5e4dfe60a874aecba7211bbe7c33d477e38db9b08217bd1f95e64cda5aead611",
+      "published_sha256": "7984bc7e09fc50e9d9f4277dd82f1f9ad0b4449d7a5e940df914d0a4c7bc13ce",
+      "original_bytes": 17668,
+      "published_bytes": 17654
+    },
+    {
       "path": "raw/checksums-recheck.txt",
       "original_sha256": "6a406101c4294168d2d4b18704f1f6169e46d0e819823a36e371fce3eb9d5530",
       "published_sha256": "15dfd35d50efa01357a52aed20005ee02dec9c393f0a6f9e618c40227e9f57ad",
@@ -42,10 +49,10 @@
     },
     {
       "path": "report.md",
-      "original_sha256": "5e4dfe60a874aecba7211bbe7c33d477e38db9b08217bd1f95e64cda5aead611",
-      "published_sha256": "7984bc7e09fc50e9d9f4277dd82f1f9ad0b4449d7a5e940df914d0a4c7bc13ce",
-      "original_bytes": 17668,
-      "published_bytes": 17654
+      "original_sha256": "77120e0917b627b20ddfc5d52c49c0b07adfa08eceece82b95fbcbaa5ce64004",
+      "published_sha256": "1fac4d170ed0f0f3d81b7b01a1c6cc00214328e17f099c0ae2411263d0980489",
+      "original_bytes": 21899,
+      "published_bytes": 21885
     }
   ]
 }

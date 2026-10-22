@@ -5,7 +5,7 @@
   "harness_id": null,
   "session_id": "ryzen-linux-bridge",
   "created_at": "2026-10-12T12:36:28.029Z",
-  "status": "completed",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "opencode (agent) по заданию polomodov",
   "hypothesis": "Linux/ROCm-ветвь того же изолированного local bridge применима к Ryzen: агент не выбирает upstream, identity весов/template/backend подтверждается до и после старта, а существенные смены условий различаются fingerprint. Критерий опровержения: доступ к другому адресу/порту/admin/cloud, потерянный tool-result, две конфигурации в одной группе, отсутствующий usage как 0.",
@@ -22,7 +22,8 @@
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-2",
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-3",
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
-    "2026-10-12-pi-a2-janitor-t002-repo-janitor-5"
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
+    "2026-10-15-pi-a2-janitor-t002-repo-janitor"
   ],
   "planned_attempts": [
     {
@@ -79,7 +80,19 @@
       "status": "completed",
       "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
       "evidence_files": [],
-      "reason": null
+      "reason": "Повтор учтён ретроспективно: исходный raw/protocol.md не содержит отдельной регистрации этой попытки. Это реестр исполнения, а не восстановленный предварительный план; см. audit-20261022.md."
+    },
+    {
+      "id": "local-followup-32768-host-passport",
+      "configuration_id": "lab08-local-32768-host-passport",
+      "kind": "agent-run",
+      "status": "completed",
+      "run_id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
+      "evidence_files": [
+        "raw/judge-check-2026-10-15-pi-a2-janitor-t002-repo-janitor.txt",
+        "raw/evaluation-2026-10-15-pi-a2-janitor-t002-repo-janitor.json"
+      ],
+      "reason": "Существующий completed/pass от 15.10 добавлен в manifest при сверке 22.10. Предварительная регистрация follow-up в исходном протоколе отсутствует; изменённый local bridge учитывается отдельно. См. audit-20261022.md."
     }
   ],
   "evidence_files": [
@@ -94,13 +107,19 @@
     "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.txt",
     "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.json",
     "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.txt",
-    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.json"
+    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.json",
+    "raw/judge-check-2026-10-15-pi-a2-janitor-t002-repo-janitor.txt",
+    "raw/evaluation-2026-10-15-pi-a2-janitor-t002-repo-janitor.json",
+    "audit-20261022.md",
+    "comparison-20261022.json"
   ],
   "unavailable": {
     "conditions.model_artifact_manifest": "Артефакт весов запечатан внутри raw/deployment*.json (path/bytes/sha256), отдельный model manifest не требуется",
     "conditions.runtime_manifest": "Движок запечатан внутри raw/deployment*.json (executable+files hashes, backend, commit)",
-    "measurements": "Инженерная работа: численных лабораторных измерений нет; токены/время сохранены в run records и приведены в отчёте."
+    "measurements": "Инженерная работа: численных лабораторных измерений нет; токены/время сохранены в run records и приведены в отчёте.",
+    "completion": "Результаты выполненных запусков сохранены, но комплект blocked: исходный протокол не содержит полного предварительного плана повторной попытки -5 и follow-up 15.10. Реестр синхронизирован ретроспективно 22.10.2026; методический минимум предварительной регистрации этим не восстановлен. Новые прогоны не выполнялись.",
+    "protocol_before_run": "raw/protocol.md и protocol_recorded_at сохраняют исходный протокол 12.10 без правок. Он не регистрирует повтор -5 и follow-up 15.10 с новым admission host↔passport. Дата исходного протокола не является датой предварительной регистрации этих продолжений; audit-20261022.md — поздняя сверка."
   },
-  "conclusion": "Linux/ROCm-ветвь local bridge реализована и подтверждена реальным запуском: native llama.cpp b8407 ROCm на gfx1151 стартовал, /props identity и offloaded 33/33 совпали, agent container остался изолирован. Первый независимо оценённый pilot группы 32768/1800 s (run -4) — completed/fail: агент сделал git stash и не закоммитил до native cap 30 ходов. Три более ранних попытки сохранены как aborted. Повтор группы 32768/1800 s (run -5) — также completed/fail. Ограничение: допущен только Pi/T002; B01–B10 проверены существующими broker-тестами и добавленным B11 на Linux-сэмплер, но полная native-матрица на Linux как отдельный прогон не выполнялась. Оба независимо оценённых прогона (run -4 и -5) имеют один и тот же исход fail: модель редактирует файлы, но не коммитит их к native cap 30 ходов.",
+  "conclusion": "Linux/ROCm local bridge подтверждён в ограниченном маршруте Pi 0.73.1/T002. Учтены шесть run records: три aborted и три completed (два fail 12.10, один pass 15.10). В follow-up с новым admission host↔passport агент завершил задачу за 28 ходов и 851 s; verdict pass сохранён в исходной записи. Из-за изменения local_bridge compare разделяет оценённые runs на группы 2+1, сопоставимой тройки нет. Полная native-матрица B01–B10 на Linux и остальные обвязки не квалифицированы. Комплект blocked из-за отсутствия предварительной регистрации продолжений -5 и 15.10; их исполнение внесено ретроспективно, исходный протокол не изменён.",
   "reviewer_decision": null
 }

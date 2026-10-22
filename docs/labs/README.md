@@ -4,6 +4,37 @@
 
 Это **52 лабораторные работы**: десять общих и локальных работ, девять отдельных работ по всем реализованным обвязкам, восемь работ о качестве, устойчивости и развитии системы, восемь работ Apple-ветки, семь работ ветки SPACE, пять работ ветки Kubernetes и GPU и пять работ ветки AWS и Terraform. В каждой есть цель, гипотеза, необходимые условия, пошаговые действия, пустые таблицы, комплект сдачи, критерии завершения и контрольные вопросы. Общий [протокол исследования](../method.md) сохраняет силу. [Каталог моделей](../local-model-candidates.md) и [матрица движков](../local-inference-engines.md) служат справочниками к заданиям.
 
+## Состояние выполнения на 22.10.2026
+
+В репозитории 96 комплектов `LABxx-session` для 18 лабораторных; для остальных 34 комплектов нет. Отдельные smoke/preflight manifests вне этого формата не включены. `catalog.json` и `npm run labs` описывают **условия выполнения** (`readiness`), а таблица ниже — фактические результаты. `completed` отдельной сессии не закрывает автоматически весь минимум работы; `ready_for_review` означает только комплектность. Во всех комплектах `reviewer_decision=null`: формальная приёмка не назначалась. После сверки все 96 проходят `lab:check --mode submission`: 45 имеют статус `completed`, 51 — `blocked`. Это количество сессий, не выполненных лабораторных.
+
+| Лабы | Фактическое состояние | Основание и оставшийся объём |
+| --- | --- | --- |
+| LAB01 | Минимум подготовки выполнен | [Подготовка Apple](../../experiments/local-models/measurements/LAB01-apple-prerequisite-20261007/report.md); модель не запускалась |
+| LAB02 | Наблюдения сохранены; оба отчёта `blocked` | [Первый паспорт](../../experiments/local-models/measurements/LAB02-first-pass/report.md), [после ROCm](../../experiments/local-models/measurements/LAB02-after-rocm/report.md): исходный протокол до наблюдений не подтверждён, реестры восстановлены ретроспективно |
+| LAB03 | Есть завершённые проверки артефактов; исходный выбор Qwen9 `blocked` | [Qwen9](../../experiments/local-models/measurements/LAB03-qwen35-9b/report.md) не имеет подтверждённой предрегистрации; [новая prereg-сессия GPT-OSS](../../experiments/local-models/measurements/LAB03-gpt-oss-120b-prereg/report.md) сохраняет свой статус |
+| LAB04–06 | Минимумы выполнены в исследованных конфигурациях | [Vulkan/HIP](../../experiments/local-models/measurements/LAB04-qwen35-9b-prebuilt/report.md), [контекст/tools](../../experiments/local-models/measurements/LAB05-qwen35-9b-hip-prebuilt/report.md), [vLLM/SGLang/reference](../../experiments/local-models/measurements/LAB06-qwen35-9b-rocm-prereg/report.md). Разные toolchains и eager/graph режимы ограничивают сравнения |
+| LAB07 | Отчёта нет | Сервисы Ryzen не исследованы в отдельной лабораторной |
+| LAB08 | Pi/T002 bridge реализован; отчёты `blocked` | [Ryzen](../../experiments/local-models/measurements/LAB08-ryzen-linux-bridge/report.md): два `fail`, затем `pass`; часть реестра ретроспективна. [Apple](../../experiments/local-models/measurements/LAB08-apple-native-requalification-20261010/report.md): pilot `awaiting-review`. Остальные local adapters не допущены |
+| LAB09–10 | Отчётов нет | Сравнительная агентная кампания и абляция не проведены |
+| LAB11–14, LAB16–19 | Отчётов нет | Адаптеры и инструкции есть; собственные оценённые эпизоды лабораторных отсутствуют |
+| LAB15 | Локальный практический минимум исполнен; сводный отчёт `blocked` | [Pi/Ryzen](../../experiments/pi/measurements/LAB15-local-ryzen/report.md): реальные verdict сохранены, повтор и follow-up не были записаны в исходном плане. Cloud-маршрут не выполнялся |
+| LAB20 | `blocked`: минимум не выполнен | [Две проходки одной модели](../../experiments/local-models/measurements/LAB20-offline/report.md) не заменяют двух независимых людей |
+| LAB21–25, LAB27 | Отчётов нет | Для LAB21–24 нужны инженерные расширения; LAB25/27 ждут собственных сравнительных серий |
+| LAB26 | Минимум выполнен | [Ryzen c1/c2/c4](../../experiments/local-models/measurements/LAB26-ryzen-qwen35-9b/report.md): очередь к одному server slot, без доказательства параллельного ускорения GPU |
+| LAB28–31 | Минимумы выполнены для выбранных deployments | [Паспорт](../../experiments/local-models/measurements/LAB28-apple-first-20261007/report.md), [артефакты](../../experiments/local-models/measurements/LAB29-apple-qwen35-9b-20261007/report.md), [Metal](../../experiments/local-models/measurements/LAB30-apple-qwen35-9b-metal-20261007/report.md), [MLX](../../experiments/local-models/measurements/LAB31-apple-qwen35-9b-mlx-20261007/report.md) |
+| LAB32 | Частичная квалификация | [MLX 8K/16K/32K](../../experiments/local-models/measurements/LAB32-apple-mlx-identity-repeat-20261010/report.md): бюджеты входа; hard cap/overflow и физическое освобождение GPU не подтверждены. Полная последовательная Metal-цепочка остаётся незавершённой |
+| LAB33 | Все девять сессий `blocked` | [SDK cancel](../../experiments/local-models/measurements/LAB33-apple-sdk-framing-20261010/report.md): третий измеряемый повтор прерван memory guard; HTTP cancellation не выполнена. В [lifecycle-сессии](../../experiments/local-models/measurements/LAB33-apple-lifecycle-20261008/report.md) два исходных `.log` отсутствуют и учтены как недоступные |
+| LAB34 | Минимум выполнен для одного GPU-слота | [Короткая матрица и 35,51 минуты](../../experiments/local-models/measurements/LAB34-apple-sustained-resume-20261009/report.md); одновременные 2/4 GPU-слота не квалифицированы |
+| LAB35 | Все сессии `blocked`; Apple-подопыт выполнен | [Tensor-повтор](../../experiments/local-models/measurements/LAB35-apple-tensor-pinned-20261009/report.md) сохранён как выполненные попытки; свежей сопоставимой Ryzen-пары и агентной серии нет |
+| LAB36–42 | Методички; измерений и реализации ветки нет | [SPACE](../../experiments/space/README.md) |
+| LAB43–47 | Методички; измерений и реализации ветки нет | [Kubernetes/GPU](../../experiments/k8s-gpu/README.md) |
+| LAB48–52 | Методички; измерений и реализации ветки нет | [AWS/Terraform](../../experiments/aws/README.md) |
+
+Агентный реестр содержит 11 записей: 3 `completed` (2 `fail`, 1 `pass`), 6 `aborted`, 1 `awaiting_review`, 1 `prepared`. Все оценённые результаты — Pi/local/T002. `compare` не образует ни одной полной тройки одинаковых условий: успех от 15.10 нельзя объединять с двумя неуспехами от 12.10 после изменения bridge. Из этих данных не следует рейтинг обвязок или эффект изменения компонента.
+
+Сверка 22.10 выполнена без новых прогонов и без изменения run verdicts. Старые протоколы и первичные данные не дописывались; исправления учёта описаны в соответствующих отчётах. `blocked` сохраняет полезные измерения и честно обозначает незакрытый допуск. Дальнейшее выполнение требует отдельной заранее зарегистрированной сессии, а не исправления дат старой.
+
 ## Маршрут Apple M5 Max
 
 [Apple-профили и общий протокол](../../experiments/local-models/apple/README.md) описывают native macOS, память, запись evidence и CLI. Основной маршрут: **01 → 28 → 29 → 30 или 31 → 32 → 33/34 → 35**. Для сравнения движков выполняются обе 30/31; для самостоятельного protocol smoke достаточно одной.
@@ -17,7 +48,7 @@
 | [ЛР32. Контекст, streaming и инструменты на Mac](LAB32-apple-context-tools.md) | 8K/16K/32K, tools/SSE, отмена и recovery | 29 и одна из 30/31 |
 | [ЛР33. Ollama и LM Studio на Apple Silicon](LAB33-apple-serving.md) | Ollama и LM Studio: runtime identity/API | 32 |
 | [ЛР34. Параллельная нагрузка и устойчивость Mac](LAB34-apple-load.md) | 1/2/4 запроса и 30 минут устойчивости | 32; 33 при wrapper |
-| [ЛР35. Apple против Ryzen на одинаковых задачах](LAB35-apple-ryzen-comparison.md) | Общие GGUF/эпизоды на Apple и Ryzen | 04, 08, 09, 32, 34; bridge ещё требует реализации |
+| [ЛР35. Apple против Ryzen на одинаковых задачах](LAB35-apple-ryzen-comparison.md) | Общие GGUF/эпизоды на Apple и Ryzen | 04, 08, 09, 32, 34; полная приёмка bridge и агентная серия ещё не закрыты |
 
 Каталог хранит общие обязательные зависимости в `prerequisites`, альтернативы «хотя бы одна» — в необязательном `prerequisites_any`. LAB08 допускает LAB05 **или** LAB32: Mac не требует прохождения Linux-работ. CLI показывает альтернативы; `lab:new` по-прежнему создаёт только черновик, не проверяет фактическое прохождение. LAB35 включает сравнение с Ryzen и поэтому требует его baseline.
 
@@ -78,11 +109,11 @@
 | [ЛР05. Контекст и инструменты](LAB05-context-tools.md) | Границы 8K/16K/32K, HTTP/tool round trip и память | 04 | На работающем локальном сервере |
 | [ЛР06. Независимые движки](LAB06-engines.md) | vLLM/SGLang и контроль Transformers на ROCm | 03, 05 | Отдельные совместимые образы/веса; статусы поддержки проверяются |
 | [ЛР07. Сервисные приложения](LAB07-serving.md) | Накладные расходы и API Ollama/LM Studio/Lemonade | 05; также 06 для vLLM recipe | После установки выбранных сервисов |
-| [ЛР08. Локальное подключение](LAB08-local-bridge.md) | Реализованный и проверенный bridge, metadata и условия сравнения | 01 и одна из 05/32 | **Инженерная работа:** этого подключения в текущем runner ещё нет |
+| [ЛР08. Локальное подключение](LAB08-local-bridge.md) | Реализованный и проверенный bridge, metadata и условия сравнения | 01 и одна из 05/32 | Pi/T002 native llama.cpp реализован на Ryzen/ROCm и Apple/Metal; допуск зависит от отчёта и deployment, остальные adapters требуют реализации |
 | [ЛР09. Агентные серии](LAB09-agent-campaign.md) | Pilot, независимые verdict и сравнение обвязок | 01 и выбранные ЛР11–19; 08 дополнительно для local | Облачное сравнение доступно сейчас; локальное после ЛР08 |
 | [ЛР10. Абляции и вывод](LAB10-ablation.md) | Парные серии, анализ повторов, обоснованная запись ledger | 09 | На тех же закреплённых условиях, что агентная серия |
 
-ЛР01 можно выполнить до доступа к Ryzen. ЛР02–07 не требуют local-provider bridge и не запускают агентов задач. ЛР08 является заданием на реализацию недостающего подключения, а не обещанием, что `run --provider local` уже работает. ЛР09–10 используют существующий жизненный цикл записей; их облачный маршрут доступен без ЛР08.
+ЛР01 можно выполнить до доступа к Ryzen. ЛР02–07 не требуют local-provider bridge и не запускают агентов задач. Для минимального Pi/T002 маршрута ЛР08 можно использовать существующий `local` provider; перенос на другие обвязки требует инженерного расширения. Реализация и фактическая приёмка различаются: см. таблицу состояния выше. ЛР09–10 используют существующий жизненный цикл записей; их облачный маршрут доступен без ЛР08.
 
 ## Отдельные работы по каждой обвязке
 

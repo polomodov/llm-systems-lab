@@ -4,10 +4,9 @@
 
 Дата: 2026-10-01
 
-Статус: **завершено по минимальному объёму ЛР03**. Контрольный артефакт
+Статус: **blocked** — результаты выбора и проверки файла сохранены, но исходный предварительный протокол не подтверждён. Контрольный артефакт
 `Qwen3.5-9B-Q6_K.gguf` загружен с Hugging Face, SHA-256 сверен с
-publisher metadata и с локальным файлом. Реальный inference ещё не
-выполнялся — это сделает ЛР04 (Vulkan) или ЛР05 (HIP/ROCm).
+publisher metadata и с локальным файлом. В этой сессии inference не выполнялся; аппаратные проверки относятся к отдельным лабораторным.
 
 Связанные сессии:
 
@@ -20,13 +19,21 @@ publisher metadata и с локальным файлом. Реальный infer
 - `experiments/local-models/models.json` — каталог 12 кандидатов.
 - `experiments/local-models/hardware.json` — аппаратные резервы.
 
-## Аппаратный бюджет (из ЛР02-after-rocm)
+## Сверка учёта 2026-10-22
+
+Исходный отдельный файл протокола, сохранённый до работы, не найден. Текст плана в старом manifest и дата без такого файла не доказывают предварительную регистрацию. Реестр восстановлен 2026-10-22 по сохранённым материалам и не является предрегистрацией. Исходные `manifest.json`, `report.md` и `measurements.tsv` сохранены побайтно в `raw/backup/before-reconciliation-*`; SHA-256 и преобразования перечислены в `raw/backup/reconciliation.json`. Строковые результаты и плановые резервы сохранены там отдельно от численных замеров. Неизвестные значения в TSV пусты с причиной; пропущенные команды и inference остаются в реестре. Исходные raw-файлы не изменены, новых измерений не выполнялось. `reviewer_decision` остаётся `null`; комплектность blocked-отчёта не означает завершение лабораторной.
+
+## Паспорт выполнения
+
+Исполнитель: agent-harness-lab operator; дата исходной работы — 2026-10-01. Машина: Ryzen AI Max+ 395, Ubuntu 24.04.4, kernel 7.0.0-34-generic (снимок LAB02-after-rocm). Обвязка и inference runtime в этой сессии не запускались; `run_ids` пуст. Ревизия репозитория и версия Python сохранены в `raw/repository-revision.txt` и `raw/python-version.txt`.
+
+### Аппаратный бюджет (из ЛР02-after-rocm)
 
 | Параметр | Значение | Источник |
 | --- | --- | --- |
 | MemTotal | 124.94 GiB (134 153 334 784 bytes) | `LAB02-after-rocm/raw/memory-inventory.json` |
 | MemAvailable (до простоя) | 116.65 GiB | `LAB02-after-rocm/raw/memory-inventory.json` |
-| OS reserve (default ЛР02) | 16.00 GiB | `LAB02-after-rocm/manifest.json` |
+| OS reserve (default ЛР02) | 16.00 GiB | `LAB02-after-rocm/raw/backup/reconciliation.json` |
 | Доступная RAM для модели | 108.94 GiB | `MemTotal − OS_reserve` |
 | Vulkan heap1 (DEVICE_LOCAL) size | 67.00 GiB | `LAB02-after-rocm/raw/vulkan-full.txt` |
 | **Vulkan heap1 budget** (лимит) | **65.99 GiB** | `LAB02-after-rocm/raw/vulkan-full.txt` |
@@ -39,7 +46,15 @@ publisher metadata и с локальным файлом. Реальный infer
 Для нашей машины фактический GPU budget ниже (65.99 GiB); это учитывается
 в колонке «fit_vs_vulkan_heap1_budget» ниже.
 
-## Подготовка
+## Гипотеза и протокол до запуска
+
+**Гипотеза:** выбранный GGUF совпадает с закреплёнными revision/bytes/SHA-256; плановая оценка памяти допускает последующую проверку загрузки при 8K и одной последовательности.
+
+Отдельный исходный протокол до работы не найден. Текст в старом manifest не подтверждает предварительную регистрацию; `protocol_before_run` и `protocol_recorded_at` оставлены `null`. Список действий ниже восстановлен по сохранённым файлам 2026-10-22 и не считается предрегистрацией.
+
+## Ход выполнения
+
+### Подготовка
 
 ```sh
 npm run lab:new -- --lab LAB03 --session qwen35-9b
@@ -58,7 +73,9 @@ python3 --version > "$LAB_DIR/raw/python-version.txt"
 - Python: 3.12.3 (≥ 3.11 — поддерживает `hashlib.file_digest`).
 - Свободно на диске до: 1 832 540 762 112 bytes (1.83 TB).
 
-## 1. План по 12 кандидатам (из `raw/plan-default.json`)
+## Результаты
+
+### 1. План по 12 кандидатам (из `raw/plan-default.json`)
 
 | Кандидат | Контекст | Веса, GiB (est) | Total, GiB | Headroom vs 65.99 GiB | Решение / условие |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -85,7 +102,7 @@ python3 --version > "$LAB_DIR/raw/python-version.txt"
 Контрольный план для выбранного `qwen35-9b` сохранён в
 `raw/control-plan.json` (engine не выбран — это задел для ЛР04).
 
-## 2. Выбранный артефакт
+### 2. Выбранный артефакт
 
 `raw/artifact.json`:
 
@@ -113,7 +130,7 @@ python3 --version > "$LAB_DIR/raw/python-version.txt"
 - **Дополнительные компоненты**: vision projector / speculative draft —
   отсутствуют (это текстовая модель).
 
-## 3. Скрипт загрузки
+### 3. Скрипт загрузки
 
 `raw/fetch_artifact.py` — копия шаблона из ЛР03-artifacts.md с
 проверкой:
@@ -127,7 +144,7 @@ python3 --version > "$LAB_DIR/raw/python-version.txt"
 - Проверка SHA-256 и размера **после** полной загрузки (до `os.replace`).
 - Exit 0 только если все файлы `verified`.
 
-## 4. Загрузка и offline-проверка
+### 4. Загрузка и offline-проверка
 
 ```sh
 # download
@@ -143,18 +160,18 @@ sha256sum raw/catalog.json raw/artifact.json raw/fetch_artifact.py \
 
 | Шаг | Длительность | Результат |
 | --- | --- | --- |
-| Загрузка (7.46 GiB) | **1360 с** (~22.7 мин, ≈ 5.5 MB/s) | `verified` |
-| Offline re-verify | ~80 с (полное чтение SHA-256) | `verified` |
-| `sha256sum --check` | <1 с | `OK` |
+| Загрузка (7.46 GB / 6.95 GiB) | `unavailable`: старое заявление 1360 с без сырого отсчёта | `verified` |
+| Offline re-verify | `unavailable`: старое заявление ~80 с без сырого отсчёта | `verified` |
+| `sha256sum --check` | `unavailable`: длительность не сохранена | `OK` |
 
 | Наблюдение | Значение | Условия | Evidence |
 | --- | --- | --- | --- |
 | Свободный диск до | 1 832 540 762 112 bytes | `df -B1` до загрузки | `raw/disk-before.txt` |
 | Свободный диск после | 1 825 077 895 168 bytes | `df -B1` после | `raw/disk-after.txt` |
-| Использовано | 7 463 294 464 bytes | diff (содержит `.part` temp + финальный файл) | оба `df` |
-| Время загрузки | 1360 s | `date +%s` старт/конец | `raw/download-verification.json` |
+| Уменьшение свободного диска | 7 462 866 944 bytes | разность `df`; вклад загрузки и фоновых процессов отдельно не измерен | оба `df`, `raw/backup/reconciliation.json` |
+| Время загрузки | `unavailable` | старый отчёт заявляет 1360 s; начальный/конечный отсчёт не сохранён | `raw/backup/before-reconciliation-report.md` |
 
-## 5. Контрольные артефакты
+### 5. Контрольные артефакты
 
 | Файл | SHA-256 | Назначение |
 | --- | --- | --- |
@@ -163,7 +180,7 @@ sha256sum raw/catalog.json raw/artifact.json raw/fetch_artifact.py \
 | `raw/fetch_artifact.py` | `08646ba2b488d4cd84bddb42acc18e3beceba5b82b3f812f7e5a3265e2c2bffb` | вход: скрипт загрузки |
 | `raw/weights.sha256` | одна строка: `91898433cf5ce0a8f45516a4cc3e9343b6e01d052d01f684309098c66a326c59  /home/lab/local-model-lab-artifacts/unsloth/Qwen3.5-9B-GGUF/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q6_K.gguf` | контрольный файл для `sha256sum --check` |
 
-## 6. Путь для следующих лабораторных
+### 6. Путь для следующих лабораторных
 
 Абсолютный путь весов:
 
@@ -187,18 +204,16 @@ sha256sum raw/catalog.json raw/artifact.json raw/fetch_artifact.py \
 
 ## Ошибки и ограничения
 
-- **Inference не выполнялся.** `real_inference_qwen35-9b` помечен
+- **Inference не выполнялся.** `real_inference_qwen35_9b` помечен
   `not-run` в `measurements.tsv`; planner fit — это только нижняя
   оценка, не доказательство GPU residency. Только ЛР04–05 это подтвердят.
-- **Disk used содержит `.part`**, если первый запуск был прерван. В этой
-  сессии загрузка прошла за один проход (без `.part` в финале), но
-  `df -B1` показывает сумму, не разделяя части.
+- **Disk used — разность свободного диска**, а не отдельное измерение загрузки. Два `df` не показывают наличие временных `.part` и вклад фоновых процессов. Старое численное значение исправлено по исходным `df`; оригинал сохранён в backup.
 - **Версия GGUF (3885219b...)** привязана к репозиторию `unsloth/Qwen3.5-9B-GGUF`.
   Любое изменение upstream требует нового manifest и повторной проверки.
 - **`hipconfig` unavailable** не влияет на ЛР03 — для паспорта артефакта
   достаточно `sha256sum` + `df`.
 
-## Контрольные вопросы
+## Ответы на контрольные вопросы
 
 1. **Почему 3B active у MoE не означает, что на диске/в RAM нужно только
    3B параметров?**
@@ -244,12 +259,16 @@ sha256sum raw/catalog.json raw/artifact.json raw/fetch_artifact.py \
    (д) Фрагментация TTM heap. Планировщик даёт нижнюю границу; реальная
    загрузка может потребовать на 5–15 GiB больше.
 
+## Вывод по гипотезе
+
+Сохранённые отчёты загрузки и offline-проверки подтверждают размер и SHA-256 контрольного файла. Плановые резервы памяти и вывод `candidate` не являются измерением GPU residency. Исходный протокол и сырые отсчёты длительности отсутствуют; учёт исправлен со статусом `blocked`, без новых запусков и без назначения зачёта.
+
 ## Комплект сдачи
 
 - [x] `report.md` с таблицами 12 кандидатов + выбранный артефакт +
   наблюдения диска/времени.
 - [x] `manifest.json` со всеми evidence_files.
-- [x] `measurements.tsv` (16 наблюдений).
+- [x] `measurements.tsv` (7 числовых/недоступных наблюдений; строковые результаты и плановые значения сохранены в `raw/backup/reconciliation.json`).
 - [x] `raw/catalog.json`, `raw/artifact.json`, `raw/fetch_artifact.py`,
   `raw/verification.json`, `raw/weights.sha256`, `raw/checksums-recheck.txt`,
   `raw/input-hashes.txt`, `raw/disk-{before,after}.txt`,
@@ -273,8 +292,8 @@ sha256sum raw/catalog.json raw/artifact.json raw/fetch_artifact.py \
 
 ## Источники
 
-- [Каталог 12 кандидатов](../../models.json), [разбор кандидатов](../local-model-candidates.md).
-- [План памяти и порядок кампании](../local-models.md), [Linux runbook](../local-model-runtime.md).
+- [Каталог 12 кандидатов](../../models.json), [разбор кандидатов](../../../../docs/local-model-candidates.md).
+- [План памяти и порядок кампании](../../../../docs/local-models.md), [Linux runbook](../../../../docs/local-model-runtime.md).
 - [Hugging Face: версии и загрузка](https://huggingface.co/docs/huggingface_hub/guides/download).
 - [Qwen3.5-9B (официальная модель)](https://huggingface.co/Qwen/Qwen3.5-9B),
   [GGUF от unsloth](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF).

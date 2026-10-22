@@ -7,7 +7,7 @@
 | Тип работы | Инженерная: спроектировать, реализовать и проверить интеграцию; это не только запуск измерений |
 | Время | Ориентир 12–20 часов разработки и проверки после готовности сервера; время устранения несовместимости SDK учитывается отдельно |
 | Предпосылки | ЛР01 и одна из ЛР05 (Ryzen/Linux) или ЛР32 (Apple/macOS); паспорт машины, закреплённые веса и рабочий protocol smoke |
-| Готовность | Методика готова; первый Pi/T002/Metal bridge и metadata реализованы в [LAB08 Apple](../../experiments/local-models/measurements/LAB08-apple-provider-bridge-20261009/report.md). Полный допуск зависит от фактической матрицы и независимой оценки pilot; остальные adapters **pending** |
+| Готовность | Pi/T002 bridge и metadata реализованы для native llama.cpp Metal/macOS и ROCm/Linux. [Ryzen pilot](../../experiments/local-models/measurements/LAB08-ryzen-linux-bridge/report.md) имеет независимые verdict, но сводный отчёт blocked по предрегистрации; [Apple pilot](../../experiments/local-models/measurements/LAB08-apple-native-requalification-20261010/report.md) ждёт оценки. Остальные adapters **pending** |
 | Минимальный объём | Один backend, одна модель, один адаптер Pi или mini-SWE-agent, синтетическая матрица и один реальный T002 pilot |
 | Расширение | Подключение остальных основных локальных обвязок: Pi, mini-SWE-agent, OpenCode, OpenHands |
 
@@ -52,7 +52,7 @@ npm run local:engines -- --hardware apple-m5-max-128gb-macos
 
 ## Порядок выполнения
 
-1. **Опишите исходное ограничение.** В отчёте приведите ссылки на проверенный Git commit и места кода: профиль содержит облачные `connect_domains`; CONNECT разрешает только закреплённые домены на 443; публичный resolver отклоняет private/reserved IP; schema не описывает локальный inference fingerprint. Запишите выбранную модель, обвязку и сервер. Первый интерфейс `prepare-run --provider local --local-deployment ...` и `run --provider local` описан в [Pi README](../../experiments/pi/README.md); он ограничен Pi/T002/Metal/macOS и стартует собственный pinned server. Не обходите эту границу, подставляя LAN-адрес вместо облачного домена.
+1. **Опишите исходное ограничение и текущую реализацию.** В отчёте приведите ссылки на проверенный Git commit и места кода: облачный профиль содержит `connect_domains`, CONNECT разрешает закреплённые домены на 443, публичный resolver отклоняет private/reserved IP. Local provider использует отдельный bridge и версионированный `local_inference` fingerprint. Запишите выбранную модель, обвязку и сервер. Интерфейс `prepare-run --provider local --local-deployment ...` и `run --provider local` описан в [Pi README](../../experiments/pi/README.md); он ограничен Pi/T002 и controlled native llama.cpp на Metal/macOS или ROCm/Linux, стартует собственный pinned server. Не обходите эту границу, подставляя LAN-адрес вместо облачного домена.
 
 2. **Зафиксируйте контракт интеграции до кода.** В `report.md` опишите конфигурацию endpoint: доверенный адрес, порт, транспорт, разрешённые методы/пути, identity alias, границы request/response и timeout. Выберите минимальный API для конкретного адаптера; например, chat completions не означает автоматического разрешения всего `/v1/`. Проверка доступности должна быть отдельным разрешённым маршрутом. Задайте поведение для redirect, streaming disconnect, смены адреса и неизвестной модели. Нужен отказ с диагностикой, а не переключение на другую модель или облако.
 

@@ -4,11 +4,15 @@
 
 Создано: 2026-10-01T14:19:15.616Z (шаблон через `npm run lab:new`); сбор данных выполнен 2026-10-01T15:20:00Z.
 
-Статус: **завершено, паспорт снят повторно после установки ROCm 7.2**. Vulkan
+Статус: **blocked** — паспорт снят повторно после установки ROCm 7.2, но исходный предварительный протокол не подтверждён. Vulkan
 и ROCm стеки заполнены реальными значениями; `hipconfig` зафиксирован как
 `unavailable` с причиной (ROCm 7.2 не поставляет эту утилиту). Подготовительная
 работа — `experiments/local-models/measurements/rocm-preflight-01/`. Предыдущая
 сессия с блокерами — `experiments/local-models/measurements/LAB02-first-pass/`.
+
+## Сверка учёта 2026-10-22
+
+Исходный отдельный файл протокола, сохранённый до работы, не найден. Текст плана в старом manifest и дата без такого файла не доказывают предварительную регистрацию. Реестр восстановлен 2026-10-22 по сохранённым материалам и не является предрегистрацией. Исходные `manifest.json`, `report.md` и `measurements.tsv` сохранены побайтно в `raw/backup/before-reconciliation-*`; SHA-256 и преобразования перечислены в `raw/backup/reconciliation.json`. Строковые результаты и плановые резервы сохранены там отдельно от численных замеров. Неизвестные значения в TSV пусты с причиной; пропущенные диагностические команды и неудачное чтение `amdgpu/gtt_size` остаются в реестре. Исходные raw-файлы не изменены, новых измерений не выполнялось. `reviewer_decision` остаётся `null`; комплектность blocked-отчёта не означает завершение лабораторной.
 
 ## Паспорт выполнения
 
@@ -19,9 +23,9 @@
 | Модель/артефакт | неприменимо (паспорт машины, не прогона модели) |
 | Engine, backend, image/binary hash | неприменимо |
 | Context, KV/state dtype, slots, sampling, reasoning | неприменимо |
-| Harness/provider/version | неприменимо (локальный provider bridge из ЛР08 ещё не реализован) |
+| Harness/provider/version | неприменимо (на дату сбора 2026-10-01 локальный provider bridge из ЛР08 ещё не был реализован) |
 | Предыдущие отчёты / run IDs | `LAB02-first-pass` (ROCm стек отсутствовал), `rocm-preflight-01` (подготовка стека) |
-| Отличия от задания и причины | После установки ROCm 7.2 (см. `rocm-preflight-01/`) `rocminfo` заполнен реальными HSA-агентами (CPU, GPU=gfx1151, DSP=aie2p); `hipconfig` помечен `unavailable` с причиной — ROCm 7.2 не поставляет `hipconfig` в apt-репозитории; `vulkaninfo` теперь полный (heap/budget/api). Все остальные поля повторяют `LAB02-first-pass` без изменений. |
+| Отличия от задания и причины | После установки ROCm 7.2 (см. `rocm-preflight-01/`) `rocminfo` заполнен реальными HSA-агентами (CPU, GPU=gfx1151, DSP=aie2p); `hipconfig` помечен `unavailable` с причиной — ROCm 7.2 не поставляет `hipconfig` в apt-репозитории; `vulkaninfo` теперь полный (heap/budget/api). Значения памяти относятся к собственному снимку этой сессии; при сверке учёта исправлены перенесённые из first-pass GTT/VRAM used. |
 
 ## Гипотеза и протокол до запуска
 
@@ -29,7 +33,7 @@
 ROCm, а измеренные бюджеты общей памяти и GPU позволяют выделить память
 модели без двойного учёта UMA.
 
-**Протокол до запуска (повторно):**
+**Ретроспективное описание действий (не предрегистрация):**
 
 1. Считать CPU/GPU/ОС/BIOS и статусы диагностических утилит без модификаций
    системы.
@@ -47,7 +51,7 @@ ROCm, а измеренные бюджеты общей памяти и GPU по
 
 | Шаг задания | Действие и фактическая команда / config | Результат / ошибка | Ссылка на raw evidence |
 | --- | --- | --- | --- |
-| 1. Создать архив | `npm run lab:new -- --lab LAB02 --session after-rocm` | создан `experiments/local-models/measurements/LAB02-after-rocm/` | `manifest.json` |
+| 1. Создать архив | `npm run lab:new -- --lab LAB02 --session after-rocm` | создан `experiments/local-models/measurements/LAB02-after-rocm/` | `raw/backup/before-reconciliation-manifest.json` |
 | 1. Подтвердить ОС | `test "$(uname -s)" = Linux` | OK (Linux) | `raw/kernel.txt` |
 | 2. Снять cpu/mem/pci/disk/swap | python-скрипт с `lscpu`, `free -b`, `swapon`, `df -B1`, `lspci -nnk`, `uname -a` | exit 0 по всем доступным утилитам | `raw/cpu.txt`, `raw/memory.txt`, `raw/pci.txt`, `raw/swap.txt`, `raw/disk.txt` |
 | 2. Снять статусы диагностических утилит | `vulkaninfo --summary`, `vulkaninfo`, `rocminfo`, `hipconfig --full` | `vulkaninfo`, `rocminfo` доступны (exit 0); `hipconfig` отсутствует (`OSError: [Errno 2]`) | `raw/collection-status.json`, `raw/rocminfo.txt`, `raw/hipconfig.txt`, `raw/hipconfig-unavailable-reason.txt` |
@@ -56,8 +60,8 @@ ROCm, а измеренные бюджеты общей памяти и GPU по
 | 3. Контроль `renderD128` → PCI | `readlink /sys/class/drm/renderD128/device` → `0000:c6:00.0` | `c6:00.0 [1002:1586]` совпадает с `lspci`, `card1/device/{vendor,device}`, Vulkan `deviceID 0x1586` и `rocminfo BDFID 0xC600` | `raw/pci.txt`, `raw/memory-inventory.json`, `raw/vulkan-summary.txt`, `raw/rocminfo.txt` |
 | 4. Сопоставление PCI ↔ Vulkan ↔ ROCm | PCI `1002:1586` (`amdgpu`); render node `/dev/dri/renderD128` → `card1`. Vulkan device: `AMD Radeon Graphics (RADV GFX1151)`, API 1.4.318, driver 25.2.8. ROCm agent: `gfx1151`, Chip ID `0x1586`, BDFID `0xC600`, 40 CU, max clock 2900 MHz. | Все три уровня сходятся на одном устройстве `gfx1151 / 8060S`. | `raw/pci.txt`, `raw/vulkan-summary.txt`, `raw/vulkan-full.txt`, `raw/rocminfo.txt` |
 | 5. Ядро vs AMD-доки | Ядро `7.0.0-34-generic` (Ubuntu 24.04 HWE). AMD-доки требуют HWE ≥ `6.17.0-19.19~24.04.2` для gfx1151. | documented (выше минимальной версии) | [rocm.docs.amd.com/.../rdna3-5.html](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html) (доступ 2026-10-01) |
-| 5. ROCm vs AMD-доки | ROCm 7.2.0.70200-43~24.04 (apt), `/opt/rocm-7.2.0`. Для Ryzen AI Max 300 / gfx1151 архивная матрица 7.2.1 подтверждает совместимость с Ubuntu 24.04.4. | documented (исторически валидированный стек для 395); chosen over 7.14.1 because the active rocm.list points at 7.2 | `dpkg-after-fix.txt`, `raw/rocminfo.txt`, [ROCm 7.2.1 native Linux matrix](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html) |
-| 6. Бюджет первой серии | `weights + runtime + KV/state ≤ MemTotal - OS_reserve = 108.94 GiB`; `allocations_on_GPU ≤ GTT total = 100.00 GiB` (равно TTM pages_limit × page_size, ROCm COARSE GRAINED pool, Vulkan heap1 DEVICE_LOCAL). Подтверждено тремя независимыми источниками. | сводка в таблице ниже | `raw/memory-inventory.json`, `raw/vulkan-full.txt`, `raw/rocminfo.txt` |
+| 5. ROCm vs AMD-доки | ROCm 7.2.0.70200-43~24.04 (apt), `/opt/rocm-7.2.0`. Для Ryzen AI Max 300 / gfx1151 архивная матрица 7.2.1 подтверждает совместимость с Ubuntu 24.04.4. | documented (исторически валидированный стек для 395); chosen over 7.14.1 because the active rocm.list points at 7.2 | `raw/backup/rocm-preflight-01-dpkg-after-fix.txt`, `raw/rocminfo.txt`, [ROCm 7.2.1 native Linux matrix](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html) |
+| 6. Бюджет первой серии | `weights + runtime + KV/state ≤ MemTotal - OS_reserve = 108.94 GiB`; `GTT total = TTM cap = ROCm COARSE GRAINED pool = 100.00 GiB`; Vulkan heap1 budget отдельно составляет 65.99 GiB. Плановый лимит берётся по меньшему бюджету; фактическое размещение модели здесь не измерялось. | сводка в таблице ниже | `raw/memory-inventory.json`, `raw/vulkan-full.txt`, `raw/rocminfo.txt` |
 | 6. Контрольный замер после 60 с | `sleep 60 && free -b > raw/memory-after-idle.txt` | MemAvailable сместился с 116.65 → 116.66 GiB (~12 MiB), в пределах фоновой активности | `raw/memory-after-idle.txt` |
 
 ## Результаты
@@ -70,7 +74,7 @@ ROCm, а измеренные бюджеты общей памяти и GPU по
 | Linux / kernel / BIOS | Ubuntu 24.04.4 LTS / `7.0.0-34-generic` (HWE) / BIOS `06/10/2026` | — | `raw/os-release.txt`, `raw/kernel.txt`, `raw/bios-version.txt`, `raw/bios-date.txt` |
 | MemTotal / MemAvailable (до простоя) | 134153334784 / 125247705088 (124.94 / 116.65) | bytes / GiB | `raw/memory-inventory.json` |
 | MemAvailable (после 60 с простоя) | 125259165696 (116.66 GiB; +12 MiB относительно первого замера) | bytes / GiB | `raw/memory-after-idle.txt` |
-| Резерв ОС (по умолчанию ЛР02) | 17179869184 (16.00 GiB; ЛР01 не объявляла другой) | bytes / GiB | `manifest.json` |
+| Резерв ОС (по умолчанию ЛР02) | 17179869184 (16.00 GiB; ЛР01 не объявляла другой) | bytes / GiB | `raw/backup/reconciliation.json` |
 | TTM pages limit / page size | 26214400 pages × 4096 bytes = 107374182400 (100.00 GiB) | pages / bytes / GiB | `raw/memory-inventory.json` |
 | Vulkan device | `AMD Radeon Graphics (RADV GFX1151)`, `deviceID 0x1586` | name / id | `raw/vulkan-summary.txt` |
 | Vulkan ICD / driver / API | DRIVER_ID_MESA_RADV / 25.2.8 / 1.4.318 | id / version | `raw/vulkan-summary.txt` |
@@ -78,7 +82,7 @@ ROCm, а измеренные бюджеты общей памяти и GPU по
 | Vulkan heap1 size (DEVICE_LOCAL) | 71940702208 (67.00 GiB) | bytes / GiB | `raw/vulkan-full.txt` |
 | Vulkan heap1 budget | 70854057984 (65.99 GiB) | bytes / GiB | `raw/vulkan-full.txt` |
 | Vulkan heap total size | 107911053312 (100.50 GiB; ≈ GTT total) | bytes / GiB | `raw/vulkan-full.txt` |
-| ROCm version | 7.2.0 (apt `7.2.0.70200-43~24.04`, prefix `/opt/rocm-7.2.0`) | version | `dpkg-after-fix.txt`, `raw/rocminfo.txt` |
+| ROCm version | 7.2.0 (apt `7.2.0.70200-43~24.04`, prefix `/opt/rocm-7.2.0`) | version | `raw/backup/rocm-preflight-01-dpkg-after-fix.txt`, `raw/rocminfo.txt` |
 | HSA target | gfx1151 (RDNA 3.5), Chip ID `0x1586`, BDFID `0xC600` (c6:00.0) | target / id / bdf | `raw/rocminfo.txt`, `raw/pci.txt` |
 | GPU compute units / max clock | 40 CU / 2900 MHz | CU / MHz | `raw/rocminfo.txt` |
 | ROCm GPU COARSE GRAINED pool | 104857600 KB (100.00 GiB) | KB / GiB | `raw/rocminfo.txt` |
@@ -89,7 +93,7 @@ ROCm, а измеренные бюджеты общей памяти и GPU по
 | Swap / режим питания | Swap 8.00 GiB (весь свободен) / `powerprofilesctl = balanced` | bytes / mode | `raw/swap.txt`, `raw/power-profile.txt` |
 | GPU dedicated VRAM (`mem_info_vram_total`) | 536870912 (0.50 GiB; фирменный carve-out) | bytes / GiB | `raw/memory-inventory.json` |
 | GPU GTT (`mem_info_gtt_total`) | 107374182400 (100.00 GiB; равен TTM cap и ROCm COARSE GRAINED pool) | bytes / GiB | `raw/memory-inventory.json` |
-| GPU GTT used / VRAM used на момент сбора | 451350528 (0.42 GiB) / 468103168 (0.44 GiB) | bytes / GiB | `raw/memory-inventory.json` |
+| GPU GTT used / VRAM used на момент сбора | 1126739968 (1.05 GiB) / 505311232 (0.47 GiB) | bytes / GiB | `raw/memory-inventory.json` |
 
 ### Допуск по backend-веткам
 
@@ -150,7 +154,9 @@ allocations_on_GPU <= min(measured_available_GPU_budget, model_budget)
 
 ## Вывод по гипотезе
 
-**Гипотеза подтверждена полностью** (`supported`):
+Статус комплекта после сверки — `blocked`: исходный протокол не подтверждён. Нижеследующие выводы относятся к историческим снимкам и не означают зачёта лабораторной или успешной загрузки модели.
+
+**Обнаружение устройства и снимки бюджетов подтверждены сохранёнными материалами:**
 
 - ✅ Radeon 8060S / `gfx1151` физически присутствует (PCI `1002:1586`,
   render node `/dev/dri/renderD128` → `card1`).
@@ -249,7 +255,7 @@ backend-ветвях (Vulkan RADV + ROCm/HIP). Допуск к ЛР06 — **бе
 - [x] Заполнен `manifest.json`; стеки Vulkan/ROCm зафиксированы в
   `measured`; `hipconfig` помечен `unavailable` с причиной.
 - [x] Сохранены исходные команды и сырые логи без секретов (`raw/`).
-- [x] Заполнены таблицы результатов и `measurements.tsv` (28 наблюдений;
+- [x] Заполнены таблицы результатов и `measurements.tsv` (25 числовых/недоступных наблюдений;
   неизвестные помечены `unavailable` с причиной).
 - [x] Указаны пути к raw evidence; `run_ids` пуст (это паспорт машины, не
   агентский прогон).
@@ -284,4 +290,4 @@ backend-ветвях (Vulkan RADV + ROCm/HIP). Допуск к ЛР06 — **бе
 - [Vulkan ICD RADV и Mesa 25.2.8 driverVersion](https://docs.mesa3d.org/drivers/radv.html).
 - [Подготовительная работа ROCm 7.2 (эта сессия)](../rocm-preflight-01/README.md).
 - [Предыдущая итерация ЛР02](../LAB02-first-pass/report.md).
-- [Общий практикум](../../README.md), [шаблон отчёта](../../templates/report.md), [план локальных моделей](../../docs/local-models.md).
+- [Общий практикум](../../README.md), [шаблон отчёта](../../../../docs/labs/templates/report.md), [план локальных моделей](../../../../docs/local-models.md).

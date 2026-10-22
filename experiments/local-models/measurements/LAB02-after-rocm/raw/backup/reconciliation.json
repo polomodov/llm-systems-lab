@@ -1,0 +1,236 @@
+{
+  "kind": "retrospective-accounting-reconciliation",
+  "date": "2026-10-22",
+  "note": "Документ создан при исправлении учёта; это не предварительный протокол и не новое измерение. Исходные материалы сохранены побайтно.",
+  "original_files": [
+    {
+      "source": "experiments/local-models/measurements/LAB02-after-rocm/manifest.json",
+      "copy": "raw/backup/before-reconciliation-manifest.json",
+      "sha256": "a07c9c0e95ca9eb40fc63bb55cde86d79218edab3e65d7b16b823107d808f514"
+    },
+    {
+      "source": "experiments/local-models/measurements/LAB02-after-rocm/report.md",
+      "copy": "raw/backup/before-reconciliation-report.md",
+      "sha256": "bf6a07e1b2786ab344fbaf486bc6348a4b3e47449025551a2f5f8006ed64f6ca"
+    },
+    {
+      "source": "experiments/local-models/measurements/LAB02-after-rocm/measurements.tsv",
+      "copy": "raw/backup/before-reconciliation-measurements.tsv",
+      "sha256": "0b9fe0397abb92d75141864e7a7db28f43c7d9010870144a93c44db1c29955bf"
+    },
+    {
+      "source": "experiments/local-models/measurements/rocm-preflight-01/raw/dpkg-after-fix.txt",
+      "copy": "raw/backup/rocm-preflight-01-dpkg-after-fix.txt",
+      "sha256": "fea86193d8d470c218d340ad91a7e2c51afbe64c4f6e62b6f6d50cdf459bd467",
+      "note": "Копия пакетов из отдельной подготовительной сессии, на которую ссылался старый отчёт."
+    }
+  ],
+  "non_numeric_or_planning_observations": [
+    {
+      "classification": "planning-assumption",
+      "original_row": {
+        "observation_id": "os_reserve_agreed",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "os_reserve_default",
+        "value": "17179869184",
+        "unit": "bytes",
+        "status": "measured-by-default",
+        "evidence_path": "report.md#L102",
+        "unavailable_reason": "lab default 16 GiB; no override in LAB01 (not run)"
+      },
+      "note": "Сохранено вне числового measurements.tsv; это плановая величина, а не замер."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "vulkan_api_version",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "vulkan_api_version",
+        "value": "1.4.318",
+        "unit": "version",
+        "status": "measured",
+        "evidence_path": "raw/vulkan-summary.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "vulkan_driver_version",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "vulkan_driver_version",
+        "value": "25.2.8",
+        "unit": "version",
+        "status": "measured",
+        "evidence_path": "raw/vulkan-summary.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "vulkan_device_name",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "vulkaninfo_device",
+        "value": "AMD Radeon Graphics (RADV GFX1151)",
+        "unit": "name",
+        "status": "measured",
+        "evidence_path": "raw/vulkan-summary.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "vulkan_driver_id",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "vulkan_driver_id",
+        "value": "DRIVER_ID_MESA_RADV",
+        "unit": "id",
+        "status": "measured",
+        "evidence_path": "raw/vulkan-summary.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "rocm_version",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "rocm_version",
+        "value": "7.2.0",
+        "unit": "version",
+        "status": "measured",
+        "evidence_path": "dpkg-after-fix.txt and /opt/rocm-7.2.0",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "rocm_gfx_target",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "rocminfo_gfx_target",
+        "value": "gfx1151",
+        "unit": "target",
+        "status": "measured",
+        "evidence_path": "raw/rocminfo.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "rocm_gpu_chip_id",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "rocminfo_gpu_chip_id",
+        "value": "0x1586",
+        "unit": "id",
+        "status": "measured",
+        "evidence_path": "raw/rocminfo.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "rocm_gpu_bdfid",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "rocminfo_gpu_bdfid",
+        "value": "0xC600",
+        "unit": "bdf",
+        "status": "measured",
+        "evidence_path": "raw/rocminfo.txt",
+        "unavailable_reason": "50688 decimal = 0xC600 = c6:00.0"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    },
+    {
+      "classification": "categorical-observation",
+      "original_row": {
+        "observation_id": "power_profile",
+        "configuration_id": "sys-inventory-001",
+        "model_id": "null",
+        "engine": "null",
+        "backend": "null",
+        "context_tokens": "null",
+        "repeat": "1",
+        "metric": "powerprofilesctl",
+        "value": "balanced",
+        "unit": "mode",
+        "status": "measured",
+        "evidence_path": "raw/power-profile.txt",
+        "unavailable_reason": "null"
+      },
+      "note": "Сохранено вне числового measurements.tsv; строковое значение не преобразовано в число."
+    }
+  ],
+  "corrections": [
+    {
+      "observation_id": "amdgpu_gtt_used",
+      "before": "451350528",
+      "after": "1126739968",
+      "evidence": "raw/memory-inventory.json",
+      "note": "Старое значение совпадало с first-pass; исправлено по собственному снимку after-rocm."
+    },
+    {
+      "observation_id": "amdgpu_vram_used",
+      "before": "468103168",
+      "after": "505311232",
+      "evidence": "raw/memory-inventory.json",
+      "note": "Старое значение совпадало с first-pass; исправлено по собственному снимку after-rocm."
+    }
+  ]
+}
