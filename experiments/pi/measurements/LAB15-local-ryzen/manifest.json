@@ -5,7 +5,7 @@
   "harness_id": "pi",
   "session_id": "local-ryzen",
   "created_at": "2026-10-12T12:24:43.860Z",
-  "status": "completed",
+  "status": "blocked",
   "evidence_class": "experimental",
   "operator": "opencode (agent) по заданию polomodov",
   "hypothesis": "При зафиксированных модели, образе и входе стандартных инструментов Pi 0.73.1 достаточно для T002; одна зарегистрированная попытка с независимым verdict, перечнем инструментов и недоступных метрик.",
@@ -19,7 +19,8 @@
   },
   "run_ids": [
     "2026-10-12-pi-a2-janitor-t002-repo-janitor-4",
-    "2026-10-12-pi-a2-janitor-t002-repo-janitor-5"
+    "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
+    "2026-10-15-pi-a2-janitor-t002-repo-janitor"
   ],
   "planned_attempts": [
     {
@@ -51,7 +52,19 @@
       "status": "completed",
       "run_id": "2026-10-12-pi-a2-janitor-t002-repo-janitor-5",
       "evidence_files": [],
-      "reason": null
+      "reason": "Повтор учтён ретроспективно: исходный raw/protocol.md не содержит отдельной регистрации этой попытки. Это реестр исполнения, а не восстановленный предварительный план; см. audit-20261022.md."
+    },
+    {
+      "id": "t002-local-32768-host-passport",
+      "configuration_id": "lab08-local-32768-host-passport",
+      "kind": "agent-run",
+      "status": "completed",
+      "run_id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
+      "evidence_files": [
+        "raw/judge-check-2026-10-15-pi-a2-janitor-t002-repo-janitor.txt",
+        "raw/evaluation-2026-10-15-pi-a2-janitor-t002-repo-janitor.json"
+      ],
+      "reason": "Существующий completed/pass от 15.10 добавлен в manifest при сверке 22.10. Предварительная регистрация follow-up в исходном протоколе отсутствует; изменённый local bridge учитывается отдельно. См. audit-20261022.md."
     }
   ],
   "evidence_files": [
@@ -73,13 +86,19 @@
     "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-4.json",
     "raw/comparison.json",
     "raw/judge-check-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.txt",
-    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.json"
+    "raw/evaluation-2026-10-12-pi-a2-janitor-t002-repo-janitor-5.json",
+    "raw/judge-check-2026-10-15-pi-a2-janitor-t002-repo-janitor.txt",
+    "raw/evaluation-2026-10-15-pi-a2-janitor-t002-repo-janitor.json",
+    "audit-20261022.md",
+    "comparison-20261022.json"
   ],
   "unavailable": {
     "conditions.model_artifact_manifest": "Модель local (LAB08): артефакт запечатан в raw/deployment-32k.json (path/bytes/sha256)",
     "conditions.runtime_manifest": "Движок запечатан в raw/deployment-32k.json",
-    "measurements": "Численных лабораторных наблюдений нет; метрики попытки в run record и report.md"
+    "measurements": "Численных лабораторных наблюдений нет; метрики попытки в run record и report.md",
+    "completion": "Результаты выполненных запусков сохранены, но комплект blocked: исходный протокол не содержит полного предварительного плана повторной попытки -5 и follow-up 15.10. Реестр синхронизирован ретроспективно 22.10.2026; методический минимум предварительной регистрации этим не восстановлен. Новые прогоны не выполнялись.",
+    "protocol_before_run": "raw/protocol.md и protocol_recorded_at сохраняют исходный протокол 12.10 без правок. Он не регистрирует повтор -5 и follow-up 15.10 с новым admission host↔passport. Дата исходного протокола не является датой предварительной регистрации этих продолжений; audit-20261022.md — поздняя сверка."
   },
-  "conclusion": "Минимум ЛР15 закрыт двумя реальными T002-попытками Pi 0.73.1 через local provider (LAB08), обе с независимым verdict fail по одной причине: модель редактирует файлы, но не коммитит изменения к native cap 30 ходов (clean clone npm test красный). Offline-подготовка пройдена. Cloud-маршрут не использован из-за отсутствия .env.",
+  "conclusion": "Pi 0.73.1 через local provider выполнил три оценённых T002: два fail 12.10 и pass 15.10 (28 ходов, 851 s, 172863 входных и 5225 выходных токенов). Последний run использует новый admission host↔passport; compare разделяет условия local_bridge на группы 2+1, поэтому общей сопоставимой тройки и доказательства эффекта компонента нет. Offline-подготовка выполнена; облачный минимум не заявляется. Комплект blocked: исходный протокол регистрирует одну попытку и не содержит предварительного плана повторов -5/15.10. Их результаты учтены ретроспективно без изменения исходного протокола.",
   "reviewer_decision": null
 }

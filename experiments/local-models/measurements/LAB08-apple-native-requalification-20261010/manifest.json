@@ -91,9 +91,9 @@
       "id": "pilot-t00216-retry",
       "configuration_id": "pi-q6-metal-16k-first-guard-v3",
       "kind": "agent-run",
-      "status": "planned",
+      "status": "awaiting-review",
       "run_id": "2026-10-10-pi-a2-janitor-t002-repo-janitor-2",
-      "reason": "Execution finished; independent hidden-check pending, not completed.",
+      "reason": "Исполнение завершилось; run остаётся awaiting_review/pending и ожидает независимой оценки. Завершение процесса и stop_reason=length не подтверждают выполнение T002.",
       "evidence_files": [
         "raw/primary-summary.json"
       ]
@@ -164,7 +164,7 @@
     "raw/stable-admission.jsonl"
   ],
   "unavailable": {
-    "completion": "Нет независимо оценённого успешного T002 pilot.",
+    "completion": "Run 2026-10-10-pi-a2-janitor-t002-repo-janitor-2 находится в awaiting_review/pending; независимая оценка T002 не выполнена. Успешный pilot и полный агентный допуск не подтверждены.",
     "energy": "Энергия не измерялась.",
     "temperature": "Нет подтверждённого thermal collector.",
     "gpu_budget_gib": "Максимальный GPU budget не измерен.",

@@ -48,7 +48,7 @@ T002 имеет воспроизводимый Git commit. Служебный `.
 
 [Матрица inference engines](local-inference-engines.md) отдельно фиксирует kernel engine, GPU backend и serving application. Для оценки эффекта движка сохраняются веса/quant/template; если они различаются, сравниваются полные deployments. GGUF-оценку нельзя переносить на native safetensors без нового артефакта; `artifact-required`/`engine-memory-required` — неполнота плановых данных, не результат задачи. Встроенные benchmark разных engines не считаются одинаковым измерителем HTTP latency.
 
-Порядок ресурсных проб, отбора и повторов — в [плане локальных моделей](local-models.md). Интеграция этих условий в schema/prepare/compare и локальный сетевой bridge пока запланированы: действующие облачные профили не обеспечивают локальную серию. Backend microbench хранится отдельно от agent-run records; его нельзя засчитать как успех задачи. Для T003 сохраняется ограничение разных входов при разных обвязках.
+Порядок ресурсных проб, отбора и повторов — в [плане локальных моделей](local-models.md). Версионированный `local_inference` уже интегрирован в schema/prepare/compare и отдельный bridge для Pi/T002; текущий допуск и ограничения приведены ниже и в отчётах LAB08. Остальные локальные обвязки требуют интеграции; облачные профили не являются локальным маршрутом. Backend microbench хранится отдельно от agent-run records; его нельзя засчитать как успех задачи. Для T003 сохраняется ограничение разных входов при разных обвязках.
 
 ## Независимый судья
 
@@ -74,7 +74,7 @@ Baseline передаёт спецификацию и контракт. `without
 
 ### Версионированная локальная конфигурация (LAB08)
 
-Первый local provider поддержан только Pi / T002 / контролируемый native llama.cpp Metal на допущенном Mac. Prepare принимает `--local-deployment` и запечатывает manifest в inputs. Дополнительное поле `local_inference` записи имеет собственный `schema_version=1`, `deployment_sha256`, canonical `fingerprint`, полный `deployment` и `observed` proof контролируемого процесса. Старые cloud записи schema_version=1 валидируются без этого поля; ручной миграции старых runs нет.
+Local provider ограничен Pi / T002 / контролируемым native llama.cpp: Metal/macOS и ROCm/Linux. На Ryzen есть независимые fail/pass; Apple pilot ожидает оценки. Статус реализации не заменяет приёмку лабораторного отчёта: сводный Ryzen-комплект blocked из-за ретроспективно добавленных повторов (сверка 22.10.2026). Prepare принимает `--local-deployment` и запечатывает manifest в inputs. Дополнительное поле `local_inference` записи имеет собственный `schema_version=1`, `deployment_sha256`, canonical `fingerprint`, полный `deployment` и `observed` proof контролируемого процесса. Старые cloud записи schema_version=1 валидируются без этого поля; ручной миграции старых runs нет.
 
 Fingerprint включает weights/revision/bytes/hashes/quant, tokenizer/template, engine/backend/build pins, hardware/OS/power и весь protocol/context/output/KV/cache/tools. Compare добавляет его к conditions только для local. Observed alias основан на собственном PID, проверке файлов до Popen и props/template до/после запросов, а не на SDK metadata. Primary HTTP usage хранится отдельно от SDK trace; его отсутствие даёт null с причиной. Нулевые SDK prices не доказывают нулевую стоимость железа/электричества.
 

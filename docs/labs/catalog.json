@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-18",
+  "updated_at": "2026-10-22",
   "require_harness_coverage": true,
   "labs": [
     { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
@@ -10,7 +10,7 @@
     { "id": "LAB05", "title": "Контекст, память и протокол инструментов", "file": "LAB05-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB04"], "effort": "2–4 часа" },
     { "id": "LAB06", "title": "vLLM, SGLang и Transformers на ROCm", "file": "LAB06-engines.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB03", "LAB05"], "effort": "4–8 часов плюс подготовка стека" },
     { "id": "LAB07", "title": "Ollama, LM Studio и Lemonade", "file": "LAB07-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "3–6 часов плюс установка" },
-    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB01"], "effort": "инженерная работа, оценить после проектирования", "prerequisites_any": ["LAB05", "LAB32"] },
+    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "Pi/T002 реализован; приёмка на стенде, другие adapters требуют разработки", "prerequisites_any": ["LAB05", "LAB32"] },
     { "id": "LAB09", "title": "Агентные серии и сравнение обвязок", "file": "LAB09-agent-campaign.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа для cloud / 4–8 для local плюс исполнение и оценка" },
     { "id": "LAB10", "title": "Абляции, повторяемость и итог исследования", "file": "LAB10-ablation.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09"], "effort": "2–4 часа для минимума после LAB09" },
     { "id": "LAB11", "title": "Claude Code: CLI, лимиты и наблюдаемость", "file": "LAB11-claude-code.md", "kind": "agent", "harness": "claude-code", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },

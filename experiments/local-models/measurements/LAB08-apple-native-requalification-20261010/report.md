@@ -29,7 +29,7 @@ Apple M5 Max / 128GiB / macOS26.5/25F71, AC/mode0; pinned llama.cpp312cf033 + ti
 
 ## Ошибки и ограничения
 
-8K pilot22-й запрос: HTTP400 `exceed_context_size_error`,8265prompttokens>8192. 21ответ принят, nativeexit0/одинSIGINT,146samples/maxgap2.161s/swap0. Это другой отказ, не повтор прежнего telemetry gap. Менять задним числом context или aborted нельзя. Новый16K — отдельная конфигурация с новымfingerprint и run ID. Ни CLIexit0, ни tool transport не заменяют независимую оценку задачи. При awaiting_review отчёт остаётся draft, пока judge pending; aborted не judge-ятся как pass. Идентичность/runtime safeguards проверены, вклад bridge в качество не установлен.
+8K pilot22-й запрос: HTTP400 `exceed_context_size_error`,8265prompttokens>8192. 21ответ принят, nativeexit0/одинSIGINT,146samples/maxgap2.161s/swap0. Это другой отказ, не повтор прежнего telemetry gap. Менять задним числом context или aborted нельзя. Новый16K — отдельная конфигурация с новымfingerprint и run ID. Ни CLIexit0, ни tool transport не заменяют независимую оценку задачи. Пока run находится в awaiting_review/pending, сессия остаётся blocked. Статус попытки `awaiting-review` отражает завершённое исполнение без независимой оценки; комплектность blocked отчёта в submission не означает зачёт или успешный T002. Aborted не judge-ятся как pass. Идентичность/runtime safeguards проверены, вклад bridge в качество не установлен.
 
 ## Вывод по гипотезе
 
@@ -47,3 +47,7 @@ Native короткая8K квалификация поддержала непр
 ## Комплект сдачи
 
 Manifest/TSV/protocol/amendment, deploymentpins, rawHTTP/usage/serverlogs, continuous samples/cleanup, sealed inputs/trace и tests сохранены. Software/lab integrity проверка сохраняется отдельно в raw. Reviewer decision: **не проверено**. Полнота blocked отчёта не означает passT002.
+
+## Сверка учёта 22.10.2026
+
+В manifest попытка `pilot-t00216-retry` уточнена с `planned` до `awaiting-review` по существующей записи run. Это изменение учёта, а не новая попытка или оценка: `awaiting_review/pending`, `stop_reason=length`, run IDs, исходные доказательства и 12 строк TSV сохранены. [Аудит сверки](accounting-audit-20261022.md).

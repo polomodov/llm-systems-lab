@@ -4,7 +4,11 @@
 
 Создано: 2026-10-01T10:39:52.481Z
 
-Статус: **завершено с blockers по стекам**. Паспорт машины снят, бюджет рассчитан; допуск к ЛР04/ЛР06/ЛР07 возможен после установки vulkan-tools и ROCm (отдельная работа).
+Статус: **blocked** — отсутствует подтверждённый предварительный протокол; также сохраняются исходные блокировки Vulkan/ROCm. Паспорт машины снят, бюджет рассчитан; допуск к ЛР04/ЛР06/ЛР07 возможен после установки vulkan-tools и ROCm (отдельная работа).
+
+## Сверка учёта 2026-10-22
+
+Исходный отдельный файл протокола, сохранённый до работы, не найден. Текст плана в старом manifest и дата без такого файла не доказывают предварительную регистрацию. Реестр восстановлен 2026-10-22 по сохранённым материалам и не является предрегистрацией. Исходные `manifest.json`, `report.md` и `measurements.tsv` сохранены побайтно в `raw/backup/before-reconciliation-*`; SHA-256 и преобразования перечислены в `raw/backup/reconciliation.json`. Строковые результаты и плановые резервы сохранены там отдельно от численных замеров. Неизвестные значения в TSV пусты с причиной; пропущенные диагностические команды и неудачное чтение `amdgpu/gtt_size` остаются в реестре. Исходные raw-файлы не изменены, новых измерений не выполнялось. `reviewer_decision` остаётся `null`; комплектность blocked-отчёта не означает завершение лабораторной.
 
 ## Паспорт выполнения
 
@@ -15,7 +19,7 @@
 | Модель/артефакт: revision, shards, SHA-256, quant | неприменимо (паспорт машины, не прогона модели) |
 | Engine, backend, image/binary hash | неприменимо |
 | Context, KV/state dtype, slots, sampling, reasoning | неприменимо |
-| Harness/provider/version, если применимо | неприменимо (предшествующая ЛР01 не запускалась; локальный provider bridge из ЛР08 ещё не реализован) |
+| Harness/provider/version, если применимо | неприменимо (предшествующая ЛР01 не запускалась; на дату сбора 2026-10-01 локальный provider bridge из ЛР08 ещё не был реализован) |
 | Предыдущие отчёты / run IDs | нет (папка `experiments/local-models/measurements/` создана в этой работе) |
 | Отличия от задания и причины | `vulkaninfo`/`rocminfo`/`hipconfig` отсутствуют — поля Vulkan и ROCm заполнены как `unavailable`; gfx1151 подтверждён по PCI-идентификатору `1002:1586` и `product_name` Radeon 8060S. ЛР01 не выполнялась, поэтому `os_reserve` принят по умолчанию 16 GiB. |
 
@@ -23,7 +27,7 @@
 
 **Гипотеза:** на машине доступна Radeon 8060S / `gfx1151`, её видят Vulkan и ROCm, а измеренные бюджеты общей памяти и GPU позволяют выделить память модели без двойного учёта UMA.
 
-**Протокол до запуска:**
+**Ретроспективное описание действий (не предрегистрация):**
 
 1. Считать CPU/GPU/ОС/BIOS и статусы диагностических утилит без модификаций системы.
 2. Сопоставить обнаружение устройства по PCI, Vulkan и ROCm и выбрать render node.
@@ -36,7 +40,7 @@
 
 | Шаг задания | Действие и фактическая команда / config | Результат / ошибка | Ссылка на raw evidence |
 | --- | --- | --- | --- |
-| 1. Создать архив | `npm run lab:new -- --lab LAB02 --session first-pass` | создан `experiments/local-models/measurements/LAB02-first-pass/` | `manifest.json` |
+| 1. Создать архив | `npm run lab:new -- --lab LAB02 --session first-pass` | создан `experiments/local-models/measurements/LAB02-first-pass/` | `raw/backup/before-reconciliation-manifest.json` |
 | 1. Подтвердить ОС | `test "$(uname -s)" = Linux` | OK (Linux) | `raw/kernel.txt` |
 | 2. Снять cpu/mem/pci/disk/swap | `python3` скрипт с `lscpu`, `free -b`, `swapon`, `df -B1`, `lspci -nnk`, `uname -a` | exit 0 по всем доступным утилитам | `raw/cpu.txt`, `raw/memory.txt`, `raw/pci.txt`, `raw/swap.txt`, `raw/disk.txt` |
 | 2. Снять статусы диагностических утилит | `vulkaninfo --summary`, `vulkaninfo`, `rocminfo`, `hipconfig --full` | `vulkaninfo`, `rocminfo`, `hipconfig` не найдены (`OSError: [Errno 2]`) | `raw/collection-status.json` |
@@ -58,7 +62,7 @@
 | Linux / kernel / BIOS | Ubuntu 24.04.4 LTS / `7.0.0-34-generic` (HWE) / BIOS `06/10/2026` | — | `raw/os-release.txt`, `raw/kernel.txt`, `raw/bios-version.txt`, `raw/bios-date.txt` |
 | MemTotal / MemAvailable (до простоя) | 134153334784 / 128772624384 (124.94 / 119.93) | bytes / GiB | `raw/memory-inventory.json` |
 | MemAvailable (после 60 с простоя) | 128675229696 (119.84 GiB; −0.09 GiB относительно первого замера) | bytes / GiB | `raw/memory-after-idle.txt` |
-| Резерв ОС (по умолчанию ЛР02) | 17179869184 (16.00 GiB; ЛР01 не объявляла другой) | bytes / GiB | `manifest.json` |
+| Резерв ОС (по умолчанию ЛР02) | 17179869184 (16.00 GiB; ЛР01 не объявляла другой) | bytes / GiB | `raw/backup/reconciliation.json` |
 | TTM pages limit / page size | 26214400 pages × 4096 bytes = 107374182400 (100.00 GiB) | pages / bytes / GiB | `raw/memory-inventory.json` |
 | Vulkan device / ICD / driver | `unavailable` (бинарь `vulkaninfo` отсутствует); обнаружение по PCI — `1002:1586`, `amdgpu` | — | `raw/collection-status.json`, `raw/pci.txt` |
 | Vulkan heap / available budget | `null` (без `vulkaninfo`); замена — `mem_info_gtt_total` 100.00 GiB | bytes / GiB | `raw/memory-inventory.json` |
@@ -101,6 +105,8 @@ allocations_on_GPU <= min(measured_available_GPU_budget, model_budget)
 
 ## Вывод по гипотезе
 
+Статус комплекта после сверки — `blocked`: исходный протокол не подтверждён. Нижеследующие выводы относятся к историческим снимкам и не означают зачёта лабораторной или успешной загрузки модели.
+
 **Гипотеза подтверждена частично** (supported_with_blockers):
 
 - ✅ Radeon 8060S / `gfx1151` физически присутствует (PCI `1002:1586`, render node `/dev/dri/renderD128` → `card1`).
@@ -130,7 +136,7 @@ allocations_on_GPU <= min(measured_available_GPU_budget, model_budget)
 
 - [x] Заполнен `manifest.json`; blockers зафиксированы в `unavailable`.
 - [x] Сохранены исходные команды и сырые логи без секретов (`raw/`).
-- [x] Заполнены таблицы результатов и `measurements.tsv` (18 наблюдений; неизвестные помечены `unavailable` с причиной).
+- [x] Заполнены таблицы результатов и `measurements.tsv` (16 числовых/недоступных наблюдений; неизвестные помечены `unavailable` с причиной).
 - [x] Указаны пути к raw evidence; `run_ids` пуст (это паспорт машины, не агентский прогон).
 - [x] Проверены индивидуальные критерии завершения (см. ниже).
 - [x] Сформулированы вывод, ограничения и ответы на вопросы.
@@ -152,4 +158,4 @@ allocations_on_GPU <= min(measured_available_GPU_budget, model_budget)
 - [AMD VGM FAQ: заявление о 96 GB и разделяемая память](https://www.amd.com/en/blogs/2025/faqs-amd-variable-graphics-memory-vram-ai-model-sizes-quantization-mcp-more.html).
 - [AMD ROCm 7.14.1: RDNA3.5, TTM и требования KFD](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html) (доступ 2026-10-01).
 - [Версионная матрица ROCm 7.14.1](https://rocm.docs.amd.com/en/docs-7.14.1/compatibility/compatibility-matrix.html).
-- [Общий практикум](README.md), [шаблон отчёта](templates/report.md), [план локальных моделей](../local-models.md).
+- [Общий практикум](../../../../docs/labs/README.md), [шаблон отчёта](../../../../docs/labs/templates/report.md), [план локальных моделей](../../../../docs/local-models.md).

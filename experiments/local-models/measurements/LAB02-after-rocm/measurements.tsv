@@ -1,36 +1,26 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-mem_total	sys-inventory-001	null	null	null	null	1	MemTotal	134153334784	bytes	measured	raw/memory-inventory.json	null
-mem_available_initial	sys-inventory-001	null	null	null	null	1	MemAvailable	125247705088	bytes	measured	raw/memory-inventory.json	null
-mem_available_after_idle	sys-inventory-001	null	null	null	null	1	MemAvailable	125259165696	bytes	measured	raw/memory-after-idle.txt	null
-swap_total	sys-inventory-001	null	null	null	null	1	SwapTotal	8589930496	bytes	measured	raw/memory-inventory.json	null
-swap_free	sys-inventory-001	null	null	null	null	1	SwapFree	8589930496	bytes	measured	raw/memory-inventory.json	null
-ttm_pages_limit	sys-inventory-001	null	null	null	null	1	ttm_pages_limit	26214400	pages	measured	raw/memory-inventory.json	null
-ttm_page_size	sys-inventory-001	null	null	null	null	1	ttm_page_size_bytes	4096	bytes	measured	raw/memory-inventory.json	null
-ttm_implied_cap	sys-inventory-001	null	null	null	null	1	ttm_pages_limit_x_page_size	107374182400	bytes	measured	raw/memory-inventory.json	null
-amdgpu_vram_total	sys-inventory-001	null	null	null	null	1	mem_info_vram_total	536870912	bytes	measured	raw/memory-inventory.json	null
-amdgpu_gtt_total	sys-inventory-001	null	null	null	null	1	mem_info_gtt_total	107374182400	bytes	measured	raw/memory-inventory.json	null
-amdgpu_gtt_used	sys-inventory-001	null	null	null	null	1	mem_info_gtt_used	451350528	bytes	measured	raw/memory-inventory.json	null
-amdgpu_vram_used	sys-inventory-001	null	null	null	null	1	mem_info_vram_used	468103168	bytes	measured	raw/memory-inventory.json	null
-amdgpu_vis_vram_total	sys-inventory-001	null	null	null	null	1	mem_info_vis_vram_total	536870912	bytes	measured	raw/memory-inventory.json	null
-amdgpu_preempt_used	sys-inventory-001	null	null	null	null	1	mem_info_preempt_used	0	bytes	measured	raw/memory-inventory.json	null
-os_reserve_agreed	sys-inventory-001	null	null	null	null	1	os_reserve_default	17179869184	bytes	measured-by-default	report.md#L102	lab default 16 GiB; no override in LAB01 (not run)
-vulkan_api_version	sys-inventory-001	null	null	null	null	1	vulkan_api_version	1.4.318	version	measured	raw/vulkan-summary.txt	null
-vulkan_driver_version	sys-inventory-001	null	null	null	null	1	vulkan_driver_version	25.2.8	version	measured	raw/vulkan-summary.txt	null
-vulkan_device_name	sys-inventory-001	null	null	null	null	1	vulkaninfo_device	AMD Radeon Graphics (RADV GFX1151)	name	measured	raw/vulkan-summary.txt	null
-vulkan_driver_id	sys-inventory-001	null	null	null	null	1	vulkan_driver_id	DRIVER_ID_MESA_RADV	id	measured	raw/vulkan-summary.txt	null
-vulkan_heap0_size	sys-inventory-001	null	null	null	null	1	vulkan_heap0_size	35970351104	bytes	measured	raw/vulkan-full.txt	null
-vulkan_heap1_size	sys-inventory-001	null	null	null	null	1	vulkan_heap1_size	71940702208	bytes	measured	raw/vulkan-full.txt	null
-vulkan_heap_total_size	sys-inventory-001	null	null	null	null	1	vulkan_heap_total_size	107911053312	bytes	measured	raw/vulkan-full.txt	heap0+heap1, 100.50 GiB
-vulkan_heap1_budget	sys-inventory-001	null	null	null	null	1	vulkan_heap1_budget	70854057984	bytes	measured	raw/vulkan-full.txt	heap1 DEVICE_LOCAL budget, 65.99 GiB
-rocm_version	sys-inventory-001	null	null	null	null	1	rocm_version	7.2.0	version	measured	dpkg-after-fix.txt and /opt/rocm-7.2.0	null
-rocm_gfx_target	sys-inventory-001	null	null	null	null	1	rocminfo_gfx_target	gfx1151	target	measured	raw/rocminfo.txt	null
-rocm_gpu_chip_id	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_chip_id	0x1586	id	measured	raw/rocminfo.txt	null
-rocm_gpu_bdfid	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_bdfid	0xC600	bdf	measured	raw/rocminfo.txt	50688 decimal = 0xC600 = c6:00.0
-rocm_gpu_compute_units	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_compute_units	40	CUs	measured	raw/rocminfo.txt	null
-rocm_gpu_max_clock_mhz	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_max_clock_mhz	2900	MHz	measured	raw/rocminfo.txt	null
-rocm_gpu_pool_coarse_grained	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_pool_coarse_grained	104857600	KB	measured	raw/rocminfo.txt	100.00 GiB COARSE GRAINED
-rocm_gpu_pool_extended_fine_grained	sys-inventory-001	null	null	null	null	1	rocminfo_gpu_pool_extended_fine_grained	104857600	KB	measured	raw/rocminfo.txt	100.00 GiB EXTENDED FINE GRAINED
-rocm_cpu_pool	sys-inventory-001	null	null	null	null	1	rocminfo_cpu_pool	131009116	KB	measured	raw/rocminfo.txt	124.94 GiB, FINE GRAINED (CPU agent)
-rocm_npu_pool	sys-inventory-001	null	null	null	null	1	rocminfo_npu_pool	131009116	KB	measured	raw/rocminfo.txt	124.94 GiB, COARSE GRAINED (DSP aie2p / RyzenAI-npu5)
-hipconfig	sys-inventory-001	null	null	null	null	1	hipconfig_full	null	null	unavailable	raw/hipconfig.txt	ROCm 7.2 user-mode apt does not ship hipconfig; see raw/hipconfig-unavailable-reason.txt
-power_profile	sys-inventory-001	null	null	null	null	1	powerprofilesctl	balanced	mode	measured	raw/power-profile.txt	null
+mem_total	sys-inventory-001					1	MemTotal	134153334784	bytes	measured	raw/memory-inventory.json	
+mem_available_initial	sys-inventory-001					1	MemAvailable	125247705088	bytes	measured	raw/memory-inventory.json	
+mem_available_after_idle	sys-inventory-001					1	MemAvailable	125259165696	bytes	measured	raw/memory-after-idle.txt	
+swap_total	sys-inventory-001					1	SwapTotal	8589930496	bytes	measured	raw/memory-inventory.json	
+swap_free	sys-inventory-001					1	SwapFree	8589930496	bytes	measured	raw/memory-inventory.json	
+ttm_pages_limit	sys-inventory-001					1	ttm_pages_limit	26214400	pages	measured	raw/memory-inventory.json	
+ttm_page_size	sys-inventory-001					1	ttm_page_size_bytes	4096	bytes	measured	raw/memory-inventory.json	
+ttm_implied_cap	sys-inventory-001					1	ttm_pages_limit_x_page_size	107374182400	bytes	measured	raw/memory-inventory.json	
+amdgpu_vram_total	sys-inventory-001					1	mem_info_vram_total	536870912	bytes	measured	raw/memory-inventory.json	
+amdgpu_gtt_total	sys-inventory-001					1	mem_info_gtt_total	107374182400	bytes	measured	raw/memory-inventory.json	
+amdgpu_gtt_used	sys-inventory-001					1	mem_info_gtt_used	1126739968	bytes	measured	raw/memory-inventory.json	
+amdgpu_vram_used	sys-inventory-001					1	mem_info_vram_used	505311232	bytes	measured	raw/memory-inventory.json	
+amdgpu_vis_vram_total	sys-inventory-001					1	mem_info_vis_vram_total	536870912	bytes	measured	raw/memory-inventory.json	
+amdgpu_preempt_used	sys-inventory-001					1	mem_info_preempt_used	0	bytes	measured	raw/memory-inventory.json	
+vulkan_heap0_size	sys-inventory-001					1	vulkan_heap0_size	35970351104	bytes	measured	raw/vulkan-full.txt	
+vulkan_heap1_size	sys-inventory-001					1	vulkan_heap1_size	71940702208	bytes	measured	raw/vulkan-full.txt	
+vulkan_heap_total_size	sys-inventory-001					1	vulkan_heap_total_size	107911053312	bytes	measured	raw/vulkan-full.txt	
+vulkan_heap1_budget	sys-inventory-001					1	vulkan_heap1_budget	70854057984	bytes	measured	raw/vulkan-full.txt	
+rocm_gpu_compute_units	sys-inventory-001					1	rocminfo_gpu_compute_units	40	CUs	measured	raw/rocminfo.txt	
+rocm_gpu_max_clock_mhz	sys-inventory-001					1	rocminfo_gpu_max_clock_mhz	2900	MHz	measured	raw/rocminfo.txt	
+rocm_gpu_pool_coarse_grained	sys-inventory-001					1	rocminfo_gpu_pool_coarse_grained	104857600	KB	measured	raw/rocminfo.txt	
+rocm_gpu_pool_extended_fine_grained	sys-inventory-001					1	rocminfo_gpu_pool_extended_fine_grained	104857600	KB	measured	raw/rocminfo.txt	
+rocm_cpu_pool	sys-inventory-001					1	rocminfo_cpu_pool	131009116	KB	measured	raw/rocminfo.txt	
+rocm_npu_pool	sys-inventory-001					1	rocminfo_npu_pool	131009116	KB	measured	raw/rocminfo.txt	
+hipconfig	sys-inventory-001					1	hipconfig_full			unavailable	raw/hipconfig.txt	ROCm 7.2 user-mode apt does not ship hipconfig; see raw/hipconfig-unavailable-reason.txt

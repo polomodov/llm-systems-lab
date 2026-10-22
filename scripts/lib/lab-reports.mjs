@@ -113,10 +113,15 @@ export function checkLabReport(root, { report, mode = 'draft' }) {
     check(slug(plan.id) && !planIds.has(plan.id), 'Attempt ID must be a unique slug'); planIds.add(plan.id);
     check(slug(plan.configuration_id), `Attempt ${plan.id}: invalid configuration_id`); configurations.add(plan.configuration_id);
     check(['agent-run', 'measurement', 'exercise'].includes(plan.kind), `Attempt ${plan.id}: invalid kind`);
-    check(['planned', 'completed', 'failed', 'not-run'].includes(plan.status), `Attempt ${plan.id}: invalid status`);
+    check(['planned', 'completed', 'failed', 'not-run', 'awaiting-review'].includes(plan.status), `Attempt ${plan.id}: invalid status`);
     check(plan.reason === null || text(plan.reason), `Attempt ${plan.id}: reason must be text or null`);
     if (submit) check(plan.status !== 'planned', `Attempt ${plan.id}: unresolved planned attempt`);
     if (['failed', 'not-run'].includes(plan.status)) check(text(plan.reason), `Attempt ${plan.id}: failure or omission needs a reason`);
+    if (plan.status === 'awaiting-review') {
+      check(plan.kind === 'agent-run', `Attempt ${plan.id}: awaiting-review is only for agent-run`);
+      check(text(plan.reason), `Attempt ${plan.id}: awaiting-review needs a reason`);
+      if (submit) check(manifest.status === 'blocked', `Attempt ${plan.id}: awaiting-review requires a blocked report for submission`);
+    }
     check(Array.isArray(plan.evidence_files), `Attempt ${plan.id}: evidence_files must be an array`);
     for (const path of Array.isArray(plan.evidence_files) ? plan.evidence_files : []) check(evidence.has(path), `Attempt ${plan.id}: unlisted evidence ${path}`);
     if (plan.kind !== 'agent-run') {
@@ -130,6 +135,10 @@ export function checkLabReport(root, { report, mode = 'draft' }) {
         check(!linkedRuns.has(plan.run_id), `Attempt ${plan.id}: reused run_id`); linkedRuns.add(plan.run_id);
       }
       const record = runs.get(plan.run_id);
+      if (plan.status === 'awaiting-review') {
+        check(!!record, `Attempt ${plan.id}: missing run record`);
+        if (record) check(record.status === 'awaiting_review' && !!record.execution.started_at && !!record.execution.finished_at && record.verdict.result === 'pending', `Attempt ${plan.id}: awaiting-review requires a finished run awaiting an independent verdict`);
+      }
       if (['completed', 'failed'].includes(plan.status)) {
         check(!!record, `Attempt ${plan.id}: missing run record`);
         if (record) {
@@ -170,7 +179,7 @@ export function checkLabReport(root, { report, mode = 'draft' }) {
         attempt(label, () => localFile(dir, row.evidence_path));
       }
       if (row.status === 'measured') {
-        if (plans.length) check(plans.some(plan => plan?.configuration_id === row.configuration_id && ['completed', 'failed'].includes(plan.status)), `${label}: measured data requires a performed attempt for this configuration`);
+        if (plans.length) check(plans.some(plan => plan?.configuration_id === row.configuration_id && ['completed', 'failed', 'awaiting-review'].includes(plan.status)), `${label}: measured data requires a performed attempt for this configuration`);
         check(/^-?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(row.value) && Number.isFinite(Number(row.value)), `${label}: measured value must be a finite decimal number`);
         check(text(row.unit) && text(row.evidence_path), `${label}: measured value requires unit and evidence`);
         check(row.unavailable_reason === '', `${label}: measured value cannot have an unavailable reason`);

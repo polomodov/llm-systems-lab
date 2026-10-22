@@ -28,7 +28,7 @@ if (existsSync(localDir)) {
       const catalog = JSON.parse(readFileSync(join(localDir, "models.json"), "utf8"));
       const { hardware, engines } = loadLocalHardware(root, id, { engines: true });
       validateLocalPlanData(catalog, hardware);
-      console.log(`[check] ${id}: models=${catalog.models.length}, inference profiles=${engines.engines.length}: план, hardware smoke не выполнен`);
+      console.log(`[check] ${id}: models=${catalog.models.length}, inference profiles=${engines.engines.length}: плановые профили; фактический допуск — в отчётах LAB`);
     } catch (error) { console.error(`[check] local plan ${id}: ${error.message}`); failed++; }
   }
 }

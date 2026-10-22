@@ -1,17 +1,8 @@
 observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-disk_free_before	lab03-qwen35-9b-001	null	null	null	null	1	df_available_bytes	1832540762112	bytes	measured	raw/disk-before.txt	null
-disk_free_after	lab03-qwen35-9b-001	null	null	null	null	1	df_available_bytes	1825077895168	bytes	measured	raw/disk-after.txt	null
-disk_used	lab03-qwen35-9b-001	null	null	null	null	1	bytes_consumed	7463294464	bytes	measured	raw/disk-{before,after}.txt	diff, includes .part temp
-download_seconds	lab03-qwen35-9b-001	null	null	null	null	1	download_time	1360	s	measured	raw/download-verification.json	timed with date +%s
-reverify_seconds	lab03-qwen35-9b-001	null	null	null	null	1	reverify_time	~80	s	measured	raw/verification.json	estimated from second run; full SHA-256 read of 7.46 GiB
-weights_bytes	qwen35-9b-q6_k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	null	null	null	1	file_bytes	7458301152	bytes	measured	raw/verification.json	null
-weights_sha256	qwen35-9b-q6_k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	null	null	null	1	sha256	91898433cf5ce0a8f45516a4cc3e9343b6e01d052d01f684309098c66a326c59	hash	measured	raw/verification.json	matches publisher metadata
-weights_publisher_match	qwen35-9b-q6_k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	null	null	null	1	sha256_match_publisher	true	bool	measured	raw/verification.json	publisher_hash_present=true
-weights_status	qwen35-9b-q6_k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	null	null	null	1	status	verified	status	measured	raw/verification.json	null
-planner_qwen35_9b_8k_weights	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	planner_weights_gib	7.0	GiB	measured	raw/control-plan.json	rounded 7.46 GiB file size
-planner_qwen35_9b_8k_runtime	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	planner_runtime_reserve_gib	6.0	GiB	measured	raw/control-plan.json	reserve, not measured
-planner_qwen35_9b_8k_kv	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	planner_kv_reserve_gib	4.0	GiB	measured	raw/control-plan.json	reserve, not measured
-planner_qwen35_9b_8k_total	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	planner_total_gib	17.0	GiB	measured	raw/control-plan.json	reserve, not measured
-fit_vs_lab02_ram	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	fit_vs_memtotal_minus_osreserve	true	bool	measured	raw/control-plan.json	17.0 << 108.94 GiB; 91.94 GiB headroom
-fit_vs_lab02_gpu_budget	qwen35-9b-q6_k-8k	null	llama-cpp	tbd	8192	1	fit_vs_vulkan_heap1_budget	true	bool	measured	raw/control-plan.json	17.0 << 65.99 GiB; 48.99 GiB headroom on limiting factor
-real_inference_qwen35_9b	qwen35-9b-q6_k-8k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	llama-cpp	tbd	8192	1	inference_run	null	null	not-run	null	verification by LAB04/05; this session only confirms file integrity + planner fit
+disk_free_before	lab03-qwen35-9b-001					1	df_available_bytes	1832540762112	bytes	measured	raw/disk-before.txt	
+disk_free_after	lab03-qwen35-9b-001					1	df_available_bytes	1825077895168	bytes	measured	raw/disk-after.txt	
+disk_used	lab03-qwen35-9b-001					1	bytes_consumed	7462866944	bytes	measured	raw/backup/reconciliation.json	
+download_seconds	lab03-qwen35-9b-001					1	download_time		s	unavailable	raw/backup/before-reconciliation-report.md	В старом отчёте указано 1360 s, но сохранённые JSON не содержат временных меток или длительности. Точный замер не подтверждён.
+reverify_seconds	lab03-qwen35-9b-001					1	reverify_time		s	unavailable	raw/backup/before-reconciliation-report.md	В старом отчёте указано ~80 s, но сохранённые JSON не содержат временных меток или длительности. Точный замер не подтверждён.
+weights_bytes	qwen35-9b-q6-k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5				1	file_bytes	7458301152	bytes	measured	raw/verification.json	
+real_inference_qwen35_9b	qwen35-9b-q6-k-8k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	llama-cpp	tbd	8192	1	inference_run			not-run		verification by LAB04/05; this session only confirms file integrity + planner fit

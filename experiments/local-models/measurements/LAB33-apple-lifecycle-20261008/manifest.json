@@ -1095,9 +1095,7 @@
     "raw/lms_runner-at-first-start.py",
     "raw/lms_runner.py",
     "raw/mlx-artifact-manifest.json",
-    "raw/native-2026-10-08.1.log",
     "raw/native-log-offsets-before.json",
-    "raw/native-main.log",
     "raw/protocol.md",
     "raw/protocol.sha256",
     "raw/resources.py",
@@ -1110,7 +1108,9 @@
     "gpu_budget_gib": "Maximum GPU allocation budget не измеряется.",
     "energy": "Не измеряется.",
     "temperature": "Проверенный thermal collector отсутствует.",
-    "completion": "MLX native cancellation/GPU release not proven; GGUF retry stopped at free-only resource guard before chat; no complete new serving admission."
+    "completion": "MLX native cancellation/GPU release not proven; GGUF retry stopped at free-only resource guard before chat; no complete new serving admission.",
+    "evidence_files.raw/native-2026-10-08.1.log": "На 2026-10-22 файл отсутствует в комплекте. Исторический SHA-256 755a1eac0768befe930db1809dfc405dc4daf5d59f7d6614e5a9b1a3a07ca4ea сохранён в raw/evidence-sha256.json; содержимое и его целостность проверить нельзя. Происхождение и границы проверки описаны в accounting-audit-20261022.md.",
+    "evidence_files.raw/native-main.log": "На 2026-10-22 файл отсутствует в комплекте. Исторический SHA-256 df4ac607596146fef7b76b981333cc55f061f20fb35c9bed84c77478f821f5a9 сохранён в raw/evidence-sha256.json; содержимое и его целостность проверить нельзя. Происхождение и границы проверки описаны в accounting-audit-20261022.md."
   },
   "conclusion": "MLX service process completed16/16 short chat/tool cases and recovery without app disappearance; native cancellation remains unverified. GGUF startup/import/resource failures preserved; original interruption cause remains unknown.",
   "reviewer_decision": null
