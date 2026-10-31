@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22",
+  "updated_at": "2026-10-31",
   "require_harness_coverage": true,
   "labs": [
     { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
@@ -54,6 +54,7 @@
     { "id": "LAB49", "title": "Сеть и IAM под GPU-платформу: VPC, путь весов модели и доступ pod к AWS", "file": "LAB49-aws-network-iam.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB48"], "effort": "1 день" },
     { "id": "LAB50", "title": "Terraform как продукт команды: модуль GPU-пула, тесты и CI без долгоживущих ключей", "file": "LAB50-aws-terraform-ci.md", "kind": "engineering", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB49"], "effort": "1 день" },
     { "id": "LAB51", "title": "Холодный старт GPU-реплики в AWS: образ, веса и прогретый узел", "file": "LAB51-aws-gpu-cold-start.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB47"], "effort": "1 день" },
-    { "id": "LAB52", "title": "Надёжность GPU-сервинга в AWS: метрики GPU, прерывание Spot и game day", "file": "LAB52-aws-gpu-reliability.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB47"], "effort": "1 день" }
+    { "id": "LAB52", "title": "Надёжность GPU-сервинга в AWS: метрики GPU, прерывание Spot и game day", "file": "LAB52-aws-gpu-reliability.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB47"], "effort": "1 день" },
+    { "id": "LAB53", "title": "Шум сервинга и решения агента", "file": "LAB53-serving-noise.md", "kind": "agent", "readiness": "target-machine", "prerequisites": ["LAB04", "LAB08", "LAB26"], "effort": "2–3 часа оператора и около 3 часов replay, затем около 6 часов агентной серии" }
   ]
 }

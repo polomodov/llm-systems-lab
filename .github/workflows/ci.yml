@@ -26,6 +26,8 @@ jobs:
           python-version: '3.12'
       - name: Offline Mac lab exporter regressions
         run: python3 -m unittest discover -s experiments/local-models -p 'test_lab*.py' -v
+      - name: Offline lab fixture regressions
+        run: python3 -B -m unittest discover -s docs/labs/fixtures -p '*_test.py' -v
       - name: Records, ledger, pins and contracts
         run: npm run check
 
