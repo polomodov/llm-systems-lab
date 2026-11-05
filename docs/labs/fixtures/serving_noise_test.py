@@ -136,6 +136,32 @@ class ServingNoiseTest(unittest.TestCase):
             self.assertEqual(row["distinct_actions_in_source"], 2)
             self.assertAlmostEqual(report["summary"]["B"]["action_flip_rate"], 1 / 3)
 
+    def test_incomplete_streams_are_failures_not_answers(self):
+        bodies = {1: b"", 2: sse(["think"], "ls").replace(b"data: [DONE]\n\n", b"")}
+        with tempfile.TemporaryDirectory() as tmp, server(lambda i, body: bodies.get(i, sse(["think"], "ls"))) as (url, _):
+            inference = trace(tmp, turns=1)
+            out = Path(tmp) / "replay"
+            self.assertEqual(self.run_cli("replay", "--endpoint", url, "--trace", str(inference), "--repeats", "3",
+                                          "--condition", "C", "--out", str(out)), 1)
+            rows = [json.loads(line) for line in (out / "results.jsonl").read_text().splitlines()]
+            self.assertEqual([bool(r["error"]) for r in rows], [True, True, False])
+            report_path = Path(tmp) / "report.json"
+            self.run_cli("analyze", "--source", str(out), "--out", str(report_path))
+            self.assertEqual(json.loads(report_path.read_text())["summary"]["C"]["comparisons"], 0)
+
+    def test_substituted_replay_is_not_same_input(self):
+        with tempfile.TemporaryDirectory() as tmp, server(lambda i, body: sse(["think"], "ls")) as (url, _):
+            inference = trace(tmp, turns=1)
+            base, changed = Path(tmp) / "base", Path(tmp) / "changed"
+            self.run_cli("replay", "--endpoint", url, "--trace", str(inference), "--repeats", "1",
+                         "--condition", "base", "--out", str(base))
+            self.run_cli("replay", "--endpoint", url, "--trace", str(inference), "--repeats", "1",
+                         "--substitute", "Fix tests.=Do not fix tests.", "--condition", "changed", "--out", str(changed))
+            report_path = Path(tmp) / "report.json"
+            self.run_cli("analyze", "--source", str(base), "--source", str(changed), "--out", str(report_path))
+            rows = json.loads(report_path.read_text())["turns"]
+            self.assertEqual([r["same_input_as_reference"] for r in rows if r["source"] == "changed"], [False])
+
     def test_canonical_request_ignores_run_ids_and_tool_call_ids_only(self):
         def body(run_id, call_id, stamp):
             return json.dumps({"messages": [

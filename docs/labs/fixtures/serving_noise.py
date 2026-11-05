@@ -130,6 +130,9 @@ def post(target, body, timeout):
                     raise ValueError("response exceeds limit")
         if status != 200:
             raise ValueError(f"HTTP {status}; no retry")
+        incomplete = stream_problem(bytes(data))
+        if incomplete:
+            raise ValueError(incomplete)
     except Exception as exc:  # recorded, never retried
         error = f"{type(exc).__name__}: {exc}"
     finally:
@@ -139,6 +142,25 @@ def post(target, body, timeout):
         if expired.is_set():
             error = "TimeoutError: request deadline reached"
     return status, bytes(data), error, time.monotonic() - started
+
+
+def stream_problem(raw):
+    """None for a finished SSE answer; otherwise why it cannot count as one."""
+    finished, done = False, False
+    for line in raw.decode("utf-8", errors="replace").splitlines():
+        if line.strip() == "data: [DONE]":
+            done = True
+        elif line.startswith("data: "):
+            try:
+                event = json.loads(line[6:])
+            except json.JSONDecodeError:
+                return "malformed SSE event"
+            finished = finished or any(c.get("finish_reason") for c in event.get("choices") or [])
+    if not finished:
+        return "stream ended without finish_reason"
+    if not done:
+        return "stream ended without [DONE]"
+    return None
 
 
 def replay(args):
@@ -169,6 +191,9 @@ def replay(args):
               for n in set(wanted) | set(neighbours if args.parallel > 1 else [])}
     out = Path(args.out)
     out.mkdir()  # refuses an existing directory before any HTTP call
+    for n in sorted(bodies):  # the bytes actually sent, after overrides and substitutions
+        with (out / f"t{n:05d}-request.json").open("xb") as sent:
+            sent.write(bodies[n])
     save_json(out / "config.json", {
         "kind": "serving-noise-replay", "agent_run": False, "condition": args.condition,
         "endpoint": args.endpoint, "trace": str(Path(args.trace).resolve()), "turns": wanted,
@@ -288,10 +313,10 @@ def load_source(path):
     if (path / "config.json").is_file():
         config = json.loads((path / "config.json").read_text())
         label = config.get("condition") or path.name
-        trace = Path(config["trace"])
         for turn in config["turns"]:
-            if (trace / f"{turn}-request.json").is_file():
-                requests[turn] = canonical_request((trace / f"{turn}-request.json").read_bytes())
+            sent = path / f"t{turn:05d}-request.json"
+            if sent.is_file():
+                requests[turn] = canonical_request(sent.read_bytes())
         for line in (path / "results.jsonl").read_text().splitlines():
             row = json.loads(line)
             if row["role"] != "target" or row["error"]:
