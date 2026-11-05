@@ -1,4 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-glm-47-flash-ctx8192-tg	glm-47-flash-ctx8192	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip	8192	1	tg128_avg_ts	35.831892	tokens/s	measured	raw/context-8192-bench.json	
-glm-47-flash-ctx16384-tg	glm-47-flash-ctx16384	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip	16384	1	tg128_avg_ts	30.75601	tokens/s	measured	raw/context-16384-bench.json	
-glm-47-flash-ctx32768-tg	glm-47-flash-ctx32768	zai-org/GLM-4.7-Flash	llama.cpp b8407 (312cf0332)	hip	32768	1	tg128_avg_ts	24.033138	tokens/s	measured	raw/context-32768-bench.json	

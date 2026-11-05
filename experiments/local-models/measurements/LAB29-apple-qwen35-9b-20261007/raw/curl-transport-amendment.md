@@ -1,1 +1,0 @@
-До повторной передачи: Python TLS соединения при параллельных Range и HF metadata завершились EOF/URLError; предыдущие части сохранены. Повторяем curl --http1.1, до 2 workers, фиксируем status/Content-Range/bytes и полную SHA-256. Metadata клиент также curl. Revisions/quant/ожидаемые hashes прежние. 2026-10-07T14:08:42.381794+00:00

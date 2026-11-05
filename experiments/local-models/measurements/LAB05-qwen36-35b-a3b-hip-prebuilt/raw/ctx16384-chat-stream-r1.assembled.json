@@ -1,5 +1,0 @@
-{
-  "role": "assistant",
-  "content": "LAB_READY",
-  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Reply exactly LAB_READY without explanations.\")\n   - Key constraints: \n     - Output must be exactly \"LAB_READY\"\n     - No additional text, explanations, or formatting.\n\n2.  **Identify Core Requirement:**\n   - The instruction is extremely explicit and restrictive.\n   - I must output only the string \"LAB_READY\".\n\n3.  **Formulate Response:**\n   - Check against constraints: \n     - Exactly \"LAB_READY\"? Yes.\n     - No explanations? Yes.\n     - Language matches? The output is language-neutral as requested.\n   - Final output: LAB_READY\n\n4.  **Self-Correction/Verification:**\n   - Could there be any hidden traps? No, it's a straightforward command.\n   - I will output exactly \"LAB_READY\" with no extra characters, spaces, or newlines unless necessary (but standard practice is just the exact string).\n   - Ready.✅\n"
-}

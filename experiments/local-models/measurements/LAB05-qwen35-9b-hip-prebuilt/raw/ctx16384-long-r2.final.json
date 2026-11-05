@@ -1,5 +1,0 @@
-{
-  "content": "LAB_SENTINEL_42",
-  "tool_calls": null,
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A text containing a \"Control Value\" (Контрольное значение) followed by many lines of \"Neutral measurement data\" (нейтральные данные измерения) numbered from 0 to 882.\n    *   Task: Return *only* the control value from the first line.\n    *   Language: Russian.\n\n2.  **Locate the Control Value:**\n    *   The first line says: `Контрольное значение: LAB_SENTINEL_42.`\n    *   The value to extract is `LAB_SENTINEL_42`.\n\n3.  **Format the Output:**\n    *   The user requested \"only the control value from the first line\" (Верни только контрольное значение из первой строки).\n    *   I should extract just the value part, excluding the label \"Контрольное значение:\".\n    *   Value: `LAB_SENTINEL_42`\n\n4.  **Final Check:**\n    *   Does the output match the requirement? Yes.\n    *   Is there any extra text? No.\n\n5.  **Construct Final Response:**\n    LAB_SENTINEL_42\n"
-}

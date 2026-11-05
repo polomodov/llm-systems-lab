@@ -21,7 +21,14 @@ export function validateLabCatalog(catalog) {
       harnesses.add(lab.harness);
     }
     if (lab.area !== undefined && (typeof lab.area !== 'string' || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(lab.area) || lab.harness !== undefined || lab.area === 'local-models')) throw new Error(`Invalid lab area: ${lab.id}`);
-    if (!['available', 'target-machine', 'implementation-required'].includes(lab.readiness)) throw new Error(`Invalid lab readiness: ${lab.id}`);
+    if (!['available', 'target-machine', 'implementation-required', 'frozen'].includes(lab.readiness)) throw new Error(`Invalid lab readiness: ${lab.id}`);
+    // A frozen manual keeps its text and prerequisites but opens no new sessions until it is
+    // extracted to its own repository or thawed; the planned readiness is kept for that day.
+    if (lab.readiness === 'frozen') {
+      const frozen = lab.frozen;
+      if (!frozen || typeof frozen !== 'object' || !['available', 'target-machine', 'implementation-required'].includes(frozen.planned_readiness) || typeof frozen.reason !== 'string' || !frozen.reason.trim()) throw new Error(`Frozen lab needs planned_readiness and reason: ${lab.id}`);
+      if (typeof frozen.since !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(frozen.since) || !Number.isFinite(Date.parse(frozen.since)) || new Date(frozen.since).toISOString().slice(0, 10) !== frozen.since) throw new Error(`Invalid freeze date: ${lab.id}`);
+    } else if (lab.frozen !== undefined) throw new Error(`Only a frozen lab carries a freeze record: ${lab.id}`);
     if (typeof lab.effort !== 'string' || !lab.effort.trim()) throw new Error(`Missing lab effort: ${lab.id}`);
     if (!Array.isArray(lab.prerequisites) || new Set(lab.prerequisites).size !== lab.prerequisites.length) throw new Error(`Invalid lab prerequisites: ${lab.id}`);
     if (lab.prerequisites_any !== undefined && (!Array.isArray(lab.prerequisites_any) || !lab.prerequisites_any.length || new Set(lab.prerequisites_any).size !== lab.prerequisites_any.length || lab.prerequisites_any.some(id => lab.prerequisites.includes(id)))) throw new Error(`Invalid alternative prerequisites: ${lab.id}`);
@@ -74,6 +81,7 @@ export function createLabReport(root, { lab: id, session }) {
   const catalog = loadLabCatalog(root);
   const lab = catalog.labs.find(entry => entry.id === id);
   if (!lab) throw new Error(`Unknown lab: ${id}`);
+  if (lab.readiness === 'frozen') throw new Error(`${id} is frozen since ${lab.frozen.since}: ${lab.frozen.reason}`);
   if (lab.harness) loadProfile(root, lab.harness);
   // Read every input before creating a destination; a missing template leaves no draft.
   const template = name => readFileSync(safePath(root, `docs/labs/templates/${name}`), 'utf8');

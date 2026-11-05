@@ -1,2 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-qwen36-27b-bytes	qwen36-27b-verify	Qwen/Qwen3.6-27B	sha256sum	-		1	file_bytes	19509790944	B	measured	raw/verification.json	

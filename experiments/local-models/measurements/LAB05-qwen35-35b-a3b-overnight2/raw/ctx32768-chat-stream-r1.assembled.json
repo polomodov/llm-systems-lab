@@ -1,5 +1,0 @@
-{
-  "role": "assistant",
-  "content": "LAB_READY",
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The output must be *only* \"LAB_READY\". No additional text, no explanations, no punctuation other than what's in the phrase itself (though the phrase doesn't have punctuation).\n    *   Language: Russian (instruction), but the target output is English (\"LAB_READY\").\n\n2.  **Determine the Output:**\n    *   The user wants a specific string: \"LAB_READY\".\n    *   No extra whitespace, no newlines at the end (ideally), no markdown blocks unless necessary (but usually raw text is best for this kind of constraint).\n    *   Strict adherence: \"ровно LAB_READY\" (exactly LAB_READY).\n\n3.  **Draft the Response:**\n    *   LAB_READY\n\n4.  **Final Check:**\n    *   Does it contain explanations? No.\n    *   Is it exactly the string requested? Yes.\n\n5.  **Final Output Generation:**\n    LAB_READY\n"
-}

@@ -1,8 +1,0 @@
-{
-  "recorded_at": "2026-10-08T07:28:26.454441+00:00",
-  "review_url": "https://github.com/polomodov/agent-harnesses-exps/pull/16#discussion_r4212344705",
-  "previous_context_tokens": 42,
-  "corrected_context_tokens": null,
-  "reason": "Hard context capacity не задавалась и не проверялась в LAB31; prompt42 означает длину входа, не runtime context limit. Architecture max_position_embeddings не подставляется как проверенный cap.",
-  "scope": "Derived metadata correction only; original outputs, timings, allocator/RSS, telemetry, token counts, model/runtime pins unchanged. Previous derived artifacts retained as context-before-review-*."
-}

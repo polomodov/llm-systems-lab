@@ -1,2 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-qwen3-coder-next-bytes	qwen3-coder-next-verify	Qwen/Qwen3-Coder-Next	sha256sum	-		1	file_bytes	17813589920	B	measured	raw/verification.json	

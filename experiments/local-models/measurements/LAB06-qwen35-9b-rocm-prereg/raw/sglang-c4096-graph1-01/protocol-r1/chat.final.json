@@ -1,5 +1,0 @@
-{
-  "content": "\n\nLAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Task: Respond with a specific string.\n    *   String: \"LAB_READY\"\n    *   Constraint: \"без пояснений\" (without explanations).\n    *   Constraint: \"ровно\" (exactly/user-defined, but context implies strict adherence to the requested string).\n    *   Language: Russian (request is in Russian), but the target string is English.\n\n2.  **Verify the Instruction:** The user wants *only* the text \"LAB_READY\", nothing else.\n\n3.  **Formulate Output:** Just the string \"LAB_READY\".\n\n4.  **Final Check:** Does this violate any policies? No. Is it safe? Yes. Does it follow the constraint? Yes.\n\n5.  **Execute:** Output \"LAB_READY\".\n"
-}

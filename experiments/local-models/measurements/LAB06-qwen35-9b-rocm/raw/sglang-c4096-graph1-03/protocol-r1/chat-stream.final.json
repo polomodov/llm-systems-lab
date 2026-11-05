@@ -1,5 +1,0 @@
-{
-  "content": "\n\nLAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No additional text, no explanations, no formatting (like quotes or code blocks) unless implied as part of the text (but usually \"exactly\" means raw text).\n    *   Language: Russian (instruction), Output: English (LAB_READY).\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for \"LAB_READY\" with no explanations.\n    *   I must comply strictly.\n\n3.  **Final Check:**\n    *   Does \"LAB_READY\" meet the criteria? Yes.\n    *   Are there any extra characters? No.\n    *   Is there any explanation? No.\n\n4.  **Construct Response:**\n    LAB_READY\n"
-}

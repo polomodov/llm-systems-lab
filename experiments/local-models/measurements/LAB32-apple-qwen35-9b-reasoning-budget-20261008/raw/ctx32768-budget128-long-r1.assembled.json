@@ -1,5 +1,0 @@
-{
-  "role": "assistant",
-  "content": "LAB_SENTINEL_42",
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: A long text containing a \"Control Value\" (Контрольное значение) at the very beginning, followed by a list of lines numbered from 0 to 1982, each containing \"нейтральные данные измерения\" (neutral measurement data).\n    *   Task: Return *only* the control value from the first line.\n    *   Language: Russian.\n\n2.  **Locate the Control Value:**\n    *   The text starts with: \"Контрольное значение: LAB_SENTINEL_"
-}

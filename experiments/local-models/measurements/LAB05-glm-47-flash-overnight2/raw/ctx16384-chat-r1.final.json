@@ -1,5 +1,0 @@
-{
-  "content": "LAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "1.  **Analyze the Request:** The user wants a specific response: \"LAB_READY\".\n2.  **Constraint Checklist & Confidence Score:**\n    *   No explanations? Yes.\n    *   Exact string match? Yes.\n    *   Confidence Score: 5/5.\n3.  **Mental Sandbox:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\"\n    *   Output: \"LAB_READY\"\n4.  **Final Output Generation:** Just the string \"LAB_READY\"."
-}

@@ -1,3 +1,0 @@
-# Контроллер shutdown: поправка до диагностического опыта
-
-Исходный server log содержит «Received second interrupt, terminating immediately», затем GGML_ASSERT в rsets_free; native returncode−6. Исправлена ошибочная derived оценка shutdown: failed. Ошибку не приписываем GPU-инференсу или tensor API без отдельной проверки. Следующий registered exercise: те же8K/binary/model/no-thinking/cachefalse условия, одно короткое chat; затем SIGINT только собственному непосредственному child llama-server под time, с проверкой PID/PGID. time не получает прямой сигнал. Приём: nativeexit0, нетsecond-interrupt/assert и освобождён8080. Диагностика не добавляет успешный model repeat к исходной серии.

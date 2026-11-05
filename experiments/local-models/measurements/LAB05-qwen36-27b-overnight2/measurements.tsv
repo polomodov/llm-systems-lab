@@ -1,4 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-qwen36-27b-ctx8192-tg	qwen36-27b-ctx8192	Qwen/Qwen3.6-27B	llama.cpp b8407	hip	8192	1	tg128_avg_ts	9.841659	tokens/s	measured	raw/context-8192-bench.json	
-qwen36-27b-ctx16384-tg	qwen36-27b-ctx16384	Qwen/Qwen3.6-27B	llama.cpp b8407	hip	16384	1	tg128_avg_ts	9.220959	tokens/s	measured	raw/context-16384-bench.json	
-qwen36-27b-ctx32768-tg	qwen36-27b-ctx32768	Qwen/Qwen3.6-27B	llama.cpp b8407	hip	32768	1	tg128_avg_ts	8.049101	tokens/s	measured	raw/context-32768-bench.json	

@@ -1,6 +1,0 @@
-{
-  "started_at": "2026-10-12T12:38:27.738Z",
-  "status": "failed",
-  "error": "Error: Native memory/power guard\n    at check (file:///Users/lab/.codex/worktrees/2e9e/agent-harnesses-exps/experiments/common/local-runtime.mjs:60:37)\n    at Object.verify (file:///Users/lab/.codex/worktrees/2e9e/agent-harnesses-exps/experiments/common/local-runtime.mjs:71:68)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///Users/lab/.codex/worktrees/2e9e/agent-harnesses-exps/experiments/local-models/measurements/LAB08-apple-provider-bridge-20261012/raw/native-qualification.mjs:11:2",
-  "finished_at": "2026-10-12T12:38:34.813Z"
-}

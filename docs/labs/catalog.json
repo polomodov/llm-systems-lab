@@ -1,59 +1,719 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22",
+  "updated_at": "2026-11-05",
   "require_harness_coverage": true,
   "labs": [
-    { "id": "LAB01", "title": "Воспроизводимый эпизод и границы эксперимента", "file": "LAB01-reproducibility.md", "kind": "foundation", "readiness": "available", "prerequisites": [], "effort": "1–2 часа" },
-    { "id": "LAB02", "title": "Паспорт Ryzen и бюджет общей памяти", "file": "LAB02-hardware.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "1–2 часа" },
-    { "id": "LAB03", "title": "Выбор моделей и закрепление артефактов", "file": "LAB03-artifacts.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01", "LAB02"], "effort": "1–2 часа плюс загрузка" },
-    { "id": "LAB04", "title": "llama.cpp: Vulkan против HIP/ROCm", "file": "LAB04-backends.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB02", "LAB03"], "effort": "2–4 часа плюс сборка" },
-    { "id": "LAB05", "title": "Контекст, память и протокол инструментов", "file": "LAB05-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB04"], "effort": "2–4 часа" },
-    { "id": "LAB06", "title": "vLLM, SGLang и Transformers на ROCm", "file": "LAB06-engines.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB03", "LAB05"], "effort": "4–8 часов плюс подготовка стека" },
-    { "id": "LAB07", "title": "Ollama, LM Studio и Lemonade", "file": "LAB07-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "3–6 часов плюс установка" },
-    { "id": "LAB08", "title": "Изолированное подключение локального сервера", "file": "LAB08-local-bridge.md", "kind": "engineering", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "Pi/T002 реализован; приёмка на стенде, другие adapters требуют разработки", "prerequisites_any": ["LAB05", "LAB32"] },
-    { "id": "LAB09", "title": "Агентные серии и сравнение обвязок", "file": "LAB09-agent-campaign.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа для cloud / 4–8 для local плюс исполнение и оценка" },
-    { "id": "LAB10", "title": "Абляции, повторяемость и итог исследования", "file": "LAB10-ablation.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09"], "effort": "2–4 часа для минимума после LAB09" },
-    { "id": "LAB11", "title": "Claude Code: CLI, лимиты и наблюдаемость", "file": "LAB11-claude-code.md", "kind": "agent", "harness": "claude-code", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB12", "title": "OpenCode: события и полнота учёта", "file": "LAB12-opencode.md", "kind": "agent", "harness": "opencode", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB13", "title": "Codex: автономное выполнение и границы", "file": "LAB13-codex.md", "kind": "agent", "harness": "codex", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB14", "title": "Antigravity CLI: Google API и трасса agy", "file": "LAB14-antigravity-cli.md", "kind": "agent", "harness": "antigravity-cli", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB15", "title": "Pi: SDK и модельные ходы", "file": "LAB15-pi.md", "kind": "agent", "harness": "pi", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB16", "title": "mini-SWE-agent: шаги и trajectory", "file": "LAB16-mini-swe-agent.md", "kind": "agent", "harness": "mini-swe-agent", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB17", "title": "OpenHands: Conversation, инструменты и iteration limit", "file": "LAB17-openhands.md", "kind": "agent", "harness": "openhands", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB18", "title": "Copilot CLI: model selector и подписочные метрики", "file": "LAB18-copilot-cli.md", "kind": "agent", "harness": "copilot-cli", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB19", "title": "Amp: managed mode и наблюдаемость модели", "file": "LAB19-amp.md", "kind": "agent", "harness": "amp", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–4 часа плюс сборка, исполнение и оценка" },
-    { "id": "LAB20", "title": "Калибровка независимого оценивания", "file": "LAB20-judge-calibration.md", "kind": "foundation", "readiness": "available", "prerequisites": ["LAB01"], "effort": "2–3 часа с двумя оценщиками" },
-    { "id": "LAB21", "title": "Память и сжатие контекста", "file": "LAB21-context-memory.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB09"], "effort": "3–5 часов после реализации и допуска режима" },
-    { "id": "LAB22", "title": "Дизайн инструментов и цена интерфейса", "file": "LAB22-tool-design.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB09"], "effort": "3–5 часов после реализации вариантов инструментов" },
-    { "id": "LAB23", "title": "Восстановление агента после сбоев", "file": "LAB23-failure-recovery.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB09"], "effort": "3–5 часов после допуска управляемых отказов" },
-    { "id": "LAB24", "title": "Один агент и делегирование", "file": "LAB24-delegation.md", "kind": "engineering", "readiness": "implementation-required", "prerequisites": ["LAB09"], "effort": "4–6 часов после реализации учёта и делегирования" },
-    { "id": "LAB25", "title": "Квантизация и качество агентной работы", "file": "LAB25-quantization-quality.md", "kind": "agent", "readiness": "target-machine", "prerequisites": ["LAB08", "LAB09"], "effort": "3–6 часов плюс подготовка весов и исполнение" },
-    { "id": "LAB26", "title": "Параллельная нагрузка и устойчивость Ryzen", "file": "LAB26-concurrent-load.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB05"], "effort": "2–4 часа плюс длительная серия" },
-    { "id": "LAB27", "title": "Регрессии после обновления модели или harness", "file": "LAB27-upgrade-regression.md", "kind": "agent", "readiness": "available", "prerequisites": ["LAB09", "LAB10"], "effort": "3–5 часов плюс сборка и исполнение" },
-    { "id": "LAB28", "title": "Паспорт Apple M5 Max и unified memory", "file": "LAB28-apple-hardware.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "1–2 часа" },
-    { "id": "LAB29", "title": "Закрепление GGUF и MLX-артефактов", "file": "LAB29-apple-artifacts.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28"], "effort": "1–3 часа плюс загрузка" },
-    { "id": "LAB30", "title": "llama.cpp на Apple Metal", "file": "LAB30-apple-metal.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28", "LAB29"], "effort": "2–4 часа плюс сборка" },
-    { "id": "LAB31", "title": "Нативный инференс MLX-LM", "file": "LAB31-apple-mlx.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB28", "LAB29"], "effort": "2–4 часа плюс окружение" },
-    { "id": "LAB32", "title": "Контекст, streaming и инструменты на Mac", "file": "LAB32-apple-context-tools.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB29"], "effort": "3–5 часов", "prerequisites_any": ["LAB30", "LAB31"] },
-    { "id": "LAB33", "title": "Ollama и LM Studio на Apple Silicon", "file": "LAB33-apple-serving.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "3–5 часов плюс установка" },
-    { "id": "LAB34", "title": "Параллельная нагрузка и устойчивость Mac", "file": "LAB34-apple-load.md", "kind": "measurement", "readiness": "target-machine", "prerequisites": ["LAB32"], "effort": "2–4 часа плюс 30-минутная серия" },
-    { "id": "LAB35", "title": "Apple против Ryzen на одинаковых задачах", "file": "LAB35-apple-ryzen-comparison.md", "kind": "agent", "readiness": "implementation-required", "prerequisites": ["LAB04", "LAB08", "LAB09", "LAB32", "LAB34"], "effort": "4–8 часов плюс исполнение и оценка" },
-    { "id": "LAB36", "title": "SPACE: паспорт хоста, развёртывание в Kind и smoke", "file": "LAB36-space-deploy-smoke.md", "kind": "measurement", "area": "space", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "3–6 часов на стенд" },
-    { "id": "LAB37", "title": "Pi и OpenHands в микро-VM SPACE", "file": "LAB37-space-harness-vm.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36", "LAB15", "LAB17"], "effort": "1–2 дня инженерной работы плюс прогоны" },
-    { "id": "LAB38", "title": "Слой инструментов: SPACE как исполнитель для любой обвязки", "file": "LAB38-space-tool-layer.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36"], "effort": "1–2 дня инженерной работы плюс прогоны" },
-    { "id": "LAB39", "title": "Слой состояния: suspend/restore и fork для эпизодов", "file": "LAB39-space-state-layer.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB36"], "effort": "1 день плюс прогоны", "prerequisites_any": ["LAB37", "LAB38"] },
-    { "id": "LAB40", "title": "Латентность песочниц: cold, pool, base snapshot, restore", "file": "LAB40-space-latency-pools.md", "kind": "measurement", "area": "space", "readiness": "target-machine", "prerequisites": ["LAB36"], "effort": "3–4 часа на стенд" },
-    { "id": "LAB41", "title": "Сеть и секреты: VM агента с доступом только к API провайдера", "file": "LAB41-space-network-secrets.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB37"], "effort": "1 день" },
-    { "id": "LAB42", "title": "Агентные кампании на SPACE и сравнение с Docker", "file": "LAB42-space-campaign.md", "kind": "engineering", "area": "space", "readiness": "implementation-required", "prerequisites": ["LAB09", "LAB37", "LAB41"], "effort": "1 день плюс время серии" },
-    { "id": "LAB43", "title": "GPU в pod: k3s и AMD device plugin на gfx1151", "file": "LAB43-k8s-gpu-pod.md", "kind": "measurement", "area": "k8s-gpu", "readiness": "target-machine", "prerequisites": ["LAB02", "LAB05"], "effort": "3–5 часов" },
-    { "id": "LAB44", "title": "Планировщик на фиктивном GPU-флоте: DRA, Kueue и gang scheduling", "file": "LAB44-k8s-gpu-scheduling.md", "kind": "engineering", "area": "k8s-gpu", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "1 день" },
-    { "id": "LAB45", "title": "vLLM в Kubernetes: TTFT/ITL, prefix caching и ёмкость реплики", "file": "LAB45-k8s-gpu-vllm-capacity.md", "kind": "measurement", "area": "k8s-gpu", "readiness": "target-machine", "prerequisites": ["LAB06", "LAB43"], "effort": "4–6 часов" },
-    { "id": "LAB46", "title": "Inference-aware routing и холодный старт реплики", "file": "LAB46-k8s-gpu-inference-routing.md", "kind": "measurement", "area": "k8s-gpu", "readiness": "target-machine", "prerequisites": ["LAB44", "LAB45"], "effort": "1 день" },
-    { "id": "LAB47", "title": "EKS, Karpenter и KEDA: автоскейлинг GPU-сервинга и стоимость токенов", "file": "LAB47-k8s-gpu-eks-autoscaling.md", "kind": "engineering", "area": "k8s-gpu", "readiness": "target-machine", "prerequisites": ["LAB45", "LAB49"], "effort": "1 день плюс время на teardown" },
-    { "id": "LAB48", "title": "Учебный AWS-аккаунт как код: бюджет, удалённый state и проверка остатков", "file": "LAB48-aws-account-baseline.md", "kind": "foundation", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB01"], "effort": "полдня плюс ожидание квоты на GPU" },
-    { "id": "LAB49", "title": "Сеть и IAM под GPU-платформу: VPC, путь весов модели и доступ pod к AWS", "file": "LAB49-aws-network-iam.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB48"], "effort": "1 день" },
-    { "id": "LAB50", "title": "Terraform как продукт команды: модуль GPU-пула, тесты и CI без долгоживущих ключей", "file": "LAB50-aws-terraform-ci.md", "kind": "engineering", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB49"], "effort": "1 день" },
-    { "id": "LAB51", "title": "Холодный старт GPU-реплики в AWS: образ, веса и прогретый узел", "file": "LAB51-aws-gpu-cold-start.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB47"], "effort": "1 день" },
-    { "id": "LAB52", "title": "Надёжность GPU-сервинга в AWS: метрики GPU, прерывание Spot и game day", "file": "LAB52-aws-gpu-reliability.md", "kind": "measurement", "area": "aws", "readiness": "target-machine", "prerequisites": ["LAB47"], "effort": "1 день" }
+    {
+      "id": "LAB01",
+      "title": "Воспроизводимый эпизод и границы эксперимента",
+      "file": "LAB01-reproducibility.md",
+      "kind": "foundation",
+      "readiness": "available",
+      "prerequisites": [],
+      "effort": "1–2 часа"
+    },
+    {
+      "id": "LAB02",
+      "title": "Паспорт Ryzen и бюджет общей памяти",
+      "file": "LAB02-hardware.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "1–2 часа"
+    },
+    {
+      "id": "LAB03",
+      "title": "Выбор моделей и закрепление артефактов",
+      "file": "LAB03-artifacts.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB01",
+        "LAB02"
+      ],
+      "effort": "1–2 часа плюс загрузка"
+    },
+    {
+      "id": "LAB04",
+      "title": "llama.cpp: Vulkan против HIP/ROCm",
+      "file": "LAB04-backends.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB02",
+        "LAB03"
+      ],
+      "effort": "2–4 часа плюс сборка"
+    },
+    {
+      "id": "LAB05",
+      "title": "Контекст, память и протокол инструментов",
+      "file": "LAB05-context-tools.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB04"
+      ],
+      "effort": "2–4 часа"
+    },
+    {
+      "id": "LAB06",
+      "title": "vLLM, SGLang и Transformers на ROCm",
+      "file": "LAB06-engines.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB03",
+        "LAB05"
+      ],
+      "effort": "4–8 часов плюс подготовка стека"
+    },
+    {
+      "id": "LAB07",
+      "title": "Ollama, LM Studio и Lemonade",
+      "file": "LAB07-serving.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB05"
+      ],
+      "effort": "3–6 часов плюс установка"
+    },
+    {
+      "id": "LAB08",
+      "title": "Изолированное подключение локального сервера",
+      "file": "LAB08-local-bridge.md",
+      "kind": "engineering",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "Pi/T002 реализован; приёмка на стенде, другие adapters требуют разработки",
+      "prerequisites_any": [
+        "LAB05",
+        "LAB32"
+      ]
+    },
+    {
+      "id": "LAB09",
+      "title": "Агентные серии и сравнение обвязок",
+      "file": "LAB09-agent-campaign.md",
+      "kind": "agent",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа для cloud / 4–8 для local плюс исполнение и оценка"
+    },
+    {
+      "id": "LAB10",
+      "title": "Абляции, повторяемость и итог исследования",
+      "file": "LAB10-ablation.md",
+      "kind": "agent",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB09"
+      ],
+      "effort": "2–4 часа для минимума после LAB09"
+    },
+    {
+      "id": "LAB11",
+      "title": "Claude Code: CLI, лимиты и наблюдаемость",
+      "file": "LAB11-claude-code.md",
+      "kind": "agent",
+      "harness": "claude-code",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB12",
+      "title": "OpenCode: события и полнота учёта",
+      "file": "LAB12-opencode.md",
+      "kind": "agent",
+      "harness": "opencode",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB13",
+      "title": "Codex: автономное выполнение и границы",
+      "file": "LAB13-codex.md",
+      "kind": "agent",
+      "harness": "codex",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB14",
+      "title": "Antigravity CLI: Google API и трасса agy",
+      "file": "LAB14-antigravity-cli.md",
+      "kind": "agent",
+      "harness": "antigravity-cli",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB15",
+      "title": "Pi: SDK и модельные ходы",
+      "file": "LAB15-pi.md",
+      "kind": "agent",
+      "harness": "pi",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB16",
+      "title": "mini-SWE-agent: шаги и trajectory",
+      "file": "LAB16-mini-swe-agent.md",
+      "kind": "agent",
+      "harness": "mini-swe-agent",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB17",
+      "title": "OpenHands: Conversation, инструменты и iteration limit",
+      "file": "LAB17-openhands.md",
+      "kind": "agent",
+      "harness": "openhands",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB18",
+      "title": "Copilot CLI: model selector и подписочные метрики",
+      "file": "LAB18-copilot-cli.md",
+      "kind": "agent",
+      "harness": "copilot-cli",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB19",
+      "title": "Amp: managed mode и наблюдаемость модели",
+      "file": "LAB19-amp.md",
+      "kind": "agent",
+      "harness": "amp",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–4 часа плюс сборка, исполнение и оценка"
+    },
+    {
+      "id": "LAB20",
+      "title": "Калибровка независимого оценивания",
+      "file": "LAB20-judge-calibration.md",
+      "kind": "foundation",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "2–3 часа с двумя оценщиками"
+    },
+    {
+      "id": "LAB21",
+      "title": "Память и сжатие контекста",
+      "file": "LAB21-context-memory.md",
+      "kind": "engineering",
+      "readiness": "implementation-required",
+      "prerequisites": [
+        "LAB09"
+      ],
+      "effort": "3–5 часов после реализации и допуска режима"
+    },
+    {
+      "id": "LAB22",
+      "title": "Дизайн инструментов и цена интерфейса",
+      "file": "LAB22-tool-design.md",
+      "kind": "engineering",
+      "readiness": "implementation-required",
+      "prerequisites": [
+        "LAB09"
+      ],
+      "effort": "3–5 часов после реализации вариантов инструментов"
+    },
+    {
+      "id": "LAB23",
+      "title": "Восстановление агента после сбоев",
+      "file": "LAB23-failure-recovery.md",
+      "kind": "engineering",
+      "readiness": "implementation-required",
+      "prerequisites": [
+        "LAB09"
+      ],
+      "effort": "3–5 часов после допуска управляемых отказов"
+    },
+    {
+      "id": "LAB24",
+      "title": "Один агент и делегирование",
+      "file": "LAB24-delegation.md",
+      "kind": "engineering",
+      "readiness": "implementation-required",
+      "prerequisites": [
+        "LAB09"
+      ],
+      "effort": "4–6 часов после реализации учёта и делегирования"
+    },
+    {
+      "id": "LAB25",
+      "title": "Квантизация и качество агентной работы",
+      "file": "LAB25-quantization-quality.md",
+      "kind": "agent",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB08",
+        "LAB09"
+      ],
+      "effort": "3–6 часов плюс подготовка весов и исполнение"
+    },
+    {
+      "id": "LAB26",
+      "title": "Параллельная нагрузка и устойчивость Ryzen",
+      "file": "LAB26-concurrent-load.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB05"
+      ],
+      "effort": "2–4 часа плюс длительная серия"
+    },
+    {
+      "id": "LAB27",
+      "title": "Регрессии после обновления модели или harness",
+      "file": "LAB27-upgrade-regression.md",
+      "kind": "agent",
+      "readiness": "available",
+      "prerequisites": [
+        "LAB09",
+        "LAB10"
+      ],
+      "effort": "3–5 часов плюс сборка и исполнение"
+    },
+    {
+      "id": "LAB28",
+      "title": "Паспорт Apple M5 Max и unified memory",
+      "file": "LAB28-apple-hardware.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "1–2 часа"
+    },
+    {
+      "id": "LAB29",
+      "title": "Закрепление GGUF и MLX-артефактов",
+      "file": "LAB29-apple-artifacts.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB28"
+      ],
+      "effort": "1–3 часа плюс загрузка"
+    },
+    {
+      "id": "LAB30",
+      "title": "llama.cpp на Apple Metal",
+      "file": "LAB30-apple-metal.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB28",
+        "LAB29"
+      ],
+      "effort": "2–4 часа плюс сборка"
+    },
+    {
+      "id": "LAB31",
+      "title": "Нативный инференс MLX-LM",
+      "file": "LAB31-apple-mlx.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB28",
+        "LAB29"
+      ],
+      "effort": "2–4 часа плюс окружение"
+    },
+    {
+      "id": "LAB32",
+      "title": "Контекст, streaming и инструменты на Mac",
+      "file": "LAB32-apple-context-tools.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB29"
+      ],
+      "effort": "3–5 часов",
+      "prerequisites_any": [
+        "LAB30",
+        "LAB31"
+      ]
+    },
+    {
+      "id": "LAB33",
+      "title": "Ollama и LM Studio на Apple Silicon",
+      "file": "LAB33-apple-serving.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB32"
+      ],
+      "effort": "3–5 часов плюс установка"
+    },
+    {
+      "id": "LAB34",
+      "title": "Параллельная нагрузка и устойчивость Mac",
+      "file": "LAB34-apple-load.md",
+      "kind": "measurement",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB32"
+      ],
+      "effort": "2–4 часа плюс 30-минутная серия"
+    },
+    {
+      "id": "LAB35",
+      "title": "Apple против Ryzen на одинаковых задачах",
+      "file": "LAB35-apple-ryzen-comparison.md",
+      "kind": "agent",
+      "readiness": "implementation-required",
+      "prerequisites": [
+        "LAB04",
+        "LAB08",
+        "LAB09",
+        "LAB32",
+        "LAB34"
+      ],
+      "effort": "4–8 часов плюс исполнение и оценка"
+    },
+    {
+      "id": "LAB36",
+      "title": "SPACE: паспорт хоста, развёртывание в Kind и smoke",
+      "file": "LAB36-space-deploy-smoke.md",
+      "kind": "measurement",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "3–6 часов на стенд",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB37",
+      "title": "Pi и OpenHands в микро-VM SPACE",
+      "file": "LAB37-space-harness-vm.md",
+      "kind": "engineering",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB36",
+        "LAB15",
+        "LAB17"
+      ],
+      "effort": "1–2 дня инженерной работы плюс прогоны",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "implementation-required",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB38",
+      "title": "Слой инструментов: SPACE как исполнитель для любой обвязки",
+      "file": "LAB38-space-tool-layer.md",
+      "kind": "engineering",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB36"
+      ],
+      "effort": "1–2 дня инженерной работы плюс прогоны",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "implementation-required",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB39",
+      "title": "Слой состояния: suspend/restore и fork для эпизодов",
+      "file": "LAB39-space-state-layer.md",
+      "kind": "engineering",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB36"
+      ],
+      "effort": "1 день плюс прогоны",
+      "prerequisites_any": [
+        "LAB37",
+        "LAB38"
+      ],
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "implementation-required",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB40",
+      "title": "Латентность песочниц: cold, pool, base snapshot, restore",
+      "file": "LAB40-space-latency-pools.md",
+      "kind": "measurement",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB36"
+      ],
+      "effort": "3–4 часа на стенд",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB41",
+      "title": "Сеть и секреты: VM агента с доступом только к API провайдера",
+      "file": "LAB41-space-network-secrets.md",
+      "kind": "engineering",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB37"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "implementation-required",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB42",
+      "title": "Агентные кампании на SPACE и сравнение с Docker",
+      "file": "LAB42-space-campaign.md",
+      "kind": "engineering",
+      "area": "space",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB09",
+        "LAB37",
+        "LAB41"
+      ],
+      "effort": "1 день плюс время серии",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "implementation-required",
+        "reason": "Ветка SPACE заморожена 05.11.2026: методичка без измерений и без реализации backend; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB43",
+      "title": "GPU в pod: k3s и AMD device plugin на gfx1151",
+      "file": "LAB43-k8s-gpu-pod.md",
+      "kind": "measurement",
+      "area": "k8s-gpu",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB02",
+        "LAB05"
+      ],
+      "effort": "3–5 часов",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка Kubernetes/GPU заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB44",
+      "title": "Планировщик на фиктивном GPU-флоте: DRA, Kueue и gang scheduling",
+      "file": "LAB44-k8s-gpu-scheduling.md",
+      "kind": "engineering",
+      "area": "k8s-gpu",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка Kubernetes/GPU заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB45",
+      "title": "vLLM в Kubernetes: TTFT/ITL, prefix caching и ёмкость реплики",
+      "file": "LAB45-k8s-gpu-vllm-capacity.md",
+      "kind": "measurement",
+      "area": "k8s-gpu",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB06",
+        "LAB43"
+      ],
+      "effort": "4–6 часов",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка Kubernetes/GPU заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB46",
+      "title": "Inference-aware routing и холодный старт реплики",
+      "file": "LAB46-k8s-gpu-inference-routing.md",
+      "kind": "measurement",
+      "area": "k8s-gpu",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB44",
+        "LAB45"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка Kubernetes/GPU заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB47",
+      "title": "EKS, Karpenter и KEDA: автоскейлинг GPU-сервинга и стоимость токенов",
+      "file": "LAB47-k8s-gpu-eks-autoscaling.md",
+      "kind": "engineering",
+      "area": "k8s-gpu",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB45",
+        "LAB49"
+      ],
+      "effort": "1 день плюс время на teardown",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка Kubernetes/GPU заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB48",
+      "title": "Учебный AWS-аккаунт как код: бюджет, удалённый state и проверка остатков",
+      "file": "LAB48-aws-account-baseline.md",
+      "kind": "foundation",
+      "area": "aws",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB01"
+      ],
+      "effort": "полдня плюс ожидание квоты на GPU",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB49",
+      "title": "Сеть и IAM под GPU-платформу: VPC, путь весов модели и доступ pod к AWS",
+      "file": "LAB49-aws-network-iam.md",
+      "kind": "measurement",
+      "area": "aws",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB48"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB50",
+      "title": "Terraform как продукт команды: модуль GPU-пула, тесты и CI без долгоживущих ключей",
+      "file": "LAB50-aws-terraform-ci.md",
+      "kind": "engineering",
+      "area": "aws",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB49"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB51",
+      "title": "Холодный старт GPU-реплики в AWS: образ, веса и прогретый узел",
+      "file": "LAB51-aws-gpu-cold-start.md",
+      "kind": "measurement",
+      "area": "aws",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB47"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    },
+    {
+      "id": "LAB52",
+      "title": "Надёжность GPU-сервинга в AWS: метрики GPU, прерывание Spot и game day",
+      "file": "LAB52-aws-gpu-reliability.md",
+      "kind": "measurement",
+      "area": "aws",
+      "readiness": "frozen",
+      "prerequisites": [
+        "LAB47"
+      ],
+      "effort": "1 день",
+      "frozen": {
+        "since": "2026-11-05",
+        "planned_readiness": "target-machine",
+        "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
+      }
+    }
   ]
 }

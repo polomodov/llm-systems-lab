@@ -1,5 +1,0 @@
-{
-  "content": "LAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "*   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: Only the text \"LAB_READY\", no other text.\n\n    *   The user wants a specific string returned.\n    *   Language: Russian (request) -> Output: English string \"LAB_READY\".\n\n    *   LAB_READY"
-}

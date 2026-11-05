@@ -1,5 +1,0 @@
-{
-  "content": "LAB_VALUE_42",
-  "tool_calls": null,
-  "reasoning_content": "The user requested the tool `lookup_lab_value` with `key` \"alpha\".\nThe tool returned `LAB_VALUE_42`.\nThe user specified: \"Получив результат инструмента, верни только значение.\" (After getting the tool result, return only the value.)\n\nSo I should output just `LAB_VALUE_42`.\n"
-}
