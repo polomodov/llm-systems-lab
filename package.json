@@ -24,6 +24,8 @@
     "lab:new": "node scripts/new-lab.mjs",
     "lab:check": "node scripts/check-lab.mjs",
     "lab:practice": "node scripts/lab-practice.mjs",
-    "test:local-docker": "HARNESS_LOCAL_DOCKER_TEST=1 node --test tests/local-docker.test.mjs"
+    "test:local-docker": "HARNESS_LOCAL_DOCKER_TEST=1 node --test tests/local-docker.test.mjs",
+    "reconcile": "node scripts/reconcile-run.mjs",
+    "capture-sources": "node scripts/capture-sources.mjs"
   }
 }

@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { readRun, writeRun } from './lib/records.mjs';
 import { inventory, sha256 } from './lib/files.mjs';
 import { verifyInputs } from './run.mjs';
+import { sealedTaskDescriptor } from './lib/tasks.mjs';
 import { args, options, main } from './lib/cli.mjs';
 export function judgeRun(root, runId, evaluationFile) {
   const record = readRun(root, runId), dir = join(root, 'results/runs', runId);
@@ -25,7 +26,7 @@ export function judgeRun(root, runId, evaluationFile) {
   const finalText = readFileSync(finalPath);
   if (evaluation.workspace_sha256 !== sha256(finalText)) throw new Error('Evaluation must bind to SHA-256 of trace/final-workspace.json');
   if (JSON.stringify(inventory(join(dir,'workspace'))) !== JSON.stringify(JSON.parse(finalText))) throw new Error('Workspace changed after execution');
-  const required = record.task.startsWith('T001') ? ['dossier.md','sources.json'] : record.task.startsWith('T002') ? ['report.md'] : ['ledger.md','ablation-plan.md'];
+  const required = sealedTaskDescriptor(dir, record.task).required_artifacts;
   if (evaluation.result === 'pass') for (const file of required) if (!current.some(row => row.path === file && row.bytes > 0)) throw new Error(`A pass requires nonempty artifacts/${file}`);
   const lock = join(dir,'.lock'); mkdirSync(lock);
   try {

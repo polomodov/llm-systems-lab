@@ -43,7 +43,7 @@ export function replayFetcher(text) {
     return row;
   };
 }
-function fetchPublic(raw, redirects = 0) {
+export function fetchPublic(raw, redirects = 0) {
   return new Promise(async (resolve, reject) => {
     try {
       const url = new URL(normalizeUrl(raw)), ip = await address(url.hostname);

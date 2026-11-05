@@ -3,12 +3,14 @@ import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'node
 import { join, resolve } from 'node:path';
 import { spawn, spawnSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
+import { hostname } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { readRun, writeRun } from './lib/records.mjs';
 import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.mjs';
 import { validateProfile, selectProvider, selectModel } from './lib/harnesses.mjs';
 import { taskLimits } from './lib/contracts.mjs';
 import { localRecordErrors } from './lib/local-inference.mjs';
+import { sealedTaskDescriptor, agentCwd } from './lib/tasks.mjs';
 import { args, options, main } from './lib/cli.mjs';
 export function docker(argv, { env = process.env, timeout = 120000 } = {}) {
   const result = spawnSync('docker', argv, { encoding: 'utf8', env, timeout, maxBuffer: 16 * 1024 * 1024 });
@@ -83,13 +85,14 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
   const manifest = verifyInputs(dir, record), control = join(dir, 'runtime-control');
   const adapter = await import(pathToFileURL(join(dir, 'inputs/control/adapter.mjs')));
   const limits = taskLimits(readFileSync(safePath(dir, 'inputs/task.md'), 'utf8'));
+  const task = sealedTaskDescriptor(dir, record.task);
   const profile = validateProfile(JSON.parse(readFileSync(join(dir, 'inputs/control/harness.json'), 'utf8')), record.harness.name);
   const selectedProvider = selectProvider(profile, provider ?? record.model.provider ?? manifest.provider);
   if (selectedProvider.name !== manifest.provider || (record.model.provider && record.model.provider !== selectedProvider.name)) throw new Error('Provider differs from the sealed preparation; create a new run');
   const selectedModel = selectModel(profile, selectedProvider, model);
   if (record.model.id && selectModel(profile, selectedProvider, record.model.id).recorded !== selectedModel.recorded) throw new Error('Requested model differs from the planned run');
   if (budgetMode === 'hard' && profile.budget.usd !== 'hard') throw new Error(`${profile.id} has no verified hard USD cap; use --budget-mode observed for exploratory runs`);
-  const launch = { model: selectedModel.requested, provider: selectedProvider.name, turns: profile.budget.turns === 'unavailable' ? null : limits.turns, budget: budgetMode === 'hard' ? limits.budget : null, cwd: record.task.startsWith('T002') ? '/workspace/sample' : '/workspace' };
+  const launch = { model: selectedModel.requested, provider: selectedProvider.name, turns: profile.budget.turns === 'unavailable' ? null : limits.turns, budget: budgetMode === 'hard' ? limits.budget : null, cwd: agentCwd(task) };
   const local=selectedProvider.name==='local';
   if(local && localRecordErrors(record).length)throw new Error(localRecordErrors(record).join('; '));
   if(local) {const text=readFileSync(join(dir,'inputs/control/local-deployment.json'));if(sha256(text)!==record.local_inference.deployment_sha256 || JSON.stringify(JSON.parse(text))!==JSON.stringify(record.local_inference.deployment))throw new Error('Sealed deployment differs from local record');}
@@ -127,6 +130,8 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     record.execution = { ...record.execution, command: ['node','/control/entrypoint.mjs'], cwd: launch.cwd, image_id: imageId, proxy_image_id: proxyId, timeout_s: timeout, network_policy: sha256(readFileSync(join(control,'network.json'))), budget_policy: budgetMode, started_at: new Date().toISOString(), finished_at: null, exit_code: null, signal: null, timed_out: false };
     record.status = 'running'; record.notes = `${record.notes}\nvariant=${manifest.variant}; provider=${selectedProvider.name}; model selection=${selectedModel.policy}; turn limit=${profile.budget.turns}; budget policy=${budgetMode}${budgetMode === 'observed' ? '; exploratory: task USD limit is not enforced and turn limit may be advisory' : ''}`.trim();
     writeRun(root, record); started = true;
+    // Names of the containers and network, so a reconciliation after SIGKILL can find and remove them.
+    writeFileSync(join(dir,'trace/runtime.json'), JSON.stringify({ network, proxy, agent: name, coordinator_pid: process.pid, host: hostname(), started_at: record.execution.started_at }, null, 2) + '\n');
     docker(['network','create','--internal','--label','harness-lab=true',network]);
     mkdirSync(join(dir,'trace/network'), { recursive: true });
     docker(['create','--name',proxy,'--label','harness-lab=true','--network','bridge',...(local?['--publish','127.0.0.1::8081','--env','LAB_BRIDGE_TOKEN']:[]),'--user',`${process.getuid?.() ?? 1000}:${process.getgid?.() ?? 1000}`,'--read-only','--cap-drop','ALL','--security-opt','no-new-privileges','--memory','256m','--pids-limit','64','--mount',`type=bind,src=${control},dst=/control,readonly`,'--mount',`type=bind,src=${join(dir,'trace/network')},dst=/audit`,'--entrypoint','node',proxyId,local?'/control/local-broker.mjs':'/control/egress.mjs'], {env:local?{...process.env,LAB_BRIDGE_TOKEN:capability}:process.env});
@@ -138,7 +143,7 @@ export async function runExperiment(root, runId, { image, model, timeout = 900, 
     // Readiness is bounded and independent of external network availability.
     docker(['exec',proxy,'node','--input-type=module','-e',`for(let i=0;i<40;i++){try{if((await fetch('http://${local ? "egress" : "127.0.0.1"}:8080/health')).ok)process.exit(0)}catch{}await new Promise(r=>setTimeout(r,100));}process.exit(1)`], { timeout: 10000 });
     const begin = Date.now();
-    const result = await execute(containerArgs({ name, network, image: imageId, workspace: join(dir,'workspace'), control, readOnlyWorkspace: !record.task.startsWith('T002'), uid: process.getuid?.() ?? 1000, gid: process.getgid?.() ?? 1000, credentialKeys: selectedProvider.credential_env, nativeCache: profile.native_cache === true }), { env, timeout, name });
+    const result = await execute(containerArgs({ name, network, image: imageId, workspace: join(dir,'workspace'), control, readOnlyWorkspace: task.workspace !== 'repo', uid: process.getuid?.() ?? 1000, gid: process.getgid?.() ?? 1000, credentialKeys: selectedProvider.credential_env, nativeCache: profile.native_cache === true }), { env, timeout, name });
     record.loop.wall_clock_s = Math.ceil((Date.now() - begin) / 1000);
     const stdout = redact(result.stdout), stderr = redact(result.stderr);
     writeFileSync(join(dir,'trace/stdout.jsonl'), stdout); writeFileSync(join(dir,'trace/stderr.txt'), stderr);

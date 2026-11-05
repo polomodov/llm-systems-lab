@@ -1,1 +1,0 @@
-Initial finalizer import GGUFFileType from gguf failed before any writes; corrected finalizer uses GGMLQuantizationType only. finalize_manifest.py completed successfully.

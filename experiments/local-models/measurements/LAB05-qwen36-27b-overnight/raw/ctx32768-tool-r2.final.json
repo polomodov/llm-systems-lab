@@ -1,5 +1,0 @@
-{
-  "content": "LAB_VALUE_42",
-  "tool_calls": null,
-  "reasoning_content": "The user requested to return only the value obtained from the tool `lookup_lab_value`. The tool returned \"LAB_VALUE_42\". I should output this string exactly.\n"
-}

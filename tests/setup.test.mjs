@@ -15,6 +15,9 @@ const tasks = {
   T001: 'T001-dossier-from-sources',
   T002: 'T002-repo-janitor',
   T003: 'T003-harness-self-audit',
+  T004: 'T004-feature-from-spec',
+  T005: 'T005-data-normalization',
+  T006: 'T006-security-hardening',
 };
 const temp = t => {
   const directory = mkdtempSync(join(tmpdir(), 'harness-setup-test-'));

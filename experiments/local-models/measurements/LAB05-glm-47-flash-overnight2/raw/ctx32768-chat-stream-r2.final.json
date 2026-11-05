@@ -1,5 +1,0 @@
-{
-  "content": "LAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "1.  **Analyze the user's request:**\n    *   Language: Russian.\n    *   Instruction: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly \"LAB_READY\" without explanations.)\n    *   Constraint: \"ровно\" (exactly) implies no extra characters, spaces, or words.\n    *   Intent: The user wants a specific string output.\n\n2.  **Check for safety/policy violations:**\n    *   The request is simple and direct.\n    *   It does not ask for Chain of Thought (CoT).\n    *   It does not ask for harmful content.\n    *   It is a command to output a specific string.\n\n3.  **Formulate the output:**\n    *   Target string: \"LAB_READY\".\n\n4.  **Final verification:**\n    *   Does it match the instruction? Yes.\n    *   Are there explanations? No.\n    *   Is it exact? Yes.\n\n5.  **Construct final response.**"
-}

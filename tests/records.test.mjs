@@ -22,6 +22,8 @@ function fixture(t) {
     const contents = { "harness-ledger.md": ledger, "task.md": "# T001-fixture\n\n## Бюджет\nДо 5 ходов или $1.\n" };
     writeFileSync(join(root, dir, file), contents[file] ?? "fixture\n");
   }
+  writeFileSync(join(root, "tasks/T001-fixture/setup.sh"), "#!/usr/bin/env bash\nmkdir -p \"$1/artifacts\"\n");
+  writeFileSync(join(root, "tasks/T001-fixture/task.json"), JSON.stringify({ schema_version: 1, id: "T001-fixture", agent: "a1-fixture", workspace: "files", branch_prefix: null, evaluation: "rubric", required_artifacts: ["report.md"], network: { connect_domains: [], sources: false }, setup_args: [] }));
   return root;
 }
 

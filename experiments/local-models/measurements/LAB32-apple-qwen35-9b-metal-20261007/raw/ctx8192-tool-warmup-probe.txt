@@ -1,6 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/http_probe.py", line 117, in <module>
-    tool = validate_tool(message)
-  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/http_probe.py", line 16, in validate_tool
-    raise ValueError('expected exactly one tool call')
-ValueError: expected exactly one tool call

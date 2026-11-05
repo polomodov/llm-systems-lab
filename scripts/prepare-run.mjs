@@ -8,19 +8,21 @@ import { inventory, copyTree, sha256, safePath, acquireLock } from './lib/files.
 import { replayFetcher } from '../experiments/common/egress.mjs';
 import { loadProfile, selectProvider, controlFiles } from './lib/harnesses.mjs';
 import { validateDeployment, fingerprint } from './lib/local-inference.mjs';
+import { loadTaskDescriptor, agentCwd as taskCwd } from './lib/tasks.mjs';
 import { args, options, main } from './lib/cli.mjs';
 export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArchive, provider, localDeployment } = {}) {
   const record = readRun(root, runId), dir = join(root, 'results/runs', runId);
   if (record.status !== 'planned') throw new Error('Only planned runs may be prepared; create a new run to replay');
   if (!['baseline', 'without-spec'].includes(variant)) throw new Error('Variant must be baseline or without-spec');
-  const expectedAgent = { T001: 'a1-dossier', T002: 'a2-janitor', T003: 'a3-ledger-auditor' }[record.task.slice(0,4)];
-  if (!expectedAgent || record.agent !== expectedAgent) throw new Error('Agent does not match the task contract');
+  const task = loadTaskDescriptor(root, record.task);
+  if (record.agent !== task.agent) throw new Error('Agent does not match the task contract');
+  const repoTask = task.workspace === 'repo', webSources = task.network.sources;
   const profile = loadProfile(root, record.harness.name);
   const selectedProvider = selectProvider(profile, provider ?? record.model.provider);
   if (record.model.provider && record.model.provider !== selectedProvider.name) throw new Error('Provider differs from the planned run');
   const local = selectedProvider.name === 'local';
   if (local !== !!localDeployment) throw new Error('Local provider requires --local-deployment; cloud preparation rejects it');
-  if (local && !record.task.startsWith('T002')) throw new Error('First local bridge admits T002 only; T001 source gateway remains unchanged');
+  if (local && !record.task.startsWith('T002')) throw new Error('First local bridge admits T002 only; other tasks need their own admission');
   const deploymentText = local ? readFileSync(localDeployment, 'utf8') : null;
   const deployment = local ? validateDeployment(JSON.parse(deploymentText)) : null;
   if (local && record.model.id !== deployment.alias) throw new Error('Plan the run with the exact local alias');
@@ -33,8 +35,8 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     mkdirSync(staging); const stagedWorkspace = join(staging, 'workspace');
     const setup = join(root, 'tasks', record.task, 'setup.sh');
     const setupArgs = [setup, stagedWorkspace];
-    if (record.task.startsWith('T003')) setupArgs.push(record.harness.name);
-    if (record.task.startsWith('T001')) setupArgs.push(asOf ?? record.date);
+    if (task.setup_args.includes('harness')) setupArgs.push(record.harness.name);
+    if (task.setup_args.includes('as-of')) setupArgs.push(asOf ?? record.date);
     const result = spawnSync('bash', setupArgs, { cwd: root, encoding: 'utf8', env: { PATH: process.env.PATH, HOME: process.env.HOME, LC_ALL: 'C', GIT_CONFIG_NOSYSTEM: '1', GIT_CONFIG_GLOBAL: '/dev/null' } });
     if (result.status !== 0) throw new Error(`Setup failed: ${result.stderr || result.error?.message || result.status}`);
     mkdirSync(join(stagedWorkspace, 'artifacts'), { recursive: true });
@@ -42,6 +44,8 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     const spec = readFileSync(join(root, 'agents', record.agent, 'spec.md'), 'utf8');
     const contract = readFileSync(join(root, 'tasks', record.task, 'task.md'), 'utf8');
     writeFileSync(join(inputs, 'spec.md'), spec); writeFileSync(join(inputs, 'task.md'), contract); copyFileSync(setup, join(inputs, 'setup.sh'));
+    const descriptorFile = join(root, 'tasks', record.task, 'task.json');
+    if (existsSync(descriptorFile)) copyFileSync(descriptorFile, join(inputs, 'task.json'));
     const harness = join(root, 'experiments', record.harness.name);
     for (const file of controlFiles(profile)) { mkdirSync(dirname(join(control, file.target)), { recursive: true }); copyFileSync(safePath(harness, file.source), join(control, file.target)); }
     for (const file of ['entrypoint.mjs','egress.mjs']) copyFileSync(join(root, 'experiments/common', file), join(control, file));
@@ -50,19 +54,19 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
       copyFileSync(join(root,'scripts/lib/local-inference.mjs'),join(control,'local-inference.mjs'));
       writeFileSync(join(control,'local-broker.mjs'),readFileSync(join(root,'experiments/common/local-broker.mjs'),'utf8').replace("'../../scripts/lib/local-inference.mjs'","'./local-inference.mjs'"));
     }
-    const agentCwd = record.task.startsWith('T002') ? '/workspace/sample' : '/workspace';
-    const extra = record.task.startsWith('T001') ? '\nСеть источников: только GET через gateway. Для каждого URL используй curl --noproxy egress --get --data-urlencode "url=URL" http://egress:8080/fetch. JSON содержит реальный status, final url и body. Начальные ссылки и ссылки глубины 1 разрешены; прочие запрещены. Снимки ответов сохраняет координатор. Не считай HTTP 4xx/5xx успешно полученным источником.' : '';
-    const prompt = `${variant === 'baseline' ? spec + '\n\n' : ''}${contract}\n\nРабочая папка: ${agentCwd}. Входы: brief.md${record.task.startsWith('T001') ? ' и sources.txt' : ''}. Все итоговые артефакты писать в /workspace/artifacts/. Run-id: ${runId}. ${record.task.startsWith('T002') ? `Работай в ветке janitor/${runId}.` : ''}${extra}\n`;
+    const agentCwd = taskCwd(task);
+    const extra = webSources ? '\nСеть источников: только GET через gateway. Для каждого URL используй curl --noproxy egress --get --data-urlencode "url=URL" http://egress:8080/fetch. JSON содержит реальный status, final url и body. Начальные ссылки и ссылки глубины 1 разрешены; прочие запрещены. Снимки ответов сохраняет координатор. Не считай HTTP 4xx/5xx успешно полученным источником.' : '';
+    const prompt = `${variant === 'baseline' ? spec + '\n\n' : ''}${contract}\n\nРабочая папка: ${agentCwd}. Входы: brief.md${webSources ? ' и sources.txt' : ''}. Все итоговые артефакты писать в /workspace/artifacts/. Run-id: ${runId}. ${task.branch_prefix ? `Работай в ветке ${task.branch_prefix}/${runId}.` : ''}${extra}\n`;
     writeFileSync(join(control, 'prompt.txt'), prompt);
-    const sources = record.task.startsWith('T001') ? readFileSync(join(stagedWorkspace, 'sources.txt'), 'utf8').split('\n').map(x => x.replace(/\s+#.*$/, '').trim()).filter(Boolean) : [];
-    writeFileSync(join(control, 'network.json'), JSON.stringify({ connect_domains: [...new Set([...selectedProvider.connect_domains, ...(!local && record.task.startsWith('T002') ? ['registry.npmjs.org'] : [])])], sources }, null, 2) + '\n');
-    if (sourceArchive && !record.task.startsWith('T001')) throw new Error('Source archives apply only to T001');
+    const sources = webSources ? readFileSync(join(stagedWorkspace, 'sources.txt'), 'utf8').split('\n').map(x => x.replace(/\s+#.*$/, '').trim()).filter(Boolean) : [];
+    writeFileSync(join(control, 'network.json'), JSON.stringify({ connect_domains: [...new Set([...selectedProvider.connect_domains, ...(local ? [] : task.network.connect_domains)])], sources }, null, 2) + '\n');
+    if (sourceArchive && !webSources) throw new Error('Source archives apply only to tasks with web sources');
     if (sourceArchive) {
       const archive = readFileSync(sourceArchive, 'utf8');
       replayFetcher(archive); // Validate once before sealing; live fetch fallback is never allowed.
       writeFileSync(join(control, 'sources.replay.jsonl'), archive);
     }
-    const seedCommit = record.task.startsWith('T002') ? spawnSync('git', ['-C', join(stagedWorkspace, 'sample'), 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim() : null;
+    const seedCommit = repoTask ? spawnSync('git', ['-C', join(stagedWorkspace, 'sample'), 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim() : null;
     const coordinator = join(inputs, 'coordinator'); mkdirSync(coordinator);
     for (const file of ['prepare-run.mjs','run.mjs','judge-run.mjs','compare.mjs']) copyFileSync(join(root, 'scripts', file), join(coordinator, file));
     copyTree(join(root, 'scripts/lib'), join(coordinator, 'lib'));
@@ -72,7 +76,7 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
       writeFileSync(native,readFileSync(native,'utf8').replace("'../../scripts/lib/local-inference.mjs'","'../coordinator/lib/local-inference.mjs'"));
     }
     copyFileSync(join(root, 'results/schema.json'), join(coordinator, 'schema.json'));
-    const manifest = { version: 1, seed_commit: seedCommit, source_mode: record.task.startsWith('T001') ? (sourceArchive ? 'replay' : 'live') : 'none', source_archive_sha256: sourceArchive ? sha256(readFileSync(sourceArchive)) : null, task: record.task, harness: record.harness.name, provider: selectedProvider.name, model_policy: profile.model_policy, variant, files: inventory(inputs), workspace: inventory(stagedWorkspace) };
+    const manifest = { version: 1, seed_commit: seedCommit, source_mode: webSources ? (sourceArchive ? 'replay' : 'live') : 'none', source_archive_sha256: sourceArchive ? sha256(readFileSync(sourceArchive)) : null, task: record.task, harness: record.harness.name, provider: selectedProvider.name, model_policy: profile.model_policy, variant, files: inventory(inputs), workspace: inventory(stagedWorkspace) };
     const manifestText = JSON.stringify(manifest, null, 2) + '\n'; writeFileSync(join(inputs, 'manifest.json'), manifestText);
     const git = (...argv) => spawnSync('git', argv, { cwd: root, encoding: 'utf8' });
     const revision = git('rev-parse','HEAD');
@@ -94,7 +98,7 @@ export function prepareRun(root, runId, { variant = 'baseline', asOf, sourceArch
     record.model.provider = selectedProvider.name;
     record.model.selection = profile.model_policy;
     record.model.lock = profile.model_policy === 'managed';
-    record.evaluation.method = record.task.startsWith('T002') ? 'hidden-check' : 'rubric';
+    record.evaluation.method = task.evaluation;
     record.status = 'prepared';
     if (existsSync(workspace)) rmSync(workspace, { recursive: true });
     renameSync(stagedWorkspace, workspace); renameSync(inputs, join(dir, 'inputs'));
