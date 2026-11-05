@@ -31,7 +31,7 @@ cat > "$DEST/package.json" <<'EOF'
   "type": "module",
   "scripts": {
     "lint": "node scripts/lint.mjs",
-    "test": "npm run lint && node --test test/"
+    "test": "npm run lint && node --test test/*.test.js"
   },
   "dependencies": {
     "lodash": "4.17.15"

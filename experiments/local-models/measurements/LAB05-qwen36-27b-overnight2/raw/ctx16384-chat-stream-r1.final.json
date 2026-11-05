@@ -1,5 +1,0 @@
-{
-  "content": "LAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input:**\n   - User says: \"Ответь ровно LAB_READY без пояснений.\" (Russian for \"Reply exactly LAB_READY without explanations.\")\n   - Key requirements: \n     - Output must be exactly \"LAB_READY\"\n     - No explanations, no extra text, nothing else.\n\n2.  **Identify Constraints:**\n   - Strict compliance: Only output the exact string requested.\n   - Language: Russian prompt, but the required output is in English (\"LAB_READY\").\n   - No additional characters, spaces, or formatting.\n\n3.  **Formulate Response:**\n   - Simply: `LAB_READY`\n\n4.  **Self-Correction/Verification:**\n   - Check against constraints: Exactly \"LAB_READY\"? Yes.\n   - Any explanations? No.\n   - Any extra text? No.\n   - Matches requirement perfectly.\n\n   Proceed.✅\n"
-}

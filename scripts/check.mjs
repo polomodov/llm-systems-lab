@@ -8,6 +8,7 @@ import { HARDWARE_PROFILES, loadLocalHardware } from "./lib/local-hardware.mjs";
 import { loadLabCatalog } from "./lib/labs.mjs";
 import { auditPins } from "./lib/pins.mjs";
 import { taskLimits } from "./lib/contracts.mjs";
+import { loadTaskDescriptor } from "./lib/tasks.mjs";
 
 const root = process.cwd();
 const runsDir = join(root, "results", "runs");
@@ -43,8 +44,13 @@ if (existsSync(join(root, "tasks"))) {
   try {
     const tasksDir = join(root, "tasks");
     const contracts = readdirSync(tasksDir).filter((name) => existsSync(join(tasksDir, name, "task.md")));
-    for (const name of contracts) taskLimits(readFileSync(join(tasksDir, name, "task.md"), "utf8"));
-    console.log(`[check] task contracts=${contracts.length}: лимиты ходов и USD читаются из контракта`);
+    for (const name of contracts) {
+      taskLimits(readFileSync(join(tasksDir, name, "task.md"), "utf8"));
+      const task = loadTaskDescriptor(root, name);
+      if (!existsSync(join(root, "agents", task.agent, "spec.md"))) throw new Error(`${name}: agent ${task.agent} has no spec.md`);
+      if (!existsSync(join(tasksDir, name, "setup.sh"))) throw new Error(`${name}: setup.sh is missing`);
+    }
+    console.log(`[check] task contracts=${contracts.length}: лимиты из контракта, дескриптор task.json и агент каждой задачи найдены`);
   } catch (error) { console.error(`[check] task budget: ${error.message}`); failed++; }
 }
 try {

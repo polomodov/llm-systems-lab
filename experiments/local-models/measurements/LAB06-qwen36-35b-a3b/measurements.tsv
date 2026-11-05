@@ -1,6 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-ref-peak-alloc	reference-moe-greedy	Qwen/Qwen3.6-35B-A3B	transformers 5.12.1 reference	rocm	4096	1	peak_allocated_bytes_after_load	70390831104	B	measured	raw/reference-moe-result.json	
-ref-gen-seconds	reference-moe-greedy	Qwen/Qwen3.6-35B-A3B	transformers 5.12.1 reference	rocm	4096	1	generate_seconds	6.008916972001316	s	measured	raw/reference-moe-result.json	
-ref-output-tokens	reference-moe-greedy	Qwen/Qwen3.6-35B-A3B	transformers 5.12.1 reference	rocm	4096	1	output_tokens	3	tokens	measured	raw/reference-moe-result.json	
-vllm-kv-cache	vllm-c4096-util097	Qwen/Qwen3.6-35B-A3B	vLLM v0.29.0	rocm	4096	1	kv_cache_gib	6.73	GiB	measured	raw/vllm-c4096-eager-02/server.log	
-model-load-mem	vllm-c4096-util097	Qwen/Qwen3.6-35B-A3B	vLLM v0.29.0	rocm	4096	1	model_load_gib	73.03	GiB	measured	raw/vllm-c4096-eager-02/server.log	

@@ -1,5 +1,0 @@
-{
-  "recorded_at": "2026-10-07T21:01:06.881917+00:00",
-  "reason": "Diagnostic script called get_wired_limit absent in MLX0.32.3; GPU matmul passed before API lookup, model not loaded",
-  "change": "Treat unavailable read-only wired-limit getter as null; no tuning via setter."
-}

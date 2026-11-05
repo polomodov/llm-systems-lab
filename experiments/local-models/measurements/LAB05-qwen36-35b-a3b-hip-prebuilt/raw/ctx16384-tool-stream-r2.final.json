@@ -1,5 +1,0 @@
-{
-  "content": "LAB_VALUE_42",
-  "tool_calls": null,
-  "reasoning_content": "The user requested to call `lookup_lab_value` with key \"alpha\" and return only the value.\nI called the function and received `LAB_VALUE_42`.\nNow I will return just this value as requested.\n"
-}

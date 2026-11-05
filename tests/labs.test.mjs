@@ -49,6 +49,25 @@ function harnessFixture(root) {
   return value;
 }
 
+test('frozen manuals keep their text, demand a freeze record and open no new sessions', t => {
+  const root = fixture(t);
+  const value = catalog();
+  const frozen = { since: '2026-11-05', planned_readiness: 'target-machine', reason: 'Branch extracted to its own repository' };
+  Object.assign(value.labs[1], { readiness: 'frozen', frozen });
+  assert.equal(validateLabCatalog(value).labs[1].readiness, 'frozen');
+  for (const mutate of [
+    v => { delete v.labs[1].frozen; },
+    v => { v.labs[1].frozen = { ...frozen, planned_readiness: 'frozen' }; },
+    v => { v.labs[1].frozen = { ...frozen, since: '2026-02-30' }; },
+    v => { v.labs[1].frozen = { ...frozen, reason: ' ' }; },
+    v => { v.labs[0].frozen = frozen; },
+  ]) { const v = JSON.parse(JSON.stringify(value)); mutate(v); assert.throws(() => validateLabCatalog(v)); }
+  writeFileSync(join(root, 'docs/labs/catalog.json'), JSON.stringify(value));
+  assert.throws(() => createLabReport(root, { lab: 'LAB02', session: 'after-freeze' }), /frozen since 2026-11-05/);
+  assert.equal(existsSync(join(root, 'experiments')), false);
+  assert.equal(createLabReport(root, { lab: 'LAB01', session: 'still-open' }).status, 'not-started');
+});
+
 test('harness reports are routed to their own directory and preserve old common reports', t => {
   const root = fixture(t);
   harnessFixture(root);

@@ -79,7 +79,7 @@ test('container only requests credentials selected by provider, without values o
   }
 });
 
-test('Codex synthetic execution redacts selected credentials and aborts zero-exit native errors', async (t) => {
+test('Codex synthetic execution redacts selected credentials and aborts zero-exit native errors', { skip: process.getuid?.() === 0 && 'the coordinator refuses root; run the tests as a non-root user' }, async (t) => {
   const directory = temp(t);
   const files = [
     'tasks/T001-dossier-from-sources/task.md', 'tasks/T001-dossier-from-sources/setup.sh', 'agents/a1-dossier/spec.md',

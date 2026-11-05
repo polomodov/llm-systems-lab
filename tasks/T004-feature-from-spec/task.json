@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T004-feature-from-spec",
+  "agent": "a4-implementer",
+  "workspace": "repo",
+  "branch_prefix": "feature",
+  "evaluation": "hidden-check",
+  "required_artifacts": ["report.md"],
+  "network": { "connect_domains": [], "sources": false },
+  "setup_args": []
+}

@@ -1,7 +1,0 @@
-hipconfig is not part of ROCm 7.2 user-mode apt packages.
-A grep across https://repo.radeon.com/rocm/apt/7.2/dists/noble/main/binary-amd64/Packages.gz
-returned no Package: hipconfig line. The utility has been removed from the
-ROCm 7.x distribution; HIP version information can be obtained instead from
-the runtime libraries (/opt/rocm-7.2.0/lib/libamdhip64.so.7.2.70200) or
-hipcc --version after installing rocm-hip-runtime-dev. For LAB02 this field
-is filled as unavailable with this reason.

@@ -1,8 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-disk_free_before	lab03-qwen35-9b-001					1	df_available_bytes	1832540762112	bytes	measured	raw/disk-before.txt	
-disk_free_after	lab03-qwen35-9b-001					1	df_available_bytes	1825077895168	bytes	measured	raw/disk-after.txt	
-disk_used	lab03-qwen35-9b-001					1	bytes_consumed	7462866944	bytes	measured	raw/backup/reconciliation.json	
-download_seconds	lab03-qwen35-9b-001					1	download_time		s	unavailable	raw/backup/before-reconciliation-report.md	В старом отчёте указано 1360 s, но сохранённые JSON не содержат временных меток или длительности. Точный замер не подтверждён.
-reverify_seconds	lab03-qwen35-9b-001					1	reverify_time		s	unavailable	raw/backup/before-reconciliation-report.md	В старом отчёте указано ~80 s, но сохранённые JSON не содержат временных меток или длительности. Точный замер не подтверждён.
-weights_bytes	qwen35-9b-q6-k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5				1	file_bytes	7458301152	bytes	measured	raw/verification.json	
-real_inference_qwen35_9b	qwen35-9b-q6-k-8k	unsloth/Qwen3.5-9B-GGUF@3885219b6810b007914f3a7950a8d1b469d598a5	llama-cpp	tbd	8192	1	inference_run			not-run		verification by LAB04/05; this session only confirms file integrity + planner fit

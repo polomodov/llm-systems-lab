@@ -1,4 +1,5 @@
 import { localRecordErrors } from './local-inference.mjs';
+import { loadTaskDescriptor } from './tasks.mjs';
 import { existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, realpathSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { createHash, randomUUID } from "node:crypto";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
@@ -174,6 +175,7 @@ export function createRun({ root = process.cwd(), harness, agent, task, n, model
   harness = resolveCatalog(root, "experiments", harness, "README.md");
   agent = resolveCatalog(root, "agents", agent, "spec.md");
   task = resolveCatalog(root, "tasks", task, "task.md");
+  if (existsSync(safePath(root, "tasks", task, "task.json")) && loadTaskDescriptor(root, task).agent !== agent) throw new Error(`task ${task} expects agent ${loadTaskDescriptor(root, task).agent}`);
   if (n !== undefined && !/^[1-9]\d*$/.test(String(n))) throw new Error("n must be a positive integer");
   if (n !== undefined && !Number.isSafeInteger(Number(n))) throw new Error("n must be a safe integer");
   const date = new Date().toISOString().slice(0, 10);

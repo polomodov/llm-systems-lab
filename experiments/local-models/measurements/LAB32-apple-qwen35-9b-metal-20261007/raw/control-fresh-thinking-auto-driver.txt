@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/Users/lab/.codex/worktrees/3ee5/agent-harnesses-exps/experiments/local-models/measurements/LAB32-apple-qwen35-9b-metal-20261007/raw/tool_control.py", line 7, in <module>
-    with socket.socket() as test:test.bind(('127.0.0.1',8080))
-OSError: [Errno 48] Address already in use

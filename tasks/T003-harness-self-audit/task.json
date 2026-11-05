@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T003-harness-self-audit",
+  "agent": "a3-ledger-auditor",
+  "workspace": "files",
+  "branch_prefix": null,
+  "evaluation": "rubric",
+  "required_artifacts": ["ledger.md", "ablation-plan.md"],
+  "network": { "connect_domains": [], "sources": false },
+  "setup_args": ["harness"]
+}

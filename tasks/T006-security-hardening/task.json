@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T006-security-hardening",
+  "agent": "a6-hardener",
+  "workspace": "repo",
+  "branch_prefix": "harden",
+  "evaluation": "hidden-check",
+  "required_artifacts": ["report.md"],
+  "network": { "connect_domains": [], "sources": false },
+  "setup_args": []
+}

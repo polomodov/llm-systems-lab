@@ -237,7 +237,7 @@ test('preparation supports source archives and records the lack of Git provenanc
   assert.equal(readRun(f.root, f.record.run_id).status, 'prepared');
 });
 
-test('synthetic execution reads .env and redacts captured stdout and stderr without exposing the key in Docker arguments', async t => {
+test('synthetic execution reads .env and redacts captured stdout and stderr without exposing the key in Docker arguments', { skip: process.getuid?.() === 0 && 'the coordinator refuses root; run the tests as a non-root user' }, async t => {
   const f = fixture(t);
   prepareRun(f.root, f.record.run_id);
   writeFileSync(join(f.root, '.env'), `ANTHROPIC_API_KEY=${syntheticKey}\n`);
@@ -278,7 +278,7 @@ else if (args[0] === 'run') {
   assert.equal(existsSync(join(f.dir, '.lock')), false);
 });
 
-test('an image whose version differs from the sealed pin never starts the run', async t => {
+test('an image whose version differs from the sealed pin never starts the run', { skip: process.getuid?.() === 0 && 'the coordinator refuses root; run the tests as a non-root user' }, async t => {
   const f = fixture(t);
   prepareRun(f.root, f.record.run_id);
   writeFileSync(join(f.root, '.env'), `ANTHROPIC_API_KEY=${syntheticKey}\n`);

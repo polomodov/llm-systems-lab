@@ -1,3 +1,0 @@
-observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
-s1-admission.json-free	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		free_speculative_gib	28.993026733398438	GiB	measured	raw/slots1/admission.json	
-s1-admission-after-pins.json-free	tensor-q6-slot1-ctx8192-output512	qwen35-9b-q6	llama.cpp	metal	8192		free_speculative_gib	22.19873046875	GiB	measured	raw/slots1/admission-after-pins.json	

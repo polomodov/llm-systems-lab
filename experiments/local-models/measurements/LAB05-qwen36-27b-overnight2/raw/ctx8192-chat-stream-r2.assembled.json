@@ -1,5 +1,0 @@
-{
-  "role": "assistant",
-  "content": "LAB_READY",
-  "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Language: Russian.\n    *   Constraint 1: Answer must be exactly \"LAB_READY\".\n    *   Constraint 2: No explanations allowed.\n\n2.  **Evaluate Constraints:**\n    *   Must output: LAB_READY\n    *   Must not output: Any other text, greetings, explanations, punctuation (unless part of the string, but usually \"exactly\" implies just the string).\n\n3.  **Formulate Output:**\n    *   String: LAB_READY\n\n4.  **Final Verification:**\n    *   Does it match \"LAB_READY\"? Yes.\n    *   Is there any explanation? No.\n\n5.  **Execution:**\n    *   Output: LAB_READY\n"
-}

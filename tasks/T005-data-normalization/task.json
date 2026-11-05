@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T005-data-normalization",
+  "agent": "a5-data-wrangler",
+  "workspace": "files",
+  "branch_prefix": null,
+  "evaluation": "hidden-check",
+  "required_artifacts": ["normalized.json", "report.md"],
+  "network": { "connect_domains": [], "sources": false },
+  "setup_args": []
+}

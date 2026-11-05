@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T001-dossier-from-sources",
+  "agent": "a1-dossier",
+  "workspace": "files",
+  "branch_prefix": null,
+  "evaluation": "rubric",
+  "required_artifacts": ["dossier.md", "sources.json"],
+  "network": { "connect_domains": [], "sources": true },
+  "setup_args": ["as-of"]
+}

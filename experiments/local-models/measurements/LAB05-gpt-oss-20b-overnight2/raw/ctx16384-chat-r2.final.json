@@ -1,5 +1,0 @@
-{
-  "content": "LAB_READY",
-  "tool_calls": null,
-  "reasoning_content": "The user says: \"Ответь ровно LAB_READY без пояснений.\" That means: \"Answer exactly LAB_READY without explanations.\" So I should output exactly the string \"LAB_READY\". No extra whitespace or newlines? Usually a newline is fine, but just output the string. No explanation. So final: LAB_READY."
-}

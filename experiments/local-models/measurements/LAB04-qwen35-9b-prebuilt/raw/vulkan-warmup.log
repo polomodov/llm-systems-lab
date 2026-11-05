@@ -1,5 +1,0 @@
-load_backend: loaded RPC backend from /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/libggml-rpc.so
-ggml_vulkan: Found 1 Vulkan devices:
-ggml_vulkan: 0 = AMD Radeon Graphics (RADV GFX1151) (radv) | uma: 1 | fp16: 1 | bf16: 0 | warp size: 64 | shared memory: 65536 | int dot: 1 | matrix cores: KHR_coopmat
-load_backend: loaded Vulkan backend from /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/libggml-vulkan.so
-load_backend: loaded CPU backend from /home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/libggml-cpu-zen4.so
