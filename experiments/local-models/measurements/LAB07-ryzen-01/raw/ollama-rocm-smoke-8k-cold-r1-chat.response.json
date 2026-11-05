@@ -1,0 +1,26 @@
+{
+  "id": "chatcmpl-989",
+  "object": "chat.completion",
+  "created": 1792061472,
+  "model": "lab-model",
+  "system_fingerprint": "fp_ollama",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be *exactly* \"LAB_READY\". No extra text, no quotes, no punctuation, no explanations.\n\n2.  **Determine the Output:**\n    *   The user explicitly demands \"LAB_READY\" as the response.\n    *   I need to ensure no additional characters are added.\n\n3.  **Formulate the Response:**\n    *   Content: LAB_READY\n    *   Format: Plain text.\n\n4.  **Final Check:**\n    *   Does it match the constraint? Yes.\n    *   Is there any explanation? No.\n\n5.  **Execute:**\n    *   Output: LAB_READY\n"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "completion_tokens": 187,
+    "total_tokens": 206
+  }
+}

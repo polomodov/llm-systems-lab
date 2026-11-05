@@ -1,0 +1,9 @@
+
+You have 2 models, taking up 664.30 MB of disk space.
+
+LLM          PARAMS    ARCH      SIZE         DEVICE    
+qwen35-9b    9B        qwen35    580.19 MB    Local     
+
+EMBEDDING                               PARAMS    ARCH          SIZE        DEVICE    
+text-embedding-nomic-embed-text-v1.5              Nomic BERT    84.11 MB    Local     
+

@@ -1,0 +1,11 @@
+--- app paths ---
+OLLAMA=/home/lab/local-model-lab-artifacts/lab07-apps/ollama/bin/ollama
+LMS=/home/lab/.lmstudio/bin/lms
+total 27512
+drwxrwxr-x 2 apolomodov apolomodov     4096 Oct 15 08:54 .
+drwxrwxr-x 4 apolomodov apolomodov     4096 Oct 15 08:54 ..
+-rwxr-xr-x 1 apolomodov apolomodov 28160464 Sep 17 22:37 ollama
+total 106896
+drwxrwxr-x  2 apolomodov apolomodov      4096 Oct 15 08:57 .
+drwxrwxr-x 18 apolomodov apolomodov      4096 Oct 15 08:57 ..
+-rwxr-xr-x  1 apolomodov apolomodov 109452034 Oct 15 08:57 lms

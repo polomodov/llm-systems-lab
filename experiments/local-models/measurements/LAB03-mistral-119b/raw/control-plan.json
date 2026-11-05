@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-09-20",
+  "hardware_id": "ryzen-ai-max-395-128gb-linux",
+  "measurement_status": "unverified",
+  "context_tokens": 8192,
+  "budget": {
+    "memory_gib": 119.2,
+    "os_reserve_gib": 16,
+    "available_memory_gib": 103.2,
+    "gpu_budget_gib": 89.4,
+    "effective_gib": 89.4
+  },
+  "estimate_basis": "Planning reserves only; KV cache is not calculated from model architecture. Candidate does not mean verified fit.",
+  "rows": [
+    {
+      "id": "gpt-oss-120b",
+      "model_id": "openai/gpt-oss-120b",
+      "priority": 2,
+      "architecture": "moe",
+      "parameters_total_b": 117,
+      "parameters_active_b": 5.1,
+      "quantization": "MXFP4",
+      "context_tokens": 8192,
+      "budget_gib": 89.4,
+      "estimates": {
+        "weights_gib": 59.1,
+        "runtime_reserve_gib": 6,
+        "kv_cache_reserve_gib": 4,
+        "total_gib": 69.1
+      },
+      "headroom_gib": 20.3,
+      "status": "conditional",
+      "fit_verified": false,
+      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "reason": "Большая модель той же семьи: допуск после замера пиков памяти и проверки MXFP4 backend.",
+      "sources": [
+        "https://huggingface.co/openai/gpt-oss-120b",
+        "https://huggingface.co/ggml-org/gpt-oss-120b-GGUF/tree/238abdd290bb874b90a5da1b4549881b7d05c091",
+        "https://huggingface.co/openai/gpt-oss-120b/blob/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/config.json"
+      ],
+      "needs": [
+        "hardware-preflight",
+        "artifact-pin",
+        "backend-smoke",
+        "local-provider-bridge"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "run_id": "20261012-193956",
+  "branch": "probe-kat-mistral",
+  "started": "2026-10-12T19:39:56Z",
+  "models": {
+    "kat-coder-v25": {
+      "started": "2026-10-12T19:39:56Z",
+      "labs": {
+        "LAB03": "completed",
+        "LAB04": "completed",
+        "LAB05": "completed"
+      },
+      "finished": "2026-10-12T19:48:25Z"
+    },
+    "mistral-small-4-119b": {
+      "started": "2026-10-12T19:48:25Z",
+      "labs": {
+        "LAB03": "completed"
+      }
+    }
+  },
+  "mode": "full"
+}

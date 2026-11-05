@@ -1,0 +1,27 @@
+{
+  "repository": "unsloth/Mistral-Small-4-119B-2603-GGUF",
+  "revision": "bd93c721735aa32c035c0f19e738cb3371fd56ff",
+  "files": [
+    {
+      "path": "/home/lab/local-model-lab-artifacts/unsloth/Mistral-Small-4-119B-2603-GGUF/bd93c721735aa32c035c0f19e738cb3371fd56ff/UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00001-of-00003.gguf",
+      "bytes": 7875616,
+      "sha256": "fd3cc46082e4e64eb623eea4611b02583d1de4c20a59411bf1820925d5117dfe",
+      "publisher_hash_present": true,
+      "status": "verified"
+    },
+    {
+      "path": "/home/lab/local-model-lab-artifacts/unsloth/Mistral-Small-4-119B-2603-GGUF/bd93c721735aa32c035c0f19e738cb3371fd56ff/UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00002-of-00003.gguf",
+      "bytes": 49299298464,
+      "sha256": "f357d8dc029824fa4515ae60d7a8b7e108546763614f16c00a1b4ea0cd94145c",
+      "publisher_hash_present": true,
+      "status": "verified"
+    },
+    {
+      "path": "/home/lab/local-model-lab-artifacts/unsloth/Mistral-Small-4-119B-2603-GGUF/bd93c721735aa32c035c0f19e738cb3371fd56ff/UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00003-of-00003.gguf",
+      "bytes": 24456006464,
+      "sha256": "9dc960d67fb1ef23029d24878b4cf6c63b743ab26cf9137402549591bd770c50",
+      "publisher_hash_present": true,
+      "status": "verified"
+    }
+  ]
+}

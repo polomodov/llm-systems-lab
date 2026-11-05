@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-z5zg8dd80cjz1d4cryrfhq",
+  "object": "chat.completion",
+  "created": 1792061828,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Constraint: The response must be exactly the string \"LAB_READY\". No additional text, no quotes, no punctuation unless part of the string.\n\n2.  **Determine the Output:**\n    *   The user explicitly asked for \"LAB_READY\" without any explanations or extra characters.\n    *   I need to output only that specific string.\n\n3.  **Final Check:**\n    *   Does it meet the constraint? Yes.\n    *   Is it accurate? Yes.\n\n4.  **Construct Output:** LAB_READY\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 158,
+    "total_tokens": 177,
+    "completion_tokens_details": {
+      "reasoning_tokens": 153
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-model"
+}

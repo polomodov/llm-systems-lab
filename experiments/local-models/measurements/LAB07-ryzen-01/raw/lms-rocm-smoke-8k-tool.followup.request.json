@@ -1,0 +1,55 @@
+{
+  "model": "lab-model",
+  "messages": [
+    {
+      "role": "user",
+      "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение."
+    },
+    {
+      "role": "assistant",
+      "content": "",
+      "reasoning_content": "The user wants me to call the lookup_lab_value function with key \"alpha\", and then return only the value from the result. I need to use the tool first to get the value, then return just that value without any additional explanation.\n\nLet me call the function with the required parameter.\n",
+      "tool_calls": [
+        {
+          "type": "function",
+          "id": "WUvMxZMnFBiktiQ854ijmeGBQmAqWAvS",
+          "function": {
+            "name": "lookup_lab_value",
+            "arguments": "{\"key\":\"alpha\"}"
+          }
+        }
+      ]
+    },
+    {
+      "role": "tool",
+      "tool_call_id": "WUvMxZMnFBiktiQ854ijmeGBQmAqWAvS",
+      "content": "LAB_VALUE_42"
+    }
+  ],
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup_lab_value",
+        "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "enum": [
+                "alpha"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ],
+  "max_tokens": 2048,
+  "stream": false
+}

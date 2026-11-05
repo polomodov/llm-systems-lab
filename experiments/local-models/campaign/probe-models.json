@@ -1,0 +1,36 @@
+[
+  {
+    "id": "kat-coder-v25",
+    "model_id": "Kwaipilot/KAT-Coder-V2.5-Dev",
+    "quantization": "Q5_K_M",
+    "artifact": {
+      "repository": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
+      "revision": "d8f684f08d2950ea9d2db6a35ef7dada0707858b",
+      "files": [
+        { "path": "Kwaipilot_KAT-Coder-V2.5-Dev-Q5_K_M.gguf", "bytes": 25017457056, "sha256": "9f0fe03348f6214a9487ee1e0634d345050d9b4a5be3cea37a878121c2790106" }
+      ],
+      "total_bytes": 25017457056,
+      "checksum_status": "verified_after_download"
+    },
+    "weights_gib": 23.3,
+    "fit": "candidate"
+  },
+  {
+    "id": "mistral-small-4-119b",
+    "model_id": "mistralai/Mistral-Small-4-119B-2603",
+    "quantization": "UD-Q4_K_M",
+    "artifact": {
+      "repository": "unsloth/Mistral-Small-4-119B-2603-GGUF",
+      "revision": "bd93c721735aa32c035c0f19e738cb3371fd56ff",
+      "files": [
+        { "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00001-of-00003.gguf", "bytes": 7875616, "sha256": "fd3cc46082e4e64eb623eea4611b02583d1de4c20a59411bf1820925d5117dfe" },
+        { "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00002-of-00003.gguf", "bytes": 49299298464, "sha256": "f357d8dc029824fa4515ae60d7a8b7e108546763614f16c00a1b4ea0cd94145c" },
+        { "path": "UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00003-of-00003.gguf", "bytes": 24456006464, "sha256": "9dc960d67fb1ef23029d24878b4cf6c63b743ab26cf9137402549591bd770c50" }
+      ],
+      "total_bytes": 73760980544,
+      "checksum_status": "verified_after_download"
+    },
+    "weights_gib": 68.7,
+    "fit": "conditional"
+  }
+]

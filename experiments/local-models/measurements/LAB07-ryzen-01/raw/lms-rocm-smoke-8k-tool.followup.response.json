@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-v9e7498t9i9js9z1klc4g",
+  "object": "chat.completion",
+  "created": 1792061865,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_VALUE_42",
+        "reasoning_content": "The tool returned \"LAB_VALUE_42\". The user asked me to return only the value from the result, so I should just output that value without any additional text.\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 422,
+    "completion_tokens": 44,
+    "total_tokens": 466,
+    "completion_tokens_details": {
+      "reasoning_tokens": 36
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-model"
+}

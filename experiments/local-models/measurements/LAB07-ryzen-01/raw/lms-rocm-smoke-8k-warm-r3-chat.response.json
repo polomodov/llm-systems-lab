@@ -1,0 +1,29 @@
+{
+  "id": "chatcmpl-wn6ozut2l2gx5hbtit0jsk",
+  "object": "chat.completion",
+  "created": 1792061843,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "LAB_READY",
+        "reasoning_content": "Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: \"Ответь ровно LAB_READY без пояснений.\" (Answer exactly LAB_READY without explanations.)\n    *   Language: Russian.\n    *   Constraint: Output must be exactly \"LAB_READY\", no extra text, no quotes, no newlines (ideally).\n\n2.  **Determine the Output:**\n    *   The user explicitly asks for a specific string.\n    *   Required output: LAB_READY.\n\n3.  **Verify Constraints:**\n    *   \"ровно\" (exactly) -> No extra whitespace, no punctuation.\n    *   \"без пояснений\" (without explanations) -> Do not add any conversational filler.\n\n4.  **Final Decision:**\n    *   Output: LAB_READY\n\n5.  **Execution:**\n    *   Print the string.cw\n",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 194,
+    "total_tokens": 213,
+    "completion_tokens_details": {
+      "reasoning_tokens": 189
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-model"
+}

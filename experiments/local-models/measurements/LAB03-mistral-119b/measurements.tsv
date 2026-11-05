@@ -1,0 +1,6 @@
+observation_id	configuration_id	model_id	engine	backend	context_tokens	repeat	metric	value	unit	status	evidence_path	unavailable_reason
+artifact-bytes-expected	mistral-119b-udq4km	mistral-small-4-119b	gguf-publisher	-			artifact_total_bytes	73760980544	bytes	measured	raw/verification.json	
+artifact-bytes-measured	mistral-119b-udq4km	mistral-small-4-119b	gguf-publisher	-			artifact_measured_bytes	73760980544	bytes	measured	raw/verification.json	
+disk-free-before	mistral-119b-udq4km	-	-	-			disk_free	1171678609408	bytes	measured	raw/disk-before.txt	
+disk-free-after	mistral-119b-udq4km	-	-	-			disk_free	1171677822976	bytes	measured	raw/disk-after.txt	
+inference-8k	mistral-119b-udq4km	mistral-small-4-119b	llama-cpp	rocm	8192	1	tokens_per_second			not-run	raw/protocol.md	Инференс не входит в ЛР03; выполняется в ЛР04/05

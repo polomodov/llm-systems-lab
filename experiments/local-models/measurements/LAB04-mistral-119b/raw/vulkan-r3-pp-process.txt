@@ -1,0 +1,23 @@
+	Command being timed: "/home/lab/local-model-lab-artifacts/llama-cpp-b8407/llama-b8407/llama-bench -m /home/lab/local-model-lab-artifacts/unsloth/Mistral-Small-4-119B-2603-GGUF/bd93c721735aa32c035c0f19e738cb3371fd56ff/UD-Q4_K_M/Mistral-Small-4-119B-2603-UD-Q4_K_M-00001-of-00003.gguf -ngl 999 -t 8 -b 512 -ub 256 -ctk f16 -ctv f16 -fa 1 -p 2048 -n 0 -r 1 -o json"
+	User time (seconds): 39.72
+	System time (seconds): 14.98
+	Percent of CPU this job got: 88%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 1:02.10
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 72192080
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 96375
+	Minor (reclaiming a frame) page faults: 882823
+	Voluntary context switches: 365827
+	Involuntary context switches: 1916
+	Swaps: 0
+	File system inputs: 151503824
+	File system outputs: 32
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

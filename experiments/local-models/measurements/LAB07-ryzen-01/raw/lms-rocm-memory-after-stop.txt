@@ -1,0 +1,7 @@
+date: 2026-10-15T10:58:10Z (after unload/stop)
+--- lmstudio/llama procs ---
+mem_info_vram_used: 473624576
+mem_info_gtt_used: 601931776
+--- free -b ---
+               total        used        free      shared  buff/cache   available
+Mem:     134153789440  6043992064 102999576576    76898304 26426146816 128109797376

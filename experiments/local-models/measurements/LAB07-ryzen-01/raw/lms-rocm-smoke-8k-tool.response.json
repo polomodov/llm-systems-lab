@@ -1,0 +1,38 @@
+{
+  "id": "chatcmpl-i4h67cmwly4tbpxlyrloe",
+  "object": "chat.completion",
+  "created": 1792061861,
+  "model": "lab-model",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "The user wants me to call the lookup_lab_value function with key \"alpha\", and then return only the value from the result. I need to use the tool first to get the value, then return just that value without any additional explanation.\n\nLet me call the function with the required parameter.\n",
+        "tool_calls": [
+          {
+            "type": "function",
+            "id": "WUvMxZMnFBiktiQ854ijmeGBQmAqWAvS",
+            "function": {
+              "name": "lookup_lab_value",
+              "arguments": "{\"key\":\"alpha\"}"
+            }
+          }
+        ]
+      },
+      "logprobs": null,
+      "finish_reason": "tool_calls"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 313,
+    "completion_tokens": 89,
+    "total_tokens": 402,
+    "completion_tokens_details": {
+      "reasoning_tokens": 60
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "lab-model"
+}
