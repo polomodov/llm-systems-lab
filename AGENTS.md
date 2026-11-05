@@ -5,6 +5,7 @@ This repository is a lab for running the same autonomous agents in different age
 ## What you are working in
 
 - `docs/method.md` — the experiment protocol: replayable episodes, evidence classes, what a run record must contain.
+- `docs/roadmap.md` — the extension plan: campaigns, ablations, new task types, boundary probes, ordered steps with stop criteria.
 - `docs/harnesses.md` — the harness matrix and install notes.
 - `docs/harness-ledger.md` — the harness ledger. Every component added to a harness for a task gets a row: component → assumption about the model → evidence → date/model → retest trigger → ownership mode.
 - `agents/<code>/spec.md` — harness-independent agent specifications (mission, inputs, outputs, boundaries, stop criteria).
