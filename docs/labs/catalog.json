@@ -714,6 +714,19 @@
         "planned_readiness": "target-machine",
         "reason": "Ветка AWS/Terraform заморожена 05.11.2026: методичка без измерений; кандидат на отдельный учебный репозиторий"
       }
+    },
+    {
+      "id": "LAB53",
+      "title": "Шум сервинга и решения агента",
+      "file": "LAB53-serving-noise.md",
+      "kind": "agent",
+      "readiness": "target-machine",
+      "prerequisites": [
+        "LAB04",
+        "LAB08",
+        "LAB26"
+      ],
+      "effort": "2–3 часа оператора и около 3 часов replay, затем около 6 часов агентной серии"
     }
   ]
 }
