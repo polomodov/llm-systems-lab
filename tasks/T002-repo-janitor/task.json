@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "T002-repo-janitor",
+  "agent": "a2-janitor",
+  "workspace": "repo",
+  "branch_prefix": "janitor",
+  "evaluation": "hidden-check",
+  "required_artifacts": ["report.md"],
+  "network": { "connect_domains": ["registry.npmjs.org"], "sources": false },
+  "setup_args": []
+}

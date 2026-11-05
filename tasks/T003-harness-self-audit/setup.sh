@@ -44,13 +44,12 @@ const files = [
   'README.md','AGENTS.md','CLAUDE.md','package.json',
   'docs/method.md','docs/harnesses.md','docs/harness-ledger.md',
   'agents/README.md','agents/a1-dossier/spec.md','agents/a2-janitor/spec.md','agents/a3-ledger-auditor/spec.md',
+  'agents/a4-implementer/spec.md','agents/a5-data-wrangler/spec.md','agents/a6-hardener/spec.md',
   'tasks/README.md',
-  'tasks/T001-dossier-from-sources/task.md','tasks/T001-dossier-from-sources/setup.sh',
-  'tasks/T002-repo-janitor/task.md','tasks/T002-repo-janitor/setup.sh',
-  'tasks/T003-harness-self-audit/task.md','tasks/T003-harness-self-audit/setup.sh',
+  ...['T001-dossier-from-sources','T002-repo-janitor','T003-harness-self-audit','T004-feature-from-spec','T005-data-normalization','T006-security-hardening'].flatMap(id => [`tasks/${id}/task.md`,`tasks/${id}/task.json`,`tasks/${id}/setup.sh`]),
   'experiments/README.md',`experiments/${harness}/README.md`,`experiments/${harness}/NOTES.md`,
   'experiments/common/entrypoint.mjs','experiments/common/egress.mjs',
-  'scripts/run.mjs','scripts/lib/harnesses.mjs',
+  'scripts/run.mjs','scripts/lib/harnesses.mjs','scripts/lib/tasks.mjs',
   ...control.map(file=>`experiments/${harness}/${file.source}`),
 ];
 const snapshot = new Map([...new Set(files)].map(file => [file, readAllowed(file)]));

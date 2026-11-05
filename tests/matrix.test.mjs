@@ -16,7 +16,9 @@ function fixture(t) {
   const dest=mkdtempSync(join(tmpdir(),'harness-matrix-'));
   t.after(()=>rmSync(dest,{recursive:true,force:true}));
   const files=['README.md','AGENTS.md','CLAUDE.md','package.json','docs/method.md','docs/harnesses.md','docs/harness-ledger.md','agents/README.md','tasks/README.md','experiments/README.md','experiments/common/entrypoint.mjs','experiments/common/egress.mjs','results/schema.json'];
-  for(const [agent,task] of episodes) files.push(`agents/${agent}/spec.md`,`tasks/${task}/task.md`,`tasks/${task}/setup.sh`);
+  for(const [agent,task] of episodes) files.push(`agents/${agent}/spec.md`,`tasks/${task}/task.md`,`tasks/${task}/task.json`,`tasks/${task}/setup.sh`);
+  // T003 snapshots the whole public catalog of agents and tasks, including the newer ones.
+  for(const [agent,task] of [['a4-implementer','T004-feature-from-spec'],['a5-data-wrangler','T005-data-normalization'],['a6-hardener','T006-security-hardening']]) files.push(`agents/${agent}/spec.md`,`tasks/${task}/task.md`,`tasks/${task}/task.json`,`tasks/${task}/setup.sh`);
   for(const id of harnesses) { const profile=loadProfile(root,id); files.push(`experiments/${id}/README.md`,`experiments/${id}/NOTES.md`,...controlFiles(profile).map(file=>`experiments/${id}/${file.source}`)); }
   for(const file of new Set(files)) { mkdirSync(dirname(join(dest,file)),{recursive:true});copyFileSync(join(root,file),join(dest,file)); }
   copyTree(join(root,'scripts'),join(dest,'scripts'));
