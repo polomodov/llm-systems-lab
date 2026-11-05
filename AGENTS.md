@@ -8,7 +8,7 @@ This repository is a lab for running the same autonomous agents in different age
 - `docs/harnesses.md` — the harness matrix and install notes.
 - `docs/harness-ledger.md` — the harness ledger. Every component added to a harness for a task gets a row: component → assumption about the model → evidence → date/model → retest trigger → ownership mode.
 - `agents/<code>/spec.md` — harness-independent agent specifications (mission, inputs, outputs, boundaries, stop criteria).
-- `tasks/<id>/task.md` — replayable episodes. `tasks/<id>/check/` holds the hidden check. **Never read or modify `tasks/*/check/` while solving that task.** Never modify `tasks/*/task.md` at all.
+- `tasks/<id>/task.md` — replayable episodes; `tasks/<id>/task.json` is the machine-readable descriptor (agent, workspace kind, branch, evaluation, required artifacts, network, setup args) the coordinator reads instead of branching on task ids. `tasks/<id>/check/` holds the hidden check. **Never read or modify `tasks/*/check/` while solving that task.** Never modify `tasks/*/task.md` at all.
 - `experiments/<harness>/` — everything harness-specific: config, hooks, launch commands, agent implementations, notes.
 - `results/runs/<run-id>/run.json` — one record per run, validated against `results/schema.json`.
 - `scripts/new-run.mjs`, `scripts/check.mjs` — create a run record; validate all records and the ledger.
@@ -20,7 +20,7 @@ This repository is a lab for running the same autonomous agents in different age
 - Secrets come only from `.env` through the harness. Do not print, copy or commit them.
 - Write only inside `results/runs/<run-id>/` and `experiments/<harness>/` unless the task says otherwise. Task workspaces live in `results/runs/<run-id>/workspace/` and are git-ignored.
 - Prefer deleting a harness component over adding one. If you add one, add its ledger row in the same change.
-- Checks: `npm run check` validates run records, the ledger, harness version pins (profile ↔ Dockerfile ↔ documentation) and task budget contracts. Run it before finishing.
+- Checks: `npm run check` validates run records, the ledger, harness version pins (profile ↔ Dockerfile ↔ documentation), task budget contracts and task descriptors. Run it before finishing. `npm run reconcile` closes `running` records left by a killed coordinator; `npm run capture-sources` snapshots T001 sources for replay; `npm run compare -- --out <file.md>` writes the comparison report.
 - A harness version is pinned once, in `experiments/<harness>/harness.json`. Dockerfile and documentation repeat it; the runner compares it with the version the image reports.
 - Turn and USD limits belong to `tasks/<id>/task.md`. The runner reads them from the sealed copy of the contract and never carries its own defaults.
 
