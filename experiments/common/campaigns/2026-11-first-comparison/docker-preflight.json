@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "evidence_class": "infrastructure-smoke",
+  "observed_at": "2026-11-06T21:35:37.231833+00:00",
+  "model_api_calls": 0,
+  "real_run_records_created": 0,
+  "docker": {
+    "context": "colima",
+    "server_version": "29.5.2",
+    "platform": "linux/arm64",
+    "running": true
+  },
+  "images": [
+    {
+      "harness": "claude-code",
+      "version": "2.1.83",
+      "image_tag": "harness-lab/claude-code:2.1.83",
+      "image_id": "sha256:d19b4570fc10ee218dc169eb0a1fe662c27763dfa3c06772519166e705fcf094",
+      "platform": "linux/arm64",
+      "node_version": "v24.13.1",
+      "version_smoke": {
+        "status": "passed",
+        "network": "none",
+        "command": [
+          "claude",
+          "--version"
+        ]
+      },
+      "rebuilt": false
+    },
+    {
+      "harness": "pi",
+      "version": "0.73.1",
+      "image_tag": "harness-lab/pi:0.73.1",
+      "image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+      "platform": "linux/arm64",
+      "node_version": "v24.13.1",
+      "version_smoke": {
+        "status": "passed",
+        "network": "none",
+        "command": [
+          "node",
+          "-p",
+          "require('/opt/pi/node_modules/@mariozechner/pi-coding-agent/package.json').version"
+        ]
+      },
+      "rebuilt": false
+    },
+    {
+      "harness": "opencode",
+      "version": "1.18.29",
+      "image_tag": "harness-lab/opencode:1.18.29",
+      "image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984",
+      "platform": "linux/arm64",
+      "node_version": "v24.13.1",
+      "version_smoke": {
+        "status": "passed",
+        "network": "none",
+        "command": [
+          "opencode",
+          "--version"
+        ]
+      },
+      "rebuilt": false
+    },
+    {
+      "harness": "codex",
+      "version": "0.155.1",
+      "image_tag": "harness-lab/codex:0.155.1",
+      "image_id": "sha256:5633c9e6e3d514ceac25a58667af0373617700f412224854bb06ad9973c55149",
+      "platform": "linux/arm64",
+      "node_version": "v24.13.1",
+      "version_smoke": {
+        "status": "passed",
+        "network": "none",
+        "command": [
+          "codex",
+          "--version"
+        ]
+      },
+      "rebuilt": false,
+      "exec_help": {
+        "status": "passed",
+        "required_adapter_flags": [
+          "--model",
+          "--json",
+          "--color",
+          "--skip-git-repo-check",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "--sandbox"
+        ],
+        "sha256": "699d522d3ef6246d61a52d04f8ea6bf6f6e5dc89337700871e01b12f752a1fe3"
+      }
+    },
+    {
+      "harness": "mini-swe-agent",
+      "version": "2.4.6",
+      "image_tag": "harness-lab/mini-swe-agent:2.4.6",
+      "image_id": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+      "platform": "linux/arm64",
+      "node_version": "v24.13.1",
+      "version_smoke": {
+        "status": "passed",
+        "network": "none",
+        "command": [
+          "python",
+          "-c",
+          "from importlib.metadata import version; print(version('mini-swe-agent'))"
+        ]
+      },
+      "rebuilt": false
+    }
+  ],
+  "proxy": {
+    "reference": "node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2",
+    "image_id": "sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2",
+    "platform": "linux/arm64"
+  },
+  "checks": {
+    "docker_boundary": {
+      "command": "mise run test:docker",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pi_synthetic_round_trip": {
+      "command": "mise run test:local-docker",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "sdk_requests_to_fixture": 2,
+      "canceled_fixture_requests": 1,
+      "cloud_requests": 0,
+      "native_tool_result": true,
+      "isolated": true,
+      "control_denied": true
+    },
+    "mini_swe_agent_sdk": {
+      "command": "python /control/run.py --smoke",
+      "image_id": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+      "network": "none",
+      "status": "passed",
+      "model_calls": 0
+    }
+  },
+  "limitations": [
+    "Offline version, help, runtime and synthetic checks do not qualify provider authentication, model availability or actual task success.",
+    "Existing images reused without rebuild; package pins do not reconstruct all transitive dependencies. Immutable image IDs must remain fixed for each campaign."
+  ]
+}

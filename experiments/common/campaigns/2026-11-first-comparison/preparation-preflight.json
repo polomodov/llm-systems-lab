@@ -1,0 +1,339 @@
+{
+  "schema_version": 1,
+  "campaign_id": "2026-11-first-comparison",
+  "checked_at": "2026-11-06T21:36:33.056Z",
+  "evidence_class": "synthetic",
+  "scope": "Offline preparation and adapter command construction only; no agent execution or quality result.",
+  "status": "passed",
+  "source_revision": "18c212d6cece43c4e6fea4ac44a843284e79e389",
+  "runtime": {
+    "command_prefix": "~/.local/bin/mise exec -- node",
+    "node": "v24.13.1"
+  },
+  "plan_projection_sha256": "1271d3ea264cb78b79e4cc066417b4d01319f15bc87d568fcb499236864918d5",
+  "plan_projection_fields": "campaign_id; cohorts[id,provider,harnesses]; common_conditions[variant,timeout_s,budget_mode,contract_turns,contract_budget_usd]; slots[order,slot_id,cohort,stage,harness,task,agent,repeat,required_gate]",
+  "fixture_model_ids": {
+    "anthropic": "claude-sonnet-4-20250514",
+    "openai": "gpt-4.1-2025-04-14"
+  },
+  "model_id_caveat": "Fixture strings only. No model registry, installed SDK acceptance, provider availability, pricing, credentials or account access was verified.",
+  "counts": {
+    "prepared_slots": 42,
+    "pilots": 6,
+    "comparison": 36,
+    "distinct_launch_combinations": 12,
+    "planned_comparison_triples": 12
+  },
+  "task_input_groups": [
+    {
+      "task": "T002-repo-janitor",
+      "input_sha256": "b732237b30023f9fabb8e24efdfad47dc64cf39b12c7ff5eeab6c4f212befecd",
+      "prepared_slots": 24,
+      "groups": 1
+    },
+    {
+      "task": "T004-feature-from-spec",
+      "input_sha256": "5c213b67c108811b82d64d79327d3900d8f4dd51dcc41608f2a7bd3bfed75380",
+      "prepared_slots": 18,
+      "groups": 1
+    }
+  ],
+  "input_fingerprint_definition": "Exact inputKey calculation from scripts/compare.mjs: contract spec/task/descriptor/setup hashes, initial workspace excluding .git, seed commit, source mode and source archive hash. Shared inputs do not merge provider/model cohorts.",
+  "launch_checks": [
+    {
+      "cohort": "anthropic",
+      "task": "T002",
+      "harness": "claude-code",
+      "version": "2.1.83",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T002",
+      "harness": "pi",
+      "version": "0.73.1",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T002",
+      "harness": "opencode",
+      "version": "1.18.29",
+      "launch_turns": 30,
+      "native_turn_limit": "advisory",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T004",
+      "harness": "claude-code",
+      "version": "2.1.83",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T004",
+      "harness": "pi",
+      "version": "0.73.1",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T004",
+      "harness": "opencode",
+      "version": "1.18.29",
+      "launch_turns": 30,
+      "native_turn_limit": "advisory",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T002",
+      "harness": "codex",
+      "version": "0.155.1",
+      "launch_turns": null,
+      "native_turn_limit": "unavailable",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T002",
+      "harness": "pi",
+      "version": "0.73.1",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T002",
+      "harness": "mini-swe-agent",
+      "version": "2.4.6",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 4,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T004",
+      "harness": "codex",
+      "version": "0.155.1",
+      "launch_turns": null,
+      "native_turn_limit": "unavailable",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T004",
+      "harness": "pi",
+      "version": "0.73.1",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    },
+    {
+      "cohort": "openai",
+      "task": "T004",
+      "harness": "mini-swe-agent",
+      "version": "2.4.6",
+      "launch_turns": 30,
+      "native_turn_limit": "hard",
+      "budget_policy": "observed",
+      "hard_budget_argument": null,
+      "prepared_slots": 3,
+      "launch_command_valid": true
+    }
+  ],
+  "planned_triplets": [
+    {
+      "cohort": "anthropic",
+      "task": "T002",
+      "triples": [
+        {
+          "harness": "claude-code",
+          "slots": [
+            "A-T002-R1-claude-code",
+            "A-T002-R2-claude-code",
+            "A-T002-R3-claude-code"
+          ]
+        },
+        {
+          "harness": "pi",
+          "slots": [
+            "A-T002-R1-pi",
+            "A-T002-R2-pi",
+            "A-T002-R3-pi"
+          ]
+        },
+        {
+          "harness": "opencode",
+          "slots": [
+            "A-T002-R1-opencode",
+            "A-T002-R2-opencode",
+            "A-T002-R3-opencode"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "anthropic",
+      "task": "T004",
+      "triples": [
+        {
+          "harness": "claude-code",
+          "slots": [
+            "A-T004-R1-claude-code",
+            "A-T004-R2-claude-code",
+            "A-T004-R3-claude-code"
+          ]
+        },
+        {
+          "harness": "pi",
+          "slots": [
+            "A-T004-R1-pi",
+            "A-T004-R2-pi",
+            "A-T004-R3-pi"
+          ]
+        },
+        {
+          "harness": "opencode",
+          "slots": [
+            "A-T004-R1-opencode",
+            "A-T004-R2-opencode",
+            "A-T004-R3-opencode"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "openai",
+      "task": "T002",
+      "triples": [
+        {
+          "harness": "codex",
+          "slots": [
+            "O-T002-R1-codex",
+            "O-T002-R2-codex",
+            "O-T002-R3-codex"
+          ]
+        },
+        {
+          "harness": "pi",
+          "slots": [
+            "O-T002-R1-pi",
+            "O-T002-R2-pi",
+            "O-T002-R3-pi"
+          ]
+        },
+        {
+          "harness": "mini-swe-agent",
+          "slots": [
+            "O-T002-R1-mini-swe-agent",
+            "O-T002-R2-mini-swe-agent",
+            "O-T002-R3-mini-swe-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "cohort": "openai",
+      "task": "T004",
+      "triples": [
+        {
+          "harness": "codex",
+          "slots": [
+            "O-T004-R1-codex",
+            "O-T004-R2-codex",
+            "O-T004-R3-codex"
+          ]
+        },
+        {
+          "harness": "pi",
+          "slots": [
+            "O-T004-R1-pi",
+            "O-T004-R2-pi",
+            "O-T004-R3-pi"
+          ]
+        },
+        {
+          "harness": "mini-swe-agent",
+          "slots": [
+            "O-T004-R1-mini-swe-agent",
+            "O-T004-R2-mini-swe-agent",
+            "O-T004-R3-mini-swe-agent"
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "unique_ordered_slots": true,
+    "separate_pilots_and_main_repeats": true,
+    "matching_agent_and_gate": true,
+    "task_contracts_and_artifacts": true,
+    "sealed_input_integrity": true,
+    "shared_input_fingerprint_per_task": true,
+    "profile_version_pins": true,
+    "provider_specific_network_allowlist": true,
+    "explicit_observed_launches": true,
+    "codex_null_turn_limit": true,
+    "hidden_checks_and_secrets_absent_from_workspace": true
+  },
+  "boundaries": {
+    "real_run_records_created": 0,
+    "paid_model_calls": 0,
+    "api_requests": 0,
+    "hidden_checks_read_or_executed": false,
+    "credentials_read": false,
+    "docker_executed": false,
+    "temporary_workspace_removed": true
+  },
+  "remaining_live_qualification": [
+    "Exact model and account access",
+    "Credentials through harness .env",
+    "Pinned image runtime and provider transport",
+    "Independent hidden-check evaluation",
+    "Pilots and frozen campaign conditions"
+  ]
+}
