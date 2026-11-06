@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "harbor_version": "0.25.0",
+  "harbor_repository": "https://github.com/harbor-framework/harbor.git",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "upstream_uv_lock_sha256": "42d17160f9041d08388ffc6497333c26c74e195061688c6639ad356f4bb69bd9",
+  "upstream_bun_lock_sha256": "fdef57c3011b5651e4ba0b965ece75261f064cda16b30df9b64de59eebbff3c2",
+  "python": "3.12.12",
+  "node": "24.13.1",
+  "uv": "0.13.7",
+  "bun": "1.4.4",
+  "atif_schema": "ATIF-v1.8",
+  "docker_plugins_darwin_arm64": {
+    "docker-buildx": {
+      "version": "0.38.2",
+      "url": "https://github.com/docker/buildx/releases/download/v0.38.2/buildx-v0.38.2.darwin-arm64",
+      "sha256": "81702e18713cfd495bfe594943fa57f470eda16c0653ae3de15cd411df273c41"
+    },
+    "docker-compose": {
+      "version": "5.7.0",
+      "url": "https://github.com/docker/compose/releases/download/v5.7.0/docker-compose-darwin-aarch64",
+      "sha256": "54495ff81dd8cae11861455f0308a293a530149beba8f1d90ff3f295b11cf035"
+    }
+  },
+  "scope": "Offline interoperability experiment; no campaign adapter or model execution"
+}

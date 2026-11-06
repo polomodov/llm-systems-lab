@@ -1,0 +1,121 @@
+{
+  "kind": "derived-historical-export-validation",
+  "checked_at": "2026-11-06T22:47:55.060511+00:00",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "harbor_version": "0.25.0",
+  "python": "3.12.12",
+  "source_run_id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
+  "rerun": false,
+  "new_model_calls": false,
+  "atif_schema": "ATIF-v1.8",
+  "official_atif_validator_passed": true,
+  "steps": 29,
+  "assistant_messages": 28,
+  "tool_calls": 27,
+  "tool_results": 27,
+  "final_metrics": {
+    "total_prompt_tokens": 172863,
+    "total_completion_tokens": 5225,
+    "total_cached_tokens": null,
+    "total_cost_usd": null,
+    "total_steps": 29,
+    "extra": {
+      "lab_turns": 28,
+      "wall_clock_s": 851,
+      "metrics_unavailable": {
+        "permissions.asked": "CLI does not provide a complete approval counter",
+        "loop.subagents": "CLI does not provide a complete subagent counter",
+        "loop.cost_usd": "Local hardware/energy cost not measured; SDK placeholder prices are not billing evidence."
+      }
+    }
+  },
+  "historical_reward": 1,
+  "cost_rendered_as_unknown": true,
+  "browser_inspection": "Initial export rendered Job -> Rollouts -> trial -> Trajectory in the local browser; the refactored exporter produced a byte-identical trajectory, revalidated by the official validator and read-only viewer API.",
+  "viewer_http_checks": {
+    "/api/config": {
+      "status": 200
+    },
+    "/api/jobs": {
+      "status": 200
+    },
+    "/api/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/trials/2026-10-15-pi-a2-janitor-t002-repo-janitor/trajectory": {
+      "status": 200
+    }
+  },
+  "source_and_campaign_preservation": {
+    "files_checked": 161,
+    "changed_files": [],
+    "baseline_manifest_sha256": "21ad7809d41a9133fcc45be441a46c26f7400bf9513441c7ced7337c9fbe9fa4"
+  },
+  "export_provenance": {
+    "schema_version": 1,
+    "kind": "derived-historical-export",
+    "rerun": false,
+    "source_run_id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
+    "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+    "created_at": "2026-11-06T22:47:55.009473+00:00",
+    "notice": "Derived historical import; no agent execution or verification was repeated. Original language and recorded verdict are preserved. ATIF steps count user/agent messages, not lab turns. Aggregate metrics come from run.json; SDK placeholder prices are not costs. Timestamp intervals and recorded wall_clock_s have different boundaries; the latter remains in metadata. Model names are requested configuration; observed identity and its evidence are recorded separately.",
+    "exporter_sha256": "36775655704f016f89e47105e948c7bec0ac776325b6a3c20edcaa3d2762c621",
+    "files": [
+      {
+        "path": "artifacts/report.md",
+        "bytes": 2792,
+        "sha256": "f1196a5c7b647ba52270c389cc73a47b2122d176bf1773ec9e42de8b2de55037"
+      },
+      {
+        "path": "inputs/manifest.json",
+        "bytes": 12632,
+        "sha256": "6202ec1aeedd115b13fc87920301d1d21aa47171a11b478e357c3bbf39127e34"
+      },
+      {
+        "path": "privacy-redaction.json",
+        "bytes": 3755,
+        "sha256": "e7b40f56cab0ed813fc64d9fa5ee0c4608ded4242557ee26bf2b2bb7e35020a0"
+      },
+      {
+        "path": "run.json",
+        "bytes": 50560,
+        "sha256": "98be5905a9f4ba875823cc095a4bc3331f0aeaa0959481aaf0a5abb6bf448d9a"
+      },
+      {
+        "path": "trace/artifacts.json",
+        "bytes": 162,
+        "sha256": "8d5cb4cae407ea79b40a0de573b92836c1de2a8e85425df685336e0acc76d654"
+      },
+      {
+        "path": "trace/evaluation.json",
+        "bytes": 1027,
+        "sha256": "f2073e381e2fb169cb066068c60b6b9e484a4dc435523db4503adc970f1de763"
+      },
+      {
+        "path": "trace/final-workspace.json",
+        "bytes": 5814,
+        "sha256": "fba5554ffd134560c2ddbf9d658a605a5042dfe191e36de4989f05901dc8748b"
+      },
+      {
+        "path": "trace/stdout.jsonl",
+        "bytes": 12123934,
+        "sha256": "64b33ecadb73db3af9bb2c517b8442ac17c2c8362353afed9153c3390cae5937"
+      }
+    ]
+  },
+  "generated_files_sha256": {
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "dd7d597a050ed83fe053396de9d130dfc7cbf2a1b637739bcdefb3600070d4ea",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "7e58397e61bfcf1861c5bc8927ba17a7c991f0783d5fec0523453d2926d4b0c5",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "f252d810fb17b230ed2edeb94b163e8f0cf9a216344340a345def85c112bd375",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "2775c939a3edb44b4283d32c0598364e41252bc46670b799f61278d08c6e51b5",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/agent/trajectory.json": "75015ad976d32e8e29d2128f7c62db3ef17b558edb7230e54a7694638028a99c",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/provenance.json": "ba2ea903601cf0532776c88b0dc66dac1bbd0cbdd3e043d609d46f779c3c5350"
+  },
+  "components_sha256": {
+    "export-run.py": "36775655704f016f89e47105e948c7bec0ac776325b6a3c20edcaa3d2762c621",
+    "test_export_run.py": "aa6fd8d11c001f87cf7808c834edd68734ca980f692dfa3953edba470a5b124f",
+    "view.py": "334818993a3561954d4307560fc47fec151c8158d27a78e11573047a7b2b9083",
+    "test_view.py": "78294640434dcf117c03fb5fd9ecaa6e74d2125481edac156280dec0fc4e9a1d",
+    "lock.json": "74b42f5b7c70708967c52207ed4f5b7297c0590f4e84244be7d23c3bca9bcdda",
+    "bootstrap.py": "3ece1d7916ea51b9d32543f37bb3be13125f88223b511c9dc9abca4ce5d2ccf9",
+    "setup-docker-plugins.py": "0707e47aac41aae92a4ea90321fa0cf713e2ff00b49eb13b7b49bee58433cdc9"
+  },
+  "refactor_trajectory_unchanged": true
+}
