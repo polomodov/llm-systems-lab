@@ -1,0 +1,35 @@
+schema_version = "1.4"
+artifacts = [{ source = "/app/output/result.json", destination = "result.json" }]
+
+[task]
+name = "llm-systems-lab/synthetic-normalize"
+version = "1.0.0"
+description = "Synthetic local infrastructure control; not a model benchmark."
+
+[metadata]
+category = "synthetic-infrastructure-control"
+
+[agent]
+timeout_sec = 30.0
+network_mode = "no-network"
+
+[environment]
+network_mode = "no-network"
+build_timeout_sec = 180.0
+cpus = 1
+memory_mb = 256
+storage_mb = 512
+gpus = 0
+
+[verifier]
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 60.0
+
+[verifier.environment]
+network_mode = "no-network"
+build_timeout_sec = 180.0
+cpus = 1
+memory_mb = 256
+storage_mb = 512
+gpus = 0
