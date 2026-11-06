@@ -10,9 +10,11 @@ import { join } from 'node:path';
 import { containerArgs, execute } from '../scripts/run.mjs';
 import { startWorker,requestLocal } from '../experiments/common/local-runtime.mjs';
 import { deployment,stream } from '../experiments/common/local-fixture.mjs';
+import { loadProfile } from '../scripts/lib/harnesses.mjs';
 const enabled=process.env.HARNESS_LOCAL_DOCKER_TEST==='1';
-const image='harness-lab/pi:0.73.1',proxyImage='node:24.13.1-bookworm-slim';
 const repository=new URL('../',import.meta.url).pathname;
+const profile=loadProfile(repository,'pi');
+const image=`harness-lab/pi:${profile.version}`,proxyImage='node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2';
 const docker=(argv,env=process.env)=>{const r=spawnSync('docker',argv,{encoding:'utf8',env,timeout:30000});assert.equal(r.status,0,r.stderr||r.error?.message);return r.stdout.trim();};
 const run=argv=>new Promise((resolve,reject)=>{const child=spawn('docker',argv,{stdio:['ignore','pipe','pipe']});let stdout='',stderr='';const timer=setTimeout(()=>child.kill('SIGTERM'),60000);child.stdout.on('data',c=>stdout+=c);child.stderr.on('data',c=>stderr+=c);child.on('error',reject);child.on('close',code=>{clearTimeout(timer);resolve({code,stdout,stderr});});});
 test('Docker B01–B04: native Pi round-trip, isolated agent and private reverse control', {skip:!enabled},async t=>{
@@ -52,5 +54,5 @@ try{await fetch('http://egress:8080/v1/chat/completions',{method:'POST',body:JSO
   const canceledClient=await run(containerArgs({name:agent,network,image,workspace,control,readOnlyWorkspace:false,uid:process.getuid(),gid:process.getgid(),credentialKeys:[]}));assert.equal(canceledClient.code,0);await new Promise(resolve=>setTimeout(resolve,500));assert.equal(canceled,1);assert.equal(upstream.listening,true);
   docker(['rm','-f',agent]);writeFileSync(join(control,'entrypoint.mjs'),'setInterval(()=>{},1000);');
   const timed=await execute(containerArgs({name:agent,network,image,workspace,control,readOnlyWorkspace:false,uid:process.getuid(),gid:process.getgid(),credentialKeys:[]}),{env:process.env,timeout:1,name:agent});assert.equal(timed.timedOut,true);assert.equal(docker(['inspect','--format','{{.State.Running}}',agent]),'false');assert.equal(upstream.listening,true);
-  console.log(JSON.stringify({acceptance:'B01/B02/B03/B04/B06',sdk_version:'0.73.1',sdk_requests:2,canceled_requests:canceled,native_tool_result:true,cloud_requests:0,isolated:true,control_denied:true}));
+  console.log(JSON.stringify({acceptance:'B01/B02/B03/B04/B06',sdk_version:profile.version,sdk_requests:2,canceled_requests:canceled,native_tool_result:true,cloud_requests:0,isolated:true,control_denied:true}));
 });

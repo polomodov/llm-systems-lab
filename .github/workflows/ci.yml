@@ -5,43 +5,178 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '23 6 * * 1'
 
 permissions:
   contents: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PROXY_IMAGE: node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2
+  PYTHONDONTWRITEBYTECODE: '1'
+
 jobs:
-  # Тесты и проверки координатора: без API-ключей, без скрытых проверок,
-  # без обращений к провайдерам. Это инфраструктура, не результат агента.
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      has-images: ${{ steps.plan.outputs.has-images }}
+      docker: ${{ steps.plan.outputs.docker }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.13.1'
+      - name: Select changed harnesses and Docker checks
+        id: plan
+        env:
+          CI_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          CI_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: node .github/scripts/harness-ci.mjs plan
+
+  # Проверки инфраструктуры: без API-ключей и вызовов моделей.
   check:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22.0.0', '24.13.1']
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          node-version: '24.13.1'
-      - name: Unit and integration tests
-        run: npm test
-      - uses: actions/setup-python@v5
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        if: matrix.node == '24.13.1'
         with:
           python-version: '3.12'
-      - name: Offline Mac lab exporter regressions
-        run: python3 -m unittest discover -s experiments/local-models -p 'test_lab*.py' -v
-      - name: Offline lab fixture regressions
-        run: python3 -B -m unittest discover -s docs/labs/fixtures -p '*_test.py' -v
+      - name: Prepare logs
+        run: mkdir -p "$RUNNER_TEMP/ci-logs"
+      - name: Unit and integration tests
+        run: npm test 2>&1 | tee "$RUNNER_TEMP/ci-logs/node-tests.log"
+      - name: Offline Python regressions
+        if: ${{ !cancelled() && matrix.node == '24.13.1' }}
+        run: npm run test:python 2>&1 | tee "$RUNNER_TEMP/ci-logs/python-tests.log"
       - name: Records, ledger, pins and contracts
-        run: npm run check
+        if: ${{ !cancelled() }}
+        run: npm run check 2>&1 | tee "$RUNNER_TEMP/ci-logs/check.log"
+      - name: Preserve check logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: checks-node-${{ matrix.node }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ci-logs/
+          retention-days: 14
+          if-no-files-found: warn
 
-  # Реальная Docker-граница (L003). Отдельная job: ей нужен proxy image и
-  # больше времени, поэтому она запускается вручную и на main.
+  # На PR проверяем реальную границу до merge, когда меняется её код.
   docker:
-    if: github.event_name != 'pull_request'
+    needs: plan
+    if: needs.plan.outputs.docker == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '24.13.1'
-      - name: Pull the pinned proxy image
-        run: docker pull node:24.13.1-bookworm-slim
+      - name: Prepare logs
+        run: mkdir -p "$RUNNER_TEMP/ci-logs"
+      - name: Pull the immutable proxy image
+        run: docker pull "$PROXY_IMAGE" 2>&1 | tee "$RUNNER_TEMP/ci-logs/pull.log"
       - name: Docker boundary smoke
-        run: npm run test:docker
+        run: npm run test:docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/docker-tests.log"
+      - name: Preserve Docker logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: docker-boundary-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ci-logs/
+          retention-days: 14
+          if-no-files-found: warn
+
+  # PR/push: затронутые обвязки; вручную/еженедельно: все профили.
+  images:
+    needs: plan
+    if: needs.plan.outputs.has-images == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      HARNESS: ${{ matrix.harness }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.13.1'
+      - name: Prepare logs
+        run: mkdir -p "$RUNNER_TEMP/ci-logs"
+      - name: Build pinned harness
+        run: node .github/scripts/harness-ci.mjs build "$HARNESS" 2>&1 | tee "$RUNNER_TEMP/ci-logs/build.log"
+      - name: Verify installed version without network
+        run: node .github/scripts/harness-ci.mjs smoke "$HARNESS" 2>&1 | tee "$RUNNER_TEMP/ci-logs/version.log"
+      - name: Pull proxy for local bridge
+        if: matrix.harness == 'pi'
+        run: docker pull "$PROXY_IMAGE" 2>&1 | tee "$RUNNER_TEMP/ci-logs/pull.log"
+      - name: Pi SDK and local bridge Docker smoke
+        if: matrix.harness == 'pi'
+        run: npm run test:local-docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/local-docker-tests.log"
+      - name: Preserve image and smoke logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: image-${{ matrix.harness }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ci-logs/
+          retention-days: 14
+          if-no-files-found: warn
+
+  compare:
+    needs: [plan, check, docker, images]
+    if: >-
+      ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+          needs.plan.result == 'success' && needs.check.result == 'success' &&
+          needs.docker.result == 'success' &&
+          (needs.images.result == 'success' || needs.images.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24.13.1'
+      - name: Generate comparison and job summary
+        run: |
+          npm run compare -- --out results/compare/latest.md
+          cat results/compare/latest.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish comparison artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: comparison-${{ github.sha }}-${{ github.run_attempt }}
+          path: results/compare/latest.md
+          retention-days: 90
+          if-no-files-found: error

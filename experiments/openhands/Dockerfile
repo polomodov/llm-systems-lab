@@ -1,5 +1,5 @@
-FROM node:24.13.1-bookworm-slim AS node
-FROM python:3.12.12-slim-bookworm
+FROM node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2 AS node
+FROM python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c
 COPY --from=node /usr/local/bin/node /usr/local/bin/node
 ARG HARNESS_VERSION=1.49.2
 RUN test "$HARNESS_VERSION" = "1.49.2"
