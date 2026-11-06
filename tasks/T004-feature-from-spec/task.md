@@ -1,15 +1,15 @@
-# T004 · Реализация по спецификации: разбор и формат длительностей
+# T004 · Implement a specification: duration parsing and formatting
 
-## Стартовое состояние
-`setup.sh` создаёт в рабочем каталоге маленький Node-проект (`sample/`) без зависимостей: `src/duration.js` с заглушками `parseDuration` и `formatDuration`, бросающими «not implemented», шесть видимых тестов в `test/duration.test.js` и `brief.md` с полной спецификацией (единицы `d/h/m/s/ms`, терпимость к пробелам, регистр, отказы с `TypeError`, правила форматирования). Ветка `main`, проверка — `npm test`; в стартовом состоянии она красная.
+## Initial state
+`setup.sh` creates a small Node project (`sample/`) in the working directory with no dependencies: `src/duration.js` contains `parseDuration` and `formatDuration` stubs that throw “not implemented”; `test/duration.test.js` contains six visible tests; and `brief.md` contains the full specification (units `d/h/m/s/ms`, whitespace tolerance, case handling, `TypeError` rejections, and formatting rules). Branch: `main`; check: `npm test`, which fails initially.
 
-## Контракт
-Агент A4 по своей спецификации реализует обе функции по `brief.md` в ветке `feature/<run-id>`, делает `npm test` зелёным и пишет `artifacts/report.md`. Видимые тесты покрывают только базовые случаи; скрытая проверка прогоняет полную спецификацию. Тесты не ослабляются и не удаляются; добавлять свои можно.
+## Contract
+Agent A4 follows its specification to implement both functions according to `brief.md` on `feature/<run-id>`, make `npm test` pass, and write `artifacts/report.md`. Visible tests cover only basic cases; the hidden check tests the full specification. Tests must not be weakened or removed; additional tests are allowed.
 
-## Видимая часть проверки
-- `npm test` зелёный на чистом клоне ветки.
-- Количество видимых тестов не уменьшилось.
-- Отчёт упоминает все пять единиц и принятые решения по спорным местам спецификации.
+## Visible evaluation
+- `npm test` passes on a clean clone of the branch.
+- The number of visible tests has not decreased.
+- The report mentions all five units and decisions on ambiguous specification cases.
 
-## Бюджет
-До 30 ходов или $2.
+## Budget
+Up to 30 turns or $2 in cost.

@@ -1,7 +1,7 @@
-// Пин версии обвязки живёт в experiments/<id>/harness.json. Здесь проверяется,
-// что Dockerfile и документация повторяют ровно его: иначе таблица «проверенный
-// pin» расходится с образом молча. Совпадение пина с реальным образом проверяет
-// run.mjs при запуске и ЛР11–19 при сборке.
+// Harness versions are pinned in experiments/<id>/harness.json. Verify that
+// Dockerfile and documentation repeat the exact pin, so the documented pin
+// cannot silently diverge from the image. run.mjs checks the actual image
+// at execution time; LAB11–19 check it during builds.
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { loadProfile } from './harnesses.mjs';

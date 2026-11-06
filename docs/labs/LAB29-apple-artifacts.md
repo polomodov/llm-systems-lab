@@ -1,23 +1,23 @@
-# ЛР29. Закрепление GGUF и MLX-артефактов
+# LAB29. Pinning GGUF and MLX artifacts
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Подготовка артефактов / `target-machine` |
-| Время | 1–3 часа плюс загрузка |
-| Предпосылки | LAB28 и общий Apple-протокол |
-| Минимум | Одна исходная модель, один GGUF и один MLX-вариант либо документированный blocker MLX |
+| Type / readiness | Artifact preparation / `target-machine` |
+| Time | 1–3 hours plus downloads |
+| Prerequisites | LAB28 and the shared Apple protocol |
+| Minimum | One source model, one GGUF and one MLX variant, or a documented MLX blocker |
 
-## Цель
+## Objective
 
-Получить проверяемые manifests весов и входного протокола, пригодные для повторного запуска на Mac и сравнения с Ryzen.
+Produce verifiable weight and input-protocol manifests suitable for reruns on Mac and comparison with Ryzen.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Для выбранной исходной модели доступны воспроизводимые артефакты обоих движков. Одинаковый model name не гарантирует одинаковые weights, tokenizer, quantization или template.
+Reproducible artifacts for both engines are available for the selected source model. An identical model name does not guarantee identical weights, tokenizer, quantization or template.
 
-## Подготовка
+## Preparation
 
 ```sh
 npm run lab:new -- --lab LAB29 --session apple-artifacts
@@ -26,13 +26,13 @@ npm run --silent local:plan -- --hardware apple-m5-max-128gb-macos --engine all 
   > "$LAB_DIR/raw/candidates.json"
 ```
 
-Следуйте [общему протоколу](../../experiments/local-models/apple/README.md). Выберите небольшой candidate для первого smoke и задайте предел SSD/памяти до загрузки. `artifact-required` — необходимость найти MLX-веса, не запрет модели. Каталог общий, его включение не доказывает поддержку архитектуры Metal или MLX.
+Follow the [shared protocol](../../experiments/local-models/apple/README.md). Choose a small candidate for the first smoke test and set SSD/memory limits before downloading. `artifact-required` means MLX weights must be located, not that the model is prohibited. The catalog is shared; inclusion does not prove Metal or MLX architecture support.
 
-## Порядок выполнения
+## Procedure
 
-1. Выберите исходный repository и **полный immutable commit**, затем отдельные repositories/revisions для GGUF и MLX. Сохраните model card/config, лицензию, список файлов и сведения о происхождении conversion. Для GGUF сравнения с Ryzen используйте в точности уже закреплённые файлы и hashes; нельзя подменять их другой сборкой с тем же названием quant.
+1. Select the source repository and **full immutable commit**, then separate repositories/revisions for GGUF and MLX. Save the model card/config, license, file list and conversion provenance. For a GGUF comparison with Ryzen, use exactly the already pinned files and hashes; do not substitute another build with the same quant name.
 
-2. Загрузите только выбранные revisions штатным клиентом хранилища; запишите команду и версию клиента в `raw/acquisition.txt`. Секреты не сохраняйте. Если веса уже есть, сохраните происхождение локальной копии. Модели храните вне Git/evidence. В `MODEL_DIR` укажите отдельный каталог **одного** варианта: все shards, config/tokenizer/template, без других моделей. `ARTIFACT_NAME` — `gguf` или `mlx`:
+2. Download only the selected revisions with the storage provider's standard client; record the command and client version in `raw/acquisition.txt`. Do not save secrets. If weights already exist, record the provenance of the local copy. Keep models outside Git/evidence. Set `MODEL_DIR` to a separate directory for **one** variant: all shards, config/tokenizer/template, no other models. `ARTIFACT_NAME` is `gguf` or `mlx`:
 
    ```sh
    export MODEL_DIR='/absolute/path/to/pinned-model'
@@ -61,43 +61,43 @@ npm run --silent local:plan -- --hardware apple-m5-max-128gb-macos --engine all 
    PY
    ```
 
-   Повторите для MLX с новым именем. Все ожидаемые shards должны присутствовать; hashing неполного каталога не доказывает комплектность. Сравните SHA с метаданными издателя, если опубликованы. Локальные hashes подтверждают повторяемость этих bytes, не автоматически происхождение.
+   Repeat for MLX with a new name. All expected shards must be present; hashing an incomplete directory does not establish completeness. Compare SHA with publisher metadata if available. Local hashes establish repeatability of these bytes, not automatically their provenance.
 
-3. Запишите `raw/artifact-manifest.json`: исходные model/revision, для каждого варианта repository/revision, format, quantization (для MLX также bits/group_size и исключения), список файлов/hash evidence, tokenizer/template hashes, лицензия, conversion command/version или причина неизвестности. Embedded GGUF tokenizer/template извлеките средствами pinned runtime и сохраните отдельно; hash GGUF фиксирует bytes, но не заменяет описание template override.
+3. Write `raw/artifact-manifest.json`: source model/revision; repository/revision, format, quantization (also bits/group_size and exceptions for MLX), file list/hash evidence, tokenizer/template hashes, license, conversion command/version or reason unknown for each variant. Extract the embedded GGUF tokenizer/template with the pinned runtime and save separately; the GGUF hash fixes the bytes but does not replace a description of template overrides.
 
-4. Сопоставьте chat template, special tokens, thinking/reasoning, EOS и output cap. Изменение template — отдельная конфигурация. Если исходный revision MLX не установлен, сравнение по одному фактору невозможно: отметьте deployment comparison либо blocker; не придумывайте provenance.
+4. Compare chat templates, special tokens, thinking/reasoning, EOS and output caps. A template change is a separate configuration. If the MLX source revision is not established, a single-factor comparison is impossible: label it a deployment comparison or blocker; do not invent provenance.
 
-5. Сверьте объём на SSD и грубый план памяти. Файловый размер MLX не равен peak memory, размер GGUF не переносится на MLX. GPU budget остаётся неизвестным до smoke. Повторные хеши должны совпасть; повреждённый shard исключает допуск.
+5. Check SSD usage and the rough memory plan. MLX file size is not peak memory; GGUF size does not transfer to MLX. The GPU budget remains unknown until the smoke test. Repeated hashes must match; a corrupt shard prevents admission.
 
-## Таблицы результатов
+## Results tables
 
-| Вариант | Source revision | Artifact revision | Quant / group size | Файлы / bytes / SHA evidence | Template hash | Допуск |
+| Variant | Source revision | Artifact revision | Quant / group size | Files / bytes / SHA evidence | Template hash | Admission |
 | --- | --- | --- | --- | --- | --- | --- |
 | GGUF | | | | | | |
 | MLX | | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт, TSV, manifest v2, acquisition commands, карточки/config, списки hashes и `artifact-manifest.json`. Веса в отчёт не включаются. `conditions.model_artifact_manifest` ссылается на manifest; пропуски подтверждены причиной.
+Report, TSV, manifest v2, acquisition commands, cards/config, hash lists and `artifact-manifest.json`. Do not include weights in the report. `conditions.model_artifact_manifest` references the manifest; explain missing fields.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Revisions immutable, все shards учтены и проверены.
-- [ ] GGUF и MLX имеют отдельные format/quant/size сведения.
-- [ ] Tokenizer/template и исходное происхождение установлены либо явно неизвестны.
-- [ ] Нет утверждения о вместимости без аппаратного smoke.
-- [ ] Комплект проверен `lab:check --mode submission`.
+- [ ] Revisions are immutable; all shards accounted for and verified.
+- [ ] GGUF and MLX have separate format/quant/size records.
+- [ ] Tokenizer/template and source provenance established or explicitly unknown.
+- [ ] No capacity claim without a hardware smoke test.
+- [ ] Submission checked with `lab:check --mode submission`.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему GGUF Q4 и MLX 4-bit могут иметь разное качество и память?
-2. Что подтверждает SHA и чего он не подтверждает?
-3. Как template override меняет условия сравнения?
-4. Почему MoE active parameters не определяют полный объём весов?
+1. Why can GGUF Q4 and MLX 4-bit differ in quality and memory use?
+2. What does SHA establish, and what does it not establish?
+3. How does a template override change comparison conditions?
+4. Why do MoE active parameters not determine total weight size?
 
-## Источники
+## Sources
 
-- [Общий каталог моделей](../local-model-candidates.md).
-- [MLX-LM: модели и conversion](https://github.com/ml-explore/mlx-lm).
+- [Shared model catalog](../local-model-candidates.md).
+- [MLX-LM: models and conversion](https://github.com/ml-explore/mlx-lm).
 - [Hugging Face: pinned download](https://huggingface.co/docs/huggingface_hub/guides/download).
-- Model cards и revision URLs выбранных вариантов прилагаются исполнителем.
+- The operator must attach model cards and revision URLs for the selected variants.

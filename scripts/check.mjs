@@ -19,7 +19,7 @@ const evidenceIds = new Set();
 if (existsSync(join(root, "docs/labs"))) {
   try {
     const catalog = loadLabCatalog(root, { checkDocuments: true });
-    console.log(`[check] laboratory manuals=${catalog.labs.length}, harness labs=${catalog.labs.filter(lab => lab.harness).length}: задания, не выполненные работы`);
+    console.log(`[check] laboratory manuals=${catalog.labs.length}, harness labs=${catalog.labs.filter(lab => lab.harness).length}: assignments, not completed experiments`);
   } catch (error) { console.error(`[check] labs: ${error.message}`); failed++; }
 }
 const localDir = join(root, "experiments", "local-models");
@@ -29,7 +29,7 @@ if (existsSync(localDir)) {
       const catalog = JSON.parse(readFileSync(join(localDir, "models.json"), "utf8"));
       const { hardware, engines } = loadLocalHardware(root, id, { engines: true });
       validateLocalPlanData(catalog, hardware);
-      console.log(`[check] ${id}: models=${catalog.models.length}, inference profiles=${engines.engines.length}: плановые профили; фактический допуск — в отчётах LAB`);
+      console.log(`[check] ${id}: models=${catalog.models.length}, inference profiles=${engines.engines.length}: planned profiles; actual qualification is documented in LAB reports`);
     } catch (error) { console.error(`[check] local plan ${id}: ${error.message}`); failed++; }
   }
 }
@@ -37,7 +37,7 @@ if (existsSync(join(root, "experiments")) && existsSync(join(root, "docs/harness
   try {
     const pins = auditPins(root);
     for (const error of pins.errors) { console.error(`✖ pin ${error}`); failed++; }
-    if (!pins.errors.length) console.log(`[check] pinned harnesses=${pins.ids.length}: профиль, Dockerfile и документация совпадают`);
+    if (!pins.errors.length) console.log(`[check] pinned harnesses=${pins.ids.length}: profile, Dockerfile and documentation agree`);
   } catch (error) { console.error(`[check] pins: ${error.message}`); failed++; }
 }
 if (existsSync(join(root, "tasks"))) {
@@ -50,7 +50,7 @@ if (existsSync(join(root, "tasks"))) {
       if (!existsSync(join(root, "agents", task.agent, "spec.md"))) throw new Error(`${name}: agent ${task.agent} has no spec.md`);
       if (!existsSync(join(tasksDir, name, "setup.sh"))) throw new Error(`${name}: setup.sh is missing`);
     }
-    console.log(`[check] task contracts=${contracts.length}: лимиты из контракта, дескриптор task.json и агент каждой задачи найдены`);
+    console.log(`[check] task contracts=${contracts.length}: contract limits, task.json descriptors and agents found for every task`);
   } catch (error) { console.error(`[check] task budget: ${error.message}`); failed++; }
 }
 try {
@@ -91,13 +91,13 @@ for (const name of entries) {
   else {
     if (record.status === "completed") { completed++; evidenceIds.add(record.run_id); }
     console.log(`✔ ${name}: ${record.status}/${record.verdict.result}`);
-    if (record.status === "prepared" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив prepared проверен по sealed inputs; запуск требует live tree`);
-    if (record.status === "completed" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace отсутствует; архив проверен без live tree`);
+    if (record.status === "prepared" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace absent; prepared archive verified against sealed inputs; execution requires a live tree`);
+    if (record.status === "completed" && !existsSync(join(runsDir, name, "workspace"))) console.log(`[check] ${name}: workspace absent; archive verified without a live tree`);
   }
 }
 if (ledgerText) for (const error of validateLedger(ledgerText, { runIds: evidenceIds }).errors) {
   if (!ledger.errors.includes(error)) { console.error(`✖ ${error}`); failed++; }
 }
 console.log(`[check] runs=${entries.length} completed=${completed} failed=${failed} ledger rows=${ledger.ids.size}`);
-if (completed === 0) console.log("[check] no experimental evidence: нет завершённых проверенных прогонов");
+if (completed === 0) console.log("[check] no experimental evidence: no completed, evaluated runs");
 process.exitCode = failed ? 1 : 0;

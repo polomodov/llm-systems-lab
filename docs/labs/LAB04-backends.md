@@ -1,33 +1,33 @@
-# ЛР 04. Сравнение llama.cpp Vulkan и HIP/ROCm
+# LAB04. Comparing llama.cpp Vulkan and HIP/ROCm
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Время-ориентир | 2–4 часа после получения весов и зависимостей; большие модели могут потребовать больше времени |
-| Предпосылки | Выполнены ЛР 02 и ЛР 03; target Linux; закреплённые GGUF и commit llama.cpp; установлены build dependencies Vulkan и HIP |
-| Статус готовности | Команды подготовлены; обе аппаратные ветви требуют выполнения smoke |
-| Результат | Парное сравнение backend при одной модели и одном commit |
+| Estimated time | 2–4 hours after obtaining weights and dependencies; large models may take longer |
+| Prerequisites | LAB02 and LAB03 completed; target Linux; pinned GGUF and llama.cpp commit; Vulkan and HIP build dependencies installed |
+| Readiness status | Commands prepared; both hardware branches require smoke tests |
+| Outcome | Paired backend comparison using one model and one commit |
 
-## Цель
+## Objective
 
-Измерить различия Vulkan и HIP/ROCm на Radeon 8060S, сохранив одинаковые веса, версию движка и параметры. Обе ветви обязательны; отсутствие одной оформляется как blocker, а не как доказательство преимущества другой.
+Measure Vulkan and HIP/ROCm differences on Radeon 8060S while keeping weights, engine version, and parameters identical. Both branches are required; a missing branch is recorded as a blocker, not as evidence that the other is superior.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Один и тот же GGUF может работать с полным GPU offload в обеих сборках llama.cpp. При одинаковой нагрузке backend может влиять на скорость prefill/decode и память; направление и величина эффекта неизвестны до измерений.
+The same GGUF can run with full GPU offload in both llama.cpp builds. Under an identical workload, the backend may affect prefill/decode speed and memory; the direction and magnitude of the effect are unknown before measurement.
 
-## Подготовка
+## Preparation
 
-- Из ЛР 03 возьмите локальный GGUF, список всех shards с SHA-256 и карточку модели. Исходники llama.cpp в той работе не готовятся.
-- Выберите один конкретный commit llama.cpp по поддержке архитектуры/quant выбранной модели в его документации и истории изменений. Запишите полный SHA из 40 hex-символов и дату выбора в отчёт. Номер release или слово `master` самостоятельно не заменяют SHA. Для первого сравнения обе сборки получают этот же commit, а model-specific template фиксируется отдельно.
-- Из ЛР 02 возьмите паспорт и допустимые бюджеты. Начните с малого контрольного кандидата, а не с предельной модели.
-- Убедитесь, что `cmake`, compiler, Vulkan headers/shader compiler и HIP SDK уже установлены. Не устанавливайте их автоматически при ошибке сборки.
-- Все команды выполняются из корня репозитория. Значения `/absolute/...` замените реальными абсолютными путями; не используйте плавающий `master` как идентификатор сборки.
+- Obtain the local GGUF, the list of all shards with SHA-256 values, and the model card from LAB03. That lab does not prepare llama.cpp sources.
+- Select one specific llama.cpp commit based on support for the selected model's architecture/quant in its documentation and change history. Record the full 40-hex-character SHA and selection date in the report. A release number or the word `master` alone does not replace a SHA. For the first comparison, both builds use that same commit, while the model-specific template is pinned separately.
+- Obtain the profile and permitted budgets from LAB02. Start with a small control candidate rather than a model at the limit.
+- Ensure that `cmake`, a compiler, Vulkan headers/shader compiler, and the HIP SDK are already installed. Do not install them automatically after a build error.
+- Run all commands from the repository root. Replace `/absolute/...` values with actual absolute paths; do not use a floating `master` as the build identifier.
 
-## Порядок выполнения
+## Procedure
 
-1. Создайте отдельный архив и задайте входы:
+1. Create a separate archive and specify the inputs:
 
    ```sh
    npm run lab:new -- --lab LAB04 --session my-session
@@ -54,16 +54,16 @@
      > "$LAB_DIR/raw/verification-before.txt"
    ```
 
-   Команды предполагают **уже подготовленный отдельный checkout** в `LLAMA_SOURCE`: выбранный commit должен совпасть с `HEAD`, а `git status --porcelain` должен быть пустым. Если checkout отсутствует, сначала получите исходники отдельно, например командами ниже, затем повторите проверки шага 1. `LLAMA_SOURCE` для клонирования должен быть новым, не занятым пользовательским каталогом:
+   The commands assume an **already prepared separate checkout** at `LLAMA_SOURCE`: the selected commit must match `HEAD`, and `git status --porcelain` must be empty. If the checkout does not exist, first obtain the sources separately, for example with the commands below, then repeat the step 1 checks. For cloning, `LLAMA_SOURCE` must be a new directory, not an existing user directory:
 
    ```sh
    git clone https://github.com/ggml-org/llama.cpp.git "$LLAMA_SOURCE"
    git -C "$LLAMA_SOURCE" checkout --detach "$LLAMA_COMMIT"
    ```
 
-   При локальных patch сохраните diff и одинаково примените его к обеим сборкам; это отдельный вариант относительно чистого pin. `weights.sha256` из ЛР 03 содержит все shards с абсолютными путями; JSON manifest не является входом `sha256sum --check`. При ненулевом exit code остановитесь. Хеширование читает веса и прогревает filesystem cache — учтите это в состоянии кеша.
+   If using local patches, save the diff and apply it identically to both builds; this is a separate variant relative to the clean pin. `weights.sha256` from LAB03 contains all shards with absolute paths; a JSON manifest is not input for `sha256sum --check`. Stop on a nonzero exit code. Hashing reads the weights and warms the filesystem cache; account for this in the cache state.
 
-2. Соберите два backend из этого checkout в **разных** каталогах. Это сборка, не установка системных пакетов:
+2. Build the two backends from this checkout in **different** directories. This builds software; it does not install system packages:
 
    ```sh
    (
@@ -83,9 +83,9 @@
    )
    ```
 
-   Проверяйте exit code после каждой команды, перед переходом дальше. Ошибку сохраняйте целиком. Не добавляйте `HSA_OVERRIDE_GFX_VERSION` и не заменяйте target на другую архитектуру ради прохождения baseline.
+   Check the exit code after each command before proceeding. Preserve the full error. Do not add `HSA_OVERRIDE_GFX_VERSION` or substitute another target architecture to make the baseline pass.
 
-3. Зафиксируйте итоговые бинарники и убедитесь, что flags совпадают с pinned `--help`:
+3. Record the resulting binaries and confirm that flags match the pinned `--help`:
 
    ```sh
    for backend in vulkan hip; do
@@ -100,9 +100,9 @@
    done
    ```
 
-   Проверьте `-fa on`, `-ctk/-ctv`, `-d`, `-r`, `-o json`. При другом синтаксисе адаптируйте команду по документации выбранного commit и сохраните её. Если устройств несколько, выберите одно и зафиксируйте selection flag из help. Автовыбор допустим только после подтверждения Radeon 8060S в обеих ветвях.
+   Check `-fa on`, `-ctk/-ctv`, `-d`, `-r`, and `-o json`. If the syntax differs, adapt the command using the selected commit's documentation and preserve it. If there are several devices, select one and record the selection flag from help. Automatic selection is allowed only after confirming Radeon 8060S in both branches.
 
-4. Выполните по одному непротоколируемому в итоговой статистике прогреву. Логи прогрева сохраняются:
+4. Perform one warmup per branch, excluded from the final statistics. Preserve warmup logs:
 
    ```sh
    (
@@ -117,9 +117,9 @@
    )
    ```
 
-   Найдите в логах фактическое число GPU layers, backend и allocations. `-ngl 999` — запрос, а не доказательство full offload. CPU tokenizer/sampling допустимы; уход весов/слоёв модели на CPU считается отдельной конфигурацией. При OOM, GPU reset, невалидных данных или нарушении бюджета остановите эту ветвь. Не уменьшайте незаметно KV precision, context или offload.
+   Find the actual GPU layer count, backend, and allocations in the logs. `-ngl 999` is a request, not proof of full offload. CPU tokenization/sampling is allowed; model weights/layers falling back to CPU constitute a separate configuration. Stop the branch on OOM, GPU reset, invalid data, or budget violation. Do not silently reduce KV precision, context, or offload.
 
-5. Выполните три парных повтора, чередуя порядок `Vulkan → HIP`, `HIP → Vulkan`, `Vulkan → HIP`. Для каждого backend измерьте pp2048 и tg128 при глубине 4096. Не запускайте ветви одновременно:
+5. Perform three paired repetitions, alternating the order `Vulkan → HIP`, `HIP → Vulkan`, `Vulkan → HIP`. For each backend, measure pp2048 and tg128 at a depth of 4096. Do not run the branches simultaneously:
 
    ```sh
    (
@@ -148,22 +148,22 @@
    )
    ```
 
-   Подоболочка останавливается при ненулевом exit code. Сохраните failure; не включайте частичный JSON как успешный замер. Успешный exit code всё равно требует проверки логов на offload и allocations. `/usr/bin/time` — GNU time, а не shell keyword. Если его нет, сохраните blocker process RSS/wall metrics или подготовьте измеритель отдельно.
+   The subshell stops on a nonzero exit code. Preserve failures; do not count partial JSON as a successful measurement. A successful exit code still requires checking offload and allocations in the logs. `/usr/bin/time` is GNU time, not the shell keyword. If it is unavailable, record a blocker for process RSS/wall metrics or prepare a measurement tool separately.
 
-6. **Перед выполнением шага 5** в отдельном терминале из корня репозитория повторно задайте `LAB_DIR` из шага 1 и запустите `vmstat -w 1 > "$LAB_DIR/raw/vmstat-series.txt"`. Остановите сбор после серии через Ctrl-C. Используйте доступную GPU/температурную телеметрию из ЛР 02; отсутствующие sensors отмечайте как `null`. RSS процесса, GPU allocation и page cache не складываются без анализа пересечения UMA. По `pswpin/pswpout` до/после и журналу `vmstat` оцените наличие подкачки; единичный шум и устойчивый swap-in/out опишите отдельно.
+6. **Before step 5**, in a separate terminal at the repository root, set `LAB_DIR` from step 1 again and run `vmstat -w 1 > "$LAB_DIR/raw/vmstat-series.txt"`. Stop collection after the series with Ctrl-C. Use available GPU/temperature telemetry from LAB02; mark missing sensors as `null`. Do not add process RSS, GPU allocation, and page cache without analyzing UMA overlap. Use `pswpin/pswpout` before/after and the `vmstat` log to assess swapping; describe isolated noise separately from sustained swap-in/out.
 
-7. Разделите времена и состояния кеша. Каждый `llama-bench` начинает новый процесс; это не гарантирует холодный SSD/filesystem cache. Его встроенный прогрев исключён из t/s, а время `/usr/bin/time` включает весь процесс. Запишите «process cold / filesystem warm или unknown» и отдельно измеряемую фазу pp/tg. Не называйте process wall time временем загрузки модели. Для отдельной cold-load серии нужен новый объявленный сценарий; глобальный page cache здесь не очищается.
+7. Separate timings and cache states. Each `llama-bench` starts a new process; this does not guarantee a cold SSD/filesystem cache. Its built-in warmup is excluded from t/s, while `/usr/bin/time` includes the entire process. Record “process cold / filesystem warm or unknown” and the separately measured pp/tg phase. Do not call process wall time model-loading time. A separate cold-load series requires a newly declared scenario; the global page cache is not cleared here.
 
-8. Из JSON перенесите три индивидуальных результата в `measurements.tsv`; вычислите median/min/max для одинаковых режимов. Для каждого режима приведите отношение `median_HIP / median_Vulkan`, если обе ветви завершились в одинаковых условиях. При разных quant, FA или offload отношение не интерпретируется как чистый эффект backend. Заполните отчёт и manifest, затем повторите проверки SHA весов и commit.
+8. Transfer the three individual JSON results into `measurements.tsv`; calculate median/min/max for matching modes. For each mode, provide `median_HIP / median_Vulkan` if both branches completed under identical conditions. With different quant, FA, or offload settings, the ratio cannot be interpreted as a pure backend effect. Complete the report and manifest, then repeat the weights SHA and commit checks.
 
-## Таблицы результатов
+## Results tables
 
-| Backend | Commit / binary SHA | GPU / target | Слоёв на GPU / всего | Quant / KV / FA | Допуск |
+| Backend | Commit / binary SHA | GPU / target | Layers on GPU / total | Quant / KV / FA | Admission |
 | --- | --- | --- | --- | --- | --- |
 | Vulkan | | | | | |
 | HIP/ROCm | | | | | |
 
-| Backend | Повтор | pp2048, tokens/s | tg128 @ depth4096, tokens/s | Max RSS, KiB | Swap delta | Статус / raw prefix |
+| Backend | Repetition | pp2048, tokens/s | tg128 @ depth4096, tokens/s | Max RSS, KiB | Swap delta | Status / raw prefix |
 | --- | --- | --- | --- | --- | --- | --- |
 | Vulkan | 1 | | | | | |
 | HIP | 1 | | | | | |
@@ -172,39 +172,39 @@
 | Vulkan | 3 | | | | | |
 | HIP | 3 | | | | | |
 
-| Режим | Vulkan median [min; max] | HIP median [min; max] | HIP/Vulkan | Ограничения вывода |
+| Mode | Vulkan median [min; max] | HIP median [min; max] | HIP/Vulkan | Limits of the conclusion |
 | --- | --- | --- | --- | --- |
 | pp2048 | | | | |
 | tg128 @ depth4096 | | | | |
 
-## Что сдать
+## Deliverables
 
-- `report.md`, `measurements.tsv`, `manifest.json` с зависимостями на ЛР 02/03.
-- `raw/llama-commit.txt`, статус/patch checkout, manifest и результаты проверки SHA всех shards.
-- Логи configure/build, `*-CMakeCache.txt`, `*-binaries.sha256`, версии/help/device inventory обеих ветвей.
-- Все `*-warmup.*`, `*-r[1-3]-pp.*`, `*-r[1-3]-tg.*`, process metrics и memory/swap observations; не удалять неудачные попытки.
-- Записанные launch arguments и режим питания; таблица сравнений без вымышленных нулей.
+- `report.md`, `measurements.tsv`, and `manifest.json` with dependencies on LAB02/03.
+- `raw/llama-commit.txt`, checkout status/patch, manifest, and SHA verification results for all shards.
+- Configure/build logs, `*-CMakeCache.txt`, `*-binaries.sha256`, versions/help/device inventories for both branches.
+- All `*-warmup.*`, `*-r[1-3]-pp.*`, `*-r[1-3]-tg.*`, process metrics, and memory/swap observations; do not remove unsuccessful attempts.
+- Recorded launch arguments and power mode; a comparison table without invented zeros.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Обе ветви собраны из одного commit и используют одни SHA весов.
-- [ ] Подтверждены Radeon 8060S, фактический offload и одинаковые настройки.
-- [ ] Сохранён прогрев и три парных повтора либо конкретный blocker.
-- [ ] Cold process, filesystem cache и измеряемая фаза описаны отдельно.
-- [ ] Проверены swap и бюджеты; не было скрытого fallback.
-- [ ] Вывод ограничен проверенной моделью/контекстом и не является рейтингом агентов.
+- [ ] Both branches were built from one commit and use identical weights SHA values.
+- [ ] Radeon 8060S, actual offload, and identical settings are confirmed.
+- [ ] Warmup and three paired repetitions are preserved, or a specific blocker is recorded.
+- [ ] Cold process, filesystem cache, and the measured phase are described separately.
+- [ ] Swap and budgets were checked; no concealed fallback occurred.
+- [ ] The conclusion is limited to the tested model/context and is not an agent ranking.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему сравнение разных commit не позволяет выделить эффект Vulkan/HIP?
-2. Почему tg128 при пустом контексте недостаточно для оценки агентной нагрузки?
-3. Что входит в process wall time и что исключено из `llama-bench` t/s?
-4. Как отличить успешный запуск от полного GPU offload?
-5. Что нужно пересчитать при смене KV f16 на q8_0?
+1. Why does comparing different commits prevent isolating the Vulkan/HIP effect?
+2. Why is tg128 with an empty context insufficient to assess an agent workload?
+3. What is included in process wall time and excluded from `llama-bench` t/s?
+4. How can you distinguish a successful launch from full GPU offload?
+5. What must be recalculated when changing KV from f16 to q8_0?
 
-## Источники
+## Sources
 
-- [llama.cpp: сборки Vulkan и HIP](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
-- [llama-bench: режимы pp/tg, context depth, прогрев и output](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md).
-- [AMD: архивный пакет llama.cpp b8407 / ROCm 7.2.1](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html).
-- [Общий практикум](README.md), [паспорт машины](LAB02-hardware.md), [матрица движков](../local-inference-engines.md).
+- [llama.cpp: Vulkan and HIP builds](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
+- [llama-bench: pp/tg modes, context depth, warmup, and output](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md).
+- [AMD: archived llama.cpp b8407 / ROCm 7.2.1 package](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html).
+- [Lab course](README.md), [machine profile](LAB02-hardware.md), [engine matrix](../local-inference-engines.md).

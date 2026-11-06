@@ -3,7 +3,7 @@ import { join, relative } from 'node:path';
 import { safePath } from './files.mjs';
 import { loadProfile } from './harnesses.mjs';
 
-const sections = ['Паспорт', 'Цель', 'Проверяемая гипотеза', 'Подготовка', 'Порядок выполнения', 'Таблицы результатов', 'Что сдать', 'Критерии завершения', 'Контрольные вопросы', 'Источники'];
+const sections = ['Profile', 'Objective', 'Hypothesis', 'Preparation', 'Procedure', 'Results tables', 'Deliverables', 'Completion criteria', 'Review questions', 'Sources'];
 
 export function validateLabCatalog(catalog) {
   if (!catalog || catalog.schema_version !== 1 || !Array.isArray(catalog.labs) || !catalog.labs.length) throw new Error('Invalid lab catalog');

@@ -1,3 +1,3 @@
-# Заметки · OpenCode
+# Notes · OpenCode
 
-Прогонов пока нет.
+No runs yet.

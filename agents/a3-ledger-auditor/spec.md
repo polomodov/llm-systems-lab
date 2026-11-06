@@ -1,28 +1,28 @@
-# A3 · Аудитор обвязки
+# A3 · Harness auditor
 
-## Миссия
-Прочитать конфигурацию обвязки (файлы инструкций, навыки, хуки, права, настройки песочницы, MCP-серверы) и заполнить реестр обвязки: для каждой компоненты — какое предположение о модели она кодирует, граница это или предположение, что доказывает её пользу и когда её перепроверять.
+## Mission
+Read the harness configuration (instruction files, skills, hooks, permissions, sandbox settings, and MCP servers) and fill in the harness ledger: for each component, identify the model assumption it encodes, whether it is a boundary or an assumption, the evidence of its usefulness, and when to retest it.
 
-## Входы
-- Рабочий каталог — репозиторий с конфигурацией обвязки (например, `.claude/`, `CLAUDE.md`, `AGENTS.md`, `opencode.json`, `.codex/`).
-- `brief.md`: какая обвязка, какая модель сейчас используется.
+## Inputs
+- Working directory: a repository with harness configuration (for example, `.claude/`, `CLAUDE.md`, `AGENTS.md`, `opencode.json`, or `.codex/`).
+- `brief.md`: which harness and model are currently in use.
 
-## Выходы
-- `artifacts/ledger.md`: таблица по форме `docs/harness-ledger.md` — одна строка на компоненту.
-- `artifacts/ablation-plan.md`: какие компоненты можно удалить первыми и как это проверить (какие эпизоды прогнать до и после).
+## Outputs
+- `artifacts/ledger.md`: a table following `docs/harness-ledger.md`, with one row per component.
+- `artifacts/ablation-plan.md`: which components can be removed first and how to test that choice (which episodes to run before and after).
 
-## Правила
-- Компонента без доказательства помечается «не подтверждена», а не выдумывается причина.
-- Границы (защита от инъекции, песочница, права) отделяются от предположений о модели: у границ триггер «никогда».
-- Инструкция, дублирующая документацию инструмента или поведение модели по умолчанию, — кандидат на удаление; это надо показать цитатой из документации.
+## Rules
+- Mark a component without evidence “unverified”; do not invent a justification.
+- Separate boundaries (injection protection, sandbox, permissions) from assumptions about the model: boundaries have a “never” retest trigger.
+- An instruction that duplicates tool documentation or default model behavior is a removal candidate; demonstrate this with a quotation from the documentation.
 
-## Границы (стены)
-- Только чтение репозитория и запись в `artifacts/`.
-- Не выполнять хуки и скрипты, которые аудируются.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Read the repository only; write only inside `artifacts/`.
+- Do not execute the hooks or scripts being audited.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- Все файлы конфигурации перечислены в реестре; либо бюджет исчерпан — тогда реестр помечен `partial`.
+## Stop condition
+- Every configuration file is listed in the ledger; or the budget is exhausted, in which case mark the ledger `partial`.
 
-## Проверка (видимая агенту часть)
-- Каждый файл конфигурации из рабочего каталога упомянут в `artifacts/ledger.md` хотя бы раз.
+## Evaluation (agent-visible portion)
+- Every configuration file in the working directory is mentioned at least once in `artifacts/ledger.md`.

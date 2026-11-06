@@ -1,5 +1,5 @@
-# S05 — целевой профиль отдела, 2026-09-10
+# S05 — department target workload, 2026-09-10
 
-Искусственный учебный источник. Класс: workload requirement, не измерение.
+Artificial educational source. Class: workload requirement, not a measurement.
 
-Нужны два одновременных агентных диалога на Atlas-A: prompt 8K–16K tokens, ответы до 1024 tokens, один строгий JSON tool call на ход, до восьми ходов на задачу. Критерий приёмки — 3 последовательных успешно завершённых задачи каждого из двух типов; время полного выполнения должно быть записано. Порог допустимой задержки ещё не утверждён. Оценивать только короткую генерацию недостаточно. Отдел ещё не выполнял этот профиль на Aurora.
+Two simultaneous agent conversations on Atlas-A are required: prompt 8K–16K tokens, responses up to 1024 tokens, one strict JSON tool call per turn, up to eight turns per task. Acceptance criterion: 3 consecutive successfully completed tasks of each of two types; total completion time must be recorded. An acceptable latency threshold is not yet approved. Evaluating only short generation is insufficient. The department has not yet run this workload on Aurora.

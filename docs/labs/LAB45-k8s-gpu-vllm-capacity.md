@@ -1,94 +1,94 @@
-# ЛР45. vLLM в Kubernetes: кривые TTFT/ITL, prefix caching и ёмкость реплики
+# LAB45. vLLM in Kubernetes: TTFT/ITL curves, prefix caching and replica capacity
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка Kubernetes и GPU не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the Kubernetes and GPU branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР43](LAB43-k8s-gpu-pod.md) (GPU доступен в pod) и [ЛР06](LAB06-engines.md) (vLLM ROCm-образ и checkpoint прошли проверку на `gfx1151`) |
-| Стенд | A: Ryzen AI Max+ 395 / 128 GB / Linux, k3s из ЛР43 |
-| Минимум | vLLM Deployment с закреплённым образом и checkpoint ЛР06, сетка concurrency 1/4/16/64, два режима prefix caching на нагрузке с общим префиксом, найденная ёмкость реплики под SLO |
-| Расширения | Второй checkpoint другого размера; квантизованный вариант; chunked prefill вкл/выкл; сравнение с llama.cpp server из ЛР43 на той же нагрузке |
-| Время | Ориентир 4–6 часов |
-| Готовность | `target-machine` |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB43](LAB43-k8s-gpu-pod.md) (GPU available in a pod) and [LAB06](LAB06-engines.md) (vLLM ROCm image and checkpoint passed `gfx1151` validation) |
+| Machine | A: Ryzen AI Max+ 395 / 128 GB / Linux, k3s from LAB43 |
+| Minimum | vLLM Deployment with pinned image and LAB06 checkpoint, concurrency grid 1/4/16/64, two prefix-caching modes on shared-prefix load, replica capacity established under an SLO |
+| Extensions | A second checkpoint of another size; quantized variant; chunked prefill on/off; comparison with LAB43 llama.cpp server on the same load |
+| Time | Allow 4–6 hours |
+| Readiness | `target-machine` |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Измерить, как ведёт себя одна реплика движка инференса под нагрузкой, и получить число, с которого начинается capacity planning: сколько одновременных запросов реплика держит, не нарушая SLO по времени до первого токена. Отдельно проверить, сколько даёт prefix caching на запросах с длинным общим префиксом, как в продукте «поиск + ответ».
+Measure how one inference-engine replica behaves under load and obtain the starting point for capacity planning: how many concurrent requests it handles without violating a time-to-first-token SLO. Separately test the benefit of prefix caching on requests sharing a long prefix, as in a “search + answer” product.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. TTFT p95 монотонно растёт с concurrency, а ITL медиана растёт заметно медленнее TTFT до точки насыщения.
-2. На нагрузке с общим префиксом длиной не меньше 2048 токенов prefix caching снижает медиану TTFT не меньше чем на 30% при неизменной ITL.
-3. Существует уровень concurrency, выше которого TTFT p95 выходит за SLO. Это и есть ёмкость реплики.
+1. TTFT p95 grows monotonically with concurrency, while median ITL grows substantially more slowly than TTFT until saturation.
+2. For a workload with a shared prefix of at least 2048 tokens, prefix caching lowers median TTFT by at least 30% with unchanged ITL.
+3. There is a concurrency level beyond which TTFT p95 exceeds the SLO. This determines replica capacity.
 
-SLO по TTFT p95 (по умолчанию 2 s), порог выигрыша и длины входа/выхода фиксируются в протоколе до замера.
+Fix the TTFT p95 SLO (default 2 s), improvement threshold and input/output lengths in the protocol before measurement.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: статью PagedAttention (Kwon et al., 2023), документацию vLLM по continuous batching, automatic prefix caching, chunked prefill и метрикам Prometheus; документацию `vllm bench serve` или `vllm-project/guidellm`.
-- Образ vLLM — тот же digest, что прошёл ЛР06. Не обновляйте Torch/Triton поверх образа.
-- Параметр доли памяти в vLLM на unified memory трактуется так же осторожно, как в ЛР06: сначала сверьтесь с бюджетом из ЛР02.
-- Нагрузочные запросы синтетические, генерируются детерминированно скриптом в `experiments/k8s-gpu/bench/`: набор A без общего префикса, набор B с общим префиксом и разными хвостами.
+- Read: the PagedAttention paper (Kwon et al., 2023), vLLM documentation on continuous batching, automatic prefix caching, chunked prefill and Prometheus metrics; `vllm bench serve` or `vllm-project/guidellm` documentation.
+- Use the same vLLM image digest that passed LAB06. Do not upgrade Torch/Triton on top of the image.
+- Interpret the vLLM memory-fraction parameter on unified memory as cautiously as in LAB06: first check the LAB02 budget.
+- Load requests are synthetic, generated deterministically by a script in `experiments/k8s-gpu/bench/`: set A without a shared prefix; set B with a shared prefix and different suffixes.
 
 ```bash
 npm run lab:new -- --lab LAB45 --session ryzen-01
 LAB_DIR='experiments/k8s-gpu/measurements/LAB45-ryzen-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Развёртывание.** Deployment vLLM с запросом `amd.com/gpu: 1` (или запасным путём из ЛР43), checkpoint через read-only том, readiness probe, Service. Сохраните manifest, полные аргументы сервера, `GET /v1/models` и `/metrics` после старта.
-2. **Прогрев.** Несколько запросов, которые не входят в замер.
-3. **Сетка concurrency.** Для каждого уровня 1/4/16/64 фиксированное число запросов набора A, нагрузчик в отдельном pod того же кластера. Снимайте TTFT, ITL, end-to-end latency, throughput и метрики очереди и KV-кэша из `/metrics`.
-4. **Prefix caching.** На уровне concurrency из середины сетки прогоните набор B с выключенным и включённым prefix caching, по два прогона каждого режима, порядок чередуется. Каждое переключение режима — перезапуск pod; время рестарта записывается отдельно.
-5. **Ёмкость.** Уточните сетку вокруг точки, где TTFT p95 пересекает SLO, и найдите максимальный уровень concurrency, при котором SLO выполняется во всех повторах.
-6. **Наблюдение за ресурсами.** Во время прогонов снимайте память хоста и GPU средствами ЛР02 и загрузку CPU узла.
+1. **Deployment.** A vLLM Deployment requesting `amd.com/gpu: 1` (or the LAB43 fallback), checkpoint via a read-only volume, readiness probe, Service. Save the manifest, full server arguments, `GET /v1/models` and `/metrics` after startup.
+2. **Warmup.** Several requests excluded from measurement.
+3. **Concurrency grid.** At each level 1/4/16/64, send a fixed number of set A requests from a load generator in a separate pod in the same cluster. Capture TTFT, ITL, end-to-end latency, throughput, and queue/KV-cache metrics from `/metrics`.
+4. **Prefix caching.** At a middle-grid concurrency level, run set B with prefix caching disabled and enabled, two runs per mode, alternating order. Each mode switch restarts the pod; record restart time separately.
+5. **Capacity.** Refine the grid around the point where TTFT p95 crosses the SLO, and find the maximum concurrency satisfying the SLO in all repetitions.
+6. **Resource observation.** During runs, capture host and GPU memory using LAB02 tools and node CPU load.
 
-## Таблицы результатов
+## Results tables
 
-| Concurrency | Запросов | TTFT медиана / p95, ms | ITL медиана / p95, ms | Throughput, tok/s | Очередь max | KV cache max, % |
+| Concurrency | Requests | TTFT median / p95, ms | ITL median / p95, ms | Throughput, tok/s | Max queue | Max KV cache, % |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | | | | | | |
 | 4 | | | | | | |
 | 16 | | | | | | |
 | 64 | | | | | | |
 
-| Набор B, prefix caching | Прогон | TTFT медиана / p95, ms | ITL медиана, ms | Prefix cache hit rate |
+| Set B, prefix caching | Run | TTFT median / p95, ms | ITL median, ms | Prefix cache hit rate |
 | --- | --- | --- | --- | --- |
-| выкл | 1 | | | — |
-| выкл | 2 | | | — |
-| вкл | 1 | | | |
-| вкл | 2 | | | |
+| off | 1 | | | — |
+| off | 2 | | | — |
+| on | 1 | | | |
+| on | 2 | | | |
 
-| Итог | Значение |
+| Outcome | Value |
 | --- | --- |
 | SLO TTFT p95 | |
-| Ёмкость реплики, concurrency | |
-| Throughput на этой ёмкости, tok/s | |
+| Replica capacity, concurrency | |
+| Throughput at this capacity, tok/s | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, манифесты, генератор запросов и конфиг нагрузчика в `experiments/k8s-gpu/bench/`, сырые результаты нагрузчика и снимки `/metrics`.
-- Digest образа, ревизия checkpoint, полные аргументы vLLM.
+- Report, manifests, request generator and load-generator configuration in `experiments/k8s-gpu/bench/`, raw load-generator results and `/metrics` snapshots.
+- Image digest, checkpoint revision, full vLLM arguments.
 
-## Критерии завершения
+## Completion criteria
 
-- Сетка concurrency прогнана целиком; насыщение либо найдено, либо указано, что оно не достигнуто на 64.
-- Гипотеза о prefix caching принята или отвергнута по двум прогонам каждого режима.
-- Ёмкость реплики под зафиксированным SLO записана с условиями.
+- Full concurrency grid run; saturation found or explicitly not reached at 64.
+- Prefix-caching hypothesis accepted or rejected from two runs per mode.
+- Replica capacity under the fixed SLO recorded with conditions.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему prefill упирается в вычисления, а decode в пропускную способность памяти? Как это видно в ваших кривых TTFT и ITL?
-2. Почему инференс нельзя масштабировать по CPU-утилизации, и какую метрику вы взяли бы для автоскейлинга?
-3. Как ёмкость одной реплики превращается в план закупки GPU для заданного пикового трафика?
-4. Что изменится в ваших цифрах на дискретной карте с HBM вместо unified memory?
+1. Why is prefill compute-bound while decode is memory-bandwidth-bound? How is this visible in your TTFT and ITL curves?
+2. Why is CPU utilization unsuitable for scaling inference, and which metric would you choose for autoscaling?
+3. How does one replica's capacity become a GPU procurement plan for a given peak traffic level?
+4. How would your figures change on a discrete card with HBM instead of unified memory?
 
-## Источники
+## Sources
 
 - Kwon et al., *Efficient Memory Management for Large Language Model Serving with PagedAttention*, 2023.
-- Документация vLLM: automatic prefix caching, metrics, `vllm bench serve`; `vllm-project/guidellm`.
-- Этот репозиторий: [ЛР06](LAB06-engines.md), [ЛР26](LAB26-concurrent-load.md) как образец отчёта о параллельной нагрузке, [протокол](../method.md).
+- vLLM documentation: automatic prefix caching, metrics, `vllm bench serve`; `vllm-project/guidellm`.
+- This repository: [LAB06](LAB06-engines.md), [LAB26](LAB26-concurrent-load.md) as an example concurrent-load report, [protocol](../method.md).

@@ -1,4 +1,4 @@
-// Скрытые тесты T004: полная спецификация из brief.md. Копируется в test/ клона при проверке.
+// Hidden T004 tests: complete brief.md specification. Copied into the clone’s test/ directory during evaluation.
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parseDuration, formatDuration } from "../src/duration.js";

@@ -73,61 +73,61 @@ cancel=[]
 for path in sorted(raw.glob('ctx*/cancel-*.proof.json')):
     row=json.loads(path.read_text());cancel.append(f'| {path.parent.name}/{path.stem} | {row.get("client_exit")} | {row.get("release_observed_seconds")} | {bool(row.get("stop_requested"))} / {bool(row.get("generation_end"))} |')
 counts={status:sum(a['status']==status for a in manifest['planned_attempts']) for status in ('completed','failed','not-run','planned')}
-(directory/'report.md').write_text(f'''# LAB32 — нативный MLX: протоколы и бюджеты входа
+(directory/'report.md').write_text(f'''# LAB32 — native MLX: protocols and input budgets
 
-Сессия `{manifest['session_id']}`, статус **{manifest['status']}**. {manifest['conclusion']}
+Session `{manifest['session_id']}`, status **{manifest['status']}**. {manifest['conclusion']}
 
-{'**Execution-time MLX model identity unverified.** См. raw/model-pins-audit.json; functional cases не означают допуск конкретного артефакта.' if identity_gap and not identity_gap['model_identity_verified_at_execution'] else ''}
+{'**Execution-time MLX model identity unverified.** See raw/model-pins-audit.json; functional cases do not admit a specific artifact.' if identity_gap and not identity_gap['model_identity_verified_at_execution'] else ''}
 
-## Паспорт выполнения
+## Run profile
 
-Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC / mode 0. MLX-LM 0.32.0, MLX 0.32.3, Python 3.12.14. Qwen3.5-9B MLX 4-bit affine / group64, revision `938d8919941c6e7efd3c7150eff7fe9d12afa631`. Это отдельный VLM-артефакт с текстовым инференсом; исходный commit конвертации неизвестен. [Артефакт](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [{len(pins["files"])} закреплённых файлов](raw/prestart-pins.json), [model identity](raw/model-identity-summary.json). Фактически загруженные native images и device proofs сохранены в каталогах ctx*. Системные frameworks закреплены версией macOS; отдельные хеши их файлов не заявлены.
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC / mode 0. MLX-LM 0.32.0, MLX 0.32.3, Python 3.12.14. Qwen3.5-9B MLX 4-bit affine / group64, revision `938d8919941c6e7efd3c7150eff7fe9d12afa631`. This is a separate VLM artifact used for text inference; the original conversion commit is unknown. [Artifact](raw/artifact-manifest.json), [runtime](raw/runtime-manifest.json), [{len(pins["files"])} pinned files](raw/prestart-pins.json), [model identity](raw/model-identity-summary.json). Actual loaded native images and device proofs are saved in ctx* directories. System frameworks are pinned by macOS version; individual file hashes are not claimed.
 
-Hard context cap — **null**. Значения 8192/16384/32768 обозначают бюджеты входа, не резерв KV и не лимиты сервера. Один сервер на `127.0.0.1:8081`; seed 1, temperature 0, top_p 1, output cap 2048, thinking false, prefill step 2048, concurrency 1. Prompt cache size 0, KV без квантизации, без изменения оператором memory limits. Wrapper наблюдений сохраняет исходные алгоритмы MLX-LM; его хеш входит в условия серии.
+Hard context cap: **null**. Values 8192/16384/32768 denote input budgets, not KV reservations or server limits. One server at `127.0.0.1:8081`; seed 1, temperature 0, top_p 1, output cap 2048, thinking false, prefill step 2048, concurrency 1. Prompt cache size 0, unquantized KV, no operator changes to memory limits. The observation wrapper preserves original MLX-LM algorithms; its hash is a series condition.
 
-## Гипотеза и протокол до запуска
+## Hypothesis and protocol before execution
 
-[Протокол](raw/protocol.md) и source-registration.json закреплены commit до исполнения каждой серии. На условие — прогрев и три повтора четырёх chat/tool JSON/SSE cases, длинного входа и отмены с recovery. Ожидаются ровно LAB_READY, LAB_VALUE_42, LAB_SENTINEL_42; одна lookup_lab_value с key alpha и непустым ID. Код модели не исполняется.
+[Protocol](raw/protocol.md) and source-registration.json are committed before each series. Each condition has warmup and three repeats of four chat/tool JSON/SSE cases, long input, and cancellation with recovery. Exact expected values: LAB_READY, LAB_VALUE_42, LAB_SENTINEL_42; one lookup_lab_value with key alpha and a nonempty ID. Model-generated code is not executed.
 
-Проверяются actual usage, число токенов, DONE и finish reason. Resource guard: samples каждые 2 с, gap максимум 15 с, free+spec минимум 8 GiB, pressure level 1, AC/mode 0, swap 0, RSS максимум 24 GiB. Wall limit 900 с на условие и 240 с на запрос. После отказа следующие бюджеты не выполняются. В новых сериях дополнительно требуется cached_tokens=0.
+Actual usage, token count, DONE, and finish reason are checked. Resource guard: samples every 2 s, maximum gap 15 s, minimum free+spec 8 GiB, pressure level 1, AC/mode 0, swap 0, maximum RSS 24 GiB. Wall limit: 900 s per condition and 240 s per request. Later budgets are not run after a rejection. New series additionally require cached_tokens=0.
 
-## Ход выполнения
+## Execution log
 
-Pins → подготовка tokenizer без весов → offline allowlist → native server → короткие протоколы → long → cancel/recovery → cleanup. [Контроллер](raw/run_series.py), [хеши запросов](raw/request-hashes.json), [allowlist](raw/allowlist.json). Сохранены все исходные запросы, ответы, assembled messages, usage и ошибки. Агентных попыток здесь нет, run_ids пуст.
+Pins → tokenizer preparation without weights → offline allowlist → native server → short protocols → long → cancel/recovery → cleanup. [Controller](raw/run_series.py), [request hashes](raw/request-hashes.json), [allowlist](raw/allowlist.json). All original requests, responses, assembled messages, usage, and errors are retained. There are no agent attempts here; run_ids is empty.
 
-Сессии разделены. `apple-mlx-protocol-20261010` ошибочно посчитала len(BatchEncoding)=2 и отправила 113613 токенов: это нарушение протокола, не опыт на 8K. Контроллер отказал после несовпадения usage и завершил сервер. `apple-mlx-tokenids-20261010` правильно посчитала 4085 токенов, но получила Markdown в final. `apple-mlx-exact-final-20261010` отдельно запретила Markdown и связала stop/end с одним GenerationContext; все 24 cases на 8K прошли, затем отказал port preflight 16K. `apple-mlx-budget-resume-20261010` проверила SO_REUSEADDR и продолжила с 16K; long-вход 12282 токена завершился, но resource guard отказал при free+spec 7.425 GiB. Старые ошибки не переписаны, нормализация final не введена. В отдельной `apple-mlx-identity-repeat-20261010` модели выбран правильный артефакт MLX и все 12 файлов включены до Popen; её результаты оцениваются отдельно.
+Sessions are separate. `apple-mlx-protocol-20261010` incorrectly counted len(BatchEncoding)=2 and sent 113613 tokens: a protocol violation, not an 8K experiment. The controller rejected the usage mismatch and stopped the server. `apple-mlx-tokenids-20261010` correctly counted 4085 tokens but received Markdown in final content. `apple-mlx-exact-final-20261010` separately forbade Markdown and tied stop/end to one GenerationContext; all 24 cases at 8K passed, then 16K port preflight failed. `apple-mlx-budget-resume-20261010` checked SO_REUSEADDR and continued at 16K; its 12282-token long input finished, but the resource guard rejected free+spec 7.425 GiB. Earlier errors were not rewritten, and final-content normalization was not introduced. Separate `apple-mlx-identity-repeat-20261010` selected the correct MLX artifact and included all 12 files before Popen; its results are evaluated separately.
 
-## Результаты
+## Results
 
-Attempts: {json.dumps(counts,ensure_ascii=False)}. Прогрев выделен в таблице отдельно. Столбец context_tokens в TSV пуст: hard cap неизвестен. RSS, allocator peaks, swap, gaps и cleanup — в [сводке](raw/runtime-summary.json).
+Attempts: {json.dumps(counts,ensure_ascii=False)}. Warmup is listed separately in the table. The TSV context_tokens column is empty because the hard cap is unknown. RSS, allocator peaks, swap, gaps, and cleanup are in the [summary](raw/runtime-summary.json).
 
-| Бюджет входа | Case / повтор | Actual input / output | TTFT content, с | Total, с | Статус attempt |
+| Input budget | Case / repeat | Actual input / output | TTFT content, s | Total, s | Attempt status |
 | --- | --- | --- | --- | --- | --- |
 {chr(10).join(table)}
 
-| Условие отмены | Client exit | Generation end замечен после client exit, с | Stop / end замечены |
+| Cancellation condition | Client exit | Generation end observed after client exit, s | Stop / end observed |
 | --- | --- | --- | --- |
-{chr(10).join(cancel) or '| — | — | — | Не исполнялась |'}
+{chr(10).join(cancel) or '| — | — | — | Not performed |'}
 
-## Ошибки и ограничения
+## Errors and limitations
 
-{manifest['unavailable'].get('completion','Протоколы исследованных input budgets завершены; hard cap и физическое освобождение GPU остаются unverified.')} Native cancellation в v3 требует client exit 28 без DONE, одинаковый context object, stop flag true, stop до generation end и точный recovery в пределах 60 с. Timeout клиента отдельно не доказывает отмену GPU. Счётчики allocator не измеряют освобождение всех физических GPU-страниц. Cold startup/JIT отличается от прогретых запросов. Первые две неудачные сессии не исполняли отмену; их mutable phase events не используются как доказательство отмены.
+{manifest['unavailable'].get('completion','Protocols for the tested input budgets are complete; hard cap and physical GPU release remain unverified.')} Native cancellation in v3 requires client exit 28 without DONE, the same context object, stop flag true, stop before generation end, and exact recovery within 60 s. A client timeout alone does not prove GPU cancellation. Allocator counters do not measure release of all physical GPU pages. Cold startup/JIT differs from warmed requests. The first two failed sessions did not execute cancellation; their mutable phase events are not used as cancellation evidence.
 
-Hard cap и overflow не подтверждены; OOM для их имитации не создавали. Максимальный GPU budget, энергия и температура неизвестны. Отказ resource guard при pressure level 1 и swap 0 не доказывает аппаратную несовместимость: наблюдаемые условия не прошли заранее выбранный резерв.
+Hard cap and overflow are unverified; no OOM was induced to simulate them. Maximum GPU budget, energy, and temperature are unknown. Resource-guard rejection at pressure level 1 and swap 0 does not establish hardware incompatibility: observed conditions failed the preregistered reserve.
 
-## Вывод по гипотезе
+## Hypothesis conclusion
 
-{manifest['conclusion']} Полностью квалифицированные бюджеты этой сессии: {qualified}. Это учитывает все model pins до Popen и все 24 cases на условие; функциональные данные старых сессий не подменяют эти требования. Нельзя сравнивать input-budget label с hard context llama.cpp как одинаковый резерв KV или переносить оценки GGUF Q6_K на MLX 4-bit. Provider bridge для MLX требует отдельной реализации; эти запросы не являются агентными попытками.
+{manifest['conclusion']} Fully qualified budgets for this session: {qualified}. This accounts for every model pin before Popen and all 24 cases per condition; functional data from older sessions does not replace those requirements. Do not compare an input-budget label with llama.cpp hard context as an identical KV reservation, or transfer GGUF Q6_K estimates to MLX 4-bit. An MLX provider bridge requires a separate implementation; these requests are not agent attempts.
 
-## Ответы на контрольные вопросы
+## Answers to review questions
 
-1. Non-streaming total включает всю генерацию: TTFT из него не извлекается, остаётся null.
-2. Client CTX и architecture max_position_embeddings не задают подтверждённый server cap. IDs считаются с return_dict=False и отдельно сверяются с actual usage.
-3. Socket timeout требует подтверждения native stop flag, завершения routine и recovery; физическое освобождение памяти требует другого collector.
-4. Cache и reasoning меняют работу и задержки. Здесь thinking false и cache size 0; GGUF с thinking true — другой deployment.
+1. Non-streaming total includes all generation: TTFT cannot be extracted from it and remains null.
+2. Client CTX and architecture max_position_embeddings do not establish a verified server cap. IDs are counted with return_dict=False and checked separately against actual usage.
+3. Socket timeout needs confirmation of the native stop flag, routine completion, and recovery; physical memory release needs a different collector.
+4. Cache and reasoning change work and latency. Here, thinking is false and cache size is 0; GGUF with thinking true is another deployment.
 
-## Комплект сдачи
+## Submission bundle
 
-Manifest, TSV, protocol, source pins, loaded images, device/model identity, запросы и хеши, HTTP/SSE/usage/finals, native events, отмена/recovery, ресурсы и cleanup, offline allowlist и software validation сохранены. Submission проверяет комплектность blocked отчёта. Решение проверяющего: **не проверено**; experiment pass не назначается автоматически.
+Manifest, TSV, protocol, source pins, loaded images, device/model identity, requests and hashes, HTTP/SSE/usage/finals, native events, cancellation/recovery, resources and cleanup, offline allowlist, and software validation are retained. Submission checks the blocked report’s completeness. Reviewer decision: **unverified**; experiment pass is not assigned automatically.
 ''')
 print(json.dumps(dict(report=str(directory.relative_to(root)),attempts=counts),ensure_ascii=False))

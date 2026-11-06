@@ -1,33 +1,33 @@
-# ЛР19. Amp: managed mode, собственный цикл агента и независимая оценка
+# LAB19. Amp: managed mode, its own agent loop, and independent evaluation
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предварительная работа | [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `amp`, пакет `@ampcode/cli` **0.0.1789920039-gafe14b** |
-| Основной маршрут | Облачный provider `amp`, selector `managed:medium`; локальный bridge не требуется |
-| Агент и задача | `a2-janitor` / T002 |
-| Минимум | Offline smoke с native cache и один реальный T002 с независимой оценкой |
-| Расширение | Три новых T002, другие managed modes, T001 replay, T003, абляция |
-| Время | Ориентир 2–4 часа, не измеренная продолжительность |
-| Начальный статус | `not-run`: описана процедура будущего выполнения |
+| Previous lab | [LAB01](LAB01-reproducibility.md) |
+| Harness | `amp`, package `@ampcode/cli` **0.0.1789920039-gafe14b** |
+| Main route | Cloud provider `amp`, selector `managed:medium`; no local bridge required |
+| Agent and task | `a2-janitor` / T002 |
+| Minimum | Offline smoke test with native cache and one real T002 with independent evaluation |
+| Extension | Three new T002 attempts, other managed modes, T001 replay, T003, ablation |
+| Time | Estimate: 2–4 hours, not a measured duration |
+| Initial status | `not-run`: describes a procedure for future execution |
 
-## Цель
+## Objective
 
-Провести автономную задачу через Amp, сохранив его управляемый выбор моделей, инструментов и подагентов. Получить внешний verdict, исследовать доступную телеметрию и сформулировать вывод о данном deployment без выдуманного фиксированного model ID.
+Run an autonomous task through Amp, preserving its managed selection of models, tools, and subagents. Obtain an external verdict, examine available telemetry, and conclude about this deployment without inventing a fixed model ID.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Закреплённый Amp с `managed:medium` и `--executor local` выполнит T002 внутри контейнерной границы и вернёт итоговый stream-json result для внешней оценки. Успех либо неуспех можно установить независимо от неизвестной underlying модели; выводы о различии собственно harness при одной фиксированной модели из такого прогона получить нельзя. Токены измеримы только при наличии полного итогового usage.
+Pinned Amp with `managed:medium` and `--executor local` will perform T002 within the container boundary and return a final stream-json result for external evaluation. Success or failure can be established independently of the unknown underlying model; such a run cannot establish differences in the harness itself with one fixed model. Tokens are measurable only when complete final usage exists.
 
-## Подготовка
+## Preparation
 
-Нужны Node.js ≥22, Bash, Git, Docker и доступный аккаунт Amp. Координатор запускается обычным пользователем из корня репозитория. `--executor local` означает место исполнения инструментов; он **не означает локальный LLM** и не использует ROCm/Vulkan вашего Ryzen. Проверку Linux x64 выполните самостоятельно: существующий smoke был выполнен на Linux arm64.
+You need Node.js ≥22, Bash, Git, Docker, and an available Amp account. Run the coordinator as a regular user from the repository root. `--executor local` specifies where tools execute; it **does not mean a local LLM** and does not use your Ryzen's ROCm/Vulkan. Perform Linux x64 verification yourself: existing smoke tests ran on Linux arm64.
 
-Прочитайте [README Amp](../../experiments/amp/README.md), [settings](../../experiments/amp/settings.json), [профиль](../../experiments/amp/harness.json), [протокол](../method.md), `agents/a2-janitor/spec.md` и открытый [контракт T002](../../tasks/T002-repo-janitor/task.md). Решающий агент не читает `tasks/*/check/`; task contracts остаются неизменными.
+Read the [Amp README](../../experiments/amp/README.md), [settings](../../experiments/amp/settings.json), [profile](../../experiments/amp/harness.json), [protocol](../method.md), `agents/a2-janitor/spec.md`, and public [T002 contract](../../tasks/T002-repo-janitor/task.md). The solving agent does not read `tasks/*/check/`; task contracts remain unchanged.
 
-Выполняйте блоки последовательно в Bash и остановитесь для разбора любой ошибки до следующего этапа:
+Execute blocks sequentially in Bash, stopping to investigate any error before the next stage:
 
 ```bash
 npm run lab:new -- --lab LAB19 --session my-session
@@ -43,11 +43,11 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
 npm run check
 ```
 
-В `.env` нужен **`AMP_API_KEY`** — access token из настроек Amp, не краткоживущий session token интерактивного login. Не выводите значение и не переносите `.env` в отчёт или container mount. До запуска модели сохраните лимиты T002, `timeout=900 s`, `budget-mode=observed`, одну основную попытку, выбранный managed mode и независимого оценщика. Укажите применимые настройки workspace/account без их секретов: полнота отключения подключённых сервису plugins/MCP до первого эпизода остаётся `unverified`.
+`.env` needs **`AMP_API_KEY`**, an access token from Amp settings, not a short-lived interactive-login session token. Do not expose the value or copy `.env` into the report or a container mount. Before calling the model, preserve T002 limits, `timeout=900 s`, `budget-mode=observed`, one main attempt, selected managed mode, and independent evaluator. Record applicable workspace/account settings without secrets: complete disabling of service-connected plugins/MCP remains `unverified` before the first episode.
 
-## Порядок выполнения
+## Procedure
 
-1. **Соберите закреплённый образ.** Amp требует обычного npm `postinstall` для native binary той же версии; не заменяйте Dockerfile установкой с `--ignore-scripts`. Сборка загружает пакеты, но не вызывает модель. При наличии образа разрешается использовать его без повторной сборки, сохранив ID.
+1. **Build the pinned image.** Amp requires normal npm `postinstall` for the same version's native binary; do not replace the Dockerfile with an `--ignore-scripts` installation. Building downloads packages but does not call a model. An existing image may be used without rebuilding if its ID is preserved.
 
    ```bash
    docker build --build-arg HARNESS_VERSION="$HARNESS_VERSION" \
@@ -59,7 +59,7 @@ npm run check
    PROXY_IMAGE_ID="$(docker image inspect --format '{{.Id}}' node:24.13.1-bookworm-slim)"
    ```
 
-2. **Проверьте CLI без сети, ключа и вызова execute.** Bun извлекает native addon во временный каталог. Отдельный exec tmpfs необходим даже для `--version`; основной `/tmp` остаётся noexec.
+2. **Check the CLI without network, a key, or execute mode.** Bun extracts a native addon into a temporary directory. A separate executable tmpfs is needed even for `--version`; the main `/tmp` remains noexec.
 
    ```bash
    for FLAG in --version --help; do
@@ -82,29 +82,29 @@ npm run check
    node --test experiments/amp/adapter.test.mjs > "$LAB_DIR/raw/adapter-tests.tap" 2>&1
    ```
 
-   Проверьте оба файла и коды завершения: версия должна содержать закреплённый ID, а справка — режимы `low`, `medium`, `high`, `ultra`, local executor и stream-json. После `break` smoke незавершён. Отсутствие ключа в execute mode вызывает login flow; в этой работе не запускайте его как offline проверку. Координатор отдельно проверяет наличие credentials до реального контейнера. Старое измерение native cache ≈2,6 MiB из README не является измерением на вашей машине или расходом памяти агента.
+   Check both files and exit codes: the version must include the pinned ID, and help must list `low`, `medium`, `high`, `ultra`, local executor, and stream-json. After `break`, smoke testing is incomplete. Missing a key in execute mode triggers a login flow; do not use it as an offline check in this lab. The coordinator checks credentials separately before starting the real container. The README's earlier native-cache measurement of ≈2.6 MiB is neither a measurement on your machine nor agent memory consumption.
 
-3. **Проверьте managed policy и конфигурацию.** Профиль принимает только `managed:low`, `managed:medium`, `managed:high`, `managed:ultra`. Префикс сохраняется в record, а CLI получает `--mode medium` и `--executor local`. Режимы `smart`/`rush` к этой версии не относятся. `model.selection=managed` и `model.lock=true` фиксируют выбор режима, а не веса модели.
+3. **Check managed policy and configuration.** The profile accepts only `managed:low`, `managed:medium`, `managed:high`, and `managed:ultra`. The prefix stays in the record, while the CLI receives `--mode medium` and `--executor local`. `smart`/`rush` modes do not apply to this version. `model.selection=managed` and `model.lock=true` pin the selected mode, not model weights.
 
-   В [settings](../../experiments/amp/settings.json) найдите proxy, отключение обновления, remote thread creation и внешних каталогов skills. В [адаптере](../../experiments/amp/adapter.mjs) найдите private visibility, отключение IDE context и remote control terminal. Объясните, какие account-side настройки этим ещё не доказаны. `AMP_URL` закреплён на `https://ampcode.com/`, профиль разрешает ровно `ampcode.com`; полнота allowlist для авторизованного эпизода требует проверки реальной трассы.
+   In [settings](../../experiments/amp/settings.json), find the proxy, disabled updates, remote thread creation, and external skill directories. In the [adapter](../../experiments/amp/adapter.mjs), find private visibility, disabled IDE context, and remote-control terminal. Explain which account-side settings these still do not prove. `AMP_URL` is pinned to `https://ampcode.com/`, and the profile permits exactly `ampcode.com`; verify allowlist completeness for an authenticated episode using a real trace.
 
-4. **Подготовьте новый T002.** Не подставляйте в Amp точный ID сторонней модели: текущий адаптер его не выбирает.
+4. **Prepare a new T002.** Do not supply Amp with an exact third-party model ID: the current adapter does not select it.
 
    ```bash
    npm run new-run -- --harness amp --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a2-janitor --task T002
    ```
 
-   Сохраните фактический ID в manifest отчёта и переменную:
+   Save the actual ID in the report manifest and variable:
 
    ```bash
-   RUN_ID='<ID из new-run>'
+   RUN_ID='<ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   Убедитесь в состоянии `prepared`. Prompt/spec, settings, адаптер и provider profile запечатаны. Конфигурацию нельзя менять внутри уже подготовленной попытки. Агент видит workspace задачи, а не исходную лабораторию и hidden-check.
+   Confirm `prepared` state. Prompt/spec, settings, adapter, and provider profile are sealed. Configuration cannot change within an already prepared attempt. The agent sees the task workspace, not the original lab or hidden check.
 
-5. **Выполните реальный эпизод.** Здесь начинается обращение к сервису с подготовленным ключом:
+5. **Execute a real episode.** Requests to the service begin here with the prepared key:
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" \
@@ -112,9 +112,9 @@ npm run check
      --model "$MODEL_ID" --timeout 900 --budget-mode observed
    ```
 
-   Жёсткий USD cap и native turn limit в этом адаптере отсутствуют. `observed` — исследовательское отклонение от USD-ограничения контракта; внешний timeout принудителен. Сохраните любые ошибки сервиса/egress; не добавляйте wildcard и не меняйте settings в запечатанной попытке. Новые настройки, другой mode или исправление профиля требуют нового run ID.
+   This adapter has no hard USD cap or native turn limit. `observed` is a research deviation from the contract's USD limit; external timeout is enforced. Preserve any service/egress errors; do not add wildcards or change settings in a sealed attempt. New settings, another mode, or a profile fix require a new run ID.
 
-6. **Разберите aggregate и unknown metrics.** Сохраните безопасную сводку record:
+6. **Analyze the aggregate and unknown metrics.** Save a safe record summary:
 
    ```bash
    node --input-type=module - "$RUN_ID" <<'NODE' > "$LAB_DIR/raw/summary-$RUN_ID.json"
@@ -126,9 +126,9 @@ npm run check
    NODE
    ```
 
-   В raw trace найдите итоговый `type: result`, его `subtype`, `is_error`, `num_turns`, при наличии `usage`. Адаптер принимает input tokens только при полном наборе `input_tokens`, `cache_creation_input_tokens`, `cache_read_input_tokens`, а output — при корректном `output_tokens`. Usage отдельных assistant events повторно не складывается с итогом. Отсутствующие поля остаются `null` с причинами. USD и underlying model ID текущая схема не подтверждает; managed mode не копируют в `observed_id`. Проверьте отдельно ошибки `error_max_turns`, `error_during_execution` и обрыв потока.
+   In the raw trace, find final `type: result`, its `subtype`, `is_error`, `num_turns`, and `usage` if present. The adapter accepts input tokens only with the complete `input_tokens`, `cache_creation_input_tokens`, and `cache_read_input_tokens` set, and output only with valid `output_tokens`. Do not add individual assistant-event usage to the total again. Missing fields remain `null` with reasons. The current schema does not confirm USD or underlying model ID; do not copy managed mode into `observed_id`. Separately check `error_max_turns`, `error_during_execution`, and interrupted streams.
 
-7. **Получите внешний verdict.** Нормальная передача оценщику начинается из `awaiting_review`. `aborted` остаётся ошибочной попыткой; retry всегда создаёт новую запись. Если оценщик пока недоступен, не помечайте лабораторную выполненной.
+7. **Obtain an external verdict.** Normal handoff to an evaluator starts from `awaiting_review`. `aborted` remains a failed attempt; retry always creates a new record. If no evaluator is available yet, do not mark the lab completed.
 
    ```bash
    (
@@ -138,7 +138,7 @@ npm run check
    )
    ```
 
-   Оценщик по [workflow](harness-workflow.md) проверяет T002 скрытым check вне agent container, не изменяя результаты. Он заполняет `result` (`pass`, `fail`, `partial`), `evaluator`, `check_output` с версией проверки и наблюдениями, при необходимости `human_notes`; generated hashes остаются неизменными. `judge-run` импортирует его решение и проверяет целостность, а не решает задачу за судью.
+   Following the [workflow](harness-workflow.md), the evaluator checks T002 using the hidden check outside the agent container without changing results. They fill `result` (`pass`, `fail`, `partial`), `evaluator`, `check_output` with check version and observations, and optionally `human_notes`; generated hashes remain unchanged. `judge-run` imports their decision and checks integrity rather than judging the task itself.
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -146,89 +146,89 @@ npm run check
    npm run check
    ```
 
-   В отчёт включите `completed` с любым обоснованным verdict, все предыдущие ошибки, ограничения model identity и метрик. Обновите `experiments/amp/NOTES.md` реальными run IDs. Новые компоненты получают ledger row в том же изменении; успех одной попытки не подтверждает полезность компонента без сравнения до/после.
+   Include `completed` with any justified verdict, all previous errors, and limitations of model identity and metrics in the report. Update `experiments/amp/NOTES.md` with actual run IDs. New components receive a ledger row in the same change; one successful attempt does not prove a component's usefulness without a before/after comparison.
 
-8. **Проведите выбранное расширение.** Основной эпизод остаётся pilot. Для тройки создайте три новых T002 через шаги 4–7 при неизменных mode, images, task inputs, provider, timeout и budget policy. Все начатые исходы входят в анализ.
+8. **Perform the selected extension.** The main episode remains a pilot. For a triple, create three new T002 attempts through steps 4–7 with unchanged mode, images, task inputs, provider, timeout, and budget policy. Analyze all started outcomes.
 
    ```bash
-   SERIES_RUN_IDS='<три новых run ID через запятую без пробелов>'
+   SERIES_RUN_IDS='<three new run IDs separated by commas without spaces>'
    npm run --silent compare -- --runs "$SERIES_RUN_IDS" > "$LAB_DIR/raw/compare-series.json"
    ```
 
-   Для исследования режима заранее выберите, например, `managed:low` или `managed:high` и выполните ещё одну отдельную тройку с новым `MODEL_ID`; не меняйте mode внутри записей. Это сравнение режимов управляемого сервиса, включая возможные изменения моделей и инструментов, а не изолированный эффект одной модели или harness.
+   To study mode, preselect, for example, `managed:low` or `managed:high` and perform another separate triple with a new `MODEL_ID`; do not change mode inside records. This compares managed-service modes, including possible model and tool changes, not the isolated effect of one model or harness.
 
-   T001 использует единый archive зарегистрированного discovery run с телами/статусами HTTP и общей датой. Если архива ещё нет, выполните отдельный live discovery по [workflow](harness-workflow.md); не включайте его в controlled replay серию.
+   T001 uses one recorded discovery-run archive with HTTP bodies/statuses and a shared date. If none exists yet, perform separate live discovery under the [workflow](harness-workflow.md); exclude it from the controlled replay series.
 
    ```bash
-   SOURCE_ARCHIVE='<путь к trace/sources.jsonl discovery run>'
-   AS_OF_DATE='<общая дата YYYY-MM-DD>'
+   SOURCE_ARCHIVE='<path to discovery run trace/sources.jsonl>'
+   AS_OF_DATE='<shared YYYY-MM-DD date>'
    npm run new-run -- --harness amp --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a1-dossier --task T001
-   RUN_ID='<новый T001 ID>'
+   RUN_ID='<new T001 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" \
      --variant baseline --as-of "$AS_OF_DATE" --source-archive "$SOURCE_ARCHIVE"
    ```
 
-   Исполнение — шаг 5, оценка — шаг 7 с методом T001 `rubric` и предусмотренным проверяющим скриптом. Для T003 отдельно подготовьте аудит:
+   Execute with step 5 and evaluate with step 7 using T001's `rubric` method and designated checking script. Prepare a separate T003 audit:
 
    ```bash
    npm run new-run -- --harness amp --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a3-ledger-auditor --task T003
-   RUN_ID='<новый T003 ID>'
+   RUN_ID='<new T003 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   Повторите исполнение и внешнюю `rubric` оценку. T003 для разных harness получает разные конфигурации; единого причинного рейтинга обвязок из этих результатов не следует. Для абляции создайте новый T002 как в шаге 4, подготовьте `--variant without-spec` и повторите шаги 5–7. Полный объём — три baseline и три without-spec по [ЛР10](LAB10-ablation.md); сервисные инструкции Amp остаются частью managed deployment, а границы Docker/gateway сохраняются.
+   Repeat execution and external `rubric` evaluation. Different harnesses give T003 different configurations; these results do not imply one causal harness ranking. For ablation, create a new T002 as in step 4, prepare `--variant without-spec`, and repeat steps 5–7. The full scope is three baseline and three without-spec attempts under [LAB10](LAB10-ablation.md); Amp's service-side instructions remain part of the managed deployment, and Docker/gateway boundaries remain.
 
-## Таблицы результатов
+## Results tables
 
-| Run ID | Task / variant | CLI version / image ID | Managed selector | Статус | Внешний verdict | Evidence |
+| Run ID | Task / variant | CLI version / image ID | Managed selector | Status | External verdict | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | — | — | — | — | — | — |
 
-| Поле | Значение | Единица | Измерение или причина `null` | Evidence |
+| Field | Value | Unit | Measurement or reason for `null` | Evidence |
 | --- | --- | --- | --- | --- |
-| Ходы итогового result | — | turns | — | — |
+| Turns in final result | — | turns | — | — |
 | Input + cache buckets | — | tokens | — | — |
 | Output tokens | — | tokens | — | — |
-| Стоимость | — | USD | — | — |
-| Время | — | s | — | — |
+| Cost | — | USD | — | — |
+| Time | — | s | — | — |
 | Underlying model ID | — | ID | — | — |
 
-| Условие | Что фиксируется до запуска | Что подтверждено после | Ограничение / evidence |
+| Condition | What is pinned before execution | What was confirmed afterward | Limitation / evidence |
 | --- | --- | --- | --- |
-| Managed policy | Явный поддерживаемый mode | — | — |
-| Native cache | Exec tmpfs 512 MiB, общий /tmp noexec | — | — |
-| Account/workspace settings | Применимый состав без секретов | — | — |
-| API egress | ampcode.com через gateway | — | — |
+| Managed policy | Explicit supported mode | — | — |
+| Native cache | Executable tmpfs 512 MiB, shared /tmp noexec | — | — |
+| Account/workspace settings | Applicable configuration without secrets | — | — |
+| API egress | ampcode.com through gateway | — | — |
 
-## Что сдать
+## Deliverables
 
-- Manifest/report LAB19 с гипотезой, условиями, таблицами и контрольными ответами.
-- Build/help/version/unit evidence, архитектуру и immutable image IDs; отдельно параметры native cache.
-- Все реальные run records, inputs/trace/artifacts, T002 `trace/change.patch`, независимые оценки и compare JSON на точных IDs.
-- NOTES, ledger additions при изменении компонентов и объяснение, какие выводы позволяет managed routing. Секреты и `.env` не включаются.
+- LAB19 manifest/report with hypothesis, conditions, tables, and review answers.
+- Build/help/version/unit evidence, architecture, and immutable image IDs; native-cache parameters separately.
+- All actual run records, inputs/trace/artifacts, T002 `trace/change.patch`, independent evaluations, and compare JSON for exact IDs.
+- NOTES, ledger additions if components changed, and an explanation of conclusions permitted by managed routing. Exclude secrets and `.env`.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Закреплённая версия и допустимые modes подтверждены offline без login flow; unit-тесты проходят.
-- [ ] Есть хотя бы один реальный T002 `completed` с независимым verdict; остальные попытки не скрыты.
-- [ ] Зафиксированы `managed:<mode>`, provider amp, immutable images, timeout 900 s и observed budget.
-- [ ] `model.lock` не истолкован как закрепление underlying весов, `--executor local` — как локальный inference.
-- [ ] Usage учитывается только при достаточной evidence, без двойного суммирования; USD и неизвестные model IDs не выдуманы.
-- [ ] NOTES отражает реальные наблюдения, `npm run check` проходит; расширения и незавершённые этапы явно отмечены.
+- [ ] Pinned version and allowed modes confirmed offline without a login flow; unit tests pass.
+- [ ] At least one real T002 is `completed` with an independent verdict; other attempts are not hidden.
+- [ ] `managed:<mode>`, provider amp, immutable images, timeout 900 s, and observed budget recorded.
+- [ ] `model.lock` not interpreted as pinning underlying weights; `--executor local` not interpreted as local inference.
+- [ ] Usage accounted for only with sufficient evidence and without double-counting; USD and unknown model IDs not invented.
+- [ ] NOTES reflects actual observations, `npm run check` passes, and extensions/unfinished stages are explicitly labeled.
 
-## Контрольные вопросы
+## Review questions
 
-1. Что именно фиксирует `model.lock=true` для Amp и чем это отличается от model snapshot?
-2. Почему `--executor local` не означает выполнение модели на Ryzen?
-3. Какие cache buckets нужны для input totals и почему нельзя добавить assistant usage к result?
-4. Почему отсутствие `AMP_API_KEY` проверяет координатор до execute mode?
-5. Какие переменные меняются вместе с managed mode и как это ограничивает сравнение?
-6. Что можно заключить о полезности спецификации после её абляции, если серверные инструкции Amp неизвестны?
+1. What exactly does `model.lock=true` pin for Amp, and how does that differ from a model snapshot?
+2. Why does `--executor local` not mean running the model on Ryzen?
+3. Which cache buckets are needed for input totals, and why must assistant usage not be added to result?
+4. Why does the coordinator check for `AMP_API_KEY` before execute mode?
+5. Which variables change together with managed mode, and how does this limit comparison?
+6. What can be concluded about the specification's usefulness after ablation if Amp's server-side instructions are unknown?
 
-## Источники
+## Sources
 
-- [README](../../experiments/amp/README.md), [NOTES](../../experiments/amp/NOTES.md), [профиль](../../experiments/amp/harness.json), [settings](../../experiments/amp/settings.json), [Dockerfile](../../experiments/amp/Dockerfile), [адаптер](../../experiments/amp/adapter.mjs), [тесты](../../experiments/amp/adapter.test.mjs).
-- [Протокол](../method.md), [workflow](harness-workflow.md), [реестр L015](../harness-ledger.md), [ЛР09](LAB09-agent-campaign.md), [ЛР10](LAB10-ablation.md).
-- Первичные ссылки из исследования репозитория от 20.09.2026: [execute mode](https://ampcode.com/docs/cli/execute-mode), [modes](https://ampcode.com/docs/the-dial), [models and subagents](https://ampcode.com/docs/models-and-subagents), [stream-json](https://ampcode.com/docs/cli/streaming-json), [settings](https://ampcode.com/docs/cli/settings). Работа привязана к закреплённой версии пакета, а не к обновляющемуся сервисному описанию.
+- [README](../../experiments/amp/README.md), [NOTES](../../experiments/amp/NOTES.md), [profile](../../experiments/amp/harness.json), [settings](../../experiments/amp/settings.json), [Dockerfile](../../experiments/amp/Dockerfile), [adapter](../../experiments/amp/adapter.mjs), [tests](../../experiments/amp/adapter.test.mjs).
+- [Protocol](../method.md), [workflow](harness-workflow.md), [ledger L015](../harness-ledger.md), [LAB09](LAB09-agent-campaign.md), [LAB10](LAB10-ablation.md).
+- Primary links from repository research on 2026-09-20: [execute mode](https://ampcode.com/docs/cli/execute-mode), [modes](https://ampcode.com/docs/the-dial), [models and subagents](https://ampcode.com/docs/models-and-subagents), [stream-json](https://ampcode.com/docs/cli/streaming-json), [settings](https://ampcode.com/docs/cli/settings). This lab is tied to the pinned package version, not the changing service description.

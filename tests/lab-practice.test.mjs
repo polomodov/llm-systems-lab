@@ -148,7 +148,7 @@ test('creation writes only a synthetic exercise with blank worksheet, source has
   assert.equal(manifest.reviewer_decision, null);
   assert.deepEqual(manifest.run_ids, []);
   for (const [field, name] of [['fixture_sha256', 'fixture.json'], ['trace_sha256', 'trace.jsonl'], ['analysis_sha256', 'analysis.json']]) assert.equal(manifest[field], sha256(readFileSync(join(dir, name))));
-  assert.match(readFileSync(join(dir, 'worksheet.md'), 'utf8'), /Решение проверяющего: \*\*не проверено\*\*/);
+  assert.match(readFileSync(join(dir, 'worksheet.md'), 'utf8'), /Reviewer decision: \*\*not reviewed\*\*/);
   assert.equal(existsSync(join(root, 'results')), false);
   assert.equal(existsSync(join(root, 'experiments/local-models/measurements')), false);
 });

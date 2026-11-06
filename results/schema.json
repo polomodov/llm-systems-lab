@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Запись воспроизводимого прогона",
-  "description": "Неизвестные измерения равны null. Проверки жизненного цикла, файлов, SHA-256 и реестра выполняет scripts/lib/records.mjs.",
+  "title": "Reproducible run record",
+  "description": "Unknown measurements are null. scripts/lib/records.mjs validates lifecycle, files, SHA-256 and ledger entries.",
   "type": "object",
   "required": [
     "schema_version",

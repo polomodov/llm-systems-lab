@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Скрытая проверка T004. Использование: check.sh <run-dir>
-# Код выхода: 0 — pass, 2 — partial, 1 — fail. Последняя строка вывода: verdict: <pass|partial|fail>.
+# Hidden check T004. Usage: check.sh <run-dir>
+# Exit codes: 0 — pass, 2 — partial, 1 — fail. Final output line: verdict: <pass|partial|fail>.
 set -euo pipefail
 RUN="${1:?run dir}"
 SRC="$RUN/workspace/sample"

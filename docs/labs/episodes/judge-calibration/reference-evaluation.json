@@ -4,9 +4,9 @@
   "synthetic": true,
   "not_a_model_measurement": true,
   "cases": [
-    { "candidate": "candidate-a", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Источники и условия указаны; классы различены; вывод ограничен; контролируемый опыт предложен." },
-    { "candidate": "candidate-b", "criteria": { "C1": true, "C2": true, "C3": false, "C4": false, "C5": true }, "verdict": "fail", "reason": "Из несопоставимых чисел выведено двукратное превосходство и отвергнута необходимая проверка рабочего профиля." },
-    { "candidate": "candidate-c", "criteria": { "C1": true, "C2": false, "C3": true, "C4": true, "C5": true }, "verdict": "fail", "reason": "Vendor claim S1 ошибочно назван независимым измерением; прочие критерии соблюдены." },
-    { "candidate": "candidate-d", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Числа не повторены, что разрешено C1; различия условий, классы, ограничение вывода и контролируемый опыт присутствуют." }
+    { "candidate": "candidate-a", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Sources and conditions stated; classes distinguished; conclusion bounded; controlled experiment proposed." },
+    { "candidate": "candidate-b", "criteria": { "C1": true, "C2": true, "C3": false, "C4": false, "C5": true }, "verdict": "fail", "reason": "Twofold superiority inferred from incomparable figures; required workload verification rejected." },
+    { "candidate": "candidate-c", "criteria": { "C1": true, "C2": false, "C3": true, "C4": true, "C5": true }, "verdict": "fail", "reason": "Vendor claim S1 incorrectly called an independent measurement; other criteria satisfied." },
+    { "candidate": "candidate-d", "criteria": { "C1": true, "C2": true, "C3": true, "C4": true, "C5": true }, "verdict": "pass", "reason": "Figures not repeated, as C1 permits; condition differences, evidence classes, bounded conclusion and controlled experiment present." }
   ]
 }

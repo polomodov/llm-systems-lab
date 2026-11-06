@@ -34,53 +34,53 @@ m['evidence_files']=sorted(str(f.relative_to(directory)) for f in raw.rglob('*')
 header='observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason'.split()
 (directory/'measurements.tsv').write_text('\t'.join(header)+'\n'+''.join('\t'.join(r)+'\n' for r in rows))
 counts={s:sum(a['status']==s for a in m['planned_attempts']) for s in ['completed','failed','not-run','planned']}
-(directory/'report.md').write_text(f'''# LAB33 — LM Studio: явная отмена и фактический backend
+(directory/'report.md').write_text(f'''# LAB33 — LM Studio: explicit cancellation and actual backend
 
-Сессия `{m['session_id']}`, статус **blocked**. {m['unavailable']['completion']}
+Session `{m['session_id']}`, status **blocked**. {m['unavailable']['completion']}
 
-## Паспорт выполнения
+## Run profile
 
-Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. Существующий центральный LM Studio 0.4.25+1 и selected runtimes llama.cpp/Metal 2.54.0, MLX/Metal 1.13.1. [Runtime](raw/runtime-manifest.json), [deployments](raw/deployments.json). GGUF Q6_K и MLX 4-bit — разные артефакты. SDK 1.5.0 установлен в отдельном venv; его wheels/dependencies закреплены hashes. Веса не скачивались, центральный app не переустанавливался.
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. Existing central LM Studio 0.4.25+1 and selected runtimes llama.cpp/Metal 2.54.0, MLX/Metal 1.13.1. [Runtime](raw/runtime-manifest.json), [deployments](raw/deployments.json). GGUF Q6_K and MLX 4-bit are different artifacts. SDK 1.5.0 is installed in a separate venv; its wheels/dependencies are pinned by hashes. No weights were downloaded and the central app was not reinstalled.
 
-Loader context 8192/parallel 1/gpu max — запрошенные настройки, не доказательство hard cap или всех 33 layers. SDK temperature 0/top_p 1/output cap 2048; seed, reasoning, KV и cache — defaults приложения с явными ограничениями. Точный source и pins для этой сессии находятся в её raw; отсутствие pinfile в неудачной preparation-сессии означает отсутствие модельной фазы, а не успешную проверку.
+Loader context 8192/parallel 1/gpu max are requested settings, not evidence of a hard cap or all 33 layers. SDK temperature 0/top_p 1/output cap 2048; seed, reasoning, KV, and cache use application defaults with explicit limitations. This session’s raw directory holds exact source and pins; a missing pinfile in a failed preparation session means there was no model phase, not a successful check.
 
-## Гипотеза и протокол до запуска
+## Hypothesis and protocol before execution
 
-[Протокол](raw/protocol.md) и source-registration закреплены commit до модели. Принимаются только собственные alias, один сервер 127.0.0.1:1234 и один loaded model. Admission — 120 с стабильно free+spec ≥16 GiB, pressure level 1, swap 0, AC/mode 0. Resource guard сохраняет минимум 8 GiB, RSS mapped backend ≤24 GiB, samples каждые 2 с/gap ≤15 с, bounded wall/request. Пороги не ослаблялись.
+[Protocol](raw/protocol.md) and source registration are committed before model execution. Only owned aliases, one server at 127.0.0.1:1234, and one loaded model are accepted. Admission requires 120 stable seconds of free+spec ≥16 GiB, pressure level 1, swap 0, AC/mode 0. The resource guard retains a minimum 8 GiB, mapped-backend RSS ≤24 GiB, samples every 2 s / gap ≤15 s, and bounded wall/request time. Thresholds were not relaxed.
 
-SDK chat/cancel/recovery и HTTP disconnect/recovery — отдельные условия, с прогревом и тремя повторами. SDK cancel после start и 1 с; iterator продолжается до primary stats, критерий userStopped и recovery. Final извлекается только по declared fragment reasoning_type, без trim/Markdown normalization. HTTP timeout и recovery не заменяют attributable request-id native stop. Физическое освобождение GPU страниц оценивается отдельно и остаётся unknown без collector.
+SDK chat/cancel/recovery and HTTP disconnect/recovery are separate conditions, with warmup and three repeats. SDK cancellation occurs after start and 1 s; iteration continues to primary stats, with userStopped and recovery as criteria. Final content is extracted only by declared fragment reasoning_type, without trimming/Markdown normalization. HTTP timeout and recovery do not replace an attributable request-ID native stop. Physical GPU-page release is evaluated separately and remains unknown without a collector.
 
-## Ход выполнения
+## Execution log
 
-SDK schema/wheel verification → model/registry/backend pins → stable admission → controlled load → SDK/HTTP observations → собственный unload/server stop. Root PID и foreign models наблюдаются; чужие процессы не завершаются. [Контроллер](raw/run_lms.py), [клиент](raw/sdk_probe.py), [сводка](raw/runtime-summary.json).
+SDK schema/wheel verification → model/registry/backend pins → stable admission → controlled load → SDK/HTTP observations → owned unload/server stop. Root PID and foreign models are observed; other users’ processes are not terminated. [Controller](raw/run_lms.py), [client](raw/sdk_probe.py), [summary](raw/runtime-summary.json).
 
-Первый prototype сохранил SDK KeyError identifier после реального ответа LAB_READY. Result.model_info — LlmInfo с path/modelKey, instance identifier находится в loaded handle. Следующая preparation отказала при выборе GGUF вместо MLX и не создала pins; модели не запускались. Исправленный full-pin вариант сначала отказал на baseline resource admission. Эти сессии не переписаны; retry создаётся отдельно после стабильного resource window. Новая модельная фаза использует exact format/repository/revision selector и все 12 MLX registry bindings.
+The first prototype retained an SDK KeyError identifier after a real LAB_READY response. Result.model_info is LlmInfo with path/modelKey; the instance identifier is in the loaded handle. The next preparation rejected GGUF selection instead of MLX and created no pins; no models ran. The corrected full-pin variant first failed baseline resource admission. These sessions were not rewritten; a retry is created separately after a stable resource window. The new model phase uses an exact format/repository/revision selector and all 12 MLX registry bindings.
 
-## Результаты
+## Results
 
-Attempts: {json.dumps(counts,ensure_ascii=False)}. В таблице — primary SDK status, raw final и фактическое время. Sample влияет на latency, поэтому sampled GGUF requests не сравниваются с unsampled baseline как одинаковые условия.
+Attempts: {json.dumps(counts,ensure_ascii=False)}. The table contains primary SDK status, raw final content, and actual timing. Sampling affects latency, so sampled GGUF requests are not compared with an unsampled baseline as identical conditions.
 
-| Deployment/case/repeat | Статус | Primary stop / proof | Final / limit | Total / recovery, с |
+| Deployment/case/repeat | Status | Primary stop / proof | Final / limit | Total / recovery, s |
 | --- | --- | --- | --- | --- |
-{chr(10).join(table) or '| — | Не выполнялся | — | — | — |'}
+{chr(10).join(table) or '| — | Not performed | — | — | — |'}
 
-## Ошибки и ограничения
+## Errors and limitations
 
-{m['unavailable']['completion']} SDK userStopped — измеренный API status, не самостоятельный счётчик физических GPU страниц. OS stack sample доказывает наблюдаемый Metal call path во время контролируемого ответа; он не считает все offloaded layers. Runtime name/gpu ratio не заменяют фактическое доказательство. В частности, `stopGenerating() without a request_id … Taking no action` — отрицательное свидетельство, не pass отмены.
+{m['unavailable']['completion']} SDK userStopped is a measured API status, not an independent physical GPU-page counter. An OS stack sample proves an observed Metal call path during a controlled response; it does not count all offloaded layers. Runtime name/gpu ratio do not replace actual evidence. In particular, `stopGenerating() without a request_id … Taking no action` is negative evidence, not a cancellation pass.
 
-## Вывод по гипотезе
+## Hypothesis conclusion
 
-{m['conclusion']} Source/API/model identity и cancellation conclusions ограничены конкретной выполненной сессией. Offline review audit принимает только counted compute/dispatch frames из Call graph, исключая Binary Images, сводки и wait-only frames. Исходные proof.json/samples/execution и pins не переписаны; active-metal-proof.json и lifecycle-audit.json — отдельные производные результаты. Исполнявшийся source сохранён в run_lms.executed.py с original SHA-256 в controller-review-audit.json. Исправленный run_lms.py требует новой сессии и свежих pins, включая lms_evidence.py. Нормальная успешная выгрузка теперь сбрасывает loaded; историческое loaded=true при models_after=[] оставлено в первичном record и объяснено audit. Старый evidence inventory относится к исходным bytes; соответствие изменённого controller path исходному snapshot задаёт controller-review-audit.json. Прежние preparation failures и resource refusal не объявляются аппаратной несовместимостью. Полный LAB33 допуск сохраняет перечисленные blockers; unknown показатели не заменяются нулями.
+{m['conclusion']} Source/API/model identity and cancellation conclusions are limited to the specific executed session. The offline review audit accepts only counted compute/dispatch frames from Call graph, excluding Binary Images, summaries, and wait-only frames. Original proof.json/samples/execution and pins were not rewritten; active-metal-proof.json and lifecycle-audit.json are separate derived results. Executed source is retained in run_lms.executed.py, with its original SHA-256 in controller-review-audit.json. Corrected run_lms.py requires a new session and fresh pins, including lms_evidence.py. Normal successful unloading now clears loaded; historical loaded=true with models_after=[] remains in the primary record and is explained by the audit. The old evidence inventory describes original bytes; controller-review-audit.json maps the modified controller path to its original snapshot. Earlier preparation failures and resource refusals are not declared hardware incompatibility. Full LAB33 admission retains the listed blockers; unknown metrics are not replaced with zeros.
 
-## Ответы на контрольные вопросы
+## Answers to review questions
 
-1. Общий API не удостоверяет backend: нужны version/package pins, loaded identity и фактические события/call path.
-2. GPU ratio — конфигурация, не счётчик исполненных layers. Model path и registry hashes проверяются отдельно.
-3. HTTP disconnect, SDK cancel, recovery, unload и освобождение физических GPU страниц — разные наблюдения.
-4. Разные GGUF/MLX quantization/template/defaults исключают вывод об эффекте одного frontend по общей latency.
+1. A common API does not establish a backend: version/package pins, loaded identity, and actual events/call paths are needed.
+2. GPU ratio is configuration, not a count of executed layers. Model paths and registry hashes are checked separately.
+3. HTTP disconnect, SDK cancel, recovery, unload, and physical GPU-page release are different observations.
+4. Different GGUF/MLX quantization/template/defaults prevent isolating a frontend effect from overall latency.
 
-## Комплект сдачи
+## Submission bundle
 
-Manifest/TSV/protocol/source registrations, SDK wheel hashes/schema, model/backend/registry pins, raw SDK/HTTP/runtime events/OS samples, resources и cleanup сохранены. Агентных episodes нет, run_ids пуст. Submission проверяет комплектность; reviewer decision **не проверено**, experiment pass автоматически не назначается.
+Manifest/TSV/protocol/source registrations, SDK wheel hashes/schema, model/backend/registry pins, raw SDK/HTTP/runtime events/OS samples, resources, and cleanup are retained. There are no agent episodes; run_ids is empty. Submission checks completeness; reviewer decision **unverified**, and experiment pass is not assigned automatically.
 ''')
 print(json.dumps(dict(report=str(directory.relative_to(root)),attempts=counts)))

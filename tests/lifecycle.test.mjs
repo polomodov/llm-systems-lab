@@ -45,7 +45,7 @@ function syntheticExecution(root, record, { aborted = false, observed = true } =
   record.execution = { ...record.execution, command: ['fixture'], cwd: '/workspace/sample', started_at: '2026-09-20T12:00:00.000Z', image_id: 'sha256:' + 'c'.repeat(64), timeout_s: 60, network_policy: 'fixture', budget_policy: 'hard' };
   record.status = 'running';
   writeRun(root, record);
-  writeFileSync(join(dir, 'workspace/artifacts/report.md'), '# Синтетический отчёт\nПроверка только инфраструктуры.\n');
+  writeFileSync(join(dir, 'workspace/artifacts/report.md'), '# Synthetic report\nInfrastructure check only.\n');
   const rows = copyTree(join(dir, 'workspace/artifacts'), join(dir, 'artifacts'));
   writeFileSync(join(dir, 'trace/artifacts.json'), JSON.stringify(rows, null, 2) + '\n');
   writeFileSync(join(dir, 'trace/final-workspace.json'), JSON.stringify(inventory(join(dir, 'workspace')), null, 2) + '\n');
@@ -199,7 +199,7 @@ test('prepared archives validate sealed inputs without ignored workspace while e
   const archived = check();
   assert.equal(archived.status, 0, archived.stderr);
   assert.match(archived.stdout, /prepared\/pending/);
-  assert.match(archived.stdout, /workspace отсутствует; архив prepared проверен по sealed inputs; запуск требует live tree/);
+  assert.match(archived.stdout, /workspace absent; prepared archive verified against sealed inputs; execution requires a live tree/);
   assert.throws(() => verifyInputs(dir, record), /ENOENT/);
   assert.equal(readRun(root, record.run_id).status, 'prepared');
 
@@ -239,7 +239,7 @@ test('completed archives remain verifiable without ignored workspace but reject 
   const check = () => spawnSync(process.execPath, [join(repository, 'scripts/check.mjs')], { cwd: root, encoding: 'utf8' });
   const archive = check();
   assert.equal(archive.status, 0, archive.stderr);
-  assert.match(archive.stdout, /workspace отсутствует; архив проверен без live tree/);
+  assert.match(archive.stdout, /workspace absent; archive verified without a live tree/);
   const final = join(dir, 'trace/final-workspace.json');
   const original = readFileSync(final);
   writeFileSync(final, `${original.toString('utf8')}\n`);

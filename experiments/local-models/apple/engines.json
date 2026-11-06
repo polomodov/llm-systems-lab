@@ -15,7 +15,7 @@
       "sources": [
         "https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md"
       ],
-      "notes": "Metal документирован для Apple Silicon. Конкретные M5 Max/macOS/build/model требуют smoke LAB30; 6 GiB — гипотеза. Для сравнения с Ryzen закрепить один commit и те же GGUF hashes."
+      "notes": "Metal is documented for Apple Silicon. The specific M5 Max/macOS/build/model combination requires a LAB30 smoke test; 6 GiB is a hypothesis. For comparison with Ryzen, pin one commit and identical GGUF hashes."
     },
     {
       "id": "mlx-lm-metal",
@@ -31,7 +31,7 @@
         "https://github.com/ml-explore/mlx-lm",
         "https://ml-explore.github.io/mlx/build/html/index.html"
       ],
-      "notes": "Отдельные MLX weights, quantization config, tokenizer/template и версии mlx/mlx-lm; размеры GGUF не применяются. Архитектура, tool parser, peak memory и M5 Max требуют LAB31–32."
+      "notes": "Separate MLX weights, quantization config, tokenizer/template, and mlx/mlx-lm versions; GGUF sizes do not apply. Architecture, tool parser, peak memory, and M5 Max require LAB31–32."
     },
     {
       "id": "ollama-metal",
@@ -48,7 +48,7 @@
         "https://docs.ollama.com/import",
         "https://docs.ollama.com/api/openai-compatibility"
       ],
-      "notes": "Профиль для импорта точного GGUF без requant. Подтвердить blob hash и реально выбранный runner/Metal; не считать все версии Ollama одним движком. Иной формат или MLX runner — отдельное условие, этот профиль к нему не применять."
+      "notes": "Profile for importing the exact GGUF without requantization. Confirm the blob hash and actual selected runner/Metal; do not treat all Ollama versions as one engine. A different format or MLX runner is a separate condition; this profile does not apply to it."
     },
     {
       "id": "lm-studio-metal",
@@ -64,7 +64,7 @@
         "https://lmstudio.ai/docs/app",
         "https://lmstudio.ai/docs/cli/runtime/runtime"
       ],
-      "notes": "Закрепить приложение и отдельный runtime package/version; импортировать тот же GGUF. Device/offload и M5 Max unverified до LAB33; версия GUI не определяет commit llama.cpp."
+      "notes": "Pin the application and separate runtime package/version; import the same GGUF. Device/offload and M5 Max remain unverified until LAB33; GUI version does not determine the llama.cpp commit."
     },
     {
       "id": "lm-studio-mlx",
@@ -80,7 +80,7 @@
         "https://lmstudio.ai/docs/app",
         "https://lmstudio.ai/blog/unified-mlx-engine"
       ],
-      "notes": "Отдельный MLX runtime с собственным artifact manifest; не переносить GGUF size/quant. Для overhead-сравнения подтвердить совпадение весов и внутреннего runtime с прямой ветвью; иначе сравнивать deployments."
+      "notes": "Separate MLX runtime with its own artifact manifest; do not transfer GGUF sizes/quantization. For overhead comparisons, confirm that weights and the internal runtime match the direct track; otherwise compare deployments."
     }
   ]
 }

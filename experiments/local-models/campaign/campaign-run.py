@@ -117,18 +117,18 @@ def lab03(model, sid):
     }
     dump(raw / "artifact.json", artifact_json)
     shutil.copy(FETCH, raw / "fetch_artifact.py")
-    write_protocol(sdir, f"""# LAB03 — предварительный протокол ({model['id']})
+    write_protocol(sdir, f"""# LAB03 — preregistered protocol ({model['id']})
 
-## Гипотеза
-Локальная копия артефакта {art['repository']}@{art['revision']} совпадает с публикацией по размеру и SHA-256.
+## Hypothesis
+The local artifact copy {art['repository']}@{art['revision']} matches the published size and SHA-256.
 
-## Порядок
-1. Скачать с закреплённой ревизии `fetch_artifact.py --download`.
-2. Offline-проверка размеров и SHA-256.
-3. Записать checksum-файл для LAB04/LAB05.
+## Procedure
+1. Download from the pinned revision using `fetch_artifact.py --download`.
+2. Verify sizes and SHA-256 offline.
+3. Write a checksum file for LAB04/LAB05.
 
-## Критерий остановки
-Расхождение размера/SHA → `fail`/`no-artifact`; артефакт дальше не передаётся.
+## Stop condition
+A size/SHA mismatch gives `fail`/`no-artifact`; do not pass the artifact downstream.
 """)
     manifest = {"schema_version": 2, "kind": "lab-report", "lab_id": "LAB03", "harness_id": None,
                 "session_id": sid, "created_at": now(), "status": "in_progress", "evidence_class": "protocol",
@@ -138,9 +138,9 @@ def lab03(model, sid):
                     "model_artifact_manifest": f"experiments/local-models/measurements/LAB03-{sid}/raw/artifact.json",
                     "runtime_manifest": None, "harness_profile": None},
                 "run_ids": [], "planned_attempts": [], "evidence_files": ["raw/protocol.md"],
-                "hypothesis": f"Локальная копия артефакта {model['id']} совпадает с публикацией {art['repository']}@{art['revision']} по размеру и SHA-256.",
-                "unavailable": {"conditions.runtime_manifest": "LAB03 не запускает runtime.",
-                                "conditions.harness_profile": "LAB03 не использует обвязку."},
+                "hypothesis": f"The local artifact copy {model['id']} matches the published {art['repository']}@{art['revision']} size and SHA-256.",
+                "unavailable": {"conditions.runtime_manifest": "LAB03 does not launch a runtime.",
+                                "conditions.harness_profile": "LAB03 does not use a harness."},
                 "conclusion": None, "reviewer_decision": None}
     dump(sdir / "manifest.json", manifest)     # preregistration
     commit([f"experiments/local-models/measurements/LAB03-{sid}"], f"LAB03 {model['id']}: preregistration")
@@ -154,9 +154,9 @@ def lab03(model, sid):
     sh(["sha256sum", "--check", str(raw / "weights.sha256")], cwd=sdir, out=raw / "verification.txt")
     ok = all(f.get("status") == "verified" for f in ver["files"])
     manifest.update({"status": "completed" if ok else "blocked",
-                     "conclusion": f"Проверка {art['repository']}@{art['revision']}: {'verified' if ok else 'fail'}."})
+                     "conclusion": f"Verification of {art['repository']}@{art['revision']}: {'verified' if ok else 'fail'}."})
     if not ok:
-        manifest["unavailable"]["completion"] = "Артефакт не прошёл проверку размера/SHA."
+        manifest["unavailable"]["completion"] = "The artifact failed size/SHA verification."
     attempt = {"id": f"{model['id']}-verify", "configuration_id": f"{model['id']}-verify", "kind": "measurement",
                "status": "completed", "run_id": None,
                "evidence_files": ["raw/artifact.json", "raw/verification.json", "raw/verification.txt", "raw/weights.sha256"],
@@ -169,8 +169,8 @@ def lab03(model, sid):
                          "-", "", "1", "file_bytes", f0["bytes"], "B", "measured", "raw/verification.json", ""])
         else:
             rows.append([f"{model['id']}-bytes", f"{model['id']}-verify", model["model_id"], "sha256sum",
-                         "-", "", "", "file_bytes", "", "", "no-artifact", "", "Артефакт отсутствует/не докачан."])
-    report = f"# LAB03 — артефакт {model['id']}\n\nСессия: `{sid}`.\n\n## Паспорт выполнения\n\n| Поле | Значение |\n| --- | --- |\n| Модель | `{model['model_id']}` |\n| Артефакт | `{art['repository']}@{art['revision']}` |\n\n## Гипотеза и протокол до запуска\n\nСм. `raw/protocol.md`.\n\n## Ход выполнения\n\n| Шаг | Результат |\n| --- | --- |\n| download | exit {code} |\n| verify | {'verified' if ok else 'fail'} |\n\n## Результаты\n\nСм. `measurements.tsv`, `raw/verification.json`.\n\n## Ошибки и ограничения\n\nНет.\n\n## Вывод по гипотезе\n\n{'Поддержана.' if ok else 'Не поддержана.'}\n\n## Ответы на контрольные вопросы\n\nSHA-256 подтверждает целостность файла.\n\n## Комплект сдачи\n\n- [x] manifest.json, measurements.tsv, report.md.\n"
+                         "-", "", "", "file_bytes", "", "", "no-artifact", "", "The artifact is missing or incompletely downloaded."])
+    report = f"# LAB03 — artifact {model['id']}\n\nSession: `{sid}`.\n\n## Run profile\n\n| Field | Value |\n| --- | --- |\n| Model | `{model['model_id']}` |\n| Artifact | `{art['repository']}@{art['revision']}` |\n\n## Hypothesis and protocol before execution\n\nSee `raw/protocol.md`.\n\n## Execution log\n\n| Step | Result |\n| --- | --- |\n| download | exit {code} |\n| verify | {'verified' if ok else 'fail'} |\n\n## Results\n\nSee `measurements.tsv`, `raw/verification.json`.\n\n## Errors and limitations\n\nNone.\n\n## Hypothesis conclusion\n\n{'Supported.' if ok else 'Not supported.'}\n\n## Answers to review questions\n\nSHA-256 confirms file integrity.\n\n## Submission bundle\n\n- [x] manifest.json, measurements.tsv, report.md.\n"
     finalize(sdir, manifest, [attempt], rows, report)
     commit([f"experiments/local-models/measurements/LAB03-{sid}"], f"LAB03 {model['id']}: results")
     return sdir, ver
@@ -194,16 +194,16 @@ def lab04(model, gguf, sid, engine_label="llama.cpp b8407 (312cf0332)",
     bins = bins or {"vulkan": VUL / "llama-bench", "hip": HIP / "llama-bench"}
     libpaths = libpaths or {}
     ref_sid = ref_sid or sid
-    write_protocol(sdir, f"""# LAB04 — предварительный протокол ({model['id']})
+    write_protocol(sdir, f"""# LAB04 — preregistered protocol ({model['id']})
 
-## Гипотеза
-Один GGUF {model['id']} полностью выгружается на GPU в обеих prebuilt-сборках {engine_label} (Vulkan/RADV и ROCm/HIP); backend влияет на скорость, направление неизвестно.
+## Hypothesis
+One GGUF {model['id']} is fully offloaded to GPU in both prebuilt builds {engine_label} (Vulkan/RADV and ROCm/HIP); backend affects speed, but the direction is unknown.
 
-## Порядок
-1. `sha256sum --check`; 2. offload-proof `llama-bench -v` обеих ветвей; 3. прогрев; 4. три парных повтора pp2048/tg128@d4096 под `/usr/bin/time -v`.
+## Procedure
+1. `sha256sum --check`; 2. offload-proof `llama-bench -v` for both tracks; 3. warmup; 4. three paired pp2048/tg128@d4096 repeats under `/usr/bin/time -v`.
 
-## Критерий остановки
-OOM/невалидный JSON/следы CPU-offload → fail ветви.
+## Stop condition
+OOM/invalid JSON/evidence of CPU offload → track fails.
 """)
     manifest = {"schema_version": 2, "kind": "lab-report", "lab_id": "LAB04", "harness_id": None,
                 "session_id": sid, "created_at": now(), "status": "in_progress", "evidence_class": "experimental",
@@ -214,8 +214,8 @@ OOM/невалидный JSON/следы CPU-offload → fail ветви.
                     "runtime_manifest": f"experiments/local-models/measurements/LAB04-{sid}/raw/build-provenance.txt",
                     "harness_profile": None}, "run_ids": [], "planned_attempts": [],
                 "evidence_files": ["raw/protocol.md"],
-                "hypothesis": f"Один GGUF {model['id']} полностью выгружается на GPU в обеих prebuilt-сборках {engine_label} (Vulkan/RADV и ROCm/HIP); backend влияет на скорость, направление неизвестно.",
-                "unavailable": {"conditions.harness_profile": "LAB04 не использует обвязку."},
+                "hypothesis": f"One GGUF {model['id']} is fully offloaded to GPU in both prebuilt builds {engine_label} (Vulkan/RADV and ROCm/HIP); backend affects speed, but the direction is unknown.",
+                "unavailable": {"conditions.harness_profile": "LAB04 does not use a harness."},
                 "conclusion": None, "reviewer_decision": None}
     dump(sdir / "manifest.json", manifest)
     commit([f"experiments/local-models/measurements/LAB04-{sid}"], f"LAB04 {model['id']}: preregistration")
@@ -281,15 +281,15 @@ OOM/невалидный JSON/следы CPU-offload → fail ветви.
                      "max_rss", rss(be), "KiB", "measured", f"raw/{be}-r1-pp-process.txt", ""])
         rows.append([f"{model['id']}-{be}-gpulayers", f"{model['id']}-offload", model["model_id"], engine_label, be, "", 1,
                      "gpu_assigned_layers", info[be]["gpu_layers"], "layers", "measured", f"raw/{be}-offload-proof.log", ""])
-    report = (f"# LAB04 — Vulkan против HIP/ROCm ({model['id']})\n\nСессия: `{sid}`.\n\n## Паспорт выполнения\n\n"
-              f"| Поле | Значение |\n| --- | --- |\n| Модель | `{model['model_id']}` |\n| Engine | {engine_label} |\n\n"
-              f"## Гипотеза и протокол до запуска\n\nСм. `raw/protocol.md` (preregistered).\n\n## Ход выполнения\n\n"
-              f"| Шаг | Результат |\n| --- | --- |\n| offload-proof | Vulkan {info['vulkan']['gpu_layers']} GPU / {info['vulkan']['cpu_layers']} CPU; HIP {info['hip']['gpu_layers']} / {info['hip']['cpu_layers']} |\n"
-              f"| paired repeats | 3×2 |\n\n## Результаты\n\n- pp2048 median: Vulkan {median(ts['vulkan']['pp']):.2f}, HIP {median(ts['hip']['pp']):.2f} t/s\n"
+    report = (f"# LAB04 — Vulkan versus HIP/ROCm ({model['id']})\n\nSession: `{sid}`.\n\n## Run profile\n\n"
+              f"| Field | Value |\n| --- | --- |\n| Model | `{model['model_id']}` |\n| Engine | {engine_label} |\n\n"
+              f"## Hypothesis and protocol before execution\n\nSee `raw/protocol.md` (preregistered).\n\n## Execution log\n\n"
+              f"| Step | Result |\n| --- | --- |\n| offload-proof | Vulkan {info['vulkan']['gpu_layers']} GPU / {info['vulkan']['cpu_layers']} CPU; HIP {info['hip']['gpu_layers']} / {info['hip']['cpu_layers']} |\n"
+              f"| paired repeats | 3×2 |\n\n## Results\n\n- pp2048 median: Vulkan {median(ts['vulkan']['pp']):.2f}, HIP {median(ts['hip']['pp']):.2f} t/s\n"
               f"- tg128@4096 median: Vulkan {median(ts['vulkan']['tg']):.2f}, HIP {median(ts['hip']['tg']):.2f} t/s\n"
-              f"- RSS: Vulkan {rss('vulkan')} KiB, HIP {rss('hip')} KiB\n\n## Ошибки и ограничения\n\nСборки prebuilt разных toolchain.\n\n"
-              f"## Вывод по гипотезе\n\n{concl}\n\n## Ответы на контрольные вопросы\n\n- `-ngl 999` — запрос; фактическую раскладку даёт `-v`.\n\n"
-              f"## Комплект сдачи\n\n- [x] manifest.json, measurements.tsv, report.md, raw evidence.\n")
+              f"- RSS: Vulkan {rss('vulkan')} KiB, HIP {rss('hip')} KiB\n\n## Errors and limitations\n\nPrebuilt binaries use different toolchains.\n\n"
+              f"## Hypothesis conclusion\n\n{concl}\n\n## Answers to review questions\n\n- `-ngl 999` is a request; `-v` provides the actual placement.\n\n"
+              f"## Submission bundle\n\n- [x] manifest.json, measurements.tsv, report.md, raw evidence.\n")
     finalize(sdir, manifest, attempts, rows, report)
     commit([f"experiments/local-models/measurements/LAB04-{sid}"], f"LAB04 {model['id']}: results")
     return sdir
@@ -313,16 +313,16 @@ def lab05(model, gguf, sid, ref_sid, engine_label="llama.cpp b8407 (312cf0332)",
         v = json.loads((raw / f"{kind}-request.json").read_text()); v["stream"] = True
         (raw / f"{kind}-stream-request.json").write_text(json.dumps(v, ensure_ascii=False, indent=2))
     shutil.copy(HTTP_PROBE, raw / "http_probe.py")
-    write_protocol(sdir, f"""# LAB05 — предварительный протокол ({model['id']})
+    write_protocol(sdir, f"""# LAB05 — preregistered protocol ({model['id']})
 
-## Гипотеза
-{model['id']} на HIP {engine_label} проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.
+## Hypothesis
+{model['id']} on HIP {engine_label} passes 8K/16K/32K memory-fill benchmarks and the loopback chat/tool/stream server protocol.
 
-## Порядок
-8K → 16K → 32K, каждый только при успехе предыдущего; bench `-p 0 -n 128 -d CTX-128 -r 3`; сервер 8080; `http_probe.py` 4×2; long/overflow/cancel.
+## Procedure
+8K → 16K → 32K, each only after the previous succeeds; bench `-p 0 -n 128 -d CTX-128 -r 3`; server 8080; `http_probe.py` 4×2; long/overflow/cancel.
 
-## Критерий остановки
-OOM/reset/подкачка-за-бюджетом → стоп ветви, следующий контекст не запускается.
+## Stop condition
+OOM/reset/swap beyond budget → stop the track without launching the next context.
 """)
     manifest = {"schema_version": 2, "kind": "lab-report", "lab_id": "LAB05", "harness_id": None,
                 "session_id": sid, "created_at": now(), "status": "in_progress", "evidence_class": "experimental",
@@ -333,8 +333,8 @@ OOM/reset/подкачка-за-бюджетом → стоп ветви, сле
                     "runtime_manifest": f"experiments/local-models/measurements/LAB04-{ref04}/raw/build-provenance.txt",
                     "harness_profile": None}, "run_ids": [], "planned_attempts": [],
                 "evidence_files": ["raw/protocol.md"],
-                "hypothesis": f"{model['id']} на HIP {engine_label} проходит bench-заполнения 8K/16K/32K и серверный протокол chat/tool/stream на loopback.",
-                "unavailable": {"conditions.harness_profile": "LAB05 не использует обвязку."},
+                "hypothesis": f"{model['id']} on HIP {engine_label} passes 8K/16K/32K memory-fill benchmarks and the loopback chat/tool/stream server protocol.",
+                "unavailable": {"conditions.harness_profile": "LAB05 does not use a harness."},
                 "conclusion": None, "reviewer_decision": None}
     dump(sdir / "manifest.json", manifest)
     commit([f"experiments/local-models/measurements/LAB05-{sid}"], f"LAB05 {model['id']}: preregistration")
@@ -398,14 +398,14 @@ OOM/reset/подкачка-за-бюджетом → стоп ветви, сле
     manifest.update({"status": "completed" if ok else "blocked",
                      "conclusion": "; ".join(f"ctx{c['ctx']}: {c['cases']-c['fails']}/{c['cases']}" for c in ctx_results) or "no context completed"})
     if not ok:
-        manifest["unavailable"]["completion"] = "Не все контексты прошли; см. attempts."
-    report = (f"# LAB05 — контекст и инструменты ({model['id']})\n\nСессия: `{sid}`.\n\n## Паспорт выполнения\n\n"
-              f"| Поле | Значение |\n| --- | --- |\n| Модель | `{model['model_id']}` |\n\n## Гипотеза и протокол до запуска\n\nСм. `raw/protocol.md`.\n\n"
-              f"## Ход выполнения\n\n| CTX | HTTP cases |\n| --- | --- |\n" +
+        manifest["unavailable"]["completion"] = "Not all contexts passed; see attempts."
+    report = (f"# LAB05 — context and tools ({model['id']})\n\nSession: `{sid}`.\n\n## Run profile\n\n"
+              f"| Field | Value |\n| --- | --- |\n| Model | `{model['model_id']}` |\n\n## Hypothesis and protocol before execution\n\nSee `raw/protocol.md`.\n\n"
+              f"## Execution log\n\n| CTX | HTTP cases |\n| --- | --- |\n" +
               "".join(f"| {c['ctx']} | {c['cases']-c['fails']}/{c['cases']} |\n" for c in ctx_results) +
-              f"\n## Результаты\n\nСм. `measurements.tsv`.\n\n## Ошибки и ограничения\n\nАвтоматическая кампания: model-specific sampling/reasoning могут отличаться.\n\n"
-              f"## Вывод по гипотезе\n\n{manifest['conclusion']}.\n\n## Ответы на контрольные вопросы\n\nСм. методичку ЛР05.\n\n"
-              f"## Комплект сдачи\n\n- [x] manifest.json, measurements.tsv, report.md, raw evidence.\n")
+              f"\n## Results\n\nSee `measurements.tsv`.\n\n## Errors and limitations\n\nAutomated campaign: model-specific sampling/reasoning may differ.\n\n"
+              f"## Hypothesis conclusion\n\n{manifest['conclusion']}.\n\n## Answers to review questions\n\nSee the LAB05 guide.\n\n"
+              f"## Submission bundle\n\n- [x] manifest.json, measurements.tsv, report.md, raw evidence.\n")
     finalize(sdir, manifest, attempts, rows, report)
     commit([f"experiments/local-models/measurements/LAB05-{sid}"], f"LAB05 {model['id']}: results")
     return sdir, ctx_results

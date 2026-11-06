@@ -1,21 +1,21 @@
-# ЛР06. vLLM, SGLang и Transformers на ROCm
+# LAB06. vLLM, SGLang, and Transformers on ROCm
 
-## Паспорт
+## Profile
 
-- Время: 4–8 часов плюс загрузка checkpoint, контейнеров и сборка SGLang.
-- Предпосылки: сданы [ЛР03](LAB03-artifacts.md) и [ЛР05](LAB05-context-tools.md); Linux на Ryzen AI Max+ 395, рабочий AMD kernel driver, доступ к `/dev/kfd` и DRM render node, Docker, Git, Python 3.11+, свободный диск под большие образы и BF16 checkpoint.
-- Готовность: команды опираются на источники, проверенные 21.09.2026. **Аппаратный запуск в этой лаборатории ещё не выполнен.** Документированная поддержка не гарантирует работоспособность конкретного image/kernel/model сочетания.
-- Минимум: один native checkpoint Qwen3.5-9B; по одной конфигурации vLLM, SGLang и прямого Transformers `generate`. Сначала 4096 токенов/одна последовательность; для прошедших серверов — 8192 и HTTP/tools-проверка ЛР05. Другие модели, quants, 16K/32K и tuning — расширение.
+- Time: 4–8 hours plus checkpoint/container downloads and the SGLang build.
+- Prerequisites: [LAB03](LAB03-artifacts.md) and [LAB05](LAB05-context-tools.md) submitted; Linux on Ryzen AI Max+ 395, working AMD kernel driver, access to `/dev/kfd` and the DRM render node, Docker, Git, Python 3.11+, and free disk space for large images and a BF16 checkpoint.
+- Readiness: commands are based on sources checked on 2026-09-21. **Hardware execution in this lab has not yet occurred.** Documented support does not guarantee that a particular image/kernel/model combination works.
+- Minimum: one native Qwen3.5-9B checkpoint; one configuration each of vLLM, SGLang, and direct Transformers `generate`. Start with 4096 tokens/one sequence; servers that pass proceed to 8192 and the HTTP/tools checks from LAB05. Other models, quants, 16K/32K, and tuning are extensions.
 
-## Цель
+## Objective
 
-Проверить три исполнения одного закреплённого native checkpoint на ROCm/gfx1151 и отделить ошибки аппаратного стека, модели, kernels и OpenAI-совместимого сервера.
+Test three executions of one pinned native checkpoint on ROCm/gfx1151 and distinguish hardware-stack, model, kernel, and OpenAI-compatible server errors.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«Один BF16 checkpoint Qwen3.5-9B загружается на gfx1151 в каждом из трёх закреплённых runtime и выдаёт правильный контрольный ответ; серверные реализации дополнительно завершают разрешённый tool round trip». Это проверка доступности и совместимости, а не заявление о равной скорости или численно идентичных logits.
+“One BF16 Qwen3.5-9B checkpoint loads on gfx1151 in each of three pinned runtimes and produces the correct control response; server implementations also complete an allowed tool round trip.” This tests availability and compatibility, not equal speed or numerically identical logits.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB06 --session my-session
@@ -30,11 +30,11 @@ cp docs/labs/fixtures/tool-request.json "$LAB_DIR/raw/tool-request.json"
 docker version > "$LAB_DIR/raw/docker-version.txt"
 ```
 
-Подставьте свои session IDs. `http_probe.py` — сохранённый открытый HTTP/SSE driver из ЛР05, не агентная обвязка. Сверьте аппаратный паспорт и бюджеты из ЛР02; все двигатели запускаются **последовательно**, с выгрузкой предыдущего. Docker с GPU devices используется координатором исследования; это не sandbox для кода модели.
+Substitute your own session IDs. `http_probe.py` is the saved public HTTP/SSE driver from LAB05, not an agent harness. Check the hardware profile and budgets from LAB02; all engines run **sequentially**, unloading the previous one. The research coordinator uses Docker with GPU devices; this is not a sandbox for model-generated code.
 
-## Порядок выполнения
+## Procedure
 
-1. **Закрепите новый артефакт и пересчитайте память.** GGUF из ЛР03 нельзя подставить вместо BF16 native checkpoint. Выбран официальный `Qwen/Qwen3.5-9B`, revision `c202236235762e1c871ad0ccb60c8ee5ba337b9a`. Только его safetensors занимают **19 306 310 880 bytes**, около **17,982 GiB**; runtime, cache и временные буферы сверху. Сохраните metadata и manifest без загрузки весов:
+1. **Pin a new artifact and recalculate memory.** The GGUF from LAB03 cannot replace a BF16 native checkpoint. The selected model is the official `Qwen/Qwen3.5-9B`, revision `c202236235762e1c871ad0ccb60c8ee5ba337b9a`. Its safetensors alone occupy **19 306 310 880 bytes**, about **17.982 GiB**; runtime, cache, and temporary buffers are additional. Save metadata and a manifest without downloading weights:
 
    ```bash
    python3 - "$LAB_DIR" <<'PY'
@@ -62,7 +62,7 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    PY
    ```
 
-   Проверьте `config.json`/quantization metadata и отсутствие неожиданной замены архитектуры. Для маленьких Git-файлов HF может не публиковать SHA-256: сохранённый `git_blob_id` и локально вычисленный SHA — разные поля. После проверки диска и бюджета загрузите и проверьте файлы скриптом ЛР03:
+   Check `config.json`/quantization metadata and ensure there is no unexpected architecture substitution. HF may not publish SHA-256 for small Git files: the saved `git_blob_id` and locally computed SHA are different fields. After checking disk space and the budget, download and verify files with the LAB03 script:
 
    ```bash
    python3 "$LAB_DIR/raw/fetch_artifact.py" "$LAB_DIR/raw/native-artifact.json" "$LAB_STORAGE" --download > "$LAB_DIR/raw/native-download.json"
@@ -70,9 +70,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    export NATIVE_MODEL_DIR="$LAB_STORAGE/Qwen/Qwen3.5-9B/c202236235762e1c871ad0ccb60c8ee5ba337b9a"
    ```
 
-   Одинаковый каталог монтируется read-only во все три runtime. Условия `HF_HUB_OFFLINE=1` препятствуют незаметной догрузке другой ревизии. Отсутствующие files → `no-artifact`, а не выдуманный размер 0. FP8/AWQ/GPTQ/MXFP4 и dequantized gpt-oss — новые артефакты: support конкретного kernel на gfx1151 проверяется отдельно. Native BF16 крупных MoE не допускается лишь потому, что GGUF этой семьи поместился.
+   Mount the same directory read-only in all three runtimes. `HF_HUB_OFFLINE=1` prevents silently downloading another revision. Missing files → `no-artifact`, not an invented size of 0. FP8/AWQ/GPTQ/MXFP4 and dequantized gpt-oss are new artifacts: support for each particular kernel on gfx1151 is checked separately. Native BF16 for large MoEs is not admitted simply because that family's GGUF fit.
 
-2. **Подготовьте закреплённые runtime.** Для vLLM используйте опубликованный ROCm image v0.29.0 по digest, а не изменяемый `latest`:
+2. **Prepare pinned runtimes.** For vLLM, use the published ROCm image v0.29.0 by digest rather than a mutable `latest`:
 
    ```bash
    export VLLM_IMAGE='vllm/vllm-openai-rocm@sha256:e5e47f6aaab675c252c381f0dac237b31b10d87bb74d092b07fb4065efd7f5a1'
@@ -80,9 +80,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    docker image inspect "$VLLM_IMAGE" > "$LAB_DIR/raw/vllm-image.json"
    ```
 
-   Upstream перечисляет gfx1151 и ROCm ≥7.0.2 для Ryzen AI; контейнер не заменяет host kernel driver. Не ставьте поверх образа произвольные новые Torch/Triton. Несовместимость образа с этим устройством фиксируется как `fail` с логом.
+   Upstream lists gfx1151 and ROCm ≥7.0.2 for Ryzen AI; the container does not replace the host kernel driver. Do not install arbitrary newer Torch/Triton versions over the image. Record image incompatibility with this device as `fail` with a log.
 
-   Для SGLang v0.5.20 есть отдельный Dockerfile gfx1151. Generic MI300/CDNA image не является эквивалентом. Соберите из закреплённого commit:
+   SGLang v0.5.20 has a dedicated gfx1151 Dockerfile. A generic MI300/CDNA image is not equivalent. Build from the pinned commit:
 
    ```bash
    git clone --filter=blob:none --no-checkout https://github.com/sgl-project/sglang "$LAB_DIR/raw/sglang-src"
@@ -93,9 +93,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    docker image inspect "$SGLANG_IMAGE" > "$LAB_DIR/raw/sglang-image.json"
    ```
 
-   Dockerfile закрепляет AMD base image с ROCm 7.2.4/PyTorch 2.9.1 и применяет wave32/gfx1151 patches; `SGLANG_USE_AITER=0` и Triton attention существенны. Автор исходного PR проверял Qwen3.5-9B на 395/8060S **в WSL2**. Здесь проверяется native Linux; это дополнительное условие, а не уже выполненная валидация. Часть build dependencies Dockerfile разрешает при сборке: commit не гарантирует побитово одинаковый повторный образ. Сохраните package freeze и используйте полученный image ID для всей серии; при необходимости архивируйте образ через `docker image save` и hash архива.
+   The Dockerfile pins an AMD base image with ROCm 7.2.4/PyTorch 2.9.1 and applies wave32/gfx1151 patches; `SGLANG_USE_AITER=0` and Triton attention matter. The original PR author tested Qwen3.5-9B on 395/8060S **in WSL2**. This lab tests native Linux; that is an additional condition, not validation already performed. The Dockerfile resolves some build dependencies during the build: a commit does not guarantee bit-for-bit identical rebuilt images. Preserve the package freeze and use the resulting image ID for the entire series; if needed, archive the image with `docker image save` and hash the archive.
 
-3. **Проверьте GPU до загрузки модели.** В Bash укажите render node из ЛР02, не выбирайте его по предположению:
+3. **Check the GPU before loading the model.** In Bash, specify the render node from LAB02 rather than choosing it by assumption:
 
    ```bash
    set -euo pipefail
@@ -120,9 +120,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    done
    ```
 
-   Выполняйте блок в отдельной Bash-сессии: ненулевой probe явно завершает её до загрузки моделей, сохраняя исходный exit code. Файл `ready-image.txt` появляется только после успешной проверки данного image. Повтор пробы получает новый каталог, например `gpu-probe-02`; прежний `mkdir` намеренно не разрешает перезапись. Не используйте старый marker после смены driver или image. В терминалы запуска перенесите актуальные `GPU_PROBE_DIR`, image variables и массив `GPU_ARGS` — Bash-массив автоматически не экспортируется. Имя `torch.cuda` штатно используется PyTorch и на ROCm. Наличие API не доказывает, что все model kernels поддержаны. Измерьте свободную память и наблюдайте пик средствами ЛР02/05, включая page cache и временную загрузку. Доля `0.5` ниже — начальное ограничение; в vLLM и SGLang это **разные** механизмы, не одинаковое число bytes. Сначала сопоставьте его с опубликованным runtime объёмом и бюджетом ОС.
+   Run the block in a separate Bash session: a nonzero probe explicitly exits it before model loading, preserving the original exit code. `ready-image.txt` appears only after a successful check of that image. A repeated probe gets a new directory, such as `gpu-probe-02`; the preceding `mkdir` deliberately prevents overwriting. Do not use an old marker after a driver or image change. Copy the current `GPU_PROBE_DIR`, image variables, and `GPU_ARGS` array into the launch terminals; Bash arrays are not exported automatically. PyTorch normally uses the `torch.cuda` name on ROCm as well. API availability does not prove support for all model kernels. Measure free memory and observe the peak using LAB02/05 tools, including page cache and temporary loading costs. The `0.5` fraction below is an initial limit; vLLM and SGLang use **different** mechanisms, not the same byte count. First compare it with the capacity reported by the runtime and the OS budget.
 
-4. **Запустите vLLM.** Сохраните `--help` образа до исполнения. Команда содержит минимальный контекст, одну последовательность, BF16, отключённые prefix caching и CUDA/HIP graphs, явные parsers для Qwen3.5:
+4. **Start vLLM.** Save the image's `--help` before execution. The command uses a minimal context, one sequence, BF16, disabled prefix caching and CUDA/HIP graphs, and explicit Qwen3.5 parsers:
 
    ```bash
    set -euo pipefail
@@ -135,9 +135,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    docker run --rm --name lab06-vllm "${GPU_ARGS[@]}" -p 127.0.0.1:8000:8000 -v "$NATIVE_MODEL_DIR:/model:ro" -e HF_HUB_OFFLINE=1 "$VLLM_IMAGE" --model /model --served-model-name lab-model --host 0.0.0.0 --port 8000 --dtype bfloat16 --max-model-len "$LAB_CONTEXT" --max-num-seqs 1 --gpu-memory-utilization 0.5 --enforce-eager --no-enable-prefix-caching --reasoning-parser qwen3 --enable-auto-tool-choice --tool-call-parser qwen3_coder > "$SERVER_EVIDENCE/server.log" 2>&1
    ```
 
-   Это foreground-команда в отдельном терминале. `LAB_CONFIG` включает engine/context и уникальный номер старта; для перезапуска даже тех же настроек выберите следующий номер. `mkdir` без `-p` останавливает блок при попытке повторно использовать архив. В другом терминале задайте те же `LAB_CONFIG`/`SERVER_EVIDENCE`, проверьте `/v1/models`, затем контрольный запрос по шагу 7. Следите за compile errors, attention backend и реальной offload/residency. После измерения остановите **этот** контейнер командой `docker stop lab06-vllm`, зафиксируйте освобождение памяти. Не заменяйте `--model` сетевым alias при ошибке local path.
+   This is a foreground command in a separate terminal. `LAB_CONFIG` includes engine/context and a unique start number; choose the next number even when restarting identical settings. `mkdir` without `-p` stops the block if an archive is reused. In another terminal, set the same `LAB_CONFIG`/`SERVER_EVIDENCE`, check `/v1/models`, and then run the control request in step 7. Watch compile errors, the attention backend, and actual offload/residency. After measuring, stop **this** container with `docker stop lab06-vllm` and record memory release. Do not replace `--model` with a network alias if the local path fails.
 
-5. **Запустите SGLang.** Все зависимости уже входят в собранный image. Сохраните его help и запустите ту же модель:
+5. **Start SGLang.** All dependencies are already in the built image. Save its help and start the same model:
 
    ```bash
    set -euo pipefail
@@ -150,9 +150,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    docker run --rm --name lab06-sglang "${GPU_ARGS[@]}" -p 127.0.0.1:30000:30000 -v "$NATIVE_MODEL_DIR:/model:ro" -e HF_HUB_OFFLINE=1 -e SGLANG_USE_AITER=0 "$SGLANG_IMAGE" python3 -m sglang.launch_server --model-path /model --served-model-name lab-model --host 0.0.0.0 --port 30000 --dtype bfloat16 --attention-backend triton --context-length "$LAB_CONTEXT" --mem-fraction-static 0.5 --max-running-requests 1 --cuda-graph-max-bs-decode 1 --disable-radix-cache --reasoning-parser qwen3 --tool-call-parser qwen3_coder > "$SERVER_EVIDENCE/server.log" 2>&1
    ```
 
-   Сначала воспроизводится близкая к PR конфигурация graph decode batch 1; это отличается от eager vLLM и фиксируется в сравнении. Ошибка graph capture допускает отдельный диагностический запуск с `--disable-cuda-graph`, после проверки флага в сохранённом help; это **новая конфигурация**. После HTTP-пробы остановите только `lab06-sglang`. Не добавляйте WSL `/dev/dxg` и WSL library mounts в native Linux команду.
+   First reproduce a configuration close to the PR, with graph decode batch 1; this differs from eager vLLM and is recorded in the comparison. A graph-capture error permits a separate diagnostic run with `--disable-cuda-graph`, after checking the flag in the saved help; this is a **new configuration**. After the HTTP probe, stop only `lab06-sglang`. Do not add WSL `/dev/dxg` or WSL library mounts to the native Linux command.
 
-6. **Запустите reference непосредственно через Transformers.** Используйте тот же SGLang image ради уже совместимых ROCm/Torch/Transformers, но не вызывайте SGLang server. Получается отдельный execution path с общими библиотеками, а не независимая реализация всех kernels. Сохраните в `$LAB_DIR/raw/reference.py`:
+6. **Run the reference directly through Transformers.** Use the same SGLang image for its already compatible ROCm/Torch/Transformers, but do not invoke the SGLang server. This provides a separate execution path sharing libraries, not an independent implementation of all kernels. Save the following as `$LAB_DIR/raw/reference.py`:
 
    ```python
    import json, pathlib, time, torch, transformers
@@ -162,7 +162,7 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    assert "gfx1151" in torch.cuda.get_device_properties(0).gcnArchName
    request = json.loads(pathlib.Path("/evidence/raw/chat-request.json").read_text())
    tokenizer = AutoTokenizer.from_pretrained("/model", local_files_only=True)
-   # Явный BF16, SDPA и полный checkpoint; vision inputs в этой пробе отсутствуют.
+   # Explicit BF16, SDPA, and the full checkpoint; this probe has no vision inputs.
    model = Qwen3_5ForConditionalGeneration.from_pretrained(
        "/model", dtype=torch.bfloat16, attn_implementation="sdpa",
        local_files_only=True).to("cuda:0").eval()
@@ -195,9 +195,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    docker run --rm "${GPU_ARGS[@]}" -v "$NATIVE_MODEL_DIR:/model:ro" -v "$LAB_DIR:/evidence" -e HF_HUB_OFFLINE=1 "$SGLANG_IMAGE" python3 /evidence/raw/reference.py > "$LAB_DIR/raw/reference-result.json" 2> "$LAB_DIR/raw/reference.stderr"
    ```
 
-   Загрузка через CPU и `.to()` может временно держать дополнительные копии: внешний peak RAM наблюдается отдельно, он не включён в два Torch-счётчика после загрузки. Fast DeltaNet extensions могут отсутствовать; fallback и предупреждения сохраняются, никакой скрытой установки `latest`. Greedy/non-thinking — диагностические условия reference. Они не подменяют авторские sampling settings для quality benchmark. Здесь нет HTTP, TTFT или tools execution; эти поля — `not-applicable`, не нули.
+   CPU loading and `.to()` may temporarily hold additional copies: observe external peak RAM separately; it is not included in the two post-load Torch counters. Fast DeltaNet extensions may be missing; preserve fallback and warnings without silently installing `latest`. Greedy/non-thinking are diagnostic reference conditions. They do not replace the author's sampling settings for a quality benchmark. There is no HTTP, TTFT, or tool execution here; these fields are `not-applicable`, not zeros.
 
-7. **Выполните одинаковые серверные пробы и разберите различия.** Для каждого работающего сервера задайте URL без `/v1`, сохраните `/v1/models` и примените driver ЛР05:
+7. **Run identical server probes and analyze differences.** For each working server, set the URL without `/v1`, save `/v1/models`, and apply the LAB05 driver:
 
    ```bash
    set -euo pipefail
@@ -214,9 +214,9 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    python3 "$LAB_DIR/raw/http_probe.py" --url "$LAB_URL" --request "$LAB_DIR/raw/tool-request.json" --out "$PROBE_EVIDENCE/tool" --follow-tool
    ```
 
-   Для SGLang замените URL на `http://127.0.0.1:30000`, имя на `sglang` и `LAB_CONFIG` на ID реально запущенного сервера. Для следующего повтора увеличьте `LAB_REPEAT`: существующий каталог не переиспользуется. Затем создайте streaming-варианты JSON и повторите полный round trip по ЛР05, сохраняя результаты под отдельными префиксами `$PROBE_EVIDENCE/chat-stream` и `$PROBE_EVIDENCE/tool-stream`; не используйте её жёстко заданный URL `8080`. Первый chat после старта и следующие обращения обозначайте отдельно — tool-запрос после chat уже не является первым запросом сервера. Сохраните фактическое тело запроса, thinking/sampling, parser, template hash, finish reason и final content. При сравнении с reference явно укажите различие режимов; для согласованной серии сначала задайте одинаковый thinking/sampling поддержанным каждой версией способом и сохраните новые JSON.
+   For SGLang, change the URL to `http://127.0.0.1:30000`, the name to `sglang`, and `LAB_CONFIG` to the ID of the server actually running. Increase `LAB_REPEAT` for the next repetition: existing directories are not reused. Then create streaming JSON variants and repeat the full round trip from LAB05, saving results under separate `$PROBE_EVIDENCE/chat-stream` and `$PROBE_EVIDENCE/tool-stream` prefixes; do not use its hardcoded `8080` URL. Label the first chat after startup separately from subsequent requests; a tool request after chat is no longer the server's first request. Save the actual request body, thinking/sampling settings, parser, template hash, finish reason, and final content. When comparing with the reference, explicitly identify differences in modes; for a matched series, first set identical thinking/sampling using a method supported by each version, and save new JSON files.
 
-   После успешного 4K smoke увеличьте только `LAB_CONTEXT` до 8192 и задайте новый `LAB_CONFIG` в шаге запуска, например `vllm-c8192-eager-01`. Остановите прежний сервер до старта нового. В терминале клиента укажите новый `SERVER_EVIDENCE`; перед другими inference-запросами выполните один первый запрос и три повтора:
+   After successful 4K smoke tests, increase only `LAB_CONTEXT` to 8192 and set a new `LAB_CONFIG` in the launch step, such as `vllm-c8192-eager-01`. Stop the previous server before starting the new one. Set the new `SERVER_EVIDENCE` in the client terminal; before other inference requests, perform one first request and three repetitions:
 
    ```bash
    set -euo pipefail
@@ -228,51 +228,51 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
    done
    ```
 
-   Здесь cold означает первый inference-запрос после запуска нового server process, а не гарантированно пустой OS page cache. Затем выполните protocol cases с новыми каталогами повторов. При ошибке блок останавливается, исходные файлы сохраняются; последующие запросы помечаются `not-run` до решения о новой попытке. 8K в этой минимальной работе означает настройку сервера и короткий protocol smoke, **не подтверждение размещения полного 8K входа**. Не сравнивайте JIT cold с warm, HTTP wall time с чистым `generate_seconds`, preallocated pool с Torch allocated. Три runtime не обязаны выдать побитово одинаковый текст.
+   Here, cold means the first inference request after starting a new server process, not a guaranteed empty OS page cache. Then run protocol cases with new repetition directories. On error the block stops, preserving original files; mark subsequent requests `not-run` until deciding on another attempt. In this minimum lab, 8K means a server setting and short protocol smoke test, **not confirmation that a full 8K input fits**. Do not compare JIT cold with warm, HTTP wall time with pure `generate_seconds`, or a preallocated pool with Torch allocated memory. The three runtimes need not produce bit-for-bit identical text.
 
-   **Отдельное расширение — near-limit input.** Генератор ЛР05 использует специфичные llama.cpp `/apply-template` и `/tokenize` на порту 8080; он не является готовой командой для vLLM/SGLang. До расширения нужен независимо проверенный подсчёт через tokenizer той же native model revision и фактический template выбранного сервера, с теми же special tokens, thinking и tools. Сохраните template hash, rendered prompt и token count; сверяйте count с `usage.prompt_tokens` на коротком запросе. После совпадения подготовьте новый длинный request с явно оставленным output reserve, отдельными configuration/repeat prefixes и проверкой отсутствия truncation. Если воспроизвести effective template или count не удалось, отметьте near-limit как `blocked/not-run`; прежний счётчик llama.cpp не доказывает вместимость этого deployment. Такое расширение не входит в минимум ЛР06.
+   **Separate extension: near-limit input.** The LAB05 generator uses llama.cpp-specific `/apply-template` and `/tokenize` on port 8080; it is not a ready-made command for vLLM/SGLang. Before this extension, independently verify counting through the tokenizer of the same native model revision and the selected server's actual template, with identical special tokens, thinking, and tools. Save the template hash, rendered prompt, and token count; compare the count with `usage.prompt_tokens` on a short request. Once they match, prepare a new long request with an explicit output reserve, separate configuration/repetition prefixes, and a check for no truncation. If the effective template or count cannot be reproduced, mark near-limit as `blocked/not-run`; the previous llama.cpp counter does not prove this deployment's capacity. This extension is outside the LAB06 minimum.
 
-## Таблицы результатов
+## Results tables
 
-| Runtime / image ID | Torch / ROCm / Triton / Transformers | gfx1151 probe | Документированный путь | Локальный статус и evidence |
+| Runtime / image ID | Torch / ROCm / Triton / Transformers | gfx1151 probe | Documented path | Local status and evidence |
 | --- | --- | --- | --- | --- |
 | vLLM | | | | |
 | SGLang | | | | |
 | Transformers reference | | | | |
 
-| Configuration | Artifact revision / hash manifest | Context / concurrency | Dtype / cache / graphs / parser | Peak RAM / GPU, bytes | Статус |
+| Configuration | Artifact revision / hash manifest | Context / concurrency | Dtype / cache / graphs / parser | Peak RAM / GPU, bytes | Status |
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-| Configuration / repeat | Cold или warm | Chat final | Tools / streaming | Wall / TTFT, s | Output tokens / finish reason | Evidence / причина отсутствия |
+| Configuration / repeat | Cold or warm | Chat final | Tools / streaming | Wall / TTFT, s | Output tokens / finish reason | Evidence / reason for absence |
 | --- | --- | --- | --- | --- | --- | --- |
 | | | | | | | |
 
-## Что сдать
+## Deliverables
 
-Заполненный отчёт, новый native artifact manifest и проверку файлов, image inspect/package freeze/build log, GPU probes, команды запуска, server logs, raw HTTP/SSE и reference output, таблицу 4K и допустимых 8K проб. В выводе разделить «поддержка описана автором», «runtime собран», «модель загружена», «протокол прошёл» и «измерена производительность».
+A completed report, new native artifact manifest and file verification, image inspect/package freeze/build log, GPU probes, launch commands, server logs, raw HTTP/SSE and reference output, and a table of 4K and admitted 8K probes. In the conclusion, distinguish “support documented by the author”, “runtime built”, “model loaded”, “protocol passed”, and “performance measured”.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Native checkpoint закреплён и его память рассчитана независимо от GGUF.
-- [ ] Каждая из трёх ветвей имеет наблюдение либо `fail`/`not-run`/`no-artifact` с конкретной причиной.
-- [ ] Реальный gfx1151/ROCm подтверждён до вывода о GPU работе; CPU fallback не назван успехом ROCm.
-- [ ] Для успешно загруженных серверов сохранены chat и полный tool round trip, включая streaming.
-- [ ] Изменения context, graph/cache, sampling и kernel path отражены как условия конфигурации.
-- [ ] Ни один engine smoke не выдан за агентный run; подключение обвязок остаётся задачей ЛР08.
+- [ ] The native checkpoint is pinned and its memory estimated independently of GGUF.
+- [ ] Each of the three branches has an observation or `fail`/`not-run`/`no-artifact` with a specific reason.
+- [ ] Actual gfx1151/ROCm is confirmed before claiming GPU execution; CPU fallback is not called ROCm success.
+- [ ] For successfully loaded servers, chat and the full tool round trip, including streaming, are preserved.
+- [ ] Changes to context, graph/cache, sampling, and kernel path are recorded as configuration conditions.
+- [ ] No engine smoke test is presented as an agent run; connecting harnesses remains the task of LAB08.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему safetensors не обозначает конкретную точность, а размер GGUF не описывает этот checkpoint?
-2. Почему успешный `torch.cuda.is_available()` не доказывает поддержку MXFP4 kernels на gfx1151?
-3. Как отделить ошибку template/parser от ошибки модели с помощью reference?
-4. Что фиксирует image digest, и чего не фиксирует один Git commit Dockerfile?
-5. Какие различия графов, cache и измерительных точек мешают прямому сравнению tokens/s?
+1. Why does safetensors not specify a particular precision, and why does GGUF size not describe this checkpoint?
+2. Why does a successful `torch.cuda.is_available()` not prove MXFP4 kernel support on gfx1151?
+3. How can the reference help distinguish a template/parser error from a model error?
+4. What does an image digest pin, and what does a Dockerfile Git commit alone not pin?
+5. Which differences in graphs, cache, and measurement points prevent direct tokens/s comparisons?
 
-## Источники
+## Sources
 
-- [vLLM: GPU/ROCm installation и поддержка gfx1151](https://docs.vllm.ai/en/stable/getting_started/installation/gpu/), [v0.29.0](https://github.com/vllm-project/vllm/releases/tag/v0.29.0), [metadata закреплённого Docker tag](https://hub.docker.com/v2/repositories/vllm/vllm-openai-rocm/tags/v0.29.0), [server arguments](https://docs.vllm.ai/en/stable/cli/serve/).
-- [SGLang: закреплённый gfx1151 Dockerfile](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/docker/rocm-gfx1151.Dockerfile), [исходный PR и границы WSL2 проверки](https://github.com/sgl-project/sglang/pull/33939), [server arguments](https://docs.sglang.io/docs/advanced_features/server_arguments).
-- [Qwen3.5-9B: закреплённый checkpoint и parsers](https://huggingface.co/Qwen/Qwen3.5-9B/tree/c202236235762e1c871ad0ccb60c8ee5ba337b9a), [Transformers Qwen3.5](https://huggingface.co/docs/transformers/model_doc/qwen3_5).
+- [vLLM: GPU/ROCm installation and gfx1151 support](https://docs.vllm.ai/en/stable/getting_started/installation/gpu/), [v0.29.0](https://github.com/vllm-project/vllm/releases/tag/v0.29.0), [pinned Docker tag metadata](https://hub.docker.com/v2/repositories/vllm/vllm-openai-rocm/tags/v0.29.0), [server arguments](https://docs.vllm.ai/en/stable/cli/serve/).
+- [SGLang: pinned gfx1151 Dockerfile](https://github.com/sgl-project/sglang/blob/94602c9c2b7cbdb8efd5c52802dac6a1c180089e/docker/rocm-gfx1151.Dockerfile), [original PR and limits of the WSL2 verification](https://github.com/sgl-project/sglang/pull/33939), [server arguments](https://docs.sglang.io/docs/advanced_features/server_arguments).
+- [Qwen3.5-9B: pinned checkpoint and parsers](https://huggingface.co/Qwen/Qwen3.5-9B/tree/c202236235762e1c871ad0ccb60c8ee5ba337b9a), [Transformers Qwen3.5](https://huggingface.co/docs/transformers/model_doc/qwen3_5).
 - [AMD: PyTorch installation](https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html), [native Linux Ryzen compatibility](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html).
-- [Матрица движков и ограничения артефактов](../local-inference-engines.md), [общие fixtures](fixtures/README.md).
+- [Engine matrix and artifact limitations](../local-inference-engines.md), [shared fixtures](fixtures/README.md).

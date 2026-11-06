@@ -266,16 +266,19 @@ export function validateLedger(markdown, { runIds } = {}) {
     if (cells.every((cell) => /^:?-+:?$/.test(cell))) continue;
     const label = `ledger line ${index + 1}`;
     if (cells.length !== 8) { errors.push(`${label}: expected 8 columns`); continue; }
-    const [id, component, assumption, evidence, dateModel, trigger, mode, status] = cells;
+    const [id, component, assumption, evidence, dateModel, trigger, rawMode, rawStatus] = cells;
+    // Original sealed ledgers retain their source-language labels.
+    const mode = ({ 'аренда': 'leased', 'адаптация': 'adapted', 'своё': 'owned' })[rawMode] ?? rawMode;
+    const status = ({ 'предложена': 'proposed', 'подтверждена': 'confirmed', 'не подтверждена': 'unconfirmed', 'удалена': 'removed' })[rawStatus] ?? rawStatus;
     if (!/^L\d{3}$/.test(id)) errors.push(`${label}: invalid id`);
     if (ids.has(id)) errors.push(`${label}: duplicate id ${id}`);
     ids.add(id);
     for (const [column, cell] of cells.entries()) if (!cell || /^[-—?]+$/.test(cell)) errors.push(`${label}: column ${column + 1} must be filled`);
     if (!/(?:experiments|scripts|results)\//.test(component)) errors.push(`${label}: component must identify its experiments/, scripts/ or results/ path`);
     if (!/\d{4}-\d{2}-\d{2}/.test(dateModel)) errors.push(`${label}: date/model column needs a date`);
-    if (!["аренда", "адаптация", "своё"].includes(mode)) errors.push(`${label}: invalid ownership mode`);
-    if (!["предложена", "подтверждена", "не подтверждена", "удалена"].includes(status)) errors.push(`${label}: invalid status`);
-    if (status === "подтверждена") {
+    if (!["leased", "adapted", "owned"].includes(mode)) errors.push(`${label}: invalid ownership mode`);
+    if (!["proposed", "confirmed", "unconfirmed", "removed"].includes(status)) errors.push(`${label}: invalid status`);
+    if (status === "confirmed") {
       const refs = new Set(evidence.match(/\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*/g) ?? []);
       if (refs.size < 2) errors.push(`${label}: confirmed component needs before/after run IDs`);
       if (runIds) for (const ref of refs) if (!runIds.has(ref)) errors.push(`${label}: evidence run ${ref} does not exist`);

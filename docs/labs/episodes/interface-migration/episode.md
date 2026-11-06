@@ -1,28 +1,28 @@
-# Учебный эпизод: миграция отчёта на API v2
+# Educational episode: migrate a report to API v2
 
-## Миссия
+## Mission
 
-Поставщик перевёл выгрузку счетов на cursor API v2. Перенести клиент и потребитель отчёта на новый контракт, сохранив порядок записей и точность сумм в целых денежных единицах минимального номинала.
+The provider moved invoice export to cursor API v2. Migrate the client and report consumer to the new contract, preserving record order and exact integer minor-unit monetary amounts.
 
-## Входы и новый контракт
+## Inputs and new contract
 
-`fixture-api.mjs` — фиксированный локальный заменитель сети; его `fetchPage(cursor)` возвращает `{ records, next_cursor }`. Начальная страница запрашивается с `null`, завершение обозначается **только** `next_cursor === null`. Пустая страница с непустым курсором не завершает обход. Зацикливание курсора должно завершаться ошибкой. Метод возвращает `calls` для открытой проверки количества обращений.
+`fixture-api.mjs` is a fixed local network substitute; `fetchPage(cursor)` returns `{ records, next_cursor }`. Request the first page with `null`; termination is signaled **only** by `next_cursor === null`. An empty page with a nonempty cursor does not end traversal. A cursor cycle must raise an error. The method returns `calls` for the open invocation-count check.
 
-Каждая запись имеет `invoice_id` (строковый идентификатор), `amount_minor` (неотрицательное безопасное целое) и `currency`. `loadInvoices(fetchPage)` должен вернуть единый массив `{ id, amountMinor, currency }` в исходном порядке. Нельзя переводить ID в число: ведущие нули значимы. Нельзя переводить денежные суммы в float. Неверная запись, включая неизвестную валюту, отклоняется; в этом эпизоде поддерживается только `RUB`.
+Each record has `invoice_id` (string identifier), `amount_minor` (nonnegative safe integer) and `currency`. `loadInvoices(fetchPage)` must return one array of `{ id, amountMinor, currency }` in original order. Do not convert IDs to numbers: leading zeros matter. Do not convert monetary amounts to floats. Reject invalid records, including unknown currency; this episode supports only `RUB`.
 
-`buildReport(loadInvoices, fetchPage)` возвращает `{ invoiceIds, count, totalMinor, currency: 'RUB' }`, где суммарное значение — безопасное целое. `src/main.mjs` выводит этот объект одной JSON-строкой. Старые `items`, `total` и `amount` больше не являются контрактом. Поддержка старого API не требуется.
+`buildReport(loadInvoices, fetchPage)` returns `{ invoiceIds, count, totalMinor, currency: 'RUB' }`, where the total is a safe integer. `src/main.mjs` prints the object as one JSON line. Legacy `items`, `total` and `amount` are no longer the contract. Legacy API support is not required.
 
-## Разрешённые действия
+## Allowed actions
 
-Скопируйте эпизод по [общей инструкции](../README.md). Изменять можно `src/*.mjs`, дополнительные тесты хранить в `extra-tests/`. `fixture-api.mjs`, `check.mjs` и контракт фиксированы. Сети, секретов, установки пакетов нет. После прохода проверок объясните миграцию между модулями и остановитесь.
+Copy the episode according to the [shared guide](../README.md). You may modify `src/*.mjs`; keep extra tests in `extra-tests/`. `fixture-api.mjs`, `check.mjs` and the contract are fixed. No network, secrets or package installation. After checks pass, explain migration across modules and stop.
 
 ```bash
 node "$EPISODE_DIR/check.mjs"
 node "$EPISODE_DIR/src/main.mjs"
 ```
 
-Исходная проверка должна дать **1 pass / 3 fail**, exit 1: проходит `result-is-array`, падают `load-all-pages-and-map`, `report-consumes-v2`, `reject-cursor-cycle`. Правильная исходная диагностика — пустой список клиента и неверный отчёт, а не отсутствие Node или ошибка import. После исправления ожидается **4 pass / 0 fail**, exit 0. Дополнительно нужны собственные проверки невалидных полей и переполнения суммы: открытые четыре сценария не покрывают весь контракт.
+The initial check must yield **1 pass / 3 fail**, exit 1: `result-is-array` passes; `load-all-pages-and-map`, `report-consumes-v2`, `reject-cursor-cycle` fail. Correct initial diagnosis is an empty client list and incorrect report, not missing Node or an import error. After the fix, expect **4 pass / 0 fail**, exit 0. Also add your own invalid-field and total-overflow checks: the four open scenarios do not cover the full contract.
 
-## Что сдать
+## Deliverables
 
-Исходные и конечные проверки, вывод CLI, diff, журнал страниц/вызовов и объяснение окончания пагинации. При делегировании отдельно фиксируйте владельцев API/потребителя, согласованный интерфейс, конфликтующие изменения и объединение результата. Это публичное упражнение, а не задача текущего `new-run`.
+Initial and final checks, CLI output, diff, page/call log, and an explanation of pagination termination. When delegating, separately record API/consumer owners, agreed interface, conflicting changes and integration. This is a public exercise, not a task supported by the current `new-run`.

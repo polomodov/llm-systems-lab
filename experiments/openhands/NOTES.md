@@ -1,5 +1,5 @@
-# Заметки · OpenHands Software Agent SDK
+# Notes · OpenHands Software Agent SDK
 
-Прогонов пока нет.
+No runs yet.
 
-21.09.2026 — offline сверка собранного образа на машине оператора (Docker Engine 29.5.2, host darwin/arm64), без ключей и без запросов к провайдеру: version команда профиля в read-only контейнере вернула ровно закреплённый пин 1.49.2. Идентификатор проверенного локального образа: `sha256:2ecb47e6a03f69b1db027868ccb1b09328c57c1452b5bc20f8af2f9ba0c38926`. Пересборка может дать другой ID; для серии сохраняют один образ. Это проверка установки, не результат задачи.
+2026-09-21 — offline verification of the built image on the operator’s machine (Docker Engine 29.5.2, host darwin/arm64), without keys or provider requests: the profile’s version command in a read-only container returned exactly the pinned version 1.49.2. Verified local image ID: `sha256:2ecb47e6a03f69b1db027868ccb1b09328c57c1452b5bc20f8af2f9ba0c38926`. Rebuilding may produce a different ID; retain one image for a series. This checks installation, not a task result.

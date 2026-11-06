@@ -2,12 +2,12 @@ import { readFileSync, renameSync, chmodSync, rmSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 
-// Снимок официального release manifest; latest не запрашивается при сборке.
+// Snapshot of the official release manifest; the build does not request latest.
 const version = process.argv[2];
-if (!/^\d+\.\d+\.\d+$/.test(version ?? '')) throw new Error('Нужна точная HARNESS_VERSION');
+if (!/^\d+\.\d+\.\d+$/.test(version ?? '')) throw new Error('An exact HARNESS_VERSION is required');
 const release = JSON.parse(readFileSync(new URL(`./releases/${version}.json`, import.meta.url), 'utf8'));
 const asset = release[process.arch];
-if (release.version !== version || !asset) throw new Error('Нет закреплённого релиза для версии/архитектуры');
+if (release.version !== version || !asset) throw new Error('No pinned release for this version/architecture');
 const archive = '/tmp/agy-release.tar.gz';
 execFileSync('curl', ['--fail', '--location', '--silent', '--show-error', '--output', archive, asset.url], { stdio: 'inherit' });
 const actual = createHash('sha512').update(readFileSync(archive)).digest('hex');

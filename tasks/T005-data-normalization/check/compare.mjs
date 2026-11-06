@@ -1,5 +1,5 @@
-// Сравнение artifacts/normalized.json с эталоном через канонический JSON (сортированные ключи).
-// Использование: node compare.mjs <expected.json> <actual.json>; печатает records=ok|differ rejected=ok|differ.
+// Compare artifacts/normalized.json with the reference using canonical JSON (sorted keys).
+// Usage: node compare.mjs <expected.json> <actual.json>; prints records=ok|differ rejected=ok|differ.
 import { readFileSync } from 'node:fs';
 const canonical = (value) => Array.isArray(value) ? `[${value.map(canonical).join(',')}]`
   : value && typeof value === 'object' ? `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${canonical(value[key])}`).join(',')}}`

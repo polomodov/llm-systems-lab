@@ -3,11 +3,11 @@
   "kind": "public-training-rubric",
   "synthetic": true,
   "criteria": [
-    { "id": "C1", "title": "Числа и условия", "required": true, "rule": "Каждое приведённое числовое измерение ссылается на источник и сохраняет prompt, concurrency и машину. Числа можно не повторять, но нельзя вводить неподтверждённые." },
-    { "id": "C2", "title": "Класс доказательства", "required": true, "rule": "S1 явно назван заявлением поставщика; S2 — независимым измерением." },
-    { "id": "C3", "title": "Сопоставимость", "required": true, "rule": "Не заявлены доказанное превосходство, двукратное ускорение или среднее по двум несопоставимым источникам; различия условий явно объяснены." },
-    { "id": "C4", "title": "Вывод и следующий опыт", "required": true, "rule": "Прямо сказано, что превосходство для S3 не доказано, и предложен запуск обоих движков при одинаковых машине, prompt, concurrency и проверке tools." },
-    { "id": "C5", "title": "Полнота и размер", "required": true, "rule": "Текст непустой, не превышает 120 слов по разделению пробелами и не подменяет ответ пересказом задания." }
+    { "id": "C1", "title": "Figures and conditions", "required": true, "rule": "Every quoted numeric measurement cites a source and preserves prompt, concurrency and machine. Figures need not be repeated, but unsupported ones must not be introduced." },
+    { "id": "C2", "title": "Evidence class", "required": true, "rule": "S1 is explicitly called a vendor claim; S2 an independent measurement." },
+    { "id": "C3", "title": "Comparability", "required": true, "rule": "No claim of proven superiority, twofold speedup or average across two incomparable sources; condition differences explicitly explained." },
+    { "id": "C4", "title": "Conclusion and next experiment", "required": true, "rule": "Explicitly states that superiority for S3 is unproven and proposes running both engines with identical machine, prompt, concurrency and tool checks." },
+    { "id": "C5", "title": "Completeness and length", "required": true, "rule": "Text is nonempty, at most 120 whitespace-separated words, and does not replace the answer with a restatement of the assignment." }
   ],
-  "pass_rule": "pass только если C1–C5 true; иначе fail. Неоценённый критерий даёт incomplete."
+  "pass_rule": "pass only if C1–C5 are true; otherwise fail. An unevaluated criterion yields incomplete."
 }

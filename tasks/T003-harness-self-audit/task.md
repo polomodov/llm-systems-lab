@@ -1,15 +1,15 @@
-# T003 · Аудит обвязки этого репозитория
+# T003 · Audit this repository’s harness
 
-## Стартовое состояние
-Рабочий каталог — клон `agent-harnesses-exps` с конфигурацией одной обвязки из `experiments/<harness>/` (какой — сказано в `brief.md`), скопированной в корень так, как её увидела бы обвязка при запуске.
+## Initial state
+The working directory is a clone of `llm-systems-lab` with one harness configuration from `experiments/<harness>/` (identified in `brief.md`), copied to the root as the harness would see it at startup.
 
-## Контракт
-Агент A3 по своей спецификации создаёт `artifacts/ledger.md` и `artifacts/ablation-plan.md`.
+## Contract
+Agent A3 follows its specification to create `artifacts/ledger.md` and `artifacts/ablation-plan.md`.
 
-## Видимая часть проверки
-- Каждый файл конфигурации упомянут в реестре.
-- У каждой строки заполнены все шесть колонок.
-- Границы (запрет `check/`, песочница, права) помечены триггером «никогда».
+## Visible evaluation
+- Every configuration file is mentioned in the ledger.
+- Every row has all six columns filled in.
+- Boundaries (the `check/` prohibition, sandbox, permissions) have a “never” trigger.
 
-## Бюджет
-До 20 ходов или $1.
+## Budget
+Up to 20 turns or $1 in cost.

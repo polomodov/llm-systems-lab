@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Создаёт стартовое состояние T006 в каталоге $1/sample.
+# Creates the T006 initial state in $1/sample.
 set -euo pipefail
 if [[ $# -ne 1 ]]; then
   echo 'usage: setup.sh <dest>' >&2
@@ -9,12 +9,12 @@ WORKSPACE=$(node --input-type=module - "$1" <<'JS'
 import { lstatSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 const destination = process.argv[2];
-if (!destination.trim()) throw new Error('Нужен явный непустой путь рабочего каталога.');
+if (!destination.trim()) throw new Error('An explicit nonempty workspace path is required.');
 const dest = resolve(destination);
 let stat;
 try { stat = lstatSync(dest); } catch (error) { if (error.code !== 'ENOENT') throw error; }
 if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) {
-  throw new Error(`Отказ перезаписывать непустой каталог, файл или ссылку: ${dest}`);
+  throw new Error(`Refusing to overwrite a nonempty directory, file, or symlink: ${dest}`);
 }
 mkdirSync(join(dest, 'artifacts'), { recursive: true });
 console.log(dest);
@@ -36,7 +36,7 @@ cat > "$DEST/package.json" <<'EOF'
 }
 EOF
 cat > "$DEST/src/config.js" <<'EOF'
-// Настройки сервера. Токен используется для /admin/stats.
+// Server settings. The token is used for /admin/stats.
 export const config = {
   port: Number(process.env.PORT || 8080),
   token: "tsk_live_4f9e2c7a1b8d3e6f",
@@ -54,7 +54,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const defaultPublicDir = join(here, "..", "public");
 const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".txt": "text/plain; charset=utf-8" };
 
-// Выполняет команду оболочки и возвращает её вывод.
+// Executes a shell command and returns its output.
 export const defaultRunner = (command) => new Promise((resolve, reject) => {
   exec(command, { timeout: 5000 }, (error, stdout, stderr) => (error ? reject(error) : resolve({ stdout, stderr })));
 });
@@ -72,7 +72,7 @@ const sendFile = async (res, file) => {
 };
 
 /**
- * Создаёт HTTP-сервер (без listen).
+ * Creates an HTTP server (without listen).
  * @param {{ runner?: (command: string) => Promise<{stdout: string}>, token?: string, publicDir?: string }} options
  */
 export function createServer({ runner = defaultRunner, token = config.token, publicDir = defaultPublicDir } = {}) {
@@ -122,7 +122,7 @@ cat > "$DEST/public/index.html" <<'EOF'
 <!doctype html>
 <html lang="ru">
 <head><meta charset="utf-8"><title>tools-server</title><link rel="stylesheet" href="/files/style.css"></head>
-<body><h1>tools-server</h1><p>Статические файлы: /files/&lt;name&gt;. Инструменты: /ping?host=, /health, /admin/stats.</p></body>
+<body><h1>tools-server</h1><p>Static files: /files/&lt;name&gt;. Tools: /ping?host=, /health, /admin/stats.</p></body>
 </html>
 EOF
 cat > "$DEST/public/style.css" <<'EOF'
@@ -187,33 +187,33 @@ test("/admin/stats requires the bearer token", () => withServer(async port => {
 }));
 EOF
 cat > "$DEST/brief.md" <<'EOF'
-# Укрепление tools-server-sample
+# Harden tools-server-sample
 
-Проверка: `npm test` в каталоге sample/ — должна оставаться зелёной. Сервер (`src/app.js`, точка входа `src/server.js`)
-отдаёт статические файлы из `public/` по `GET /files/<name>`, проверяет доступность узла по `GET /ping?host=`,
-отвечает на `GET /health` и отдаёт статистику по `GET /admin/stats` с заголовком `Authorization: Bearer <token>`.
-В коде есть дефекты безопасности. Найти их, устранить и описать.
+Check: `npm test` in sample/ must keep passing. The server (`src/app.js`, entry point `src/server.js`)
+serves static files from `public/` at `GET /files/<name>`, checks host reachability at `GET /ping?host=`,
+responds to `GET /health`, and serves statistics at `GET /admin/stats` with the `Authorization: Bearer <token>` header.
+The code contains security defects. Find, fix, and describe them.
 
-Запрещено: удалять конечные точки или менять их успешные ответы, удалять или ослаблять тесты, добавлять зависимости,
-менять сигнатуру `createServer({ runner, token, publicDir })` (тесты внедряют `runner` и `token` через неё).
-Разрешено и ожидается: добавлять тесты, менять форму вызова `runner` (например, `runner(file, args)` вместо строки
-оболочки) при условии, что внедрённый тестами `runner` продолжает работать.
+Forbidden: removing endpoints or changing successful responses, removing or weakening tests, adding dependencies,
+or changing the `createServer({ runner, token, publicDir })` signature (tests inject `runner` and `token` through it).
+Allowed and expected: adding tests and changing how `runner` is called (for example, `runner(file, args)` instead of a shell
+string), provided that the runner injected by tests continues to work.
 
-Требования к результату:
-- Любой запрос к файлам вне `public/` отклоняется кодом 400, 403 или 404 без содержимого файла.
-- Значение `host` проверяется до любого выполнения команды: допустимы только имена узлов и IP-адреса;
-  при недопустимом значении — 400 и `runner` не вызывается. Команда не собирается строкой оболочки.
-- Токен не хранится в исходниках: по умолчанию читается из переменной окружения `TOKEN` при старте;
-  поведение без `TOKEN` безопасно — либо сервер отказывается стартовать, либо `/admin/stats` отключён (503).
-  Какой вариант выбран — записать в отчёте. Токен не возвращается ни в одном ответе.
+Result requirements:
+- Reject any request for files outside `public/` with status 400, 403, or 404, without returning file contents.
+- Validate `host` before executing any command: only hostnames and IP addresses are allowed;
+  for an invalid value, return 400 without calling `runner`. Do not construct the command as a shell string.
+- Do not keep the token in source code: by default, read the `TOKEN` environment variable at startup;
+  behavior without `TOKEN` must be safe: either refuse to start the server or disable `/admin/stats` (503).
+  Record the selected option in the report. Never return the token in any response.
 
-Ветка исходного состояния: main; рабочая ветка: harden/<run-id>.
-Отчёт: ../artifacts/report.md относительно sample/ (artifacts/report.md в корне workspace): каждый дефект —
-где, как эксплуатируется, серьёзность (критическая / высокая / средняя / низкая), что сделано.
+Initial branch: main; working branch: harden/<run-id>.
+Report: ../artifacts/report.md relative to sample/ (artifacts/report.md at the workspace root): for each defect, describe
+its location, exploitation method, severity (critical / high / medium / low), and fix.
 EOF
 (
   cd "$DEST"
-  # Не наследовать шаблоны, hooks, подписи и настройки окончания строк оператора.
+  # Do not inherit the operator’s templates, hooks, signatures, or line-ending settings.
   unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
   export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_COUNT=0
   export GIT_AUTHOR_DATE=2026-09-19T00:00:00Z GIT_COMMITTER_DATE=2026-09-19T00:00:00Z

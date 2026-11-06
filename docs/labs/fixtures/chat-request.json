@@ -1,6 +1,6 @@
 {
   "model": "lab-model",
-  "messages": [{ "role": "user", "content": "Ответь ровно LAB_READY без пояснений." }],
+  "messages": [{ "role": "user", "content": "Reply with exactly LAB_READY and no explanation." }],
   "max_tokens": 2048,
   "stream": false
 }

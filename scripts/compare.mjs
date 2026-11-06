@@ -37,19 +37,19 @@ export function summarize(root, ids) {
 /** Human-readable report. It repeats the JSON facts and adds no ranking: groups are only comparable inside themselves. */
 export function renderMarkdown(report, { generatedAt = new Date().toISOString() } = {}) {
   const fmt = m => m.value === null ? `— (${m.measured}/${m.total})` : `${Math.round(m.value * 100) / 100} (${m.measured}/${m.total})`;
-  const lines = ['# Сравнение прогонов', '', `Сформировано: ${generatedAt}. Группа = одинаковые условия (задача, агент, модель, входы, вариант, бюджет, сеть, оценка); сравнивать можно только внутри группы. Числа — наши измерения по указанным run ID; неизвестные метрики показаны прочерком с долей измеренных прогонов.`, ''];
-  if (!report.groups.length) lines.push('Нет завершённых или исполненных прогонов: утверждения о производительности невозможны.', '');
+  const lines = ['# Run comparison', '', `Generated: ${generatedAt}. Each group has matching conditions (task, agent, model, inputs, variant, budget, network and evaluation); compare runs only within a group. Numbers are our measurements for the listed run IDs; unknown metrics use a dash and show the fraction of runs with measurements.`, ''];
+  if (!report.groups.length) lines.push('No completed or executed runs: no performance claims can be made.', '');
   for (const [index, group] of report.groups.entries()) {
     const c = group.conditions;
-    lines.push(`## Группа ${index + 1}: ${c.task} · ${c.agent} · ${c.model ?? 'модель не задана'}`, '', `- Провайдер: ${c.provider}; выбор модели: ${c.model_selection}; lock: ${c.model_lock}`, `- Вариант: ${c.variant}; бюджет: ${c.budget_usd ?? '—'} USD (${c.budget_policy}); таймаут: ${c.timeout_s} с`, `- Песочница: ${c.sandbox}/${c.network}; оценка: ${c.evaluation}; источники: ${c.source_mode}`, `- Входы: \`${c.inputs.slice(0, 12)}\``, '', '| Обвязка | Версия | Образ | Прогоны | pass | pass@3 / pass^3 по тройкам | Средняя стоимость, USD | Среднее время, с | Модель подтверждена |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
+    lines.push(`## Group ${index + 1}: ${c.task} · ${c.agent} · ${c.model ?? 'model not specified'}`, '', `- Provider: ${c.provider}; model selection: ${c.model_selection}; lock: ${c.model_lock}`, `- Variant: ${c.variant}; budget: ${c.budget_usd ?? '—'} USD (${c.budget_policy}); timeout: ${c.timeout_s} s`, `- Sandbox: ${c.sandbox}/${c.network}; evaluation: ${c.evaluation}; sources: ${c.source_mode}`, `- Inputs: \`${c.inputs.slice(0, 12)}\``, '', '| Harness | Version | Image | Runs | pass | pass@3 / pass^3 by triple | Mean cost, USD | Mean time, s | Model verified |', '| --- | --- | --- | --- | --- | --- | --- | --- | --- |');
     for (const h of group.harnesses) {
-      const triples = h.triples.length ? h.triples.map(t => `${t.pass_at_3 ? '✔' : '✖'}/${t.pass_pow_3 ? '✔' : '✖'}`).join(', ') + (h.unbatched_runs ? ` (+${h.unbatched_runs} вне троек)` : '') : `нет полных троек (${h.total})`;
+      const triples = h.triples.length ? h.triples.map(t => `${t.pass_at_3 ? '✔' : '✖'}/${t.pass_pow_3 ? '✔' : '✖'}`).join(', ') + (h.unbatched_runs ? ` (+${h.unbatched_runs} outside triples)` : '') : `no complete triples (${h.total})`;
       lines.push(`| ${h.name} | ${h.version ?? '—'} | \`${(h.image_id ?? '').slice(7, 19) || '—'}\` | ${h.runs.map(r => `${r.id} (${r.result})`).join('<br>')} | ${h.pass}/${h.total} | ${triples} | ${fmt(h.mean_cost_usd)} | ${fmt(h.mean_wall_clock_s)} | ${h.model_identity_observed}/${h.total} |`);
     }
     lines.push('');
   }
-  if (report.pending.length) lines.push(`Не завершены (planned/prepared/running/awaiting_review): ${report.pending.join(', ')}.`, '');
-  if (report.excluded.length) lines.push('Исключены:', ...report.excluded.map(x => `- ${x.run_id}: ${x.reason}`), '');
+  if (report.pending.length) lines.push(`Pending (planned/prepared/running/awaiting_review): ${report.pending.join(', ')}.`, '');
+  if (report.excluded.length) lines.push('Excluded:', ...report.excluded.map(x => `- ${x.run_id}: ${x.reason}`), '');
   return lines.join('\n');
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) await main(() => {

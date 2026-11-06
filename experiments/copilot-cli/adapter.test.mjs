@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { buildCommand, parseTrace } from './adapter.mjs';
 const trace = events => events.map(event => JSON.stringify(event)).join('\n');
 
-test('Copilot: argv сохраняет prompt и выбирает автономный локальный CLI', () => {
+test('Copilot: argv preserves the prompt and selects the autonomous local CLI', () => {
   const prompt = '--help\n$(touch /tmp/injected)';
   const { command, env } = buildCommand({ model: 'gpt-5.4', provider: 'copilot', turns: null, budget: null, prompt });
   assert.equal(command.at(-1), `--prompt=${prompt}`);
@@ -17,7 +17,7 @@ test('Copilot: argv сохраняет prompt и выбирает автоном
   assert.throws(() => buildCommand({ model: 'gpt-5.4', provider: 'openai', prompt }), /provider/);
 });
 
-test('Copilot: CLI result завершает поток; premium requests не подменяют USD', () => {
+test('Copilot: CLI result terminates the stream; premium requests do not substitute for USD', () => {
   const parsed = parseTrace(trace([
     { type: 'session.start', data: { sessionId: 'session-1', selectedModel: 'requested-only' } },
     { type: 'assistant.turn_start', data: { turnId: 'a' } },
@@ -35,7 +35,7 @@ test('Copilot: CLI result завершает поток; premium requests не �
   assert.equal(parsed.stopReason, 'completed');
 });
 
-test('Copilot: обрыв, пустые и частичные агрегаты не дают нулей или успеха', () => {
+test('Copilot: truncation and empty/partial aggregates do not produce zeros or success', () => {
   const parsed = parseTrace('null\n[]\n{"type":"session.start","data":{"selectedModel":"configured"}}\n{"type":');
   assert.deepEqual(parsed.loop, {});
   assert.equal(parsed.modelId, null);
@@ -45,7 +45,7 @@ test('Copilot: обрыв, пустые и частичные агрегаты �
   assert.equal(partial.loop.turns, undefined);
 });
 
-test('Copilot: session.error не скрывается успешным result, exitCode проверяется', () => {
+test('Copilot: a successful result does not hide session.error; exitCode is checked', () => {
   const parsed = parseTrace(trace([
     { type: 'assistant.usage', data: { model: 'first' } },
     { type: 'assistant.usage', data: { model: 'second' } },

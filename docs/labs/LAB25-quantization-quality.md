@@ -1,27 +1,27 @@
-# ЛР25. Квантизация: качество агентной работы и ресурсы
+# LAB25. Quantization: agent task quality and resources
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип работы | Парное сравнение артефактов одной исходной модели |
-| Время | 3–5 часов оператора плюс загрузка, шесть попыток и независимая оценка |
-| Предпосылки | Принятая локальная ЛР08 и завершённая локальная ЛР09; результаты ЛР02–05 |
-| Готовность | `target-machine`; агентная часть заблокирована до реализации bridge из ЛР08 |
-| Минимальный объём | Два варианта квантизации × три новых T002-попытки в одной обвязке; ресурсные пробы отдельно |
-| Расширение | Третий quant; затем вторая задача на frozen inputs; отдельно — повтор на другой модели |
+| Type | Paired comparison of artifacts from one source model |
+| Time | 3–5 hours of operator time plus download, six attempts, and independent evaluation |
+| Prerequisites | Accepted local LAB08 and completed local LAB09; LAB02–05 results |
+| Readiness | `target-machine`; the agent component is blocked until the LAB08 bridge is implemented |
+| Minimum scope | Two quantization variants × three new T002 attempts in one harness; resource probes separately |
+| Extension | A third quant; then a second task on frozen inputs; separately, repetition on another model |
 
-## Цель
+## Objective
 
-Определить, какое уменьшение памяти допустимо для выбранной агентной задачи на Ryzen AI Max+ 395 с 128 GB памяти под Linux. Связать размер весов, пиковую память и скорость с независимым качеством решения и корректностью работы с инструментами.
+Determine what memory reduction is acceptable for the selected agent task on a Ryzen AI Max+ 395 with 128 GB of memory under Linux. Relate weight size, peak memory, and speed to independent solution quality and correct tool use.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Выбранный меньший quant использует меньше памяти и сохраняет приемлемую успешность T002 при одинаковом исходном checkpoint, движке, контексте и обвязке. До серии запишите критерий приемлемости: например, отсутствие проигранной пары по вердикту и отсутствие новых нарушений протокола. Это правило решения в небольшой учебной серии, а не статистическое доказательство эквивалентности.
+The selected smaller quant uses less memory and preserves acceptable T002 success with the same source checkpoint, engine, context, and harness. Record the acceptance criterion before the series: for example, no pair lost on verdict and no new protocol violations. This is a decision rule for a small training series, not statistical proof of equivalence.
 
-Сравниваются два реально доступных артефакта одной модели. Обозначения `Q4` и `Q8` сами по себе не гарантируют одинаковых tokenizer, template, исходных весов и процедуры конвертации. При различии этих факторов результат относится ко всему deployment, а не только к числу бит.
+Compare two actually available artifacts of one model. The labels `Q4` and `Q8` alone do not guarantee identical tokenizers, templates, source weights, and conversion procedures. If these factors differ, the result concerns the entire deployment, not just the bit count.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB25 --session my-session
@@ -29,33 +29,33 @@ LAB_DIR='experiments/local-models/measurements/LAB25-my-session'
 npm run check
 ```
 
-Выберите модель, уже прошедшую локальную ЛР09. Малую контрольную модель из [каталога](../../experiments/local-models/models.json) можно использовать, только если для **обоих** quant подтверждены происхождение и фактическая совместимость. Каталог не обещает наличия любой комбинации quant. Загрузку и контроль всех shards выполняйте по [ЛР03](LAB03-artifacts.md), не меняя опубликованный task contract.
+Choose a model that has already passed local LAB09. The small control model from the [catalog](../../experiments/local-models/models.json) may be used only if provenance and actual compatibility are confirmed for **both** quants. The catalog does not promise every quant combination. Download and verify all shards using [LAB03](LAB03-artifacts.md), without changing the published task contract.
 
-Для каждого артефакта сохраните repository/revision, исходный model checkpoint/revision, SHA-256 и суммарные bytes всех shards, quantization type, converter revision и известные сведения о calibration/imatrix. Неизвестное происхождение — blocker чистого сравнения. Если доступны только артефакты с различающейся подготовкой, заранее переименуйте гипотезу в сравнение двух deployments и перечислите смешанные факторы.
+For each artifact, save repository/revision, source model checkpoint/revision, SHA-256 and total bytes of all shards, quantization type, converter revision, and known calibration/imatrix details. Unknown provenance blocks a clean comparison. If only artifacts with different preparation are available, rename the hypothesis in advance as a comparison of two deployments and list the confounded factors.
 
-Текущий cloud runner не предоставляет готового `--provider local`. После ЛР08 используйте её **реально реализованный и проверенный интерфейс**, прошедший пилот ЛР09. Не заменяйте bridge открытием LAN и не добавляйте неподдерживаемые поля в `run.json`. Пока интеграция не принята, можно завершить подготовку и ресурсные пробы, но отчёт остаётся `blocked` для агентного минимума.
+The current cloud runner does not provide a ready-to-use `--provider local`. After LAB08, use its **actually implemented and verified interface**, which has passed the LAB09 pilot. Do not substitute LAN access for the bridge or add unsupported fields to `run.json`. Until the integration is accepted, preparation and resource probes may be completed, but the report remains `blocked` for the agent minimum.
 
-## Порядок выполнения
+## Procedure
 
-1. **Заморозьте единственный фактор.** В отчёте назначьте нейтральные группы A/B и заполните до запусков таблицу условий: source checkpoint, engine commit/binary, backend Vulkan либо HIP/ROCm, driver, GPU offload, KV dtype, context/output, batch/ubatch, template/tokenizer, sampling/reasoning, harness image и bridge identity. Для обоих вариантов используйте один backend и одну обвязку. Не уменьшайте контекст или число GPU layers только у большого quant ради прохождения допуска: это новая конфигурация с несколькими вмешательствами.
+1. **Freeze the single factor.** Assign neutral groups A/B in the report and complete the conditions table before running: source checkpoint, engine commit/binary, Vulkan or HIP/ROCm backend, driver, GPU offload, KV dtype, context/output, batch/ubatch, template/tokenizer, sampling/reasoning, harness image, and bridge identity. Use one backend and one harness for both variants. Do not reduce context or GPU layer count only for the larger quant to pass acceptance: that is a new configuration with multiple interventions.
 
-2. **Проверьте артефакты и ресурсный допуск.** Укажите абсолютные пути к первым shards; каждый `weights.sha256` должен проверять весь набор из ЛР03. Выполните проверку отдельно в каталоге каждого набора:
+2. **Verify artifacts and resource acceptance.** Specify absolute paths to the first shards; each `weights.sha256` must verify the full LAB03 set. Run the check separately in each set's directory:
 
    ```bash
    (
      set -eu
-     cd '<абсолютный каталог артефакта A>'
+     cd '<absolute directory for artifact A>'
      sha256sum --check weights.sha256
    )
    ```
 
-   Повторите для B. Сохраните stdout/exit code в новые файлы отчёта. Зафиксируйте доступную RAM, GPU budget и резерв ОС по ЛР02. Для обоих вариантов выполните короткий chat и native tool round-trip по ЛР05 через принятый bridge. OOM или отсутствие tool protocol на этом этапе — `preflight-incompatible`, а не проигрыш ещё не начатой T002-попытки.
+   Repeat for B. Save stdout/exit code in new report files. Record available RAM, GPU budget, and OS reserve using LAB02. For both variants, run a short chat and native tool round-trip from LAB05 through the accepted bridge. OOM or missing tool protocol at this stage is `preflight-incompatible`, not a loss in a T002 attempt that has not started.
 
-3. **Измерьте ресурсы отдельно от агента.** Для закреплённого `llama-bench` из ЛР04 используйте одинаковые параметры и три повтора каждого quant. Пример одной пробы generation после прогрева; `BENCH` — уже проверенный бинарник, не новая сборка:
+3. **Measure resources separately from the agent.** For the pinned `llama-bench` from LAB04, use identical parameters and three repetitions of each quant. Example of one generation probe after warmup; `BENCH` is the already verified binary, not a new build:
 
    ```bash
-   BENCH='<абсолютный путь из ЛР04>/bin/llama-bench'
-   WEIGHTS='<абсолютный путь к GGUF или первому shard A>'
+   BENCH='<absolute path from LAB04>/bin/llama-bench'
+   WEIGHTS='<absolute path to GGUF or first shard A>'
    (
      set -eu
      set -o noclobber
@@ -67,32 +67,32 @@ npm run check
    )
    ```
 
-   Имена файлов для остальных повторов должны быть новыми; `/usr/bin/time -o` сам не защищён shell `noclobber`, поэтому перед каждой пробой проверьте отсутствие всего префикса. Если версия бинарника не принимает эти параметры, остановитесь и согласуйте одинаковую конфигурацию по сохранённому `--help` до новой серии. ЛР04 содержит отдельный pp2048-режим. Его можно добавить одинаково для A/B. В таблице не выдавайте время процесса за время загрузки и не называйте эти пробы агентными runs.
+   Filenames for the other repetitions must be new; `/usr/bin/time -o` is not itself protected by shell `noclobber`, so check that the entire prefix is absent before each probe. If the binary version rejects these parameters, stop and agree on an identical configuration using the saved `--help` before starting a new series. LAB04 has a separate pp2048 mode. It may be added identically for A/B. In the table, do not present process duration as loading time or call these probes agent runs.
 
-4. **Заранее назначьте три пары агентных попыток.** Порядок: A→B, B→A, A→B. Каждая попытка получает чистый workspace и новый ID. Все шесть используют T002, один seed commit, `baseline`, одинаковые timeout/native limits и budget policy. Один model server запускается за раз; readiness и прогрев заканчиваются до agent execution. Перезапуск сервера и загрузку весов учитывайте отдельно. После смены quant проверяйте deployment fingerprint и связь model alias с SHA весов; одинаковый alias не означает одинаковую модель.
+4. **Preassign three pairs of agent attempts.** Order: A→B, B→A, A→B. Each attempt receives a clean workspace and new ID. All six use T002, one seed commit, `baseline`, identical timeout/native limits, and budget policy. Run one model server at a time; readiness and warmup finish before agent execution. Account for server restart and weight loading separately. After switching quants, verify the deployment fingerprint and the model alias's link to the weight SHA; an identical alias does not mean an identical model.
 
-5. **Выполните попытки через принятый локальный runner.** Скопируйте в `report.md` точные команды `new-run`, подготовки и исполнения из завершённой ЛР09/реализации ЛР08. Сохраните native launch arguments и manifest каждого deployment. Между парами не меняйте runtime, prompt, template, reasoning или драйвер. Технический сбой начавшегося agent execution остаётся `aborted` своей попытки. Исправление конфигурации завершает старую серию; новый запуск не стирает неудачу.
+5. **Execute attempts through the accepted local runner.** Copy the exact `new-run`, preparation, and execution commands from completed LAB09/LAB08 implementation into `report.md`. Save native launch arguments and the manifest of each deployment. Do not change runtime, prompt, template, reasoning, or driver between pairs. A technical failure after agent execution begins remains that attempt's `aborted` result. A configuration fix ends the old series; a new run does not erase the failure.
 
-6. **Получите независимые оценки.** Координатор сохраняет соответствие A/B, а оценщику по возможности передаёт обезличенные результаты. Для каждого `awaiting_review` используйте существующий lifecycle:
+6. **Obtain independent evaluations.** The coordinator retains the A/B mapping and gives anonymized results to the evaluator where possible. For every `awaiting_review`, use the existing lifecycle:
 
    ```bash
-   RUN_ID='<реальный ID одной попытки>'
+   RUN_ID='<actual ID of one attempt>'
    (
      set -o noclobber
      npm run --silent evaluation-template -- --run "$RUN_ID" > "$LAB_DIR/raw/evaluation-$RUN_ID.json"
    )
    ```
 
-   Внешний оценщик выполняет проверку и заполняет шаблон по [общему workflow](harness-workflow.md), сохраняя hashes. Только после этого:
+   The external evaluator runs the check and completes the template using the [common workflow](harness-workflow.md), retaining hashes. Only afterward:
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
    npm run check
    ```
 
-   Не читать `tasks/*/check/` при решении задачи. Самооценка агента, короткий chat и успешный API response не заменяют verdict.
+   Do not read `tasks/*/check/` while solving the task. Agent self-evaluation, a short chat, and a successful API response do not replace a verdict.
 
-7. **Сопоставьте качество, протокол и затраты.** Из host trace выделите malformed tool calls, неизвестные tools, ошибки аргументов, повторные исправления и итоговое действие. Категории определите до чтения A/B; один tool error не равен общему task fail. Покажите исходы всех трёх пар и известные tokens/time. Если bridge поддерживает grouping identity по ЛР08, выгрузите сравнение:
+7. **Compare quality, protocol, and costs.** Extract malformed tool calls, unknown tools, argument errors, repeated corrections, and final action from the host trace. Define categories before reading A/B; one tool error does not equal an overall task fail. Show all three pair outcomes and known tokens/time. If the bridge supports grouping identity as specified in LAB08, export a comparison:
 
    ```bash
    RUN_IDS='<A1>,<B1>,<B2>,<A2>,<A3>,<B3>'
@@ -102,60 +102,60 @@ npm run check
    )
    ```
 
-   Разные quant должны остаться разными groups. Проверьте остальные conditions вручную: сравнение не вычисляет причинный эффект. Пиковая системная RAM и GPU allocations при UMA могут перекрываться — не складывайте их. Неизвестный usage и энергозатраты не заменяйте нулями.
+   Different quants must remain different groups. Check the other conditions manually: the comparison does not calculate a causal effect. Peak system RAM and GPU allocations may overlap on UMA; do not add them. Do not replace unknown usage or energy consumption with zeros.
 
-8. **Примите ограниченное решение.** Составьте границу выбора «вердикты / время / память». Меньший quant можно предпочесть для данной задачи, если он проходит заранее выбранный критерий и даёт измеренную экономию. При различиях объясните их конкретными trace и артефактами; три пары не дают общего рейтинга квантизации. Для расширения сначала объявите третий quant с теми же условиями и тремя новыми попытками. Вторую задачу выполняйте новой серией: T001 требует одного frozen source archive, T003 остаётся отдельной диагностикой обвязки.
+8. **Make a limited decision.** Map the “verdicts / time / memory” tradeoff. The smaller quant may be preferred for this task if it meets the predefined criterion and delivers measured savings. Explain differences through specific traces and artifacts; three pairs do not yield a general quantization ranking. To extend, first declare a third quant with the same conditions and three new attempts. Run a second task as a new series: T001 requires one frozen source archive; T003 remains separate harness diagnostics.
 
-## Таблицы результатов
+## Results tables
 
-| Группа | Source checkpoint/revision | Artifact revision/SHA manifest | Quant / converter / calibration | Engine/template/context fingerprint | Допуск / evidence |
+| Group | Source checkpoint/revision | Artifact revision/SHA manifest | Quant / converter / calibration | Engine/template/context fingerprint | Acceptance / evidence |
 | --- | --- | --- | --- | --- | --- |
 | A | | | | | |
 | B | | | | | |
 
-| Группа / повтор | Веса, bytes | Пик общей RAM | GPU allocation | Swap delta | Bench tokens/s / режим | Источник |
+| Group / repetition | Weights, bytes | Peak total RAM | GPU allocation | Swap delta | Bench tokens/s / mode | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | A / 1 | | | | | | |
 | B / 1 | | | | | | |
 
-| Пара / порядок | Run IDs A/B | Verdict A/B | Tool errors A/B | Wall-clock A/B | Tokens A/B | Независимый judge / ограничения |
+| Pair / order | Run IDs A/B | Verdict A/B | Tool errors A/B | Wall-clock A/B | Tokens A/B | Independent judge / limitations |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 / A→B | | | | | | |
 | 2 / B→A | | | | | | |
 | 3 / A→B | | | | | | |
 
-| Предварительный критерий | Наблюдение | Решение для данной задачи | Что нужно повторить |
+| Predefined criterion | Observation | Decision for this task | What needs repetition |
 | --- | --- | --- | --- |
 | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт и manifest с шестью реальными run IDs, исходный план пар, manifests весов/deployments, raw ресурсные пробы и телеметрию, trace и независимые оценки, таблицу ошибок протокола и вывод. Заполните [проверку комплектности](report-validation.md). Ресурсные пробы остаются в `experiments/local-models/measurements/`; реальные агентные попытки — в `results/runs/`. Ключи, `.env` и сами большие файлы весов в сдачу не включаются.
+A report and manifest with six real run IDs, the original pair plan, weight/deployment manifests, raw resource probes and telemetry, traces and independent evaluations, a protocol-error table, and a conclusion. Complete the [completeness check](report-validation.md). Resource probes remain in `experiments/local-models/measurements/`; real agent attempts belong in `results/runs/`. Do not include keys, `.env`, or the large weight files themselves in the submission.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Происхождение обоих artifacts подтверждено; существенные отличия явно перечислены.
-- [ ] Приняты ЛР08 и локальная ЛР09; нет неподдерживаемого cloud fallback.
-- [ ] Сохранены ресурсные пробы и шесть заранее назначенных попыток, включая все ошибки.
-- [ ] Есть независимые verdict для завершивших исполнение попыток; `aborted` не скрыты.
-- [ ] Парные условия проверены; измеренные метрики отделены от отсутствующих.
-- [ ] Вывод отвечает предварительному критерию и ограничен данной моделью, задачей и движком.
-- [ ] `npm run check` проходит, комплект отчёта проверен.
+- [ ] Both artifacts' provenance is confirmed; material differences are explicitly listed.
+- [ ] LAB08 and local LAB09 are accepted; there is no unsupported cloud fallback.
+- [ ] Resource probes and six preassigned attempts are retained, including every error.
+- [ ] Independently judged verdicts exist for attempts that completed execution; `aborted` attempts are not hidden.
+- [ ] Paired conditions are checked; measured metrics are distinguished from missing ones.
+- [ ] The conclusion addresses the predefined criterion and is limited to this model, task, and engine.
+- [ ] `npm run check` passes, and report completeness is checked.
 
-Без bridge, подходящего второго artifact или аппаратного допуска сдаётся `blocked` с доказательствами выполненной подготовки. Это не завершённая агентная серия.
+Without a bridge, a suitable second artifact, or hardware acceptance, submit `blocked` with evidence of completed preparation. This is not a completed agent series.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему одинаковое имя модели не доказывает общий исходный checkpoint?
-2. Когда сравнение Q4/Q8 превращается в сравнение двух deployments?
-3. Почему при одинаковом output cap фактическое время T002 может различаться сильнее bench speed?
-4. Какие protocol errors влияют на задачу, а какие агент исправляет самостоятельно?
-5. Почему три одинаковых успешных исхода не доказывают эквивалентность качества?
-6. Как выбирать вариант, если один быстрее, а другой устойчивее выполняет задачу?
+1. Why does an identical model name not prove a shared source checkpoint?
+2. When does a Q4/Q8 comparison become a comparison of two deployments?
+3. Why can actual T002 time differ more than benchmark speed with an identical output cap?
+4. Which protocol errors affect the task, and which does the agent correct independently?
+5. Why do three identical successful outcomes not prove quality equivalence?
+6. How should a variant be chosen when one is faster and the other completes the task more reliably?
 
-## Источники
+## Sources
 
-- [Метод эксперимента](../method.md), [локальные модели и память](../local-models.md).
-- [Артефакты и hashes](LAB03-artifacts.md), [закреплённые backend-пробы](LAB04-backends.md).
-- [Локальный bridge и identity](LAB08-local-bridge.md), [агентные серии](LAB09-agent-campaign.md), [парная абляция](LAB10-ablation.md).
-- Model card, quantization provenance и `--help` **фактически выбранных revisions** приложить к отчёту. Совместимость произвольных quant остаётся `unverified` до preflight.
+- [Experiment method](../method.md), [local models and memory](../local-models.md).
+- [Artifacts and hashes](LAB03-artifacts.md), [pinned backend probes](LAB04-backends.md).
+- [Local bridge and identity](LAB08-local-bridge.md), [agent series](LAB09-agent-campaign.md), [paired ablation](LAB10-ablation.md).
+- Attach the model card, quantization provenance, and `--help` for the **revisions actually selected** to the report. Compatibility of arbitrary quants remains `unverified` until preflight.

@@ -1,47 +1,47 @@
-# ЛР17. OpenHands SDK: Conversation, native tools и независимая оценка
+# LAB17. OpenHands SDK: Conversation, native tools, and independent evaluation
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | Завершённая [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `openhands`, `mode=sdk`; `openhands-sdk==1.49.2`, `openhands-tools==1.49.2` |
-| Среда | Python `3.12.12`, Node.js `24.13.1`; native terminal с tmux в общем Docker-контейнере |
-| Минимум | Сборка, native offline smoke, анализ событий/метрик, одна реальная A2/T002 с независимым судьёй |
-| Время | Ориентир 2–4 часа оператора плюс сборка/судья; agent execution ≤900 s |
-| Условия | Cloud `anthropic` либо `openai`, exact model ID, baseline, USD observed |
-| Расширения | Три заранее назначенных повтора, T001 replay, T003 и абляция spec |
-| Начальное состояние | Эксперимент `not-run`; учебный manifest — `not-started` |
+| Prerequisite | Completed [LAB01](LAB01-reproducibility.md) |
+| Harness | `openhands`, `mode=sdk`; `openhands-sdk==1.49.2`, `openhands-tools==1.49.2` |
+| Environment | Python `3.12.12`, Node.js `24.13.1`; native terminal with tmux in the shared Docker container |
+| Minimum | Build, native offline smoke test, event/metric analysis, one real A2/T002 with an independent judge |
+| Time | Estimate: 2–4 operator hours plus build/judge; agent execution ≤900 s |
+| Conditions | Cloud `anthropic` or `openai`, exact model ID, baseline, USD observed |
+| Extensions | Three preassigned repetitions, T001 replay, T003, and spec ablation |
+| Initial state | Experiment `not-run`; lab manifest `not-started` |
 
-## Цель
+## Objective
 
-Провести эпизод через исходные `Agent` и `Conversation.run()` OpenHands с native terminal/file editor и исследовать границу между итерацией Conversation, завершённым LLM response и внешним timeout. Получить проверенный результат задачи в общей лабораторной среде, сохранив собственный цикл SDK.
+Run an episode through OpenHands' native `Agent` and `Conversation.run()` with native terminal/file editor, and study the boundary between a Conversation iteration, a completed LLM response, and external timeout. Obtain a verified task result in the shared lab environment while preserving the SDK's own loop.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Конфигурация OpenHands с native `TerminalTool`/`FileEditorTool` и общей спецификацией A2 позволяет выполнить T002 без browser, MCP, delegation или отдельного runtime server. Проверка — независимый `pass`/`fail`/`partial` по одной реальной попытке, сохранённые события инструментов и перечень дополнительных компонентов, если они понадобились. Это гипотеза о данном эпизоде, а не доказательство универсальной достаточности набора tools.
+An OpenHands configuration with native `TerminalTool`/`FileEditorTool` and the shared A2 specification can perform T002 without a browser, MCP, delegation, or separate runtime server. Test with an independent `pass`/`fail`/`partial` for one real attempt, preserved tool events, and a list of any additional components needed. This concerns the given episode, not universal sufficiency of the tool set.
 
-Требование к измерителю: `turns` отражает число завершённых LLM responses из полного `token_usages`; значение `max_iteration_per_run` и число вызовов инструментов не подменяют эту метрику. Configured model fields SDK не считаются наблюдаемой identity провайдера.
+Measurement requirement: `turns` reflects completed LLM responses from complete `token_usages`; `max_iteration_per_run` and tool-call count do not substitute for this metric. Configured SDK model fields do not count as observed provider identity.
 
-## Подготовка
+## Preparation
 
-Выполняйте команды из корня репозитория, под обычным пользователем с Node.js ≥22 и Docker Engine. Создайте отчёт до запуска:
+Run commands from the repository root as a regular user with Node.js ≥22 and Docker Engine. Create the report before execution:
 
 ```bash
 npm run lab:new -- --lab LAB17 --session my-session
 LAB_DIR='experiments/openhands/measurements/LAB17-my-session'
 PROVIDER_ID='anthropic'
-MODEL_ID='<точный доступный ID выбранного провайдера>'
+MODEL_ID='<exact available ID of the selected provider>'
 IMAGE_TAG='harness-lab/openhands:1.49.2'
 ```
 
-Для OpenAI поменяйте provider на `openai` до создания записи. Замените placeholder на точный доступный model ID, не `latest` и не плавающий alias. В `--model` не добавляйте provider prefix: адаптер сам передаёт SDK `anthropic/<ID>` или `openai/<ID>`. Корневой `.env` должен содержать нужный `ANTHROPIC_API_KEY` либо `OPENAI_API_KEY`; значения ключей не входят в команды и отчёт. `.env` не монтируется, но credential выбранного provider доступен процессам внутри agent container — это известная граница общей инфраструктуры.
+For OpenAI, change provider to `openai` before creating the record. Replace the placeholder with an exact available model ID, not `latest` or a floating alias. Do not add a provider prefix to `--model`: the adapter passes `anthropic/<ID>` or `openai/<ID>` to the SDK itself. The root `.env` must contain the appropriate `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`; key values do not belong in commands or reports. `.env` is not mounted, but the selected provider's credential is available to processes inside the agent container, a known boundary of the shared infrastructure.
 
-Прочитайте [README OpenHands](../../experiments/openhands/README.md), [профиль](../../experiments/openhands/harness.json), [runtime](../../experiments/openhands/run.py), [адаптер](../../experiments/openhands/adapter.mjs), [метод](../method.md) и [общий порядок оценки](harness-workflow.md). Эта работа исследует **SDK 1.49.2**; legacy CLI/runtime image — другой deployment. Локальный provider для Ryzen пока требует реализации и приёмки [ЛР08](LAB08-local-bridge.md), облачный минимум уже использует существующий маршрут.
+Read the [OpenHands README](../../experiments/openhands/README.md), [profile](../../experiments/openhands/harness.json), [runtime](../../experiments/openhands/run.py), [adapter](../../experiments/openhands/adapter.mjs), [method](../method.md), and [shared evaluation workflow](harness-workflow.md). This lab studies **SDK 1.49.2**; the legacy CLI/runtime image is another deployment. A local Ryzen provider still requires implementation and acceptance of [LAB08](LAB08-local-bridge.md); the cloud minimum already uses an existing route.
 
-## Порядок выполнения
+## Procedure
 
-1. **Сохраните условия.** Зафиксируйте T002/A2, variant baseline, provider/model и версию рабочего дерева. Цель T002 — USD 2, но SDK-профиль использует `observed`, так как hard USD cap не реализован. Native `max_iteration_per_run=30` и внешний timeout 900 s записывайте раздельно; итерации не обещают ограничить HTTP retries провайдера.
+1. **Preserve the conditions.** Record T002/A2, baseline variant, provider/model, and working-tree revision. The T002 target is USD 2, but the SDK profile uses `observed` because no hard USD cap is implemented. Record native `max_iteration_per_run=30` separately from external timeout 900 s; iterations do not promise to limit provider HTTP retries.
 
    ```bash
    git rev-parse HEAD > "$LAB_DIR/raw/git-revision.txt"
@@ -52,9 +52,9 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
    node --test experiments/openhands/adapter.test.mjs > "$LAB_DIR/raw/adapter-tests.txt" 2>&1
    ```
 
-   Каждую следующую фазу начинайте после проверки exit code предыдущей. Эти adapter tests синтетические: реальных API вызовов и hidden checks в них нет.
+   Start each phase only after checking the previous phase's exit code. These adapter tests are synthetic: they contain no real API calls or hidden checks.
 
-2. **Соберите SDK-профиль и проверьте native terminal без модели.** Зафиксируйте оба image IDs; одинаковые теги после повторной сборки не гарантируют одинаковые транзитивные зависимости.
+2. **Build the SDK profile and check the native terminal without a model.** Record both image IDs; identical tags after rebuilding do not guarantee identical transitive dependencies.
 
    ```bash
    docker build -t "$IMAGE_TAG" -f experiments/openhands/Dockerfile experiments/openhands > "$LAB_DIR/raw/build.txt" 2>&1
@@ -72,24 +72,24 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
      "from importlib.metadata import version; print('sdk='+version('openhands-sdk')); print('tools='+version('openhands-tools'))" > "$LAB_DIR/raw/sdk-version.txt"
    ```
 
-   Ожидаются обе версии `1.49.2`. Smoke создаёт Conversation, отправляет локальное user-событие для инициализации и вызывает native terminal с `printf sdk-ready`; `conversation.run()` и модель не вызываются. Он проверяет работу terminal и инициализацию tools с `/tmp noexec`. Отдельный executable cache и второй контейнер OpenHands не требуются данным профилем. В таблице сохраняйте реально полученный результат, не ожидаемый текст.
+   Both versions should be `1.49.2`. The smoke test creates a Conversation, sends a local user event for initialization, and calls the native terminal with `printf sdk-ready`; neither `conversation.run()` nor the model is called. It checks terminal operation and tool initialization with `/tmp noexec`. This profile requires neither a separate executable cache nor a second OpenHands container. Record the actual result in the table, not the expected text.
 
-3. **Составьте схему исполнения.** По `run.py` отразите цепочку `LLM → Agent(native tools) → Conversation → send_message → run → callback/final metrics`. Покажите, где задаются workspace, iteration limit и `persistence_dir=None`. Workspace работает внутри общего контейнера; Docker socket, host home и скрытые проверки туда не передаются. События сохраняет координатор в host trace, временные tool caches остаются в `/tmp`.
+3. **Diagram execution.** From `run.py`, show `LLM → Agent(native tools) → Conversation → send_message → run → callback/final metrics`. Identify where workspace, iteration limit, and `persistence_dir=None` are set. The workspace operates inside the shared container; Docker socket, host home, and hidden checks are not passed into it. The coordinator saves events in the host trace; temporary tool caches remain in `/tmp`.
 
-   В отчёте перечислите явно подключённые `TerminalTool`/`FileEditorTool`; стандартные Finish/Think добавляет SDK. Browser, MCP, delegation и condenser в этот профиль не добавлены. Отметьте роль tmux и отличия этой среды от legacy OpenHands server. Не приписывайте адаптеру отсутствующие функции по одному названию продукта.
+   List the explicitly connected `TerminalTool`/`FileEditorTool` in the report; the SDK adds standard Finish/Think tools. Browser, MCP, delegation, and condenser are not added to this profile. Note tmux's role and differences from the legacy OpenHands server environment. Do not attribute absent functions to the adapter based on the product name alone.
 
-4. **Создайте новую запись T002 и запечатайте входы.** Перенесите фактически выданный run ID в отчёт:
+4. **Create a new T002 record and seal inputs.** Copy the actual returned run ID into the report:
 
    ```bash
    npm run new-run -- --harness openhands --harness-version 1.49.2 \
      --agent a2-janitor --task T002 --provider "$PROVIDER_ID" --model "$MODEL_ID"
-   RUN_ID='<run ID из new-run>'
+   RUN_ID='<run ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider "$PROVIDER_ID" > "$LAB_DIR/raw/prepare-$RUN_ID.txt" 2>&1
    ```
 
-   Проверьте `prepared`, seed commit, выбранный profile/provider и network policy. После подготовки не изменяйте inputs, model/provider или task contract. Решающий агент не читает `tasks/*/check/`; оценивание происходит позже отдельной стороной. Любое изменение конфигурации означает новую подготовку с новым run ID.
+   Check `prepared`, seed commit, selected profile/provider, and network policy. Do not change inputs, model/provider, or the task contract after preparation. The solving agent does not read `tasks/*/check/`; a separate party evaluates later. Any configuration change means preparing again with a new run ID.
 
-5. **Запустите реальный Conversation и проверьте lifecycle.** На этом шаге начнутся API вызовы:
+5. **Run a real Conversation and check the lifecycle.** API calls begin at this step:
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" --proxy-image "$PROXY_IMAGE_ID" \
@@ -101,9 +101,9 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
    NODE
    ```
 
-   Native `MaxIterationsReached` сохраняется как ограниченная остановка; он не означает успех исправления и не тождествен timeout. Нормальное завершение приводит к `awaiting_review`, провайдерная/инфраструктурная ошибка — к `aborted`. Не повторяйте `run` на той же записи и не меняйте `aborted` вручную на успешное состояние.
+   Native `MaxIterationsReached` is preserved as a limit stop; it does not imply fix success and is not identical to timeout. Normal completion leads to `awaiting_review`; provider/infrastructure errors lead to `aborted`. Do not repeat `run` on the same record or manually change `aborted` to a successful state.
 
-6. **Разберите события и metrics.** Сводка берёт только необходимые итоговые поля из сохранённой трассы:
+6. **Analyze events and metrics.** The summary extracts only necessary final fields from the saved trace:
 
    ```bash
    node --input-type=module - "$RUN_ID" > "$LAB_DIR/raw/openhands-metrics-$RUN_ID.json" <<'NODE'
@@ -118,11 +118,11 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
    NODE
    ```
 
-   Сопоставьте `openhands_event` с native вызовами terminal/file editor и финальным `lab_openhands_result`. Число завершённых response entries `token_usages.length` при полном успешном наборе задаёт reported turns; это не число tools и не лимит Conversation. Токены — суммы `prompt_tokens`/`completion_tokens`. Цена сообщается только при полном наборе положительных costs и корректном `accumulated_cost`; отсутствие цены не равно нулю. Если final содержит `error` или метрики неполны, суммарные usage остаются неизвестными с причиной.
+   Compare `openhands_event` with native terminal/file-editor calls and final `lab_openhands_result`. The completed-response count `token_usages.length`, for a complete successful set, defines reported turns; it is neither tool count nor the Conversation limit. Tokens are sums of `prompt_tokens`/`completion_tokens`. Price is reported only with a complete set of positive costs and valid `accumulated_cost`; missing price is not zero. If final contains `error` or metrics are incomplete, aggregate usage remains unknown with a reason.
 
-   Запишите `model.observed_id=null`: SDK заполняет model fields из запроса, поэтому они не доказывают identity фактического ответа. `sessionId` связывает события Conversation, но не идентифицирует модель. В сравнении укажите долю подтверждённых model IDs отдельно, не выдавая request-only за наблюдаемую фиксацию модели.
+   Record `model.observed_id=null`: the SDK populates model fields from the request, so they do not prove actual response identity. `sessionId` connects Conversation events but does not identify the model. Report the proportion of confirmed model IDs separately in comparisons; do not present request-only identity as observed model pinning.
 
-7. **Получите независимую оценку.** Только для `awaiting_review` создайте чистый шаблон:
+7. **Obtain an independent evaluation.** Create a clean template only for `awaiting_review`:
 
    ```bash
    (
@@ -131,7 +131,7 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
    )
    ```
 
-   По [общему workflow](harness-workflow.md) внешний оценщик выполняет T002 hidden-check и заполняет `result`, `evaluator`, `check_output`, сохраняя manifests/hashes. До этого решения не запускайте следующую команду. Ответ агента и состояние `finished` не являются независимым verdict.
+   Following the [shared workflow](harness-workflow.md), the external evaluator performs the T002 hidden check and fills `result`, `evaluator`, and `check_output`, preserving manifests/hashes. Do not run the next command before this decision. The agent answer and `finished` state are not independent verdicts.
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -139,56 +139,56 @@ IMAGE_TAG='harness-lab/openhands:1.49.2'
    npm run check > "$LAB_DIR/raw/check-after.txt" 2>&1
    ```
 
-   `judge-run` проверяет связь оценки с неизменёнными артефактами, а содержательное решение принимает оценщик. Без него запись остаётся `awaiting_review`. Оценённый `fail`/`partial` допустим как результат лабораторной; ошибка запуска сама по себе не закрывает минимум.
+   `judge-run` verifies the evaluation's link to unchanged artifacts; the evaluator makes the substantive decision. Without them the record remains `awaiting_review`. An evaluated `fail`/`partial` is a valid lab result; a startup failure alone does not meet the minimum.
 
-8. **Сдайте анализ и расширьте серию при необходимости.** Запишите все run IDs в report/manifest и [NOTES](../../experiments/openhands/NOTES.md). Для исследования устойчивости заранее назначьте три новых повтора, сохранив модели, images и условия. T001 требует одного frozen source archive; T003 получает снимок именно OpenHands и анализируется как диагностика своих входов. `without-spec` сравнивайте парной серией по [ЛР10](LAB10-ablation.md), не удаляя Docker/gateway или native tool boundaries. Команды дополнительных задач есть в [общем workflow](harness-workflow.md). Добавление condenser/browser/delegation — отдельная изменённая конфигурация с записью в ledger, не продолжение исходного baseline под прежним названием.
+8. **Submit the analysis and extend the series if needed.** Record all run IDs in the report/manifest and [NOTES](../../experiments/openhands/NOTES.md). To study stability, preassign three new repetitions with unchanged models, images, and conditions. T001 requires one frozen source archive; T003 receives an OpenHands-specific snapshot and is analyzed as diagnostics of its own inputs. Compare `without-spec` in a paired series under [LAB10](LAB10-ablation.md), preserving Docker/gateway and native tool boundaries. Additional-task commands are in the [shared workflow](harness-workflow.md). Adding condenser/browser/delegation creates a separate changed configuration with a ledger entry, not a continuation of the original baseline under the same name.
 
-## Таблицы результатов
+## Results tables
 
-| Проверка | План | Фактическое наблюдение | Evidence path |
+| Check | Plan | Actual observation | Evidence path |
 | --- | --- | --- | --- |
-| SDK/tools версии | 1.49.2 / 1.49.2 | — | — |
+| SDK/tools versions | 1.49.2 / 1.49.2 | — | — |
 | Agent/gateway images | Immutable IDs | — | — |
-| Offline Conversation/tools | Native terminal без `run()` | — | — |
+| Offline Conversation/tools | Native terminal without `run()` | — | — |
 | Iteration / time / USD | 30 / 900 s / observed | — | — |
-| Identity | Exact request; observed отдельно | — | — |
+| Identity | Exact request; observed separately | — | — |
 
-| Слот | Run ID | Native stop reason | Completed responses | Tokens in / out | USD / источник | Wall-clock s | Lifecycle / verdict |
+| Slot | Run ID | Native stop reason | Completed responses | Tokens in / out | USD / source | Wall-clock s | Lifecycle / verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | T002 baseline, not-run | — | — | — | — | — | — | — |
 
-| Механизм | Что наблюдалось | Чем это отличается от reported turns | Evidence path |
+| Mechanism | What was observed | How this differs from reported turns | Evidence path |
 | --- | --- | --- | --- |
 | Conversation iteration limit | — | — | — |
 | Terminal/file editor actions | — | — | — |
 | `token_usages` | — | — | — |
 | External timeout | — | — | — |
 
-`not-run` здесь означает ещё не исполненный слот. Не переносите его в `run.json` вместо валидного lifecycle/verdict и не заполняйте измерения ожидаемыми числами.
+`not-run` here means a slot not yet executed. Do not copy it into `run.json` in place of a valid lifecycle/verdict or populate measurements with expected numbers.
 
-## Что сдать
+## Deliverables
 
-Report/manifest с заранее зафиксированной гипотезой и всеми run IDs, таблицы условий/метрик, build/version/adapter-test/smoke evidence, схему Conversation и разбор событий, полный архив минимум одной оценённой T002 и независимый verdict. Объясните request-only identity и все неизвестные usage/cost. Изменения дополнительных компонентов отражайте в NOTES/ledger; `.env` и ключи в комплект не включайте.
+Report/manifest with a preregistered hypothesis and all run IDs, conditions/metrics tables, build/version/adapter-test/smoke evidence, a Conversation diagram and event analysis, the full archive of at least one evaluated T002, and an independent verdict. Explain request-only identity and all unknown usage/cost. Reflect additional-component changes in NOTES/ledger; exclude `.env` and keys from the submission.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Зафиксированы обе версии SDK/tools, image IDs, точная модель/provider и все лимиты.
-- [ ] Выполнены adapter tests и offline Conversation/native terminal smoke.
-- [ ] Минимум одна реальная T002 завершена независимым `pass`/`fail`/`partial`; сохранены неуспешные начатые попытки.
-- [ ] Iterations, tool actions и completed responses разведены; полнота usage и ограничения identity объяснены.
-- [ ] Отчёт, evidence, NOTES и контрольные ответы готовы; `npm run check` проходит.
+- [ ] Both SDK/tools versions, image IDs, exact model/provider, and all limits recorded.
+- [ ] Adapter tests and offline Conversation/native-terminal smoke tests performed.
+- [ ] At least one real T002 completed with an independent `pass`/`fail`/`partial`; unsuccessful started attempts preserved.
+- [ ] Iterations, tool actions, and completed responses distinguished; usage completeness and identity limitations explained.
+- [ ] Report, evidence, NOTES, and review answers ready; `npm run check` passes.
 
-Если препятствие оставило только `aborted`/`awaiting_review`, зафиксируйте его в отчёте `blocked`. Учебный минимум остаётся незавершённым до новой оценённой попытки либо независимого судейства уже полученного результата.
+If a blocker leaves only `aborted`/`awaiting_review`, record it in a `blocked` report. The educational minimum remains incomplete until a new evaluated attempt or independent judging of the existing result.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему эта работа исследует SDK-профиль, а не все способы запуска OpenHands?
-2. Как соотносятся iteration limit, tool actions и `token_usages.length`?
-3. Чем `MaxIterationsReached` отличается от timeout и содержательного `fail`?
-4. Почему `Conversation.send_message` в offline smoke ещё не означает обращение к модели?
-5. Что подтверждают `sessionId` и configured model fields, а чего они не подтверждают?
-6. Почему добавление condenser или delegation создаёт новую конфигурацию для сравнения?
+1. Why does this lab study an SDK profile rather than every way of running OpenHands?
+2. How do iteration limit, tool actions, and `token_usages.length` relate?
+3. How does `MaxIterationsReached` differ from timeout and substantive `fail`?
+4. Why does `Conversation.send_message` in the offline smoke test not yet imply a model call?
+5. What do `sessionId` and configured model fields confirm, and what do they not confirm?
+6. Why does adding a condenser or delegation create a new comparison configuration?
 
-## Источники
+## Sources
 
-Использованы закреплённые файлы проекта: [README OpenHands](../../experiments/openhands/README.md), [Dockerfile](../../experiments/openhands/Dockerfile), [harness.json](../../experiments/openhands/harness.json), [run.py](../../experiments/openhands/run.py), [adapter](../../experiments/openhands/adapter.mjs), [adapter tests](../../experiments/openhands/adapter.test.mjs), [метод](../method.md), [ledger L013](../harness-ledger.md), [общая инфраструктура](../../experiments/common/README.md). Доступность конкретного model ID и успешность эпизода до реального прогона — `unverified`; изменение версии требует отдельной повторной проверки.
+Pinned project files used: [OpenHands README](../../experiments/openhands/README.md), [Dockerfile](../../experiments/openhands/Dockerfile), [harness.json](../../experiments/openhands/harness.json), [run.py](../../experiments/openhands/run.py), [adapter](../../experiments/openhands/adapter.mjs), [adapter tests](../../experiments/openhands/adapter.test.mjs), [method](../method.md), [ledger L013](../harness-ledger.md), and [shared infrastructure](../../experiments/common/README.md). Specific model-ID availability and episode success remain `unverified` before a real run; version changes require separate revalidation.

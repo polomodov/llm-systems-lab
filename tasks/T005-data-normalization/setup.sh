@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Создаёт стартовое состояние T005 в каталоге $1: data/ с тремя выгрузками и brief.md.
+# Creates the T005 initial state in $1: data/ with three exports and brief.md.
 set -euo pipefail
 if [[ $# -ne 1 ]]; then
   echo 'usage: setup.sh <dest>' >&2
@@ -10,15 +10,15 @@ import { lstatSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 
 const destination = process.argv[2];
-if (!destination.trim()) throw new Error('Нужен явный непустой путь рабочего каталога.');
+if (!destination.trim()) throw new Error('An explicit nonempty workspace path is required.');
 const dest = resolve(destination);
 let stat;
 try { stat = lstatSync(dest); } catch (error) { if (error.code !== 'ENOENT') throw error; }
 if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) {
-  throw new Error(`Отказ перезаписывать непустой каталог, файл или ссылку: ${dest}`);
+  throw new Error(`Refusing to overwrite a nonempty directory, file, or symlink: ${dest}`);
 }
 
-// Данные зафиксированы: никакой случайности, одинаковый байтовый состав при каждом запуске.
+// Fixed data: no randomness; identical bytes on every run.
 const ordersA = [
   'id,email,date,amount,currency',
   'ORD-1001,anna@example.com,03.01.2026,"1250,00",RUB',
@@ -63,20 +63,20 @@ const ordersC = JSON.stringify([
   { order_id: 'ORD-1028', customer_email: ' clara@example.com ', total: 64, created: '2026-03-08T18:45:30+02:00', currency: 'USD' },
 ], null, 2) + '\n';
 
-const brief = `# Нормализация заказов из трёх выгрузок
+const brief = `# Normalize orders from three exports
 
-В каталоге data/ три выгрузки одного и того же вида записей (заказы) из разных систем:
-- \`orders_a.csv\` — CSV через запятую, с заголовком \`id,email,date,amount,currency\`; даты \`DD.MM.YYYY\`;
-  сумма с десятичной запятой в кавычках (\`"1250,00"\`); валюта в колонке \`currency\`.
-- \`orders_b.tsv\` — TSV с заголовком \`order_id, customer, ordered_on, price\`; даты \`YYYY/MM/DD\`;
-  сумма со знаком \`$\` и разделителем тысяч (\`$1,234.50\`) — валюта всегда USD; в e-mail встречаются
-  хвостовые пробелы и смешанный регистр.
-- \`orders_c.json\` — массив объектов \`{order_id, customer_email, total, created, currency}\`; \`total\` — число
-  в основных единицах валюты или \`null\`; \`created\` — ISO 8601 с часовым поясом.
+The data/ directory contains three exports of the same record type (orders) from different systems:
+- \`orders_a.csv\` — comma-delimited CSV with header \`id,email,date,amount,currency\`; dates use \`DD.MM.YYYY\`;
+  amounts use quoted decimal commas (\`"1250,00"\`); currency is in the \`currency\` column.
+- \`orders_b.tsv\` — TSV with header \`order_id, customer, ordered_on, price\`; dates use \`YYYY/MM/DD\`;
+  amounts have a \`$\` sign and thousands separator (\`$1,234.50\`), so currency is always USD; email addresses may have
+  trailing spaces and mixed case.
+- \`orders_c.json\` — an array of \`{order_id, customer_email, total, created, currency}\` objects; \`total\` is a number
+  in major currency units or \`null\`; \`created\` is ISO 8601 with a time zone.
 
-Данные только читать. Записывать только в artifacts/. Сторонние пакеты не нужны и не допускаются.
+Data is read-only. Write only inside artifacts/. Third-party packages are neither needed nor allowed.
 
-## Целевая схема
+## Target schema
 
 \`artifacts/normalized.json\`:
 \`\`\`
@@ -85,21 +85,21 @@ const brief = `# Нормализация заказов из трёх выгр�
   "rejected": [ { "id": string, "reason": "invalid_date" | "invalid_amount" } ]
 }
 \`\`\`
-Правила:
-1. \`id\` — идентификатор заказа как есть (\`ORD-1001\`). \`email\` — обрезаны пробелы по краям, приведён к нижнему регистру.
-2. \`date\` — календарная дата. Для \`orders_c.json\` момент переводится в UTC и берётся дата в UTC
-   (\`2026-03-02T01:00:00+05:00\` → \`2026-03-01\`). Несуществующая дата (например, 31 февраля) — отклонение \`invalid_date\`.
-3. \`amount_cents\` — целое число минимальных единиц: сумма × 100 с округлением до ближайшего целого.
-   Сумма, которую нельзя разобрать как число (\`n/a\`), и \`null\` — отклонение \`invalid_amount\`.
-4. \`currency\` — \`RUB\` или \`USD\`: из колонки \`currency\` (a, c) или \`USD\` по знаку \`$\` (b).
-5. Дубликаты — записи с одинаковым \`id\` в разных файлах. Остаётся первое вхождение в порядке файлов a → b → c;
-   остальные отбрасываются молча (не попадают ни в records, ни в rejected). Отклонённая запись в разрешении
-   дубликатов не участвует. Внутри одного файла дубликатов нет.
-6. Отклонённые записи в \`records\` не попадают; у каждой ровно одна причина (первая проверка — дата, затем сумма).
-7. \`records\` и \`rejected\` отсортированы по \`id\` как строке (возрастание). Ключи объектов — ровно перечисленные.
+Rules:
+1. \`id\` is the order identifier unchanged (\`ORD-1001\`). Trim surrounding whitespace from \`email\` and lowercase it.
+2. \`date\` is a calendar date. For \`orders_c.json\`, convert the instant to UTC and take the UTC date
+   (\`2026-03-02T01:00:00+05:00\` → \`2026-03-01\`). An impossible date (for example, February 31) is rejected as \`invalid_date\`.
+3. \`amount_cents\` is an integer number of minor units: amount × 100, rounded to the nearest integer.
+   An amount that cannot be parsed as a number (\`n/a\`) and \`null\` are rejected as \`invalid_amount\`.
+4. \`currency\` is \`RUB\` or \`USD\`: from the \`currency\` column (a, c), or \`USD\` from the \`$\` sign (b).
+5. Duplicates are records with the same \`id\` across files. Keep the first occurrence in file order a → b → c;
+   silently discard the others (they appear in neither records nor rejected). A rejected record does not participate
+   in duplicate resolution. There are no duplicates within an individual file.
+6. Rejected records do not appear in \`records\`; each has exactly one reason (check the date first, then the amount).
+7. Sort \`records\` and \`rejected\` by \`id\` as a string (ascending). Object keys must be exactly those listed.
 
-\`artifacts/report.md\`: по каждому файлу — сколько записей прочитано, принято, отброшено как дубликат, отклонено;
-отдельный список отклонений с \`id\` и причиной; принятые решения.
+\`artifacts/report.md\`: for each file, count records read, accepted, discarded as duplicates, and rejected;
+provide a separate rejection list with \`id\` and reason, and describe decisions made.
 `;
 
 mkdirSync(join(dest, 'artifacts'), { recursive: true });

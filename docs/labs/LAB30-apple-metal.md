@@ -1,23 +1,23 @@
-# ЛР30. llama.cpp на Apple Metal
+# LAB30. llama.cpp on Apple Metal
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Измерение backend / `target-machine` |
-| Время | 2–4 часа плюс сборка |
-| Предпосылки | LAB28, LAB29; native arm64 CMake/Clang и GGUF |
-| Минимум | Один pinned build, GPU smoke, отдельный прогрев и три повтора prefill/decode |
+| Type / readiness | Backend measurement / `target-machine` |
+| Time | 2–4 hours plus build time |
+| Prerequisites | LAB28, LAB29; native arm64 CMake/Clang and GGUF |
+| Minimum | One pinned build, GPU smoke test, separate warmup and three prefill/decode repetitions |
 
-## Цель
+## Objective
 
-Получить воспроизводимую Metal-baseline и подтвердить, какие операции действительно выполняются на GPU.
+Establish a reproducible Metal baseline and confirm which operations actually run on the GPU.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Выбранный GGUF работает в pinned llama.cpp на M5 Max с измеренным запасом памяти и без незапланированного CPU fallback. Это не утверждение о скорости до замеров.
+The selected GGUF runs in pinned llama.cpp on M5 Max with measured memory headroom and no unplanned CPU fallback. This makes no speed claim before measurement.
 
-## Подготовка
+## Preparation
 
 ```sh
 npm run lab:new -- --lab LAB30 --session apple-metal
@@ -25,14 +25,14 @@ export LAB_DIR='experiments/local-models/measurements/LAB30-apple-metal'
 export LLAMA_SRC='/absolute/path/to/llama.cpp-checkout'
 export LLAMA_BUILD='/absolute/path/to/new-metal-build'
 export LOCAL_GGUF='/absolute/path/to/pinned-model.gguf'
-export LLAMA_COMMIT='<полный commit из протокола>'
+export LLAMA_COMMIT='<full commit from the protocol>'
 ```
 
-Checkout должен быть подготовлен на выбранном commit. Для сравнения с Ryzen нужен тот же commit. Build directory должен быть новым; исходники, build и weights не включаются в evidence. [Общий протокол](../../experiments/local-models/apple/README.md) обязателен.
+Prepare the checkout at the selected commit. A comparison with Ryzen requires the same commit. The build directory must be new; source, build and weights are not included in evidence. The [shared protocol](../../experiments/local-models/apple/README.md) is mandatory.
 
-## Порядок выполнения
+## Procedure
 
-1. Зафиксируйте исходники, toolchain и параметры, затем соберите нативно. Остановитесь при отличии SHA или грязном checkout:
+1. Pin source, toolchain and parameters, then build natively. Stop if the SHA differs or the checkout is dirty:
 
    ```sh
    test "$(git -C "$LLAMA_SRC" rev-parse HEAD)" = "$LLAMA_COMMIT" && \
@@ -40,7 +40,7 @@ Checkout должен быть подготовлен на выбранном co
      test ! -e "$LLAMA_BUILD"
    ```
 
-   Только после успешной проверки:
+   Only after the check succeeds:
 
    ```sh
    git -C "$LLAMA_SRC" rev-parse HEAD > "$LAB_DIR/raw/source-commit.txt"
@@ -52,7 +52,7 @@ Checkout должен быть подготовлен на выбранном co
    printf '%s\n' "$?" > "$LAB_DIR/raw/configure-exit.txt"
    ```
 
-   При exit 0 выполните build; при ошибке сохраните blocker:
+   Build after exit 0; on error, record a blocker:
 
    ```sh
    cmake --build "$LLAMA_BUILD" --config Release -j 8 \
@@ -67,9 +67,9 @@ Checkout должен быть подготовлен на выбранном co
    "$LLAMA_BIN/llama-server" --help > "$LAB_DIR/raw/server-help.txt" 2>&1
    ```
 
-   Закрепите также linked runtime libraries/build flags. Binary hash сам по себе не описывает динамические зависимости.
+   Also pin linked runtime libraries/build flags. A binary hash alone does not describe dynamic dependencies.
 
-2. Проверьте flags по сохранённому help; снимите исходную память LAB28 и запустите её временной ряд. Выполните маленький smoke/прогрев:
+2. Check flags against the saved help; collect the LAB28 initial memory snapshot and start a memory time series. Run a small smoke test/warmup:
 
    ```sh
    "$LLAMA_BIN/llama-bench" -m "$LOCAL_GGUF" -ngl 999 -t 8 \
@@ -78,9 +78,9 @@ Checkout должен быть подготовлен на выбранном co
    printf '%s\n' "$?" > "$LAB_DIR/raw/warmup-exit.txt"
    ```
 
-   Требуются exit 0, Metal device, фактические offloaded layers и allocations в журнале. CPU-служебные операции нормальны; заявлять полный GPU offload можно только по логу. Если `-ngl 999` не поддержан моделью или лог не подтверждает GPU, результат — blocker или отдельно описанный partial-offload вариант.
+   Require exit 0 and logs showing the Metal device, actual offloaded layers and allocations. CPU housekeeping operations are normal; claim full GPU offload only with log evidence. If the model does not support `-ngl 999` or the log does not confirm GPU use, report a blocker or a separately described partial-offload variant.
 
-3. После успешного smoke выполните по одному запуску для `REPEAT=1`, `2`, `3`, проверяя каждый результат перед следующим. Фиксируйте три сырых повтора отдельно; stdout содержит PP/TG, stderr — macOS time и backend:
+3. After a successful smoke test, run once each for `REPEAT=1`, `2`, `3`, checking every result before continuing. Save the three raw repetitions separately; stdout contains PP/TG, stderr contains macOS time and backend output:
 
    ```sh
    export REPEAT=1
@@ -90,41 +90,41 @@ Checkout должен быть подготовлен на выбранном co
    printf '%s\n' "$?" > "$LAB_DIR/raw/r$REPEAT-exit.txt"
    ```
 
-   Каждый CLI запускается новым процессом; встроенный benchmark warmup и файловый cache описать. `/usr/bin/time` измеряет весь процесс, PP/TG в JSON — отдельные benchmark kernels. Не объявляйте wall time decode throughput или временем прогретого HTTP-запроса.
+   Each CLI invocation starts a new process; describe the built-in benchmark warmup and file cache. `/usr/bin/time` measures the entire process; PP/TG in JSON measure individual benchmark kernels. Do not present wall time as decode throughput or warm HTTP request time.
 
-4. Сохраните `raw/runtime-manifest.json`: SHA, macOS/SDK/compiler, binary/library hashes, build flags, exact commands, model manifest, threads/batch/defaults, observed GPU/offload. Свяжите с паспортом и снимками памяти. При доступном измеренном рабочем GPU budget пересчитайте `local:plan --gpu-budget-gib`; это operator input, не автоматическая калибровка.
+4. Save `raw/runtime-manifest.json`: SHA, macOS/SDK/compiler, binary/library hashes, build flags, exact commands, model manifest, threads/batch/defaults, observed GPU/offload. Link the hardware profile and memory snapshots. If a measured working GPU budget is available, recalculate with `local:plan --gpu-budget-gib`; this is operator input, not automatic calibration.
 
-5. Сравните повторы: median и min/max PP/TG, процессный RSS, runtime allocations, swap delta и ошибки. Для HTTP/context испытаний перейдите к LAB32; CPU-versus-Metal или иные threads — дополнительные отдельные серии.
+5. Compare repetitions: median and min/max PP/TG, process RSS, runtime allocations, swap delta and errors. Proceed to LAB32 for HTTP/context tests; CPU-versus-Metal or different thread counts require separate additional series.
 
-## Таблицы результатов
+## Results tables
 
-| Повтор | PP tokens/s | TG tokens/s | Wall s | Max RSS bytes | Runtime allocations | Swap delta | Exit / evidence |
+| Repetition | PP tokens/s | TG tokens/s | Wall s | Max RSS bytes | Runtime allocations | Swap delta | Exit / evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | | | | | | | |
 | 2 | | | | | | | |
 | 3 | | | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, source/build/toolchain evidence, runtime manifest, hashes и полный набор warmup/трёх повторов с памятью и exit codes. Архивы весов и build не требуются.
+Report/TSV/manifest, source/build/toolchain evidence, runtime manifest, hashes and the full warmup/three-repetition set with memory and exit codes. Weight and build archives are not required.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Пин и native arm64 build подтверждены.
-- [ ] Фактический Metal/offload установлен по логам.
-- [ ] Есть отдельный прогрев и три повтора либо сохранённые failures/blockers.
-- [ ] PP, TG, process wall и память не смешаны.
-- [ ] Комплект проверен по общему протоколу.
+- [ ] Pin and native arm64 build confirmed.
+- [ ] Actual Metal/offload established from logs.
+- [ ] Separate warmup and three repetitions, or saved failures/blockers.
+- [ ] PP, TG, process wall time and memory kept distinct.
+- [ ] Submission checked against the shared protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему Metal build не доказывает GPU-исполнение запроса?
-2. Как различаются PP, TG и wall time процесса?
-3. Почему одинаковый commit нужен для сравнения с Ryzen?
-4. Как shared memory меняет интерпретацию RSS?
+1. Why does a Metal build not prove GPU execution of a request?
+2. How do PP, TG and process wall time differ?
+3. Why is the same commit required for a Ryzen comparison?
+4. How does shared memory affect RSS interpretation?
 
-## Источники
+## Sources
 
-- [llama.cpp: сборка Metal](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
+- [llama.cpp: Metal build](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
 - [llama-bench](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench).
-- [LAB28](LAB28-apple-hardware.md), [LAB29](LAB29-apple-artifacts.md), pinned help и source commit.
+- [LAB28](LAB28-apple-hardware.md), [LAB29](LAB29-apple-artifacts.md), pinned help and source commit.

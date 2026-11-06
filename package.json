@@ -1,10 +1,10 @@
 {
-  "name": "agent-harnesses-exps",
+  "name": "llm-systems-lab",
   "private": true,
   "version": "0.1.0",
   "license": "MIT",
   "type": "module",
-  "description": "Lab for running the same autonomous agents in different agent harnesses on the same tasks",
+  "description": "Reproducible experiments with LLM models, inference, serving, agent systems and comparative evaluation",
   "engines": {
     "node": ">=22"
   },

@@ -1,5 +1,5 @@
-# S06 — уточнение поставщика, 2026-09-12
+# S06 — vendor clarification, 2026-09-12
 
-Искусственный учебный источник. Класс: vendor claim / release note.
+Artificial educational source. Class: vendor claim / release note.
 
-Aurora 2.0.1 содержит исправление ошибки шаблона, которая в 2.0 могла создавать некорректные JSON tool calls при длинных prompt. Указание относится к format correctness, а не к измеренному ускорению. Поставщик не приводит долю ошибок до/после и не публикует измерения для профиля S05. Результаты S01–S04 получены до этого обновления; переносить их на 2.0.1 без проверки нельзя.
+Aurora 2.0.1 fixes a template bug that could produce malformed JSON tool calls on long prompts in 2.0. This concerns format correctness, not measured acceleration. The vendor supplies no before/after error rates or S05 workload measurements. S01–S04 results predate this update; they cannot be transferred to 2.0.1 without verification.

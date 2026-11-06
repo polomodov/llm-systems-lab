@@ -1,12 +1,12 @@
-# Учебные сценарии без API
+# Practice scenarios without API access
 
-`lab:practice` интерпретирует четыре записанных синтетических сценария, создаёт трассу, механический разбор событий и пустой лист ответов. Нужен только Node.js ≥22. Команда не читает `.env`, не запускает модель, adapter, shell, контейнеры или сетевые запросы. Указанные в трассах миллисекунды — **виртуальные**, ожидания в реальном времени нет.
+`lab:practice` interprets four recorded synthetic scenarios, producing a trace, mechanical event analysis and a blank worksheet. Only Node.js ≥22 is required. The command does not read `.env` or run a model, adapter, shell, containers or network requests. Trace milliseconds are **virtual**; there is no real-time wait.
 
-Это упражнения для освоения протокола [ЛР20](LAB20-judge-calibration.md), [ЛР22](LAB22-tool-design.md) и [ЛР23](LAB23-failure-recovery.md). Они не выполняют эти лабораторные целиком и не доказывают свойства настоящей модели или обвязки. Учебный вывод сохраняется отдельно от измерений и `results/runs/`.
+These exercises teach the protocols of [LAB20](LAB20-judge-calibration.md), [LAB22](LAB22-tool-design.md) and [LAB23](LAB23-failure-recovery.md). They do not complete those labs or establish properties of a real model or harness. Educational output is stored separately from measurements and `results/runs/`.
 
-## Запуск
+## Running
 
-Из корня репозитория:
+From the repository root:
 
 ```bash
 npm run lab:practice -- --list true
@@ -16,9 +16,9 @@ npm run lab:practice -- --scenario interrupted-stream --session first-pass
 npm run lab:practice -- --scenario duplicate-action --session first-pass
 ```
 
-`--list true` используется отдельно. При создании обязательны `--scenario` и `--session`; неизвестные и повторные параметры отклоняются. Сессия — до 64 строчных латинских букв, цифр и одиночных дефисов между ними. Сценарий выбирается только из четырёх имён выше: произвольные URL, файлы или команды передать нельзя.
+Use `--list true` separately. Creation requires `--scenario` and `--session`; unknown and duplicate parameters are rejected. Sessions use up to 64 lowercase Latin letters, digits and single separating hyphens. Only the four scenario names above are accepted: arbitrary URLs, files or commands cannot be supplied.
 
-Например, первый запуск создаст:
+For example, the first invocation creates:
 
 ```text
 experiments/local-models/practice/tool-success-first-pass/
@@ -29,39 +29,39 @@ experiments/local-models/practice/tool-success-first-pass/
   worksheet.md
 ```
 
-Существующий каталог не перезаписывается. Для повторного упражнения выберите новую сессию. Символические ссылки на пути к исходным fixtures или каталогу назначения запрещены. Ошибочный fixture проверяется до создания выходной папки.
+Existing directories are never overwritten. Choose a new session to repeat an exercise. Symlinks along source-fixture or destination paths are prohibited. Invalid fixtures are rejected before the output directory is created.
 
-## Сценарии
+## Scenarios
 
-| Сценарий | Что воспроизводится | Задание студенту |
+| Scenario | Reproduces | Student assignment |
 | --- | --- | --- |
-| `tool-success` | Разрешённый `lookup_lab_value({"key":"alpha"})`, вычисленный в памяти ответ `LAB_VALUE_42`, терминальный текст | Связать request/call/result; отделить корректную цепочку вызова от независимой оценки задачи |
-| `retry-429` | HTTP 429 с Retry-After; следующий запрос после допустимого виртуального времени | Сохранить обе попытки и ошибку, рассчитать допустимое время повтора, предложить лимиты |
-| `interrupted-stream` | Частичный текст с заявлением об успехе; обрыв до final и usage | Зафиксировать `incomplete`, не превращать текст в verdict или неизвестные токены в ноль |
-| `duplicate-action` | Dummy-счётчик изменён, ответ потерян, операция повторена без idempotency key | Разделить «не выполнено» и «исход неизвестен», найти повтор эффекта и предложить контроль |
+| `tool-success` | Allowed `lookup_lab_value({"key":"alpha"})`, in-memory `LAB_VALUE_42` result, terminal text | Link request/call/result; distinguish a correct call chain from independent task evaluation |
+| `retry-429` | HTTP 429 with Retry-After; next request after the permitted virtual time | Preserve both attempts and the error, calculate permitted retry time, propose limits |
+| `interrupted-stream` | Partial text claiming success; interruption before final and usage | Record `incomplete`; do not turn text into a verdict or unknown tokens into zero |
+| `duplicate-action` | Dummy counter changed, response lost, operation repeated without an idempotency key | Distinguish “not executed” from “outcome unknown”, identify duplicate effects and propose controls |
 
-Интерпретатор разрешает только две функции с фиксированными аргументами. `increment_demo_counter` изменяет число в памяти процесса; реальных побочных эффектов нет. Поле `simulated-action-audit` показывает учебный серверный журнал, которого клиент в момент потерянного ответа не видит. Оно специально отделено от `tool-response`: потерянный ответ содержит `result: null`, даже когда журнал демонстрирует изменение счётчика.
+The interpreter allows only two functions with fixed arguments. `increment_demo_counter` changes a number in process memory; there are no real side effects. `simulated-action-audit` shows an educational server log unavailable to the client when the response is lost. It is deliberately separate from `tool-response`: a lost response has `result: null` even when the audit log shows a counter change.
 
-## Разбор и сдача
+## Analysis and submission
 
-1. Прочитайте задание и вопросы в `worksheet.md`, сначала запишите свою гипотезу и правило различения завершения ответа и успеха задачи.
-2. Просмотрите `trace.jsonl` в порядке `sequence`. Свяжите события через `request_id` и `call_id`; время сравнивайте только в рамках виртуального сценария.
-3. Сопоставьте трассу с `analysis.json`. В разборе сохраняются неуспешные запросы и потерянные ответы. `response_state: final-received` означает только наличие терминального события. `verdict` всегда остаётся `null`.
-4. Заполните таблицу «известно / неизвестно», ответы, алгоритм обработки и ограничения переноса на настоящий harness. Ссылки на доказательства указывайте как имя файла и `sequence`.
-5. Передайте полный комплект проверяющему. Он оценивает аргументацию и подтверждение выводов трассой; CLI не выставляет зачёт. Отрицательный вывод или обнаруженный дефект могут быть правильным результатом упражнения.
+1. Read the assignment and questions in `worksheet.md`; first record your hypothesis and the rule distinguishing response completion from task success.
+2. Read `trace.jsonl` in `sequence` order. Link events via `request_id` and `call_id`; compare time only within the virtual scenario.
+3. Compare the trace with `analysis.json`. Analysis preserves unsuccessful requests and lost responses. `response_state: final-received` means only that a terminal event exists. `verdict` always remains `null`.
+4. Complete the “known / unknown” table, answers, handling algorithm and limitations of transfer to a real harness. Cite evidence by file name and `sequence`.
+5. Submit the full bundle to the reviewer. They assess reasoning and trace-supported conclusions; the CLI awards no credit. A negative conclusion or discovered defect can be a correct exercise outcome.
 
-`manifest.json` имеет `kind: lab-practice`, `evidence_class: synthetic` и начальный `status: not-started`; ответы и решение проверяющего не заполнены. `fixture_sha256`, `trace_sha256`, `analysis_sha256` фиксируют выданные материалы. Файлы `fixture.json`, `trace.jsonl` и `analysis.json` сохраняйте как выданные; свои изменения алгоритма и выводы записывайте отдельно в `worksheet.md`.
+`manifest.json` has `kind: lab-practice`, `evidence_class: synthetic` and initial `status: not-started`; answers and reviewer decision are blank. `fixture_sha256`, `trace_sha256`, `analysis_sha256` identify issued materials. Preserve `fixture.json`, `trace.jsonl` and `analysis.json` as issued; record your algorithm changes and conclusions separately in `worksheet.md`.
 
-Токены, стоимость и реальное время инференса в `analysis.json` — `null` с причинами. Быстрый запуск Node не является измерением производительности модели. Нулевая стоимость исполнения упражнения не подменяет отсутствующую стоимость модельной попытки. Даже для сценария с полученным финальным ответом автоматического `pass` нет.
+Tokens, cost and real inference time in `analysis.json` are `null` with reasons. Fast Node execution does not measure model performance. Zero exercise-execution cost does not replace missing model-attempt cost. Even a scenario with a final response gets no automatic `pass`.
 
-Проверка комплектности `lab:check` рассчитана на настоящие учебные отчёты `kind: lab-report` и отклоняет этот manifest. Не переименовывайте `lab-practice` в `lab-report` или `run.json` и не импортируйте синтетические трассы в `compare`. Если упражнение приложено как учебный материал к отчёту лабораторной, явно обозначьте его `synthetic`; требуемые лабораторной настоящие прогоны оно не заменяет.
+`lab:check` completeness validation targets real educational reports with `kind: lab-report` and rejects this manifest. Do not rename `lab-practice` to `lab-report` or `run.json`, or import synthetic traces into `compare`. If attached to a lab report as educational material, label the exercise explicitly `synthetic`; it does not replace required real runs.
 
-## Для преподавателя и разработчика
+## For instructors and developers
 
-Исходники сценариев находятся в [fixtures/practice](fixtures/practice/). Это открытые учебные данные, а не hidden checks. Детерминированный интерпретатор проверяет порядок запросов, соответствие ответов вызовам, разрешённые аргументы, Retry-After и монотонность виртуальной шкалы. При отсутствии terminal event сохраняется `incomplete`; при потерянном ответе исход для клиента остаётся `unknown`. Только dummy-сервис умеет повтор с тем же idempotency key: тесты проверяют устранение дубликата и отклонение ключа для другой операции. CLI принимает исключительно перечисленные сценарии; произвольный fixture из командной строки выполнить нельзя.
+Scenario sources are in [fixtures/practice](fixtures/practice/). They are open educational data, not hidden checks. The deterministic interpreter validates request order, response/call matching, allowed arguments, Retry-After and monotonic virtual time. Missing terminal events remain `incomplete`; a lost response leaves the client outcome `unknown`. Only the dummy service supports retry with the same idempotency key: tests verify deduplication and reject reuse for another operation. The CLI accepts only listed scenarios; arbitrary fixtures cannot be executed from the command line.
 
 ```bash
 node --test tests/lab-practice.test.mjs
 ```
 
-Тесты проверяют протокол, сохранность неизвестных значений, отсутствие записи run records, запрет перезаписи и выходов через symlink. Они не подтверждают совместимость какого-либо inference engine, provider или harness.
+Tests validate protocol, preservation of unknown values, absence of run-record writes, overwrite prevention and symlink-escape prevention. They do not establish compatibility of any inference engine, provider or harness.

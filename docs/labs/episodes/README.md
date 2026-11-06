@@ -1,15 +1,15 @@
-# Открытые учебные эпизоды
+# Open educational episodes
 
-Это искусственные задачи для обучения и проектирования эксперимента. Они **не зарегистрированы в `tasks/`**, не являются внешним benchmark и не подтверждают качество какой-либо модели. Проверки здесь открыты; участник может их читать. Запрет чтения `tasks/*/check/` продолжает действовать для настоящих задач репозитория.
+These are artificial tasks for learning and experiment design. They are **not registered in `tasks/`**, are not an external benchmark and do not establish any model's quality. Checks here are open; participants may read them. The prohibition on reading `tasks/*/check/` remains in force for real repository tasks.
 
-| Каталог | Навык | Начальное состояние |
+| Directory | Skill | Initial state |
 | --- | --- | --- |
-| [multi-file-bug](multi-file-bug/episode.md) | Исправление нормализации заказа и атомарного изменения остатков | Три открытых сценария должны падать, два проходить |
-| [interface-migration](interface-migration/episode.md) | Миграция API, пагинации и потребителя | Три открытых сценария должны падать, один проходить |
-| [conflicting-sources](conflicting-sources/episode.md) | Досье с противоречащими измерениями и изменившимися условиями | Есть только источники; ответ предстоит создать |
-| [judge-calibration](judge-calibration/episode.md) | Независимая оценка четырёх обезличенных учебных ответов | Ответы намеренно различаются по соблюдению рубрики |
+| [multi-file-bug](multi-file-bug/episode.md) | Fix order normalization and atomic stock updates | Three open scenarios should fail, two should pass |
+| [interface-migration](interface-migration/episode.md) | Migrate API, pagination and consumer | Three open scenarios should fail, one should pass |
+| [conflicting-sources](conflicting-sources/episode.md) | Dossier with conflicting measurements and changed conditions | Only sources exist; the answer must be created |
+| [judge-calibration](judge-calibration/episode.md) | Independently evaluate four anonymized educational responses | Responses deliberately differ in rubric compliance |
 
-Для Node-эпизодов нужны Node.js ≥22 и Bash, зависимости и сеть не нужны. Работайте с копией внутри нового учебного отчёта. Пример для ЛР21; команду выполняют из корня репозитория, один раз на новую сессию:
+Node episodes require Node.js ≥22 and Bash, with no dependencies or network. Work on a copy inside a new educational report. Example for LAB21; run from the repository root once per new session:
 
 ```bash
 npm run lab:new -- --lab LAB21 --session memory-pilot
@@ -18,7 +18,7 @@ EPISODE_DIR="$LAB_DIR/raw/multi-file-bug"
 test ! -e "$EPISODE_DIR" && cp -R docs/labs/episodes/multi-file-bug "$EPISODE_DIR"
 ```
 
-Если копирование не выполнено, выберите новую сессию; не продолжайте поверх прежнего опыта. Сначала сохраните исходный результат, затем меняйте разрешённые файлы **копии**, а не исходный fixture. Для `multi-file-bug` и `interface-migration` команда проверки одинакова:
+If copying fails, choose a new session; do not continue over a previous experiment. First save the initial result, then modify allowed files in the **copy**, not the source fixture. The check command is identical for `multi-file-bug` and `interface-migration`:
 
 ```bash
 (
@@ -31,8 +31,8 @@ test ! -e "$EPISODE_DIR" && cp -R docs/labs/episodes/multi-file-bug "$EPISODE_DI
 )
 ```
 
-Исходный exit 1 и перечисленные в контракте ошибки ожидаемы: они описывают учебную неисправность. После исправления запустите проверку в **новые** `final-check.json` и `final-check.exit`. Exit 1 сам по себе недостаточен: ошибка загрузки модуля не равна предусмотренной ошибке сценария. Сопоставляйте имена и фактические результаты всех сценариев.
+Initial exit 1 and contract-listed failures are expected: they describe the educational defect. After fixing it, run the check into **new** `final-check.json` and `final-check.exit` files. Exit 1 alone is insufficient: module-loading failure is not the intended scenario failure. Compare names and actual results of all scenarios.
 
-Открытые проверки ограничены перечисленными случаями. В отчёте предложите дополнительные проверки, объясните изменение и приложите diff. Не редактируйте публичную проверку ради зелёного результата; дополнительные проверки храните отдельным файлом.
+Open checks cover only listed cases. Propose additional checks in the report, explain changes and attach a diff. Do not edit the public check to make it green; keep additional checks in a separate file.
 
-Для настоящей агентной серии сначала отдельно реализуют регистрацию нового task ID: неизменяемый контракт, подготовку snapshot, рабочий seed, разрешённые действия, независимую оценку и проверки жизненного цикла. Не подставляйте путь из `docs/labs/episodes` вместо `--task T002` и не выдавайте ручную учебную сессию за `results/runs/<run-id>`. Изменять существующие `tasks/*/task.md` или читать их hidden checks для регистрации нельзя. ЛР21–24 определяют дополнительные инженерные условия; общая инструкция — [полнота отчёта](../report-validation.md), учебная симуляция — [offline practice](../practice.md).
+A real agent series first needs separate registration of a new task ID: immutable contract, snapshot preparation, workspace seed, allowed actions, independent evaluation and lifecycle checks. Do not substitute a `docs/labs/episodes` path for `--task T002` or present a manual educational session as `results/runs/<run-id>`. Registration must not modify existing `tasks/*/task.md` or read their hidden checks. LAB21–24 define additional engineering conditions; shared guide: [report completeness](../report-validation.md), educational simulation: [offline practice](../practice.md).

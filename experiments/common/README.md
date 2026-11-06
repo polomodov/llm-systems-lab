@@ -1,13 +1,13 @@
-# Общая инфраструктура эксперимента
+# Shared experiment infrastructure
 
-Код этой папки исполняет координатор, а не агент задачи.
+The coordinator executes the code in this directory, not the task agent.
 
-- `entrypoint.mjs` запускает зафиксированный adapter и передаёт исходный поток событий координатору.
-- `egress.mjs` — единственный маршрут из внутренней сети Docker. CONNECT разрешён только к API модели и, для T002, npm registry. Для T001 GET gateway допускает исходные URL и ссылки глубины 1; частные адреса запрещены, ответы ограничены 4 MiB, общий архив — 64 MiB.
-- Снимок источников сохраняется вне mount агента. `prepare-run --source-archive ...` запрещает новые загрузки и воспроизводит сохранённые ответы.
+- `entrypoint.mjs` starts the pinned adapter and forwards its original event stream to the coordinator.
+- `egress.mjs` is the only route out of the internal Docker network. CONNECT is allowed only to the model API and, for T002, the npm registry. For T001, the GET gateway permits initial URLs and depth-1 links; private addresses are forbidden, responses are limited to 4 MiB, and the total archive to 64 MiB.
+- Source snapshots are saved outside the agent mount. `prepare-run --source-archive ...` forbids new downloads and replays saved responses.
 
-Контейнер агента не получает исходный репозиторий лаборатории, `.env`, Docker socket, журнал, run.json и hidden checks. Для T001/T003 рабочий каталог доступен только для чтения, `artifacts/` — для записи. Для T002 доступен весь отдельный workspace. Корневая файловая система read-only, пользователь непривилегированный, capabilities сняты, заданы пределы CPU/RAM/PID/времени. Для Amp/Copilot с native_cache=true дополнительно создаётся отдельный exec tmpfs /tmp/harness-native на 512 MiB; он нужен нативным библиотекам этих CLI. Host credentials не монтируются.
+The agent container does not receive the lab source repository, `.env`, Docker socket, log, run.json, or hidden checks. For T001/T003, the working directory is read-only and `artifacts/` is writable. For T002, the entire separate workspace is writable. The root filesystem is read-only, the user is unprivileged, capabilities are dropped, and CPU/RAM/PID/time limits are set. Amp/Copilot with native_cache=true additionally receive a separate 512 MiB executable tmpfs at /tmp/harness-native for their native CLI libraries. Host credentials are not mounted.
 
-В окружение обвязки передаются только credentials выбранного provider из `.env`, перечисленные в запечатанном harness.json; остальные ключи не передаются. Это не защита ключа от bash агента внутри того же контейнера: для сильной изоляции credentials потребуется отдельный API broker. Исходящие обращения API ограничены allowlist; сырые ответы CLI редактируются перед записью точного значения ключа. Не использовать реальные секреты как данные задачи. Компоненты и ограничения учтены в `docs/harness-ledger.md`.
+Only the selected provider credentials from `.env`, listed in sealed harness.json, are passed to the harness environment; other keys are not passed. This does not protect the key from the agent’s bash inside the same container: strong credential isolation requires a separate API broker. Outbound API requests are restricted by an allowlist; exact key values are redacted from raw CLI responses before recording. Do not use real secrets as task data. Components and limitations are recorded in `docs/harness-ledger.md`.
 
-Gateway ограничивает сетевой маршрут и способ загрузки источников; он не является универсальной защитой от всех побочных каналов и не проверяет истинность утверждений агента. T003 получает копию конфигурации, не скрытые проверки; аудитируемые скрипты остаются недоверенными данными.
+The gateway constrains the network route and source retrieval method; it is not universal protection against every side channel and does not verify the truth of agent claims. T003 receives a configuration copy, not hidden checks; audited scripts remain untrusted data.

@@ -1,30 +1,30 @@
-# ЛР11. Claude Code: автономное исправление, лимиты и полный usage
+# LAB11. Claude Code: autonomous fixes, limits, and complete usage
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Обвязка | `claude-code`, CLI `@anthropic-ai/claude-code@2.1.83` |
-| Предпосылка | [ЛР01](LAB01-reproducibility.md); Node.js ≥22, Git, Bash, Docker Engine; координатор от обычного пользователя |
-| Основной маршрут | Anthropic API, `ANTHROPIC_API_KEY` из `.env`; локальный bridge не требуется |
-| Минимальный объём | Offline проверка адаптера и образа, один реальный A2/T002 baseline с независимой оценкой |
-| Расширения | Три повтора; T001 discovery/replay; T003; `without-spec`; отдельная проверка `hard` |
-| Время | Ориентир: 2–3 часа оператора, сборка и работа оценщика отдельно; один agent execution ограничен 900 s |
-| Готовность | Адаптер реализован, установка проверена 20.09.2026 на Linux/arm64; результат на машине учащегося и реальный эпизод — `not-run` до выполнения |
+| Harness | `claude-code`, CLI `@anthropic-ai/claude-code@2.1.83` |
+| Prerequisite | [LAB01](LAB01-reproducibility.md); Node.js ≥22, Git, Bash, Docker Engine; coordinator running as a regular user |
+| Main route | Anthropic API, `ANTHROPIC_API_KEY` from `.env`; no local bridge required |
+| Minimum scope | Offline adapter and image verification, one real A2/T002 baseline with independent evaluation |
+| Extensions | Three repetitions; T001 discovery/replay; T003; `without-spec`; separate `hard` verification |
+| Time | Estimate: 2–3 operator hours, with build and evaluator time separate; one agent execution is limited to 900 s |
+| Readiness | Adapter implemented, installation verified on 2026-09-20 on Linux/arm64; results on the learner's machine and the real episode remain `not-run` until execution |
 
-## Цель
+## Objective
 
-Выполнить воспроизводимый эпизод в Claude Code и установить, какие данные подтверждают результат: артефакты и внешняя оценка, наблюдаемый ID модели, полный итоговый usage, причина остановки. Проверить различие между ограничением числа ходов, политикой USD и внешним timeout.
+Execute a reproducible episode in Claude Code and establish which data support the result: artifacts and external evaluation, observed model ID, complete final usage, and stopping reason. Check the distinction between a turn-count limit, USD policy, and external timeout.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Claude Code `2.1.83` с baseline-спецификацией способен завершить один A2/T002 в заданном окружении, а его итоговый `result` позволяет восстановить ходы, токены и сообщённую CLI стоимость без повторного сложения cache и `modelUsage`. Выполнение задачи и полнота метрик — два отдельных исхода: `pass` по задаче не доказывает полноту учёта.
+Claude Code `2.1.83` with the baseline specification can complete one A2/T002 in the designated environment, and its final `result` allows turns, tokens, and CLI-reported cost to be reconstructed without double-counting cache and `modelUsage`. Task execution and metric completeness are separate outcomes: a task `pass` does not prove complete accounting.
 
-До запуска запишите точный model ID, ожидаемые артефакты, правило остановки и правило проверки гипотезы. Результат одного эпизода не обобщается на все задачи или модели.
+Before execution, record the exact model ID, expected artifacts, stopping rule, and hypothesis-testing rule. One episode's result does not generalize to every task or model.
 
-## Подготовка
+## Preparation
 
-Все команды выполняются из корня репозитория. Замените `my-session`, если этот отчёт уже существует; helper не перезаписывает папки. Значения в угловых скобках далее требуется заменить до исполнения. После ненулевого exit code сохраните ошибку и остановите зависимые шаги: наличие старого image tag или файла не подтверждает успех новой команды.
+Run all commands from the repository root. Replace `my-session` if that report already exists; the helper does not overwrite directories. Replace the angle-bracketed values below before execution. After a nonzero exit code, preserve the error and stop dependent steps: an old image tag or file does not confirm that a new command succeeded.
 
 ```bash
 npm run lab:new -- --lab LAB11 --session my-session
@@ -37,23 +37,23 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
 npm run check
 ```
 
-Прочитайте [спецификацию A2](../../agents/a2-janitor/spec.md), [открытый контракт T002](../../tasks/T002-repo-janitor/task.md), [профиль](../../experiments/claude-code/harness.json), [настройки](../../experiments/claude-code/settings.example.json) и [общий протокол оценки](harness-workflow.md). Не читайте `tasks/*/check/`, не меняйте контракты задач. Судью и метод `hidden-check` согласуйте до исполнения.
+Read the [A2 specification](../../agents/a2-janitor/spec.md), [public T002 contract](../../tasks/T002-repo-janitor/task.md), [profile](../../experiments/claude-code/harness.json), [settings](../../experiments/claude-code/settings.example.json), and [shared evaluation protocol](harness-workflow.md). Do not read `tasks/*/check/` or modify task contracts. Arrange the judge and `hidden-check` method before execution.
 
-Подготовьте только `ANTHROPIC_API_KEY` в существующем `.env` через редактор. Если файла ещё нет, создайте его по `.env.example`, не затирая существующий. Не включайте значения ключей в команды, отчёт или логи; профиль передаёт credential процессам контейнера, но не монтирует host-файл `.env`. Ключ доступен инструментам внутри этого контейнера: это ограничение среды, описанное в [общей инфраструктуре](../../experiments/common/README.md).
+Prepare only `ANTHROPIC_API_KEY` in the existing `.env` using an editor. If the file does not exist, create it from `.env.example` without overwriting an existing file. Do not put key values in commands, reports, or logs; the profile passes the credential to container processes but does not mount the host `.env` file. The key is accessible to tools inside that container: this environment limitation is described in the [shared infrastructure](../../experiments/common/README.md).
 
-Профиль поддерживает `anthropic` и API-домен `api.anthropic.com`, но не гарантирует доступ к конкретной модели аккаунта. Выберите точный доступный ID из своего API-доступа, без `latest`, `sonnet`, `opus` или другого плавающего алиаса. Зафиксируйте источник подтверждения доступности без секретов. Ни локальная подписка Claude, ни версия CLI на хосте не заменяют API-доступ и версию образа.
+The profile supports `anthropic` and API domain `api.anthropic.com` but does not guarantee that the account can access a particular model. Select an exact available ID from your API access, without `latest`, `sonnet`, `opus`, or another floating alias. Record the source confirming availability without secrets. Neither a local Claude subscription nor the host CLI version replaces API access or the image's version.
 
-## Порядок выполнения
+## Procedure
 
-1. **Проверьте адаптер без модели.** Сохраните вывод и exit code; при ошибке завершите подготовку и опишите причину.
+1. **Check the adapter without a model.** Preserve output and exit code; on error, stop preparation and describe the reason.
 
    ```bash
    node --test experiments/claude-code/adapter.test.mjs > "$LAB_DIR/raw/adapter-tests.txt" 2>&1
    ```
 
-   По тестам объясните четыре случая: итоговый `modelUsage` не прибавляется повторно к `usage`; неполные cache buckets дают неизвестный input; ID из основного assistant response отличается от модели подагента; error subtype важнее exit 0. Эти синтетические случаи не являются успехом T002.
+   Explain four cases using the tests: final `modelUsage` is not added again to `usage`; incomplete cache buckets yield unknown input; the ID from the main assistant response differs from a subagent's model; error subtype takes precedence over exit 0. These synthetic cases are not T002 success.
 
-2. **Соберите и заморозьте образ.** Установка требует сети, следующие smoke-команды выполняются с отключённой сетью и без credentials. Сохраняйте один image ID для всей серии; закрепление CLI не делает свежую сборку системных пакетов побитно одинаковой.
+2. **Build and freeze the image.** Installation requires network access; subsequent smoke commands run without network or credentials. Preserve one image ID for the entire series; pinning the CLI does not make a fresh system-package build bit-for-bit identical.
 
    ```bash
    docker build --build-arg HARNESS_VERSION=2.1.83 \
@@ -69,34 +69,34 @@ npm run check
    docker image inspect "$PROXY_IMAGE" > "$LAB_DIR/raw/proxy-image.json"
    ```
 
-   Проверьте фактическую версию `2.1.83`. По сохранённой справке найдите `--max-turns`, `--max-budget-usd`, `--permission-mode`, `--settings`, `--setting-sources`, `--output-format`. По адаптеру подтвердите `DISABLE_AUTOUPDATER=1`, режим `dontAsk` и пустые внешние setting sources. Запишите, что `settings.json` разрешает инструменты внутри внешней Docker-границы; сам файл настроек не изолирует скрытые проверки.
+   Verify the actual version `2.1.83`. Find `--max-turns`, `--max-budget-usd`, `--permission-mode`, `--settings`, `--setting-sources`, and `--output-format` in the saved help. Confirm `DISABLE_AUTOUPDATER=1`, `dontAsk` mode, and empty external setting sources in the adapter. Note that `settings.json` allows tools inside the external Docker boundary; the settings file itself does not isolate hidden checks.
 
-3. **Зарегистрируйте минимум: один новый T002.** В manifest отчёта заранее внесите `baseline`, `observed`, timeout 900 и ID образов. Основной маршрут выбирает общую бюджетную политику для сравнения с другими обвязками: USD cap здесь не применяется, native max-turns остаётся. Лимиты берутся из контракта, не редактируются в задаче.
+3. **Register the minimum: one new T002.** Record `baseline`, `observed`, timeout 900, and image IDs in the report manifest beforehand. The main route selects a shared budget policy for comparisons with other harnesses: the USD cap is not applied here, while native max-turns remains. Limits come from the contract and are not edited in the task.
 
    ```bash
-   MODEL_ID='<точный доступный Anthropic model ID>'
+   MODEL_ID='<exact available Anthropic model ID>'
    npm run new-run -- --harness claude-code --harness-version 2.1.83 \
      --agent a2-janitor --task T002 --provider anthropic --model "$MODEL_ID"
-   RUN_ID='<ID, напечатанный new-run>'
+   RUN_ID='<ID printed by new-run>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider anthropic
    ```
 
-   Перенесите фактический ID в `manifest.json` отчёта. Проверьте `results/runs/$RUN_ID/inputs/manifest.json`: harness, provider, variant, seed commit и файлы. Снимок агента не должен содержать скрытые проверки или `.env`. После prepare не меняйте snapshot/workspace вручную.
+   Copy the actual ID into the report's `manifest.json`. Check `results/runs/$RUN_ID/inputs/manifest.json`: harness, provider, variant, seed commit, and files. The agent snapshot must not contain hidden checks or `.env`. Do not manually change the snapshot/workspace after prepare.
 
-4. **Выполните облачный эпизод.** Эта команда обращается к платному API выбранного аккаунта; `observed` не ограничивает счёт в USD.
+4. **Execute the cloud episode.** This command calls the selected account's paid API; `observed` does not cap the USD bill.
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_REF" --proxy-image "$PROXY_IMAGE" \
      --model "$MODEL_ID" --provider anthropic --timeout 900 --budget-mode observed
    ```
 
-   Проверьте `run.json`, `trace/harness-version.txt`, `trace/stdout.jsonl`, `trace/stderr.txt`, `trace/change.patch` и `artifacts/report.md`. Не исправляйте результат руками. `awaiting_review` означает готовность к оценке; `aborted` сохраняется с причиной. Повтор после ошибки получает новый ID, предыдущая попытка остаётся в отчёте.
+   Check `run.json`, `trace/harness-version.txt`, `trace/stdout.jsonl`, `trace/stderr.txt`, `trace/change.patch`, and `artifacts/report.md`. Do not fix the result manually. `awaiting_review` means ready for evaluation; preserve `aborted` with its reason. A retry after an error gets a new ID; the previous attempt remains in the report.
 
-5. **Проведите индивидуальный аудит трассы.** В основном `result` найдите `num_turns`, `total_cost_usd`, `usage`/`modelUsage`, `session_id` и причину остановки. Сопоставьте их с `run.json`. Для input используйте либо полную разбивку `modelUsage`, либо полную `usage`: input + cache creation + cache read. Два представления одной работы не складывают. Отдельно сопоставьте запрошенный `model.id` и `model.observed_id` из основного `assistant.message.model`. При отсутствии наблюдения оставьте неизвестность; при model drift текущий runner должен прервать попытку.
+5. **Audit the trace for this harness.** In the main `result`, find `num_turns`, `total_cost_usd`, `usage`/`modelUsage`, `session_id`, and stopping reason. Compare them with `run.json`. For input, use either a complete `modelUsage` breakdown or complete `usage`: input + cache creation + cache read. Do not add two representations of the same work. Separately compare requested `model.id` with `model.observed_id` from the main `assistant.message.model`. If no observation exists, preserve the unknown; on model drift, the current runner should abort the attempt.
 
-   Сохраните объяснение каждого неизвестного поля из `metrics_unavailable`. USD из CLI — сообщённая обвязкой стоимость, не сверка биллинга; количество compactions/подагентов неизвестно, если нет полного счётчика. Не публикуйте весь raw trace без проверки отсутствия чувствительного содержимого задачи.
+   Preserve the explanation for every unknown field in `metrics_unavailable`. CLI USD is harness-reported cost, not a billing reconciliation; compaction/subagent counts are unknown without a complete counter. Do not publish an entire raw trace without checking for sensitive task content.
 
-6. **Получите независимую оценку.** Только для `awaiting_review` сформируйте JSON:
+6. **Obtain an independent evaluation.** Generate JSON only for `awaiting_review`:
 
    ```bash
    (
@@ -105,116 +105,116 @@ npm run check
    )
    ```
 
-   Внешний оценщик выполняет проверку T002 по [процедуре](harness-workflow.md), заполняет `result`, `evaluator`, `check_output`, при необходимости `human_notes`; generated hashes сохраняются. Agent container не получает проверку, её ответ или возможность исправить результат после оценки. Импортируйте только заполненную оценку:
+   The external evaluator checks T002 using the [procedure](harness-workflow.md), fills in `result`, `evaluator`, `check_output`, and optionally `human_notes`, preserving generated hashes. The agent container receives neither the check, its answer, nor an opportunity to fix the result after evaluation. Import only the completed evaluation:
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
    npm run check
    ```
 
-   `fail` и `partial` — допустимые научные результаты завершённой работы. Без независимого судьи run остаётся `awaiting_review`, а минимальная работа не завершена. Для `aborted` судейство не выполняется; сохраните ошибку и сделайте новый пилот, если нужен завершённый эпизод.
+   `fail` and `partial` are valid scientific results of completed work. Without an independent judge, the run remains `awaiting_review`, and the minimum lab is incomplete. Do not judge `aborted`; preserve the error and create a new pilot if a completed episode is needed.
 
-7. **Расширение: три повтора и абляция.** До запуска задайте три baseline-слота и три `without-spec`-слота, порядок чередования и неизменные условия. Каждый слот создаётся командой шага 3 с новым ID; для абляции вместо baseline-подготовки выполните:
+7. **Extension: three repetitions and ablation.** Before execution, assign three baseline slots, three `without-spec` slots, alternating order, and fixed conditions. Create each slot using step 3 with a new ID; for ablation, use the following instead of baseline preparation:
 
    ```bash
    npm run prepare-run -- --run "$RUN_ID" --variant without-spec --provider anthropic
    ```
 
-   Это альтернативный prepare новой записи, не повторная подготовка существующей. Выполните шаги 4–6 для каждого слота. Минимальный T002 служит pilot и допуском в ЛР09; сравнительные baseline/without-spec тройки всегда состоят из новых попыток. Сохраняйте начатые ошибки и не отбирайте удачные ID. Сравните назначенные ID:
+   This is alternative preparation of a new record, not re-preparing an existing one. Perform steps 4–6 for every slot. The minimum T002 serves as a pilot and admission to LAB09; comparison baseline/without-spec triples always contain new attempts. Preserve started failures and do not select only successful IDs. Compare the assigned IDs:
 
    ```bash
-   SERIES_RUN_IDS='<все назначенные run IDs через запятую>'
+   SERIES_RUN_IDS='<all assigned run IDs separated by commas>'
    npm run --silent compare -- --runs "$SERIES_RUN_IDS" > "$LAB_DIR/raw/compare.json"
    ```
 
-   `without-spec` убирает только текст спецификации из prompt. Docker, gateway и независимый judge сохраняются. Интерпретация парных исходов и ledger — в [ЛР10](LAB10-ablation.md); незавершённые группы не объявляйте `pass^3`.
+   `without-spec` removes only the specification text from the prompt. Docker, gateway, and independent judge remain. See [LAB10](LAB10-ablation.md) for paired-outcome interpretation and the ledger; do not label unfinished groups `pass^3`.
 
-8. **Расширение: T001 replay и T003.** Для отдельного discovery T001 создайте новую запись и подготовьте её без архива:
+8. **Extension: T001 replay and T003.** For a separate discovery T001, create a new record and prepare it without an archive:
 
    ```bash
-   AS_OF_DATE='<зафиксированная дата YYYY-MM-DD>'
+   AS_OF_DATE='<fixed YYYY-MM-DD date>'
    npm run new-run -- --harness claude-code --harness-version 2.1.83 \
      --agent a1-dossier --task T001 --provider anthropic --model "$MODEL_ID"
-   RUN_ID='<новый ID discovery>'
+   RUN_ID='<new discovery ID>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider anthropic --as-of "$AS_OF_DATE"
    ```
 
-   Выполните шаги 4–6; для T001 метод `rubric`, оценщик использует также предусмотренную проверку источников. Сохраните archive `trace/sources.jsonl` с телами и статусами ответов. Затем создайте ещё один T001 через `new-run` выше, присвойте его новый ID и используйте альтернативную подготовку:
+   Perform steps 4–6; T001 uses `rubric`, and the evaluator also uses its designated source check. Preserve the `trace/sources.jsonl` archive with response bodies and statuses. Then create another T001 using `new-run` above, assign its new ID, and use alternative preparation:
 
    ```bash
-   SOURCE_ARCHIVE='<путь к trace/sources.jsonl discovery run>'
+   SOURCE_ARCHIVE='<path to discovery run trace/sources.jsonl>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider anthropic \
      --as-of "$AS_OF_DATE" --source-archive "$SOURCE_ARCHIVE"
    ```
 
-   Повторите исполнение и независимое судейство. Контролируемая T001-серия использует один архив и дату, live discovery в неё не входит. Для T003:
+   Repeat execution and independent judging. A controlled T001 series uses one archive and date; live discovery is excluded. For T003:
 
    ```bash
    npm run new-run -- --harness claude-code --harness-version 2.1.83 \
      --agent a3-ledger-auditor --task T003 --provider anthropic --model "$MODEL_ID"
-   RUN_ID='<новый ID T003>'
+   RUN_ID='<new T003 ID>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider anthropic
    ```
 
-   Выполните шаги 4–6 с методом `rubric`; сдайте `ledger.md` и `ablation-plan.md`. Конфигурации T003 различаются между обвязками, поэтому это аудит конкретного Claude deployment.
+   Perform steps 4–6 using `rubric`; submit `ledger.md` and `ablation-plan.md`. T003 configurations differ across harnesses, so this audits a specific Claude deployment.
 
-9. **Расширение Claude: `hard`.** Создайте и подготовьте отдельный baseline T002 командами шага 3, затем выполните:
+9. **Claude extension: `hard`.** Create and prepare a separate baseline T002 with step 3 commands, then run:
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_REF" --proxy-image "$PROXY_IMAGE" \
      --model "$MODEL_ID" --provider anthropic --timeout 900 --budget-mode hard
    ```
 
-   Сохраните лимиты из launch, фактическую причину остановки и reported cost. Непревышение бюджета в одном коротком эпизоде не доказывает поведение при исчерпании лимита; если он не достигнут, запишите «срабатывание не наблюдалось». Не меняйте task contract ради достижения лимита. Получите оценку по состоянию run. `hard` и `observed` остаются разными группами сравнения.
+   Preserve launch limits, actual stopping reason, and reported cost. Staying within budget in one short episode does not prove behavior when the limit is exhausted; if not reached, record “limit enforcement was not observed”. Do not change the task contract to reach the limit. Obtain evaluation according to run state. `hard` and `observed` remain separate comparison groups.
 
-10. **Сформулируйте вывод и запишите наблюдения.** В `experiments/claude-code/NOTES.md` добавьте фактические ID, условия и недостатки; новый компонент требует новой строки [реестра](../harness-ledger.md), существующий адаптер — L008. Инфраструктурный smoke и эксперименты разместите в разных строках отчёта.
+10. **State the conclusion and record observations.** Add actual IDs, conditions, and shortcomings to `experiments/claude-code/NOTES.md`; a new component requires a new [ledger](../harness-ledger.md) row, while the existing adapter is L008. Put infrastructure smoke tests and experiments in separate report rows.
 
-## Таблицы результатов
+## Results tables
 
-| Проверка среды | Наблюдаемый результат | Exit code | Evidence |
+| Environment check | Observed result | Exit code | Evidence |
 | --- | --- | --- | --- |
-| Версия CLI, image ID/architecture, proxy ID, parser tests | Заполнить после выполнения | Заполнить | Относительный путь в `raw/` |
+| CLI version, image ID/architecture, proxy ID, parser tests | Fill in after execution | Fill in | Relative path in `raw/` |
 
-| Слот до запуска | Task/variant/budget | Run ID | Status | Verdict оценщика | Stop reason | Wall-clock, s |
+| Slot before execution | Task/variant/budget | Run ID | Status | Evaluator verdict | Stop reason | Wall-clock, s |
 | --- | --- | --- | --- | --- | --- | --- |
-| Заполнить | T002/baseline/observed | После new-run | После run | После judge | Из record | Из record |
+| Fill in | T002/baseline/observed | After new-run | After run | After judge | From record | From record |
 
-| Метрика | Значение или `null` | Единица/определение | Evidence | Причина отсутствия |
+| Metric | Value or `null` | Unit/definition | Evidence | Reason for absence |
 | --- | --- | --- | --- | --- |
-| Requested/observed model; turns; input/cache/output; cost | Заполнить | Не смешивать buckets | Run ID + поле/событие | Заполнить при `null` |
+| Requested/observed model; turns; input/cache/output; cost | Fill in | Do not mix buckets | Run ID + field/event | Fill in for `null` |
 
-| Дополнительная серия | Заранее назначенные ID | Исходы | Что изменено | Что можно заключить |
+| Additional series | Preassigned IDs | Outcomes | What changed | Permitted conclusion |
 | --- | --- | --- | --- | --- |
-| Повторы/абляция/replay/hard | Заполнить при выполнении | Все исходы | Одно условие | С ограничениями |
+| Repetitions/ablation/replay/hard | Fill in if executed | All outcomes | One condition | With limitations |
 
-## Что сдать
+## Deliverables
 
-- `report.md`, manifest с гипотезой до запуска, `run_ids` и ссылками на evidence; заполненные таблицы.
-- Вывод adapter tests, build/version/help, immutable IDs и архитектуру образов.
-- Минимум один реальный T002 с артефактами, исходной трассой, patch и внешней оценкой, связанной с manifests; все ошибочные попытки рядом в списке ID.
-- Аудит usage и model identity, ответы на контрольные вопросы, запись в NOTES; результаты расширений, только если они выполнялись.
+- `report.md`, manifest with the pre-run hypothesis, `run_ids`, and evidence references; completed tables.
+- Adapter-test output, build/version/help, immutable IDs, and image architectures.
+- At least one real T002 with artifacts, original trace, patch, and external evaluation linked to manifests; include all failed attempts alongside it in the ID list.
+- Usage and model-identity audit, review-question answers, and NOTES entry; extension results only if executed.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Точная версия и образ подтверждены на своей машине; parser tests проходят.
-- [ ] Один T002 прошёл lifecycle до `completed` с независимым `pass`, `fail` или `partial`; ошибка установки или `awaiting_review` оформлена как незавершённость.
-- [ ] Основной бюджет `observed` и timeout 900 явно записаны; optional hard не смешан с основной группой.
-- [ ] `result`/`modelUsage` не посчитаны дважды; неизвестные метрики не заменены нулями.
-- [ ] Запрошенная модель отделена от наблюдаемой, задача отделена от smoke.
-- [ ] В отчёте нет credentials, скрытых проверок или вручную исправленных результатов; `npm run check` проходит.
+- [ ] Exact version and image confirmed on your machine; parser tests pass.
+- [ ] One T002 completed the lifecycle to `completed` with an independent `pass`, `fail`, or `partial`; installation error or `awaiting_review` is recorded as incomplete.
+- [ ] Main `observed` budget and timeout 900 explicitly recorded; optional hard is not mixed into the main group.
+- [ ] `result`/`modelUsage` is not double-counted; unknown metrics are not replaced with zeros.
+- [ ] Requested and observed models are distinguished, as are the task and smoke test.
+- [ ] The report contains no credentials, hidden checks, or manually corrected results; `npm run check` passes.
 
-## Контрольные вопросы
+## Review questions
 
-1. Чем `modelUsage` отличается от `usage`, и почему их нельзя сложить?
-2. Как `observed` изменяет launch Claude и какой предел всё ещё принудительно действует?
-3. Почему `dontAsk` и разрешённый `Bash` не дают агенту host workspace?
-4. Чем основной `assistant.message.model` полезнее `init.model` для проверки идентичности?
-5. Как трактовать `error_max_turns` при exit 0 и при наличии `report.md`?
-6. Какое наблюдение действительно подтверждало бы срабатывание USD cap?
-7. Что остаётся неизменным в `without-spec`, и почему это требуется?
+1. How does `modelUsage` differ from `usage`, and why must they not be added?
+2. How does `observed` change Claude's launch, and which limit remains enforced?
+3. Why do `dontAsk` and an allowed `Bash` tool not give the agent the host workspace?
+4. Why is the main `assistant.message.model` more useful than `init.model` for identity verification?
+5. How should `error_max_turns` be interpreted with exit 0 and an existing `report.md`?
+6. What observation would actually confirm USD-cap enforcement?
+7. What remains unchanged in `without-spec`, and why is that required?
 
-## Источники
+## Sources
 
-- [README Claude Code](../../experiments/claude-code/README.md), [профиль](../../experiments/claude-code/harness.json), [адаптер](../../experiments/claude-code/adapter.mjs), [тесты](../../experiments/claude-code/adapter.test.mjs), [Dockerfile](../../experiments/claude-code/Dockerfile).
-- [Протокол](../method.md), [общая инфраструктура](../../experiments/common/README.md), [независимая оценка](harness-workflow.md), [ЛР10](LAB10-ablation.md).
-- Команды и трактовки этой работы закреплены за исходниками текущего репозитория и CLI `2.1.83`; версия и реальный API-доступ проверяются при выполнении, не выводятся из даты документа.
+- [Claude Code README](../../experiments/claude-code/README.md), [profile](../../experiments/claude-code/harness.json), [adapter](../../experiments/claude-code/adapter.mjs), [tests](../../experiments/claude-code/adapter.test.mjs), [Dockerfile](../../experiments/claude-code/Dockerfile).
+- [Protocol](../method.md), [shared infrastructure](../../experiments/common/README.md), [independent evaluation](harness-workflow.md), [LAB10](LAB10-ablation.md).
+- This lab's commands and interpretations are pinned to the current repository sources and CLI `2.1.83`; verify version and actual API access during execution rather than inferring them from the document date.

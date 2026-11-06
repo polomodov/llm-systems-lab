@@ -19,10 +19,10 @@
     "https://developer.apple.com/documentation/metal/mtldevice/recommendedmaxworkingsetsize"
   ],
   "notes": [
-    "M5 Max / 128 GB сообщены владельцем. Собственное измерение RAM/ОС зарегистрировано в LAB28-apple-first-20261007 (task LAB28, session apple-first-20261007; аппаратная работа без agent run_id): raw/cpu.txt — hw.memsize=137438953472 bytes (128 GiB), raw/os.txt — macOS 26.5 / 25F71. Отчёт: experiments/local-models/measurements/LAB28-apple-first-20261007/report.md; raw/evidence-hashes.json закрепляет первичные файлы.",
-    "planning_memory_gib=128 опирается на архивированные bytes из LAB28-apple-first-20261007/raw/cpu.txt, а не на перевод десятичных GB. measurement_status=unverified относится к свободному GPU budget/model fit, а не к отсутствию измерения физической RAM.",
-    "gpu_budget_gib=null: доступный бюджет GPU ещё не измерен. recommendedMaxWorkingSetSize — рекомендация драйвера, не гарантированная свободная память и не дополнительная RAM.",
-    "16 GiB для ОС, 6 GiB для runtime, 4/8/16 GiB для KV/state — начальные гипотезы, не замеры и не архитектурная формула.",
-    "Общая память CPU/GPU единая. Нельзя складывать RSS, GPU allocations и физическую RAM. До LAB34: один сервер, одна модель, один запрос."
+    "M5 Max / 128 GB are owner-reported. Our RAM/OS measurement is recorded in LAB28-apple-first-20261007 (task LAB28, session apple-first-20261007; a hardware lab without an agent run_id): raw/cpu.txt reports hw.memsize=137438953472 bytes (128 GiB), raw/os.txt reports macOS 26.5 / 25F71. Report: experiments/local-models/measurements/LAB28-apple-first-20261007/report.md; raw/evidence-hashes.json pins primary files.",
+    "planning_memory_gib=128 is based on archived bytes in LAB28-apple-first-20261007/raw/cpu.txt, not a conversion from decimal GB. measurement_status=unverified refers to free GPU budget/model fit, not an absence of physical-RAM measurement.",
+    "gpu_budget_gib=null: available GPU budget is not yet measured. recommendedMaxWorkingSetSize is a driver recommendation, not guaranteed free memory or additional RAM.",
+    "16 GiB for the OS, 6 GiB for runtime, and 4/8/16 GiB for KV/state are initial hypotheses, not measurements or an architecture-specific formula.",
+    "CPU/GPU memory is unified. Do not add RSS, GPU allocations, and physical RAM. Before LAB34: one server, one model, one request."
   ]
 }

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Снимок источников задачи с веб-источниками (T001) для воспроизводимых серий.
-// Скрипт запускает setup.sh задачи в пустой временный каталог, читает sources.txt
-// и забирает каждую начальную ссылку тем же fetchPublic, что и gateway. Ссылки
-// глубины 1 не архивируются: в режиме replay они дадут «недоступный источник».
-// Результат — архив JSONL в формате trace/sources.jsonl и manifest рядом с ним;
-// существующие файлы никогда не перезаписываются.
+// Snapshot web sources for a task (T001) to support reproducible series.
+// Run task setup.sh in an empty temporary directory, read sources.txt and fetch
+// each seed URL with the gateway fetchPublic function. Depth-1 links are not
+// archived: replay will report them as unavailable sources.
+// Write a JSONL archive in trace/sources.jsonl format with an adjacent manifest;
+// never overwrite existing files.
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve, dirname } from 'node:path';

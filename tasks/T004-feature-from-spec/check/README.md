@@ -1,11 +1,11 @@
-# Скрытая проверка T004 (агенту не показывать)
+# Hidden check T004 (do not expose to the agent)
 
 `check.sh <run-dir>`:
-1. Клонирует ветку `feature/*` из `workspace/sample` во временный каталог; убеждается, что зависимости не добавлены, и запускает `npm test` — должен быть зелёным.
-2. Считает видимые тесты (`node --test --test-reporter=tap test/*.test.js`, строка `# tests`): не меньше шести из стартового состояния.
-3. Копирует `hidden.test.js` в `test/` клона и прогоняет его: 17 тестов по всей спецификации из `brief.md` — регистр единиц (`1H 30M`), пробелы и табуляции (` 90m `), все пять единиц и произвольный порядок, ведущие нули, отказы `TypeError` для `1h1h`, `-5s`, `1.5h`, пустой строки, `90` без единицы, `3w`, `1 h`, нестроковых входов; у `formatDuration` — опускание нулевых компонентов, `0ms`, отказы для отрицательных, дробных и нечисловых значений; круговой обход `parse(format(x)) === x` на дюжине значений.
-4. Проверяет, что `artifacts/report.md` непустой и упоминает все единицы `d`, `h`, `m`, `s`, `ms`.
+1. Clones the `feature/*` branch from `workspace/sample` into a temporary directory, verifies no dependencies were added, and runs `npm test`, which must pass.
+2. Counts visible tests (`node --test --test-reporter=tap test/*.test.js`, the `# tests` line): at least the initial six.
+3. Copies `hidden.test.js` into the clone’s `test/` directory and runs 17 tests covering the full `brief.md` specification: unit case (`1H 30M`), spaces/tabs (` 90m `), all five units in arbitrary order, leading zeros, and `TypeError` rejection of `1h1h`, `-5s`, `1.5h`, an empty string, unitless `90`, `3w`, `1 h` and non-string inputs; for `formatDuration`, omission of zero components, `0ms`, rejection of negative/fractional/non-numeric values, and `parse(format(x)) === x` round trips over a dozen values.
+4. Verifies that `artifacts/report.md` is nonempty and mentions every unit: `d`, `h`, `m`, `s`, `ms`.
 
-Спорное место зафиксировано в `brief.md`: дробные числа (`1.5h`) отклоняются; проверка этому следует.
+The ambiguous point is resolved in `brief.md`: fractional values (`1.5h`) are rejected; the check follows that contract.
 
-`pass` — зелёный `npm test`, все скрытые тесты и отчёт; `partial` — зелёный `npm test` и не менее 70 % скрытых тестов; `fail` — иначе. Код выхода: 0 / 2 / 1, последняя строка — `verdict: …`.
+`pass` — passing `npm test`, all hidden tests and the report; `partial` — passing `npm test` and at least 70% of hidden tests; `fail` — otherwise. Exit codes: 0 / 2 / 1; final line: `verdict: …`.

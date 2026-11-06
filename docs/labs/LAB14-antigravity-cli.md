@@ -1,33 +1,33 @@
-# ЛР14. Antigravity CLI: Gemini API, автономный эпизод и границы наблюдаемости
+# LAB14. Antigravity CLI: Gemini API, an autonomous episode, and observability limits
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предварительная работа | [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `antigravity-cli`, официальный `agy` **1.2.7** |
-| Основной маршрут | Облачный `google` / Gemini API; локальный bridge не требуется |
-| Агент и задача | `a2-janitor` / T002 |
-| Минимум | Offline smoke и один реальный T002 с независимой оценкой |
-| Расширение | Три новых T002, T001 replay, T003, абляция спецификации |
-| Время | Ориентир 2–4 часа без очередей провайдера; не результат измерения |
-| Начальный статус | `not-run`: команды являются заданием, результаты ещё нужно получить |
+| Previous lab | [LAB01](LAB01-reproducibility.md) |
+| Harness | `antigravity-cli`, official `agy` **1.2.7** |
+| Main route | Cloud `google` / Gemini API; no local bridge required |
+| Agent and task | `a2-janitor` / T002 |
+| Minimum | Offline smoke test and one real T002 with independent evaluation |
+| Extension | Three new T002 attempts, T001 replay, T003, specification ablation |
+| Time | Estimate: 2–4 hours excluding provider queues; not a measured result |
+| Initial status | `not-run`: commands are assignments; results still need to be obtained |
 
-## Цель
+## Objective
 
-Провести T002 через собственный цикл `agy`, сохранить воспроизводимые входы и внешний verdict. Проверить, какие сведения действительно доступны из Antigravity stream-json, и не подменить идентификатор модели ответа настройкой CLI.
+Run T002 through the native `agy` loop, preserving reproducible inputs and an external verdict. Check which information is actually available from Antigravity stream-json, without substituting a CLI setting for the response's model identity.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Закреплённый Antigravity CLI с явным Gemini API model ID выполнит автономный T002 через разрешённый gateway и вернёт пригодный для независимой оценки результат. При этом итоговый `result` позволит получить output tokens, но текущий адаптер не подтвердит USD, внутренние модельные ходы, input/cache и фактический ID модели ответа. Успех задачи и полнота телеметрии проверяются раздельно.
+Pinned Antigravity CLI with an explicit Gemini API model ID will execute an autonomous T002 through the allowed gateway and return a result suitable for independent evaluation. The final `result` will provide output tokens, but the current adapter will not confirm USD, internal model turns, input/cache, or the actual response model ID. Task success and telemetry completeness are checked separately.
 
-## Подготовка
+## Preparation
 
-Нужны Node.js ≥22, Bash, Git, Docker и доступ к Gemini API. Координатор запускайте обычным пользователем из корня лаборатории. Для отдельной Linux x64 машины проведите собственный smoke: сохранённая в репозитории проверка 20.09.2026 относилась к Linux arm64. ROCm/Vulkan здесь не участвуют: модель обслуживается провайдером.
+You need Node.js ≥22, Bash, Git, Docker, and Gemini API access. Run the coordinator as a regular user from the lab root. Perform your own smoke tests for a separate Linux x64 machine: the repository's saved verification on 2026-09-20 concerned Linux arm64. ROCm/Vulkan are not involved here; the provider serves the model.
 
-Прочитайте [README адаптера](../../experiments/antigravity-cli/README.md), [профиль](../../experiments/antigravity-cli/harness.json), [протокол](../method.md), спецификацию `agents/a2-janitor/spec.md` и открытый [контракт T002](../../tasks/T002-repo-janitor/task.md). Не читайте `tasks/*/check/`, не изменяйте контракт задачи и запечатанные входы.
+Read the [adapter README](../../experiments/antigravity-cli/README.md), [profile](../../experiments/antigravity-cli/harness.json), [protocol](../method.md), `agents/a2-janitor/spec.md`, and the public [T002 contract](../../tasks/T002-repo-janitor/task.md). Do not read `tasks/*/check/` or modify the task contract or sealed inputs.
 
-Выполняйте блоки последовательно в Bash; после ошибки разберите её до следующего шага. Создание отчёта не создаёт экспериментальный run:
+Execute blocks sequentially in Bash; investigate an error before proceeding. Creating a report does not create an experimental run:
 
 ```bash
 npm run lab:new -- --lab LAB14 --session my-session
@@ -42,11 +42,11 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
 npm run check
 ```
 
-До API-вызова запишите гипотезу, лимиты из T002, timeout **900 s**, `budget-mode=observed`, одну основную попытку и имя независимого оценщика в отчёт. В `.env` требуется только имя **`GEMINI_API_KEY`** из выбранного профиля; значение не печатайте, не копируйте в отчёт и не передавайте через `docker --env-file`. Координатор читает `.env` сам. `settings.json` задаёт `modelProvider: gemini`; это Antigravity CLI, а не пакет Gemini CLI и не интерактивная подписка Antigravity.
+Before the API call, record the hypothesis, T002 limits, timeout **900 s**, `budget-mode=observed`, one main attempt, and the independent evaluator's name in the report. `.env` requires only **`GEMINI_API_KEY`** from the selected profile; do not print its value, copy it into the report, or pass it through `docker --env-file`. The coordinator reads `.env` itself. `settings.json` specifies `modelProvider: gemini`; this is Antigravity CLI, not the Gemini CLI package or an interactive Antigravity subscription.
 
-## Порядок выполнения
+## Procedure
 
-1. **Соберите закреплённый образ и gateway.** Сборка загружает системные пакеты и официальный архив, но не вызывает модель. Если эти образы уже существуют, можно использовать их, сохранив ID. Установщик проверяет SHA-512 по локальному manifest версии 1.2.7; не подменяйте его установкой `latest`.
+1. **Build the pinned image and gateway.** Building downloads system packages and the official archive but does not call a model. Existing images may be used if their IDs are preserved. The installer verifies SHA-512 against the local version 1.2.7 manifest; do not substitute a `latest` installation.
 
    ```bash
    docker build --build-arg HARNESS_VERSION="$HARNESS_VERSION" \
@@ -59,7 +59,7 @@ npm run check
    PROXY_IMAGE_ID="$(docker image inspect --format '{{.Id}}' node:24.13.1-bookworm-slim)"
    ```
 
-2. **Проверьте CLI без API и ключей.** Сохраните вывод версии и справки, затем проверьте синтетические тесты адаптера. Здесь нет mount репозитория или `.env` и нет сетевого доступа. `--version` должен показать 1.2.7; несовпадение означает остановку до эпизода.
+2. **Check the CLI without an API or keys.** Preserve version/help output, then run the synthetic adapter tests. There is no repository or `.env` mount and no network access here. `--version` must show 1.2.7; a mismatch requires stopping before the episode.
 
    ```bash
    for FLAG in --version --help; do
@@ -81,27 +81,27 @@ npm run check
      > "$LAB_DIR/raw/adapter-tests.tap" 2>&1
    ```
 
-   Проверьте коды завершения каждого smoke и содержание файлов; отсутствие второго файла после `break` означает незавершённый smoke. В тестах найдите случаи финального aggregate, повторного `step_update`, неполной трассы и неподдерживаемого USD cap. Объясните, почему `num_turns` Antigravity не переносится в `loop.turns`: здесь это пользовательские запросы, а не внутренние обращения модели.
+   Check every smoke-test exit code and file contents; absence of the second file after `break` means incomplete smoke testing. Find final-aggregate, repeated-`step_update`, incomplete-trace, and unsupported-USD-cap cases in the tests. Explain why Antigravity's `num_turns` is not copied into `loop.turns`: here it counts user requests, not internal model calls.
 
-3. **Зафиксируйте модель и создайте T002.** Выберите явный доступный ID в своём Gemini API аккаунте до создания записи. `google/gemini-2.5-pro` используется в синтетическом тесте адаптера; это не подтверждение доступности в вашем аккаунте. В примере ниже замените placeholder. Профиль допускает префикс `google/`, адаптер передаёт CLI ID без него. Не используйте `auto`, `latest` или `default`.
+3. **Pin the model and create T002.** Choose an explicit available ID in your Gemini API account before creating the record. `google/gemini-2.5-pro` is used in the adapter's synthetic test; this does not confirm availability in your account. Replace the placeholder below. The profile permits a `google/` prefix; the adapter passes the CLI the ID without it. Do not use `auto`, `latest`, or `default`.
 
    ```bash
-   MODEL_ID='<явный доступный ID модели Gemini API>'
+   MODEL_ID='<explicit available Gemini API model ID>'
    npm run new-run -- --harness antigravity-cli \
      --harness-version "$HARNESS_VERSION" --provider "$PROVIDER_ID" \
      --model "$MODEL_ID" --agent a2-janitor --task T002
    ```
 
-   Перенесите выданный ID в manifest отчёта и переменную. Далее используется только эта новая запись:
+   Copy the returned ID into the report manifest and variable. Only this new record is used below:
 
    ```bash
-   RUN_ID='<ID из new-run>'
+   RUN_ID='<ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   Убедитесь, что запись стала `prepared`. Снимок фиксирует `settings.json`, runtime wrapper и явный `google` profile. Runtime создаёт временный HOME и переносит туда настройку Gemini API; файлы авторизации хоста не подключаются. Разрешённый API-домен профиля — `generativelanguage.googleapis.com`.
+   Confirm that the record became `prepared`. The snapshot pins `settings.json`, the runtime wrapper, and an explicit `google` profile. The runtime creates a temporary HOME and copies Gemini API settings there; host authorization files are not connected. The profile's allowed API domain is `generativelanguage.googleapis.com`.
 
-4. **Выполните одну реальную попытку.** Эту команду запускают после подготовки ключа и согласования протокола оценки; это первый этап работы, который обращается к модели.
+4. **Execute one real attempt.** Run this command after preparing the key and agreeing on the evaluation protocol; this is the lab's first stage that calls a model.
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" \
@@ -109,9 +109,9 @@ npm run check
      --model "$MODEL_ID" --timeout 900 --budget-mode observed
    ```
 
-   `observed` не обеспечивает USD cap из контракта. У `agy` также нет подтверждённого ограничения внутренних ходов; принудительный предел обеспечивает внешний timeout. Адаптер использует `--output-format stream-json`, отключает slash-разворачивание, явно передаёт `--print-timeout 0` и пропускает интерактивные разрешения внутри Docker. Пропуск разрешений сам по себе не является изоляцией.
+   `observed` does not enforce the contract's USD cap. `agy` also has no confirmed internal-turn limit; the external timeout supplies the enforced boundary. The adapter uses `--output-format stream-json`, disables slash expansion, explicitly passes `--print-timeout 0`, and bypasses interactive permissions inside Docker. Bypassing permissions is not isolation by itself.
 
-5. **Проверьте состояние и происхождение метрик.** Сохраните сводку, которая не включает credentials:
+5. **Check state and metric provenance.** Save a summary without credentials:
 
    ```bash
    node --input-type=module - "$RUN_ID" <<'NODE' > "$LAB_DIR/raw/summary-$RUN_ID.json"
@@ -123,9 +123,9 @@ npm run check
    NODE
    ```
 
-   Установите по record и raw trace, был ли финальный `event: result`, какой `result.status` получен и есть ли корректный `usage.output_tokens`. Не суммируйте накопительный итог со `step_update`. `init.model` — настройка; текущий `observed_id=null` не заменяют её значением. `tokens_in`, USD и модельные ходы сохраняются неизвестными с причинами. Если сеть/авторизация не прошла, сохраните отказ; не расширяйте allowlist wildcard и не меняйте профиль после `prepare`. Исправление создаёт новую конфигурацию и новый run.
+   Establish from the record and raw trace whether a final `event: result` occurred, which `result.status` was received, and whether valid `usage.output_tokens` exist. Do not sum the cumulative total with `step_update`. `init.model` is a setting; do not replace the current `observed_id=null` with it. `tokens_in`, USD, and model turns remain unknown with reasons. If networking/authorization fails, preserve the rejection; do not expand the allowlist with a wildcard or change the profile after `prepare`. A fix creates a new configuration and run.
 
-6. **Получите независимую оценку.** Только `awaiting_review` допускает следующую последовательность. `aborted` сохраняется со своей причиной; без завершённой реальной попытки минимальная работа остаётся незавершённой. Exit 0 не является `pass`.
+6. **Obtain an independent evaluation.** Only `awaiting_review` permits the following sequence. Preserve `aborted` with its reason; without a completed real attempt, the minimum lab remains incomplete. Exit 0 is not `pass`.
 
    ```bash
    (
@@ -135,7 +135,7 @@ npm run check
    )
    ```
 
-   Передайте неизменные результаты внешнему оценщику по [процедуре судейства](harness-workflow.md). Для T002 он выполняет скрытую проверку вне контейнера агента, заполняет `result` (`pass`, `fail` или `partial`), `evaluator`, `check_output` с версией проверки и наблюдениями, при необходимости `human_notes`. Сгенерированные hashes не меняются. Решающий задачу агент не получает скрытую проверку. Пока оценщика нет, сохраняется `awaiting_review`.
+   Give unchanged results to an external evaluator using the [judging procedure](harness-workflow.md). For T002, they execute the hidden check outside the agent container and fill `result` (`pass`, `fail`, or `partial`), `evaluator`, `check_output` with check version and observations, and optionally `human_notes`. Generated hashes remain unchanged. The task-solving agent does not receive the hidden check. The state remains `awaiting_review` while no evaluator is available.
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -143,89 +143,89 @@ npm run check
    npm run check
    ```
 
-   После импорта содержательной оценки ожидается `completed`; отрицательный verdict также является пригодным результатом лабораторной. `judge-run` проверяет целостность, но не выносит содержательное решение самостоятельно. Внесите реальные run IDs и наблюдения в `experiments/antigravity-cli/NOTES.md`; при добавлении компонента требуется строка ledger в том же изменении.
+   After importing the substantive evaluation, expect `completed`; a negative verdict is also a valid lab result. `judge-run` checks integrity but does not make the substantive decision itself. Add actual run IDs and observations to `experiments/antigravity-cli/NOTES.md`; adding a component requires a ledger row in the same change.
 
-7. **Выполните выбранное расширение.** Основной эпизод считайте pilot. Для серии создайте **три новых** T002 через шаги 3–6, заранее назначив порядок; сохраните один image ID/model/provider/timeout/budget policy. Не заменяйте начатые неудачи успешным повтором.
+7. **Perform the selected extension.** Treat the main episode as a pilot. For a series, create **three new** T002 attempts through steps 3–6, assigning their order beforehand; preserve one image ID/model/provider/timeout/budget policy. Do not replace started failures with successful retries.
 
    ```bash
-   SERIES_RUN_IDS='<три новых run ID через запятую без пробелов>'
+   SERIES_RUN_IDS='<three new run IDs separated by commas without spaces>'
    npm run --silent compare -- --runs "$SERIES_RUN_IDS" > "$LAB_DIR/raw/compare-series.json"
    ```
 
-   Для T001 создайте новую запись и подготовьте её с одним архивом discovery run, содержащим тела/статусы страниц, и общей датой. Если архива нет, сначала проведите отдельный live discovery по [общей процедуре](harness-workflow.md); не включайте его в controlled replay серию.
+   For T001, create a new record and prepare it using one discovery-run archive containing page bodies/statuses and a shared date. If no archive exists, first perform separate live discovery using the [shared procedure](harness-workflow.md); exclude it from the controlled replay series.
 
    ```bash
-   SOURCE_ARCHIVE='<путь к trace/sources.jsonl зарегистрированного discovery run>'
-   AS_OF_DATE='<общая дата YYYY-MM-DD>'
+   SOURCE_ARCHIVE='<path to recorded discovery run trace/sources.jsonl>'
+   AS_OF_DATE='<shared YYYY-MM-DD date>'
    npm run new-run -- --harness antigravity-cli --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a1-dossier --task T001
-   RUN_ID='<новый T001 ID>'
+   RUN_ID='<new T001 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" \
      --variant baseline --as-of "$AS_OF_DATE" --source-archive "$SOURCE_ARCHIVE"
    ```
 
-   Исполнение — шаг 4, оценка — шаг 6, но T001 использует `rubric` и предусмотренный проверяющий скрипт. Для T003 отдельно выполните:
+   Execute with step 4 and evaluate with step 6, but T001 uses `rubric` and its designated checking script. For T003, run separately:
 
    ```bash
    npm run new-run -- --harness antigravity-cli --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a3-ledger-auditor --task T003
-   RUN_ID='<новый T003 ID>'
+   RUN_ID='<new T003 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   Повторите исполнение и внешнюю оценку методом `rubric`. T003 содержит конфигурацию выбранной обвязки, поэтому его результаты между harness не имеют одинаковых входов. Для абляции повторите создание T002 из шага 3 с новым ID и подготовьте `--variant without-spec`; затем выполните шаги 4–6. Полная проверка эффекта — три baseline и три without-spec по [ЛР10](LAB10-ablation.md); Docker, gateway и hidden-check остаются неизменными.
+   Repeat execution and external evaluation with `rubric`. T003 contains the selected harness's configuration, so its results across harnesses do not have identical inputs. For ablation, repeat T002 creation from step 3 with a new ID and prepare `--variant without-spec`, then perform steps 4–6. Full effect testing requires three baseline and three without-spec attempts under [LAB10](LAB10-ablation.md); Docker, gateway, and hidden check remain unchanged.
 
-## Таблицы результатов
+## Results tables
 
-Заполните условия до вызова API, результаты — после наблюдения. Прочерк означает пустое поле, а не ноль.
+Fill in conditions before calling the API and results after observation. A dash means an empty field, not zero.
 
-| Run ID | Вариант/задача | CLI version / image ID | Requested model / provider | Статус | Независимый verdict | Evidence |
+| Run ID | Variant/task | CLI version / image ID | Requested model / provider | Status | Independent verdict | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | — | — | — | — | — | — |
 
-| Показатель | Значение | Единица | Наблюдение или причина `null` | Источник в trace/record |
+| Metric | Value | Unit | Observation or reason for `null` | Trace/record source |
 | --- | --- | --- | --- | --- |
-| Выходные токены | — | tokens | — | — |
-| Входные/cache токены | — | tokens | — | — |
-| Внутренние ходы | — | turns | — | — |
-| Стоимость | — | USD | — | — |
-| Время | — | s | — | — |
-| Модель ответа | — | ID | — | — |
+| Output tokens | — | tokens | — | — |
+| Input/cache tokens | — | tokens | — | — |
+| Internal turns | — | turns | — | — |
+| Cost | — | USD | — | — |
+| Time | — | s | — | — |
+| Response model | — | ID | — | — |
 
-| Проверка | Ожидание, заданное до запуска | Фактическое наблюдение | Evidence / ограничение |
+| Check | Expectation set before execution | Actual observation | Evidence / limitation |
 | --- | --- | --- | --- |
-| Offline version/help | 1.2.7, без сети и ключа | — | — |
-| Итоговый stream-json | Последний корректный result | — | — |
-| Автономный T002 | Результат для внешней оценки | — | — |
+| Offline version/help | 1.2.7, no network or key | — | — |
+| Final stream-json | Last valid result | — | — |
+| Autonomous T002 | Result for external evaluation | — | — |
 
-## Что сдать
+## Deliverables
 
-- Manifest и отчёт LAB14 с гипотезой, заранее заданными условиями, заполненными таблицами и ответами на вопросы.
-- Build/version/help/test evidence, image IDs и сведения об архитектуре; это отдельные инфраструктурные результаты.
-- Реальный `results/runs/<run-id>/run.json`, архив inputs/trace/artifacts и независимую оценку; для T002 — также ссылку на `trace/change.patch`.
-- Compare JSON на явно выбранных IDs, NOTES и ledger update при изменении компонентов. Не включайте `.env` или значения ключей.
+- LAB14 manifest and report with the hypothesis, predefined conditions, completed tables, and answers to questions.
+- Build/version/help/test evidence, image IDs, and architecture information; these are separate infrastructure results.
+- Actual `results/runs/<run-id>/run.json`, inputs/trace/artifacts archive, and independent evaluation; for T002, also reference `trace/change.patch`.
+- Compare JSON for explicitly selected IDs, NOTES, and a ledger update if components changed. Include neither `.env` nor key values.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Версия и архитектура подтверждены собственным offline smoke, unit-тесты прошли.
-- [ ] Хотя бы один реальный T002 прошёл полный lifecycle до `completed` с независимым verdict; все остальные попытки также перечислены.
-- [ ] Google API profile, requested model, immutable images, timeout 900 s и observed budget сохранены.
-- [ ] Неизвестные input/cache, модельные ходы, USD и observed model не заменены выдуманными значениями.
-- [ ] Двойной учёт aggregate исключён, границы контейнера сохранены, `npm run check` проходит.
-- [ ] В отчёте различаются smoke, выполнение CLI и содержательный успех задачи; расширения обозначены выполненными только при наличии evidence.
+- [ ] Version and architecture confirmed by your own offline smoke tests; unit tests pass.
+- [ ] At least one real T002 completed the full lifecycle to `completed` with an independent verdict; all other attempts are also listed.
+- [ ] Google API profile, requested model, immutable images, timeout 900 s, and observed budget preserved.
+- [ ] Unknown input/cache, model turns, USD, and observed model not replaced by invented values.
+- [ ] Aggregate double-counting excluded, container boundaries preserved, and `npm run check` passes.
+- [ ] The report distinguishes smoke tests, CLI execution, and substantive task success; extensions are marked executed only with evidence.
 
-## Контрольные вопросы
+## Review questions
 
-1. Чем Antigravity CLI с `modelProvider: gemini` отличается от Gemini CLI и подписочного входа?
-2. Почему `init.model` не подтверждает underlying модель ответа?
-3. Чем `num_turns` этой трассы отличается от модельных ходов других harness?
-4. Что произойдёт с output tokens при суммировании `step_update` и итогового aggregate?
-5. Какие ограничения реально действуют при `--print-timeout 0` и `--budget-mode observed`?
-6. Можно ли сдать работу с независимым `fail`, и почему это отличается от `aborted` без оценки?
+1. How does Antigravity CLI with `modelProvider: gemini` differ from Gemini CLI and subscription login?
+2. Why does `init.model` not confirm the underlying response model?
+3. How does this trace's `num_turns` differ from model turns in other harnesses?
+4. What happens to output tokens if `step_update` and the final aggregate are summed?
+5. Which limits actually apply with `--print-timeout 0` and `--budget-mode observed`?
+6. Can the lab be submitted with an independent `fail`, and why does that differ from unevaluated `aborted`?
 
-## Источники
+## Sources
 
-- [README и ограничения адаптера](../../experiments/antigravity-cli/README.md), [NOTES](../../experiments/antigravity-cli/NOTES.md), [offline evidence 20.09.2026](../../experiments/antigravity-cli/smoke/2026-09-20.json).
-- [Профиль](../../experiments/antigravity-cli/harness.json), [адаптер](../../experiments/antigravity-cli/adapter.mjs), [тесты](../../experiments/antigravity-cli/adapter.test.mjs), [runtime](../../experiments/antigravity-cli/run-cli.mjs), [release manifest](../../experiments/antigravity-cli/releases/1.2.7.json), [Dockerfile](../../experiments/antigravity-cli/Dockerfile).
-- [Протокол](../method.md), [общий workflow](harness-workflow.md), [реестр L010](../harness-ledger.md), [ЛР09](LAB09-agent-campaign.md), [ЛР10](LAB10-ablation.md).
-- Первичные ссылки, закреплённые в исследовании репозитория от 20.09.2026: [установка](https://antigravity.google/docs/cli/install/), [headless protocol](https://antigravity.google/docs/cli/headless/). Свойства данной работы привязаны к локально закреплённой версии 1.2.7.
+- [Adapter README and limitations](../../experiments/antigravity-cli/README.md), [NOTES](../../experiments/antigravity-cli/NOTES.md), [offline evidence from 2026-09-20](../../experiments/antigravity-cli/smoke/2026-09-20.json).
+- [Profile](../../experiments/antigravity-cli/harness.json), [adapter](../../experiments/antigravity-cli/adapter.mjs), [tests](../../experiments/antigravity-cli/adapter.test.mjs), [runtime](../../experiments/antigravity-cli/run-cli.mjs), [release manifest](../../experiments/antigravity-cli/releases/1.2.7.json), [Dockerfile](../../experiments/antigravity-cli/Dockerfile).
+- [Protocol](../method.md), [shared workflow](harness-workflow.md), [ledger L010](../harness-ledger.md), [LAB09](LAB09-agent-campaign.md), [LAB10](LAB10-ablation.md).
+- Primary links pinned in the repository's research on 2026-09-20: [installation](https://antigravity.google/docs/cli/install/), [headless protocol](https://antigravity.google/docs/cli/headless/). This lab's properties are tied to the locally pinned version 1.2.7.

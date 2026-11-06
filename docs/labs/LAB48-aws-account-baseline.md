@@ -1,94 +1,94 @@
-# ЛР48. Учебный AWS-аккаунт как код: бюджет, удалённый state и проверка остатков
+# LAB48. An educational AWS account as code: budget, remote state and residual-resource checks
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка AWS и Terraform не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the AWS and Terraform branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР01](LAB01-reproducibility.md); личный AWS-аккаунт, в котором вы администратор; Terraform 1.10 или новее, AWS CLI v2 |
-| Стенд | AWS, сессии `aws-NN`; управляющая машина — HONOR или Ryzen |
-| Минимум | Bootstrap удалённого state в S3 с блокировкой, AWS Budgets с оповещением, IAM-роль для работы вместо root-ключей, обязательные теги через `default_tags`, скрипт проверки остатков, цикл apply → drift → destroy |
-| Расширения | AWS Organizations с отдельным sandbox-аккаунтом и SCP, запрещающей дорогие типы инстансов; IAM Identity Center вместо IAM-пользователя |
-| Время | Ориентир полдня; запрос квоты на GPU подаётся в первый же день, его рассмотрение занимает от часов до нескольких дней |
-| Готовность | `target-machine`; требует AWS-аккаунта |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB01](LAB01-reproducibility.md); a personal AWS account where you are an administrator; Terraform 1.10 or later, AWS CLI v2 |
+| Environment | AWS, `aws-NN` sessions; control machine: HONOR or Ryzen |
+| Minimum | Bootstrap remote S3 state with locking, AWS Budgets with alerts, a working IAM role instead of root keys, mandatory `default_tags`, residual-resource checker, apply → drift → destroy cycle |
+| Extensions | AWS Organizations with a separate sandbox account and an SCP prohibiting expensive instance types; IAM Identity Center instead of an IAM user |
+| Time | Allow half a day; request GPU quota on day one—processing takes hours to several days |
+| Readiness | `target-machine`; requires an AWS account |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Сделать аккаунт, в котором дальнейшие работы ветки (ЛР49–52 и [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md)) нельзя случайно оставить включёнными и нельзя потерять state. Это минимальная гигиена, которую ожидают от руководителя инфраструктуры: деньги под контролем, доступ без долгоживущих root-ключей, всё создаётся и удаляется кодом.
+Create an account where subsequent labs in this branch (LAB49–52 and [LAB47](LAB47-k8s-gpu-eks-autoscaling.md)) cannot accidentally remain running or lose state. This is the baseline hygiene expected of an infrastructure lead: costs controlled, access without long-lived root keys, everything created and deleted through code.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. Базовый слой (state bucket, бюджет, роль, теги) стоит меньше 1 USD в месяц в простое, а полный цикл `apply` → `destroy` рабочего слоя занимает меньше 5 минут.
-2. Ручное изменение ресурса в консоли обнаруживается следующим `terraform plan` в 100% случаев для управляемых атрибутов, а скрипт проверки остатков находит ресурс, созданный вне Terraform с тегом работы.
+1. The base layer (state bucket, budget, role, tags) costs less than 1 USD per idle month, and a full working-layer `apply` → `destroy` cycle takes less than 5 minutes.
+2. Manual console changes are detected by the next `terraform plan` in 100% of cases for managed attributes, and the residual-resource checker finds a resource created outside Terraform with the lab tag.
 
-Пороги и список проверяемых типов ресурсов фиксируются в протоколе до прогона.
+Fix thresholds and the list of checked resource types in the protocol before execution.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: документацию Terraform S3 backend (раздел о блокировке через `use_lockfile`), AWS Budgets, `default_tags` в провайдере AWS, Service Quotas для EC2.
-- **Квота на GPU.** В новом аккаунте лимит vCPU для G- и P-инстансов часто нулевой. Подайте запрос в Service Quotas на «Running On-Demand G and VT instances» в выбранном регионе в начале работы и запишите дату подачи и ответа.
-- **Секреты.** Root-ключи доступа не создаются. Учётные данные лежат в профиле AWS CLI вне репозитория. `terraform.tfstate`, `*.tfvars` с идентификаторами аккаунта и вывод `aws sts get-caller-identity` не коммитятся. В отчёт идут регион и имена ресурсов без account ID.
-- Код — в `experiments/aws/terraform/LAB48/`, версии Terraform и провайдера закреплены в `required_version` и `.terraform.lock.hcl`.
+- Read: Terraform S3 backend documentation (locking with `use_lockfile`), AWS Budgets, AWS provider `default_tags`, EC2 Service Quotas.
+- **GPU quota.** New accounts often have a zero vCPU limit for G and P instances. At the start, request “Running On-Demand G and VT instances” quota in the chosen region through Service Quotas; record request and response dates.
+- **Secrets.** Do not create root access keys. Credentials live in an AWS CLI profile outside the repository. Do not commit `terraform.tfstate`, `*.tfvars` with account identifiers, or `aws sts get-caller-identity` output. Reports include region and resource names without account ID.
+- Code belongs in `experiments/aws/terraform/LAB48/`; pin Terraform and provider versions in `required_version` and `.terraform.lock.hcl`.
 
 ```bash
 npm run lab:new -- --lab LAB48 --session aws-01
 LAB_DIR='experiments/aws/measurements/LAB48-aws-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Bootstrap.** Отдельная конфигурация с локальным state создаёт S3-бакет для state: versioning, шифрование, блокировка публичного доступа. Затем рабочие конфигурации переходят на S3 backend с `use_lockfile = true`. Проверьте блокировку: два одновременных `terraform plan -lock-timeout=0` из двух терминалов, второй должен отказаться. Сохраните вывод.
-2. **Деньги.** AWS Budgets: месячный бюджет (сумма фиксируется в протоколе) с оповещениями на 50%, 80% и прогноз 100%. Включите cost allocation tag `lab` в Billing. Запишите, через сколько часов тег появляется в Cost Explorer.
-3. **Доступ.** IAM-роль для работы с ограниченной сессией, вход через `aws sts assume-role` или IAM Identity Center. Root используется только для настройки биллинга. Проверьте `aws sts get-caller-identity`, что работаете из роли (в отчёт без ID).
-4. **Теги.** `default_tags` в провайдере: `lab`, `session`, `owner`, `expires`. Проверьте, что тег появился на всех ресурсах рабочего слоя.
-5. **Рабочий слой.** Небольшая конфигурация с дешёвыми ресурсами (например, VPC без NAT, security group, S3-бакет). Замерьте время `apply` и `destroy`.
-6. **Drift.** Измените в консоли три атрибута (тег, правило security group, настройку бакета). Запустите `terraform plan -detailed-exitcode`, запишите код возврата и найденные изменения.
-7. **Остатки.** Скрипт `experiments/aws/janitor.sh`: через Resource Groups Tagging API и AWS CLI ищет ресурсы с тегом `lab` в регионе, плюс EC2, EBS, Elastic IP, NAT gateway, балансировщики и снапшоты без тегов. Создайте один ресурс руками вне Terraform с тегом работы и убедитесь, что скрипт его находит. После `destroy` скрипт должен вернуть пустой список.
+1. **Bootstrap.** A separate configuration with local state creates the S3 state bucket: versioning, encryption, public-access blocking. Working configurations then switch to an S3 backend with `use_lockfile = true`. Check locking: two simultaneous `terraform plan -lock-timeout=0` invocations in two terminals; the second must refuse. Save output.
+2. **Money.** AWS Budgets: a monthly budget (amount fixed in the protocol) with alerts at 50%, 80% and forecast 100%. Enable the `lab` cost-allocation tag in Billing. Record how many hours it takes to appear in Cost Explorer.
+3. **Access.** A working IAM role with a limited session, accessed through `aws sts assume-role` or IAM Identity Center. Use root only for billing setup. Verify with `aws sts get-caller-identity` that you are using the role (omit ID from the report).
+4. **Tags.** Provider `default_tags`: `lab`, `session`, `owner`, `expires`. Verify that tags appear on all working-layer resources.
+5. **Working layer.** A small configuration with inexpensive resources (e.g. VPC without NAT, security group, S3 bucket). Measure `apply` and `destroy` time.
+6. **Drift.** Change three attributes in the console (tag, security-group rule, bucket setting). Run `terraform plan -detailed-exitcode`; record return code and detected changes.
+7. **Residual resources.** `experiments/aws/janitor.sh` uses Resource Groups Tagging API and AWS CLI to find resources with the `lab` tag in the region, plus untagged EC2, EBS, Elastic IP, NAT gateways, load balancers and snapshots. Manually create one resource outside Terraform with the lab tag and verify the script finds it. After `destroy`, the script must return an empty list.
 
-## Таблицы результатов
+## Results tables
 
-| Операция | Время, s | Ресурсов | Примечание |
+| Operation | Time, s | Resources | Note |
 | --- | --- | --- | --- |
 | Bootstrap apply | | | |
-| Рабочий слой apply | | | |
-| Рабочий слой destroy | | | |
+| Working layer apply | | | |
+| Working layer destroy | | | |
 
-| Drift-изменение | Найдено `plan` | Код возврата |
+| Drift change | Detected by `plan` | Return code |
 | --- | --- | --- |
-| Тег | | |
-| Правило security group | | |
-| Настройка бакета | | |
+| Tag | | |
+| Security-group rule | | |
+| Bucket setting | | |
 
-| Проверка | Ожидание | Факт |
+| Check | Expected | Actual |
 | --- | --- | --- |
-| Второй plan при занятой блокировке | отказ | |
-| Ресурс вне Terraform найден скриптом | да | |
-| Остатки после destroy | нет | |
-| Стоимость базового слоя за месяц, USD | < 1 | |
-| Квота G-инстансов: подана → ответ | | |
+| Second plan while lock held | refused | |
+| Resource outside Terraform found by script | yes | |
+| Residual resources after destroy | none | |
+| Monthly base-layer cost, USD | < 1 | |
+| G-instance quota: requested → response | | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, Terraform-код bootstrap и рабочего слоя, `janitor.sh`, вывод проверки блокировки, drift и остатков без идентификаторов аккаунта.
-- Скриншот или экспорт настроек бюджета без account ID.
+- Report, bootstrap and working-layer Terraform code, `janitor.sh`, lock/drift/residual-resource check output without account identifiers.
+- Budget-settings screenshot or export without account ID.
 
-## Критерии завершения
+## Completion criteria
 
-- State удалённый, с версиями и блокировкой; бюджет с оповещениями включён.
-- Обе гипотезы приняты или отвергнуты с числами.
-- Скрипт остатков работает и используется в конце каждой следующей AWS-сессии ветки.
+- Remote state with versioning and locking; budget alerts enabled.
+- Both hypotheses accepted or rejected with figures.
+- Residual-resource script works and is used at the end of every subsequent AWS session in this branch.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему state нельзя хранить в git, и что в нём может оказаться секретом?
-2. Что произойдёт, если двое одновременно применят изменения без блокировки?
-3. Чем бюджет с оповещением отличается от жёсткого ограничения расходов, и как сделать жёсткое?
-4. Как бы вы устроили доступ к AWS для команды из 15 инженеров на новой площадке?
+1. Why must state not be stored in git, and what secrets can it contain?
+2. What happens if two people apply changes simultaneously without locking?
+3. How does an alerting budget differ from a hard spending limit, and how can a hard limit be implemented?
+4. How would you arrange AWS access for a team of 15 engineers on a new platform?
 
-## Источники
+## Sources
 
-- Документация Terraform: S3 backend, `default_tags` провайдера AWS.
-- Документация AWS: Budgets, Cost allocation tags, Service Quotas, IAM roles, Resource Groups Tagging API.
-- Этот репозиторий: [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md), [протокол](../method.md).
+- Terraform documentation: S3 backend, AWS provider `default_tags`.
+- AWS documentation: Budgets, Cost allocation tags, Service Quotas, IAM roles, Resource Groups Tagging API.
+- This repository: [LAB47](LAB47-k8s-gpu-eks-autoscaling.md), [protocol](../method.md).

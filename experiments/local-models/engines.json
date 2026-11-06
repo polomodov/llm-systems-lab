@@ -3,76 +3,198 @@
   "as_of": "2026-09-21",
   "engines": [
     {
-      "id": "llama-cpp-vulkan", "name": "llama.cpp / Vulkan", "kind": "engine", "engine": "llama.cpp", "backend": "vulkan", "priority": 1,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": 6,
-      "sources": ["https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md"],
-      "notes": "Обязательная baseline-ветвь на том же llama.cpp commit и GGUF, что HIP. 6 GiB — прежний резерв планирования, не измерение. ICD, kernels, архитектура модели и peak memory требуют smoke."
+      "id": "llama-cpp-vulkan",
+      "name": "llama.cpp / Vulkan",
+      "kind": "engine",
+      "engine": "llama.cpp",
+      "backend": "vulkan",
+      "priority": 1,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": 6,
+      "sources": [
+        "https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md"
+      ],
+      "notes": "Mandatory baseline track using the same llama.cpp commit and GGUF as HIP. 6 GiB is the previous planning reserve, not a measurement. ICD, kernels, model architecture, and peak memory require a smoke test."
     },
     {
-      "id": "llama-cpp-rocm", "name": "llama.cpp / HIP + ROCm", "kind": "engine", "engine": "llama.cpp", "backend": "rocm", "priority": 1,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": 6,
-      "sources": ["https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md", "https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html"],
-      "notes": "Равноправная обязательная ветвь gfx1151; GPU_TARGETS=gfx1151. Одинаковый SHA движка с Vulkan. Пакет AMD b8407/ROCm7.2.1 — исторический ориентир, не pin для новых моделей."
+      "id": "llama-cpp-rocm",
+      "name": "llama.cpp / HIP + ROCm",
+      "kind": "engine",
+      "engine": "llama.cpp",
+      "backend": "rocm",
+      "priority": 1,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": 6,
+      "sources": [
+        "https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md",
+        "https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html"
+      ],
+      "notes": "An equally mandatory gfx1151 track; GPU_TARGETS=gfx1151. Same engine SHA as Vulkan. The AMD b8407/ROCm7.2.1 package is a historical reference, not a pin for new models."
     },
     {
-      "id": "vllm-rocm", "name": "vLLM / ROCm", "kind": "engine", "engine": "vllm", "backend": "rocm", "priority": 2,
-      "hardware_support": "documented", "artifact_policy": "separate-artifact", "runtime_reserve_gib": null,
-      "sources": ["https://docs.vllm.ai/en/stable/getting_started/installation/gpu/", "https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/advanced/advancedryz/linux/llm/build-docker-image.html", "https://github.com/vllm-project/vllm/releases/tag/v0.29.0"],
-      "notes": "Путь для gfx1151 документирован. Stable v0.29.0 — кандидат версии; image digest и совместимый Torch/Triton/ROCm нужно закрепить после smoke. Native safetensors/quant kernels, память scheduler и KV задаются отдельно от GGUF."
+      "id": "vllm-rocm",
+      "name": "vLLM / ROCm",
+      "kind": "engine",
+      "engine": "vllm",
+      "backend": "rocm",
+      "priority": 2,
+      "hardware_support": "documented",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://docs.vllm.ai/en/stable/getting_started/installation/gpu/",
+        "https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/advanced/advancedryz/linux/llm/build-docker-image.html",
+        "https://github.com/vllm-project/vllm/releases/tag/v0.29.0"
+      ],
+      "notes": "A gfx1151 path is documented. Stable v0.29.0 is a candidate version; pin the image digest and compatible Torch/Triton/ROCm after a smoke test. Native safetensors/quant kernels, scheduler memory, and KV are specified separately from GGUF."
     },
     {
-      "id": "sglang-rocm", "name": "SGLang / ROCm gfx1151", "kind": "engine", "engine": "sglang", "backend": "rocm", "priority": 2,
-      "hardware_support": "conditional", "artifact_policy": "separate-artifact", "runtime_reserve_gib": null,
-      "sources": ["https://github.com/sgl-project/sglang/releases/tag/v0.5.20", "https://github.com/sgl-project/sglang/pull/33939", "https://docs.sglang.io/docs/hardware-platforms/amd_gpu"],
-      "notes": "v0.5.20 включает отдельный gfx1151 image; PR проверялся автором на 395/8060S в WSL2. Native Linux и длинный контекст пока unverified. Не CDNA image: wave32, Triton attention, AITER dispatch выключен в исходной проверке. MXFP4 на gfx1151 не считать подтверждённым."
+      "id": "sglang-rocm",
+      "name": "SGLang / ROCm gfx1151",
+      "kind": "engine",
+      "engine": "sglang",
+      "backend": "rocm",
+      "priority": 2,
+      "hardware_support": "conditional",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://github.com/sgl-project/sglang/releases/tag/v0.5.20",
+        "https://github.com/sgl-project/sglang/pull/33939",
+        "https://docs.sglang.io/docs/hardware-platforms/amd_gpu"
+      ],
+      "notes": "v0.5.20 includes a dedicated gfx1151 image; the PR author tested it on 395/8060S in WSL2. Native Linux and long context remain unverified. Not a CDNA image: wave32, Triton attention, AITER dispatch disabled in the original check. Do not treat MXFP4 on gfx1151 as verified."
     },
     {
-      "id": "transformers-rocm", "name": "Transformers + PyTorch / ROCm", "kind": "reference", "engine": "transformers-pytorch", "backend": "rocm", "priority": 2,
-      "hardware_support": "documented", "artifact_policy": "separate-artifact", "runtime_reserve_gib": null,
-      "sources": ["https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html", "https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html", "https://huggingface.co/docs/transformers/chat_extras"],
-      "notes": "Контроль корректности generate на малой BF16 модели с ROCm PyTorch. Это не готовый OpenAI API server и не agent harness. Совместимость Transformers/model architecture и отдельных quant kernels проверяется отдельно."
+      "id": "transformers-rocm",
+      "name": "Transformers + PyTorch / ROCm",
+      "kind": "reference",
+      "engine": "transformers-pytorch",
+      "backend": "rocm",
+      "priority": 2,
+      "hardware_support": "documented",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html",
+        "https://rocm.docs.amd.com/projects/ai-ecosystem/en/latest/frameworks/pytorch/install.html",
+        "https://huggingface.co/docs/transformers/chat_extras"
+      ],
+      "notes": "A generate-correctness control on a small BF16 model with ROCm PyTorch. This is not a ready-made OpenAI API server or an agent harness. Check Transformers/model-architecture and individual quant-kernel compatibility separately."
     },
     {
-      "id": "ollama-rocm", "name": "Ollama / ROCm", "kind": "serving-wrapper", "engine": "ollama-runner", "backend": "rocm", "priority": 3,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://docs.ollama.com/gpu", "https://docs.ollama.com/import", "https://docs.ollama.com/api/openai-compatibility"],
-      "notes": "Ryzen AI Max+395 прямо указан в Linux ROCm support. Импорт точного GGUF без requant; hash blob и backend/runner подтвердить логом. Совместимость architecture/import не гарантируется форматом. Дополнительный расход serving layer ещё не измерен."
+      "id": "ollama-rocm",
+      "name": "Ollama / ROCm",
+      "kind": "serving-wrapper",
+      "engine": "ollama-runner",
+      "backend": "rocm",
+      "priority": 3,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://docs.ollama.com/gpu",
+        "https://docs.ollama.com/import",
+        "https://docs.ollama.com/api/openai-compatibility"
+      ],
+      "notes": "Ryzen AI Max+395 is explicitly listed in Linux ROCm support. Import the exact GGUF without requantization; confirm the blob hash and backend/runner from logs. Format does not guarantee architecture/import compatibility. Serving-layer overhead is not yet measured."
     },
     {
-      "id": "ollama-vulkan", "name": "Ollama / Vulkan", "kind": "serving-wrapper", "engine": "ollama-runner", "backend": "vulkan", "priority": 3,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://docs.ollama.com/gpu", "https://docs.ollama.com/import"],
-      "notes": "В документации Vulkan включён по умолчанию при установленном backend. Это не доказательство, что запрос использовал именно Vulkan; сохранить runner/device logs, исключить CPU/ROCm fallback. Импорт всех catalog architectures требует smoke."
+      "id": "ollama-vulkan",
+      "name": "Ollama / Vulkan",
+      "kind": "serving-wrapper",
+      "engine": "ollama-runner",
+      "backend": "vulkan",
+      "priority": 3,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://docs.ollama.com/gpu",
+        "https://docs.ollama.com/import"
+      ],
+      "notes": "Documentation enables Vulkan by default when the backend is installed. This does not prove a request actually used Vulkan; save runner/device logs and exclude CPU/ROCm fallback. Import of every catalog architecture requires a smoke test."
     },
     {
-      "id": "lm-studio-vulkan", "name": "LM Studio / llama.cpp Vulkan", "kind": "serving-wrapper", "engine": "llama.cpp", "backend": "vulkan", "priority": 3,
-      "hardware_support": "conditional", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://lmstudio.ai/blog/introducing-lmstudio-sdk", "https://lmstudio.ai/docs/cli/runtime/runtime"],
-      "notes": "План Linux Vulkan runtime с импортом выбранного GGUF; точный runtime package, supported architecture и GPU395 проверяются на машине. Версия GUI не определяет версию inference runtime. Импортировать копией/hard-link, сохраняя исходные артефакты."
+      "id": "lm-studio-vulkan",
+      "name": "LM Studio / llama.cpp Vulkan",
+      "kind": "serving-wrapper",
+      "engine": "llama.cpp",
+      "backend": "vulkan",
+      "priority": 3,
+      "hardware_support": "conditional",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lmstudio.ai/blog/introducing-lmstudio-sdk",
+        "https://lmstudio.ai/docs/cli/runtime/runtime"
+      ],
+      "notes": "Planned Linux Vulkan runtime with import of the selected GGUF; verify the exact runtime package, supported architecture, and GPU395 on the machine. GUI version does not determine inference-runtime version. Import by copy/hard link, retaining original artifacts."
     },
     {
-      "id": "lm-studio-rocm", "name": "LM Studio / llama.cpp ROCm", "kind": "serving-wrapper", "engine": "llama.cpp", "backend": "rocm", "priority": 3,
-      "hardware_support": "conditional", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://lmstudio.ai/blog/lmstudio-v0.3.19", "https://lmstudio.ai/docs/cli/runtime/runtime"],
-      "notes": "Linux ROCm runtime документирован; релизный пример про AMD9000/RyzenAI PRO300 не является exact395 validation. Проверить gfx1151 в установленном runtime, package version и логи. Native и fallback tool templates — разные условия."
+      "id": "lm-studio-rocm",
+      "name": "LM Studio / llama.cpp ROCm",
+      "kind": "serving-wrapper",
+      "engine": "llama.cpp",
+      "backend": "rocm",
+      "priority": 3,
+      "hardware_support": "conditional",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lmstudio.ai/blog/lmstudio-v0.3.19",
+        "https://lmstudio.ai/docs/cli/runtime/runtime"
+      ],
+      "notes": "A Linux ROCm runtime is documented; a release example for AMD9000/RyzenAI PRO300 is not exact395 validation. Check gfx1151 in the installed runtime, its package version, and logs. Native and fallback tool templates are different conditions."
     },
     {
-      "id": "lemonade-vulkan", "name": "Lemonade / llama.cpp Vulkan", "kind": "serving-wrapper", "engine": "llama.cpp", "backend": "vulkan", "priority": 3,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://lemonade-server.ai/docs/guide/configuration/llamacpp/", "https://lemonade-server.ai/docs/guide/configuration/"],
-      "notes": "Закрепить recipe llamacpp, backend Vulkan и путь к тому же бинарнику/весам, что direct llama-server, если поддерживается. Отключить auto-latest и model switching; не считать независимым kernel engine."
+      "id": "lemonade-vulkan",
+      "name": "Lemonade / llama.cpp Vulkan",
+      "kind": "serving-wrapper",
+      "engine": "llama.cpp",
+      "backend": "vulkan",
+      "priority": 3,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lemonade-server.ai/docs/guide/configuration/llamacpp/",
+        "https://lemonade-server.ai/docs/guide/configuration/"
+      ],
+      "notes": "Pin the llamacpp recipe, Vulkan backend, and path to the same binary/weights as direct llama-server, if supported. Disable auto-latest and model switching; do not count this as an independent kernel engine."
     },
     {
-      "id": "lemonade-rocm", "name": "Lemonade / llama.cpp ROCm", "kind": "serving-wrapper", "engine": "llama.cpp", "backend": "rocm", "priority": 3,
-      "hardware_support": "documented", "artifact_policy": "catalog-gguf", "runtime_reserve_gib": null,
-      "sources": ["https://lemonade-server.ai/docs/guide/configuration/llamacpp/", "https://lemonade-server.ai/docs/guide/configuration/"],
-      "notes": "Recipe llamacpp/backend ROCm. Stable/nightly могут использовать разные сборки/форки и свой ROCm runtime. Для сравнения накладных расходов нужен тот же binary hash; иначе это сравнение разных deployments."
+      "id": "lemonade-rocm",
+      "name": "Lemonade / llama.cpp ROCm",
+      "kind": "serving-wrapper",
+      "engine": "llama.cpp",
+      "backend": "rocm",
+      "priority": 3,
+      "hardware_support": "documented",
+      "artifact_policy": "catalog-gguf",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lemonade-server.ai/docs/guide/configuration/llamacpp/",
+        "https://lemonade-server.ai/docs/guide/configuration/"
+      ],
+      "notes": "Llamacpp recipe / ROCm backend. Stable/nightly may use different builds/forks and their own ROCm runtime. Overhead comparison requires the same binary hash; otherwise this compares different deployments."
     },
     {
-      "id": "lemonade-vllm-rocm", "name": "Lemonade / vLLM ROCm", "kind": "serving-wrapper", "engine": "vllm", "backend": "rocm", "priority": 3,
-      "hardware_support": "experimental", "artifact_policy": "separate-artifact", "runtime_reserve_gib": null,
-      "sources": ["https://lemonade-server.ai/docs/guide/configuration/vllm/"],
-      "notes": "Lemonade документирует experimental vllm:rocm для gfx1151 с per-architecture package. Отдельный серверный frontend к vLLM, не третий GPU backend. Артефакт и память выбираются заново; не применять вес GGUF."
+      "id": "lemonade-vllm-rocm",
+      "name": "Lemonade / vLLM ROCm",
+      "kind": "serving-wrapper",
+      "engine": "vllm",
+      "backend": "rocm",
+      "priority": 3,
+      "hardware_support": "experimental",
+      "artifact_policy": "separate-artifact",
+      "runtime_reserve_gib": null,
+      "sources": [
+        "https://lemonade-server.ai/docs/guide/configuration/vllm/"
+      ],
+      "notes": "Lemonade documents experimental vllm:rocm for gfx1151 with a per-architecture package. This is a separate server frontend for vLLM, not a third GPU backend. Select the artifact and memory budget anew; do not apply GGUF weight sizes."
     }
   ]
 }

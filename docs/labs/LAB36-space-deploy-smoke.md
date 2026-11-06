@@ -1,41 +1,41 @@
-# ЛР36. SPACE: паспорт хоста, развёртывание в Kind и smoke-тесты
+# LAB36. SPACE: host profile, Kind deployment and smoke tests
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка SPACE не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the SPACE branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | Завершённая [ЛР01](LAB01-reproducibility.md); доступ к целевой машине с sudo |
-| Стенды | A: Ryzen AI Max+ 395 / 128 GB / Linux (тот же, что в [ЛР02](LAB02-hardware.md)); B: HONOR MagicBook X16, Ryzen 7 PRO 8845HS / 32 GB / Ubuntu |
-| Платформа | `polomodov/SPACE` (форк `perplexityai/SPACE`), закреплённый commit; профиль E0: Linux x86_64 + KVM + Firecracker 1.15.1 |
-| Минимум | Паспорт хоста, полная установка, `first_sandbox.py`, baseline `smoke-kind-e2e.sh`, typed smoke `native`, teardown — на **каждом** стенде отдельной сессией |
-| Расширения | `smoke-kind-typed.sh ecw` и `all` (на B по шардам), `smoke-spaced-rest.sh`, таймлайн bring-up |
-| Время | Ориентир 3–6 часов оператора на стенд; первая сборка Rust-воркспейса — основная часть |
-| Готовность | `target-machine`; сочетание «стенд + commit SPACE» `unverified` до первой сессии |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | Completed [LAB01](LAB01-reproducibility.md); sudo access to the target machine |
+| Machines | A: Ryzen AI Max+ 395 / 128 GB / Linux (same as [LAB02](LAB02-hardware.md)); B: HONOR MagicBook X16, Ryzen 7 PRO 8845HS / 32 GB / Ubuntu |
+| Platform | `polomodov/SPACE` (fork of `perplexityai/SPACE`), pinned commit; E0 profile: Linux x86_64 + KVM + Firecracker 1.15.1 |
+| Minimum | Host profile, full installation, `first_sandbox.py`, baseline `smoke-kind-e2e.sh`, typed `native` smoke, teardown — a separate session on **each** machine |
+| Extensions | `smoke-kind-typed.sh ecw` and `all` (sharded on B), `smoke-spaced-rest.sh`, bring-up timeline |
+| Time | Allow 3–6 operator hours per machine; the first Rust workspace build accounts for most of it |
+| Readiness | `target-machine`; the “machine + SPACE commit” combination is `unverified` until the first session |
+| Initial state | Educational manifest: `not-started` |
 
-Сессии называйте по стенду: `ryzen-01`, `honor-01`. Повтор на том же стенде — новая сессия (`ryzen-02`), а не перезапись.
+Name sessions after the machine: `ryzen-01`, `honor-01`. A repeat on the same machine is a new session (`ryzen-02`), not an overwrite.
 
-## Цель
+## Objective
 
-Поднять локальный SPACE (Kind + Firecracker) на каждой машине без изменения кода платформы, получить воспроизводимые вердикты набора smoke и измерить, сколько времени, памяти и диска стоит развёртывание. Результат работы — допуск стенда к ЛР37–42.
+Bring up local SPACE (Kind + Firecracker) on each machine without platform code changes, obtain reproducible smoke-suite verdicts and measure deployment time, memory and disk cost. The outcome is machine admission to LAB37–42.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-На обоих стендах установка по `docs/installation.md` проходит без правок кода SPACE, `examples/first_sandbox.py` печатает `Hello from SPACE`, а `smoke-kind-e2e.sh` и `smoke-kind-typed.sh native` завершаются с кодом `0`. На стенде B для этого достаточно ограничить параллелизм Tilt (`SPACE_TILT_MAX_PARALLEL_UPDATES=1`).
+On both machines, installation following `docs/installation.md` succeeds without SPACE code changes, `examples/first_sandbox.py` prints `Hello from SPACE`, and `smoke-kind-e2e.sh` and `smoke-kind-typed.sh native` exit with code `0`. On machine B, limiting Tilt parallelism (`SPACE_TILT_MAX_PARALLEL_UPDATES=1`) is sufficient.
 
-Опровержение — OOM, таймаут apiserver Kind, отказ preflight или ненулевой код smoke при этих настройках. Код `42` у typed smoke означает пропуск из-за окружения, а не прохождение; он не подтверждает гипотезу.
+OOM, Kind apiserver timeout, preflight rejection or a nonzero smoke exit under these settings falsifies the hypothesis. Typed smoke code `42` means an environment-related skip, not a pass; it does not confirm the hypothesis.
 
-## Подготовка
+## Preparation
 
-- Прочитайте в репозитории SPACE: `docs/installation.md`, `docs/first-sandbox.md`, `infra/space/kind/README.md` (разделы Smoke test и Kind apiserver timeouts), `docs/troubleshooting.md#local-installation`. Сводка на русском лежит в проектных заметках, но при расхождении прав репозиторий.
-- Установщик ставит пакеты через sudo, запускает privileged-контейнеры, создаёт loop-устройства и правила nft. На стенде A не запускайте одновременно серии ЛР04–07 и остановите inference-серверы: Kind и сборка делят ту же память.
-- На стенде A запишите выделение UMA под GPU из паспорта ЛР02: от него зависит, сколько RAM видит Linux.
-- На стенде B подключите питание и отключите сон на время сборки.
-- Не публикуйте в отчёте серийные номера, внешние адреса, пароль консоли и bearer-токены.
+- Read in the SPACE repository: `docs/installation.md`, `docs/first-sandbox.md`, `infra/space/kind/README.md` (Smoke test and Kind apiserver timeouts sections), `docs/troubleshooting.md#local-installation`. Project notes contain a Russian summary, but the repository is authoritative if they disagree.
+- The installer installs packages with sudo, starts privileged containers and creates loop devices and nft rules. On machine A, do not run LAB04–07 series concurrently, and stop inference servers: Kind and the build share the same memory.
+- On machine A, record the GPU UMA allocation from the LAB02 profile: it determines how much RAM Linux sees.
+- On machine B, connect AC power and disable sleep during the build.
+- Do not publish serial numbers, external addresses, the console password or bearer tokens in the report.
 
-Создайте отчёт и закрепите версию SPACE:
+Create a report and pin the SPACE version:
 
 ```bash
 npm run lab:new -- --lab LAB36 --session ryzen-01
@@ -44,11 +44,11 @@ git clone https://github.com/polomodov/SPACE.git ~/src/SPACE
 git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
 ```
 
-Все команды SPACE ниже выполняются из `~/src/SPACE` в одной сессии bash (по SSH — внутри `tmux`).
+Run all SPACE commands below from `~/src/SPACE` in one bash session (inside `tmux` over SSH).
 
-## Порядок выполнения
+## Procedure
 
-1. **Паспорт хоста (только чтение).**
+1. **Host profile (read-only).**
 
    ```bash
    { uname -a; cat /etc/os-release; nproc; grep -m1 'model name' /proc/cpuinfo;
@@ -58,11 +58,11 @@ git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
      df -h "$(docker info --format '{{.DockerRootDir}}')" "$HOME"; } > "$LAB_DIR/raw/host.txt" 2>&1
    ```
 
-   Нет `/dev/kvm` или флага `svm` — проверьте, включена ли виртуализация в BIOS, и остановитесь с blocker. Внутри VM нужен nested virtualization; для этой работы ожидается bare metal.
+   If `/dev/kvm` or the `svm` flag is absent, check whether BIOS virtualization is enabled and stop with a blocker. A VM requires nested virtualization; this lab expects bare metal.
 
-2. **Протокол до запуска.** Сохраните `raw/protocol.md`: commit SPACE, стенд, значение `SPACE_TILT_MAX_PARALLEL_UPDATES`, порядок шагов, какие smoke входят в минимум, правило остановки (первая ошибка фазы).
+2. **Protocol before execution.** Save `raw/protocol.md`: SPACE commit, machine, `SPACE_TILT_MAX_PARALLEL_UPDATES`, step order, mandatory smoke tests and stop rule (first phase error).
 
-3. **Инструменты и Firecracker.** Запишите время и пик памяти каждой фазы:
+3. **Tools and Firecracker.** Record time and peak memory for each phase:
 
    ```bash
    set +eu; set -o pipefail
@@ -73,19 +73,19 @@ git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
    /usr/bin/time -v bash infra/space/kind/scripts/install-fc-vendor.sh > "$LAB_DIR/raw/fc-vendor.txt" 2>&1
    ```
 
-4. **Bring-up кластера.** Параллельно ведите фоновые наблюдения памяти и таймлайн:
+4. **Cluster bring-up.** Collect background memory observations and a timeline in parallel:
 
    ```bash
    vmstat -t 5 > "$LAB_DIR/raw/vmstat-bootstrap.txt" & VMSTAT=$!
    python3 scripts/benchmarks/kind-bringup-timeline.py watch "$LAB_DIR/raw/timeline" & TIMELINE=$!
-   # На стенде B: export SPACE_TILT_MAX_PARALLEL_UPDATES=1
+   # On machine B: export SPACE_TILT_MAX_PARALLEL_UPDATES=1
    /usr/bin/time -v bash infra/space/kind/scripts/bootstrap.sh > "$LAB_DIR/raw/bootstrap.txt" 2>&1
    kill $VMSTAT $TIMELINE
    ```
 
-   Падение на этом шаге фиксируйте вместе с последними 200 строками лога и состоянием подов (`kubectl --context kind-space-local -n space get pods -o wide`). Повтор после исправления окружения — новая попытка в `planned_attempts`.
+   Record failures at this step with the last 200 log lines and pod state (`kubectl --context kind-space-local -n space get pods -o wide`). A retry after an environment fix is a new entry in `planned_attempts`.
 
-5. **Готовность и первая песочница.**
+5. **Readiness and first sandbox.**
 
    ```bash
    export SPACE_API_URL=http://127.0.0.1:8080 SPACE_DATA_PLANE_URL=http://127.0.0.1:8090
@@ -99,18 +99,18 @@ git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
    python3 examples/first_sandbox.py 2>&1 | tee "$LAB_DIR/raw/first-sandbox.txt"
    ```
 
-   Успех — строки `Hello from SPACE` и `Command completed successfully`. На вопрос об удалении ответьте `y`. Токен в лог не попадает; проверьте это командой `grep -rlF -- "$SPACE_API_TOKEN" "$LAB_DIR/raw" || echo clean` (ожидается `clean`).
+   Success means the lines `Hello from SPACE` and `Command completed successfully`. Answer `y` to the deletion prompt. The token must not enter logs; check with `grep -rlF -- "$SPACE_API_TOKEN" "$LAB_DIR/raw" || echo clean` (expect `clean`).
 
-6. **Smoke по ступеням.** Каждая ступень — отдельная строка таблицы с кодом выхода.
+6. **Staged smoke tests.** Each stage is a separate table row with its exit code.
 
    ```bash
    SKIP_BOOTSTRAP=1 bash scripts/tests/smoke-kind-e2e.sh > "$LAB_DIR/raw/smoke-e2e.txt" 2>&1; echo "e2e=$?" >> "$LAB_DIR/raw/exit-codes.txt"
    SKIP_BOOTSTRAP=1 bash scripts/tests/smoke-kind-typed.sh native > "$LAB_DIR/raw/smoke-native.txt" 2>&1; echo "native=$?" >> "$LAB_DIR/raw/exit-codes.txt"
    ```
 
-   Расширение: `smoke-kind-typed.sh ecw`, затем `all`. На стенде B полный `all` гоняйте по шардам `all 1/2` и `all 2/2` последовательно; шарды против одного кластера одновременно не запускаются. `smoke-spaced-rest.sh` — по команде из раздела Smoke test `infra/space/kind/README.md`.
+   Extension: `smoke-kind-typed.sh ecw`, then `all`. On machine B, run the full `all` sequentially as shards `all 1/2` and `all 2/2`; never run shards against the same cluster simultaneously. Run `smoke-spaced-rest.sh` using the command in the Smoke test section of `infra/space/kind/README.md`.
 
-7. **Ресурсы после прогона.** `docker system df`, `du -sh "$SPACE_VENDOR_ROOT"`, `df -h` — в `raw/disk-after.txt`.
+7. **Resources after the run.** Save `docker system df`, `du -sh "$SPACE_VENDOR_ROOT"`, `df -h` to `raw/disk-after.txt`.
 
 8. **Teardown.**
 
@@ -119,24 +119,24 @@ git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
    kind get clusters >> "$LAB_DIR/raw/teardown.txt"
    ```
 
-   Кэши образов и артефакты Firecracker остаются; запишите их размер. Удалять общие кэши Docker эта работа не требует.
+   Image caches and Firecracker artifacts remain; record their size. This lab does not require deleting shared Docker caches.
 
-## Таблицы результатов
+## Results tables
 
-**Паспорт хоста**
+**Host profile**
 
-| Поле | Стенд A | Стенд B |
+| Field | Machine A | Machine B |
 | --- | --- | --- |
-| CPU, ядра/потоки, `svm` | | |
+| CPU, cores/threads, `svm` | | |
 | MemTotal / swap / UMA | | |
-| Ядро, дистрибутив | | |
-| Docker, cgroup, data root, свободно | | |
+| Kernel, distribution | | |
+| Docker, cgroup, data root, free space | | |
 | `/dev/kvm`, `/dev/net/tun`, btrfs, loop | | |
 | Commit SPACE | | |
 
-**Фазы установки**
+**Installation phases**
 
-| Фаза | Стенд | Wall-clock, s | Max RSS, KiB | Пик used RAM по vmstat, MiB | Диск до/после, GiB | Код выхода |
+| Phase | Machine | Wall-clock, s | Max RSS, KiB | Peak used RAM from vmstat, MiB | Disk before/after, GiB | Exit code |
 | --- | --- | --- | --- | --- | --- | --- |
 | install-prereqs | | | | | | |
 | install-fc-vendor | | | | | | |
@@ -144,39 +144,39 @@ git -C ~/src/SPACE rev-parse HEAD > "$LAB_DIR/raw/space-revision.txt"
 
 **Smoke**
 
-| Ступень | Стенд | Код (0/42/1) | Passed | Skipped | Failed | Первая ошибка |
+| Stage | Machine | Code (0/42/1) | Passed | Skipped | Failed | First error |
 | --- | --- | --- | --- | --- | --- | --- |
 | first_sandbox.py | | | | | | |
 | smoke-kind-e2e | | | | | | |
 | typed native | | | | | | |
-| typed ecw (расш.) | | | | | | |
-| typed all / шарды (расш.) | | | | | | |
+| typed ecw (ext.) | | | | | | |
+| typed all / shards (ext.) | | | | | | |
 
-## Что сдать
+## Deliverables
 
-- По отчёту на стенд (`LAB36-ryzen-NN`, `LAB36-honor-NN`) с заполненными таблицами и `raw/protocol.md`.
-- Raw: `host.txt`, логи фаз, `vmstat`, таймлайн, `first-sandbox.txt`, логи smoke, `exit-codes.txt`, `teardown.txt`.
-- Список упавших сценариев с первой строкой ошибки и ссылкой на лог.
-- Раздел «Различия стендов» в отчёте второй сессии: что пришлось изменить на B по сравнению с A и почему.
+- One report per machine (`LAB36-ryzen-NN`, `LAB36-honor-NN`) with completed tables and `raw/protocol.md`.
+- Raw: `host.txt`, phase logs, `vmstat`, timeline, `first-sandbox.txt`, smoke logs, `exit-codes.txt`, `teardown.txt`.
+- List of failed scenarios with the first error line and a log link.
+- A “Machine differences” section in the second session report: what changed on B relative to A, and why.
 
-## Критерии завершения
+## Completion criteria
 
-- Минимум выполнен на стенде: `first_sandbox.py` успешен, `smoke-kind-e2e` и `typed native` завершились кодом `0`, teardown подтверждён.
-- Каждая ступень имеет код выхода и лог; `42` не засчитан как pass.
-- Пик памяти и время bootstrap измерены, а не оценены.
-- В raw нет токенов, пароля и приватных адресов.
-- Если стенд не прошёл, отчёт имеет статус `blocked` с точной причиной; допуск к ЛР37–42 для него не выдаётся.
+- Minimum completed on the machine: successful `first_sandbox.py`, `smoke-kind-e2e` and `typed native` exit `0`, teardown confirmed.
+- Each stage has an exit code and log; `42` is not counted as pass.
+- Peak memory and bootstrap time measured rather than estimated.
+- Raw evidence contains no tokens, password or private addresses.
+- If the machine did not pass, the report is `blocked` with an exact reason; it is not admitted to LAB37–42.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какая фаза задаёт пик памяти и на каком стенде запас минимален?
-2. Чем пропуск окружения (`42`) отличается от прохождения и почему CI считает их по-разному?
-3. Почему шарды typed smoke нельзя запускать параллельно против одного кластера?
-4. Что из паспорта хоста объясняет различие времени bootstrap между стендами?
-5. Какие ресурсы остаются на диске после teardown и как их безопасно удалить отдельно?
+1. Which phase determines peak memory, and which machine has the least headroom?
+2. How does an environment skip (`42`) differ from a pass, and why does CI treat them differently?
+3. Why must typed-smoke shards not run concurrently against one cluster?
+4. Which host-profile details explain bootstrap-time differences between machines?
+5. Which resources remain on disk after teardown, and how can they be safely removed separately?
 
-## Источники
+## Sources
 
 - SPACE: `docs/installation.md`, `docs/first-sandbox.md`, `docs/troubleshooting.md`, `docs/execution-environments.md`.
 - SPACE: `infra/space/kind/README.md`, `scripts/tests/smoke-kind-e2e.sh`, `scripts/tests/smoke-kind-typed.sh`, `scripts/benchmarks/kind-bringup-timeline.py`.
-- Этот репозиторий: [ЛР02](LAB02-hardware.md) (паспорт стенда A), [протокол](../method.md), [проверка отчёта](report-validation.md).
+- This repository: [LAB02](LAB02-hardware.md) (machine A profile), [protocol](../method.md), [report validation](report-validation.md).

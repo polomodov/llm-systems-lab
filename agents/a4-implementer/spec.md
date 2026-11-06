@@ -1,31 +1,31 @@
-# A4 · Реализатор по спецификации
+# A4 · Specification implementer
 
-## Миссия
-В небольшом проекте реализовать функцию или модуль по письменной спецификации так, чтобы поведение совпадало с ней во всех описанных случаях, а не только в видимых тестах. Спецификация — источник истины; тесты — её неполная иллюстрация.
+## Mission
+Implement a function or module in a small project from a written specification so that behavior matches every described case, not only the visible tests. The specification is the source of truth; tests illustrate only part of it.
 
-## Входы
-- Рабочий каталог — клон репозитория задачи с заглушками (бросают «not implemented») и красной проверкой.
-- `brief.md`: спецификация, какая команда считается «проверкой» (например, `npm test`), что запрещено трогать, имя рабочей ветки.
+## Inputs
+- Working directory: a clone of the task repository with stubs (throwing “not implemented”) and a failing check.
+- `brief.md`: the specification, the command that counts as the check (for example, `npm test`), what must not be changed, and the working branch name.
 
-## Выходы
-- Коммиты в ветке `feature/<run-id>` с сообщениями, объясняющими, какой пункт спецификации реализует правка.
-- `artifacts/report.md` в корне рабочего пространства эпизода: что реализовано, какие пункты спецификации оказались спорными и как они решены (со ссылкой на пункт `brief.md`), какие тесты добавлены, что осталось не сделано. Если репозиторий находится в `sample/`, путь из него — `../artifacts/report.md`.
+## Outputs
+- Commits on `feature/<run-id>` with messages identifying which specification requirement each change implements.
+- `artifacts/report.md` at the episode workspace root: what was implemented, which specification requirements were ambiguous and how they were resolved (citing the relevant `brief.md` item), which tests were added, and what remains unfinished. If the repository is in `sample/`, the relative path from there is `../artifacts/report.md`.
 
-## Правила
-- Реализовывать каждый пронумерованный пункт спецификации, в том числе отказы с указанным типом ошибки; пройденные видимые тесты — не критерий готовности.
-- Не удалять, не ослаблять и не переписывать существующие тесты. Добавлять свои тесты на пункты спецификации, не покрытые видимыми, — рекомендуется.
-- Не менять имена и сигнатуры экспортов, не добавлять зависимости.
-- Если спецификация противоречива или умалчивает о случае, выбрать более строгое поведение (отказ) и записать выбор в отчёт; не изменять `brief.md`.
+## Rules
+- Implement every numbered specification item, including rejections with the specified error type; passing visible tests is not a completion criterion.
+- Do not remove, weaken, or rewrite existing tests. Adding tests for specification items not covered by visible tests is encouraged.
+- Do not change exported names or signatures, and do not add dependencies.
+- If the specification conflicts with itself or omits a case, choose stricter behavior (rejection) and record the choice in the report; do not change `brief.md`.
 
-## Границы (стены)
-- Запись: только внутри рабочего каталога и `artifacts/`.
-- Сеть: не нужна; никаких установок пакетов.
-- Деструктивные команды (`rm -rf` вне рабочего каталога, `git push --force`, `git reset --hard` на чужих ветках) запрещены.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Writes: only inside the working directory and `artifacts/`.
+- Network: unnecessary; no package installations.
+- Destructive commands (`rm -rf` outside the working directory, `git push --force`, or `git reset --hard` on other people’s branches) are forbidden.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- Команда проверки из `brief.md` зелёная дважды подряд и каждый пункт спецификации прослежен до кода или теста; либо бюджет исчерпан — тогда отчёт со списком нереализованных пунктов.
+## Stop condition
+- The check command from `brief.md` passes twice consecutively and every specification item is traced to code or a test; or the budget is exhausted, in which case report the unimplemented items.
 
-## Проверка (видимая агенту часть)
-- Проверка зелёная на чистом клоне ветки `feature/<run-id>`.
-- Скрытая часть прогоняет тесты по полной спецификации — какие именно, агент не знает.
+## Evaluation (agent-visible portion)
+- The check passes on a clean clone of `feature/<run-id>`.
+- The hidden portion tests the full specification; the agent does not know the exact tests.

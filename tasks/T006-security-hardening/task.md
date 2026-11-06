@@ -1,15 +1,15 @@
-# T006 · Укрепление безопасности: три дефекта в маленьком HTTP-сервере
+# T006 · Security hardening: three defects in a small HTTP server
 
-## Стартовое состояние
-`setup.sh` создаёт в рабочем каталоге маленький Node-проект (`sample/`) без зависимостей: сервер на `node:http` (`src/app.js`, точка входа `src/server.js`), который отдаёт статику из `public/` по `GET /files/<name>`, проверяет узел по `GET /ping?host=`, отвечает на `GET /health` и `GET /admin/stats` по токену. В коде три намеренных дефекта: обход пути в `/files/`, инъекция команды в `/ping` через `exec` со строкой оболочки, захардкоженный токен в `src/config.js`, который ещё и возвращается в `/health`. Семь функциональных тестов зелёные — дефекты не ломают поведение. Ветка `main`, проверка — `npm test`.
+## Initial state
+`setup.sh` creates a small Node project (`sample/`) in the working directory with no dependencies: a `node:http` server (`src/app.js`, entry point `src/server.js`) that serves static files from `public/` at `GET /files/<name>`, checks a host at `GET /ping?host=`, responds to `GET /health`, and protects `GET /admin/stats` with a token. The code has three intentional defects: path traversal in `/files/`, command injection in `/ping` through `exec` with a shell string, and a hardcoded token in `src/config.js` that is also returned by `/health`. Seven functional tests pass—the defects do not break functionality. Branch: `main`; check: `npm test`.
 
-## Контракт
-Агент A6 по своей спецификации находит и устраняет дефекты в ветке `harden/<run-id>`, не удаляя конечных точек и не ослабляя тестов; токен переезжает в переменную окружения `TOKEN` с безопасным поведением без неё (отказ стартовать или отключённая конечная точка — выбор записывается в отчёт). Отчёт `artifacts/report.md` описывает каждый дефект с серьёзностью. Скрытая проверка прогоняет эксплойты.
+## Contract
+Agent A6 follows its specification to find and fix the defects on `harden/<run-id>`, without removing endpoints or weakening tests; the token moves to the `TOKEN` environment variable with safe behavior when it is absent (refusing to start or disabling the endpoint; record the choice in the report). `artifacts/report.md` describes each defect and its severity. The hidden check runs exploits.
 
-## Видимая часть проверки
-- `npm test` зелёный на чистом клоне ветки без `TOKEN` в окружении.
-- Количество тестов не уменьшилось; конечные точки на месте.
-- Отчёт содержит все найденные дефекты с серьёзностью и описание поведения без `TOKEN`.
+## Visible evaluation
+- `npm test` passes on a clean clone of the branch without `TOKEN` in the environment.
+- The number of tests has not decreased; endpoints remain available.
+- The report contains every discovered defect with its severity and describes behavior without `TOKEN`.
 
-## Бюджет
-До 30 ходов или $2.
+## Budget
+Up to 30 turns or $2 in cost.

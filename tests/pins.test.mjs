@@ -10,7 +10,7 @@ import { taskLimits } from '../scripts/lib/contracts.mjs';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Минимальный корень с одной обвязкой: аудит смотрит только на то, что нашёл. */
+/** Minimal root with one harness: the audit checks only the profiles it finds. */
 function fixture(t, id = 'claude-code') {
   const root = mkdtempSync(join(tmpdir(), 'harness-pins-'));
   t.after(() => rmSync(root, { recursive: true, force: true }));
@@ -58,20 +58,22 @@ test('task budgets are read from the contracts, not from the runner', () => {
   assert.deepEqual(taskLimits(contract('T001-dossier-from-sources')), { turns: 40, budget: 3 });
   assert.deepEqual(taskLimits(contract('T002-repo-janitor')), { turns: 30, budget: 2 });
   assert.deepEqual(taskLimits(contract('T003-harness-self-audit')), { turns: 20, budget: 1 });
+  // Original sealed Russian contracts remain readable.
   assert.deepEqual(taskLimits('## Бюджет\nДо 7 ходов или $0,5 стоимости.\n'), { turns: 7, budget: 0.5 });
+  assert.deepEqual(taskLimits('## Budget\nUp to 7 turns or $0.5 in cost.\n'), { turns: 7, budget: 0.5 });
 });
 
 test('an unreadable or ambiguous budget stops the run instead of falling back to a default', () => {
   for (const [contract, expected] of [
     ['', /empty/],
-    ['# T\n\nТекст без бюджета.\n', /Бюджет/],
-    ['## Бюджет\nБюджет определит оператор.\n', /exactly once/],
-    ['## Бюджет\nДо 5 ходов или $1.\nДо 9 ходов или $2.\n', /exactly once/],
-    ['## Бюджет\nДо 0 ходов или $1.\n', /turn limit/],
-    ['## Бюджет\nДо 5000 ходов или $1.\n', /turn limit/],
-    ['## Бюджет\nДо 5 ходов или $0.\n', /USD limit/],
-    ['## Бюджет\nДо 5 ходов или $9999.\n', /USD limit/],
+    ['# T\n\nNo budget specified.\n', /Budget/],
+    ['## Budget\nThe operator will decide.\n', /exactly once/],
+    ['## Budget\nUp to 5 turns or $1.\nUp to 9 turns or $2.\n', /exactly once/],
+    ['## Budget\nUp to 0 turns or $1.\n', /turn limit/],
+    ['## Budget\nUp to 5000 turns or $1.\n', /turn limit/],
+    ['## Budget\nUp to 5 turns or $0.\n', /USD limit/],
+    ['## Budget\nUp to 5 turns or $9999.\n', /USD limit/],
   ]) assert.throws(() => taskLimits(contract), expected, JSON.stringify(contract));
-  // Бюджет читается только из своей секции, а не из соседнего текста.
-  assert.throws(() => taskLimits('## Бюджет\nСм. ниже.\n\n## Проверка\nДо 5 ходов или $1.\n'), /exactly once/);
+  // Read the budget only from its own section, never from neighboring text.
+  assert.throws(() => taskLimits('## Budget\nSee below.\n\n## Evaluation\nUp to 5 turns or $1.\n'), /exactly once/);
 });

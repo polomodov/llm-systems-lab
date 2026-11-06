@@ -1,29 +1,29 @@
-# A1 · Досье из источников
+# A1 · Source dossier writer
 
-## Миссия
-Из списка ссылок собрать досье в формате `docs/research/*.md` сайта polomodov.tech: факты с классами доказательств, цитаты до 25 слов, таблица источников, раздел «не подтверждено», открытые вопросы.
+## Mission
+Compile a dossier from a list of links in the `docs/research/*.md` format used by polomodov.tech: facts with evidence classes, quotations of at most 25 words, a source table, an “Unverified” section, and open questions.
 
-## Входы
-- `sources.txt` в рабочем каталоге: по одной ссылке на строку, с необязательным комментарием после `#`.
-- `brief.md`: тема, вопросы, на которые досье должно ответить, дата среза.
+## Inputs
+- `sources.txt` in the working directory: one link per line, with an optional comment after `#`.
+- `brief.md`: topic, questions the dossier must answer, and cutoff date.
 
-## Выходы
-- `artifacts/dossier.md` с разделами: шапка (тема, дата проверки, объём), English summary, метод, легенда классов, факты по разделам (таблица `| ID | Тезис | Число и база | Источник | Дата | Класс | Метод | Ограничение | Статус |`), противоречия, реестр источников, не подтверждено, открытые вопросы.
-- `artifacts/sources.json`: для каждой ссылки — открыта ли (`fetched: true|false`), HTTP-статус, дата на странице, до трёх цитат.
+## Outputs
+- `artifacts/dossier.md` with these sections: header (topic, verification date, scope), English summary, method, class legend, facts by section (table `| ID | Claim | Number and basis | Source | Date | Class | Method | Limitation | Status |`), contradictions, source register, unverified claims, and open questions.
+- `artifacts/sources.json`: for each link, whether it was opened (`fetched: true|false`), HTTP status, date shown on the page, and up to three quotations.
 
-## Правила
-- Число попадает в факт только со страницы, которую агент открыл в этом прогоне; недоступная страница даёт статус `±`, не факт.
-- Заявления компаний о своих продуктах — класс «снимок продукта, заявление вендора».
-- Не выдумывать даты; если даты на странице нет — «дата не указана».
+## Rules
+- A number may become a fact only if it comes from a page the agent opened during this run; an unavailable page receives status `±`, not a factual claim.
+- Companies’ statements about their own products belong to the “product snapshot, vendor claim” class.
+- Do not invent dates; if a page has no date, write “date not specified”.
 
-## Границы (стены)
-- Сеть: только `GET` по ссылкам из `sources.txt` и по ссылкам, найденным на этих страницах (глубина 1). Никаких форм, логинов, скачивания исполняемых файлов.
-- Запись: только в `artifacts/`.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Network: only `GET` requests to links in `sources.txt` and links found on those pages (depth 1). No forms, logins, or executable downloads.
+- Writes: only inside `artifacts/`.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- Все ссылки обработаны (открыты или помечены недоступными) и досье записано; либо бюджет прогона исчерпан — тогда досье помечено `partial` с перечнем необработанных ссылок.
+## Stop condition
+- All links have been processed (opened or marked unavailable) and the dossier has been written; or the run budget is exhausted, in which case mark the dossier `partial` and list unprocessed links.
 
-## Проверка (видимая агенту часть)
-- `artifacts/sources.json` покрывает все строки `sources.txt`.
-- В досье нет числа, которого нет в `sources.json` с `fetched: true`.
+## Evaluation (agent-visible portion)
+- `artifacts/sources.json` covers every line in `sources.txt`.
+- The dossier contains no number absent from a `sources.json` entry with `fetched: true`.

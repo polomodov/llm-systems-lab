@@ -1,15 +1,15 @@
-# T001 · Досье из шести источников об обвязках
+# T001 · Dossier from six sources about harnesses
 
-## Стартовое состояние
-`setup.sh` кладёт в рабочий каталог `brief.md` и `sources.txt` с шестью ссылками: документация Claude Code (глоссарий), пост LangChain «The Anatomy of an Agent Harness», статья Böckeler на martinfowler.com, пост Anthropic «Harness design for long-running application development», заметка METR «Measuring time horizon using Claude Code and Codex», changelog MCP 2026-07-28.
+## Initial state
+`setup.sh` places `brief.md` and `sources.txt` in the working directory with six links: Claude Code documentation (glossary), the LangChain post “The Anatomy of an Agent Harness”, Böckeler’s article on martinfowler.com, the Anthropic post “Harness design for long-running application development”, the METR note “Measuring time horizon using Claude Code and Codex”, and the MCP changelog dated 2026-07-28.
 
-## Контракт
-Агент A1 по своей спецификации создаёт `artifacts/dossier.md` и `artifacts/sources.json`. Досье отвечает на три вопроса из `brief.md`: как источники определяют обвязку; какие числа об эффекте обвязки в них есть и с какими условиями; что в них противоречит друг другу.
+## Contract
+Agent A1 follows its specification to create `artifacts/dossier.md` and `artifacts/sources.json`. The dossier answers the three questions in `brief.md`: how the sources define a harness; which numbers they report about harness effects and under what conditions; and where the sources contradict one another.
 
-## Видимая часть проверки
-- `sources.json` покрывает все шесть ссылок.
-- В досье нет числа без источника с `fetched: true`.
-- Есть раздел «Противоречия» хотя бы с одним пунктом.
+## Visible evaluation
+- `sources.json` covers all six links.
+- The dossier contains no number without a source with `fetched: true`.
+- A “Contradictions” section contains at least one item.
 
-## Бюджет
-До 40 ходов или $3 стоимости, что раньше. Один прогон на первый заход; три — при повторе.
+## Budget
+Up to 40 turns or $3 in cost. Whichever limit is reached first applies. One run for the first attempt; three for a repeat.

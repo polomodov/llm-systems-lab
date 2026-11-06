@@ -8,18 +8,22 @@
   "os_reserve_gib": 16,
   "gpu_budget_gib": 89.4,
   "runtime_reserve_gib": 6,
-  "kv_cache_reserve_gib": { "8192": 4, "16384": 8, "32768": 16 },
+  "kv_cache_reserve_gib": {
+    "8192": 4,
+    "16384": 8,
+    "32768": 16
+  },
   "measurement_status": "unverified",
   "sources": [
     "https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html",
     "https://www.amd.com/content/dam/amd/en/documents/products/workstations/workstation-halo-whitepaper.pdf"
   ],
   "notes": [
-    "CPU, 128 GB и Linux сообщены владельцем; точная машина, дистрибутив, firmware и доступные heaps ещё не измерены.",
-    "119.2 GiB и 89.4 GiB — консервативный пересчёт 128 и 96 десятичных GB. Реальные MemTotal/MemAvailable и GPU heaps могут отличаться.",
-    "96 GB из материалов AMD не являются гарантией GPU allocation на Linux. gpu_budget_gib — плановая гипотеза до preflight.",
-    "16 GiB для ОС/обвязки, 6 GiB для runtime и 4/8/16 GiB для KV/state — резервы планирования, не измерения и не архитектурная формула KV.",
-    "Общая память единая: GPU budget не прибавляется к RAM. Только один сервер, одна модель и один запрос одновременно.",
-    "Vulkan и HIP/ROCm исследуются равноправно. Доступный heap/KFD budget проверяется для каждого runtime; общий первоначальный бюджет не доказывает одинаковую allocation capability."
+    "CPU, 128 GB, and Linux are owner-reported; the exact machine, distribution, firmware, and available heaps have not yet been measured.",
+    "119.2 GiB and 89.4 GiB conservatively convert 128 and 96 decimal GB. Actual MemTotal/MemAvailable and GPU heaps may differ.",
+    "The 96 GB in AMD materials does not guarantee GPU allocation on Linux. gpu_budget_gib is a planning hypothesis until preflight.",
+    "16 GiB for the OS/harness, 6 GiB for runtime, and 4/8/16 GiB for KV/state are planning reserves, not measurements or an architecture-specific KV formula.",
+    "Memory is unified: do not add GPU budget to RAM. Only one server, one model, and one request at a time.",
+    "Vulkan and HIP/ROCm are investigated on equal terms. Check available heap/KFD budget for each runtime; a shared initial budget does not establish identical allocation capability."
   ]
 }

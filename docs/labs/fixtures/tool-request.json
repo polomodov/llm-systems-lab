@@ -1,11 +1,11 @@
 {
   "model": "lab-model",
-  "messages": [{ "role": "user", "content": "Вызови lookup_lab_value с key alpha. Получив результат инструмента, верни только значение." }],
+  "messages": [{ "role": "user", "content": "Call lookup_lab_value with key alpha. After receiving the tool result, return only the value." }],
   "tools": [{
     "type": "function",
     "function": {
       "name": "lookup_lab_value",
-      "description": "Возвращает фиксированное значение по ключу учебного стенда.",
+      "description": "Returns a fixed value for an educational test key.",
       "parameters": {
         "type": "object",
         "properties": { "key": { "type": "string", "enum": ["alpha"] } },

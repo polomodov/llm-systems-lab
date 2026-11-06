@@ -1,15 +1,15 @@
-# Учебный набор для калибровки оценщиков
+# Educational evaluator-calibration set
 
-Все данные искусственные, ответы написаны как учебные fixtures и не получены от модели. Код кандидата не обозначает harness, модель или уровень качества. Это не скрытая проверка. Публичный эталон лежит рядом, но в ЛР20 его открывают **после** двух независимых оценок.
+All data are artificial; responses are written educational fixtures, not model outputs. Candidate codes identify neither harness, model nor quality level. This is not a hidden check. The public reference is adjacent, but LAB20 opens it **after** two independent evaluations.
 
-## Задание, которое оценивалось
+## Evaluated assignment
 
-По трём кратким источникам подготовить вывод до 120 слов: «Доказано ли, что вымышленный движок North быстрее South для рабочей нагрузки?». Каждое приведённое число должно иметь ссылку `[S1]`, `[S2]` или `[S3]` и условия. Отделить vendor claim от измерения; не усреднять несопоставимые наблюдения; предложить контролируемую проверку.
+Using three short sources, write a conclusion of up to 120 words: “Is the fictional North engine proven faster than South for the workload?” Every quoted number needs an `[S1]`, `[S2]` or `[S3]` citation and conditions. Separate vendor claims from measurements; do not average incomparable observations; propose a controlled check.
 
-- **S1** — поставщик North сообщает **40 output tokens/s**, лучшая попытка, prompt 512, concurrency 1, machine A, warm cache, версия 1.0. Логов нет.
-- **S2** — независимая группа измерила South **20 output tokens/s**, медиана трёх попыток, prompt 8192, concurrency 2, machine B, warm cache, версия 1.0. Энергорежим не указан.
-- **S3** — рабочая нагрузка: prompt 8192, concurrency 2, machine A, tool calling. Сопоставимого замера North и South на ней нет.
+- **S1** — North's vendor reports **40 output tokens/s**, best attempt, prompt 512, concurrency 1, machine A, warm cache, version 1.0. No logs.
+- **S2** — an independent group measured South at **20 output tokens/s**, median of three attempts, prompt 8192, concurrency 2, machine B, warm cache, version 1.0. Power mode unspecified.
+- **S3** — workload: prompt 8192, concurrency 2, machine A, tool calling. No comparable North/South measurement exists for it.
 
-Оценщики читают `candidate-a.md`…`candidate-d.md` и [рубрику](rubric.json). Для каждого кандидата отмечают все пять критериев true/false и короткое доказательство из ответа. Нельзя угадывать стиль «хорошего» автора, добавлять неуказанные критерии или исправлять ответ во время оценки. Если правило неоднозначно, запишите разногласие; исходный verdict не стирайте.
+Evaluators read `candidate-a.md`…`candidate-d.md` and the [rubric](rubric.json). For each candidate, mark all five criteria true/false with brief evidence from the response. Do not guess the style of a “good” author, add unstated criteria or fix the answer during evaluation. If a rule is ambiguous, record disagreement; preserve the original verdict.
 
-[Эталон](reference-evaluation.json) представляет применение именно этой учебной рубрики автором набора, а не универсальную истину о качестве текста. После вскрытия сравните оценки по критериям, отдельно разберите расхождение двух судей и расхождение каждого с эталоном. Полная процедура — [ЛР20](../../LAB20-judge-calibration.md).
+The [reference](reference-evaluation.json) is the set author's application of this educational rubric, not universal truth about writing quality. After opening it, compare criterion scores, separately analyzing disagreement between judges and each judge's disagreement with the reference. Full procedure: [LAB20](../../LAB20-judge-calibration.md).

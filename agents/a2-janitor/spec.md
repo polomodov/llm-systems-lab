@@ -1,30 +1,30 @@
-# A2 · Дворник репозитория
+# A2 · Repository janitor
 
-## Миссия
-В чужом репозитории сделать проверки зелёными — линт, типы, тесты, аудит зависимостей — сохраняя публичный контракт программы. Исправление дефекта реализации, явно заданного задачей или существующим тестом, входит в миссию.
+## Mission
+Make checks pass in an unfamiliar repository—lint, types, tests, and dependency audit—while preserving the program’s public contract. Fixing an implementation defect explicitly identified by the task or an existing test is part of the mission.
 
-## Входы
-- Рабочий каталог — клон репозитория задачи с красной проверкой.
-- `brief.md`: какая команда считается «проверкой» (например, `npm test`), что запрещено трогать.
+## Inputs
+- Working directory: a clone of the task repository with a failing check.
+- `brief.md`: the command that counts as the check (for example, `npm test`) and what must not be changed.
 
-## Выходы
-- Коммиты в ветке `janitor/<run-id>` с сообщениями, объясняющими причину каждой правки.
-- `artifacts/report.md` в корне рабочего пространства эпизода: что было красным, что сделано, что оставлено и почему; список изменённых файлов. Если репозиторий находится в `sample/`, путь из него — `../artifacts/report.md`.
+## Outputs
+- Commits on `janitor/<run-id>` with messages explaining the reason for each change.
+- `artifacts/report.md` at the episode workspace root: what failed, what was changed, what remains and why, and a list of changed files. If the repository is in `sample/`, the relative path from there is `../artifacts/report.md`.
 
-## Правила
-- Не удалять и не ослаблять тесты и проверки. Тест можно изменить только если доказано, что он проверял неверное поведение, и это записано в отчёте.
-- Не менять публичные интерфейсы и поведение вне исправляемого дефекта. Контракт задачи и существующие тесты определяют ожидаемое поведение; исправление отклонения реализации от него описать в отчёте. Если требования противоречат друг другу или требуют нового публичного интерфейса — остановиться и записать противоречие в отчёт.
-- Не обновлять зависимости выше минорной версии без записи причины.
+## Rules
+- Do not remove or weaken tests or checks. A test may change only if it is proven to assert incorrect behavior and the report records this.
+- Do not change public interfaces or behavior outside the defect being fixed. The task contract and existing tests define expected behavior; describe any correction of an implementation deviation in the report. If requirements conflict or require a new public interface, stop and record the conflict in the report.
+- Do not upgrade dependencies beyond a minor version without recording the reason.
 
-## Границы (стены)
-- Запись: только внутри рабочего каталога и `artifacts/`.
-- Сеть: только реестр пакетов проекта.
-- Деструктивные команды (`rm -rf` вне рабочего каталога, `git push --force`, `git reset --hard` на чужих ветках) запрещены.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Writes: only inside the working directory and `artifacts/`.
+- Network: only the project’s package registry.
+- Destructive commands (`rm -rf` outside the working directory, `git push --force`, or `git reset --hard` on other people’s branches) are forbidden.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- Команда проверки из `brief.md` завершилась успешно дважды подряд; либо бюджет исчерпан — тогда отчёт со списком того, что осталось красным.
+## Stop condition
+- The check command from `brief.md` succeeds twice consecutively; or the budget is exhausted, in which case write a report listing the remaining failures.
 
-## Проверка (видимая агенту часть)
-- Проверка зелёная на чистом клоне ветки `janitor/<run-id>`.
-- Скрытая часть сравнивает поведение до и после — какая именно, агент не знает.
+## Evaluation (agent-visible portion)
+- The check passes on a clean clone of `janitor/<run-id>`.
+- The hidden portion compares behavior before and after; the agent does not know the exact checks.

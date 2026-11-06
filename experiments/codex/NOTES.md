@@ -1,11 +1,11 @@
-# Наблюдения · OpenAI Codex CLI
+# Observations · OpenAI Codex CLI
 
-## Инфраструктурная проверка 20.09.2026
+## Infrastructure check, 2026-09-20
 
-Реальных прогонов пока нет. Установлен `@openai/codex@0.155.1` на `node:24.13.1-bookworm-slim`, Linux/arm64. Image ID: `sha256:a8ee8340e5eba49390da3fe9cd7a58b468e9083f8bb8e27c43301725415ad736`.
+No real runs yet. Installed `@openai/codex@0.155.1` on `node:24.13.1-bookworm-slim`, Linux/arm64. Image ID: `sha256:a8ee8340e5eba49390da3fe9cd7a58b468e9083f8bb8e27c43301725415ad736`.
 
-Сборка завершилась успешно. `codex --version` вернул `codex-cli 0.155.1`; `codex exec --help` завершился с кодом 0 под UID/GID 1000, с read-only rootfs, tmpfs `/tmp`, без сети и ключей. CLI предупреждает о недоступности PATH aliases в HOME под `/tmp`; это не помешало проверке интерфейса, работу файловых инструментов нужно проверить реальным эпизодом.
+The build succeeded. `codex --version` returned `codex-cli 0.155.1`; `codex exec --help` exited with code 0 under UID/GID 1000, with a read-only rootfs and tmpfs `/tmp`, without network access or keys. The CLI warns that PATH aliases are unavailable in HOME under `/tmp`; this did not prevent interface verification. File tools still need a real episode check.
 
-Проверка полного argv с отсутствующим ключом при `--network none` начала JSONL и повторы неудачных DNS-запросов; тест завершил контейнер по таймауту 20 секунд. Это подтверждает загрузку конфигурации, но не работоспособность API или правильную обработку авторизации. Ни один запрос не мог выйти из контейнера. В [сыром отчёте](smoke/2026-09-20.json) `error=ETIMEDOUT` имеет приоритет над status клиентского процесса Docker.
+Checking the complete argv without a key under `--network none` started JSONL and repeated failed DNS requests; the test terminated the container after a 20-second timeout. This confirms configuration loading, not API operation or correct authentication handling. No request could leave the container. In the [raw report](smoke/2026-09-20.json), `error=ETIMEDOUT` takes precedence over the Docker client process status.
 
-Тесты парсера используют синтетические события; проверяют literal argv, отказ от неподдержанных обязательных лимитов, cache accounting, отсутствие вымышленных нулей, ошибку и оборванный JSONL. Следующий шаг — записанный эпизод с выбранным точным ID модели, проверка proxy transport, инструментов и независимый вердикт.
+Parser tests use synthetic events and check literal argv, unsupported mandatory-limit rejection, cache accounting, absence of invented zeros, errors, and truncated JSONL. Next: a recorded episode with an exact selected model ID, proxy transport and tool verification, and an independent verdict.

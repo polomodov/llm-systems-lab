@@ -3,15 +3,15 @@
   "kind": "lab-practice-fixture",
   "evidence_class": "synthetic",
   "id": "duplicate-action",
-  "title": "Потерянный ответ и повтор побочного эффекта",
+  "title": "Lost response and duplicate side effect",
   "related_labs": ["LAB20", "LAB23"],
-  "assignment": "Клиент пытается увеличить dummy-счётчик ровно один раз. Первый ответ потерян, поэтому клиент повторяет ту же логическую операцию без ключа идемпотентности. Сопоставьте наблюдения клиента с учебным simulated-action-audit. Счётчик существует только в памяти интерпретатора, внешних действий нет.",
+  "assignment": "The client tries to increment a dummy counter exactly once. The first response is lost, so the client repeats the same logical operation without an idempotency key. Compare client observations with the educational simulated-action-audit. The counter exists only in interpreter memory; there are no external actions.",
   "questions": [
-    "Что знает клиент после потерянного ответа: операция не выполнена или её исход неизвестен?",
-    "Сколько реальных внешних действий выполнено и сколько применений показывает только синтетический журнал?",
-    "Почему новый call_id не обеспечивает идемпотентность одной логической action_id?",
-    "Как изменится журнал при одном стабильном idempotency_key для обоих вызовов? Какие проверки нужны при повторном ключе с изменёнными аргументами?",
-    "Достаточно ли полученного final для успеха условия «увеличить ровно один раз»? Какие доказательства нужны оценщику?"
+    "What does the client know after a lost response: that the operation did not execute, or that its outcome is unknown?",
+    "How many real external actions occurred, and how many applications appear only in the synthetic log?",
+    "Why does a new call_id not ensure idempotency of one logical action_id?",
+    "How does the log change with one stable idempotency_key for both calls? What checks are needed when a key is repeated with changed arguments?",
+    "Does receiving final suffice to satisfy 'increment exactly once'? What evidence does the evaluator need?"
   ],
   "steps": [
     { "type": "request", "at_ms": 0, "request_id": "request-1" },
@@ -19,6 +19,6 @@
     { "type": "tool-response", "at_ms": 150, "request_id": "request-1", "call_id": "increment-1", "delivery": "lost" },
     { "type": "assistant-tool-call", "at_ms": 200, "request_id": "request-1", "call_id": "increment-2", "name": "increment_demo_counter", "arguments": { "counter": "demo", "amount": 1 }, "action_id": "add-one", "idempotency_key": null },
     { "type": "tool-response", "at_ms": 210, "request_id": "request-1", "call_id": "increment-2", "delivery": "delivered" },
-    { "type": "assistant-final", "at_ms": 240, "request_id": "request-1", "text": "Повторный ответ получен: dummy-счётчик равен 2. Исход первого вызова по его ответу неизвестен." }
+    { "type": "assistant-final", "at_ms": 240, "request_id": "request-1", "text": "Retry response received: the dummy counter is 2. The first call's response leaves its outcome unknown." }
   ]
 }

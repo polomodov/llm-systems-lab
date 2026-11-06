@@ -1,27 +1,27 @@
-# ЛР23. Восстановление агента после управляемых сбоев
+# LAB23. Agent recovery after controlled failures
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип | Fault injection в инструмент и наблюдение поведения агента |
-| Время | 3–6 часов инженерной подготовки; затем 6 попыток и оценка |
-| Предпосылки | ЛР09; ЛР20 полезна для согласования разметки trace |
-| Готовность | `implementation-required` для реального агента; четыре offline сценария уже доступны |
-| Минимальный объём | Одна задача × без сбоя/один контролируемый сбой × три пары = 6 попыток |
-| Расширение | Отдельные серии: 429, timeout, обрыв stream, повтор операции после потерянного ответа |
+| Type | Tool fault injection and observation of agent behavior |
+| Time | 3–6 hours of engineering preparation; then 6 attempts and evaluation |
+| Prerequisites | LAB09; LAB20 is useful for aligning trace annotations |
+| Readiness | `implementation-required` for a real agent; four offline scenarios are already available |
+| Minimum scope | One task × no fault/one controlled fault × three pairs = 6 attempts |
+| Extension | Separate series: 429, timeout, interrupted stream, repeating an operation after a lost response |
 
-## Цель
+## Objective
 
-Проверить, умеет ли агент распознать сбой, сохранить состояние и продолжить без дублирования действий. Отделить восстановление HTTP клиента от решения, которое действительно принял агент.
+Test whether an agent can recognize a failure, preserve state, and continue without duplicating actions. Distinguish HTTP client recovery from a decision the agent actually made.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«После одной заранее назначенной временной ошибки чтения агент завершает выбранную задачу, не изменяя результат и не превышая заранее заданный лимит восстановления». Фактор — единственный ответ выбранного инструмента в заданной точке: нормальный результат либо контролируемая временная ошибка.
+“After one prescheduled temporary read error, the agent completes the selected task without changing the outcome or exceeding a predefined recovery limit.” The factor is one response from the selected tool at a specified point: a normal result or a controlled temporary error.
 
-Для минимального пилота задайте лимит не более двух дополнительных вызовов этого инструмента и 60 секунд дополнительного wall-clock относительно парного baseline. Эти учебные пороги можно изменить **до** серии, обосновав workload. Поддержка в пилоте требует pass у всех fault попыток, отсутствия дублированных изменений и соблюдения обоих лимитов в каждой измеренной паре. Три пары не оценивают редкие сбои промышленной эксплуатации.
+For the minimal pilot, set a limit of no more than two additional calls to this tool and 60 seconds of additional wall-clock time relative to the paired baseline. These training thresholds may be changed **before** the series with a workload-based justification. Pilot support requires a pass in every fault attempt, no duplicated changes, and compliance with both limits in every measured pair. Three pairs do not assess rare production failures.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB23 --session recovery-pilot
@@ -32,68 +32,68 @@ npm run lab:practice -- --scenario duplicate-action --session recovery-pilot
 npm run check
 ```
 
-По [practice.md](practice.md) заполните worksheet для каждого сценария: где ошибка стала видимой, какие события были подтверждены и почему неизвестный итог нельзя записать как успешный. Это фиксированные искусственные traces, не тест текущего harness на API. Показатели из них не добавляются в реальные runs.
+Using [practice.md](practice.md), complete a worksheet for each scenario: where the error became visible, which events were confirmed, and why an unknown outcome cannot be recorded as successful. These are fixed artificial traces, not an API test of the current harness. Their metrics must not be added to real runs.
 
-Для первой настоящей серии выбирайте read-only операцию на существующей T002 либо зарегистрированном [эпизоде миграции](episodes/interface-migration/episode.md). Нельзя организовывать сбой отключением пользовательской сети, GPU, общего model server или рабочего сервиса. Ошибку вводит изолированный тестовый слой только в трафик данной попытки; инструменты с внешними побочными эффектами заменяются fixtures.
+For the first real series, choose a read-only operation in the existing T002 or a registered [migration episode](episodes/interface-migration/episode.md). Do not induce a failure by disconnecting the user's network, GPU, shared model server, or working service. An isolated test layer introduces the error only into this attempt's traffic; tools with external side effects are replaced with fixtures.
 
-## Порядок выполнения
+## Procedure
 
-1. **Задайте причинную модель сбоя.** Минимальный вариант — первый вызов чтения известного файла получает структурированную ошибку `temporary-unavailable`; следующий вызов при тех же аргументах возвращает исходное содержимое. Файл не меняется. Событие определяется именем инструмента, нормализованными аргументами и счётчиком совпадений, а не случайной задержкой. Если агент вообще не вызвал выбранную операцию, попытка учитывается как `fault-not-triggered`, не как успешное восстановление. Сохраните её и отдельно запланируйте новую полную серию при исправлении протокола.
+1. **Define the causal model of the failure.** The minimal variant returns a structured `temporary-unavailable` error on the first read of a known file; the next call with the same arguments returns the original contents. The file does not change. The event is defined by tool name, normalized arguments, and match count, rather than a random delay. If the agent never calls the selected operation, record the attempt as `fault-not-triggered`, not successful recovery. Retain it and plan a separate new complete series when correcting the protocol.
 
-2. **Реализуйте инженерный допуск.** Добавьте test-only shim к одному адаптеру, фиксированный fault manifest и trace событий `scheduled`, `triggered`, `delivered`, `recovered/failed`. Политика fault, её hash и стадия должны быть запечатаны и разделять comparison groups. Обычные конфигурации не активируют shim. Текущий runner не предоставляет общего `--fault` флага; до реализации не придумывайте команды. Новому публичному эпизоду дополнительно нужна регистрация task ID, seed и внешнего judge.
+2. **Implement engineering acceptance.** Add a test-only shim to one adapter, a fixed fault manifest, and a trace of `scheduled`, `triggered`, `delivered`, and `recovered/failed` events. The fault policy, its hash, and stage must be sealed and separate comparison groups. Normal configurations must not activate the shim. The current runner provides no general `--fault` flag; do not invent commands before implementation. A new public episode additionally requires registration of a task ID, seed, and external judge.
 
-3. **Разделите уровни retry.** Документируйте native HTTP retries, SDK retries, tool retries и действия агента. Для опыта о поведении агента ошибка должна достигнуть его transcript как error result. Если SDK молча восстановил ответ, измеряется устойчивость клиента, а агент сбоя не видел. Не выключайте retries без фиксации этого изменения одинаково в обеих конфигурациях. Реальные vendor 429 не вызывайте намеренным превышением квот: используйте локальный mock.
+3. **Separate retry layers.** Document native HTTP retries, SDK retries, tool retries, and agent actions. For an experiment on agent behavior, the error must reach its transcript as an error result. If the SDK silently recovers the response, the measurement concerns client resilience; the agent did not see the failure. Do not disable retries without recording that change identically in both configurations. Do not deliberately exceed quotas to trigger real vendor 429 responses: use a local mock.
 
-4. **Проверьте shim без модели.** Одна и та же последовательность запросов должна вносить ровно один сбой, возвращать нормальный результат после него и не влиять на параллельный run. Проверки охватывают неверный fault target, повторную регистрацию, очистку после timeout, запись факта доставки ошибки и отсутствие секретов в raw trace. Структурно неполный stream не должен незаметно становиться успешным пустым ответом. Для `duplicate-action` test tool сохраняет журнал операции с уникальным request ID; проверить нужно состояние, а не только число запросов.
+4. **Test the shim without a model.** The same request sequence must introduce exactly one failure, return a normal result afterward, and leave parallel runs unaffected. Checks cover an incorrect fault target, duplicate registration, cleanup after timeout, recording error delivery, and absence of secrets in the raw trace. A structurally incomplete stream must not silently become a successful empty response. For `duplicate-action`, the test tool keeps an operation log with a unique request ID; verify state, not just request count.
 
-5. **Зафиксируйте пары и лимиты.** Порядок: baseline → fault, fault → baseline, baseline → fault. Начальные файлы, модель, обвязка, сеть, инструменты, output/context, seed при поддержке, общий budget и timeout совпадают. Fault-варианту не выдаётся дополнительный бюджет: его стоимость входит в те же границы. Лимиты восстановления из гипотезы — аналитические критерии внутри общего бюджета, а не разрешение выйти за него.
+5. **Fix pairs and limits.** Order: baseline → fault, fault → baseline, baseline → fault. Initial files, model, harness, network, tools, output/context, seed where supported, overall budget, and timeout must match. The fault variant receives no extra budget: its costs fit within the same boundaries. The recovery limits in the hypothesis are analytical criteria inside the overall budget, not permission to exceed it.
 
-6. **Запустите шесть настоящих попыток после допуска.** Применяйте принятый интерфейс расширения и обычный жизненный цикл записи. Каждая попытка получает новый ID и изолированный workspace; traces fault manifest привязаны к нему. Не корректируйте prompt, retry limit или fault target посередине серии. При утечке fault между запусками остановите эксперимент, сохраните все начатые попытки и создайте новую версию механизма.
+6. **Run six real attempts after acceptance.** Use the accepted extension interface and normal record lifecycle. Each attempt receives a new ID and isolated workspace; fault manifest traces are linked to it. Do not adjust the prompt, retry limit, or fault target midway through the series. If a fault leaks between runs, stop the experiment, retain every started attempt, and create a new mechanism version.
 
-7. **Получите независимый verdict.** Судья оценивает итоговую задачу по обычному контракту. Отдельно аналитик проверяет доставку ошибки, дальнейшие вызовы, подтверждённые записи и соблюдение границ. `Completed` процесса не означает, что запись выполнена ровно один раз. Если trace не позволяет подтвердить состояние, отметьте outcome восстановления unknown, даже при внешне правдоподобном ответе модели.
+7. **Obtain an independent verdict.** The judge evaluates the final task against the normal contract. Separately, an analyst checks error delivery, subsequent calls, confirmed writes, and boundary compliance. A process marked `Completed` does not mean a write happened exactly once. If the trace cannot confirm state, mark the recovery outcome unknown, even if the model's answer looks plausible.
 
-8. **Посчитайте цену восстановления.** Для каждого fault run покажите trigger/delivery, исход, число дополнительных обращений, input/output сверх baseline, полное wall-clock и парную разницу. Учтите все retries, в том числе скрытые SDK, когда они наблюдаемы. Для ошибки после изменения состояния отдельно отметьте число **применённых операций** и запросов: они не совпадают при корректной дедупликации. Missing tokens/cost остаются unknown; неполная метрика не превращается в ноль.
+8. **Calculate recovery cost.** For each fault run, show trigger/delivery, outcome, additional call count, input/output above baseline, total wall-clock time, and paired difference. Include all retries, including hidden SDK retries when observable. For an error after a state change, separately record the number of **applied operations** and requests: these differ with correct deduplication. Missing tokens/cost remain unknown; an incomplete metric does not become zero.
 
-9. **Расширяйте по одному классу сбоя.** После read-only опыта отдельно исследуйте потерю ответа после подтверждённой записи, HTTP 429, timeout и оборванный stream. Для каждой серии заново определите точку воздействия, нормальный outcome и правило восстановления. Несколько случайных сбоев в одной попытке годятся для нагрузочного испытания, но не объясняют вклад конкретного retry механизма. Не смешивайте эксперимент с проверками изоляции ЛР08: здесь предметом анализа является поведение после доставленного сбоя.
+9. **Extend one failure class at a time.** After the read-only experiment, separately study a lost response after a confirmed write, HTTP 429, timeout, and an interrupted stream. Redefine the intervention point, normal outcome, and recovery rule for each series. Several random failures in one attempt may suit a stress test but do not explain the contribution of a specific retry mechanism. Do not mix this experiment with LAB08 isolation checks: the subject here is behavior after a delivered failure.
 
-## Таблицы результатов
+## Results tables
 
-| Fault policy | Целевая операция | Точка/счётчик | Что видит агент | Что изменилось в состоянии | Raw evidence |
+| Fault policy | Target operation | Point/counter | What the agent sees | What changed in state | Raw evidence |
 | --- | --- | --- | --- | --- | --- |
-| До запуска | Tool + arguments | Первый совпавший вызов | Error result | В минимуме ничего | Manifest/hash |
+| Before running | Tool + arguments | First matching call | Error result | Nothing in the minimal experiment | Manifest/hash |
 
-| Пара | Baseline ID/verdict | Fault ID/verdict | Triggered/delivered | Дополнительные calls | Δ времени, s | Δ tokens | Порог выполнен |
+| Pair | Baseline ID/verdict | Fault ID/verdict | Triggered/delivered | Additional calls | Δ time, s | Δ tokens | Threshold met |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1/2/3 | После judge | После judge | Да/нет/unknown | Из trace | Из измерений | Только если известны | Да/нет/недостаточно данных |
+| 1/2/3 | After judging | After judging | Yes/no/unknown | From trace | From measurements | Only if known | Yes/no/insufficient data |
 
-| Run / операция | Запросов | Подтверждённых применений | Состояние после | Кто сделал retry | Доказательство |
+| Run / operation | Requests | Confirmed applications | State afterward | Who retried | Evidence |
 | --- | --- | --- | --- | --- | --- |
-| Фактический ID | Из trace | Из журнала test tool | Проверено/unknown | SDK/harness/agent | Файл/event ID |
+| Actual ID | From trace | From test tool log | Verified/unknown | SDK/harness/agent | File/event ID |
 
-## Что сдать
+## Deliverables
 
-Три заполненных offline worksheets, fault policy и инженерные проверки, предварительный протокол, шесть настоящих записей после допуска, независимые verdict, trace разметку и итоговое состояние test tool. Отдельно перечислите непроизошедшие/недоставленные faults. Если инженерная часть не реализована, отчёт содержит только synthetic/protocol evidence и явное `not-run` измерений. Формат — [report-validation.md](report-validation.md).
+Three completed offline worksheets, the fault policy and engineering checks, the preregistered protocol, six real records after acceptance, independent verdicts, trace annotations, and the test tool's final state. List faults that were not triggered/not delivered separately. If the engineering component is not implemented, the report contains only synthetic/protocol evidence and explicitly marks measurements `not-run`. Format: [report-validation.md](report-validation.md).
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Минимальное вмешательство затрагивает одну определённую операцию данного run.
-- [ ] Shim протестирован offline и не затрагивает пользовательские сервисы или другие попытки.
-- [ ] Разделены SDK retries и действия модели после видимой ошибки.
-- [ ] Все три пары сохранены; triggered/delivered подтверждены trace.
-- [ ] Проверены итог задачи и состояние, включая число применённых операций для write extension.
-- [ ] Порог восстановления задан заранее; отрицательный результат сохранён и объяснён.
-- [ ] Синтетические traces не названы измерениями модели; `npm run check` проходит.
+- [ ] The minimal intervention affects one defined operation in this run.
+- [ ] The shim is tested offline and does not affect user services or other attempts.
+- [ ] SDK retries are separated from model actions after a visible error.
+- [ ] All three pairs are retained; triggered/delivered events are confirmed by the trace.
+- [ ] Task outcome and state are verified, including the applied-operation count for the write extension.
+- [ ] The recovery threshold is predefined; a negative result is retained and explained.
+- [ ] Synthetic traces are not called model measurements; `npm run check` passes.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему повтор HTTP запроса не доказывает повтор бизнес-операции?
-2. Что измерено, если SDK скрыл временную ошибку от агента?
-3. Почему непроизошедший fault нельзя считать удачным восстановлением?
-4. Чем timeout до выполнения операции отличается от timeout после записи?
-5. Как отделить стоимость восстановления от изменения обычного поведения недетерминированной модели?
+1. Why does repeating an HTTP request not prove that a business operation was repeated?
+2. What is measured if the SDK hides a temporary error from the agent?
+3. Why can a fault that never occurred not count as successful recovery?
+4. How does a timeout before execution differ from a timeout after a write?
+5. How can recovery cost be separated from changes in a nondeterministic model's normal behavior?
 
-## Источники
+## Sources
 
-- [Метод: наблюдаемость и ошибки](../method.md), [общая инфраструктура](../../experiments/common/README.md).
-- [Offline practice](practice.md), [ЛР08: приёмка local bridge](LAB08-local-bridge.md), [ЛР20: согласование оценок](LAB20-judge-calibration.md).
-- [Жизненный цикл записей](../../results/README.md), [публичные эпизоды](episodes/README.md).
+- [Method: observability and errors](../method.md), [common infrastructure](../../experiments/common/README.md).
+- [Offline practice](practice.md), [LAB08: local bridge acceptance](LAB08-local-bridge.md), [LAB20: evaluation agreement](LAB20-judge-calibration.md).
+- [Record lifecycle](../../results/README.md), [public episodes](episodes/README.md).

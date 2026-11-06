@@ -2,7 +2,7 @@ import { mkdirSync, copyFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { spawn } from 'node:child_process';
 
-// CLI читает modelProvider только из своего HOME. В контейнере HOME — временный.
+// The CLI reads modelProvider only from its HOME. HOME is temporary inside the container.
 const configDir = join(process.env.HOME, '.gemini', 'antigravity-cli');
 mkdirSync(configDir, { recursive: true });
 copyFileSync('/control/settings.json', join(configDir, 'settings.json'));

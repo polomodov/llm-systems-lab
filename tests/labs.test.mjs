@@ -9,8 +9,8 @@ import { createLabReport, loadLabCatalog, validateLabCatalog } from '../scripts/
 
 const repository = fileURLToPath(new URL('../', import.meta.url));
 const catalog = () => ({ schema_version: 1, updated_at: '2026-09-21', labs: [
-  { id: 'LAB01', title: 'Синтетическое задание', file: 'LAB01-fixture.md', kind: 'foundation', readiness: 'available', prerequisites: [], effort: '1 час' },
-  { id: 'LAB02', title: 'Синтетическое продолжение', file: 'LAB02-fixture.md', kind: 'measurement', readiness: 'target-machine', prerequisites: ['LAB01'], effort: '2 часа' },
+  { id: 'LAB01', title: 'Synthetic task', file: 'LAB01-fixture.md', kind: 'foundation', readiness: 'available', prerequisites: [], effort: '1 hour' },
+  { id: 'LAB02', title: 'Synthetic follow-up', file: 'LAB02-fixture.md', kind: 'measurement', readiness: 'target-machine', prerequisites: ['LAB01'], effort: '2 hours' },
 ] });
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'lab-course-'));
@@ -42,7 +42,7 @@ test('course prerequisites cannot contain missing works, cycles or escaping file
 
 function harnessFixture(root) {
   const value = catalog();
-  value.labs.push({ id: 'LAB11', title: 'Harness fixture', file: 'LAB11-pi.md', kind: 'agent', harness: 'pi', readiness: 'available', prerequisites: ['LAB01'], effort: '2 часа' });
+  value.labs.push({ id: 'LAB11', title: 'Harness fixture', file: 'LAB11-pi.md', kind: 'agent', harness: 'pi', readiness: 'available', prerequisites: ['LAB01'], effort: '2 hours' });
   mkdirSync(join(root, 'experiments/pi'), { recursive: true });
   copyFileSync(join(repository, 'experiments/pi/harness.json'), join(root, 'experiments/pi/harness.json'));
   writeFileSync(join(root, 'docs/labs/catalog.json'), JSON.stringify(value));
@@ -196,5 +196,5 @@ test('alternative prerequisites are validated, traversed for cycles and displaye
   assert.deepEqual(actual.labs.find(lab => lab.id === 'LAB32').prerequisites_any, ['LAB30', 'LAB31']);
   const cli = spawnSync(process.execPath, [join(repository, 'scripts/labs.mjs')], { cwd: repository, encoding: 'utf8' });
   assert.equal(cli.status, 0, cli.stderr);
-  assert.match(cli.stdout, /LAB05 или LAB32/);
+  assert.match(cli.stdout, /LAB05 or LAB32/);
 });

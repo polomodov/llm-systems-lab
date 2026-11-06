@@ -1,12 +1,12 @@
-// Проверено по OpenAI Docs non-interactive mode и codex exec --help, 2026-09-20.
+// Checked against OpenAI Docs non-interactive mode and codex exec --help on 2026-09-20.
 export function buildCommand({ model, provider = 'openai', turns, budget, prompt }) {
-  if (provider !== 'openai') throw new Error('Codex: адаптер поддерживает только openai');
-  if (typeof model !== 'string' || !model.trim()) throw new Error('Нужен точный model ID');
-  if (typeof prompt !== 'string' || !prompt.trim()) throw new Error('Пустой prompt');
-  if (budget != null) throw new Error('Codex: жёсткий лимит USD не поддержан; задайте --budget-mode observed');
-  if (turns != null) throw new Error('Codex: жёсткий лимит ходов не поддержан адаптером');
+  if (provider !== 'openai') throw new Error('Codex: adapter supports only openai');
+  if (typeof model !== 'string' || !model.trim()) throw new Error('An exact model ID is required');
+  if (typeof prompt !== 'string' || !prompt.trim()) throw new Error('Empty prompt');
+  if (budget != null) throw new Error('Codex: hard USD limits are unsupported; specify --budget-mode observed');
+  if (turns != null) throw new Error('Codex: hard turn limits are unsupported by this adapter');
   const selected = model.replace(/^openai\//, '');
-  if (!selected || selected.includes('/')) throw new Error('Codex: неверный openai model ID');
+  if (!selected || selected.includes('/')) throw new Error('Codex: invalid openai model ID');
   return {
     command: [
       'codex', 'exec', '--model', selected, '--json', '--color', 'never',
@@ -32,17 +32,17 @@ export function parseTrace(stdout) {
   const completed = terminal?.type === 'turn.completed' && !malformed;
   const loop = {};
   const metrics_unavailable = {
-    'loop.turns': 'Codex turn — пользовательский запрос с внутренним циклом; JSONL не сообщает полное число модельных ходов',
-    'loop.cost_usd': 'Codex JSONL не сообщает стоимость USD',
+    'loop.turns': 'A Codex turn is a user request with an internal loop; JSONL does not report the full model-turn count',
+    'loop.cost_usd': 'Codex JSONL does not report USD cost',
   };
-  // input_tokens уже включает cached_input_tokens; повторно cache не прибавляем.
+  // input_tokens already includes cached_input_tokens; do not add cache again.
   const usages = events.filter((event) => event.type === 'turn.completed').map((event) => event.usage);
   for (const [field, key] of [['tokens_in', 'input_tokens'], ['tokens_out', 'output_tokens']]) {
     if (completed && usages.length && usages.every((usage) => count(usage?.[key]))) {
       const total = usages.reduce((sum, usage) => sum + usage[key], 0);
       if (count(total)) loop[field] = total;
     }
-    if (loop[field] === undefined) metrics_unavailable[`loop.${field}`] = 'Нет полной корректной turn.completed usage для завершённого запуска';
+    if (loop[field] === undefined) metrics_unavailable[`loop.${field}`] = 'No complete valid turn.completed usage for the finished run';
   }
   const ids = new Set(events.filter((event) => event.type === 'thread.started').map((event) => event.thread_id).filter((id) => typeof id === 'string' && id));
   return {

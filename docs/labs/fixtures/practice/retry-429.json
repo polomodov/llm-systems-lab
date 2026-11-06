@@ -3,14 +3,14 @@
   "kind": "lab-practice-fixture",
   "evidence_class": "synthetic",
   "id": "retry-429",
-  "title": "Повтор после HTTP 429",
+  "title": "Retry after HTTP 429",
   "related_labs": ["LAB20", "LAB23"],
-  "assignment": "Восстановите две попытки на виртуальной шкале времени. Проверьте соблюдение Retry-After. Опишите, как сохранить первую ошибку после получения финального ответа во второй попытке; не удаляйте её из анализа успешной серии.",
+  "assignment": "Reconstruct two attempts on the virtual timeline. Check Retry-After compliance. Describe how to preserve the first error after receiving the second attempt's final response; do not delete it from analysis of a successful series.",
   "questions": [
-    "Какое самое раннее виртуальное время допустимо для повторного запроса?",
-    "Сколько запросов было начато и сколько завершилось ошибкой? Почему их нельзя свести к одной успешной попытке?",
-    "Какие ограничения повторов нужны в реальном клиенте: бюджет, число попыток, deadline?",
-    "Можно ли считать 1200 виртуальных миллисекунд измеренной задержкой инференса или нулём стоимости?"
+    "What is the earliest permitted virtual time for a retry request?",
+    "How many requests started, and how many failed? Why cannot they be reduced to one successful attempt?",
+    "Which retry limits does a real client need: budget, attempt count, deadline?",
+    "Can 1200 virtual milliseconds be treated as measured inference latency or zero cost?"
   ],
   "steps": [
     { "type": "request", "at_ms": 0, "request_id": "request-1" },

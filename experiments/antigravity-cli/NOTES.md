@@ -1,11 +1,11 @@
-# Наблюдения · Google Antigravity CLI
+# Observations · Google Antigravity CLI
 
-## Инфраструктурная проверка 20.09.2026
+## Infrastructure check, 2026-09-20
 
-Реальных прогонов пока нет. Официальный Linux/arm64 архив `agy` 1.2.7 установлен после проверки SHA-512; image ID: `sha256:cba424c657846ca32c9975ac27ad8f72b55f0de4cbee593d0e2f9bd129fa9bc6`. Основа — `node:24.13.1-bookworm-slim`.
+No real runs yet. The official Linux/arm64 archive of `agy` 1.2.7 was installed after SHA-512 verification; image ID: `sha256:cba424c657846ca32c9975ac27ad8f72b55f0de4cbee593d0e2f9bd129fa9bc6`. Base: `node:24.13.1-bookworm-slim`.
 
-`agy --version` вернул `1.2.7`, `agy --help` завершился с кодом 0 под UID/GID 1000 с read-only rootfs, tmpfs `/tmp` и `--network none`. Runtime прочитал `modelProvider: gemini` из подготовленного settings и завершился с кодом 1 с ожидаемой ошибкой отсутствующего `GEMINI_API_KEY`. Ключи и сеть не передавались. [Сырые результаты](smoke/2026-09-20.json) сохранены отдельно от записей эпизодов.
+`agy --version` returned `1.2.7`; `agy --help` exited with code 0 under UID/GID 1000 with a read-only rootfs, tmpfs `/tmp`, and `--network none`. The runtime read `modelProvider: gemini` from the prepared settings and exited with code 1 and the expected missing-`GEMINI_API_KEY` error. Neither keys nor network access were supplied. [Raw results](smoke/2026-09-20.json) are retained separately from episode records.
 
-Важное отличие документации от измеренного интерфейса: страница headless описывала timeout по умолчанию 5 минут, а `agy --help` 1.2.7 показывает `0s`. Адаптер явно использует 0 и полагается на внешний принудительный timeout. Снимок download-страницы называл 1.2.0, а официальный installer manifest уже содержал 1.2.7; закреплены фактически полученные версия и хеш, а не плавающий installer.
+A material difference between documentation and the measured interface: the headless page described a default 5-minute timeout, whereas `agy --help` 1.2.7 reports `0s`. The adapter explicitly uses 0 and relies on an externally enforced timeout. The download-page snapshot named 1.2.0, while the official installer manifest already contained 1.2.7; the actual retrieved version and hash are pinned, not a floating installer.
 
-Unit-тесты подтверждают обработку итогового aggregate, отсутствие двойного учёта, неизвестные метрики, отказ от неподдержанных лимитов и различение ошибок/обрывов. Доступность выбранной модели, учёт input/cache, полнота подагентных метрик и работа Gemini API через gateway требуют реального записанного эпизода. x64 manifest сохранён, но образ этой архитектуры локально не проверялся.
+Unit tests confirm final-aggregate handling, no double counting, unknown metrics, unsupported-limit rejection, and distinction between errors and truncation. Selected-model availability, input/cache accounting, subagent metric completeness, and Gemini API operation through the gateway require a real recorded episode. The x64 manifest is retained, but an image for that architecture has not been checked locally.

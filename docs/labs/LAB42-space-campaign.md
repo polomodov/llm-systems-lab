@@ -1,55 +1,55 @@
-# ЛР42. Агентные кампании на SPACE: параллельные эпизоды и сравнение с Docker
+# LAB42. Agent campaigns on SPACE: concurrent episodes and Docker comparison
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка SPACE не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the SPACE branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылки | [ЛР09](LAB09-agent-campaign.md), [ЛР37](LAB37-space-harness-vm.md), [ЛР41](LAB41-space-network-secrets.md) |
-| Обвязки | Pi и OpenHands (обе с backend SPACE из ЛР37); другие — после собственной ЛР и шаблона |
-| Минимум | Одна и та же серия (2 обвязки × T002 × 3 повтора) через Docker и через SPACE на стенде A при параллелизме 1 и 2 |
-| Расширения | Параллелизм 4 на стенде A; поиск предела параллелизма на стенде B; T001 replay |
-| Время | Ориентир 1 день плюс время серии |
-| Готовность | `implementation-required`: раннер исполняет одну запись за вызов, планировщик серии пишется в работе |
-| Начальное состояние | Эксперимент `not-run`; учебный manifest — `not-started` |
+| Prerequisites | [LAB09](LAB09-agent-campaign.md), [LAB37](LAB37-space-harness-vm.md), [LAB41](LAB41-space-network-secrets.md) |
+| Harnesses | Pi and OpenHands (both with the LAB37 SPACE backend); others after their own lab and template |
+| Minimum | The same series (2 harnesses × T002 × 3 repetitions) through Docker and SPACE on machine A at concurrency 1 and 2 |
+| Extensions | Concurrency 4 on machine A; find machine B's concurrency limit; T001 replay |
+| Time | Allow 1 day plus series runtime |
+| Readiness | `implementation-required`: the runner executes one record per invocation; the series scheduler is written during the lab |
+| Initial state | Experiment `not-run`; educational manifest `not-started` |
 
-## Цель
+## Objective
 
-Прогнать сравнительную серию ЛР09 через backend SPACE с параллельными эпизодами и сравнить с Docker-раннером на тех же условиях: долю pass, wall-clock серии, отказы инфраструктуры отдельно от отказов агента, пик памяти хоста.
+Run the LAB09 comparison series through the SPACE backend with concurrent episodes and compare with the Docker runner under the same conditions: pass rate, series wall-clock, infrastructure failures separately from agent failures, peak host memory.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. Доли pass в Docker и SPACE на одной серии не различаются сверх того, что объясняется повторами (правило сравнения из ЛР09 фиксируется до серии).
-2. При параллелизме 2 wall-clock серии на SPACE меньше, чем последовательный прогон, а отказы инфраструктуры не растут.
-3. На стенде B предел параллелизма определяется памятью: при превышении бюджета, рассчитанного из ЛР36, появляются отказы создания песочниц, а не тихая деградация агента.
+1. Docker and SPACE pass rates for the same series differ no more than repetitions can explain (fix the LAB09 comparison rule before the series).
+2. At concurrency 2, SPACE series wall-clock is lower than sequential execution, without an increase in infrastructure failures.
+3. Machine B's concurrency limit is determined by memory: exceeding the LAB36-derived budget produces sandbox-creation failures rather than silent agent degradation.
 
-## Подготовка
+## Preparation
 
-- Условия серии из ЛР09: модель, provider, variant, бюджеты задачи из контракта, порядок попыток, число повторов. Изменение условий — новая серия.
-- Бюджет памяти стенда: свободная RAM после bring-up из ЛР36 минус резерв ОС; память шаблона × параллелизм не превышает бюджет.
-- Каждая попытка — новая запись `new-run` с собственным run ID; повтор `run` на одной записи запрещён.
+- LAB09 series conditions: model, provider, variant, task budgets from the contract, attempt order, repetition count. Changed conditions mean a new series.
+- Machine memory budget: free RAM after LAB36 bring-up minus the OS reserve; template memory × concurrency must not exceed the budget.
+- Every attempt is a new `new-run` record with its own run ID; repeating `run` on one record is prohibited.
 
 ```bash
 npm run lab:new -- --lab LAB42 --session ryzen-01
 LAB_DIR='experiments/space/measurements/LAB42-ryzen-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Планировщик серии.** Скрипт в `experiments/space/campaign/`, который по плану серии создаёт и готовит записи, запускает до P попыток одновременно через `npm run run -- --sandbox ...`, не меняет запечатанные условия и записывает метки начала/конца каждой попытки. Офлайн-тест на фейковом раннере.
+1. **Series scheduler.** A script in `experiments/space/campaign/` creates and prepares records from a series plan, launches up to P simultaneous attempts through `npm run run -- --sandbox ...`, preserves sealed conditions and records start/end timestamps for each attempt. Offline test with a fake runner.
 
-2. **План до запуска.** `raw/protocol.md`: матрица (обвязка × среда × параллелизм × повтор), перемешанный порядок, критерий остановки (например, 3 подряд отказа инфраструктуры).
+2. **Plan before execution.** `raw/protocol.md`: matrix (harness × environment × concurrency × repetition), randomized order, stop criterion (e.g. 3 consecutive infrastructure failures).
 
-3. **Серия на стенде A.** Docker P=1, SPACE P=1, SPACE P=2; параллельно `vmstat` и число живых песочниц.
+3. **Series on machine A.** Docker P=1, SPACE P=1, SPACE P=2; collect `vmstat` and live sandbox counts in parallel.
 
-4. **Оценка.** Независимый судья для каждой записи по [harness-workflow](harness-workflow.md); `npm run compare` только на одинаковых условиях.
+4. **Evaluation.** An independent judge for each record according to [harness-workflow](harness-workflow.md); use `npm run compare` only under identical conditions.
 
-5. **Стенд B.** SPACE P=1, затем P=2 и выше до первого отказа создания или OOM; Docker-серия не обязательна.
+5. **Machine B.** SPACE P=1, then P=2 and higher until the first creation failure or OOM; a Docker series is optional.
 
-## Таблицы результатов
+## Results tables
 
-| Стенд | Среда | P | Обвязка | Попыток | Pass / partial / fail | Отказы инфраструктуры | Wall-clock серии, s | Пик used RAM, MiB |
+| Machine | Environment | P | Harness | Attempts | Pass / partial / fail | Infrastructure failures | Series wall-clock, s | Peak used RAM, MiB |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | A | Docker | 1 | pi | | | | | |
 | A | SPACE | 1 | pi | | | | | |
@@ -59,28 +59,28 @@ LAB_DIR='experiments/space/measurements/LAB42-ryzen-01'
 | A | SPACE | 2 | openhands | | | | | |
 | B | SPACE | 1…N | | | | | | |
 
-Отказ инфраструктуры — запись `aborted` по причине среды (создание песочницы, сеть, timeout до первого хода). Его причина указывается в отчёте и не смешивается с fail агента.
+An infrastructure failure is an `aborted` record caused by the environment (sandbox creation, network, timeout before the first turn). State the cause in the report and keep it distinct from agent fail.
 
-## Что сдать
+## Deliverables
 
-- Планировщик и тест, отчёт с протоколом, список всех run ID, verdict судьи по каждому, вывод `npm run compare`.
-- Raw: метки попыток, `vmstat`, состояние песочниц.
+- Scheduler and test, report with protocol, all run IDs, judge verdict for each, `npm run compare` output.
+- Raw: attempt timestamps, `vmstat`, sandbox state.
 
-## Критерии завершения
+## Completion criteria
 
-- Все запланированные попытки имеют записи или объяснённый `not-run`.
-- Verdict выставлен независимым судьёй; сравнение — только на одинаковых условиях.
-- Предел параллелизма стенда B найден или объяснено, почему серия остановлена раньше.
-- `npm test` и `npm run check` проходят.
+- All planned attempts have records or an explained `not-run`.
+- Verdicts assigned by an independent judge; comparison only under identical conditions.
+- Machine B's concurrency limit found, or the earlier stop explained.
+- `npm test` and `npm run check` pass.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какие отказы появились только на SPACE и что их вызвало?
-2. Что ограничило параллелизм на стенде B: память, CPU, диск или сама платформа?
-3. Влияет ли параллелизм на поведение агента (например, через rate limit провайдера) и как это отделить от влияния среды?
-4. Какой компонент из ЛР37–41 оказался необязательным для этой серии?
+1. Which failures appeared only on SPACE, and what caused them?
+2. What limited concurrency on machine B: memory, CPU, disk or the platform itself?
+3. Does concurrency affect agent behavior (e.g. via provider rate limits), and how can this be separated from environment effects?
+4. Which LAB37–41 component proved optional for this series?
 
-## Источники
+## Sources
 
-- Этот репозиторий: [ЛР09](LAB09-agent-campaign.md), [ЛР10](LAB10-ablation.md), [ЛР26](LAB26-concurrent-load.md), [метод](../method.md), `scripts/compare.mjs`.
+- This repository: [LAB09](LAB09-agent-campaign.md), [LAB10](LAB10-ablation.md), [LAB26](LAB26-concurrent-load.md), [method](../method.md), `scripts/compare.mjs`.
 - SPACE: `scripts/benchmarks/bench-sbx-concurrent.sh`, `docs/warm-pools.md`.

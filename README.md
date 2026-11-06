@@ -1,51 +1,53 @@
-# agent-harnesses-exps
+# llm-systems-lab
 
-Лаборатория для запуска одинаковых автономных агентов на одинаковых задачах в разных обвязках. Измеряем не только успех, стоимость и время, но и то, какие инструкции, ограничения и инструменты понадобились обвязке. Затем удаляем необязательные компоненты и повторяем эпизод.
+A lab for reproducible experiments with LLM systems: local models, inference engines, hardware, serving and autonomous agents. Agent comparisons run the same agents on the same tasks in different harnesses. We measure success, cost and time, as well as the instructions, constraints and tools each harness needed. We then remove optional components and replay the episode.
 
-## Что уже работает
+## What works today
 
-- Общий цикл `new-run → prepare-run → run → judge-run → compare`.
-- Адаптеры **всех девяти обвязок**: Claude Code, OpenCode, Codex, Antigravity CLI, Pi, mini-SWE-agent, OpenHands, Copilot CLI и Amp. Закреплены версии CLI/SDK; параметры и ограничения доступны через `npm run harnesses`.
-- Шесть задач разных типов: A1/T001 — досье по веб-источникам; A2/T002 — исправление красного `npm test`; A3/T003 — аудит конфигурации обвязки; A4/T004 — реализация функции по спецификации со скрытыми тестами; A5/T005 — нормализация трёх грязных выгрузок данных без репозитория; A6/T006 — устранение трёх дефектов безопасности в HTTP-сервере с эксплойт-тестами. Условия каждой задачи заданы её `task.json`; оценённые прогоны есть пока только у T002.
-- Docker изолирует агента от скрытых проверок, `.env` и метаданных результатов. Исходящий доступ проходит через отдельный gateway.
-- Снимки входов с SHA-256, исходные трассы, неизвестные метрики с причинами, независимая оценка с привязкой к результату.
-- Сравнение только одинаковых условий; `pass@3` и `pass^3` по полным тройкам. Абляция спецификации через `--variant without-spec`.
+- A shared `new-run → prepare-run → run → judge-run → compare` lifecycle.
+- Adapters for **all nine harnesses**: Claude Code, OpenCode, Codex, Antigravity CLI, Pi, mini-SWE-agent, OpenHands, Copilot CLI and Amp. CLI/SDK versions are pinned; `npm run harnesses` lists their parameters and limits.
+- Six task types: A1/T001 — a dossier from web sources; A2/T002 — fix failing `npm test`; A3/T003 — audit harness configuration; A4/T004 — implement a feature from a specification with hidden tests; A5/T005 — normalize three messy data exports without a repository; A6/T006 — fix three HTTP server security defects with exploit tests. Each task's `task.json` defines its conditions; only T002 has evaluated runs so far.
+- Docker isolates the agent from hidden checks, `.env` and result metadata. Outbound access goes through a separate gateway.
+- Input snapshots with SHA-256, original traces, reasons for unknown metrics, and independent evaluation bound to the actual outputs.
+- Comparisons only within matching conditions; `pass@3` and `pass^3` over complete triples. Specification ablation through `--variant without-spec`.
 
-**Состояние на 22.10.2026:** есть аппаратные измерения Ryzen и Apple и 11 записей агентных запусков. Три Pi/local/T002 независимо оценены: два `fail` и один `pass`; ещё шесть записей — `aborted`, одна — `awaiting_review`, одна — `prepared`. Полных троек с одинаковыми условиями и сравнения разных обвязок пока нет. Фактическое покрытие и ограничения приёмки собраны в [статусах лабораторных](docs/labs/README.md#состояние-выполнения-на-22102026). Проверки инфраструктуры не заменяют оценку качества агентов.
+**Status as of 2026-10-22:** hardware measurements exist for Ryzen and Apple, along with 11 agent-run records. Three Pi/local/T002 runs have independent evaluations: two `fail` and one `pass`. Six other records are `aborted`, one is `awaiting_review`, and one is `prepared`. There are no complete triples under matching conditions or cross-harness comparisons yet. Actual coverage and acceptance limits are listed in the [lab status overview](docs/labs/README.md#execution-status-as-of-2026-10-22). Infrastructure checks do not replace agent-quality evaluation.
 
-**05.11.2026:** комплекты измерений локальных моделей (около 150 МБ с бинарными журналами) вынесены из дерева в [архив по коммиту](experiments/local-models/measurements/README.md); документация ссылается на permalink. Дерево `experiments/` уменьшилось со 155 МБ до 2 МБ.
+**2026-11-05:** local-model measurement bundles (about 150 MB including binary logs) were moved out of the working tree into a [commit-addressed archive](experiments/local-models/measurements/README.md); documentation uses permalinks. The `experiments/` tree shrank from 155 MB to 2 MB.
 
-## Лабораторные работы
+**2026-11-06:** the project moved to this public repository with sanitized history, MIT licensing and an English project interface. Original research artifacts retain their source language and sealed conditions; see [publication and archive provenance](docs/publication.md).
 
-[Практикум из 53 лабораторных работ](docs/labs/README.md) включает отдельную работу для каждой из девяти обвязок, воспроизводимость, исследования моделей на Ryzen, Vulkan/HIP, движки, сервисы, агентные сравнения и абляции. ЛР20–27 добавляют калибровку оценивания, память, инструменты, восстановление, делегирование, квантизацию, параллельную нагрузку и регрессии после обновлений. В каждой работе есть пошаговые задания, таблицы, комплект сдачи и контрольные вопросы. ЛР28–35 добавляют Apple M5 Max / 128 GB / macOS: Metal, MLX, сервисы, контекст/tools, нагрузку и сравнение с Ryzen. ЛР36–42 (платформа песочниц SPACE), ЛР43–47 (Kubernetes и GPU) и ЛР48–52 (AWS и Terraform) с 05.11.2026 **заморожены**: это методички без измерений, они ждут выделения в отдельный учебный репозиторий и не открывают новых сессий. ЛР53 измеряет, сколько разброса в решениях агента создаёт сам сервер инференса.
+## Laboratory exercises
+
+The [53-lab course](docs/labs/README.md) includes an exercise for each of the nine harnesses, reproducibility, model research on Ryzen, Vulkan/HIP, engines, services, agent comparisons and ablations. LAB20–27 add evaluation calibration, memory, tools, recovery, delegation, quantization, concurrent load and upgrade regressions. Each lab has step-by-step assignments, tables, deliverables and review questions. LAB28–35 cover Apple M5 Max / 128 GB / macOS: Metal, MLX, services, context/tools, load and comparison with Ryzen. LAB36–42 (the SPACE sandbox platform), LAB43–47 (Kubernetes and GPUs) and LAB48–52 (AWS and Terraform) have been **frozen** since 2026-11-05: they are manuals without measurements, awaiting extraction into a separate teaching repository, and accept no new sessions. LAB53 measures how much variation in agent decisions comes from the inference server itself.
 
 ```bash
 npm run labs
 npm run lab:new -- --lab LAB01 --session first-pass
 ```
 
-`lab:new` создаёт пустой комплект отчёта и сохраняет существующие файлы. После ЛР01 можно сразу проходить **ЛР11–19 по всем harness**, затем облачное сравнение ЛР09 и абляцию ЛР10. Отчёт отдельной обвязки сохраняется в `experiments/<harness>/measurements/`, отчёт работы SPACE — в `experiments/space/measurements/`, работы ветки Kubernetes и GPU — в `experiments/k8s-gpu/measurements/`, работы ветки AWS и Terraform — в `experiments/aws/measurements/`. ЛР02–07 выполняются на Ryzen; в ЛР08 реализован локальный Pi/T002 bridge для native llama.cpp. Ryzen/ROCm имеет оценённые pilot, Apple/Metal ждёт оценки; остальные локальные адаптеры требуют реализации и допуска.
+`lab:new` creates a blank report bundle and preserves existing files. After LAB01 you can proceed directly to **LAB11–19 for all harnesses**, then the cloud comparison in LAB09 and ablation in LAB10. Harness-specific reports go in `experiments/<harness>/measurements/`; SPACE reports in `experiments/space/measurements/`; Kubernetes and GPU reports in `experiments/k8s-gpu/measurements/`; AWS and Terraform reports in `experiments/aws/measurements/`. LAB02–07 run on Ryzen. LAB08 implements a local Pi/T002 bridge for native llama.cpp. Ryzen/ROCm has evaluated pilots; Apple/Metal awaits evaluation. Other local adapters still require implementation and qualification.
 
-Для подготовки без API есть [четыре синтетических упражнения](docs/labs/practice.md) и [публичные многошаговые эпизоды](docs/labs/episodes/README.md). Они не создают экспериментальных результатов. [Проверка комплектности отчёта](docs/labs/report-validation.md) учитывает все плановые попытки, включая ошибки и пропуски:
+For preparation without an API, use the [four synthetic exercises](docs/labs/practice.md) and [public multi-step episodes](docs/labs/episodes/README.md). They do not create experimental results. The [report completeness check](docs/labs/report-validation.md) accounts for every planned attempt, including failures and omissions:
 
 ```bash
 npm run lab:practice -- --scenario retry-429 --session first-pass
 npm run lab:check -- --report experiments/local-models/measurements/LAB01-first-pass
 ```
 
-Для сдачи заполненного отчёта добавьте `--mode submission`. ЛР21–24 требуют инженерных расширений, ЛР25 — принятой ЛР08; учебные traces не заменяют эти допуски или реальные модельные серии.
+Add `--mode submission` to submit a completed report. LAB21–24 require engineering extensions; LAB25 requires accepted LAB08 results. Practice traces do not replace these qualifications or real model series.
 
-## Локальные модели
+## Local models
 
-Для машины **Ryzen AI Max+ 395 / 128 GB / Linux** есть [план исследования](docs/local-models.md), [каталог](docs/local-model-candidates.md), [Linux runbook](docs/local-model-runtime.md) и реальные отчёты ЛР02–06, 08, 26. `npm run local:plan` показывает кандидатов; `npm run local:plan -- --context 32768` пересчитывает запас под контекст. Сам planner не скачивает и не запускает веса. Реальные Pi/T002 используют отдельный [local provider](experiments/pi/README.md#local-provider-bridge--первая-реализация-lab08) и запечатанную конфигурацию; наблюдения одного deployment не подтверждают весь каталог.
+For **Ryzen AI Max+ 395 / 128 GB / Linux**, the repository provides a [research plan](docs/local-models.md), [catalog](docs/local-model-candidates.md), [Linux runbook](docs/local-model-runtime.md) and actual LAB02–06, 08 and 26 reports. `npm run local:plan` lists candidates; `npm run local:plan -- --context 32768` recalculates context headroom. The planner does not download or run weights. Actual Pi/T002 runs use a separate [local provider](experiments/pi/README.md#local-provider-bridge) and sealed configuration; observations from one deployment do not qualify the whole catalog.
 
-[Матрица движков](docs/local-inference-engines.md) включает равноправные llama.cpp Vulkan/HIP, vLLM и SGLang на ROCm, Transformers reference, Ollama, LM Studio и Lemonade. `npm run local:engines` выводит 12 профилей; `npm run local:plan -- --engine all --format json` строит пространство исследований. Для native checkpoint вместо GGUF и неизмеренного расхода сервиса planner сохраняет неизвестную память, не обещая fit.
+The [engine matrix](docs/local-inference-engines.md) treats llama.cpp Vulkan/HIP, vLLM and SGLang on ROCm, Transformers reference, Ollama, LM Studio and Lemonade as equal research options. `npm run local:engines` lists 12 profiles; `npm run local:plan -- --engine all --format json` builds the research space. For native checkpoints rather than GGUF, and for unmeasured service overhead, the planner keeps memory unknown instead of promising a fit.
 
-Второй стенд — [Apple M5 Max / 128 GB / macOS](experiments/local-models/apple/README.md). `npm run local:plan -- --hardware apple-m5-max-128gb-macos --engine all` выбирает Apple, `npm run local:engines -- --hardware apple-m5-max-128gb-macos` показывает пять профилей. Без `--hardware` сохраняется Ryzen. Измерены конкретные Metal/MLX deployments и нагрузка; LAB32 квалифицирована частично, LAB33 и полная LAB35 не завершены. Максимальный GPU budget Apple остаётся неизвестным; GGUF и MLX имеют отдельные manifests. Apple pilot LAB08 исполнен и ожидает независимого verdict.
+The second platform is [Apple M5 Max / 128 GB / macOS](experiments/local-models/apple/README.md). `npm run local:plan -- --hardware apple-m5-max-128gb-macos --engine all` selects Apple; `npm run local:engines -- --hardware apple-m5-max-128gb-macos` lists five profiles. Without `--hardware`, Ryzen remains the default. Specific Metal/MLX deployments and loads have been measured; LAB32 is partially qualified, while LAB33 and the full LAB35 are incomplete. Apple's maximum GPU budget remains unknown; GGUF and MLX have separate manifests. The Apple LAB08 pilot has executed and awaits an independent verdict.
 
-## Требования и образы
+## Requirements and images
 
-Нужны Git, Bash, [mise](https://mise.jdx.dev/getting-started.html) и работающий Docker Engine. [mise.toml](mise.toml) задаёт среду разработки и CI: Node.js 24.13.1 и Python 3.12.12 для offline-проверок. После установки mise выполните из корня репозитория:
+You need Git, Bash, [mise](https://mise.jdx.dev/getting-started.html) and a running Docker Engine. [mise.toml](mise.toml) defines the development and CI environment: Node.js 24.13.1 and Python 3.12.12 for offline checks. After installing mise, run from the repository root:
 
 ```bash
 mise trust
@@ -53,9 +55,9 @@ mise install
 mise run verify
 ```
 
-Команды `mise run` и `mise exec -- <команда>` работают без активации shell; например, `mise exec -- npm run harnesses`. Для обычных команд `node`, `python3` и `npm` можно [активировать mise в shell](https://mise.jdx.dev/cli/activate.html). Существующие npm-скрипты сохраняются; минимальная поддерживаемая версия координатора — Node.js 22.0.0. Секреты остаются в `.env`, который читает только harness: mise его не загружает.
+`mise run` and `mise exec -- <command>` work without shell activation; for example, `mise exec -- npm run harnesses`. To use ordinary `node`, `python3` and `npm` commands, you can [activate mise in your shell](https://mise.jdx.dev/cli/activate.html). Existing npm scripts remain available; the coordinator's minimum supported version is Node.js 22.0.0. Secrets stay in `.env`, consumed only by the harness; mise does not load it.
 
-Координатор запускается обычным пользователем, не root. npm-зависимостей у координатора нет. Mise управляет host-инструментами, а версии CLI обвязок остаются в `experiments/<harness>/harness.json` и Dockerfile. Образы используют Node.js 24.13.1; версии CLI задаются при сборке. Версии девяти обвязок собраны и проверены без запросов к модели 20.09.2026. Пример двух образов:
+Run the coordinator as an ordinary user, not root. It has no npm dependencies. Mise manages host tools; harness CLI versions remain in `experiments/<harness>/harness.json` and Dockerfile. Images use Node.js 24.13.1; CLI versions are set at build time. The nine harness versions were built and checked without model requests on 2026-09-20. Two example images:
 
 ```bash
 docker build --build-arg HARNESS_VERSION=2.1.83 \
@@ -70,65 +72,65 @@ docker pull node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022
 test -e .env || cp .env.example .env
 ```
 
-Заполните в `.env` ключ выбранного провайдера — нужные имена перечислены в `.env.example` и `npm run harnesses`. Координатор передаёт только credentials из выбранного профиля, не исполняет shell-подстановки и не наследует credentials из домашней папки. Для Pi, mini-SWE-agent и OpenHands провайдера можно выбрать через `--provider anthropic` или `--provider openai` на стадии подготовки. Идентификаторы собранных образов фиксируются в каждой записи; для серии используйте один образ, а не пересобирайте его между повторами. `--proxy-image` позволяет выбрать другой подготовленный образ Node.js, его ID тоже записывается.
+Set the selected provider's key in `.env`; `.env.example` and `npm run harnesses` list the required variable names. The coordinator passes only credentials from the selected profile, does not execute shell substitutions, and does not inherit credentials from your home directory. For Pi, mini-SWE-agent and OpenHands, select the provider during preparation with `--provider anthropic` or `--provider openai`. Every record captures built image IDs; use one image for a series instead of rebuilding between repeats. `--proxy-image` selects another prepared Node.js image, whose ID is also recorded.
 
-Остальные закреплённые образы:
+Other pinned images:
 
-| `--harness` | Image/tag | Ключ `.env` |
+| `--harness` | Image/tag | `.env` key |
 | --- | --- | --- |
 | `codex` | `harness-lab/codex:0.155.1` | `CODEX_API_KEY` |
 | `antigravity-cli` | `harness-lab/antigravity-cli:1.2.7` | `GEMINI_API_KEY` |
-| `pi` | `harness-lab/pi:0.73.1` | `ANTHROPIC_API_KEY` или `OPENAI_API_KEY` |
-| `mini-swe-agent` | `harness-lab/mini-swe-agent:2.4.6` | `ANTHROPIC_API_KEY` или `OPENAI_API_KEY` |
-| `openhands` | `harness-lab/openhands:1.49.2` | `ANTHROPIC_API_KEY` или `OPENAI_API_KEY` |
+| `pi` | `harness-lab/pi:0.73.1` | `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` |
+| `mini-swe-agent` | `harness-lab/mini-swe-agent:2.4.6` | `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` |
+| `openhands` | `harness-lab/openhands:1.49.2` | `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` |
 | `copilot-cli` | `harness-lab/copilot-cli:1.0.86` | `COPILOT_GITHUB_TOKEN` |
 | `amp` | `harness-lab/amp:0.0.1789920039-gafe14b` | `AMP_API_KEY` |
 
-Сборка: `docker build --build-arg HARNESS_VERSION=<pin> -t harness-lab/<harness>:<pin> experiments/<harness>`. Подробности, первичные источники и результаты offline smoke — в [матрице](docs/harnesses.md) и README каждой обвязки. Эти же теги уже собраны в текущем Docker окружении.
+Build with `docker build --build-arg HARNESS_VERSION=<pin> -t harness-lab/<harness>:<pin> experiments/<harness>`. Details, primary sources and offline smoke results are in the [matrix](docs/harnesses.md) and each harness README. These tags were also built in the original operator's Docker environment.
 
-## Первый прогон
+## First run
 
-Пример для локальной задачи без изменяющихся web-источников:
+Example for a local task without changing web sources:
 
 ```bash
 npm run new-run -- --harness claude-code --agent a2-janitor --task T002
-RUN_ID='<идентификатор из вывода new-run>'
+RUN_ID='<identifier printed by new-run>'
 npm run prepare-run -- --run "$RUN_ID"
 npm run run -- --run "$RUN_ID" \
   --image harness-lab/claude-code:2.1.83 \
-  --model '<точный model ID в Anthropic API>' --timeout 900
+  --model '<exact model ID in the Anthropic API>' --timeout 900
 ```
 
-`new-run` никогда не перезаписывает существующий прогон, включая повторный `--n`. `prepare-run` выполняет setup в отдельной папке, фиксирует спецификацию, контракт, конфиг, код координатора и начальное дерево. `run` проверяет, что они не изменились, определяет версию CLI внутри образа и запускает агента. Лимиты ходов и USD берутся из задачи. Таймаут — жёсткий внешний предел в секундах. Выходные артефакты лежат в `results/runs/$RUN_ID/artifacts/`, трасса — в `trace/`.
+`new-run` never overwrites an existing run, including a repeated `--n`. `prepare-run` executes setup in a separate directory and seals the specification, contract, configuration, coordinator code and initial tree. `run` verifies that they have not changed, determines the CLI version inside the image and starts the agent. Turn and USD limits come from the task. Timeout is a hard external limit in seconds. Output artifacts are in `results/runs/$RUN_ID/artifacts/`; traces are in `trace/`.
 
-После успешного исполнения состояние — **awaiting_review**, а не `pass`. Ненулевой выход, таймаут, смена модели или ошибка координатора дают **aborted**. Повтор — всегда новая запись, чтобы не терять неудачные попытки. После принудительного завершения самого координатора через SIGKILL запись остаётся `running`, а контейнеры — живыми. `npm run reconcile` без аргументов показывает такие записи и контейнеры с label `harness-lab=true`; `npm run reconcile -- --run "$RUN_ID"` удаляет контейнеры и сеть прогона по именам из `trace/runtime.json`, сохраняет их журналы в `trace/recovered-*.log` с редактированием ключа и переводит запись в `aborted` с причиной `coordinator_lost`. Пока pid координатора жив, команда отказывает. Продолжения прогона нет: повтор — новая запись.
+Successful execution results in **awaiting_review**, not `pass`. A nonzero exit, timeout, model switch or coordinator error produces **aborted**. Every retry needs a new record so failed attempts are not lost. If the coordinator itself is killed with SIGKILL, the record stays `running` and containers stay alive. `npm run reconcile` without arguments lists those records and containers labeled `harness-lab=true`. `npm run reconcile -- --run "$RUN_ID"` removes the run containers and network named in `trace/runtime.json`, saves their logs to `trace/recovered-*.log` with the key redacted, and marks the run `aborted` with reason `coordinator_lost`. It refuses while the coordinator PID is alive. Runs are not resumed; a retry is a new record.
 
-Для остальных восьми обвязок выберите соответствующие harness/image и добавьте `--budget-mode observed`: жёсткая USD-граница ими не подтверждена. Это исследовательский прогон с отклонением от бюджета контракта; отчёт отделяет его от режима `hard`. Для CLI без native turn limit остаётся внешний timeout; SDK применяют собственные ограничения шагов. Неизвестные метрики не заменяются нулём.
+For the other eight harnesses, select the appropriate harness/image and add `--budget-mode observed`: a hard USD boundary has not been verified for them. This is a research run that deviates from the contract budget; reports separate it from `hard` mode. CLIs without native turn limits still have the external timeout; SDKs apply their own step limits. Unknown metrics are never replaced with zero.
 
-Пример Codex:
+Codex example:
 
 ```bash
 npm run new-run -- --harness codex --agent a2-janitor --task T002 --provider openai
-RUN_ID='<новый идентификатор>'
+RUN_ID='<new identifier>'
 npm run prepare-run -- --run "$RUN_ID"
 npm run run -- --run "$RUN_ID" --image harness-lab/codex:0.155.1 \
-  --model '<доступный exact model ID>' --budget-mode observed
+  --model '<available exact model ID>' --budget-mode observed
 ```
 
-Amp не выбирает точную underlying модель: укажите `--model managed:low`, `managed:medium`, `managed:high` или `managed:ultra`. В записи сохраняются managed selector и `model.lock=true`; их нельзя сравнивать с exact model как одинаковые условия. Другие обвязки требуют явный model ID/поддерживаемый selector; независимое подтверждение модели ответа записывается отдельно.
+Amp does not select an exact underlying model: use `--model managed:low`, `managed:medium`, `managed:high` or `managed:ultra`. The record retains the managed selector and `model.lock=true`; these cannot be compared with an exact model as matching conditions. Other harnesses require an explicit model ID or supported selector; independent verification of the response model is recorded separately.
 
-## Независимая оценка
+## Independent evaluation
 
-Скрытый скрипт или рубрика применяются **оператором вне контейнера агента**. Координатор не читает скрытые проверки и не передаёт их модели. Формат JSON одинаков для обоих способов. T002 заранее помечается `hidden-check`, T001/T003 — `rubric`; для T001 оценщик учитывает скрипт и рубрику. Укажите версию проверки/рубрики и наблюдения в `check_output`, имя оценщика — в `evaluator`.
+The hidden script or rubric is applied **by the operator outside the agent container**. The coordinator neither reads hidden checks nor passes them to the model. Both evaluation methods use the same JSON format. T002 is marked `hidden-check` in advance, T001/T003 are marked `rubric`; the T001 evaluator considers both the script and rubric. Put the check/rubric version and observations in `check_output`, and the evaluator's name in `evaluator`.
 
-Создайте заготовку после исполнения:
+Create a draft after execution:
 
 ```bash
 node scripts/evaluation-template.mjs --run "$RUN_ID" \
   > "results/runs/$RUN_ID/evaluation.draft.json"
 ```
 
-Заполните `result` (`pass`, `fail`, `partial`), `evaluator`, `check_output` и при необходимости `human_notes`. Хеши не меняйте: они связывают оценку с артефактами и финальным workspace. Наличие обязательных файлов проверяется дополнительно, но содержательную оценку делает внешний судья.
+Fill in `result` (`pass`, `fail`, `partial`), `evaluator`, `check_output` and, if needed, `human_notes`. Do not change hashes: they bind the evaluation to the artifacts and final workspace. Required files are checked separately; an external judge performs the substantive evaluation.
 
 ```bash
 npm run judge-run -- --run "$RUN_ID" \
@@ -138,61 +140,61 @@ npm run compare
 npm run compare -- --out results/compare/latest.md
 ```
 
-`compare` без аргументов печатает JSON. С `--out` отчёт записывается в файл внутри репозитория вне `results/runs/`; расширение `.md` или `--format markdown` даёт таблицу по группам с теми же фактами и без рейтинга между группами.
+`compare` without arguments prints JSON. With `--out`, it writes a report inside the repository but outside `results/runs/`; a `.md` extension or `--format markdown` produces grouped tables using the same facts, without ranking different groups.
 
-`judge-run` отклоняет изменённые входы/результаты и оценку от другой записи. После импорта состояние — `completed`. Исходный JSON оценки сохраняется в trace. Для T002 дополнительно сохраняется `trace/change.patch` относительно начального коммита; рабочий Git-репозиторий остаётся в игнорируемом workspace.
+`judge-run` rejects changed inputs/outputs and evaluations from another record. Import changes the state to `completed`. The original evaluation JSON is saved in the trace. T002 also saves `trace/change.patch` against the initial commit; the working Git repository remains in the ignored workspace.
 
-## Повторы, источники и абляция
+## Repeats, sources and ablation
 
-Создайте три отдельные записи с одинаковыми моделью, образом, задачей, вариантом, бюджетом и таймаутом. `compare` группирует по условиям, показывает покрытие метрик и строит непересекающиеся тройки в порядке run ID. Два прогона не превращаются в `pass^3`; начатые, но прерванные исполнения остаются неуспехами. `planned`, `prepared`, `running`, `awaiting_review` показываются отдельно. Можно выбрать записи: `npm run compare -- --runs ID1,ID2,ID3`.
+Create three separate records with the same model, image, task, variant, budget and timeout. `compare` groups by conditions, reports metric coverage and forms non-overlapping triples in run-ID order. Two runs do not become `pass^3`; started but aborted executions remain failures. `planned`, `prepared`, `running` and `awaiting_review` are shown separately. Select specific records with `npm run compare -- --runs ID1,ID2,ID3`.
 
-Для T001 дата задаётся `prepare-run --as-of YYYY-MM-DD`. Живые страницы могут изменяться, поэтому такой прогон — сбор исходного архива, а не доказательство контролируемого сравнения. Ответы GET сохраняются в `trace/sources.jsonl`; их получает агент через gateway. Для последующей одинаковой серии:
+For T001, set the date using `prepare-run --as-of YYYY-MM-DD`. Live pages can change, so such a run collects an initial archive rather than establishing a controlled comparison. GET responses are saved in `trace/sources.jsonl` and delivered to the agent through the gateway. For a subsequent matching series:
 
 ```bash
 npm run prepare-run -- --run "$RUN_ID" --as-of 2026-09-20 \
-  --source-archive 'results/runs/<исходный-прогон>/trace/sources.jsonl'
+  --source-archive 'results/runs/<source-run>/trace/sources.jsonl'
 ```
 
-Все сравниваемые прогоны должны использовать один архив. Он копируется в снимок входов; отсутствующая в архиве страница не загружается заново. Доступны исходные ссылки и обнаруженные на них ссылки глубины 1. API модели остаётся онлайн.
+All compared runs must use one archive. It is copied into the input snapshot; a page absent from the archive is not fetched again. Seed URLs and discovered depth-1 links are available. The model API remains online.
 
-Архив можно снять и без прогона агента:
+You can capture an archive without running an agent:
 
 ```bash
 npm run capture-sources -- --task T001 --as-of 2026-11-05
 ```
 
-Команда выполняет `setup.sh` задачи во временный каталог, забирает каждую начальную ссылку из `sources.txt` тем же `fetchPublic`, что и gateway, и пишет `tasks/T001-dossier-from-sources/archive/sources-<дата>.jsonl` с manifest рядом: кто получен, кто нет, SHA-256. Существующий архив не перезаписывается. Ссылки глубины 1 не архивируются, поэтому в replay они читаются как недоступные. Снятый архив — состояние страниц на дату захвата, а не на дату среза.
+The command runs the task's `setup.sh` in a temporary directory, fetches every seed URL from `sources.txt` using the same `fetchPublic` as the gateway, and writes `tasks/T001-dossier-from-sources/archive/sources-<date>.jsonl` with an adjacent manifest recording successes, failures and SHA-256. Existing archives are never overwritten. Depth-1 links are not archived, so replay treats them as unavailable. The captured archive represents pages at capture time, not at the requested cutoff date.
 
-Для абляции создайте новую запись и подготовьте её с `--variant without-spec`: спецификация исключается из prompt, контракт и обязательные границы сохраняются. Это не удаление файлов спецификаций из естественного содержимого аудируемого репозитория T003. Сравните отдельные группы baseline/without-spec; эффект компонента записывайте в реестр только после измерений.
+For ablation, create a new record and prepare it with `--variant without-spec`: the specification is excluded from the prompt, while the contract and mandatory boundaries remain. This does not delete specification files naturally present in the T003 repository being audited. Compare separate baseline/without-spec groups; record a component's effect in the ledger only after measuring it.
 
-## Проверки и карта
+## Checks and repository map
 
 ```bash
-mise run verify             # test, test:python, check последовательно
+mise run verify             # test, test:python, check in sequence
 mise run test:docker
 mise run test:local-docker
 mise run compare -- --out results/compare/latest.md
 ```
 
-Отдельные `mise run test`, `mise run test:python` и `mise run check` вызывают те же npm-скрипты. Обычные тесты не используют API и скрытые проверки. `test:python` запускает регрессии Apple exporter и все тесты fixtures, включая параллельную нагрузку и шум сервинга, через локальный HTTP mock. Docker smoke включается отдельно, использует локальный proxy image и синтетическую нагрузку. `test:local-docker` дополнительно требует Pi image с версией из `experiments/pi/harness.json`: проверяет настоящий SDK, tool call, broker, отмену запроса и timeout без модели и GPU. Для Colima временный mount создаётся в домашней папке; путь общего smoke можно задать через `HARNESS_DOCKER_TMPDIR`.
+Individual `mise run test`, `mise run test:python` and `mise run check` tasks call the same npm scripts. Ordinary tests do not use APIs or hidden checks. `test:python` runs Apple exporter regressions and all fixture tests, including concurrent load and serving noise, through a local HTTP mock. Docker smoke is a separate opt-in using a local proxy image and synthetic workload. `test:local-docker` additionally requires the Pi image version from `experiments/pi/harness.json`: it checks the real SDK, tool calls, broker, request cancellation and timeout without a model or GPU. For Colima, the temporary mount is created under the home directory; set `HARNESS_DOCKER_TMPDIR` to choose the general smoke location.
 
-`npm run check` дополнительно сверяет пин каждой обвязки в четырёх местах (профиль, Dockerfile, эта страница, README обвязки) и читает лимиты ходов и USD из контрактов задач. Для каждой задачи проверяется дескриптор `tasks/<id>/task.json`: существование агента и `setup.sh`, допустимые значения вида workspace, метода оценки, доменов сети и аргументов setup. Пин версии задаётся один раз в `experiments/<harness>/harness.json`: Dockerfile его утверждает, `run` сравнивает с версией, которую сообщает сам образ, и прерывает прогон до старта агента при расхождении.
+`npm run check` also compares each harness pin in four places (profile, Dockerfile, this page and harness README) and reads turn/USD limits from task contracts. Every `tasks/<id>/task.json` descriptor is validated: the agent and `setup.sh` must exist, and workspace kind, evaluation method, network domains and setup arguments must be valid. The pin is defined once in `experiments/<harness>/harness.json`: Dockerfile asserts it, and `run` compares it with the image-reported version, aborting before the agent starts if they differ.
 
-### CI и публикация отчёта
+### CI and report publication
 
-[Workflow](.github/workflows/ci.yml) работает на PR, push в `main`, вручную и по понедельникам в 06:23 UTC. Он имеет только `contents: read`, не получает credentials моделей и не запускает агентные эксперименты. Новые коммиты отменяют устаревший запуск того же PR; проверки `main` не отменяются.
+The [workflow](.github/workflows/ci.yml) runs on PRs, pushes to `main`, manual dispatch and Mondays at 06:23 UTC. It has only `contents: read`, receives no model credentials and does not run agent experiments. New commits cancel outdated runs of the same PR; `main` checks are not canceled.
 
-| Job | Условия и результат |
+| Job | Conditions and output |
 | --- | --- |
-| `plan` | Выбирает обвязки из `harness.json` по Git diff; первый push и force push проверяют все обвязки без старой истории. В остальных случаях ошибка чтения истории останавливает job. |
-| `check` | На каждом событии: среда `default` из `mise.toml` и `node22` с Node 22.0.0 (нижняя граница поддержки), задачи `test` и `check`. На основной версии также Python и `test:python` из той же mise-конфигурации. |
-| `docker` | На `main`, вручную, по расписанию и на PR с изменениями контейнерной инфраструктуры или обвязок: реальный smoke границы. |
-| `images` | PR/push: изменённые обвязки; вручную/по расписанию: все девять. Сборка по пину, проверка установленной версии без сети; для Pi также `test:local-docker`. До трёх сборок одновременно. |
-| `compare` | После успешных проверок push в `main`: `results/compare/latest.md` в artifact `comparison-<commit>-<attempt>` на 90 дней и в job summary. Файл не коммитится автоматически. |
+| `plan` | Selects harnesses from `harness.json` using the Git diff; initial and forced pushes check every harness without requiring old history. Other history-read failures stop the job. |
+| `check` | Every event: the `default` environment from `mise.toml` and `node22` with Node 22.0.0 (the support floor), running `test` and `check`. The default environment also runs Python and `test:python` from the same mise configuration. |
+| `docker` | On `main`, manual/scheduled runs and PRs changing container infrastructure or harnesses: a real boundary smoke test. |
+| `images` | PR/push: changed harnesses; manual/scheduled: all nine. Pinned builds and offline installed-version checks; Pi also runs `test:local-docker`. Up to three builds at a time. |
+| `compare` | After successful checks on a push to `main`: `results/compare/latest.md` in a `comparison-<commit>-<attempt>` artifact retained for 90 days, and in the job summary. The file is not committed automatically. |
 
-Изменения `.github/`, `scripts/`, `tests/`, `experiments/common/`, npm- и mise-конфигурации требуют сборки всех обвязок. Изменения исходников отдельной обвязки — только её образа. Документация и `measurements/` не требуют сборок. `plan` получает историю с `filter: blob:none`: merge-base доступен, старые бинарные измерения не скачиваются. У каждой job есть timeout (5–30 минут), текстовые логи тестов/сборки сохраняются на 14 дней, включая неуспешные запуски. Все jobs устанавливают host-инструменты через закреплённый `mise-action`; Python включён только в основной `check`, а отдельный кеш для `node22` учитывает переопределение `MISE_NODE_VERSION`. Базовые образы и proxy закреплены multi-arch digest, Actions — полным commit SHA; их обновляют отдельным проверяемым изменением. Digest фиксирует базовый образ, но не делает изменяемые apt/npm/pip registry воспроизводимым архивом: полная еженедельная сборка проверяет, что установка по-прежнему работает.
+Changes to `.github/`, `scripts/`, `tests/`, `experiments/common/`, npm or mise configuration rebuild every harness. Changes to a specific harness rebuild its image only. Documentation and `measurements/` do not require builds. `plan` fetches history with `filter: blob:none`: merge bases are available without downloading old binary measurements. Each job has a 5–30 minute timeout; test/build logs are retained for 14 days, including failed runs. All jobs install host tools through pinned `mise-action`; Python is enabled only in the primary `check`, and a separate `node22` cache accounts for the `MISE_NODE_VERSION` override. Base and proxy images are pinned by multi-architecture digest; Actions use full commit SHAs. Update them in separate, reviewable changes. A digest fixes the base image but does not make mutable apt/npm/pip registries reproducible archives: a full weekly build checks that installation still works.
 
-Локально те же сборка и проверка доступны без GitHub:
+The same build and smoke commands work locally without GitHub:
 
 ```bash
 node .github/scripts/harness-ci.mjs build pi
@@ -200,18 +202,18 @@ node .github/scripts/harness-ci.mjs smoke pi
 GITHUB_EVENT_NAME=workflow_dispatch node .github/scripts/harness-ci.mjs plan
 ```
 
-Сборки скачивают публичные зависимости; smoke запускает только `version_command` в контейнере без сети. Отчёт `compare` использует уже записанные результаты и сохраняет разделение по условиям; успешный CI сам по себе не является измерением качества агента.
+Builds download public dependencies; smoke runs only `version_command` in a container without network access. `compare` uses recorded results and keeps different conditions separate. Successful CI is not itself a measurement of agent quality.
 
-- `docs/method.md` — протокол и ограничения интерпретации.
-- `docs/roadmap.md` — план расширения экспериментов: кампании, абляции, новые задачи, границы, порядок шагов.
-- `docs/harnesses.md` — реализованные адаптеры и кандидаты с первичными источниками.
-- `docs/harness-ledger.md` — добавленные компоненты и основания для абляции.
-- `docs/local-models.md`, `experiments/local-models/` — план исследований, каталог, расчёт памяти и отчёты фактических измерений на Ryzen и Apple.
-- `agents/` и `tasks/` — независимые спецификации, неизменяемые контракты задач и машинные дескрипторы `task.json` (агент, вид workspace, ветка, метод оценки, артефакты, сеть).
-- `experiments/<harness>/` — адаптеры, конфигурации, образы и заметки.
-- `results/schema.json`, `scripts/` — формат записи и координатор.
+- `docs/method.md` — protocol and limits of interpretation.
+- `docs/roadmap.md` — experiment extensions: campaigns, ablations, new tasks, boundaries and ordered steps.
+- `docs/harnesses.md` — implemented adapters and candidates with primary sources.
+- `docs/harness-ledger.md` — added components and the basis for ablation.
+- `docs/local-models.md`, `experiments/local-models/` — research plan, catalog, memory estimates and actual Ryzen/Apple measurement reports.
+- `agents/` and `tasks/` — independent specifications, immutable task contracts and machine-readable `task.json` descriptors (agent, workspace kind, branch, evaluation, artifacts, network).
+- `experiments/<harness>/` — adapters, configurations, images and notes.
+- `results/schema.json`, `scripts/` — record format and coordinator.
 
-Граница credentials ограничена: API key находится в окружении обвязки и доступен процессам внутри её контейнера. Host-файл `.env` не монтируется; для недоверенных задач, требующих скрыть ключ даже от bash агента, нужен отдельный credential broker. Оценённые Pi/local/T002 результаты не подтверждают качество остальных обвязок. Cloud-эпизоды, полнота отдельных usage-полей и доступность конкретной модели в аккаунте остаются **unverified**; для девяти адаптеров сохранены подготовка и offline проверки установки/SDK. Где проверять — в README адаптеров и матрице.
+The credential boundary has limits: the API key is in the harness environment and accessible to processes inside its container. The host `.env` file is not mounted. Untrusted tasks that must hide the key even from the agent's bash require a separate credential broker. Evaluated Pi/local/T002 results do not establish the quality of other harnesses. Cloud episodes, completeness of some usage fields and availability of a particular model in an account remain **unverified**. Preparation and offline installation/SDK checks are recorded for all nine adapters; consult their READMEs and the matrix for verification.
 
-Лицензия кода — [MIT](LICENSE), copyright © 2026 polomodov.
-Обезличивание истории, целостность архивов и ограничения старых ссылок описаны в [подготовке к публикации](docs/publication.md).
+Code license: [MIT](LICENSE), copyright © 2026 polomodov.
+History sanitization, archive integrity and old-reference limits are documented in [publication and archive provenance](docs/publication.md).

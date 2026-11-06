@@ -2,6 +2,6 @@ FROM node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4b
 ARG HARNESS_VERSION=0.73.1
 RUN test "$HARNESS_VERSION" = "0.73.1"
 RUN apt-get update && apt-get install -y --no-install-recommends git curl ca-certificates && rm -rf /var/lib/apt/lists/*
-# Исключение из --ignore-scripts: в дереве зависимостей koffi собирает native
-# binding через install script. Проверено в образе 0.73.1 (2026-09-21).
+# Exception to --ignore-scripts: dependency koffi builds its native
+# binding through an install script. Verified in image 0.73.1 (2026-09-21).
 RUN npm install --prefix /opt/pi "@mariozechner/pi-coding-agent@${HARNESS_VERSION}" && ln -s /opt/pi/node_modules/.bin/pi /usr/local/bin/pi && pi --version

@@ -3,19 +3,19 @@
   "kind": "lab-practice-fixture",
   "evidence_class": "synthetic",
   "id": "interrupted-stream",
-  "title": "Текст пришёл, поток оборвался",
+  "title": "Text arrived, stream interrupted",
   "related_labs": ["LAB20", "LAB23"],
-  "assignment": "Разберите поток, в котором есть обнадёживающий текст, но нет терминального события и usage. Укажите неизвестные показатели и отдельное состояние incomplete. Опишите безопасную политику сохранения частичного ответа и дальнейшей проверки.",
+  "assignment": "Analyze a stream with encouraging text but no terminal event or usage. Identify unknown metrics and the separate incomplete state. Describe a safe policy for preserving partial responses and further verification.",
   "questions": [
-    "Есть ли событие assistant-final? Почему слова «проверка пройдена» в delta не заменяют его?",
-    "Что известно о завершении запроса, качестве результата и числе токенов? Запишите неизвестное как null с причиной.",
-    "Как хранить частичный текст, чтобы он не попадал в отчёт как окончательный результат?",
-    "Какие доказательства потребуются перед повтором, если до обрыва были инструменты с побочными эффектами?"
+    "Is there an assistant-final event? Why do the words 'check passed' in a delta not replace it?",
+    "What is known about request completion, result quality and token count? Record unknowns as null with a reason.",
+    "How should partial text be stored so it does not enter the report as a final result?",
+    "What evidence is required before retrying if side-effecting tools ran before the interruption?"
   ],
   "steps": [
     { "type": "request", "at_ms": 0, "request_id": "request-1" },
-    { "type": "assistant-delta", "at_ms": 80, "request_id": "request-1", "text": "Проверка пройдена; подробности: " },
-    { "type": "assistant-delta", "at_ms": 110, "request_id": "request-1", "text": "1. Начал сопоставление результата с условиями..." },
+    { "type": "assistant-delta", "at_ms": 80, "request_id": "request-1", "text": "Check passed; details: " },
+    { "type": "assistant-delta", "at_ms": 110, "request_id": "request-1", "text": "1. Started comparing the result with the conditions..." },
     { "type": "stream-interrupted", "at_ms": 150, "request_id": "request-1", "reason": "Recorded EOF before terminal event and usage" }
   ]
 }

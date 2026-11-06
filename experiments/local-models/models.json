@@ -11,7 +11,7 @@
       "parameters_active_b": 9,
       "quantization": "Q6_K",
       "weights_gib_estimate": 7,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -23,7 +23,7 @@
         "https://huggingface.co/Qwen/Qwen3.5-9B/blob/c202236235762e1c871ad0ccb60c8ee5ba337b9a/config.json"
       ],
       "fit": "candidate",
-      "reason": "Малый контроль скорости и качества на тех же задачах.",
+      "reason": "A small speed and quality control on the same tasks.",
       "model_revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
       "artifact": {
         "repository": "unsloth/Qwen3.5-9B-GGUF",
@@ -48,7 +48,7 @@
       "parameters_active_b": 3,
       "quantization": "UD-Q5_K_M",
       "weights_gib_estimate": 24.7,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -60,7 +60,7 @@
         "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/995ad96eacd98c81ed38be0c5b274b04031597b0/config.json"
       ],
       "fit": "candidate",
-      "reason": "Актуальная компактная MoE для агентного кода; сравнить с dense 27B и поколением 3.5.",
+      "reason": "A current compact MoE for agentic coding; compare with dense 27B and generation 3.5.",
       "model_revision": "995ad96eacd98c81ed38be0c5b274b04031597b0",
       "artifact": {
         "repository": "unsloth/Qwen3.6-35B-A3B-GGUF",
@@ -85,7 +85,7 @@
       "parameters_active_b": 27,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 18.2,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -97,7 +97,7 @@
         "https://huggingface.co/Qwen/Qwen3.6-27B/blob/6a9e13bd6fc8f0983b9b99948120bc37f49c13e9/config.json"
       ],
       "fit": "candidate",
-      "reason": "Dense-кандидат: проверить цену качества во времени относительно MoE с 3B active.",
+      "reason": "Dense candidate: measure the quality/time tradeoff against an MoE with 3B active parameters.",
       "model_revision": "6a9e13bd6fc8f0983b9b99948120bc37f49c13e9",
       "artifact": {
         "repository": "unsloth/Qwen3.6-27B-GGUF",
@@ -122,7 +122,7 @@
       "parameters_active_b": 3,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 52.9,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -134,7 +134,7 @@
         "https://huggingface.co/Qwen/Qwen3-Coder-Next/blob/a7fbcb5c0e12d62a448eaa0e260346bf5dcc0feb/config.json"
       ],
       "fit": "candidate",
-      "reason": "Специализированная модель для coding agents с официальным GGUF; non-thinking контроль.",
+      "reason": "A specialized coding-agent model with official GGUF; non-thinking control.",
       "model_revision": "a7fbcb5c0e12d62a448eaa0e260346bf5dcc0feb",
       "artifact": {
         "repository": "Qwen/Qwen3-Coder-Next-GGUF",
@@ -174,7 +174,7 @@
       "parameters_active_b": 3.6,
       "quantization": "MXFP4",
       "weights_gib_estimate": 11.3,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -186,7 +186,7 @@
         "https://huggingface.co/openai/gpt-oss-20b/blob/6cee5e81ee83917806bbde320786a8fb61efebee/config.json"
       ],
       "fit": "candidate",
-      "reason": "Компактная независимая семья; проверить Harmony/tool parser и уровни reasoning.",
+      "reason": "A compact independent family; check the Harmony/tool parser and reasoning levels.",
       "model_revision": "6cee5e81ee83917806bbde320786a8fb61efebee",
       "artifact": {
         "repository": "ggml-org/gpt-oss-20b-GGUF",
@@ -211,7 +211,7 @@
       "parameters_active_b": 3,
       "quantization": "Q8_0",
       "weights_gib_estimate": 29.7,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -223,7 +223,7 @@
         "https://huggingface.co/zai-org/GLM-4.7-Flash/blob/7dd20894a642a0aa287e9827cb1a1f7f91386b67/config.json"
       ],
       "fit": "candidate",
-      "reason": "Независимая MoE 30B с MLA; Q8 снижает смешение ошибок квантизации и tool parser.",
+      "reason": "An independent 30B MoE with MLA; Q8 reduces confounding between quantization and tool-parser errors.",
       "model_revision": "7dd20894a642a0aa287e9827cb1a1f7f91386b67",
       "artifact": {
         "repository": "ggml-org/GLM-4.7-Flash-GGUF",
@@ -248,7 +248,7 @@
       "parameters_active_b": 3.3,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 20.3,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -260,7 +260,7 @@
         "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/blob/b2cff646eb4bb1d68355c01b18ae02e7cf42d120/config.json"
       ],
       "fit": "candidate",
-      "reason": "Контроль обычного full-attention MoE против hybrid Coder-Next на тех же задачах.",
+      "reason": "A conventional full-attention MoE control against hybrid Coder-Next on the same tasks.",
       "model_revision": "b2cff646eb4bb1d68355c01b18ae02e7cf42d120",
       "artifact": {
         "repository": "unsloth/Qwen3-Coder-30B-A3B-Instruct-GGUF",
@@ -285,7 +285,7 @@
       "parameters_active_b": 5.1,
       "quantization": "MXFP4",
       "weights_gib_estimate": 59.1,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -297,7 +297,7 @@
         "https://huggingface.co/openai/gpt-oss-120b/blob/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/config.json"
       ],
       "fit": "conditional",
-      "reason": "Большая модель той же семьи: допуск после замера пиков памяти и проверки MXFP4 backend.",
+      "reason": "A larger model from the same family: admit after measuring memory peaks and checking the MXFP4 backend.",
       "model_revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
       "artifact": {
         "repository": "ggml-org/gpt-oss-120b-GGUF",
@@ -322,7 +322,7 @@
       "parameters_active_b": 10,
       "quantization": "Q4_K_M",
       "weights_gib_estimate": 71.3,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -334,7 +334,7 @@
         "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/dc4d348443bc740c68e2d77492492c11606384d5/config.json"
       ],
       "fit": "conditional",
-      "reason": "Верхняя граница shortlist: около 71.3 GiB весов; Q5 только отдельной абляцией после memory gate.",
+      "reason": "Upper shortlist boundary: about 71.3 GiB of weights; Q5 only as a separate ablation after the memory gate.",
       "model_revision": "dc4d348443bc740c68e2d77492492c11606384d5",
       "artifact": {
         "repository": "unsloth/Qwen3.5-122B-A10B-GGUF",
@@ -369,7 +369,7 @@
       "parameters_active_b": 30.7,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 20.2,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -381,7 +381,7 @@
         "https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json"
       ],
       "fit": "candidate",
-      "reason": "Независимая dense-семья с native tool calling; проверить parser и режим thinking на тех же задачах.",
+      "reason": "An independent dense family with native tool calling; test the parser and thinking mode on the same tasks.",
       "model_revision": "842da3794eaa0b77d5f08bae87a17459d91ff475",
       "artifact": {
         "repository": "unsloth/gemma-4-31B-it-GGUF",
@@ -406,7 +406,7 @@
       "parameters_active_b": 3,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 24.5,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -418,7 +418,7 @@
         "https://huggingface.co/Qwen/Qwen3.5-35B-A3B/blob/59d61f3ce65a6d9863b86d2e96597125219dc754/config.json"
       ],
       "fit": "candidate",
-      "reason": "Парный baseline поколения 3.5 для Qwen3.6-35B; одинаковые runtime и настройки.",
+      "reason": "A paired generation-3.5 baseline for Qwen3.6-35B, with identical runtime and settings.",
       "model_revision": "59d61f3ce65a6d9863b86d2e96597125219dc754",
       "artifact": {
         "repository": "unsloth/Qwen3.5-35B-A3B-GGUF",
@@ -443,7 +443,7 @@
       "parameters_active_b": 12,
       "quantization": "Q4_K_M",
       "weights_gib_estimate": 68,
-      "weights_basis": "Сумма размеров выбранных GGUF из Hugging Face API на 2026-09-20; округление вверх до 0.1 GiB. Это размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF sizes from the Hugging Face API as of 2026-09-20; rounded up to 0.1 GiB. These are file sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -455,7 +455,7 @@
         "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/config.json"
       ],
       "fit": "conditional",
-      "reason": "Большая альтернативная MoE: оценить память и full-attention KV относительно Flash.",
+      "reason": "A large alternative MoE: assess memory and full-attention KV against Flash.",
       "model_revision": "a24ceef6ce4f3536971efe9b778bdaa1bab18daa",
       "artifact": {
         "repository": "unsloth/GLM-4.5-Air-GGUF",
@@ -485,7 +485,7 @@
       "parameters_active_b": 3,
       "quantization": "Q5_K_M",
       "weights_gib_estimate": 23.3,
-      "weights_basis": "Размер выбранного GGUF из Hugging Face API на 2026-10-12; округление вверх до 0.1 GiB. Размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Size of the selected GGUF from the Hugging Face API as of 2026-10-12; rounded up to 0.1 GiB. File sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -496,7 +496,7 @@
         "https://huggingface.co/bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF/tree/d8f684f08d2950ea9d2db6a35ef7dada0707858b"
       ],
       "fit": "candidate",
-      "reason": "Coding-agent профиль (SWE-задачи); вне первого каталога, проверяется по кодингу.",
+      "reason": "A coding-agent profile (SWE tasks), outside the initial catalog; evaluated on coding.",
       "model_revision": "7be56fe773e72b6f5ca93c1ae45d828ddb893922",
       "artifact": {
         "repository": "bartowski/Kwaipilot_KAT-Coder-V2.5-Dev-GGUF",
@@ -521,7 +521,7 @@
       "parameters_active_b": 6,
       "quantization": "UD-Q4_K_M",
       "weights_gib_estimate": 68.7,
-      "weights_basis": "Сумма размеров выбранных GGUF-шардов из Hugging Face API на 2026-10-12; округление вверх до 0.1 GiB. Размер файлов, не измеренный RAM/VRAM.",
+      "weights_basis": "Sum of selected GGUF shard sizes from the Hugging Face API as of 2026-10-12; rounded up to 0.1 GiB. File sizes, not measured RAM/VRAM.",
       "context_tokens": [
         8192,
         16384,
@@ -532,7 +532,7 @@
         "https://huggingface.co/unsloth/Mistral-Small-4-119B-2603-GGUF/tree/bd93c721735aa32c035c0f19e738cb3371fd56ff"
       ],
       "fit": "conditional",
-      "reason": "Крупная MoE (A6B); Q4 впритык по GPU-бюджету, требует проверки фактической памяти.",
+      "reason": "A large MoE (A6B); Q4 barely fits the GPU budget and requires actual memory verification.",
       "model_revision": "a11f36bebf709121056b1dbcc943d1c6afbe494d",
       "artifact": {
         "repository": "unsloth/Mistral-Small-4-119B-2603-GGUF",

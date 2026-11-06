@@ -1,6 +1,6 @@
 {
   "model": "lab-model",
-  "messages": [{"role": "user", "content": "Напиши связный учебный текст на русском языке примерно на 300 слов. Объясни, как сравнить два алгоритма сортировки на одинаковых входных данных: что зафиксировать, что измерить и как описать ограничения результата. Не используй инструменты и не исполняй код."}],
+  "messages": [{"role": "user", "content": "Write a coherent educational text in English of about 300 words. Explain how to compare two sorting algorithms on identical input data: what to fix, what to measure, and how to describe the result's limitations. Do not use tools or execute code."}],
   "max_tokens": 512,
   "stream": false
 }

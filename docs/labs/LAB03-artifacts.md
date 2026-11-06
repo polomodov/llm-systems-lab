@@ -1,23 +1,23 @@
-# ЛР03. Выбор моделей и закрепление артефактов
+# LAB03. Model selection and artifact pinning
 
-## Паспорт
+## Profile
 
-- Время: 1–2 часа работы плюс загрузка выбранных весов.
-- Предпосылки: сданы [ЛР01](LAB01-reproducibility.md) и [ЛР02](LAB02-hardware.md); доступны Python 3.11+, Node.js и место на диске целевой Linux-машины.
-- Готовность: расчёт и подготовку manifest можно выполнить сейчас; загрузка и проверка файлов выполняются участником лабораторной. В репозитории нет скачанных весов или аппаратных результатов.
-- Минимум: оценить память всех 12 кандидатов, скачать и проверить **один** контрольный GGUF `qwen35-9b`. Второй контроль `gpt-oss-20b` и остальные загрузки — расширение.
+- Time: 1–2 hours of work plus downloading the selected weights.
+- Prerequisites: [LAB01](LAB01-reproducibility.md) and [LAB02](LAB02-hardware.md) submitted; Python 3.11+, Node.js, and disk space available on the target Linux machine.
+- Readiness: calculations and manifest preparation can be performed now; the lab participant downloads and verifies files. The repository contains no downloaded weights or hardware results.
+- Minimum: estimate memory for all 12 candidates; download and verify **one** control GGUF, `qwen35-9b`. The second control, `gpt-oss-20b`, and other downloads are extensions.
 
-## Цель
+## Objective
 
-Получить проверенный локальный артефакт, который можно передать нескольким движкам без незаметной смены весов, и обосновать очередь остальных моделей по реальному бюджету памяти из ЛР02.
+Obtain a verified local artifact that can be passed to several engines without silently changing weights, and justify the remaining model queue using the actual memory budget from LAB02.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«Выбранные shards соответствуют закреплённой ревизии и SHA-256, а контрольный GGUF проходит предварительный бюджет памяти при 8192 токенах и одной последовательности». Первая часть проверяется здесь; размещение при реальном инференсе проверяется в ЛР04–05. Положительный расчёт сам по себе не подтверждает GPU residency.
+“The selected shards match the pinned revision and SHA-256, and the control GGUF passes the preliminary memory budget at 8192 tokens and one sequence.” The first part is tested here; placement during actual inference is tested in LAB04–05. A positive estimate alone does not confirm GPU residency.
 
-## Подготовка
+## Preparation
 
-Работайте из корня репозитория в Bash. Создайте отчёт и задайте отдельный каталог весов, желательно на том диске, свободное место которого измерено в ЛР02:
+Work from the repository root in Bash. Create a report and specify a separate weights directory, preferably on the disk whose free space was measured in LAB02:
 
 ```bash
 npm run lab:new -- --lab LAB03 --session my-session
@@ -30,37 +30,37 @@ cp experiments/local-models/models.json "$LAB_DIR/raw/catalog.json"
 cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
 ```
 
-Ссылка на паспорт ЛР02 и его измеренные `MemTotal`, `MemAvailable`, GPU heap/GTT и swap обязательна в `manifest.json`. Не складывайте CPU RAM и GPU budget: это одна UMA-память. По умолчанию planner использует **гипотезы** 119,2 GiB RAM, 89,4 GiB GPU budget, 16 GiB для ОС, 6 GiB runtime и 4/8/16 GiB для контекстов 8K/16K/32K. Это резервы, а не расчёт KV cache конкретной архитектуры.
+The LAB02 profile and its measured `MemTotal`, `MemAvailable`, GPU heap/GTT, and swap must be referenced in `manifest.json`. Do not add CPU RAM to the GPU budget: these share the same UMA memory. By default, the planner uses **assumptions** of 119.2 GiB RAM, 89.4 GiB GPU budget, 16 GiB for the OS, 6 GiB runtime, and 4/8/16 GiB for 8K/16K/32K contexts. These are reserves, not calculations of a specific architecture's KV cache.
 
-## Порядок выполнения
+## Procedure
 
-1. **Зафиксируйте отбор до загрузки.** Сохраните общий план:
+1. **Record the selection before downloading.** Save the overall plan:
 
    ```bash
    node scripts/local-plan.mjs --format json > "$LAB_DIR/raw/plan-default.json"
    node scripts/local-plan.mjs --model qwen35-9b --context 8192 --format json > "$LAB_DIR/raw/control-plan.json"
    ```
 
-   Если бюджет из ЛР02 отличается, повторите команду с `--memory-gib ЧИСЛО --gpu-budget-gib ЧИСЛО`, сохранив отдельный JSON и точную команду. Числа берутся из отчёта машины; переменные доступной памяти и общий объём — разные величины. Для каждой из 12 моделей заполните решение «первый запуск / позднее / не проходит выбранный бюджет» и условие пересмотра.
+   If the LAB02 budget differs, repeat the command with `--memory-gib NUMBER --gpu-budget-gib NUMBER`, preserving a separate JSON and the exact command. Use numbers from the machine report; available memory and total capacity are different quantities. For each of the 12 models, record “first run / later / does not fit the selected budget” and a condition for reconsidering the decision.
 
-   | Кандидат | Закреплённый GGUF | Веса, GiB, оценка вверх | Очередь |
+   | Candidate | Pinned GGUF | Weights, GiB, rounded-up estimate | Queue |
    | --- | --- | ---: | --- |
-   | `qwen35-9b` | Q6_K | 7,0 | P1, контроль |
-   | `qwen36-35b-a3b` | UD-Q5_K_M | 24,7 | P1 |
-   | `qwen36-27b` | Q5_K_M | 18,2 | P1 |
-   | `qwen3-coder-next` | Q5_K_M | 52,9 | P1 |
-   | `gpt-oss-20b` | MXFP4 | 11,3 | P1, второй контроль |
-   | `glm-47-flash` | Q8_0 | 29,7 | P1 |
-   | `qwen3-coder-30b-a3b` | Q5_K_M | 20,3 | P2 |
-   | `gpt-oss-120b` | MXFP4 | 59,1 | P2, условно |
-   | `qwen35-122b-a10b` | Q4_K_M | 71,3 | P2, условно |
-   | `gemma4-31b-it` | Q5_K_M | 20,2 | P2 |
-   | `qwen35-35b-a3b` | Q5_K_M | 24,5 | P3 |
-   | `glm-45-air` | Q4_K_M | 68,0 | P3, условно |
+   | `qwen35-9b` | Q6_K | 7.0 | P1, control |
+   | `qwen36-35b-a3b` | UD-Q5_K_M | 24.7 | P1 |
+   | `qwen36-27b` | Q5_K_M | 18.2 | P1 |
+   | `qwen3-coder-next` | Q5_K_M | 52.9 | P1 |
+   | `gpt-oss-20b` | MXFP4 | 11.3 | P1, second control |
+   | `glm-47-flash` | Q8_0 | 29.7 | P1 |
+   | `qwen3-coder-30b-a3b` | Q5_K_M | 20.3 | P2 |
+   | `gpt-oss-120b` | MXFP4 | 59.1 | P2, conditional |
+   | `qwen35-122b-a10b` | Q4_K_M | 71.3 | P2, conditional |
+   | `gemma4-31b-it` | Q5_K_M | 20.2 | P2 |
+   | `qwen35-35b-a3b` | Q5_K_M | 24.5 | P3 |
+   | `glm-45-air` | Q4_K_M | 68.0 | P3, conditional |
 
-   Таблица описывает файлы каталога на 20.09.2026; это не измеренный пик RAM. Все 12 артефактов вместе занимают около 406,7 GiB диска до дополнительных копий. Скачивать их все для зачёта не нужно. У MoE активные параметры характеризуют вычисления на токен, но загружаются все эксперты. Hybrid attention требует собственного расчёта cache/state. KV, scratch, graph buffers, tokenizer, mmap/page cache и другие процессы учитывать отдельно.
+   The table describes catalog files as of 2026-09-20; these are not measured peak RAM values. All 12 artifacts together occupy about 406.7 GiB of disk before additional copies. Downloading all of them is not required to complete the lab. For MoE, active parameters describe computation per token, but all experts are loaded. Hybrid attention requires its own cache/state calculation. Account separately for KV, scratch space, graph buffers, tokenizer, mmap/page cache, and other processes.
 
-2. **Выберите точный объект, а не поисковый alias.** Экспортируйте профиль из сохранённого каталога:
+2. **Choose an exact object, not a search alias.** Export the profile from the saved catalog:
 
    ```bash
    python3 - "$LAB_DIR" qwen35-9b <<'PY'
@@ -73,9 +73,9 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
    PY
    ```
 
-   Проверьте `model_id/model_revision`, репозиторий квантизатора, `artifact.revision`, имена и число файлов, `bytes`, `sha256`, точность и лицензию. Ревизии основной модели и GGUF различаются. SHA в каталоге получены из metadata издателя; локальная проверка ещё не выполнена. При недоступном файле или изменении лицензии остановите эту конфигурацию со статусом `no-artifact`; выбор замены оформите новым manifest.
+   Check `model_id/model_revision`, the quantizer repository, `artifact.revision`, file names and count, `bytes`, `sha256`, precision, and license. The base-model and GGUF revisions differ. The catalog's SHA values come from publisher metadata; local verification has not yet been performed. If a file is unavailable or the license changes, stop this configuration with `no-artifact` status; record any replacement selection in a new manifest.
 
-3. **Подготовьте воспроизводимую загрузку.** Сохраните следующий открытый учебный скрипт в `$LAB_DIR/raw/fetch_artifact.py`. Он работает также с manifest native checkpoint из ЛР06. Без `--download` скрипт только проверяет существующие файлы; при несовпадении завершится ошибкой. Существующий неверный файл не заменяется автоматически.
+3. **Prepare a reproducible download.** Save the following public teaching script as `$LAB_DIR/raw/fetch_artifact.py`. It also works with the native-checkpoint manifest from LAB06. Without `--download`, the script only verifies existing files and exits with an error on a mismatch. An existing incorrect file is not replaced automatically.
 
    ```python
    import argparse, hashlib, json, os, pathlib, re, urllib.parse, urllib.request
@@ -102,7 +102,7 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
        if not dest.exists() and a.download:
            dest.parent.mkdir(parents=True, exist_ok=True)
            partial = dest.with_name(dest.name + ".part")
-           # Не используйте одновременно две копии этого скрипта для одного файла.
+           # Do not run two copies of this script on the same file simultaneously.
            try:
                with urllib.request.urlopen(url, timeout=120) as src, partial.open("xb") as out:
                    while chunk := src.read(8 * 1024 * 1024):
@@ -113,7 +113,7 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
                assert not item.get("sha256") or digest == item["sha256"], "hash mismatch"
                os.replace(partial, dest)
            except BaseException:
-               # .part сохраняется для диагностики; удалять только после разбора ошибки.
+               # Preserve .part for diagnosis; remove it only after investigating the error.
                raise
        if not dest.is_file():
            results.append({"path": str(dest), "status": "no-artifact"})
@@ -131,9 +131,9 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
    raise SystemExit(0 if all(x["status"] == "verified" for x in results) else 1)
    ```
 
-   Нужен Python **3.11+** для `hashlib.file_digest`; версия попадает в отчёт. Скрипт не возобновляет оборванную загрузку, чтобы не скрывать непроверенный partial. Сверьте запас диска с суммой `artifact.total_bytes`, временными файлами и будущими копиями сервисов. Проверка файлов — последовательное чтение всего объёма.
+   Python **3.11+** is required for `hashlib.file_digest`; its version goes into the report. The script does not resume interrupted downloads, so an unverified partial download cannot be concealed. Check disk headroom against the sum of `artifact.total_bytes`, temporary files, and future service copies. File verification sequentially reads the entire data volume.
 
-4. **Загрузите только выбранный артефакт, затем повторно проверьте offline.** Эти команды выполняет участник лабораторной на целевой машине после шага 3:
+4. **Download only the selected artifact, then verify it again offline.** The lab participant runs these commands on the target machine after step 3:
 
    ```bash
    python3 --version > "$LAB_DIR/raw/python-version.txt"
@@ -142,9 +142,9 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
    df -B1 "$LAB_STORAGE" > "$LAB_DIR/raw/disk-after.txt"
    ```
 
-   При ошибке сохраните stderr и ненулевой exit code в отчёте. Для split GGUF нужны **все оригинальные shards** в исходной структуре; серверу далее передаётся первый shard. Не склеивайте и не переименовывайте shards. Не добавляйте vision projector, speculative draft или иной quant без нового manifest. Для защищённого репозитория используйте документированный клиент HF и доступ из `.env`; данный публичный контроль не требует токена.
+   On error, preserve stderr and the nonzero exit code in the report. A split GGUF requires **all original shards** in their original structure; the server later receives the first shard. Do not concatenate or rename shards. Do not add a vision projector, speculative draft, or different quant without a new manifest. For a protected repository, use the documented HF client and access credentials from `.env`; this public control requires no token.
 
-5. **Передайте артефакт в следующую работу.** Из `verification.json` возьмите абсолютный путь контрольного GGUF и запишите его как `GGUF` в своём отчёте; runtime получит этот файл. Создайте стандартный checksum-файл всех shards для `sha256sum --check` в ЛР04–07. JSON не является форматом checksum-файла:
+5. **Pass the artifact to the next lab.** Take the control GGUF's absolute path from `verification.json` and record it as `GGUF` in your report; the runtime will receive this file. Create a standard checksum file for all shards for use with `sha256sum --check` in LAB04–07. JSON is not a checksum-file format:
 
    ```bash
    python3 - "$LAB_DIR" <<'PY'
@@ -163,56 +163,56 @@ cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
    sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/checksums-recheck.txt"
    ```
 
-   Пути абсолютные и относятся к этой машине; при переносе обновляется путь в отдельной копии checksum-файла, а hashes остаются прежними. Приложите hashes входного каталога, экспортированного manifest и скрипта:
+   Paths are absolute and refer to this machine; when moving files, update the path in a separate copy of the checksum file while keeping hashes unchanged. Include hashes of the input catalog, exported manifest, and script:
 
    ```bash
    sha256sum "$LAB_DIR/raw/catalog.json" "$LAB_DIR/raw/artifact.json" "$LAB_DIR/raw/fetch_artifact.py" > "$LAB_DIR/raw/input-hashes.txt"
    ```
 
-   Заполните `report.md`, `measurements.tsv`, `manifest.json`. Статус `verified` относится к bytes/hash, `candidate` — к расчёту памяти, `not-run` — к отсутствующему инференсу. Ошибка доступа/хеша — отдельное наблюдение, а не скорость 0 tokens/s. Позднее обновление модели или квантизатора создаёт новую конфигурацию.
+   Complete `report.md`, `measurements.tsv`, and `manifest.json`. The `verified` status applies to bytes/hash, `candidate` to the memory estimate, and `not-run` to inference that has not occurred. An access/hash error is a separate observation, not a speed of 0 tokens/s. A later model or quantizer update creates a new configuration.
 
-## Таблицы результатов
+## Results tables
 
-Заполните первую таблицу для всех 12 кандидатов; строки можно копировать. Ячейки с фактическими измерениями изначально пусты.
+Fill in the first table for all 12 candidates; rows may be copied. Cells for actual measurements start empty.
 
-| Model slug | Контекст | Веса, GiB | Runtime/cache reserve, GiB | Бюджет/источник | Планируемый запас | Решение и причина |
+| Model slug | Context | Weights, GiB | Runtime/cache reserve, GiB | Budget/source | Planned headroom | Decision and reason |
 | --- | ---: | ---: | ---: | --- | ---: | --- |
 | | | | | | | |
 
-| Model / artifact revision | Shards: ожидается / получено | Bytes: ожидается / измерено | SHA-256 verdict | Путь verification | Статус / причина |
+| Model / artifact revision | Shards: expected / obtained | Bytes: expected / measured | SHA-256 verdict | Verification path | Status / reason |
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-| Наблюдение | Значение | Единица | Условия | Evidence |
+| Observation | Value | Unit | Conditions | Evidence |
 | --- | ---: | --- | --- | --- |
-| Свободный диск до / после | | bytes | | |
-| Время загрузки / проверки | | s | | |
+| Free disk before / after | | bytes | | |
+| Download / verification time | | s | | |
 
-## Что сдать
+## Deliverables
 
-Каталог отчёта с заполненными тремя файлами helper, копией исходного каталога, 12 решениями по памяти, выбранным `artifact.json`, скриптом загрузки, результатом повторной проверки, источником аппаратных бюджетов и абсолютным путём весов. **Сами веса в Git не добавляются.** В выводе отдельно указать, что будет проверяться при реальной загрузке модели в ЛР04–05.
+The report directory containing all three completed helper files, a copy of the original catalog, 12 memory decisions, the selected `artifact.json`, download script, repeated verification result, hardware-budget source, and absolute weights path. **Do not add the weights themselves to Git.** State separately in the conclusion what will be tested when the model is actually loaded in LAB04–05.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Для 12 кандидатов есть решение с условиями памяти и очередью.
-- [ ] Для одного контрольного GGUF проверены все bytes/SHA-256 либо документирован `no-artifact`/`fail` с причиной и шагом исправления.
-- [ ] Model revision, quantizer revision, quantization и shards различимы в manifest.
-- [ ] Диск, RAM, GPU budget, веса и KV/state не смешаны в одну величину.
-- [ ] Отсутствующим аппаратным запускам оставлен `not-run`; оценка не названа замером.
-- [ ] Отчёт позволяет другому участнику воспроизвести выбор и проверку без поиска alias.
+- [ ] All 12 candidates have a decision with memory conditions and queue priority.
+- [ ] All bytes/SHA-256 values for one control GGUF are verified, or `no-artifact`/`fail` is documented with a reason and corrective step.
+- [ ] Model revision, quantizer revision, quantization, and shards are distinguishable in the manifest.
+- [ ] Disk, RAM, GPU budget, weights, and KV/state are not conflated into one quantity.
+- [ ] Missing hardware runs remain `not-run`; an estimate is not called a measurement.
+- [ ] The report allows another participant to reproduce the selection and verification without searching for aliases.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему 3B active у MoE не означает, что на диске или в RAM нужно хранить только 3B параметров?
-2. Почему GGUF Q5 и UD-Q5 одного семейства не дают чистую абляцию поколения?
-3. Что доказывает SHA-256, и чего он не говорит о качестве квантизации и корректности inference kernels?
-4. Почему сохранённый hash metadata издателя ещё не равен проверке локального файла?
-5. Какие расходы памяти могут превратить положительную оценку 32K в OOM?
+1. Why does 3B active in an MoE not mean that only 3B parameters need to be stored on disk or in RAM?
+2. Why do GGUF Q5 and UD-Q5 from the same family not provide a clean generation ablation?
+3. What does SHA-256 prove, and what does it say nothing about regarding quantization quality and inference-kernel correctness?
+4. Why does saving the hash from publisher metadata not yet amount to verifying the local file?
+5. Which memory costs can turn a positive 32K estimate into OOM?
 
-## Источники
+## Sources
 
-- [Каталог с закреплёнными revisions, shards и hashes](../../experiments/local-models/models.json), [разбор кандидатов и ограничений](../local-model-candidates.md).
-- [План памяти и порядок аппаратной кампании](../local-models.md), [Linux runbook](../local-model-runtime.md).
-- [Hugging Face: версии и загрузка файлов](https://huggingface.co/docs/huggingface_hub/guides/download).
-- [Официальная модель Qwen3.5-9B](https://huggingface.co/Qwen/Qwen3.5-9B), [GGUF издателя](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF).
+- [Catalog with pinned revisions, shards, and hashes](../../experiments/local-models/models.json), [candidate analysis and limitations](../local-model-candidates.md).
+- [Memory plan and hardware campaign order](../local-models.md), [Linux runbook](../local-model-runtime.md).
+- [Hugging Face: versions and file downloads](https://huggingface.co/docs/huggingface_hub/guides/download).
+- [Official Qwen3.5-9B model](https://huggingface.co/Qwen/Qwen3.5-9B), [publisher's GGUF](https://huggingface.co/unsloth/Qwen3.5-9B-GGUF).
 - [Python hashlib.file_digest](https://docs.python.org/3/library/hashlib.html#hashlib.file_digest).

@@ -1,5 +1,5 @@
-# Заметки · Claude Code
+# Notes · Claude Code
 
-Прогонов пока нет.
+No runs yet.
 
-21.09.2026 — offline проверка закреплённого образа `harness-lab/claude-code:2.1.83` без ключей и без запросов к провайдеру. `claude --version` вернул `2.1.83 (Claude Code)`; `claude --help` перечислил `--permission-mode` со значениями `acceptEdits`, `bypassPermissions`, `default`, `dontAsk`, `plan`, `auto`. Режим `dontAsk`, который задаёт адаптер, существует в этой версии CLI. Его поведение с реальной моделью не проверено: это сверка интерфейса, не эксперимент.
+2026-09-21 — offline check of pinned image `harness-lab/claude-code:2.1.83` without keys or provider requests. `claude --version` returned `2.1.83 (Claude Code)`; `claude --help` listed `--permission-mode` values `acceptEdits`, `bypassPermissions`, `default`, `dontAsk`, `plan`, and `auto`. The adapter’s `dontAsk` mode exists in this CLI version. Its behavior with a real model is unverified: this checks the interface, not an experiment.

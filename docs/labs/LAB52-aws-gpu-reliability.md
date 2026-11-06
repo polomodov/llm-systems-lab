@@ -1,85 +1,85 @@
-# ЛР52. Надёжность GPU-сервинга в AWS: метрики GPU, прерывание Spot и game day
+# LAB52. GPU-serving reliability in AWS: GPU metrics, Spot interruption and game day
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка AWS и Terraform не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the AWS and Terraform branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md) (кластер, vLLM, нагрузчик); желательно [ЛР51](LAB51-aws-gpu-cold-start.md), чтобы новая реплика поднималась быстрее |
-| Стенд | AWS, сессии `aws-NN`; кластер из ЛР47, 2 GPU-узла одного небольшого типа, один из них Spot |
-| Минимум | DCGM exporter и метрики GPU в Prometheus; три алерта (утилизация, память GPU, ошибки XID или отказ health check); Karpenter с очередью прерываний SQS; PodDisruptionBudget и 2 реплики vLLM; game day из трёх сценариев под нагрузкой с подсчётом ошибок и TTFT |
-| Расширения | AWS Fault Injection Service для прерывания Spot вместо ручного; Amazon Managed Prometheus и Grafana против self-hosted; runbook для дежурного по каждому сценарию |
-| Время | Ориентир 1 день |
-| Готовность | `target-machine`; требует AWS-аккаунта, квоты на GPU и Spot и расходов |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB47](LAB47-k8s-gpu-eks-autoscaling.md) (cluster, vLLM, load generator); preferably [LAB51](LAB51-aws-gpu-cold-start.md) for faster new-replica startup |
+| Environment | AWS, `aws-NN` sessions; LAB47 cluster, 2 GPU nodes of one small instance type, one Spot |
+| Minimum | DCGM exporter and GPU metrics in Prometheus; three alerts (utilization, GPU memory, XID errors or failed health check); Karpenter with SQS interruption queue; PodDisruptionBudget and 2 vLLM replicas; three-scenario game day under load with error and TTFT measurements |
+| Extensions | AWS Fault Injection Service for Spot interruption instead of manual action; Amazon Managed Prometheus/Grafana versus self-hosted; an on-call runbook per scenario |
+| Time | Allow 1 day |
+| Readiness | `target-machine`; requires an AWS account, GPU/Spot quotas and spending |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Проверить, что сервинг переживает типичные отказы GPU-флота в облаке, и научиться видеть их в метриках. В требованиях к Site Lead это «robust systems for deployment, monitoring, scalability, and reliability of infrastructure supporting AI/ML workloads». Работа даёт собственные числа и runbook вместо общих слов.
+Verify that serving survives typical cloud GPU-fleet failures and learn to detect them in metrics. Site Lead requirements call this “robust systems for deployment, monitoring, scalability, and reliability of infrastructure supporting AI/ML workloads”. This lab provides your own figures and runbooks instead of generalities.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. С двумя репликами, PodDisruptionBudget `minAvailable: 1` и обработкой прерываний Karpenter прерывание Spot-узла под нагрузкой ниже ёмкости одной реплики даёт меньше 1% неуспешных запросов, а TTFT p95 во время события вырастает не больше чем в 3 раза.
-2. Без PodDisruptionBudget и очереди прерываний тот же сценарий даёт не меньше 5% неуспешных запросов.
-3. Каждый из трёх алертов срабатывает в своём сценарии game day за время, зафиксированное в протоколе как допустимое.
+1. With two replicas, a PodDisruptionBudget of `minAvailable: 1` and Karpenter interruption handling, interrupting a Spot node at load below one replica's capacity causes fewer than 1% failed requests, and TTFT p95 rises by no more than a factor of 3 during the event.
+2. Without PodDisruptionBudget and interruption queue, the same scenario causes at least 5% failed requests.
+3. Each of the three alerts fires in its game-day scenario within the acceptable time fixed in the protocol.
 
-Пороги, нагрузка, тип инстанса и цены Spot и On-Demand (с датой) фиксируются в протоколе до прогона.
+Fix thresholds, load, instance type and dated Spot/On-Demand prices in the protocol before execution.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: NVIDIA DCGM exporter, Karpenter (interruption handling, disruption budgets, Spot), Kubernetes PodDisruptionBudget, AWS Fault Injection Service (действие прерывания Spot), коды XID в документации NVIDIA.
-- Spot-квота в новом аккаунте отдельная, проверьте её в Service Quotas заранее.
-- Манифесты и правила алертов — в `experiments/k8s-gpu/manifests/LAB52/`, Terraform-изменения — в `experiments/k8s-gpu/terraform/`.
+- Read: NVIDIA DCGM exporter, Karpenter (interruption handling, disruption budgets, Spot), Kubernetes PodDisruptionBudget, AWS Fault Injection Service (Spot interruption action), NVIDIA XID-code documentation.
+- A new account has a separate Spot quota; check it in Service Quotas beforehand.
+- Manifests and alert rules belong in `experiments/k8s-gpu/manifests/LAB52/`; Terraform changes in `experiments/k8s-gpu/terraform/`.
 
 ```bash
 npm run lab:new -- --lab LAB52 --session aws-01
 LAB_DIR='experiments/aws/measurements/LAB52-aws-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Наблюдаемость.** DCGM exporter как DaemonSet на GPU-узлах, Prometheus и дашборд: утилизация GPU, память, температура, ошибки, плюс метрики vLLM (очередь, TTFT, ITL). Три правила алертов с порогами из протокола.
-2. **Устойчивость.** Две реплики vLLM на разных узлах (anti-affinity), PodDisruptionBudget, очередь прерываний SQS в настройках Karpenter.
-3. **Сценарий 1: прерывание Spot.** Под постоянной нагрузкой прервите Spot-узел через FIS или эмулируйте событием в очереди. Запишите долю ошибок, TTFT p95 до, во время и после, время до восстановления второй реплики.
-4. **Сценарий 2: тот же отказ без защиты.** Уберите PodDisruptionBudget и очередь прерываний, повторите.
-5. **Сценарий 3: деградация GPU.** Сымитируйте отказ: падение процесса vLLM с ошибкой CUDA, заполнение памяти GPU сторонним процессом или отключение health check. Проверьте, что алерт сработал и pod ушёл из балансировки.
-6. **Runbook.** Для каждого сценария полстраницы: как заметить, что проверить, что сделать, когда эскалировать.
-7. **Teardown.** `terraform destroy`, `janitor.sh` из ЛР48.
+1. **Observability.** DCGM exporter as a DaemonSet on GPU nodes, Prometheus and a dashboard: GPU utilization, memory, temperature, errors, plus vLLM metrics (queue, TTFT, ITL). Three alert rules with protocol thresholds.
+2. **Resilience.** Two vLLM replicas on different nodes (anti-affinity), PodDisruptionBudget, SQS interruption queue in Karpenter settings.
+3. **Scenario 1: Spot interruption.** Under constant load, interrupt the Spot node through FIS or emulate a queue event. Record error rate, TTFT p95 before/during/after, and time to restore the second replica.
+4. **Scenario 2: the same failure without protection.** Remove PodDisruptionBudget and interruption queue; repeat.
+5. **Scenario 3: GPU degradation.** Simulate a failure: vLLM process crash with a CUDA error, GPU memory filled by another process, or a disabled health check. Verify that the alert fires and the pod leaves load balancing.
+6. **Runbook.** Half a page per scenario: how to notice, what to check, what to do, when to escalate.
+7. **Teardown.** `terraform destroy`, LAB48 `janitor.sh`.
 
-## Таблицы результатов
+## Results tables
 
-| Сценарий | Неуспешных запросов, % | TTFT p95 до / во время / после, ms | Восстановление, s | Алерт сработал через, s |
+| Scenario | Failed requests, % | TTFT p95 before / during / after, ms | Recovery, s | Alert fired after, s |
 | --- | --- | --- | --- | --- |
-| Прерывание Spot с защитой | | | | |
-| Прерывание Spot без защиты | | | | |
-| Деградация GPU | | | | |
+| Protected Spot interruption | | | | |
+| Unprotected Spot interruption | | | | |
+| GPU degradation | | | | |
 
-| Статья | USD в час (источник, дата) | За сессию, USD |
+| Item | USD per hour (source, date) | Session cost, USD |
 | --- | --- | --- |
 | GPU On-Demand | | |
 | GPU Spot | | |
-| Прочее (узел системных pod, control plane, FIS) | | |
+| Other (system-pod node, control plane, FIS) | | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, манифесты, правила алертов, экспорт дашборда, сырые результаты нагрузчика по сценариям, три runbook, вывод `janitor.sh`.
-- Фактические расходы сессии из AWS Billing без account ID.
+- Report, manifests, alert rules, dashboard export, raw load-generator results per scenario, three runbooks, `janitor.sh` output.
+- Actual AWS Billing session expenses without account ID.
 
-## Критерии завершения
+## Completion criteria
 
-- Все три гипотезы приняты или отвергнуты с числами.
-- Runbook написан для каждого сценария; ресурсы удалены, проверка остатков пустая.
+- All three hypotheses accepted or rejected with figures.
+- A runbook written for every scenario; resources deleted, residual-resource check empty.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какую долю GPU-флота сервинга вы держали бы на Spot, и от чего это зависит?
-2. Какие ошибки XID означают «перезапустить pod», а какие «вывести узел из эксплуатации»?
-3. Какие три метрики вы показали бы на еженедельном обзоре надёжности лондонской площадки?
-4. Как устроить дежурство для пяти инженеров инфраструктуры, чтобы оно не выжигало команду?
+1. What share of the serving GPU fleet would you keep on Spot, and what does that depend on?
+2. Which XID errors mean “restart the pod”, and which mean “retire the node”?
+3. Which three metrics would you present at the London site's weekly reliability review?
+4. How would you organize on-call duties for five infrastructure engineers without burning out the team?
 
-## Источники
+## Sources
 
-- NVIDIA DCGM exporter; документация NVIDIA по кодам XID.
-- Документация Karpenter: interruption handling, disruption; Kubernetes PodDisruptionBudget; AWS Fault Injection Service.
-- Этот репозиторий: [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md), [ЛР51](LAB51-aws-gpu-cold-start.md), [протокол](../method.md).
+- NVIDIA DCGM exporter; NVIDIA XID-code documentation.
+- Karpenter documentation: interruption handling, disruption; Kubernetes PodDisruptionBudget; AWS Fault Injection Service.
+- This repository: [LAB47](LAB47-k8s-gpu-eks-autoscaling.md), [LAB51](LAB51-aws-gpu-cold-start.md), [protocol](../method.md).

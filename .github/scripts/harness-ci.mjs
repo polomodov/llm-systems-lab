@@ -17,15 +17,15 @@ function command(program, argv, options = {}) {
   return result.stdout?.trim() ?? '';
 }
 
-// Возвращаем обе стороны переименования, чтобы перенос Dockerfile в документацию
-// не скрывал удаление исполняемого входа. Ошибка diff никогда не означает «нет изменений».
+// Return both sides of a rename so moving a Dockerfile into documentation
+// cannot hide removal of an executable input. A failed diff never means no changes.
 export function changedFiles(root, base, head, { mergeBase = false } = {}) {
   for (const sha of [base, head]) {
     if (!commit.test(sha ?? '')) throw new Error('CI_BASE_SHA and CI_HEAD_SHA must be full commit SHAs');
     command('git', ['rev-parse', '--verify', `${sha}^{commit}`], { cwd: root });
   }
-  // PR показывает изменения ветки от общего предка, push — изменения между двумя
-  // состояниями main. Так новые изменения base-ветки не пересобирают посторонние PR.
+  // PRs compare the branch with its merge base; pushes compare two main states.
+  // New changes to the base branch therefore do not rebuild unrelated PRs.
   const start = mergeBase ? command('git', ['merge-base', base, head], { cwd: root }) : base;
   const output = command('git', ['diff', '--name-only', '--no-renames', '-z', start, head, '--'], { cwd: root });
   return output.split('\0').filter(Boolean);
@@ -54,8 +54,8 @@ export function plan(root, env = process.env) {
   if (!events.has(event)) throw new Error(`Unsupported CI event: ${event}`);
   const ids = harnessIds(root);
   for (const id of ids) loadProfile(root, id);
-  // После переписывания истории старый before может отсутствовать в свежем
-  // checkout. GitHub forced=true требует полной проверки вместо diff.
+  // After a history rewrite, the old before SHA may be absent from a fresh
+  // checkout. GitHub forced=true requires a full check instead of a diff.
   const full = event === 'push' && (env.CI_FORCE_PUSH === 'true' || /^0{40}$|^0{64}$/.test(env.CI_BASE_SHA ?? ''));
   if (full) {
     if (!commit.test(env.CI_HEAD_SHA ?? '')) throw new Error('CI_HEAD_SHA must be a full commit SHA');
@@ -77,7 +77,7 @@ export function build(root, id) {
 
 export function validateImageVersion(output, expected) {
   if (!output || output.length > 300) throw new Error('Harness returned an invalid version');
-  // Та же интерпретация CLI version, что и в scripts/run.mjs перед агентным прогоном.
+  // Use the same CLI version interpretation as scripts/run.mjs before an agent run.
   const actual = output.match(/\b\d+\.\d+\.\d+(?:[-+][a-zA-Z0-9.-]+)?\b/)?.[0];
   if (!actual) throw new Error('Harness did not report an exact version');
   if (actual !== expected) throw new Error(`Image reports ${actual}, profile pins ${expected}`);
@@ -100,7 +100,7 @@ export function smoke(root, id) {
     const version = validateImageVersion(output, profile.version);
     console.log(JSON.stringify({ harness: id, version, image, network: 'none' }));
   } finally {
-    // В том числе после timeout: завершение клиента docker само по себе контейнер не останавливает.
+    // Also after a timeout: stopping the Docker client does not stop its container.
     spawnSync('docker', ['rm', '--force', name], { encoding: 'utf8', timeout: 15_000 });
   }
 }

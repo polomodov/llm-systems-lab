@@ -4,7 +4,7 @@ import { safePath } from './files.mjs';
 const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
 const segment = value => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 export const relativeFile = value => typeof value === 'string' && /^[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_.-]+)*$/.test(value) && value.split('/').every(part => part !== '.' && part !== '..');
-// Единственный источник пина: профиль. Dockerfile, документация и прогон сверяются с ним.
+// The profile is the sole version-pin source. Dockerfile, docs and runs must agree.
 export const VERSION_PIN = /^\d+\.\d+\.\d+(?:[-+][a-zA-Z0-9.-]+)?$/;
 export function validateProfile(profile, expectedId) {
   if (!object(profile) || profile.schema_version !== 1 || !segment(profile.id) || (expectedId && profile.id !== expectedId)) throw new Error('Invalid harness profile identity');

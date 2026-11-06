@@ -1,14 +1,14 @@
-# Агенты
+# Agents
 
-Спецификация агента не зависит от обвязки: миссия, входы, выходы, границы, критерий остановки, проверка. Реализация под обвязку живёт в `experiments/<harness>/agents/<code>/` и может быть чем угодно — от файла инструкций до кода на SDK.
+An agent specification is independent of its harness: mission, inputs, outputs, boundaries, stop condition, and evaluation. Harness-specific implementations live in `experiments/<harness>/agents/<code>/` and can range from an instruction file to SDK code.
 
-| Код | Агент | Задачи |
+| Code | Agent | Tasks |
 | --- | --- | --- |
-| `a1-dossier` | Досье из источников | T001 |
-| `a2-janitor` | Дворник репозитория | T002 |
-| `a3-ledger-auditor` | Аудитор обвязки | T003 |
-| `a4-implementer` | Реализатор по спецификации | T004 |
-| `a5-data-wrangler` | Нормализатор данных | T005 |
-| `a6-hardener` | Укрепитель безопасности | T006 |
+| `a1-dossier` | Source dossier writer | T001 |
+| `a2-janitor` | Repository janitor | T002 |
+| `a3-ledger-auditor` | Harness auditor | T003 |
+| `a4-implementer` | Specification implementer | T004 |
+| `a5-data-wrangler` | Data normalizer | T005 |
+| `a6-hardener` | Security hardener | T006 |
 
-Правило: сначала минимальная реализация (только спецификация как инструкция), потом добавление компонентов — каждый со строкой реестра.
+Rule: start with a minimal implementation (the specification alone as instructions), then add components, each with a ledger row.

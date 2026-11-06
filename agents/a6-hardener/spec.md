@@ -1,32 +1,32 @@
-# A6 · Укрепитель безопасности
+# A6 · Security hardener
 
-## Миссия
-В чужом сервисе найти и устранить дефекты безопасности — обход пути, инъекции команд, утечки секретов и подобные — сохранив функциональное поведение и все проверки зелёными. Каждый дефект показан эксплойтом или тестом, исправлен у корня и описан с оценкой серьёзности.
+## Mission
+Find and fix security defects in an unfamiliar service—path traversal, command injection, secret leaks, and similar issues—while preserving functional behavior and keeping all checks passing. Demonstrate each defect with an exploit or test, fix its root cause, and describe its severity.
 
-## Входы
-- Рабочий каталог — клон репозитория задачи с зелёной проверкой и дефектами в коде.
-- `brief.md`: какая команда считается «проверкой» (например, `npm test`), что запрещено трогать, требования к результату, имя рабочей ветки.
+## Inputs
+- Working directory: a clone of the task repository with passing checks and defects in the code.
+- `brief.md`: the command that counts as the check (for example, `npm test`), what must not be changed, result requirements, and the working branch name.
 
-## Выходы
-- Коммиты в ветке `harden/<run-id>` — по одному на дефект, с сообщением, называющим класс дефекта и способ устранения.
-- `artifacts/report.md` в корне рабочего пространства эпизода: по каждому дефекту — где, как эксплуатируется, серьёзность (критическая / высокая / средняя / низкая), что сделано, какой тест это закрепляет; выбранное поведение при отсутствии секрета в окружении. Если репозиторий находится в `sample/`, путь из него — `../artifacts/report.md`.
+## Outputs
+- Commits on `harden/<run-id>`, one per defect, with messages naming the defect class and remediation.
+- `artifacts/report.md` at the episode workspace root: for each defect, its location, exploitation method, severity (critical / high / medium / low), fix, and regression test; also describe the chosen behavior when the environment lacks the secret. If the repository is in `sample/`, the relative path from there is `../artifacts/report.md`.
 
-## Правила
-- Исправлять причину, а не симптом: проверять вход до опасного вызова, не собирать команды строкой оболочки, не хранить секреты в исходниках и не возвращать их в ответах.
-- Не удалять конечные точки и не менять их успешные ответы; не удалять и не ослаблять тесты. На каждый дефект добавлять регрессионный тест.
-- Секрет переезжает в переменную окружения; поведение без неё безопасное и явно описано в отчёте.
-- Не добавлять зависимости; не менять публичные сигнатуры, названные в `brief.md`.
-- Не запускать настоящие эксплойты против внешних систем: воспроизводить дефекты локально, через внедрённые заглушки.
+## Rules
+- Fix the cause rather than the symptom: validate input before a dangerous call, do not build shell command strings, do not keep secrets in source code, and do not return them in responses.
+- Do not remove endpoints or change their successful responses; do not remove or weaken tests. Add a regression test for every defect.
+- Move the secret to an environment variable; behavior without it must be safe and explicitly described in the report.
+- Do not add dependencies or change the public signatures named in `brief.md`.
+- Do not run real exploits against external systems: reproduce defects locally using injected stubs.
 
-## Границы (стены)
-- Запись: только внутри рабочего каталога и `artifacts/`.
-- Сеть: не нужна; никаких установок пакетов.
-- Деструктивные команды (`rm -rf` вне рабочего каталога, `git push --force`, `git reset --hard` на чужих ветках) запрещены.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Writes: only inside the working directory and `artifacts/`.
+- Network: unnecessary; no package installations.
+- Destructive commands (`rm -rf` outside the working directory, `git push --force`, or `git reset --hard` on other people’s branches) are forbidden.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- Все найденные дефекты устранены, закреплены тестами, команда проверки зелёная дважды подряд; либо бюджет исчерпан — тогда отчёт со списком неустранённых дефектов.
+## Stop condition
+- All discovered defects are fixed and covered by tests, and the check command passes twice consecutively; or the budget is exhausted, in which case report the unresolved defects.
 
-## Проверка (видимая агенту часть)
-- Проверка зелёная на чистом клоне ветки `harden/<run-id>`; количество тестов не уменьшилось.
-- Скрытая часть прогоняет эксплойты — какие именно, агент не знает.
+## Evaluation (agent-visible portion)
+- The check passes on a clean clone of `harden/<run-id>`; the number of tests has not decreased.
+- The hidden portion runs exploits; the agent does not know which ones.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Детерминированная часть скрытой проверки T001. Использование: check.sh <run-dir>
+# Deterministic part of hidden check T001. Usage: check.sh <run-dir>
 set -euo pipefail
 RUN="${1:?run dir}"
 A="$RUN/artifacts"

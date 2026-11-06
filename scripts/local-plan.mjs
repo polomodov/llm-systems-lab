@@ -33,7 +33,7 @@ await main(() => {
     return;
   }
   const fixed = value => value === null ? 'unknown' : value.toFixed(2);
-  console.log(`${plan.hardware_id}; контекст ${plan.context_tokens}; бюджет ${fixed(plan.budget.effective_gib)} GiB.`);
+  console.log(`${plan.hardware_id}; context ${plan.context_tokens}; budget ${fixed(plan.budget.effective_gib)} GiB.`);
   if (opts.engine !== undefined) {
     console.table(plan.rows.map(row => ({
       engine: row.engine.id,
@@ -46,8 +46,8 @@ await main(() => {
       headroom_GiB: fixed(row.headroom_gib),
       fit_status: row.fit_status,
     })));
-    console.log('Это план, не замеры. Поддержка движка указана по документации; неизвестные артефакты и резервы памяти требуют отдельной проверки.');
-    console.log('До запуска нужны: артефакт для движка, калибровка памяти, hardware-smoke и local-provider-bridge.');
+    console.log('These are plans, not measurements. Engine support is based on documentation; unknown artifacts and memory reserves require separate verification.');
+    console.log('Before execution: an engine-compatible artifact, memory calibration, hardware-smoke and local-provider-bridge are required.');
     return;
   }
   console.table(plan.rows.map(row => ({
@@ -59,6 +59,6 @@ await main(() => {
     headroom_GiB: fixed(row.headroom_gib),
     status: row.status,
   })));
-  console.log('Плановые оценки: резервы памяти не являются расчётом KV-кеша по архитектуре. candidate не подтверждает размещение модели.');
-  console.log('До запуска нужны: hardware-preflight, artifact-pin, backend-smoke, local-provider-bridge.');
+  console.log('Planning estimates: memory reserves are not architecture-specific KV-cache calculations. candidate does not confirm that the model fits.');
+  console.log('Before execution: hardware-preflight, artifact-pin, backend-smoke and local-provider-bridge are required.');
 });

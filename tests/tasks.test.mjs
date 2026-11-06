@@ -55,7 +55,7 @@ function fixture(t, task) {
   for (const file of readdirSync(join(root, 'scripts/lib'))) copyFileSync(join(root, 'scripts/lib', file), join(directory, 'scripts/lib', file));
   for (const agent of ['a9-fixture', 'a1-other']) { mkdirSync(join(directory, 'agents', agent), { recursive: true }); writeFileSync(join(directory, 'agents', agent, 'spec.md'), `# ${agent}\n`); }
   const dir = join(directory, 'tasks', task.id); mkdirSync(dir, { recursive: true });
-  writeFileSync(join(dir, 'task.md'), `# ${task.id}\n\n## Бюджет\nДо 7 ходов или $1.\n`);
+  writeFileSync(join(dir, 'task.md'), `# ${task.id}\n\n## Budget\nUp to 7 turns or $1.\n`);
   writeFileSync(join(dir, 'task.json'), JSON.stringify(task));
   const setup = task.workspace === 'repo'
     ? '#!/usr/bin/env bash\nset -e\nmkdir -p "$1/sample" "$1/artifacts"\ncd "$1/sample"\necho hello > file.txt\nexport GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_AUTHOR_NAME=s GIT_AUTHOR_EMAIL=s@x GIT_COMMITTER_NAME=s GIT_COMMITTER_EMAIL=s@x\ngit -c init.templateDir= init -q --initial-branch=main && git add -A && git -c commit.gpgsign=false commit -qm start\n'
@@ -78,9 +78,9 @@ test('a repo task is prepared with its branch, seed commit, extra egress domain 
   assert.equal(prepared.evaluation.method, 'hidden-check');
   assert.equal(sealedTaskDescriptor(run, task.id).branch_prefix, 'fix');
   const prompt = readFileSync(join(run, 'inputs/control/prompt.txt'), 'utf8');
-  assert.match(prompt, new RegExp(`Работай в ветке fix/${record.run_id}`));
-  assert.match(prompt, /Рабочая папка: \/workspace\/sample\./);
-  assert.doesNotMatch(prompt, /Сеть источников/);
+  assert.match(prompt, new RegExp(`Work on branch fix/${record.run_id}`));
+  assert.match(prompt, /Working directory: \/workspace\/sample\./);
+  assert.doesNotMatch(prompt, /Source network/);
   const network = JSON.parse(readFileSync(join(run, 'inputs/control/network.json'), 'utf8'));
   assert.ok(network.connect_domains.includes('registry.npmjs.org'));
   assert.deepEqual(network.sources, []);
@@ -97,8 +97,8 @@ test('a files task is prepared read-only in /workspace without branch or seed co
   assert.equal(manifest.seed_commit, null);
   assert.equal(prepared.evaluation.method, 'rubric');
   const prompt = readFileSync(join(run, 'inputs/control/prompt.txt'), 'utf8');
-  assert.match(prompt, /Рабочая папка: \/workspace\./);
-  assert.doesNotMatch(prompt, /Работай в ветке/);
+  assert.match(prompt, /Working directory: \/workspace\./);
+  assert.doesNotMatch(prompt, /Work on branch/);
   const network = JSON.parse(readFileSync(join(run, 'inputs/control/network.json'), 'utf8'));
   assert.equal(network.connect_domains.includes('registry.npmjs.org'), false);
   assert.deepEqual(sealedTaskDescriptor(run, task.id).required_artifacts, ['normalized.json', 'report.md']);

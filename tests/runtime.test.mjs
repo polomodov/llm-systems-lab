@@ -244,7 +244,7 @@ test('synthetic execution reads .env and redacts captured stdout and stderr with
   const bin = join(f.root, 'fake-bin'); mkdirSync(bin);
   const callsPath = join(f.root, 'docker-calls.jsonl');
   const executable = join(bin, 'docker');
-  // Синтетический образ обязан сообщать ровно тот пин, что закреплён в профиле.
+  // The synthetic image must report the exact version pinned in its profile.
   const pin = JSON.parse(readFileSync(join(f.root, 'experiments/claude-code/harness.json'), 'utf8')).version;
   const versionLine = JSON.stringify(`${pin} (synthetic fixture)`);
   writeFileSync(executable, `#!${process.execPath}

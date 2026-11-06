@@ -1,31 +1,31 @@
-# A5 · Нормализатор данных
+# A5 · Data normalizer
 
-## Миссия
-Из нескольких разноформатных выгрузок одного вида записей собрать один набор по заданной целевой схеме: привести форматы дат, сумм и строк, разрешить дубликаты, вынести неразборные записи в список отклонений с причиной — детерминированно и без потери ни одной записи.
+## Mission
+Combine several exports of the same record type in different formats into one dataset following a target schema: normalize dates, amounts, and strings; resolve duplicates; and put unparseable records in a rejection list with reasons—deterministically, without losing any record.
 
-## Входы
-- Рабочий каталог — файлы данных (`data/`), только для чтения.
-- `brief.md`: описание каждого источника, целевая схема, правила приведения, дедупликации, сортировки и отклонения.
+## Inputs
+- Working directory: read-only data files (`data/`).
+- `brief.md`: descriptions of each source, the target schema, and rules for normalization, deduplication, sorting, and rejection.
 
-## Выходы
-- `artifacts/normalized.json`: объект по целевой схеме из `brief.md` — принятые записи и отклонения, отсортированные как сказано в правилах.
-- `artifacts/report.md`: по каждому входному файлу — прочитано, принято, отброшено как дубликат, отклонено; список отклонений с идентификатором и причиной; решения по неоднозначным местам.
+## Outputs
+- `artifacts/normalized.json`: an object following the target schema in `brief.md`, containing accepted and rejected records sorted as specified.
+- `artifacts/report.md`: counts per input file of records read, accepted, discarded as duplicates, and rejected; a list of rejections with identifiers and reasons; and decisions on ambiguous cases.
 
-## Правила
-- Каждая входная запись заканчивает путь ровно в одном месте: принята, отброшена как дубликат или отклонена; счётчики в отчёте сходятся с размерами входов.
-- Правила из `brief.md` применяются буквально (порядок файлов для дубликатов, часовой пояс дат, округление сумм); собственная «разумная» интерпретация записывается в отчёт как решение, а не применяется молча.
-- Отклонять, а не чинить: запись с несуществующей датой или неразборной суммой не исправляется догадкой.
-- Разбор форматов — своим кодом на стандартной библиотеке; сторонние пакеты не используются.
-- Результат воспроизводим: повторный запуск на тех же данных даёт байт в байт тот же `normalized.json`.
+## Rules
+- Every input record ends up in exactly one category: accepted, discarded as a duplicate, or rejected; report counts reconcile with input sizes.
+- Apply the `brief.md` rules literally (file precedence for duplicates, date time zones, amount rounding); record any “reasonable” interpretation of your own as a decision rather than applying it silently.
+- Reject rather than repair: do not guess a correction for an impossible date or an unparseable amount.
+- Parse formats using your own standard-library code; do not use third-party packages.
+- The result is reproducible: rerunning on the same data produces a byte-for-byte identical `normalized.json`.
 
-## Границы (стены)
-- Запись: только в `artifacts/`; входные данные не изменяются.
-- Сеть: не нужна.
-- Не читать `tasks/*/check/`.
+## Boundaries (walls)
+- Writes: only inside `artifacts/`; do not modify input data.
+- Network: unnecessary.
+- Do not read `tasks/*/check/`.
 
-## Остановка
-- `normalized.json` записан, разбирается, счётчики отчёта сходятся с входами; либо бюджет исчерпан — тогда отчёт помечен `partial` с перечнем необработанных файлов.
+## Stop condition
+- `normalized.json` has been written and parses successfully, and report counts reconcile with the inputs; or the budget is exhausted, in which case mark the report `partial` and list unprocessed files.
 
-## Проверка (видимая агенту часть)
-- `artifacts/normalized.json` соответствует схеме, отсортирован, без повторов идентификаторов.
-- Скрытая часть сравнивает результат с эталоном — как именно, агент не знает.
+## Evaluation (agent-visible portion)
+- `artifacts/normalized.json` conforms to the schema, is sorted, and has no duplicate identifiers.
+- The hidden portion compares the result with a reference; the agent does not know how.

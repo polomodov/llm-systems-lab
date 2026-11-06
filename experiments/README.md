@@ -1,36 +1,36 @@
-# Эксперименты по обвязкам
+# Harness experiments
 
-[ЛР11–19](../docs/labs/README.md) — отдельные задания для всех девяти каталогов ниже. `npm run lab:new -- --lab LAB13 --session first-pass` создаёт, например, отчёт Codex в `codex/measurements/LAB13-first-pass/`. [Общий порядок сдачи](../docs/labs/harness-workflow.md) дополняет индивидуальные команды каждой работы.
+[LAB11–19](../docs/labs/README.md) provide individual assignments for all nine directories below. For example, `npm run lab:new -- --lab LAB13 --session first-pass` creates a Codex report in `codex/measurements/LAB13-first-pass/`. The [shared submission workflow](../docs/labs/harness-workflow.md) supplements each lab’s individual commands.
 
-Каждый каталог обвязки содержит статус интеграции в `README.md` и наблюдения в `NOTES.md`. Все девять каталогов имеют адаптеры и профили; реальные эпизоды с моделями остаются unverified до измерения. Подробности и первичные источники находятся в [матрице](../docs/harnesses.md).
+Each harness directory records integration status in `README.md` and observations in `NOTES.md`. All nine directories have adapters and profiles; actual model episodes remain unverified until measured. Details and primary sources are in the [matrix](../docs/harnesses.md).
 
-`local-models/` — отдельный каталог исследования моделей и inference backend для Ryzen AI Max+ 395 / 128 GB / Linux, не дополнительная обвязка. Он содержит план и аппаратные предположения; перечень существующих harness profiles не меняется.
+`local-models/` is a separate area for researching models and inference backends for Ryzen AI Max+ 395 / 128 GB / Linux, not an additional harness. It contains a plan and hardware assumptions; the set of existing harness profiles is unchanged.
 
-`space/` — каталог ветки [ЛР36–42](../docs/labs/README.md#маршрут-space): **заморожена 05.11.2026**, новые сессии не создаются; платформа песочниц SPACE как среда исполнения агентов. Это тоже не обвязка и не имеет `harness.json`.
+`space/` contains the [LAB36–42 track](../docs/labs/README.md#space-track): **frozen on 2026-11-05**, with no new sessions created; it covers the SPACE sandbox platform as an agent execution environment. It is also not a harness and has no `harness.json`.
 
-`k8s-gpu/` — каталог ветки [ЛР43–47](../docs/labs/README.md#маршрут-kubernetes-и-gpu): **заморожена 05.11.2026**, новые сессии не создаются; оркестрация GPU-нагрузок в Kubernetes на стендах Ryzen и HONOR и в учебном AWS-аккаунте. Не обвязка, `harness.json` нет.
+`k8s-gpu/` contains the [LAB43–47 track](../docs/labs/README.md#kubernetes-and-gpu-track): **frozen on 2026-11-05**, with no new sessions created; it covers GPU workload orchestration in Kubernetes on Ryzen and HONOR machines and in a training AWS account. It is not a harness and has no `harness.json`.
 
-`aws/` — каталог ветки [ЛР48–52](../docs/labs/README.md#маршрут-aws-и-terraform): **заморожена 05.11.2026**, новые сессии не создаются; учебный AWS-аккаунт, Terraform, сеть, CI, холодный старт и надёжность GPU-сервинга. Не обвязка, `harness.json` нет.
+`aws/` contains the [LAB48–52 track](../docs/labs/README.md#aws-and-terraform-track): **frozen on 2026-11-05**, with no new sessions created; it covers a training AWS account, Terraform, networking, CI, cold starts, and GPU serving reliability. It is not a harness and has no `harness.json`.
 
-## Общий цикл
+## Shared lifecycle
 
-1. `npm run new-run` создаёт отдельную запись эпизода.
-2. `npm run prepare-run` воспроизводит стартовое workspace и фиксирует снимок спецификации, контракта, конфигурации, адаптера и координатора с хешами. Повторный эпизод получает новую запись.
-3. `npm run run` закрепляет фактический Docker image ID и версию CLI, запускает агент и сохраняет трассу снаружи контейнера. Политика бюджета и неизвестные метрики входят в запись.
-4. `npm run evaluation-template` готовит форму независимой оценки, `npm run judge-run` принимает заполненную оценку. Окончание процесса не подменяет вердикт задачи.
-5. `npm run compare` группирует сопоставимые эпизоды; `npm run check` проверяет записи и реестр.
+1. `npm run new-run` creates a separate episode record.
+2. `npm run prepare-run` reproduces the initial workspace and records hashed snapshots of the specification, contract, configuration, adapter, and coordinator. A repeat episode receives a new record.
+3. `npm run run` pins the actual Docker image ID and CLI version, starts the agent, and saves the trace outside the container. The record includes the budget policy and unknown metrics.
+4. `npm run evaluation-template` prepares an independent evaluation form; `npm run judge-run` accepts the completed evaluation. Process termination does not substitute for a task verdict.
+5. `npm run compare` groups comparable episodes; `npm run check` validates records and the ledger.
 
-Полные аргументы команд, сборка образов и формат оценки описаны в [корневой инструкции](../README.md). Секреты приходят из `.env` через координатор; значения нельзя помещать в конфигурацию, prompt, заметки или коммиты.
+Full command arguments, image builds, and the evaluation format are described in the [root instructions](../README.md). Secrets come from `.env` through the coordinator; never place their values in configuration, prompts, notes, or commits.
 
-## Граница контейнера
+## Container boundary
 
-Агент видит только подготовленное workspace и служебный `/control` для чтения. Для T003 исходное workspace доступно только для чтения, с отдельным записываемым каталогом артефактов. Корень лаборатории, скрытые проверки, записи прогонов, журналы координатора и файл `.env` не монтируются. Docker socket тоже не передаётся. Ограничения сети применяет [общий шлюз](common/README.md).
+The agent sees only the prepared workspace and a read-only service `/control` directory. For T003, the initial workspace is read-only, with a separate writable artifact directory. The lab root, hidden checks, run records, coordinator logs, and `.env` are not mounted. The Docker socket is not passed through either. The [shared gateway](common/README.md) enforces network restrictions.
 
-Правила инструментов остаются частью измеряемой конфигурации. Инструкция «не читать check», regexp-хук или `chmod` не заменяют отсутствие скрытых данных в среде агента. Проверять границу следует независимо от качества ответа модели.
+Tool rules remain part of the measured configuration. A “do not read check” instruction, regexp hook, or `chmod` is no substitute for excluding hidden data from the agent environment. Verify the boundary independently of the quality of the model’s answer.
 
-## Контракт нового адаптера
+## New adapter contract
 
-В `experiments/<harness>/adapter.mjs` нужны два экспорта:
+`experiments/<harness>/adapter.mjs` must provide two exports:
 
 ```js
 buildCommand({ model, provider, turns, budget, prompt })
@@ -38,22 +38,22 @@ buildCommand({ model, provider, turns, budget, prompt })
 
 parseTrace(stdout)
 // => {
-//   loop: { /* только измеренные поля */ },
-//   metrics_unavailable: { 'loop.tokens_in': 'причина отсутствия' },
+//   loop: { /* measured fields only */ },
+//   metrics_unavailable: { 'loop.tokens_in': 'reason unavailable' },
 //   modelId: null, modelIds: [], stopReason: 'trace_incomplete', sessionId: null
 // }
 ```
 
-`command` исполняется без shell. Точный model ID/поддерживаемый selector и провайдер передаются явно; для управляемых обвязок передаётся только выбранный mode, который отдельно записывается как `managed:<mode>`. Поддержанные лимиты передаются явно; неподдержанное обязательное ограничение должно остановить запуск до получения ключа и обращения к модели. Парсер не заменяет пропуски нулями, отличает ошибку и обрыв от завершения и не складывает повторно агрегат с его составными частями. Сырой вывод сохраняется, чтобы результат разбора можно было проверить.
+`command` runs without a shell. Pass an exact model ID/supported selector and provider explicitly; for managed harnesses, pass only the selected mode, recorded separately as `managed:<mode>`. Pass supported limits explicitly; an unsupported mandatory limit must stop execution before retrieving a key or calling the model. The parser does not replace missing values with zeros, distinguishes errors and truncation from completion, and does not add an aggregate to its components again. Preserve raw output so the parsed result can be verified.
 
-Dockerfile принимает конкретную `HARNESS_VERSION`. Для подключения нужны тесты парсера, проверка установки, контейнерной границы и реального эпизода, а также валидный `harness.json`; список поддержанных обвязок не зашит в координаторе. Успешный `--version` — инфраструктурная проверка, а не результат эксперимента.
+The Dockerfile accepts a specific `HARNESS_VERSION`. Integration requires parser tests, installation checks, container-boundary checks, a real episode, and a valid `harness.json`; the coordinator does not hardcode the list of supported harnesses. A successful `--version` is an infrastructure check, not an experimental result.
 
-Каждый компонент получает строку в [реестре](../docs/harness-ledger.md) с предположением о модели и условием повторной проверки. Наблюдения и изменения после эпизода записываются в `NOTES.md` с run ID. Абляция убирает выбранные компоненты в новом прогоне, сохраняя скрытые проверки вне среды агента.
+Each component receives a [ledger](../docs/harness-ledger.md) row with its model assumption and retest condition. Record post-episode observations and changes in `NOTES.md` with the run ID. An ablation removes selected components in a new run while keeping hidden checks outside the agent environment.
 
-## Профиль harness.json
+## harness.json profile
 
-Профиль содержит `id`, `ledger`, `mode` (`cli` или `sdk`), `model_policy`, `default_provider`, `providers`, `version_command`, `config_files`, `runtime_files` и `budget`. Конфигурации — пары `source`/`target` относительно каталога обвязки и `/control`. Runtime-файлы — список относительных путей. Обходы каталогов, ссылки, дубли и коллизии с координатором запрещены.
+The profile contains `id`, `ledger`, `mode` (`cli` or `sdk`), `model_policy`, `default_provider`, `providers`, `version_command`, `config_files`, `runtime_files`, and `budget`. Configuration entries are `source`/`target` pairs relative to the harness directory and `/control`. Runtime files are a list of relative paths. Directory traversal, symlinks, duplicates, and collisions with the coordinator are forbidden.
 
-Каждый provider задаёт только имена `credential_env`, точные `connect_domains` без wildcard и необязательный по смыслу `model_prefix` (пустая строка допустима). Значения ключей в profile запрещены. Выбор provider запечатывается при prepare; переключение требует нового прогона.
+Each provider specifies only `credential_env` names, exact `connect_domains` without wildcards, and a semantically optional `model_prefix` (an empty string is allowed). Key values are forbidden in the profile. Provider selection is sealed during preparation; switching requires a new run.
 
-`model_policy=managed` требует `managed_modes`; точную модель сервис выбирает сам. `native_cache=true` запрашивает отдельный exec tmpfs для извлекаемых библиотек. Эту возможность нужно обосновать offline проверкой и записать в реестр. Конфигурация контейнера остаётся общей для остальных условий.
+`model_policy=managed` requires `managed_modes`; the service selects the exact model. `native_cache=true` requests a separate executable tmpfs for extracted libraries. Justify this capability with an offline check and record it in the ledger. Container configuration remains shared for the other conditions.

@@ -1,15 +1,15 @@
-# T005 · Нормализация данных: три грязные выгрузки заказов
+# T005 · Data normalization: three dirty order exports
 
-## Стартовое состояние
-`setup.sh` кладёт в рабочий каталог `brief.md` и `data/` с тремя выгрузками одних и тех же заказов из разных систем: `orders_a.csv` (запятая, даты `DD.MM.YYYY`, десятичная запятая, RUB), `orders_b.tsv` (табуляция, даты `YYYY/MM/DD`, суммы `$1,234.50`, хвостовые пробелы и смешанный регистр в e-mail), `orders_c.json` (другие имена ключей, ISO-даты с часовыми поясами, `null` в сумме). По 10–12 записей в файле, часть заказов повторяется между файлами, часть записей содержит несуществующую дату или неразборную сумму. Репозитория нет; данные только читаются.
+## Initial state
+`setup.sh` places `brief.md` and `data/` in the working directory, containing three exports of the same orders from different systems: `orders_a.csv` (comma-delimited, `DD.MM.YYYY` dates, decimal commas, RUB), `orders_b.tsv` (tab-delimited, `YYYY/MM/DD` dates, amounts such as `$1,234.50`, trailing spaces and mixed-case email addresses), and `orders_c.json` (different key names, ISO dates with time zones, and `null` amounts). Each file has 10–12 records; some orders recur across files, and some records contain impossible dates or unparseable amounts. There is no repository; data is read-only.
 
-## Контракт
-Агент A5 по своей спецификации пишет `artifacts/normalized.json` по целевой схеме из `brief.md` (`records` и `rejected`, сортировка по `id`, дубликаты разрешаются первым вхождением в порядке a → b → c) и `artifacts/report.md` с числом записей по файлам и списком каждого отклонения. Запись только в `artifacts/`; сторонние пакеты не допускаются.
+## Contract
+Agent A5 follows its specification to write `artifacts/normalized.json` according to the target schema in `brief.md` (`records` and `rejected`, sorted by `id`, duplicates resolved by first occurrence in a → b → c order) and `artifacts/report.md` with per-file record counts and every rejection. Write only inside `artifacts/`; third-party packages are not allowed.
 
-## Видимая часть проверки
-- `normalized.json` разбирается, содержит только поля схемы, отсортирован по `id`.
-- Ни один `id` не встречается дважды; отклонённые записи отсутствуют в `records`.
-- Отчёт перечисляет каждое отклонение с причиной и счётчики по каждому файлу.
+## Visible evaluation
+- `normalized.json` parses, contains only schema fields, and is sorted by `id`.
+- No `id` appears twice; rejected records are absent from `records`.
+- The report lists every rejection with a reason and per-file counts.
 
-## Бюджет
-До 25 ходов или $1.5.
+## Budget
+Up to 25 turns or $1.5 in cost.

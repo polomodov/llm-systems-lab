@@ -1,34 +1,34 @@
-# Kubernetes и GPU: оркестрация нагрузок обучения и инференса
+# Kubernetes and GPUs: orchestrating training and inference workloads
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка Kubernetes и GPU не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](../../docs/labs/README.md#заморозка-инфраструктурных-веток).
+> **Frozen on 2026-11-05.** The lab guide is retained, but new `lab:new` sessions are disabled: the Kubernetes and GPU track has no measurements or implementation and is being separated into a training repository. Unfreezing requires a separate decision recorded in the [course status](../../docs/labs/README.md#frozen-infrastructure-tracks).
 
-Каталог ветки [ЛР43–47](../../docs/labs/README.md#маршрут-kubernetes-и-gpu). Здесь проверяется, как Kubernetes управляет GPU: от устройства в pod до планирования общего флота, сервинга LLM и автоскейлинга в облаке. Это не обвязка: `harness.json` в каталоге нет и быть не должно.
+Directory for the [LAB43–47 track](../../docs/labs/README.md#kubernetes-and-gpu-track). It tests how Kubernetes manages GPUs, from exposing a device in a pod to scheduling a shared fleet, serving LLMs, and cloud autoscaling. This is not a harness: there is no `harness.json` here, and there should not be one.
 
-Статус: **методички готовы, измерений нет**. Поддержка APU `gfx1151` в AMD device plugin `unverified` до первой сессии ЛР43.
+Status: **lab guides ready; no measurements**. AMD device-plugin support for the `gfx1151` APU is `unverified` until the first LAB43 session.
 
-## Стенды
+## Test environments
 
-| Стенд | Машина | Роль |
+| Environment | Machine | Role |
 | --- | --- | --- |
-| A, сессии `ryzen-NN` | Ryzen AI Max+ 395 / 128 GB / Linux, Radeon 8060S (`gfx1151`), тот же, что в ЛР02 | Настоящий GPU в одноузловом k3s: ЛР43, 45, часть 46 |
-| B, сессии `honor-NN` | HONOR MagicBook X16, Ryzen 7 PRO 8845HS / 32 GB / Ubuntu | Kind с фиктивными GPU: ЛР44, часть 46 |
-| AWS, сессии `aws-NN` | Учебный аккаунт, EKS с одним небольшим GPU-типом инстанса | ЛР47 |
+| A, `ryzen-NN` sessions | Ryzen AI Max+ 395 / 128 GB / Linux, Radeon 8060S (`gfx1151`), the same machine as LAB02 | Real GPU in single-node k3s: LAB43, 45, and part of 46 |
+| B, `honor-NN` sessions | HONOR MagicBook X16, Ryzen 7 PRO 8845HS / 32 GB / Ubuntu | Kind with fake GPUs: LAB44 and part of 46 |
+| AWS, `aws-NN` sessions | Training account, EKS with one small GPU instance type | LAB47 |
 
-## Что лежит здесь
+## Contents
 
-| Путь | Содержимое | Появляется в |
+| Path | Contents | Introduced in |
 | --- | --- | --- |
-| `measurements/LABxx-session/` | Отчёты; создаются `npm run lab:new -- --lab LAB43 --session ryzen-01` | ЛР43–47 |
-| `manifests/LABxx/` | Манифесты Kubernetes по работам | ЛР43, 45, 46, 51, 52 |
-| `sim/` | KWOK-флот, конфигурация Kueue, детерминированный генератор потока job'ов | ЛР44 |
-| `bench/` | Генераторы нагрузки для движков инференса | ЛР45, 46 |
-| `terraform/` | EKS, Karpenter, KEDA; изменения ЛР51–52 из [ветки AWS](../aws/README.md) | ЛР47, 51, 52 |
+| `measurements/LABxx-session/` | Reports created with `npm run lab:new -- --lab LAB43 --session ryzen-01` | LAB43–47 |
+| `manifests/LABxx/` | Kubernetes manifests by lab | LAB43, 45, 46, 51, 52 |
+| `sim/` | KWOK fleet, Kueue configuration, deterministic job-stream generator | LAB44 |
+| `bench/` | Load generators for inference engines | LAB45, 46 |
+| `terraform/` | EKS, Karpenter, KEDA; LAB51–52 changes from the [AWS track](../aws/README.md) | LAB47, 51, 52 |
 
-Подкаталоги создаются той работой, которой они нужны.
+Each lab creates the subdirectories it needs.
 
-## Правила
+## Rules
 
-- Версии Kubernetes, k3s/Kind, драйверов, плагинов, операторов и образов закрепляются в каждом отчёте; образы по digest.
-- Учётные данные AWS, `terraform.tfstate`, kubeconfig и account ID не попадают в отчёты, raw и коммиты.
-- Облачные ресурсы живут только во время сессии: в конце `terraform destroy` и проверка остатков.
-- Цифры из документации проектов и цены облака — заявления вендоров с датой доступа; собственные измерения указываются с сессией.
+- Pin Kubernetes, k3s/Kind, driver, plugin, operator, and image versions in every report; pin images by digest.
+- Keep AWS credentials, `terraform.tfstate`, kubeconfig, and account IDs out of reports, raw artifacts, and commits.
+- Cloud resources exist only during the session: finish with `terraform destroy` and a leftover-resource check.
+- Project documentation numbers and cloud prices are vendor claims with an access date; identify our own measurements by session.

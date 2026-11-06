@@ -1,27 +1,27 @@
-# ЛР27. Обновление модели или harness и повторная проверка компонентов
+# LAB27. Updating a model or harness and retesting components
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип работы | Регрессионное сравнение закреплённых конфигураций и retest реестра |
-| Время | 2–4 часа оператора плюс шесть попыток и независимая оценка; абляция добавляет шесть попыток |
-| Предпосылки | ЛР09 и ЛР10, зафиксированные входы и независимый оценщик |
-| Готовность | `available`: cloud-сравнение двух моделей работает текущим runner; локальная ветвь требует принятой ЛР08 |
-| Минимальный объём | Одна задача × две точные model IDs × три новых парных baseline-повтора, одна версия harness |
-| Расширение | Новая версия harness при неизменной модели; либо шесть новых попыток retest компонента на выбранной новой конфигурации |
+| Type | Regression comparison of pinned configurations and ledger retesting |
+| Time | 2–4 hours of operator time plus six attempts and independent evaluation; ablation adds six attempts |
+| Prerequisites | LAB09 and LAB10, fixed inputs, and an independent evaluator |
+| Readiness | `available`: cloud comparison of two models works with the current runner; the local branch requires accepted LAB08 |
+| Minimum scope | One task × two exact model IDs × three new paired baseline repetitions, one harness version |
+| Extension | A new harness version with an unchanged model; or six new component-retest attempts on the selected new configuration |
 
-## Цель
+## Objective
 
-Проверить, сохраняет ли обновлённая конфигурация способность выполнять закреплённую задачу, и определить, какие прежние предположения об обвязке нужно проверить заново. Получить основание сохранить компонент, удалить его после абляции или отложить решение до новых данных.
+Test whether an updated configuration retains the ability to perform a pinned task, and determine which earlier harness assumptions need retesting. Establish grounds to keep a component, remove it after ablation, or defer the decision pending more data.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-При переходе с model A на model B в фиксированной обвязке выбранная задача выполняется не хуже по заранее объявленному правилу: например, нет проигранной пары по независимому verdict и нет новых необработанных protocol errors. Время, токены и стоимость — дополнительные показатели с явно указанным происхождением.
+When moving from model A to model B in a fixed harness, the selected task performs no worse under a predefined rule: for example, no pair lost on independent verdict and no new unhandled protocol errors. Time, tokens, and cost are secondary metrics with explicitly stated provenance.
 
-Для расширения с компонентом гипотеза отдельная: на новой модели компонент больше не улучшает результат. Успешное обновление само по себе не доказывает ненужность компонента. Три пары — учебная проверка регрессий, а не доказательство статистической эквивалентности или отсутствия редких ошибок.
+The component extension has a separate hypothesis: on the new model, the component no longer improves results. A successful update alone does not prove that a component is unnecessary. Three pairs are a training regression check, not proof of statistical equivalence or absence of rare errors.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB27 --session my-session
@@ -29,13 +29,13 @@ LAB_DIR='experiments/local-models/measurements/LAB27-my-session'
 npm run check
 ```
 
-Минимум выполняется на cloud без Ryzen. Используйте одну обвязку из [ЛР11–19](README.md), поддерживающую **оба** точных ID у одного provider. Пример ниже — Pi из ЛР15. Подготовьте его проверенные immutable image IDs и smoke; credentials остаются только в `.env` по выбранному профилю. У Pi observed underlying model может быть неизвестна: сохраняйте requested ID и источник identity, не приписывайте ему provider observation.
+The minimum is performed in the cloud without Ryzen. Use one harness from [LAB11–19](README.md) that supports **both** exact IDs with one provider. The example below uses Pi from LAB15. Prepare its verified immutable image IDs and smoke test; credentials remain only in `.env` under the selected profile. Pi's observed underlying model may be unknown: retain the requested ID and identity source rather than claiming a provider observation.
 
-Не используйте `latest` и управляемый mode вместо точного snapshot в основном сравнении. У Amp/Copilot смена доступной скрытой underlying модели может быть ненаблюдаемой; такие проверки допустимы отдельной диагностикой сервиса с этим ограничением. Если старый snapshot больше недоступен, исторический baseline можно анализировать отдельно, но он не заменяет новые парные запуски и усиливает смешение с календарным временем.
+Do not use `latest` or a managed mode instead of an exact snapshot in the primary comparison. In Amp/Copilot, changes to the available hidden underlying model may be unobservable; such checks are permitted as separate service diagnostics with this limitation. If the old snapshot is no longer available, the historical baseline can be analyzed separately, but it does not replace new paired runs and increases confounding with calendar time.
 
-## Порядок выполнения
+## Procedure
 
-1. **Объявите план и неизменяемые условия.** Назначьте T002, seed commit, `baseline`, timeout 900 s, provider, harness image/version, proxy image и budget policy. Запишите model A/B, основание обновления и критерий регрессии. Порядок пар: A→B, B→A, A→B. Оба варианта получают новый workspace; старые удачные runs не отбираются задним числом. Сохраните git revision и состояние дерева в новые файлы:
+1. **Declare the plan and fixed conditions.** Assign T002, seed commit, `baseline`, timeout 900 s, provider, harness image/version, proxy image, and budget policy. Record models A/B, the reason for updating, and the regression criterion. Pair order: A→B, B→A, A→B. Both variants receive a new workspace; old successful runs are not selected retrospectively. Save the git revision and tree state in new files:
 
    ```bash
    (
@@ -47,35 +47,35 @@ npm run check
    )
    ```
 
-   Не обновляйте зависимости или images во время этой серии. Встроенные model metadata SDK — context/output/pricing/reasoning defaults — тоже могут различаться между моделями. Запишите эффективные значения для A/B; если выровнять их нельзя, формулируйте вывод о двух настроенных deployments, а не только о весах модели.
+   Do not update dependencies or images during this series. The SDK's built-in model metadata—context/output/pricing/reasoning defaults—may also differ across models. Record effective A/B values; if they cannot be aligned, frame the conclusion around two configured deployments rather than model weights alone.
 
-2. **Подготовьте первую cloud-попытку A.** Значения image IDs возьмите из завершённой ЛР15. Версия ниже соответствует закреплённому Dockerfile этого практикума; иной фактически проверенный runtime требует собственного записанного version:
+2. **Prepare the first cloud attempt A.** Take image IDs from completed LAB15. The version below matches this practicum's pinned Dockerfile; another runtime that was actually verified requires its own recorded version:
 
    ```bash
    PROVIDER_ID='anthropic'
-   MODEL_A='<точный доступный ID прежней модели>'
-   MODEL_B='<точный доступный ID новой модели>'
-   IMAGE_ID='<immutable image ID Pi 0.73.1 из ЛР15>'
-   PROXY_IMAGE_ID='<immutable proxy image ID из ЛР15>'
+   MODEL_A='<exact available ID of the previous model>'
+   MODEL_B='<exact available ID of the new model>'
+   IMAGE_ID='<immutable Pi 0.73.1 image ID from LAB15>'
+   PROXY_IMAGE_ID='<immutable proxy image ID from LAB15>'
    MODEL_ID="$MODEL_A"
    npm run new-run -- --harness pi --harness-version 0.73.1 --agent a2-janitor \
      --task T002 --provider "$PROVIDER_ID" --model "$MODEL_ID"
-   RUN_ID='<новый ID из new-run>'
+   RUN_ID='<new ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider "$PROVIDER_ID"
    ```
 
-   Для OpenAI выберите `PROVIDER_ID='openai'` до создания всех записей. Проверяйте availability и поддержку обоих ID закреплённым SDK; не заменяйте недоступную модель похожим alias. В manifest первой пары сравните task/seed и существенные control settings. Полные hashes могут отличаться из-за run IDs и исследуемой model identity.
+   For OpenAI, select `PROVIDER_ID='openai'` before creating any records. Check availability and support for both IDs in the pinned SDK; do not replace an unavailable model with a similar alias. In the first pair's manifest, compare task/seed and material control settings. Full hashes may differ because of run IDs and the model identity under study.
 
-3. **Исполните запись и зарегистрируйте все исходы.**
+3. **Execute the record and register every outcome.**
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" --proxy-image "$PROXY_IMAGE_ID" \
      --model "$MODEL_ID" --provider "$PROVIDER_ID" --timeout 900 --budget-mode observed
    ```
 
-   Pi ограничивает native turns, а `observed` не обеспечивает остановку ровно на USD 2: это отклонение от hard cap контракта надо сохранить одинаково для обеих моделей. `awaiting_review` не означает pass; `aborted` остаётся результатом начатой попытки. При несовместимости model protocol сохраните trace и failure. Не правьте adapter только для B посередине серии — это начало отдельного deployment-сравнения.
+   Pi limits native turns, while `observed` does not stop exactly at USD 2: retain this deviation from the contract's hard cap identically for both models. `awaiting_review` does not mean pass; `aborted` remains the outcome of a started attempt. If the model protocol is incompatible, retain the trace and failure. Do not modify the adapter only for B midway through the series: that begins a separate deployment comparison.
 
-4. **Получите независимый verdict и закончите остальные пары.** Для каждой `awaiting_review` создайте новый шаблон:
+4. **Obtain an independent verdict and finish the remaining pairs.** Create a new template for each `awaiting_review`:
 
    ```bash
    (
@@ -84,15 +84,15 @@ npm run check
    )
    ```
 
-   Оценщик по [общему workflow](harness-workflow.md) заполняет result/evaluator/check_output, сохраняя hashes. Содержимое результата по возможности передаётся без названия модели. Только после оценки:
+   The evaluator completes result/evaluator/check_output under the [common workflow](harness-workflow.md), retaining hashes. Where possible, provide result contents without the model name. Only after evaluation:
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
    ```
 
-   Создайте ещё пять записей шагами 2–4, назначая `MODEL_ID="$MODEL_B"` или `MODEL_ID="$MODEL_A"` по плану. Для каждого `new-run` заново запишите выданный ID; существующие записи не переиспользуются. Отдельные новые retry после исправлений не подменяют исходные шесть слотов. Hidden checks выполняются внешним оценщиком, не решающим агентом.
+   Create five more records using steps 2–4, assigning `MODEL_ID="$MODEL_B"` or `MODEL_ID="$MODEL_A"` according to the plan. Record the newly issued ID for each `new-run`; do not reuse existing records. Separate new retries after fixes do not replace the original six slots. Hidden checks are run by the external evaluator, not the solving agent.
 
-5. **Сравните группы и локализуйте регрессии.**
+5. **Compare groups and locate regressions.**
 
    ```bash
    RUN_IDS='<A1>,<B1>,<B2>,<A2>,<A3>,<B3>'
@@ -103,72 +103,72 @@ npm run check
    npm run check
    ```
 
-   Model IDs сохраняются разными groups. Compare не объединяет их в автоматический regression verdict: вручную сопоставьте все условия, пары, pass/partial/fail/aborted, stop reasons и неизвестные поля. Выделите изменения parser/protocol, действительно неправильное решение задачи, отсутствие credentials/model access и timeout. Не называйте отсутствие метрики улучшением затрат и не сравнивайте одинаковое число turns разных harness как одинаковую работу.
+   Model IDs remain separate groups. Compare does not combine them into an automatic regression verdict: manually compare all conditions, pairs, pass/partial/fail/aborted outcomes, stop reasons, and unknown fields. Distinguish parser/protocol changes, an actually incorrect task solution, missing credentials/model access, and timeout. Do not call a missing metric a cost improvement or treat equal turn counts across harnesses as equal work.
 
-6. **Откройте retest для соответствующих компонентов.** В [ledger](../harness-ledger.md) найдите предположения, у которых сработал trigger «новая модель» или «версия SDK». Сохраните старую дату/model и ссылки на старые evidence, а новые observations добавьте с конкретными run IDs. Предыдущая польза компонента не переносится автоматически на B. Если в минимуме не выполнена новая абляция, в выводе прямо запишите «вклад после обновления не проверен» и план retest. Не выставляйте «подтверждена» по одному новому baseline или по unit tests.
+6. **Open retests for relevant components.** In the [ledger](../harness-ledger.md), find assumptions whose “new model” or “SDK version” trigger has fired. Retain the old date/model and links to old evidence, and add new observations with specific run IDs. A component's earlier benefit does not automatically carry over to B. If the minimum includes no new ablation, explicitly state “contribution after the update is unverified” in the conclusion and give a retest plan. Do not mark it “confirmed” based on one new baseline or unit tests.
 
-7. **Расширение: повторите абляцию на B.** Для доступной `without-spec` используйте весь протокол [ЛР10](LAB10-ablation.md): три **новые** пары `baseline`/`without-spec`, всего шесть дополнительных попыток с моделью B. Не подбирайте пары из удачных результатов шага 5 после знакомства с исходами. Сопоставьте новый эффект с прежней ЛР10 при известных условиях. Если новый минимум без компонента выполняет предварительный критерий, компонент становится кандидатом на удаление. Это ограниченный вывод, который может потребовать второй задачи до фактического удаления.
+7. **Extension: repeat the ablation on B.** For the available `without-spec`, use the full [LAB10](LAB10-ablation.md) protocol: three **new** `baseline`/`without-spec` pairs, totaling six additional attempts with model B. Do not select pairs from successful step 5 results after seeing outcomes. Compare the new effect with the earlier LAB10 under known conditions. If the new minimum without the component meets the predefined criterion, the component becomes a removal candidate. This is a limited conclusion that may require a second task before actual removal.
 
-   Удаление оформляйте отдельным изменением: сохранить evidence, описать убираемый prompt/hook, обновить ledger и NOTES, повторить профильные tests и `npm run check`. Если компонент одновременно содержит инфраструктурную границу и модельное предположение, сначала разделите их. Docker/network walls, hidden-check isolation, timeout и независимый judge не удаляются ради улучшившейся модели.
+   Make removal a separate change: retain evidence, describe the removed prompt/hook, update the ledger and NOTES, rerun relevant tests and `npm run check`. If a component contains both an infrastructure boundary and a model assumption, separate them first. Docker/network walls, hidden-check isolation, timeout, and the independent judge are not removed because a model improved.
 
-8. **Альтернативное расширение: обновите только harness.** Зафиксируйте одну model ID и её доступность, исходные tasks/seed/archive, provider, limits и judge. Подготовьте две самостоятельные pinned сборки старой и новой версии; добавьте ожидаемые upstream package revision и реально наблюдаемую версию. У текущего Pi Dockerfile есть проверка `HARNESS_VERSION=0.73.1`: подмена `--harness-version` в run record или произвольный `--build-arg` не обновляет SDK корректно. Новая версия требует явного изменения Dockerfile/адаптера при необходимости, проверки native SDK smoke и parser tests; такие правки должны быть показаны отдельным diff.
+8. **Alternative extension: update only the harness.** Fix one model ID and its availability, original tasks/seed/archive, provider, limits, and judge. Prepare two independently pinned builds of the old and new versions; add the expected upstream package revision and the version actually observed. The current Pi Dockerfile checks `HARNESS_VERSION=0.73.1`: changing `--harness-version` in the run record or an arbitrary `--build-arg` does not correctly update the SDK. A new version requires an explicit Dockerfile/adapter change where needed, native SDK smoke verification, and parser tests; show these edits as a separate diff.
 
-   Подготовьте runs каждой версии из её соответствующего checkout/config, сохраняя provenance и immutable image IDs. Нельзя запускать новый binary с неверно объявленным version или изменять уже sealed inputs. Повторите три парных baseline-попытки по шагам 1–5, указав version A/B вместо model A/B. Изменения native prompt/tool schema, встроенные в саму новую версию, — часть исследуемого обновления; перечислите их. Изменения task seed, gateway, driver или модели одновременно с SDK — смешанные факторы, для которых чистый вывод о harness невозможен.
+   Prepare each version's runs from its corresponding checkout/config, retaining provenance and immutable image IDs. Do not run a new binary under an incorrectly declared version or change already sealed inputs. Repeat three paired baseline attempts using steps 1–5, specifying versions A/B instead of models A/B. Native prompt/tool schema changes built into the new version itself are part of the update under study; list them. Changes to the task seed, gateway, driver, or model alongside the SDK are confounded factors that preclude a clean conclusion about the harness.
 
-9. **Выберите решение и следующий trigger.** Допустимые исходы: принять новую конфигурацию в пределах проверенной задачи; оставить прежнюю из-за конкретной регрессии; выполнить retest компонента; удалить компонент отдельным доказанным изменением; отложить выбор из-за отсутствия сопоставимых данных. Для новых задач создавайте отдельные эпизоды, не меняйте `tasks/*/task.md`. T001 использует один frozen source archive. T003 при сравнении версий может иметь разные аудируемые входы и остаётся диагностикой изменений, не чистым same-input quality benchmark.
+9. **Choose a decision and the next trigger.** Allowed outcomes: accept the new configuration within the tested task; retain the old one because of a specific regression; retest a component; remove a component in a separate evidence-backed change; defer selection due to insufficient comparable data. Create separate episodes for new tasks; do not change `tasks/*/task.md`. T001 uses one frozen source archive. In a version comparison, T003 may have different audited inputs and remains change diagnostics, not a clean same-input quality benchmark.
 
-## Таблицы результатов
+## Results tables
 
-| Условие | A | B | Единственное вмешательство или смешанный фактор |
+| Condition | A | B | Sole intervention or confounded factor |
 | --- | --- | --- | --- |
 | Provider / exact requested model / identity source | | | |
 | Harness version / image / native defaults | | | |
 | Task seed / archive / prompt variant | | | |
 | Context/output / timeout / turns / USD policy | | | |
 
-| Пара / порядок | Run ID A | Run ID B | Verdict / stop reason A/B | Time / tokens / cost A/B | Regression evidence |
+| Pair / order | Run ID A | Run ID B | Verdict / stop reason A/B | Time / tokens / cost A/B | Regression evidence |
 | --- | --- | --- | --- | --- | --- |
 | 1 / A→B | | | | | |
 | 2 / B→A | | | | | |
 | 3 / A→B | | | | | |
 
-| Ledger ID / компонент | Старое evidence / условия | Сработавший trigger | Новое evidence | Retest завершён? | Решение / следующий trigger |
+| Ledger ID / component | Old evidence / conditions | Trigger that fired | New evidence | Retest complete? | Decision / next trigger |
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-| Абляция на B, если выполнена | Новые baseline IDs | Новые without-spec IDs | Парные исходы | Основание сохранить/удалить/продолжить |
+| Ablation on B, if performed | New baseline IDs | New without-spec IDs | Paired outcomes | Grounds to keep/remove/continue |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт и manifest, предварительный план пар и порог регрессии, шесть новых baseline run records с trace и независимыми оценками, compare output, таблицу identity/conditions и предложение по retest ledger. При расширении приложите ещё шесть абляционных попыток либо diff/version/smoke новой версии harness, не смешивая эти ветви. Используйте [проверку комплектности](report-validation.md). Evidence старой версии сохраняется после обновления.
+A report and manifest, predefined pair plan and regression threshold, six new baseline run records with traces and independent evaluations, compare output, identity/conditions table, and ledger retest proposal. For an extension, attach six more ablation attempts or the diff/version/smoke of the new harness version, keeping these branches separate. Use the [completeness check](report-validation.md). Evidence from the old version is retained after the update.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Выбран один фактор обновления; остальные условия закреплены или явно названы смешанными.
-- [ ] Сохранены шесть заранее назначенных новых попыток и независимые verdict для завершивших исполнение.
-- [ ] Указаны все aborts, protocol errors и неизвестные метрики; нет отбора удачных попыток.
-- [ ] Из разных compare groups вручную построено проверяемое парное сравнение.
-- [ ] Старые evidence не перезаписаны; ledger содержит честное решение о retest, а не неподтверждённую пользу после обновления.
-- [ ] Удаление компонента предлагается только после отдельной абляции; инфраструктурные границы сохранены.
-- [ ] Отчёт комплектен, `npm run check` проходит.
+- [ ] One update factor is selected; other conditions are fixed or explicitly identified as confounded.
+- [ ] Six preassigned new attempts and independent verdicts for those completing execution are retained.
+- [ ] Every abort, protocol error, and unknown metric is stated; successful attempts are not cherry-picked.
+- [ ] A verifiable paired comparison is manually constructed from different compare groups.
+- [ ] Old evidence is not overwritten; the ledger contains an honest retest decision, not an unsupported benefit after the update.
+- [ ] Component removal is proposed only after a separate ablation; infrastructure boundaries are preserved.
+- [ ] The report is complete, and `npm run check` passes.
 
-Если одна модель недоступна, нет оценщика или старая версия не воспроизводится, сохраните `blocked` с выполненной подготовкой. Анализ исторических данных полезен, но не закрывает минимум новых парных запусков.
+If one model is unavailable, there is no evaluator, or the old version cannot be reproduced, retain `blocked` with completed preparation. Historical data analysis is useful but does not satisfy the minimum of new paired runs.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему обновление model и harness одновременно не позволяет найти источник регрессии?
-2. Что остаётся неизвестным даже при закреплённом requested snapshot облачной модели?
-3. Почему новый baseline pass не доказывает, что старый hook стал ненужным?
-4. Какие native изменения закономерно входят в эффект новой версии harness?
-5. Чем отсутствие обнаруженной регрессии в трёх парах отличается от гарантии совместимости?
-6. Как сохранить прежнее доказательство в ledger, когда сработал retest trigger?
-7. Какие компоненты нельзя удалять по результатам модельной абляции и почему?
+1. Why does updating the model and harness simultaneously prevent locating a regression's source?
+2. What remains unknown even with a pinned requested snapshot of a cloud model?
+3. Why does a new baseline pass not prove that an old hook is unnecessary?
+4. Which native changes naturally belong to the effect of a new harness version?
+5. How does finding no regression in three pairs differ from a compatibility guarantee?
+6. How can earlier evidence be preserved in the ledger when a retest trigger fires?
+7. Which components must not be removed based on model ablation, and why?
 
-## Источники
+## Sources
 
-- [Метод и условия сравнения](../method.md), [реестр предположений](../harness-ledger.md).
-- [Агентные серии](LAB09-agent-campaign.md), [абляция и решение по ledger](LAB10-ablation.md), [cloud Pi](LAB15-pi.md).
-- [Pi Dockerfile](../../experiments/pi/Dockerfile), [native runtime](../../experiments/pi/run.mjs), [профиль provider](../../experiments/pi/harness.json).
-- [Создание записей](../../scripts/new-run.mjs), [общий workflow оценки](harness-workflow.md). Доступность model IDs и совместимость нового upstream release проверяются исполнителем для своих точных версий.
+- [Method and comparison conditions](../method.md), [assumptions ledger](../harness-ledger.md).
+- [Agent series](LAB09-agent-campaign.md), [ablation and ledger decisions](LAB10-ablation.md), [cloud Pi](LAB15-pi.md).
+- [Pi Dockerfile](../../experiments/pi/Dockerfile), [native runtime](../../experiments/pi/run.mjs), [provider profile](../../experiments/pi/harness.json).
+- [Creating records](../../scripts/new-run.mjs), [common evaluation workflow](harness-workflow.md). The executor checks model ID availability and compatibility of a new upstream release for their exact versions.

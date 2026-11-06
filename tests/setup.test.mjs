@@ -64,7 +64,7 @@ test('T001 fixes a reproducible URL-list snapshot and creates the shared artifac
   assert.equal(snapshot.content_archived, false);
   assert.equal(snapshot.urls.length, 6);
   assert.equal(snapshot.sha256, createHash('sha256').update(read(first, 'sources.txt')).digest('hex'));
-  assert.match(read(first, 'brief.md'), /Дата среза: 2026-09-19/);
+  assert.match(read(first, 'brief.md'), /Cutoff date: 2026-09-19/);
   assert.ok(lstatSync(join(first, 'artifacts')).isDirectory());
 });
 

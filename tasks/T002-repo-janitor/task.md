@@ -1,15 +1,15 @@
-# T002 · Дворник: красный `npm test` в маленьком проекте
+# T002 · Janitor: failing `npm test` in a small project
 
-## Стартовое состояние
-`setup.sh` создаёт в рабочем каталоге маленький Node-проект (`sample/`) с тремя намеренными дефектами: падающий тест из-за ошибки в реализации, ошибка линтера, устаревшая зависимость с известной уязвимостью в `package.json`. Ветка `main`, проверка — `npm test` (запускает линт и тесты).
+## Initial state
+`setup.sh` creates a small Node project (`sample/`) in the working directory with three intentional defects: a failing test caused by an implementation bug, a lint error, and an outdated dependency with a known vulnerability in `package.json`. Branch: `main`; check: `npm test` (runs lint and tests).
 
-## Контракт
-Агент A2 по своей спецификации делает `npm test` зелёным в ветке `janitor/<run-id>` и пишет `artifacts/report.md`. Тесты не ослабляются: скрытая проверка сравнивает набор тестов до и после.
+## Contract
+Agent A2 follows its specification to make `npm test` pass on `janitor/<run-id>` and write `artifacts/report.md`. Tests must not be weakened: the hidden check compares the test set before and after.
 
-## Видимая часть проверки
-- `npm test` зелёный на чистом клоне ветки.
-- Количество тестов и их имена не уменьшились.
-- Отчёт перечисляет все три дефекта.
+## Visible evaluation
+- `npm test` passes on a clean clone of the branch.
+- Neither the test count nor the set of test names has decreased.
+- The report lists all three defects.
 
-## Бюджет
-До 30 ходов или $2.
+## Budget
+Up to 30 turns or $2 in cost.

@@ -1,94 +1,94 @@
-# ЛР47. EKS, Karpenter и KEDA: автоскейлинг GPU-сервинга и стоимость токенов
+# LAB47. EKS, Karpenter and KEDA: GPU-serving autoscaling and token cost
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка Kubernetes и GPU не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the Kubernetes and GPU branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР45](LAB45-k8s-gpu-vllm-capacity.md) (методика нагрузки и ёмкость реплики); [ЛР49](LAB49-aws-network-iam.md) (аккаунт из ЛР48 с бюджетом и квотой на GPU, модуль VPC с endpoints) |
-| Стенд | AWS: EKS, Karpenter, один небольшой GPU-тип инстанса (например `g6.xlarge` или `g5.xlarge`, доступность в регионе проверяется) |
-| Минимум | Terraform-развёртывание, vLLM с маленькой моделью, KEDA по метрике очереди, нагрузка ступенькой, разложение времени скейла, стоимость миллиона токенов, `terraform destroy` с проверкой остатков |
-| Расширения | Spot-инстансы и поведение при прерывании; scale to zero; NVIDIA GPU Operator против готового EKS AMI с драйвером |
-| Время | Ориентир 1 день; держать кластер включённым только во время работы |
-| Готовность | `target-machine`; требует AWS-аккаунта и расходов, которые оценивает сам исполнитель |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB45](LAB45-k8s-gpu-vllm-capacity.md) (load methodology and replica capacity); [LAB49](LAB49-aws-network-iam.md) (LAB48 account with budget and GPU quota, VPC module with endpoints) |
+| Environment | AWS: EKS, Karpenter, one small GPU instance type (e.g. `g6.xlarge` or `g5.xlarge`; verify regional availability) |
+| Minimum | Terraform deployment, vLLM with a small model, KEDA using a queue metric, step load, scaling-time breakdown, cost per million tokens, `terraform destroy` with residual-resource check |
+| Extensions | Spot instances and interruption behavior; scale to zero; NVIDIA GPU Operator versus a ready-made EKS AMI with driver |
+| Time | Allow 1 day; keep the cluster running only while working |
+| Readiness | `target-machine`; requires an AWS account and costs estimated by the operator |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Проверить, как GPU-сервинг масштабируется в облаке, где каждая новая реплика означает новую машину, и посчитать стоимость миллиона токенов при разной утилизации. Заодно собрать EKS-кластер с GPU-узлами через Terraform от начала до конца.
+Test GPU-serving scaling in the cloud, where every new replica means another machine, and calculate cost per million tokens at different utilization levels. Also build a GPU-node EKS cluster end to end with Terraform.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. После ступенчатого роста нагрузки время до готовой новой реплики больше 3 минут, и больше половины его занимают подъём узла, готовность драйвера и скачивание образа, а не загрузка весов маленькой модели.
-2. Стоимость миллиона выходных токенов при утилизации реплики около её ёмкости из ЛР45 (пересчитанной для облачного GPU) отличается от стоимости при 20% утилизации не меньше чем в 3 раза.
+1. After a step increase in load, a new replica takes more than 3 minutes to become ready; node bring-up, driver readiness and image download account for over half of that, rather than loading the small model's weights.
+2. Cost per million output tokens near the LAB45 replica capacity (recalculated for the cloud GPU) differs by at least a factor of 3 from cost at 20% utilization.
 
-Пороги, модель, цена инстанса (с датой и источником) фиксируются в протоколе до прогона.
+Fix thresholds, model and instance price (with date and source) in the protocol before execution.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: документацию EKS по GPU-узлам, Karpenter (NodePool, EC2NodeClass, limits, disruption), KEDA (ScaledObject, Prometheus scaler), модуль `terraform-aws-modules/eks`.
-- **Расходы.** До создания ресурсов включите бюджет с оповещением в AWS Budgets, поставьте `limits` в NodePool Karpenter (не больше 2 GPU-узлов) и запишите в протокол ожидаемую стоимость сессии по ценам с сайта AWS. Цены — данные AWS на дату доступа, не ваши измерения.
-- **Секреты.** Учётные данные AWS берутся из профиля или переменных окружения вне репозитория; `terraform.tfstate`, `*.tfvars` с идентификаторами аккаунта и kubeconfig не коммитятся. В отчёт идут регион и типы инстансов, без account ID.
-- Terraform-код и манифесты — в `experiments/k8s-gpu/terraform/`, версии провайдеров и модулей закреплены. VPC подключается модулем из ЛР49, GPU NodePool можно описать модулем из [ЛР50](LAB50-aws-terraform-ci.md); state — в бакете из [ЛР48](LAB48-aws-account-baseline.md).
+- Read: EKS GPU-node documentation, Karpenter (NodePool, EC2NodeClass, limits, disruption), KEDA (ScaledObject, Prometheus scaler), `terraform-aws-modules/eks`.
+- **Costs.** Before creating resources, enable an AWS Budgets budget with alerts, set Karpenter NodePool `limits` (at most 2 GPU nodes), and record expected session cost using prices from the AWS website. Prices are AWS data as of the access date, not your measurements.
+- **Secrets.** AWS credentials come from a profile or environment variables outside the repository; do not commit `terraform.tfstate`, `*.tfvars` containing account identifiers, or kubeconfig. Reports include region and instance types, without account ID.
+- Terraform code and manifests belong in `experiments/k8s-gpu/terraform/`, with pinned provider and module versions. Use the LAB49 VPC module; the GPU NodePool can use the [LAB50](LAB50-aws-terraform-ci.md) module; store state in the [LAB48](LAB48-aws-account-baseline.md) bucket.
 
 ```bash
 npm run lab:new -- --lab LAB47 --session aws-01
 LAB_DIR='experiments/k8s-gpu/measurements/LAB47-aws-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Кластер.** `terraform apply`: VPC, EKS, managed node group под системные pod, Karpenter с NodePool для GPU-инстансов и лимитом. Сохраните план (без идентификаторов аккаунта), время apply, версии.
-2. **Готовность GPU.** Первый pod с запросом `nvidia.com/gpu: 1` заставляет Karpenter поднять узел. Запишите метки: pod создан → NodeClaim создан → инстанс запущен → узел `Ready` → `nvidia.com/gpu` в allocatable → pod `Running`.
-3. **Сервинг.** vLLM с маленькой открытой моделью, Prometheus для метрик vLLM, KEDA ScaledObject по метрике очереди ожидающих запросов (порог фиксируется в протоколе), `maxReplicaCount` 2.
-4. **Нагрузка ступенькой.** Нагрузчик ЛР45: N минут на уровне ниже ёмкости одной реплики, затем ступенька выше неё. Запишите метки этапов появления второй реплики, TTFT p95 во время ожидания и после.
-5. **Стоимость.** Прогоны на трёх уровнях утилизации по 10 минут. Стоимость миллиона выходных токенов = Σ по всем GPU-инстансам (цена в час × оплачиваемые часы за прогон, включая простой) / (выходные токены всех реплик / 10⁶). Перед каждым прогоном запишите число GPU-узлов по `kubectl get nodeclaims`; если вторая реплика из шага 4 ещё жива, её инстанс входит в сумму. Отдельно учтите узел системных pod и control plane EKS.
-6. **Teardown.** `terraform destroy`. Затем проверьте скриптом `janitor.sh` из ЛР48 и AWS CLI, что не осталось EC2-инстансов, EBS-томов, балансировщиков, NAT gateway и Elastic IP с тегами работы. Сохраните вывод проверки без идентификаторов аккаунта.
+1. **Cluster.** `terraform apply`: VPC, EKS, a managed node group for system pods, Karpenter with a limited GPU-instance NodePool. Save the plan (without account identifiers), apply time and versions.
+2. **GPU readiness.** The first pod requesting `nvidia.com/gpu: 1` causes Karpenter to provision a node. Record timestamps: pod created → NodeClaim created → instance launched → node `Ready` → `nvidia.com/gpu` in allocatable → pod `Running`.
+3. **Serving.** vLLM with a small open model, Prometheus for vLLM metrics, KEDA ScaledObject using waiting-request queue metrics (threshold fixed in the protocol), `maxReplicaCount` 2.
+4. **Step load.** LAB45 load generator: N minutes below one replica's capacity, then a step above it. Record stages of the second replica's appearance and TTFT p95 during and after the wait.
+5. **Cost.** Ten-minute runs at three utilization levels. Cost per million output tokens = Σ across all GPU instances (hourly price × billed hours for the run, including idle time) / (all replicas' output tokens / 10⁶). Before each run, record GPU-node count from `kubectl get nodeclaims`; if the second replica from step 4 remains alive, include its instance in the sum. Account separately for the system-pod node and EKS control plane.
+6. **Teardown.** `terraform destroy`. Then use LAB48 `janitor.sh` and AWS CLI to verify that no EC2 instances, EBS volumes, load balancers, NAT gateways or Elastic IPs remain with this lab's tags. Save verification output without account identifiers.
 
-## Таблицы результатов
+## Results tables
 
-| Этап появления GPU-реплики | Первый узел, s | Скейл под нагрузкой, s |
+| GPU-replica stage | First node, s | Scaling under load, s |
 | --- | --- | --- |
-| NodeClaim создан | | |
-| Инстанс запущен | | |
-| Узел `Ready` | | |
-| `nvidia.com/gpu` в allocatable | | |
-| Образ скачан | | |
-| Веса загружены | | |
+| NodeClaim created | | |
+| Instance launched | | |
+| Node `Ready` | | |
+| `nvidia.com/gpu` in allocatable | | |
+| Image downloaded | | |
+| Weights loaded | | |
 | Readiness | | |
-| Итого | | |
+| Total | | |
 
-| Утилизация | GPU-инстансов | Выходных токенов за 10 мин | Цена инстанса, USD/ч (источник, дата) | Стоимость 1M токенов, USD |
+| Utilization | GPU instances | Output tokens in 10 min | Instance price, USD/h (source, date) | Cost per 1M tokens, USD |
 | --- | --- | --- | --- | --- |
 | ~20% | | | | |
 | ~60% | | | | |
-| около ёмкости | | | | |
+| near capacity | | | | |
 
-| Ресурс после destroy | Ожидание | Факт |
+| Resource after destroy | Expected | Actual |
 | --- | --- | --- |
-| EC2 / EBS / LB / NAT / EIP | нет | |
+| EC2 / EBS / LB / NAT / EIP | none | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, Terraform-код и манифесты в `experiments/k8s-gpu/terraform/`, сырые метки времени и результаты нагрузчика, вывод проверки остатков.
-- Фактические расходы сессии из AWS Billing (сумма и период, без account ID).
+- Report, Terraform code and manifests in `experiments/k8s-gpu/terraform/`, raw timestamps and load-generator results, residual-resource check output.
+- Actual AWS Billing session expenses (amount and period, without account ID).
 
-## Критерии завершения
+## Completion criteria
 
-- Время появления реплики разложено по этапам; гипотеза 1 принята или отвергнута.
-- Стоимость миллиона токенов посчитана для трёх уровней утилизации с указанием цены и даты.
-- Ресурсы удалены, проверка остатков пустая.
+- Replica startup time broken down by stage; hypothesis 1 accepted or rejected.
+- Cost per million tokens calculated for three utilization levels, with price and date.
+- Resources deleted; residual-resource check empty.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему GPU-узлы нельзя скейлить так же быстро, как CPU, и что с этим делают на практике (резерв, warm pool, прогретые AMI, кэш образов)?
-2. Трафик удвоится через месяц. Как вы посчитаете, сколько GPU заказать, и что сделаете, если их не дадут?
-3. Чем опасен scale to zero для LLM-сервинга и когда он оправдан?
-4. Какие расходы не видны в цене инстанса, но входят в стоимость токена?
+1. Why cannot GPU nodes scale as quickly as CPU nodes, and how is this addressed in practice (reserve, warm pool, prepared AMIs, image cache)?
+2. Traffic will double next month. How will you calculate GPU procurement needs, and what will you do if they are unavailable?
+3. Why is scale to zero risky for LLM serving, and when is it justified?
+4. Which expenses are absent from instance price but contribute to token cost?
 
-## Источники
+## Sources
 
-- Документация Amazon EKS, Karpenter, KEDA; `terraform-aws-modules/eks`.
-- Документация vLLM: метрики и развёртывание в Kubernetes.
-- Этот репозиторий: [ЛР45](LAB45-k8s-gpu-vllm-capacity.md), [протокол](../method.md).
+- Amazon EKS, Karpenter and KEDA documentation; `terraform-aws-modules/eks`.
+- vLLM documentation: metrics and Kubernetes deployment.
+- This repository: [LAB45](LAB45-k8s-gpu-vllm-capacity.md), [protocol](../method.md).

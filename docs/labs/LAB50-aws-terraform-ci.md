@@ -1,52 +1,52 @@
-# ЛР50. Terraform как продукт команды: модуль GPU-пула, тесты и CI без долгоживущих ключей
+# LAB50. Terraform as a team product: GPU-pool module, tests and CI without long-lived keys
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка AWS и Terraform не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the AWS and Terraform branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР49](LAB49-aws-network-iam.md) (модуль VPC); GitHub-репозиторий, где можно включить Actions |
-| Стенд | AWS, сессии `aws-NN`; GitHub Actions; для тестов модуля GPU-инстансы не создаются |
-| Минимум | Собственный модуль GPU-пула (Karpenter NodePool и EC2NodeClass либо EKS managed node group) с переменными и проверками входа; `terraform test` с mock-провайдером; tflint и сканер конфигурации (Checkov или Trivy); GitHub Actions с OIDC-ролями в AWS: read-only plan на pull request, apply в dev-окружение по merge в main |
-| Расширения | Два окружения (dev и prod) с разными лимитами из одного модуля; policy as code через OPA/Conftest по JSON-плану; Atlantis или Terraform Cloud как альтернатива самописному CI |
-| Время | Ориентир 1 день |
-| Готовность | `target-machine`; требует AWS-аккаунта и репозитория с Actions |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB49](LAB49-aws-network-iam.md) (VPC module); a GitHub repository where Actions can be enabled |
+| Environment | AWS, `aws-NN` sessions; GitHub Actions; module tests create no GPU instances |
+| Minimum | Custom GPU-pool module (Karpenter NodePool and EC2NodeClass or EKS managed node group) with variables and input validation; `terraform test` with a mock provider; tflint and configuration scanner (Checkov or Trivy); GitHub Actions with AWS OIDC roles: read-only pull-request plan, apply to dev on merge to main |
+| Extensions | Two environments (dev/prod) with different limits from one module; policy as code with OPA/Conftest on the JSON plan; Atlantis or Terraform Cloud instead of custom CI |
+| Time | Allow 1 day |
+| Readiness | `target-machine`; requires an AWS account and a repository with Actions |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Перейти от «я умею apply» к тому, чего ждут от владельца инфраструктуры площадки: инфраструктурный код, который безопасно меняют пятнадцать человек. Модуль, тесты, ревью плана в pull request, доступ CI к AWS без статических ключей. Модуль GPU-пула потом используется в [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md).
+Move from “I can run apply” to what a platform infrastructure owner is expected to provide: infrastructure code that fifteen people can change safely. A module, tests, pull-request plan review, CI access to AWS without static keys. The GPU-pool module is later used in [LAB47](LAB47-k8s-gpu-eks-autoscaling.md).
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. Из 10 заранее внесённых ошибок конфигурации (список фиксируется в протоколе до прогона: публичный бакет, открытый `0.0.0.0/0` на SSH, GPU-пул без лимита, не тот тип инстанса, отсутствующий тег, незашифрованный том и т. п.) связка `terraform validate` + `terraform test` + tflint + сканер ловит до apply не меньше 8, и для каждой пойманной известно, каким инструментом.
-2. CI-пайплайн работает без единого долгоживущего ключа AWS: в секретах репозитория нет `AWS_ACCESS_KEY_ID`, а роль с правом apply нельзя взять из pull request, другой ветки или другого репозитория.
+1. Of 10 deliberately introduced configuration errors (list fixed before execution: public bucket, SSH open to `0.0.0.0/0`, unlimited GPU pool, wrong instance type, missing tag, unencrypted volume, etc.), `terraform validate` + `terraform test` + tflint + scanner catch at least 8 before apply, with the detecting tool known for each.
+2. The CI pipeline operates without a single long-lived AWS key: repository secrets contain no `AWS_ACCESS_KEY_ID`, and the apply-capable role cannot be assumed from a pull request, another branch or another repository.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: документацию Terraform по модулям, `validation` в переменных, `terraform test` и mock-провайдерам; GitHub Actions OIDC для AWS (`aws-actions/configure-aws-credentials`); tflint с плагином AWS; Checkov или Trivy для Terraform.
-- **Секреты.** В репозиторий и в секреты Actions не попадают ключи AWS. Account ID и ARN роли передаются через переменные репозитория и не попадают в отчёт.
-- Код — в `experiments/aws/terraform/modules/gpu-pool/` и `experiments/aws/terraform/LAB50/`; workflow — в отдельном учебном репозитории или в ветке, где Actions разрешены владельцем.
+- Read: Terraform modules, variable `validation`, `terraform test` and mock-provider documentation; GitHub Actions OIDC for AWS (`aws-actions/configure-aws-credentials`); tflint with AWS plugin; Checkov or Trivy for Terraform.
+- **Secrets.** AWS keys never enter the repository or Actions secrets. Pass account ID and role ARN through repository variables and omit them from the report.
+- Code belongs in `experiments/aws/terraform/modules/gpu-pool/` and `experiments/aws/terraform/LAB50/`; workflow in a separate educational repository or a branch where the owner permits Actions.
 
 ```bash
 npm run lab:new -- --lab LAB50 --session aws-01
 LAB_DIR='experiments/aws/measurements/LAB50-aws-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Модуль.** Входы: имя пула, список разрешённых типов инстансов, максимум узлов, capacity type (on-demand или spot), теги. `validation` запрещает пустой лимит и типы вне списка. Выходы: имя пула и ARN роли узлов. Документация входов генерируется `terraform-docs`.
-2. **Тесты.** `terraform test` с mock-провайдером AWS: позитивные сценарии и сценарии, где ожидается ошибка валидации (`expect_failures`). Запишите время прогона тестов.
-3. **Статика.** tflint с плагином AWS и сканер конфигурации. Зафиксируйте версии и включённые правила.
-4. **Ошибки.** Внесите по очереди 10 ошибок из протокола, для каждой запишите, какой инструмент её поймал или что она дошла бы до apply.
-5. **OIDC.** Terraform создаёт OIDC-провайдер GitHub и две роли. Роль plan только читает (state и описание ресурсов); её trust policy допускает `sub` вида `repo:<owner>/<repo>:pull_request`. Роль apply может менять dev; её trust policy допускает только `repo:<owner>/<repo>:ref:refs/heads/main`, либо, если job ссылается на protected environment, `repo:<owner>/<repo>:environment:dev`. У pull request и у job с environment `sub` другой, чем у ветки, поэтому одна роль на «ветку main» план в pull request не пустит. Проверьте отказ роли apply из pull request и из другой ветки.
-6. **Пайплайн.** На pull request с ролью plan: fmt, validate, test, tflint, сканер, `plan` с публикацией краткого плана в комментарий. По merge в main с ролью apply: `apply` в dev. Замерьте время пайплайна.
-7. **Teardown.** Удалите dev-окружение, оставьте роль OIDC только если она нужна дальше; `janitor.sh` из ЛР48.
+1. **Module.** Inputs: pool name, allowed instance types, maximum nodes, capacity type (on-demand or spot), tags. `validation` rejects an empty limit and types outside the allowlist. Outputs: pool name and node-role ARN. Generate input documentation with `terraform-docs`.
+2. **Tests.** `terraform test` with a mock AWS provider: positive cases and expected validation failures (`expect_failures`). Record test runtime.
+3. **Static checks.** tflint with the AWS plugin and a configuration scanner. Record versions and enabled rules.
+4. **Errors.** Introduce the protocol's 10 errors one at a time; record which tool catches each, or whether it would reach apply.
+5. **OIDC.** Terraform creates the GitHub OIDC provider and two roles. The plan role is read-only (state and resource descriptions); its trust policy accepts `sub` of the form `repo:<owner>/<repo>:pull_request`. The apply role can modify dev; its trust policy accepts only `repo:<owner>/<repo>:ref:refs/heads/main`, or `repo:<owner>/<repo>:environment:dev` if the job references a protected environment. Pull requests and environment jobs have a different `sub` from a branch, so a single “main branch” role will not admit pull-request plans. Verify denial of the apply role from a pull request and another branch.
+6. **Pipeline.** On pull requests with the plan role: fmt, validate, test, tflint, scanner, `plan` with a brief plan posted as a comment. On merge to main with the apply role: `apply` to dev. Measure pipeline runtime.
+7. **Teardown.** Delete dev; retain the OIDC role only if needed later; run LAB48 `janitor.sh`.
 
-## Таблицы результатов
+## Results tables
 
-| Внесённая ошибка | validate | test | tflint | сканер | Дошла бы до apply |
+| Introduced error | validate | test | tflint | scanner | Would reach apply |
 | --- | --- | --- | --- | --- | --- |
 | 1 | | | | | |
 | 2 | | | | | |
@@ -59,42 +59,42 @@ LAB_DIR='experiments/aws/measurements/LAB50-aws-01'
 | 9 | | | | | |
 | 10 | | | | | |
 
-| Проверка OIDC | Ожидание | Факт |
+| OIDC check | Expected | Actual |
 | --- | --- | --- |
-| Долгоживущих ключей в секретах | 0 | |
-| Роль plan из pull request | успех | |
-| Роль plan: попытка изменить ресурс | отказ | |
-| Роль apply из main | успех | |
-| Роль apply из pull request | отказ | |
-| Роль apply из другой ветки | отказ | |
+| Long-lived keys in secrets | 0 | |
+| Plan role from pull request | success | |
+| Plan role: resource modification attempt | denied | |
+| Apply role from main | success | |
+| Apply role from pull request | denied | |
+| Apply role from another branch | denied | |
 
-| Этап пайплайна | Время, s |
+| Pipeline stage | Time, s |
 | --- | --- |
 | fmt + validate + test | |
-| tflint + сканер | |
+| tflint + scanner | |
 | plan | |
-| apply в dev | |
+| apply to dev | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, модуль с тестами и документацией, workflow, таблица ошибок с выводами инструментов, ссылка на учебный pull request с комментарием плана.
+- Report, module with tests and documentation, workflow, error table with tool outputs, link to the educational pull request with the plan comment.
 
-## Критерии завершения
+## Completion criteria
 
-- Модуль GPU-пула с тестами готов к подключению в ЛР47.
-- Обе гипотезы приняты или отвергнуты; для непойманных ошибок записано, чем их ловить.
-- Пайплайн отработал хотя бы один цикл pull request → merge → apply без статических ключей.
+- GPU-pool module with tests ready for LAB47.
+- Both hypotheses accepted or rejected; detection options recorded for uncaught errors.
+- Pipeline completed at least one pull request → merge → apply cycle without static keys.
 
-## Контрольные вопросы
+## Review questions
 
-1. Где граница между модулем и конфигурацией окружения? Что вы не вынесете в модуль?
-2. Как ревьюить plan на 300 изменений, и когда такой plan нужно запретить?
-3. Почему apply из ноутбука инженера плох для команды, и что делать с аварийными изменениями?
-4. Какие правила вы бы сделали обязательными для всех pull request в инфраструктурный репозиторий площадки?
+1. Where is the boundary between a module and environment configuration? What would you keep out of a module?
+2. How do you review a plan with 300 changes, and when should such a plan be prohibited?
+3. Why is applying from an engineer's laptop bad for a team, and how should emergency changes be handled?
+4. Which rules would you make mandatory for every pull request to a platform infrastructure repository?
 
-## Источники
+## Sources
 
-- Документация Terraform: модули, input validation, `terraform test`, mock providers.
-- Документация GitHub: OpenID Connect для AWS; `aws-actions/configure-aws-credentials`.
-- tflint и `tflint-ruleset-aws`; Checkov или Trivy; `terraform-docs`.
-- Этот репозиторий: [ЛР49](LAB49-aws-network-iam.md), [ЛР47](LAB47-k8s-gpu-eks-autoscaling.md), [протокол](../method.md).
+- Terraform documentation: modules, input validation, `terraform test`, mock providers.
+- GitHub documentation: OpenID Connect for AWS; `aws-actions/configure-aws-credentials`.
+- tflint and `tflint-ruleset-aws`; Checkov or Trivy; `terraform-docs`.
+- This repository: [LAB49](LAB49-aws-network-iam.md), [LAB47](LAB47-k8s-gpu-eks-autoscaling.md), [protocol](../method.md).

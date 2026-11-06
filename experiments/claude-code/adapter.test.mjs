@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildCommand, parseTrace } from './adapter.mjs';
 
-test('Claude: итоговый usage не суммируется повторно с modelUsage', () => {
+test('Claude: final usage is not added to modelUsage again', () => {
   const result = {
     type: 'result', subtype: 'success', num_turns: 2, total_cost_usd: 0.12,
     usage: { input_tokens: 9, cache_creation_input_tokens: 10, cache_read_input_tokens: 11, output_tokens: 12 },
@@ -21,7 +21,7 @@ test('Claude: итоговый usage не суммируется повторн�
   assert.equal(parsed.sessionId, 'session-1');
 });
 
-test('Claude: обрыв и отсутствующие cache buckets не превращаются в нули', () => {
+test('Claude: truncation and missing cache buckets do not become zeros', () => {
   const parsed = parseTrace('{"type":"assistant","message":{"model":"pinned"}}\n{"type":');
   assert.deepEqual(parsed.loop, {});
   assert.equal(parsed.stopReason, 'trace_incomplete');
@@ -31,7 +31,7 @@ test('Claude: обрыв и отсутствующие cache buckets не пре
   assert.equal(partial.loop.tokens_in, undefined);
 });
 
-test('Claude: model drift и error subtype видны даже при exit 0', () => {
+test('Claude: model drift and error subtype remain visible even with exit 0', () => {
   const parsed = parseTrace(JSON.stringify([
     { type: 'assistant', message: { model: 'first' } },
     { type: 'assistant', message: { model: 'second' } },
@@ -43,7 +43,7 @@ test('Claude: model drift и error subtype видны даже при exit 0', (
   assert.equal(parseTrace(JSON.stringify({ type: 'result', is_error: true, subtype: 'success', terminal_reason: 'completed' })).stopReason, 'error');
 });
 
-test('Claude: prompt остаётся одним аргументом, лимиты обязательны при задании', () => {
+test('Claude: prompt remains one argument; specified limits are mandatory', () => {
   const prompt = '--help\n$(anything)';
   const built = buildCommand({ model: 'pinned', turns: 4, budget: 3, prompt });
   assert.equal(built.command.at(-1), prompt);

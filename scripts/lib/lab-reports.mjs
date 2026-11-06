@@ -12,7 +12,9 @@ const stamp = value => {
   return new Date(value).toISOString() === (value.includes('.') ? value : value.replace('Z', '.000Z'));
 };
 const columns = 'observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason'.split(' ');
-const reportSections = ['Паспорт выполнения', 'Гипотеза и протокол до запуска', 'Ход выполнения', 'Результаты', 'Ошибки и ограничения', 'Вывод по гипотезе', 'Ответы на контрольные вопросы', 'Комплект сдачи'];
+const reportSections = ['Run profile', 'Hypothesis and protocol before execution', 'Execution log', 'Results', 'Errors and limitations', 'Hypothesis conclusion', 'Answers to review questions', 'Submission bundle'];
+// Preserve original reports as evidence while continuing to validate them.
+const legacyReportSections = ['Паспорт выполнения', 'Гипотеза и протокол до запуска', 'Ход выполнения', 'Результаты', 'Ошибки и ограничения', 'Вывод по гипотезе', 'Ответы на контрольные вопросы', 'Комплект сдачи'];
 
 function localFile(base, path) {
   // Evidence is a regular local file, never a URL, a secret, a hidden check or a symlink.
@@ -155,7 +157,9 @@ export function checkLabReport(root, { report, mode = 'draft' }) {
 
   const markdown = attempt('report.md', () => readFileSync(localFile(dir, 'report.md'), 'utf8'));
   if (markdown !== null) {
-    for (const section of reportSections) check(markdown.split('\n').some(line => line.trim() === `## ${section}`), `report.md: missing section ${section}`);
+    const headings = markdown.split('\n').map(line => line.trim());
+    const expectedSections = headings.includes(`## ${legacyReportSections[0]}`) ? legacyReportSections : reportSections;
+    for (const section of expectedSections) check(headings.includes(`## ${section}`), `report.md: missing section ${section}`);
     check(!/\{\{[A-Z_]+\}\}/.test(markdown), 'report.md: unexpanded template placeholders');
   }
   const tsv = attempt('measurements.tsv', () => readFileSync(localFile(dir, 'measurements.tsv'), 'utf8'));

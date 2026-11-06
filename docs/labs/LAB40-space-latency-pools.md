@@ -1,55 +1,55 @@
-# ЛР40. Латентность песочниц: cold create, warm pool, base snapshot, restore
+# LAB40. Sandbox latency: cold create, warm pool, base snapshot, restore
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка SPACE не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the SPACE branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР36](LAB36-space-deploy-smoke.md) на каждом измеряемом стенде |
-| Пути старта | `cold`, `pool` (`docs/warm-pools.md`), `base-snapshot` (`docs/base-snapshots.md`), restore после `suspend` |
-| Минимум | Один шаблон, ≥10 повторов на путь, оба стенда; подтверждённый фактический boot mode каждой попытки |
-| Расширения | `bench-sbx-lifecycle.sh` и `bench-sbx-concurrent.sh`; шаблоны обвязок из [ЛР37](LAB37-space-harness-vm.md) |
-| Время | Ориентир 3–4 часа на стенд |
-| Готовность | `target-machine` |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB36](LAB36-space-deploy-smoke.md) on each measured machine |
+| Startup paths | `cold`, `pool` (`docs/warm-pools.md`), `base-snapshot` (`docs/base-snapshots.md`), restore after `suspend` |
+| Minimum | One template, ≥10 repetitions per path, both machines; confirmed actual boot mode for every attempt |
+| Extensions | `bench-sbx-lifecycle.sh` and `bench-sbx-concurrent.sh`; harness templates from [LAB37](LAB37-space-harness-vm.md) |
+| Time | Allow 3–4 hours per machine |
+| Readiness | `target-machine` |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Измерить время до первой команды для четырёх путей старта песочницы на двух стендах. Для агента это время ожидания перед первым действием и стоимость каждой новой попытки.
+Measure time to the first command for four sandbox startup paths on two machines. For an agent, this is the wait before the first action and the cost of each new attempt.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Медиана времени от запроса до первого stdout упорядочена так: pool < base snapshot < restore < cold, на обоих стендах. Отношение cold/pool на стенде B не хуже, чем на стенде A, более чем вдвое. Порядок и пороги фиксируются в протоколе до замера.
+Median time from request to first stdout is ordered pool < base snapshot < restore < cold on both machines. The cold/pool ratio on machine B is no worse than twice that on machine A. Fix the ordering and thresholds in the protocol before measurement.
 
-Цифры из документации SPACE — заявления разработчиков платформы; в отчёте они помечаются как таковые и не смешиваются с вашими измерениями.
+Figures in SPACE documentation are platform developer claims; label them as such in the report and keep them separate from your measurements.
 
-## Подготовка
+## Preparation
 
-- SPACE молча переходит на более медленный путь, если запрошенный недоступен: `base-snapshot` и `pool` откатываются вплоть до cold boot без ошибки. Каждую попытку проверяйте по фактическому boot mode (строка `Boot mode:` у `space-sbxmgr` или поле ответа API) и отбрасывайте с пометкой, если он не совпал.
-- Один шаблон на всю серию (по умолчанию `seed:latest`), фиксированные vCPU и память.
-- Порядок попыток перемешан по путям; прогрев (первые 2 попытки пути) записывается отдельно.
+- SPACE silently falls back to a slower path when the requested one is unavailable: `base-snapshot` and `pool` may fall back as far as cold boot without an error. Check every attempt's actual boot mode (`Boot mode:` from `space-sbxmgr` or the API response field); exclude and label mismatches.
+- One template for the entire series (default `seed:latest`), fixed vCPU and memory.
+- Randomize attempts across paths; record warmup (the first 2 attempts per path) separately.
 
 ```bash
 npm run lab:new -- --lab LAB40 --session ryzen-01
 LAB_DIR='experiments/space/measurements/LAB40-ryzen-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Подготовка путей.** Base snapshot (`space-tmplmgr base-snapshot --template ... --state true` на узле), warm pool (`space-admin-cli warm-pool create ...` с небольшим `--target-ready-slots`), одна песочница для suspend. Команды и ответы — в raw.
+1. **Prepare paths.** Base snapshot (`space-tmplmgr base-snapshot --template ... --state true` on the node), warm pool (`space-admin-cli warm-pool create ...` with a small `--target-ready-slots`), one sandbox for suspend. Save commands and responses as raw evidence.
 
-2. **Измеритель.** Скрипт в `experiments/space/bench/` фиксирует метки: запрос create → операция succeeded → `running` → первый stdout `echo ready` → `process_exited`. Использует native API и `time.monotonic_ns()`. Restore меряется от `:wake` до первого stdout.
+2. **Measurement tool.** A script in `experiments/space/bench/` records timestamps: create request → operation succeeded → `running` → first stdout from `echo ready` → `process_exited`. Use the native API and `time.monotonic_ns()`. Measure restore from `:wake` to first stdout.
 
-3. **Серия.** ≥10 зачётных попыток на путь и стенд, перемешанный порядок, после каждой — удаление песочницы и ожидание восполнения пула.
+3. **Series.** ≥10 counted attempts per path and machine, randomized order; after each, delete the sandbox and wait for pool replenishment.
 
-4. **Нагрузка хоста.** `vmstat` в фоне; попытки при load average выше порога из протокола помечаются.
+4. **Host load.** Run `vmstat` in the background; mark attempts with load average above the protocol threshold.
 
-5. **Расширение.** `scripts/benchmarks/bench-sbx-lifecycle.sh` для сравнения со своим измерителем; `bench-sbx-concurrent.sh` для 1/2/4 параллельных create.
+5. **Extension.** `scripts/benchmarks/bench-sbx-lifecycle.sh` to compare with your measurement tool; `bench-sbx-concurrent.sh` for 1/2/4 concurrent creates.
 
-## Таблицы результатов
+## Results tables
 
-| Стенд | Путь | Зачётных N | Отброшено (boot mode) | Медиана до первого stdout, ms | p90, ms | min / max, ms |
+| Machine | Path | Counted N | Excluded (boot mode) | Median to first stdout, ms | p90, ms | min / max, ms |
 | --- | --- | --- | --- | --- | --- | --- |
 | A | cold | | | | | |
 | A | pool | | | | | |
@@ -60,27 +60,27 @@ LAB_DIR='experiments/space/measurements/LAB40-ryzen-01'
 | B | base-snapshot | | | | | |
 | B | restore | | | | | |
 
-Одна строка `measurements.tsv` — одна попытка и одна метрика; агрегаты только в отчёте.
+One `measurements.tsv` row is one attempt and one metric; aggregates belong only in the report.
 
-## Что сдать
+## Deliverables
 
-- Отчёты по двум стендам, измеритель в `experiments/space/bench/`, сырые метки всех попыток, включая отброшенные.
-- Подтверждение boot mode для каждой зачётной попытки.
+- Reports for both machines, measurement tool in `experiments/space/bench/`, raw timestamps for all attempts including excluded ones.
+- Boot-mode confirmation for every counted attempt.
 
-## Критерии завершения
+## Completion criteria
 
-- На каждом стенде и пути не меньше 10 зачётных попыток с подтверждённым boot mode.
-- Гипотеза о порядке и пороге принята или отвергнута по сырым данным.
-- Отброшенные попытки и причины перечислены.
+- At least 10 counted attempts with confirmed boot mode for each machine and path.
+- Ordering and threshold hypothesis accepted or rejected from raw data.
+- Excluded attempts and reasons listed.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какая стадия доминирует в cold create и почему pool её убирает?
-2. Почему «тихий» откат boot mode опасен для бенчмарка?
-3. Как размер памяти шаблона влияет на restore?
-4. Какой путь вы бы выбрали для пачки из 30 попыток агента и почему?
+1. Which stage dominates cold create, and why does the pool eliminate it?
+2. Why is silent boot-mode fallback dangerous for a benchmark?
+3. How does template memory size affect restore?
+4. Which path would you choose for a batch of 30 agent attempts, and why?
 
-## Источники
+## Sources
 
 - SPACE: `docs/warm-pools.md`, `docs/base-snapshots.md`, `scripts/benchmarks/README.md`, `scripts/benchmarks/bench-sbx-lifecycle.sh`, `docs/using-api.md`.
-- Этот репозиторий: [протокол](../method.md), [ЛР26](LAB26-concurrent-load.md) как образец отчёта о параллельной нагрузке.
+- This repository: [protocol](../method.md), [LAB26](LAB26-concurrent-load.md) as an example concurrent-load report.

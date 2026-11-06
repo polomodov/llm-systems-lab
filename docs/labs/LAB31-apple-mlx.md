@@ -1,44 +1,44 @@
-# ЛР31. Нативный инференс MLX-LM
+# LAB31. Native MLX-LM inference
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Независимый движок / `target-machine` |
-| Время | 2–4 часа плюс подготовка окружения |
-| Предпосылки | LAB28, LAB29; отдельный MLX artifact и native arm64 Python |
-| Минимум | Одна модель, pinned mlx/mlx-lm, прогрев и три повтора; сопоставление с LAB30 при наличии |
+| Type / readiness | Independent engine / `target-machine` |
+| Time | 2–4 hours plus environment setup |
+| Prerequisites | LAB28, LAB29; separate MLX artifact and native arm64 Python |
+| Minimum | One model, pinned mlx/mlx-lm, warmup and three repetitions; comparison with LAB30 if available |
 
-## Цель
+## Objective
 
-Измерить MLX как самостоятельную конфигурацию и установить, какие различия с GGUF объясняются форматом и входным протоколом.
+Measure MLX as a standalone configuration and establish which differences from GGUF arise from the format and input protocol.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-MLX-вариант выбранной модели выполняется на GPU с достаточным запасом памяти. Разница с llama.cpp не приписывается одному движку, если quantization или template отличаются.
+The MLX variant of the selected model runs on the GPU with sufficient memory headroom. Differences from llama.cpp are not attributed solely to the engine if quantization or templates differ.
 
-## Подготовка
+## Preparation
 
-Создайте окружение вне Git и закрепите версии, совместимые с выбранной архитектурой. Числа версий выбираются по документации модели и сохраняются до установки; `latest` не является pin.
+Create an environment outside Git and pin versions compatible with the selected architecture. Choose version numbers from model documentation and record them before installation; `latest` is not a pin.
 
 ```sh
 npm run lab:new -- --lab LAB31 --session apple-mlx
 export LAB_DIR='experiments/local-models/measurements/LAB31-apple-mlx'
 export MLX_ENV='/absolute/path/to/new-mlx-venv'
 export LOCAL_MLX='/absolute/path/to/pinned-mlx-model'
-export MLX_VERSION='<точная версия mlx>'
-export MLX_LM_VERSION='<точная версия mlx-lm>'
+export MLX_VERSION='<exact mlx version>'
+export MLX_LM_VERSION='<exact mlx-lm version>'
 python3 -m venv "$MLX_ENV"
 "$MLX_ENV/bin/python" -m pip install "mlx==$MLX_VERSION" "mlx-lm==$MLX_LM_VERSION" \
   > "$LAB_DIR/raw/install.txt" 2>&1
 printf '%s\n' "$?" > "$LAB_DIR/raw/install-exit.txt"
 ```
 
-При ошибке остановитесь. [Общий Apple-протокол](../../experiments/local-models/apple/README.md) определяет память, повторы и сдачу; LAB30 не обязательна для отдельного допуска MLX.
+Stop on error. The [shared Apple protocol](../../experiments/local-models/apple/README.md) defines memory, repetitions and submission; LAB30 is not required for standalone MLX admission.
 
-## Порядок выполнения
+## Procedure
 
-1. Сохраните версии, архитектуру и интерфейс GPU:
+1. Save versions, architecture and GPU interface information:
 
    ```sh
    "$MLX_ENV/bin/python" -m pip freeze > "$LAB_DIR/raw/python-lock.txt"
@@ -53,21 +53,21 @@ printf '%s\n' "$?" > "$LAB_DIR/raw/install-exit.txt"
    PY
    ```
 
-   Наличие API зависит от pin: ошибка — evidence, а не нулевой memory limit. Проверяйте выбранный GPU и следуйте рекомендованным значениям; не вызывайте `set_memory_limit`/wired-limit tuning в baseline.
+   API availability depends on the pin: an error is evidence, not a zero memory limit. Verify the selected GPU and follow recommended values; do not call `set_memory_limit` or tune wired limits in the baseline.
 
-2. Подготовьте одинаковый публичный prompt и настройки reasoning/sampling по карточке модели. Сохраните prompt, hash tokenizer/template и exact command. Пример smoke (проверить flags в pinned help):
+2. Prepare the same public prompt and reasoning/sampling settings according to the model card. Save the prompt, tokenizer/template hash and exact command. Example smoke test (check flags in pinned help):
 
    ```sh
-   printf '%s\n' 'Объясни три причины проверять hashes модельных весов.' > "$LAB_DIR/raw/prompt.txt"
+   printf '%s\n' 'Explain three reasons to verify model weight hashes.' > "$LAB_DIR/raw/prompt.txt"
    "$MLX_ENV/bin/python" -m mlx_lm.generate --model "$LOCAL_MLX" \
      --prompt "$(cat "$LAB_DIR/raw/prompt.txt")" --max-tokens 128 --temp 0 --seed 1 \
      > "$LAB_DIR/raw/warmup.txt" 2>&1
    printf '%s\n' "$?" > "$LAB_DIR/raw/warmup-exit.txt"
    ```
 
-   Model path должен указывать на локальный закреплённый артефакт. Не используйте remote model alias, допускающий автоматическую смену weights. CPU fallback, неподдержанная архитектура или неожиданная загрузка другой модели — blocker.
+   The model path must point to a pinned local artifact. Do not use a remote model alias that allows automatic weight changes. CPU fallback, an unsupported architecture or unexpectedly loading another model is a blocker.
 
-3. После smoke снимите память и запустите временной ряд LAB28. Выполните команду по одному разу для `REPEAT=1`, `2`, `3`; при ошибках/pressure остановитесь:
+3. After the smoke test, collect memory and start the LAB28 time series. Run the command once each for `REPEAT=1`, `2`, `3`; stop on errors/pressure:
 
    ```sh
    export REPEAT=1
@@ -77,58 +77,58 @@ printf '%s\n' "$?" > "$LAB_DIR/raw/install-exit.txt"
    printf '%s\n' "$?" > "$LAB_DIR/raw/r$REPEAT-exit.txt"
    ```
 
-   Зафиксируйте реально произведённые токены, prompt/generation throughput и peak memory из runtime, если версия их сообщает. Не подставляйте cap 128 вместо фактического output. Отсутствующая метрика — `null`. Каждая команда создаёт новый процесс: это повтор CLI с прогретым файловым cache, а не residency warm HTTP.
+   Record actual generated tokens, prompt/generation throughput and runtime peak memory if the version reports them. Do not substitute the 128 cap for actual output. A missing metric is `null`. Each command creates a new process: this is a CLI repetition with warm file cache, not resident warm HTTP.
 
-4. В отдельном терминале запустите сервер с тем же artifact/окружением, сохранив вывод:
+4. Start the server in a separate terminal with the same artifact/environment, saving its output:
 
    ```sh
    "$MLX_ENV/bin/python" -m mlx_lm.server --model "$LOCAL_MLX" --host 127.0.0.1 --port 8081 \
      > "$LAB_DIR/raw/server.txt" 2>&1
    ```
 
-   В рабочем терминале после readiness:
+   In the working terminal, after readiness:
 
    ```sh
    curl --noproxy '*' --max-time 10 -sS http://127.0.0.1:8081/v1/models \
      > "$LAB_DIR/raw/server-models.json"
    ```
 
-   Зафиксируйте реальный model identifier, допустимый pinned server; alias не является доказательством weights. Остановите свой сервер Ctrl-C перед запуском другой конфигурации. HTTP streaming/tools и длинный контекст проверяются в LAB32.
+   Record the actual model identifier accepted by the pinned server; an alias does not prove weight identity. Stop your server with Ctrl-C before starting another configuration. HTTP streaming/tools and long context are tested in LAB32.
 
-5. Запишите `runtime-manifest.json`: Python/MLX/MLX-LM, lock, artifact manifest, device, flags/defaults, template/reasoning и наблюдаемые allocations. Для сравнения с LAB30 приложите таблицу различий. `llama-bench` synthetic PP/TG и MLX chat prompt не идентичная нагрузка: сопоставимое HTTP-измерение делается в LAB32/35.
+5. Write `runtime-manifest.json`: Python/MLX/MLX-LM, lock, artifact manifest, device, flags/defaults, template/reasoning and observed allocations. Include a differences table for comparison with LAB30. Synthetic `llama-bench` PP/TG and an MLX chat prompt are not identical workloads: comparable HTTP measurements belong in LAB32/35.
 
-## Таблицы результатов
+## Results tables
 
-| Повтор | Prompt tokens | Output tokens | Prompt tokens/s | Generate tokens/s | Runtime peak GiB | Process RSS bytes | Wall s / exit |
+| Repetition | Prompt tokens | Output tokens | Prompt tokens/s | Generate tokens/s | Runtime peak GiB | Process RSS bytes | Wall s / exit |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | | | | | | | |
 | 2 | | | | | | | |
 | 3 | | | | | | | |
 
-| Различие с GGUF | Значение | Можно ли изолировать эффект engine? |
+| Difference from GGUF | Value | Can the engine effect be isolated? |
 | --- | --- | --- |
 | Source revision / quant / tokenizer / template / prompt | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, lock и install provenance, device info, artifact/runtime manifests, prompt и все outputs/time/memory evidence. Веса и venv не коммитить.
+Report/TSV/manifest, lock and installation provenance, device info, artifact/runtime manifests, prompt and all output/time/memory evidence. Do not commit weights or the venv.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Подтверждены native arm64 и точные версии.
-- [ ] MLX-веса учтены отдельно от GGUF.
-- [ ] Smoke и три повтора выполнены либо оформлен blocker.
-- [ ] Зафиксированы фактический output, память и ограничения сравнения.
-- [ ] Комплект проверен `lab:check --mode submission`.
+- [ ] Native arm64 and exact versions confirmed.
+- [ ] MLX weights recorded separately from GGUF.
+- [ ] Smoke test and three repetitions completed, or blocker documented.
+- [ ] Actual output, memory and comparison limitations recorded.
+- [ ] Submission checked with `lab:check --mode submission`.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему новая CLI-команда не измеряет прогретый resident server?
-2. Почему 4-bit MLX и Q4_K_M не контролируют quantization как один фактор?
-3. Какие процессы входят в RSS, а какие метрики даёт runtime?
-4. Почему `/v1/models` недостаточно для доказательства deployment identity?
+1. Why does a fresh CLI command not measure a warm resident server?
+2. Why do 4-bit MLX and Q4_K_M not control quantization as a single factor?
+3. Which processes contribute to RSS, and which metrics does the runtime provide?
+4. Why is `/v1/models` insufficient to prove deployment identity?
 
-## Источники
+## Sources
 
 - [MLX-LM](https://github.com/ml-explore/mlx-lm).
 - [MLX device API](https://ml-explore.github.io/mlx/build/html/python/devices_and_streams.html).

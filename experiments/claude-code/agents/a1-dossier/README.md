@@ -1,1 +1,1 @@
-Реализация A1 под Claude Code: пока — спецификация как промпт (см. README обвязки). SDK-вариант `run.mjs` добавить после первого CLI-прогона.
+A1 implementation for Claude Code: currently the specification as a prompt (see the harness README). Add an SDK variant, `run.mjs`, after the first CLI run.

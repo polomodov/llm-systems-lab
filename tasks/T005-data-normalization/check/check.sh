@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Скрытая проверка T005. Использование: check.sh <run-dir>
-# Код выхода: 0 — pass, 2 — partial, 1 — fail. Последняя строка вывода: verdict: <pass|partial|fail>.
+# Hidden check T005. Usage: check.sh <run-dir>
+# Exit codes: 0 — pass, 2 — partial, 1 — fail. Final output line: verdict: <pass|partial|fail>.
 set -euo pipefail
 RUN="${1:?run dir}"
 HERE="$(cd "$(dirname "$0")" && pwd -P)"
@@ -10,7 +10,7 @@ TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 fail() { echo "✖ $1"; echo "verdict: fail"; exit 1; }
 [ -d "$DATA" ] || fail "no workspace/data"
-# Исходные данные не должны быть изменены агентом.
+# The agent must not modify input data.
 for f in orders_a.csv orders_b.tsv orders_c.json; do
   bash "$HERE/../setup.sh" "$TMP/pristine" >/dev/null 2>&1 || true
   cmp -s "$DATA/$f" "$TMP/pristine/data/$f" || fail "data/$f was modified"

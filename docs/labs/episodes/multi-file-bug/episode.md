@@ -1,34 +1,34 @@
-# Учебный эпизод: остатки заказа
+# Educational episode: order stock
 
-## Миссия
+## Mission
 
-Исправить обработку заказа в небольшом магазине. Клиент может прислать одну позицию несколькими строками и с пробелами вокруг SKU. Нельзя продать больше доступного количества или частично изменить склад после отклонённого заказа.
+Fix order processing in a small shop. A client may submit an item across multiple lines with whitespace around its SKU. Do not sell more than available stock or partially change inventory after a rejected order.
 
-## Входы
+## Inputs
 
-- `src/basket.mjs`: нормализация строк клиента.
-- `src/inventory.mjs`: резервирование остатков.
-- `src/checkout.mjs`: публичная точка оформления.
-- `check.mjs`: открытые учебные сценарии; их чтение разрешено.
+- `src/basket.mjs`: client-line normalization.
+- `src/inventory.mjs`: stock reservation.
+- `src/checkout.mjs`: public checkout entry point.
+- `check.mjs`: open educational scenarios; reading them is permitted.
 
-## Контракт результата
+## Output contract
 
-`checkout(lines, stock)` принимает массив `{ sku, quantity }` и изменяемый объект остатков. SKU — непустая строка после `trim`; quantity — положительное безопасное целое число. Повторяющиеся нормализованные SKU объединяются; порядок первой встречи сохраняется. Сумма количеств также должна быть безопасным целым.
+`checkout(lines, stock)` accepts an array of `{ sku, quantity }` and a mutable stock object. SKU is a nonempty string after `trim`; quantity is a positive safe integer. Merge duplicate normalized SKUs, preserving first-appearance order. Combined quantities must also be safe integers.
 
-При успехе возвращается `{ items }` с нормализованными объединёнными позициями, а остатки уменьшаются один раз на суммарное количество. При неизвестном SKU, некорректном вводе либо недостаточном остатке выбрасывается ошибка, а **весь** объект `stock` остаётся неизменным. Пустой заказ допустим и ничего не меняет. Точные тексты ошибок не оцениваются.
+On success, return `{ items }` with normalized merged items and decrement stock once by total quantity. Unknown SKUs, invalid input or insufficient stock raise an error and leave the **entire** `stock` object unchanged. Empty orders are valid and change nothing. Exact error text is not assessed.
 
-`reserve(items, stock)` — тоже публичная функция: она должна сохранять атомарность при ошибке независимо от вызова через `checkout`. Нельзя считать, что все её вызывающие стороны заранее проверяют остатки.
+`reserve(items, stock)` is also public: it must preserve atomicity on failure independently of invocation through `checkout`. Do not assume all callers validate stock beforehand.
 
-## Разрешённые действия и остановка
+## Allowed actions and stopping
 
-Работайте с копией по [общей инструкции](../README.md). Изменять можно только `src/*.mjs`; добавлять отдельные тесты — в `extra-tests/`. Сеть и дополнительные зависимости не нужны. Нельзя изменять `check.mjs`, контракт или исходный fixture репозитория. Остановитесь после прохода открытых сценариев и собственного объяснения причины ошибки; не добавляйте новую бизнес-функциональность.
+Work on a copy under the [shared guide](../README.md). Modify only `src/*.mjs`; add separate tests in `extra-tests/`. No network or additional dependencies are needed. Do not modify `check.mjs`, the contract or the repository's original fixture. Stop after the open scenarios pass and you explain the cause; do not add business functionality.
 
 ```bash
 node "$EPISODE_DIR/check.mjs"
 ```
 
-В исходной копии ожидаются **2 pass / 3 fail**, exit 1: проходят `valid-single` и `reject-zero`; падают `merge-duplicates`, `duplicate-shortage-is-atomic`, `direct-reserve-is-atomic`. После исправления ожидается **5 pass / 0 fail**, exit 0. Это ожидаемые условия упражнения, не результаты запуска модели и не исчерпывающая проверка контракта.
+The initial copy should yield **2 pass / 3 fail**, exit 1: `valid-single` and `reject-zero` pass; `merge-duplicates`, `duplicate-shortage-is-atomic`, `direct-reserve-is-atomic` fail. After the fix, expect **5 pass / 0 fail**, exit 0. These are expected exercise conditions, not model-run results or exhaustive contract checks.
 
-## Что сдать
+## Deliverables
 
-Исходный и конечный вывод проверки, diff трёх модулей, дополнительные проверки, объяснение взаимодействия нормализации и атомарности, ограничения решения. Для ЛР21 сохраните ещё checkpoint с требованиями, уже изменёнными файлами и оставшейся работой. Не включайте ответ или патч в текст следующего повторного исходного задания.
+Initial and final check output, three-module diff, extra checks, explanation of normalization/atomicity interaction, solution limitations. For LAB21, also save a checkpoint with requirements, already modified files and remaining work. Do not include the answer or patch in the next repeated initial assignment.

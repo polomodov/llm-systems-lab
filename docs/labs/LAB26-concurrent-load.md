@@ -1,27 +1,27 @@
-# ЛР26. Параллельная нагрузка на локальный сервер
+# LAB26. Concurrent load on a local server
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип работы | Ограниченный HTTP load test локального inference service |
-| Время | 2–3 часа оператора плюс исполнение; длительность зависит от модели и выбранных timeout |
-| Предпосылки | Завершённая ЛР05, аппаратный паспорт и проверенный model server на Ryzen AI Max+ 395 / 128 GB / Linux |
-| Готовность | `target-machine`; HTTP driver и его offline tests готовы; bridge ЛР08 для этого опыта не нужен |
-| Минимальный объём | Прогрев и три серии по 12 запросов при client concurrency 1, 2 и 4; одна модель и конфигурация сервера |
-| Расширение | Три повтора каждого concurrency с балансировкой порядка; затем длительная устойчивость, энергия или другая server configuration |
+| Type | Bounded HTTP load test of a local inference service |
+| Time | 2–3 hours of operator time plus execution; duration depends on the model and selected timeouts |
+| Prerequisites | Completed LAB05, hardware profile, and a verified model server on Ryzen AI Max+ 395 / 128 GB / Linux |
+| Readiness | `target-machine`; the HTTP driver and its offline tests are ready; the LAB08 bridge is not needed for this experiment |
+| Minimum scope | Warmup and three series of 12 requests at client concurrency 1, 2, and 4; one model and server configuration |
+| Extension | Three repetitions per concurrency with balanced order; then sustained stability, energy, or another server configuration |
 
-## Цель
+## Objective
 
-Найти полезный параллелизм для выбранного локального deployment: сколько запросов сервер завершает за единицу времени и какой ценой по задержке, памяти и ошибкам. Получить воспроизводимый профиль на реальной машине, сохранив каждый неуспешный запрос.
+Find useful parallelism for the selected local deployment: how many requests the server completes per unit time and the associated latency, memory, and error costs. Produce a reproducible profile on a real machine while retaining every unsuccessful request.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Увеличение client concurrency с 1 до 2 и 4 повышает общую производительность в пределах заранее выбранной допустимой задержки и запаса памяти. До запуска запишите границы приемлемости: timeout запроса, допустимую долю HTTP/protocol errors, резерв доступной RAM и допустимость swap. Не назначайте численные показатели Ryzen до измерения.
+Increasing client concurrency from 1 to 2 and 4 improves aggregate throughput within predefined acceptable latency and memory headroom. Record acceptance boundaries before running: request timeout, acceptable HTTP/protocol error rate, available RAM reserve, and whether swap is allowed. Do not assign numerical Ryzen performance values before measuring.
 
-Конкурентные HTTP-запросы не гарантируют параллельное исполнение на GPU: сервер может поставить их в очередь. Эта работа измеряет поведение целого deployment при фиксированных server slots и scheduling policy. Увеличение числа server slots — отдельное вмешательство и отдельная серия.
+Concurrent HTTP requests do not guarantee parallel GPU execution: the server may queue them. This lab measures the behavior of the entire deployment with fixed server slots and scheduling policy. Increasing server slots is a separate intervention and a separate series.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB26 --session my-session
@@ -31,16 +31,16 @@ python3 -B docs/labs/fixtures/concurrency_driver.py --help
 npm run check
 ```
 
-Используйте проверенный server из ЛР05–07 с закреплёнными weight hashes, backend/build, template, контекстом, KV dtype, sampling/reasoning и launch command. Запишите hardware snapshot, режим питания, фоновые процессы и cache policy. Требуемые команды slots/queue/prefix-cache проверяйте в `--help` и документации **вашего pinned runtime**. Эта методичка не утверждает одинаковую семантику параметров разных движков.
+Use a verified server from LAB05–07 with pinned weight hashes, backend/build, template, context, KV dtype, sampling/reasoning, and launch command. Record the hardware snapshot, power mode, background processes, and cache policy. Verify required slots/queue/prefix-cache options in `--help` and documentation for **your pinned runtime**. This manual does not claim identical parameter semantics across engines.
 
-Driver выполняется на том же Linux-host, что и inference service. Разрешены только явно заданные `http://127.0.0.1:PORT/v1/chat/completions` или `http://[::1]:PORT/v1/chat/completions`. Он не читает `.env`, не передаёт auth, не следует redirects, не использует HTTP proxy, не вызывает tools и не повторяет неудачные запросы. Для сервера, требующего авторизацию, этот минимальный driver неприменим: сохраните blocker или подготовьте отдельный проверенный клиент с передачей секретов по правилам репозитория. Не снимайте действующую защиту сервера ради пробы.
+The driver runs on the same Linux host as the inference service. Only explicitly specified `http://127.0.0.1:PORT/v1/chat/completions` or `http://[::1]:PORT/v1/chat/completions` endpoints are allowed. It does not read `.env`, send authentication, follow redirects, use an HTTP proxy, call tools, or retry failed requests. This minimal driver is unsuitable for a server requiring authentication: retain a blocker or prepare a separately verified client that passes secrets according to repository rules. Do not remove existing server protection for a probe.
 
-## Порядок выполнения
+## Procedure
 
-1. **Подготовьте публичный нагрузочный запрос.** [Готовый fixture](fixtures/concurrency-request.json) просит текст с output cap 512. Это нагрузка, не проверка качества модели. Создайте рабочую копию с alias фактически запущенной модели; повторное выполнение не перезапишет файл:
+1. **Prepare a public load request.** The [ready-made fixture](fixtures/concurrency-request.json) requests text with an output cap of 512. This is load, not a model quality check. Create a working copy with the alias of the model actually running; repeating this step will not overwrite the file:
 
    ```bash
-   MODEL_ALIAS='<проверенный alias локальной модели>'
+   MODEL_ALIAS='<verified local model alias>'
    python3 - "$LAB_DIR" "$MODEL_ALIAS" <<'PY'
    import json, pathlib, sys
    data = json.loads(pathlib.Path('docs/labs/fixtures/concurrency-request.json').read_text())
@@ -51,11 +51,11 @@ Driver выполняется на том же Linux-host, что и inference s
    PY
    ```
 
-   Допустимы только один текстовый user message, model, `max_tokens` 1…4096, `stream:false` и необязательные `temperature`, `top_p`, `seed`. Если sampling отсутствует в JSON, закрепите серверные defaults. Не добавляйте keys, приватные данные и инструменты. Принятие seed сервером проверяется отдельно и не обещает детерминизма. Сохраните этот один request для всей серии.
+   Only one text user message, model, `max_tokens` 1…4096, `stream:false`, and optional `temperature`, `top_p`, and `seed` are allowed. If sampling is absent from the JSON, pin server defaults. Do not add keys, private data, or tools. Server acceptance of seed is checked separately and does not promise determinism. Keep this single request for the entire series.
 
-2. **Проверьте аппаратный запас и server identity.** Сохраните logs readiness, выбранный GPU/offload, allocations, PID/cgroup и server-side limits. Контекст и число slots должны допускать четыре запросa либо давать явный задокументированный отказ; не увеличивайте лимиты между тремя опытами. Запишите исходные memory/swap по ЛР02. На UMA не складывайте RSS и GPU allocation как независимые расходы общей RAM.
+2. **Check hardware headroom and server identity.** Save readiness logs, selected GPU/offload, allocations, PID/cgroup, and server-side limits. Context and slot count must accommodate four requests or return an explicit documented rejection; do not increase limits between the three experiments. Record initial memory/swap using LAB02. On UMA, do not add RSS and GPU allocation as independent uses of shared RAM.
 
-3. **Выполните отдельный прогрев.** Endpoint должен совпадать с запущенным локальным сервером:
+3. **Perform a separate warmup.** The endpoint must match the running local server:
 
    ```bash
    LOCAL_ENDPOINT='http://127.0.0.1:8080/v1/chat/completions'
@@ -64,9 +64,9 @@ Driver выполняется на том же Linux-host, что и inference s
      --concurrency 1 --requests 2 --timeout 120 --out "$LAB_DIR/raw/warmup"
    ```
 
-   Значение `120` — верхняя граница одного запроса, а не прогноз скорости. Если пилот показывает недостаточность этого лимита, сохраните failure и до сравнительных запусков назначьте другой общий timeout, максимум 600 s. Каталог `--out` должен быть новым, его родитель уже существует. Driver сохранит config, исходный request, status/error каждого запроса и ограниченные тела ответов, даже при HTTP error или timeout. Exit 1 означает ошибки запросов; exit 2 — некорректную конфигурацию или ошибку файлов. До следующего шага устраните проблему либо оформите blocker.
+   The value `120` is an upper bound for one request, not a speed prediction. If the pilot shows this limit is insufficient, retain the failure and choose another shared timeout before comparison runs, at most 600 s. The `--out` directory must be new and its parent must already exist. The driver saves config, original request, each request's status/error, and bounded response bodies, even on HTTP errors or timeouts. Exit 1 means request errors; exit 2 means invalid configuration or a file error. Resolve the problem or document a blocker before the next step.
 
-4. **Исполните минимальную последовательность 1→2→4.** Запускайте **одну** серию за раз и изучайте её результат до перехода дальше. Пример первой:
+4. **Execute the minimal 1→2→4 sequence.** Run **one** series at a time and inspect its result before proceeding. Example of the first:
 
    ```bash
    python3 -B docs/labs/fixtures/concurrency_driver.py \
@@ -74,78 +74,78 @@ Driver выполняется на том же Linux-host, что и inference s
      --concurrency 1 --requests 12 --timeout 120 --out "$LAB_DIR/raw/r1-c1"
    ```
 
-   Для следующей замените concurrency на `2` и output на `r1-c2`, затем на `4` и `r1-c4`. Не меняйте prompt/output/context/cache settings. При потере readiness, OOM или нарушении записанного резерва памяти остановите увеличение нагрузки, сохраните logs и отметьте недостигнутую ступень как blocked. Никакого автоматического restart или retry нет. Закрытие клиентского соединения по timeout не доказывает отмену generation: перед следующей серией проверьте серверную очередь и отсутствие оставшихся запросов.
+   For the next series, change concurrency to `2` and output to `r1-c2`, then to `4` and `r1-c4`. Do not change prompt/output/context/cache settings. If readiness is lost, OOM occurs, or the recorded memory reserve is violated, stop increasing load, retain logs, and mark the unreached level blocked. There is no automatic restart or retry. A client connection closing on timeout does not prove generation was canceled: check the server queue and absence of outstanding requests before the next series.
 
-5. **Разберите измерения и ресурсы.** В каждой output-директории есть:
+5. **Analyze measurements and resources.** Each output directory contains:
 
-   - `config.json`, `request.json`: endpoint, concurrency, число запросов, deadline и SHA запроса;
-   - `request-NNNN.json` и `.response.bin`: individual latency/status/error/usage и до 1 MiB сырого ответа; `response_truncated` явно отмечает ограничение;
-   - `system-memory.jsonl`: Linux `MemTotal`, `MemAvailable`, `pswpin/pswpout` до и после серии и с интервалом около секунды;
-   - `summary.json`: wall-clock всей серии, successful requests/s, successful completion tokens/s при полном usage, median/p95/max latency успешных ответов, число ошибок.
+   - `config.json`, `request.json`: endpoint, concurrency, request count, deadline, and request SHA;
+   - `request-NNNN.json` and `.response.bin`: individual latency/status/error/usage and up to 1 MiB of raw response; `response_truncated` explicitly marks the limit;
+   - `system-memory.jsonl`: Linux `MemTotal`, `MemAvailable`, `pswpin/pswpout` before and after the series and at intervals of roughly one second;
+   - `summary.json`: entire-series wall-clock time, successful requests/s, successful completion tokens/s when usage is complete, median/p95/max latency of successful responses, and error count.
 
-   Token usage берётся из ответа сервера. Если usage неизвестен хотя бы для одного успешного ответа, общий successful tokens/s остаётся `null`; ошибок это не скрывает. HTTP 200 с невалидным JSON, пустым assistant text, неожиданным tool call или finish reason вне `stop`/`length` считается protocol error. Обработчик не оценивает правильность написанного текста. `finish_reason=length` допустим для ограниченной нагрузки, но долю таких ответов покажите отдельно.
+   Token usage comes from the server response. If usage is unknown for even one successful response, aggregate successful tokens/s remains `null`; this does not hide errors. HTTP 200 with invalid JSON, empty assistant text, an unexpected tool call, or a finish reason other than `stop`/`length` counts as a protocol error. The handler does not judge the text's correctness. `finish_reason=length` is acceptable for bounded load, but show the share of such responses separately.
 
-   Median/p95 относятся к **успешным** ответам; рядом обязательно показывайте failures и их latency, иначе быстрые отказы могут создать ложное улучшение. p95 использует nearest-rank; на 12 наблюдениях это максимум, поэтому минимум работы даёт только грубую оценку хвоста. Это задержка полного ответа с очередью сервера и установлением соединения, без ожидания в очереди client executor. TTFT и decode-only speed не измеряются: `stream:false` не даёт таких данных. Новое соединение на каждый запрос — часть неизменной методики.
+   Median/p95 describe **successful** responses; always show failures and their latency alongside them, otherwise fast rejections may create a false improvement. p95 uses nearest-rank; with 12 observations it is the maximum, so the minimum lab scope gives only a rough tail estimate. This is full-response latency including server queuing and connection establishment, excluding waiting in the client executor queue. TTFT and decode-only speed are not measured: `stream:false` provides no such data. A new connection for every request is part of the fixed method.
 
-   `minimum_sampled_mem_available_bytes` описывает всю машину и может пропустить короткий пик между отсчётами. Дополнительно приложите доступную телеметрию server process/cgroup, GPU allocations и температуры из ЛР02, со способом и частотой измерения. Если engine создаёт workers, RSS одного PID не представляет весь deployment. Для peak allocations без измерителя сохраните `null`, не называйте минимум MemAvailable точным пиком модели. Swap counters системные и требуют учёта фоновой нагрузки.
+   `minimum_sampled_mem_available_bytes` describes the entire machine and may miss a short peak between samples. Additionally attach available server process/cgroup telemetry, GPU allocations, and temperatures from LAB02, with measurement method and frequency. If the engine creates workers, one PID's RSS does not represent the entire deployment. Retain `null` for peak allocations without a measuring tool; do not call minimum MemAvailable the model's exact peak. Swap counters are system-wide and require accounting for background load.
 
-6. **Постройте профиль масштабирования.** Для каждого concurrency посчитайте отношение successful requests/s к c1 и отношение median latency к c1, если оба значения измерены. Completion tokens/s сравнивайте вместе с количеством output tokens и finish reasons: разная длина ответа меняет нагрузку. Зафиксируйте, где сервер начал очередить, отказывать или вытеснять память, используя logs. Отдельно объясните роль prefix cache: одинаковые запросы могут проверять тёплый cache; вывод не переносится автоматически на уникальные длинные prompts.
+6. **Build a scaling profile.** For each concurrency, calculate successful requests/s relative to c1 and median latency relative to c1 if both values are measured. Compare completion tokens/s together with output token count and finish reasons: different response lengths change the load. Use logs to identify where the server began queuing, rejecting requests, or evicting memory. Explain prefix cache separately: identical requests may test a warm cache; the conclusion does not automatically apply to unique long prompts.
 
-7. **Расширьте серию, меняя один фактор.** Для трёх повторов дополните порядок `2→4→1` и `4→1→2`, по 12 новых запросов на ступень, с новыми `r2-*` и `r3-*` директориями. Между опытами проверяйте readiness и одинаковые начальные условия. Это 108 сравнительных запросов плюс прогрев. Для устойчивости заранее назначьте ограниченное число таких batch за 30–60 минут и верхний предел общего числа запросов; driver принимает не более 256 запросов за одно исполнение. Плановое окончание и аварийное прекращение сохраняйте как разные исходы. Отдельными сериями можно исследовать server slots, другой context, Vulkan/HIP или другой движок — не менять их внутри сравнения concurrency.
+7. **Extend the series by changing one factor.** For three repetitions, add orders `2→4→1` and `4→1→2`, with 12 new requests per level and new `r2-*` and `r3-*` directories. Check readiness and identical initial conditions between experiments. This totals 108 comparison requests plus warmup. For stability, predefine a bounded number of these batches over 30–60 minutes and an upper bound on total requests; the driver accepts at most 256 requests per execution. Retain planned completion and emergency termination as different outcomes. Separate series can study server slots, another context, Vulkan/HIP, or another engine; do not change them within the concurrency comparison.
 
-8. **При наличии реального измерителя добавьте энергию.** Зафиксируйте прибор, точку измерения всей системы, точность/частоту и timestamps; отдельно измерьте idle того же компьютера с загруженной моделью. Для интервала всей серии сохраните total Wh и число успешных запросов, затем `Wh / successful request`; при нуле успешных запросов показатель не определён. Покажите gross energy и, если вычитаете idle, отдельный расчёт с длительностью и допущением постоянного idle. TDP и nominal power limit не заменяют измеренных watts. При отсутствии прибора энергия остаётся `null`; работа всё равно может быть завершена.
+8. **Add energy if a real meter is available.** Record the instrument, whole-system measurement point, accuracy/frequency, and timestamps; separately measure idle consumption of the same computer with the model loaded. Save total Wh and successful-request count over the entire series interval, then calculate `Wh / successful request`; with zero successful requests, the metric is undefined. Show gross energy and, if subtracting idle, a separate calculation with duration and the constant-idle assumption. TDP and nominal power limits do not substitute for measured watts. Without an instrument, energy remains `null`; the lab can still be completed.
 
-## Таблицы результатов
+## Results tables
 
 | Deployment fingerprint | Backend / slots / queue policy | Context/output | Sampling / reasoning / cache | Hardware manifest / telemetry |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-| Повтор / concurrency | Success / total | HTTP / protocol / timeout errors | Median / p95 / max latency, s | Requests/s | Completion tokens/s / usage coverage | Output tokens / length stops |
+| Repetition / concurrency | Success / total | HTTP / protocol / timeout errors | Median / p95 / max latency, s | Requests/s | Completion tokens/s / usage coverage | Output tokens / length stops |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 / 1 | | | | | | |
 | 1 / 2 | | | | | | |
 | 1 / 4 | | | | | | |
 
-| Повтор / concurrency | Min sampled MemAvailable, bytes | Server peak / метод | GPU allocation / метод | Swap delta / фон | Температура / throttling evidence | Raw directory |
+| Repetition / concurrency | Min sampled MemAvailable, bytes | Server peak / method | GPU allocation / method | Swap delta / background | Temperature / throttling evidence | Raw directory |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 / 1 | | | | | | |
 | 1 / 2 | | | | | | |
 | 1 / 4 | | | | | | |
 
-| Серия / прибор | Интервал | Gross Wh | Idle W / отдельный интервал | Wh / successful request | Ограничения |
+| Series / instrument | Interval | Gross Wh | Idle W / separate interval | Wh / successful request | Limitations |
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт, учебный manifest, request и SHA, точную launch command/server identity, таблицы и **все** новые output-директории driver, server logs и доступную аппаратную телеметрию. Отдельно приложите protocol/budget plan и причину каждой остановленной ступени. Заполните [проверку комплектности](report-validation.md). Это HTTP probes, поэтому их нельзя выдавать за T002 `run.json`, agent verdict или реальную автономную работу.
+A report, training manifest, request and SHA, exact launch command/server identity, tables and **all** new driver output directories, server logs, and available hardware telemetry. Attach the protocol/budget plan and reason for each stopped level separately. Complete the [completeness check](report-validation.md). These are HTTP probes; do not present them as T002 `run.json`, an agent verdict, or real autonomous work.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Driver offline tests проходят; loopback endpoint и pinned deployment подтверждены.
-- [ ] До запуска закреплены один request, лимиты, server slots и cache policy.
-- [ ] Выполнены прогрев и все три ступени либо оформлен конкретный аппаратный blocker; ошибки сохранены.
-- [ ] Метрики успешных ответов показаны вместе с полным числом failures; неизвестный usage не превращён в 0.
-- [ ] Сохранены memory/swap observations, ограничения sampling и UMA учтены.
-- [ ] Не смешаны полный response latency, TTFT, decode speed и агентное качество.
-- [ ] Энергия подтверждена измерителем или явно отсутствует; `npm run check` проходит.
+- [ ] Driver offline tests pass; the loopback endpoint and pinned deployment are confirmed.
+- [ ] One request, limits, server slots, and cache policy are fixed before execution.
+- [ ] Warmup and all three levels are completed, or a specific hardware blocker is documented; errors are retained.
+- [ ] Successful-response metrics appear alongside the full failure count; unknown usage is not converted to 0.
+- [ ] Memory/swap observations are retained; sampling limitations and UMA are accounted for.
+- [ ] Full-response latency, TTFT, decode speed, and agent quality are not conflated.
+- [ ] Energy is supported by a meter or explicitly absent; `npm run check` passes.
 
-Ступень с явными 429/503 при работающем сервере может быть завершённым наблюдением предела, а не поводом удалить её из отчёта. При недоступной машине или невозможном стартовом deployment результат — `blocked`, а не успешное исследование Ryzen.
+A level with explicit 429/503 responses from a working server may be a completed observation of a limit, not a reason to remove it from the report. If the machine is unavailable or the initial deployment cannot run, the result is `blocked`, not a successful Ryzen study.
 
-## Контрольные вопросы
+## Review questions
 
-1. Чем client concurrency отличается от GPU batch и числа server slots?
-2. Почему рост requests/s может сопровождаться ухудшением пользовательской задержки?
-3. Как короткие отказы и отсутствующий usage искажают красивый график throughput?
-4. Почему при 12 запросах p95 почти не даёт информации отдельно от max?
-5. Что не позволяет измерить данный non-streaming driver?
-6. Как prefix cache и thermal state влияют на переносимость результата?
-7. Почему Wh/request и tokens/s ещё не отвечают на вопрос о стоимости успешной агентной задачи?
+1. How does client concurrency differ from GPU batch size and server slot count?
+2. Why can higher requests/s accompany worse user latency?
+3. How do short failures and missing usage distort an attractive throughput graph?
+4. Why does p95 provide almost no information beyond max with 12 requests?
+5. What cannot be measured by this non-streaming driver?
+6. How do prefix cache and thermal state affect result transferability?
+7. Why do Wh/request and tokens/s still not answer the cost of a successful agent task?
 
-## Источники
+## Sources
 
-- [Открытый driver](fixtures/concurrency_driver.py), [offline mock tests](fixtures/concurrency_test.py), [нагрузочный request](fixtures/concurrency-request.json).
-- [Python: HTTPConnection и timeout сетевых операций](https://docs.python.org/3/library/http.client.html), [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html). Driver дополнительно ограничивает общий deadline запроса watchdog и не следует redirects.
-- [Паспорт и телеметрия Linux](LAB02-hardware.md), [контекст и protocol preflight](LAB05-context-tools.md), [engine profiles](../local-inference-engines.md).
-- Версия/help и runtime documentation выбранного deployment прилагаются исполнителем. Поддержка конкретных scheduling/cache flags не предполагается без проверки.
+- [Public driver](fixtures/concurrency_driver.py), [offline mock tests](fixtures/concurrency_test.py), [load request](fixtures/concurrency-request.json).
+- [Python: HTTPConnection and network-operation timeouts](https://docs.python.org/3/library/http.client.html), [ThreadPoolExecutor](https://docs.python.org/3/library/concurrent.futures.html). The driver additionally enforces the overall request deadline with a watchdog and does not follow redirects.
+- [Linux profile and telemetry](LAB02-hardware.md), [context and protocol preflight](LAB05-context-tools.md), [engine profiles](../local-inference-engines.md).
+- The executor attaches version/help and runtime documentation for the selected deployment. Support for specific scheduling/cache flags is not assumed without verification.

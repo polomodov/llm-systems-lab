@@ -1,34 +1,34 @@
-# ЛР 02. Паспорт Ryzen AI Max+ 395 и доступной памяти Linux
+# LAB 02. Ryzen AI Max+ 395 profile and available Linux memory
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Время-ориентир | 45–90 минут при наличии диагностических утилит |
-| Предпосылки | Выполнена ЛР 01; работа непосредственно на целевом Ryzen под Linux; Node.js и Python 3 доступны |
-| Статус готовности | Инструкция готова; параметры машины и аппаратный smoke пока `unverified` |
-| Результат | Паспорт CPU/GPU/ОС, исходные бюджеты RAM и GPU, решение о допуске к следующим работам |
+| Estimated time | 45–90 minutes with diagnostic utilities available |
+| Prerequisites | LAB 01 completed; working directly on the target Ryzen under Linux; Node.js and Python 3 available |
+| Readiness status | Instructions ready; machine parameters and hardware smoke tests remain `unverified` |
+| Outcome | CPU/GPU/OS profile, initial RAM and GPU budgets, decision on admission to subsequent labs |
 
-Выполняйте команды из корня лабораторного репозитория на целевой Linux-машине. Эта работа читает состояние системы и создаёт архив наблюдений. Она не устанавливает пакеты, не меняет BIOS, ядро, TTM/GTT, драйверы или профиль питания.
+Run commands from the lab repository root on the target Linux machine. This lab reads system state and creates an observation archive. It does not install packages or change the BIOS, kernel, TTM/GTT, drivers, or power profile.
 
-## Цель
+## Objective
 
-Установить фактическую конфигурацию Ryzen AI Max+ 395 и объём памяти, который можно безопасно запланировать под одну локальную модель, оставив резерв ОС и обвязке.
+Establish the actual Ryzen AI Max+ 395 configuration and the memory that can safely be budgeted for one local model, reserving capacity for the OS and harness.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-На машине доступна Radeon 8060S / `gfx1151`, её видят Vulkan и ROCm, а измеренные бюджеты общей памяти и GPU позволяют выделить память модели без двойного учёта UMA. Наличие «128 GB» в описании компьютера само по себе эту гипотезу не подтверждает.
+A Radeon 8060S / `gfx1151` is available on the machine and visible to Vulkan and ROCm, and measured shared-memory and GPU budgets allow memory to be allocated for the model without double-counting UMA. “128 GB” in the computer's description does not by itself confirm this hypothesis.
 
-## Подготовка
+## Preparation
 
-- Закройте активные inference-процессы самостоятельно; не завершайте незнакомые пользовательские процессы.
-- Запишите модель компьютера, режим питания, наличие питания от сети, активный рабочий стол и существенные фоновые нагрузки. Не публикуйте серийный номер.
-- Выберите новый `session-id`. В примере это `my-session`; повторная работа получает другое имя.
-- Отсутствующие `vulkaninfo`, `rocminfo`, `hipconfig` отмечайте как `unavailable`. Установка отсутствующего стека — отдельная работа, после которой паспорт снимают заново.
+- Close active inference processes yourself; do not terminate unfamiliar user processes.
+- Record the computer model, power mode, whether it is on AC power, active desktop environment, and significant background workloads. Do not publish the serial number.
+- Choose a new `session-id`. The example uses `my-session`; a repeated lab gets a different name.
+- Mark missing `vulkaninfo`, `rocminfo`, or `hipconfig` as `unavailable`. Installing a missing stack is a separate task, after which the profile must be collected again.
 
-## Порядок выполнения
+## Procedure
 
-1. Создайте архив лабораторной и проверьте целевую ОС:
+1. Create the lab archive and verify the target OS:
 
    ```sh
    npm run lab:new -- --lab LAB02 --session my-session
@@ -37,9 +37,9 @@
    test -d "$LAB_DIR/raw"
    ```
 
-   Если это macOS, WSL или другая машина, остановитесь и укажите причину в отчёте. Для этой серии требуется native Linux на Ryzen; чужой результат или виртуальная машина не заменяют паспорт владельца.
+   If this is macOS, WSL, or another machine, stop and record the reason in the report. This series requires native Linux on Ryzen; someone else's result or a virtual machine does not replace the owner's machine profile.
 
-2. Снимите доступные сведения, сохраняя ошибки и отсутствующие утилиты. Скрипт не прерывает весь сбор, если один датчик недоступен:
+2. Collect available information, preserving errors and missing utilities. The script does not abort the entire collection if one sensor is unavailable:
 
    ```sh
    python3 - <<'PY'
@@ -85,7 +85,7 @@
    PY
    ```
 
-3. Прочитайте только доступные sysfs-параметры UMA и пересчитайте единицы. Скрипт сохраняет как исходные байты, так и GiB; параметры TTM остаются отдельными от объёма RAM:
+3. Read only available UMA sysfs parameters and convert the units. The script saves both original bytes and GiB; TTM parameters remain separate from RAM capacity:
 
    ```sh
    python3 - <<'PY'
@@ -116,77 +116,77 @@
    PY
    ```
 
-   `pages_limit × page_size_bytes` — предел страниц TTM, а не гарантированно свободная память GPU. Не складывайте его с `MemTotal`, VRAM или GTT. Shared UMA, dedicated carve-out и API heap могут описывать пересекающуюся физическую память.
+   `pages_limit × page_size_bytes` is the TTM page limit, not guaranteed free GPU memory. Do not add it to `MemTotal`, VRAM, or GTT. Shared UMA, a dedicated carve-out, and an API heap may describe overlapping physical memory.
 
-4. Сопоставьте три уровня обнаружения: PCI/драйвер, Vulkan device и HSA/ROCm device. Найдите Radeon 8060S в `vulkan-full.txt`, `gfx1151` в `rocminfo.txt`, активный `amdgpu` в `pci.txt`. Программный Vulkan renderer не засчитывается как GPU. Сохраните имена ICD, версии API/драйвера, heap sizes и budgets, если они присутствуют. Если есть несколько устройств, укажите выбранное и его render node; не предполагается, что это всегда `/dev/dri/renderD128`.
+4. Compare three detection levels: PCI/driver, Vulkan device, and HSA/ROCm device. Find Radeon 8060S in `vulkan-full.txt`, `gfx1151` in `rocminfo.txt`, and an active `amdgpu` in `pci.txt`. A software Vulkan renderer does not count as a GPU. Save ICD names, API/driver versions, heap sizes, and budgets where available. If there are multiple devices, identify the selected device and its render node; do not assume it is always `/dev/dri/renderD128`.
 
-5. Сопоставьте ядро и ROCm с **версией** документации AMD. Для gfx1151 AMD описывает необходимые исправления KFD; перечислены Ubuntu HWE от `6.17.0-19.19~24.04.2`, OEM от `6.14.0-1018`, остальные дистрибутивы от `6.18.4` для указанной таблицы prebuilt. Проверьте backports и ограничения своего релиза. Запишите URL, дату доступа и вывод: `documented`, `conditional` либо `unverified`. Никакие команды смены ядра из внешней инструкции в этой работе не выполняются.
+5. Compare the kernel and ROCm against a **version** of the AMD documentation. For gfx1151, AMD describes required KFD fixes; the cited prebuilt table lists Ubuntu HWE from `6.17.0-19.19~24.04.2`, OEM from `6.14.0-1018`, and other distributions from `6.18.4`. Check backports and limitations of your release. Record the URL, access date, and conclusion: `documented`, `conditional`, or `unverified`. Do not execute any kernel-changing commands from external instructions during this lab.
 
-6. Запишите бюджет первой серии в отчёт: фактическая RAM, резерв ОС/обвязки, отдельно доступный GPU budget и источник каждого числа. Начальный резерв ОС — 16 GiB, если в ЛР 01 не объявлен другой. Предварительная модельная оценка должна удовлетворять обоим ограничениям:
+6. Record the first series' budget in the report: actual RAM, OS/harness reserve, separately available GPU budget, and the source of every number. The initial OS reserve is 16 GiB unless another was declared in LAB 01. The preliminary model estimate must satisfy both constraints:
 
    ```text
    weights + runtime + KV/state <= measured_RAM - OS_reserve
    allocations_on_GPU <= measured_available_GPU_budget
    ```
 
-   Если budget API не предоставляет, оставьте его неизвестным: последующая проба загрузки нужна для подтверждения. Не подставляйте 96 GB из рекламы вместо наблюдения. Через минуту обычного простоя выполните повторное измерение; заметное изменение требует описать фоновые нагрузки:
+   If the API does not provide a budget, leave it unknown: a subsequent load test is needed for confirmation. Do not substitute the advertised 96 GB for an observation. After one minute of normal idle time, repeat the measurement; a significant change requires describing background workloads:
 
    ```sh
    free -b > "$LAB_DIR/raw/memory-after-idle.txt"
    ```
 
-7. Заполните `report.md`, `measurements.tsv` и черновой `manifest.json`, созданные helper. Укажите зависимости на архив ЛР 01 и пути к raw evidence. Не преобразуйте паспорт в `run.json` и не присваивайте ему verdict агентской задачи.
+7. Complete `report.md`, `measurements.tsv`, and the draft `manifest.json` created by the helper. Reference the LAB 01 archive dependencies and raw evidence paths. Do not convert the profile into `run.json` or assign it an agent-task verdict.
 
-## Таблицы результатов
+## Results tables
 
-Пустые ячейки заполняются после выполнения. Неизвестное оформляется как `null` с причиной в отчёте.
+Fill empty cells after execution. Represent unknown values as `null`, with a reason in the report.
 
-| Показатель | Наблюдаемое значение | Единица | Файл доказательства |
+| Metric | Observed value | Unit | Evidence file |
 | --- | --- | --- | --- |
 | CPU / OEM | | | |
 | Linux / kernel / BIOS | | | |
-| MemTotal / MemAvailable | | bytes и GiB | |
-| Резерв ОС | | GiB | |
+| MemTotal / MemAvailable | | bytes and GiB | |
+| OS reserve | | GiB | |
 | TTM pages limit / page size | | pages / bytes | |
 | Vulkan device / ICD / driver | | | |
-| Vulkan heap / available budget | | bytes и GiB | |
+| Vulkan heap / available budget | | bytes and GiB | |
 | ROCm version / HSA target | | | |
-| Swap / режим питания | | | |
+| Swap / power mode | | | |
 
-| Ветвь | Обнаружено устройство | Стек соответствует документации | Допуск / причина blocker |
+| Branch | Device detected | Stack matches documentation | Admission / blocker reason |
 | --- | --- | --- | --- |
 | Vulkan | | | |
 | HIP/ROCm | | | |
 
-## Что сдать
+## Deliverables
 
-- `report.md`: паспорт, расчёт резервов, решение о допуске и ответы на вопросы.
-- `measurements.tsv`: измеренные числовые поля с единицами.
-- `manifest.json`: идентификатор сессии и ссылки на доказательства; это лабораторный черновик.
-- `raw/collection-status.json`, `raw/memory-inventory.json`, `raw/meminfo.txt`, `raw/kernel.txt`, `raw/os-release.txt`, `raw/pci.txt`, `raw/vulkan-full.txt`, `raw/rocminfo.txt`, `raw/hipconfig.txt`, `raw/memory-after-idle.txt`; для недоступных данных — сохранённая причина.
+- `report.md`: profile, reserve calculation, admission decision, and answers to questions.
+- `measurements.tsv`: measured numeric fields with units.
+- `manifest.json`: session identifier and evidence references; this is a lab draft.
+- `raw/collection-status.json`, `raw/memory-inventory.json`, `raw/meminfo.txt`, `raw/kernel.txt`, `raw/os-release.txt`, `raw/pci.txt`, `raw/vulkan-full.txt`, `raw/rocminfo.txt`, `raw/hipconfig.txt`, `raw/memory-after-idle.txt`; for unavailable data, preserve the reason.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Подтверждена целевая машина и native Linux.
-- [ ] Сняты CPU/GPU/ОС/BIOS и статусы диагностических утилит.
-- [ ] RAM, TTM/GTT и GPU budgets не сложены как независимые банки.
-- [ ] Для каждой ветви указан допуск или конкретный blocker, включая неизвестное.
-- [ ] Резерв ОС обоснован; таблицы опираются на raw-файлы.
-- [ ] BIOS, ядро, память и power profile не изменялись в ходе сбора.
+- [ ] The target machine and native Linux are confirmed.
+- [ ] CPU/GPU/OS/BIOS information and diagnostic utility statuses are collected.
+- [ ] RAM, TTM/GTT, and GPU budgets are not added as independent memory banks.
+- [ ] Each branch has an admission decision or a specific blocker, including unknowns.
+- [ ] The OS reserve is justified; tables are supported by raw files.
+- [ ] BIOS, kernel, memory, and power profile were not changed during collection.
 
-Работу можно сдать с blocker одного backend: это корректный результат диагностики, а не успешный допуск к его измерениям.
+You may submit the lab with one backend blocked: this is a valid diagnostic result, not successful admission to measurements on that backend.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему надпись 128 GB не равна доказанному бюджету 128 GiB для модели?
-2. Чем отличаются `MemAvailable`, TTM pages limit и Vulkan memory budget?
-3. Почему `torch.cuda.is_available()` или наличие `gfx1151` ещё не доказывают full GPU offload модели?
-4. Какие изменения машины требуют нового паспорта?
+1. Why does a 128 GB label not establish a 128 GiB memory budget for the model?
+2. How do `MemAvailable`, the TTM page limit, and the Vulkan memory budget differ?
+3. Why does `torch.cuda.is_available()` or the presence of `gfx1151` not yet prove full GPU offload of the model?
+4. Which machine changes require a new profile?
 
-## Источники
+## Sources
 
-- [AMD Ryzen AI Max+ 395: спецификация](https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html).
-- [AMD VGM FAQ: заявление о 96 GB и разделяемая память](https://www.amd.com/en/blogs/2025/faqs-amd-variable-graphics-memory-vram-ai-model-sizes-quantization-mcp-more.html).
-- [AMD ROCm 7.14.1: RDNA3.5, TTM и требования KFD](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html).
-- [Версионная матрица ROCm 7.14.1](https://rocm.docs.amd.com/en/docs-7.14.1/compatibility/compatibility-matrix.html).
-- [Общий практикум](README.md), [шаблон отчёта](templates/report.md), [план локальных моделей](../local-models.md).
+- [AMD Ryzen AI Max+ 395: specification](https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html).
+- [AMD VGM FAQ: 96 GB claim and shared memory](https://www.amd.com/en/blogs/2025/faqs-amd-variable-graphics-memory-vram-ai-model-sizes-quantization-mcp-more.html).
+- [AMD ROCm 7.14.1: RDNA3.5, TTM, and KFD requirements](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html).
+- [Versioned ROCm 7.14.1 compatibility matrix](https://rocm.docs.amd.com/en/docs-7.14.1/compatibility/compatibility-matrix.html).
+- [Lab course](README.md), [report template](templates/report.md), [local-model plan](../local-models.md).

@@ -24,5 +24,5 @@ await main(() => {
     artifact_policy: engine.artifact_policy,
     runtime_reserve_GiB: engine.runtime_reserve_gib ?? 'unknown',
   })));
-  console.log('Поддержка указана по документации; работа на этом компьютере и расход памяти не подтверждены.');
+  console.log('Support is based on documentation; operation on this machine and memory usage are unverified.');
 });

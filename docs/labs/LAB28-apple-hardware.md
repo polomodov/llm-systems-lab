@@ -1,36 +1,36 @@
-# ЛР28. Паспорт Apple M5 Max и unified memory
+# LAB28. Apple M5 Max hardware profile and unified memory
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Аппаратное измерение / `target-machine` |
-| Время | 1–2 часа |
-| Предпосылки | LAB01; сам M5 Max / 128 GB, native macOS |
-| Минимум | Паспорт, два снимка памяти с интервалом 60 секунд, плановый бюджет и решение о допуске |
+| Type / readiness | Hardware measurement / `target-machine` |
+| Time | 1–2 hours |
+| Prerequisites | LAB01; the M5 Max / 128 GB machine, native macOS |
+| Minimum | Hardware profile, two memory snapshots 60 seconds apart, planned budget and admission decision |
 
-## Цель
+## Objective
 
-Отделить физическую RAM, состояние памяти macOS и рекомендации Metal от реально доступного бюджета модели.
+Distinguish physical RAM, macOS memory state and Metal recommendations from the memory budget actually available to the model.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Стенд соответствует заявленной конфигурации и пригоден для начального smoke одной модели с резервом ОС 16 GiB. Неизвестный GPU budget не считается подтверждением размещения.
+The machine matches its stated configuration and is suitable for an initial single-model smoke test with a 16 GiB OS reserve. An unknown GPU budget does not confirm that the model fits.
 
-## Подготовка
+## Preparation
 
-Прочитайте [общий Apple-протокол](../../experiments/local-models/apple/README.md). Создайте сессию и заполните протокол до сбора:
+Read the [shared Apple protocol](../../experiments/local-models/apple/README.md). Create a session and complete the protocol before collecting data:
 
 ```sh
 npm run lab:new -- --lab LAB28 --session apple-first
 export LAB_DIR='experiments/local-models/measurements/LAB28-apple-first'
 ```
 
-Никаких изменений лимитов памяти, macOS, Xcode или режима питания в ходе сбора. Данные серийного номера, UUID и полного списка приложений не требуются.
+Do not change memory limits, macOS, Xcode or the power mode during collection. Serial numbers, UUIDs and a full application list are not required.
 
-## Порядок выполнения
+## Procedure
 
-1. Сохраните минимальный паспорт. Ошибка команды остаётся в её файле и реестре статусов, а не заменяется нулём:
+1. Save a minimal hardware profile. A command failure stays in its output file and status registry; do not replace it with zero:
 
    ```sh
    python3 - "$LAB_DIR" <<'PY'
@@ -58,9 +58,9 @@ export LAB_DIR='experiments/local-models/measurements/LAB28-apple-first'
    PY
    ```
 
-2. Проверьте `arm64`, имя SoC, CPU/GPU cores, версию/build macOS и SDK. `hw.memsize / 2**30` — физическая RAM в GiB; не делите это значение повторно как десятичные 128 GB. Сохраните ошибки `xcrun` как blocker сборки, не устанавливайте SDK незаметно в ходе опыта.
+2. Check `arm64`, the SoC name, CPU/GPU cores, macOS version/build and SDK. `hw.memsize / 2**30` is physical RAM in GiB; do not divide it again as if it were decimal 128 GB. Preserve `xcrun` errors as build blockers; do not silently install an SDK during the experiment.
 
-3. Если Command Line Tools готовы, получите рекомендацию Metal короткой программой. Она не выделяет память для модели:
+3. If Command Line Tools are ready, obtain the Metal recommendation with a short program. It does not allocate memory for a model:
 
    ```sh
    cat > "$LAB_DIR/raw/metal-device.swift" <<'SWIFT'
@@ -84,52 +84,52 @@ export LAB_DIR='experiments/local-models/measurements/LAB28-apple-first'
    printf '%s\n' "$?" > "$LAB_DIR/raw/metal-device-exit.txt"
    ```
 
-   Рекомендация working set и max buffer length имеют разный смысл; ни одна не является свободным бюджетом GPU. При ошибке сохраните `null` с причиной.
+   The working-set recommendation and maximum buffer length mean different things; neither is a free GPU budget. On failure, record `null` with a reason.
 
-4. После 60 секунд обычного простоя повторите `vm_stat`, `sysctl vm.swapusage`, `memory_pressure -Q` в файлы `raw/*-after-idle.txt`. Запишите питание от сети/батареи и фоновые нагрузки. Не складывайте compressed, resident и GPU-память как независимые банки.
+4. After 60 seconds of normal idle time, repeat `vm_stat`, `sysctl vm.swapusage`, `memory_pressure -Q` into `raw/*-after-idle.txt`. Record AC/battery power and background workloads. Do not add compressed, resident and GPU memory as independent banks.
 
-5. Зафиксируйте `gpu_budget_gib=null` до выбора обоснованного безопасного рабочего бюджета и smoke LAB30/31. Для первой небольшой модели опишите отдельно tentative ceiling и запас; не называйте его измеренным allocation limit. Команда должна показать неизвестный итоговый бюджет:
+5. Record `gpu_budget_gib=null` until you choose a justified safe working budget and run the LAB30/31 smoke test. For the first small model, describe the tentative ceiling and reserve separately; do not call it a measured allocation limit. The command must show an unknown final budget:
 
    ```sh
    npm run --silent local:plan -- --hardware apple-m5-max-128gb-macos --format json \
      > "$LAB_DIR/raw/initial-plan.json"
    ```
 
-6. Решите, к каким следующим работам стенд допущен: сборка, подготовка артефактов, начальный smoke. Сохраните паспорт в `raw/hardware-snapshot.json` с единицами, путями к исходным файлам и явно неизвестным GPU budget; укажите его в `conditions.hardware_snapshot`.
+6. Decide which next steps the machine may proceed to: build, artifact preparation, initial smoke test. Save the profile in `raw/hardware-snapshot.json` with units, source-file paths and an explicitly unknown GPU budget; reference it in `conditions.hardware_snapshot`.
 
-## Таблицы результатов
+## Results tables
 
-| Показатель | Значение | Единица | Evidence / причина неизвестности |
+| Metric | Value | Unit | Evidence / reason unknown |
 | --- | --- | --- | --- |
 | SoC / CPU cores / GPU cores | | | |
 | macOS build / SDK / arm64 | | | |
 | hw.memsize | | bytes / GiB | |
 | Metal recommended working set / max buffer | | bytes | |
-| Swap до / после; memory pressure | | bytes / исходный вывод | |
-| Резерв ОС / рабочий GPU budget | | GiB | |
-| Допуск к LAB30 / LAB31 | | | |
+| Swap before / after; memory pressure | | bytes / raw output | |
+| OS reserve / working GPU budget | | GiB | |
+| Admission to LAB30 / LAB31 | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт, TSV, manifest v2; `collection-status.json`, паспорт, вывод системных команд и Metal-пробы, план и протокол. Для недоступных команд — exit code и причина. `run.json` не нужен.
+Report, TSV, manifest v2; `collection-status.json`, hardware profile, system-command and Metal-probe output, plan and protocol. For unavailable commands, include the exit code and reason. `run.json` is not required.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Подтверждены машина, ОС, архитектура и физическая память.
-- [ ] Сохранены два снимка и условия питания.
-- [ ] Рекомендация Metal не выдана за свободную память.
-- [ ] Определены резерв, неизвестные поля и допуск/blocker каждой ветви.
-- [ ] Выполнен `lab:check --mode submission` по общему протоколу.
+- [ ] Machine, OS, architecture and physical memory confirmed.
+- [ ] Two snapshots and power conditions saved.
+- [ ] Metal recommendation is not presented as free memory.
+- [ ] Reserve, unknown fields and admission/blocker for each branch identified.
+- [ ] `lab:check --mode submission` run according to the shared protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему 128 GB в названии и 128 GiB в sysctl нельзя автоматически трактовать одинаково на другом стенде?
-2. Чем recommended working set отличается от свободного GPU budget?
-3. Почему сумма RSS и Metal allocations может завышать расход?
-4. Что доказывает паспорт, а что сможет показать только загрузка модели?
+1. Why should 128 GB in a product name and 128 GiB in sysctl not automatically be treated as equivalent on another machine?
+2. How does the recommended working set differ from the free GPU budget?
+3. Why can adding RSS and Metal allocations overestimate usage?
+4. What does the hardware profile establish, and what can only loading a model show?
 
-## Источники
+## Sources
 
 - [MTLDevice.recommendedMaxWorkingSetSize](https://developer.apple.com/documentation/metal/mtldevice/recommendedmaxworkingsetsize).
-- [Apple M5 Pro и M5 Max: заявления производителя](https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/).
-- Локальные `man vm_stat`, `man memory_pressure`, `man time`; версии и raw output приложить.
+- [Apple M5 Pro and M5 Max: vendor claims](https://www.apple.com/newsroom/2026/03/apple-debuts-m5-pro-and-m5-max-to-supercharge-the-most-demanding-pro-workflows/).
+- Local `man vm_stat`, `man memory_pressure`, `man time`; attach versions and raw output.

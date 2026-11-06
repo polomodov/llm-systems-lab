@@ -1,4 +1,4 @@
-// Эталонная реализация T005. Использование: node reference.mjs <workspace/data> — печатает ожидаемый normalized.json.
+// Reference implementation T005. Usage: node reference.mjs <workspace/data> — prints expected normalized.json.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -18,7 +18,7 @@ const cents = (text) => {
 };
 const email = (value) => String(value).trim().toLowerCase();
 
-// Простой CSV: поля в кавычках могут содержать запятые; переносов строк внутри полей нет.
+// Simple CSV: quoted fields may contain commas; fields contain no newlines.
 const csvRow = (line) => {
   const out = []; let field = ''; let quoted = false;
   for (let i = 0; i < line.length; i++) {
@@ -36,7 +36,7 @@ const csvRow = (line) => {
 };
 const lines = (text) => text.split(/\r?\n/).filter(line => line.trim() !== '');
 
-// Каждая запись приводится к {id, email, date|null, amount_cents|null, currency}.
+// Normalize each record to {id, email, date|null, amount_cents|null, currency}.
 const fromA = lines(readFileSync(join(dataDir, 'orders_a.csv'), 'utf8')).slice(1).map(csvRow).map(([id, mail, date, amount, currency]) => {
   const m = /^(\d{2})\.(\d{2})\.(\d{4})$/.exec(date.trim());
   return { id: id.trim(), email: email(mail), date: m ? validDate(+m[3], +m[2], +m[1]) : null, amount_cents: cents(amount), currency: currency.trim() };

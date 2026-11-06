@@ -1,18 +1,18 @@
-# Ночная кампания: LAB03 + LAB04 + LAB05 для других моделей
+# Overnight campaign: LAB03 + LAB04 + LAB05 for other models
 
-Окно: ~12–14 часов (ночной прогон). Стенд: Ryzen AI Max+ 395 / gfx1151 / 124 GiB.
-Запуск: `overnight.py` (ветка `overnight-models-20261008`, worktree `/tmp/opencode/overnight-wt-20261008-154949`).
+Window: about 12–14 hours (overnight run). Machine: Ryzen AI Max+ 395 / gfx1151 / 124 GiB.
+Launch: `overnight.py` (branch `overnight-models-20261008`, worktree `/tmp/opencode/overnight-wt-20261008-154949`).
 
-## Правило работы
+## Workflow rule
 
-Каждая модель получает **три preregistered-сессии** (LAB03 → LAB04 → LAB05):
-протокол и план коммитятся ДО запусков отдельным коммитом, затем измерения, затем
-коммит с результатами. Сбой одной работы не останавливает кампанию: статус пишется в
-`overnight-<run>-status.json`, причина — в отчёте соответствующей сессии.
+Each model receives **three preregistered sessions** (LAB03 → LAB04 → LAB05):
+commit the protocol and plan BEFORE execution in a separate commit, then collect measurements, then
+commit the results. A failure in one lab does not stop the campaign: record status in
+`overnight-<run>-status.json` and the reason in the corresponding session report.
 
-## Очередь (по возрастанию размера, чтобы успеть максимум)
+## Queue (smallest first to complete as much as possible)
 
-| # | Модель | Quant | Веса | LAB03 | LAB04 | LAB05 |
+| # | Model | Quant | Weights | LAB03 | LAB04 | LAB05 |
 | --- | --- | --- | ---: | --- | --- | --- |
 | 1 | gpt-oss-20b | MXFP4 | 11.3 GiB | verify | Vulkan/HIP | 8/16/32K+tools |
 | 2 | qwen36-27b | Q5_K_M | 18.2 GiB | verify | Vulkan/HIP | 8/16/32K+tools |
@@ -22,31 +22,31 @@
 | 6 | glm-47-flash | Q8_0 | 29.7 GiB | verify | Vulkan/HIP | 8/16/32K+tools |
 | 7 | qwen3-coder-next (4 shard) | Q5_K_M | 52.9 GiB | verify | Vulkan/HIP | 8/16/32K+tools |
 
-Суммарно ~177 GiB загрузок (диск: ~1.5 TB свободно). Условные гиганты
-(qwen35-122b-a10b, glm-45-air) и LAB06 в эту ночь не входят.
+Total downloads: about 177 GiB (disk: about 1.5 TB free). Conditional giants
+(qwen35-122b-a10b, glm-45-air) and LAB06 are outside this night’s scope.
 
-## Оценка времени
+## Time estimate
 
-- Загрузки: при ~20 MB/s ≈ 2.5 ч на 177 GiB.
-- LAB03: ~1 мин после загрузки.
-- LAB04: offload-proof + warmup + 3×2 бенча ≈ 10–20 мин на модель.
-- LAB05: 3 контекста × (bench-заполнение + сервер + 4×2 HTTP-кейса) ≈ 40–90 мин.
-- Итого ≈ 9–13 ч; при отставании модели 6–7 могут не завершиться — это отражено в статусе.
+- Downloads: at about 20 MB/s, approximately 2.5 h for 177 GiB.
+- LAB03: about 1 min after download.
+- LAB04: offload proof + warmup + 3×2 benchmarks, approximately 10–20 min per model.
+- LAB05: 3 contexts × (memory-fill benchmark + server + 4×2 HTTP cases), approximately 40–90 min.
+- Total: approximately 9–13 h; if behind schedule, models 6–7 may not finish, which is reflected in status.
 
 ## LAB06
 
-Не входит: требует native BF16 checkpoint и поддержки vLLM/SGLang конкретной архитектуры.
-Отдельная кампания после проверки совместимости.
+Excluded: requires a native BF16 checkpoint and vLLM/SGLang support for the specific architecture.
+A separate campaign follows compatibility verification.
 
-## Ограничения
+## Limitations
 
-- Автоматическая кампания использует дефолтный sampling/`--jinja`; model-specific
-  reasoning и tool-parser настраиваются вручную в дневных сессиях. Плохой parser —
-  не приговор модели.
-- GLM-4.7-Flash (MLA), gemma4 (sliding/global) требуют отдельного отчёта runtime о cache.
-- Один backend для LAB05 (HIP), как в предыдущих сессиях.
+- The automated campaign uses default sampling/`--jinja`; model-specific
+  reasoning and tool parsing are configured manually in daytime sessions. A poor parser
+  is not a verdict on the model.
+- GLM-4.7-Flash (MLA) and gemma4 (sliding/global) require a separate runtime cache report.
+- One backend for LAB05 (HIP), as in previous sessions.
 
-## Мониторинг
+## Monitoring
 
 ```sh
 tail -f experiments/local-models/campaign/overnight-<run>.log
@@ -55,7 +55,7 @@ git -C /tmp/opencode/overnight-wt-<run> log --oneline
 du -sh "$HOME/local-model-lab-artifacts"
 ```
 
-## Утро
+## Morning
 
-Ветка `overnight-models-20261008` пушится автоматически; PR не создаётся —
-после просмотра отчётов и `lab:check` оформить один PR на кампанию или по модели.
+Branch `overnight-models-20261008` is pushed automatically; no PR is created.
+After reviewing reports and `lab:check`, create one PR for the campaign or one per model.

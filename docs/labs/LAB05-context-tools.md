@@ -1,32 +1,32 @@
-# ЛР 05. Контекст 8/16/32K, streaming и инструменты
+# LAB 05. 8/16/32K context, streaming, and tools
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Время-ориентир | 2–4 часа для одного кандидата; это не прогноз скорости модели |
-| Предпосылки | Выполнена ЛР 04; модель прошла базовый smoke; доступен target Linux и pinned llama.cpp |
-| Статус готовности | Инструкция и fixtures готовы; аппаратная вместимость и протокол каждой конфигурации `unverified` |
-| Результат | Матрица context × protocol и архив воспроизводимых HTTP-запросов |
+| Estimated time | 2–4 hours for one candidate; this is not a prediction of model speed |
+| Prerequisites | LAB 04 completed; model passed basic smoke tests; target Linux and pinned llama.cpp available |
+| Readiness status | Instructions and fixtures ready; hardware capacity and each configuration's protocol remain `unverified` |
+| Outcome | Context × protocol matrix and an archive of reproducible HTTP requests |
 
-## Цель
+## Objective
 
-Проверить, что сервер действительно выдерживает выбранный контекст, возвращает корректные streaming-события и сохраняет tool round trip. Отдельно проверить, как reasoning учитывается в лимите output и отделяется от final answer.
+Verify that the server actually handles the selected context, returns correct streaming events, and preserves the tool round trip. Separately check how reasoning counts toward the output limit and is separated from the final answer.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-У одной закреплённой модели увеличение контекста с 8K до 16K и 32K не нарушает память и протокол. Нельзя подтверждать эту гипотезу только запуском сервера с большим `-c`: контекст должен быть заполнен. Валидный обычный чат не доказывает поддержку tools.
+For one pinned model, increasing context from 8K to 16K and 32K does not violate memory or protocol requirements. Starting the server with a large `-c` alone cannot confirm this hypothesis: the context must be filled. Valid ordinary chat does not prove tool support.
 
-## Подготовка
+## Preparation
 
-- Возьмите прошедшие ЛР 04 GGUF, binary SHA, template, GPU offload, KV precision и FA. Начинайте с одного backend; для другого повторите работу в новом архиве.
-- Используйте один server slot и одну модель. Ни сервер, ни HTTP-клиент не получают инструменты доступа к shell, файлам задач или скрытым проверкам.
-- Общие входы: [chat-request.json](fixtures/chat-request.json) и [tool-request.json](fixtures/tool-request.json). Ожидаемые final values — `LAB_READY` и `LAB_VALUE_42`; reasoning оценивается отдельно. Лимит fixtures 2048 output tokens не гарантирует завершение любой thinking-модели: `finish_reason=length` фиксируется как ограничение конфигурации.
-- Подготовьте Python 3, curl и зависимости предыдущей работы. Новые пакеты и веса автоматически не устанавливаются.
+- Use the GGUF, binary SHA, template, GPU offload, KV precision, and FA that passed LAB 04. Start with one backend; repeat the lab in a new archive for the other.
+- Use one server slot and one model. Neither the server nor the HTTP client receives tools for accessing a shell, task files, or hidden checks.
+- Shared inputs: [chat-request.json](fixtures/chat-request.json) and [tool-request.json](fixtures/tool-request.json). Expected final values are `LAB_READY` and `LAB_VALUE_42`; reasoning is evaluated separately. The fixtures' 2048-output-token limit does not guarantee that every thinking model finishes: record `finish_reason=length` as a configuration limitation.
+- Prepare Python 3, curl, and dependencies from the previous lab. New packages and weights are not installed automatically.
 
-## Порядок выполнения
+## Procedure
 
-1. Создайте архив и задайте пути, заменив абсолютные placeholders:
+1. Create an archive and set paths, replacing absolute placeholders:
 
    ```sh
    npm run lab:new -- --lab LAB05 --session my-session
@@ -43,9 +43,9 @@
      > "$LAB_DIR/raw/binaries.sha256"
    ```
 
-   Сохраните SHA всех shards из ЛР 03/04. Проверьте наличие `--alias`, `--no-context-shift`, `-np`, `-fa`, `-d` в pinned help. Зафиксируйте параметры sampling/reasoning из карточки модели в `raw/model-settings.txt` и в manifest; применяйте их одинаково во всех трёх контекстах. Любой изменённый template получает свой SHA и отдельный вариант.
+   Preserve the SHA values of all shards from LAB 03/04. Check for `--alias`, `--no-context-shift`, `-np`, `-fa`, and `-d` in the pinned help. Record sampling/reasoning parameters from the model card in `raw/model-settings.txt` and the manifest; apply them identically across all three contexts. Any modified template receives its own SHA and a separate variant.
 
-2. Проверьте заполнение памяти без HTTP на 8K. Затем, только после проверки бюджета, повторите для 16K и 32K, заменяя `CTX`:
+2. Test memory occupancy without HTTP at 8K. Then, only after checking the budget, repeat for 16K and 32K by changing `CTX`:
 
    ```sh
    export CTX=8192
@@ -68,9 +68,9 @@
    test "$bench_status" -eq 0
    ```
 
-   Глубины — 8064, 16256 и 32640 токенов перед 128 generated tokens. Во втором терминале с тем же `LAB_DIR` и `CTX` заранее запустите `vmstat -w 1 > "$LAB_DIR/raw/context-$CTX-vmstat-series.txt"`; после измерения остановите Ctrl-C. Сохраняйте GPU allocations из bench log, GNU time RSS и изменения swap. Встроенный прогрев не входит в три измеряемых повтора. Проверьте сохранённый exit code bench, прежде чем переходить дальше. При OOM, GPU reset, постоянной подкачке, fallback или выходе за бюджет остановите эту конфигурацию; более длинный контекст не запускайте автоматически. Изменение KV/FA ради вместимости — новый вариант, не исправление результата.
+   The depths are 8064, 16256, and 32640 tokens before 128 generated tokens. In a second terminal with the same `LAB_DIR` and `CTX`, start `vmstat -w 1 > "$LAB_DIR/raw/context-$CTX-vmstat-series.txt"` beforehand; stop it with Ctrl-C after the measurement. Preserve GPU allocations from the bench log, GNU time RSS, and swap changes. The built-in warmup is excluded from the three measured repetitions. Check the saved bench exit code before proceeding. On OOM, GPU reset, persistent swapping, fallback, or budget violation, stop this configuration; do not automatically run a longer context. Changing KV/FA to fit is a new variant, not a correction to the result.
 
-3. После успешной пробы запустите сервер этого контекста в отдельном терминале, из корня репозитория с теми же переменными. Добавьте заранее записанные model-specific sampling/reasoning flags. Сервер остаётся только на loopback:
+3. After a successful probe, start the server for this context in a separate terminal, from the repository root with the same variables. Add the previously recorded model-specific sampling/reasoning flags. The server remains on loopback only:
 
    ```sh
    "$LLAMA_BIN/llama-server" -m "$LOCAL_GGUF" \
@@ -80,7 +80,7 @@
      > "$LAB_DIR/raw/server-$CTX.log" 2>&1
    ```
 
-   В рабочем терминале дождитесь успешного health response и сохраните свойства:
+   In the working terminal, wait for a successful health response and save properties:
 
    ```sh
    curl --fail --max-time 10 http://127.0.0.1:8080/health \
@@ -91,9 +91,9 @@
      > "$LAB_DIR/raw/models-$CTX.json"
    ```
 
-   Подтвердите alias `lab-model`, GPU offload, effective context/slots и template. `--reasoning-format` описывает разбор результата, а не сам режим thinking. Нельзя объявлять thinking отключённым только потому, что reasoning не видно в `content`.
+   Confirm the `lab-model` alias, GPU offload, effective context/slots, and template. `--reasoning-format` describes output parsing, not thinking mode itself. Do not declare thinking disabled merely because reasoning is absent from `content`.
 
-4. Создайте переносимый HTTP/SSE измеритель. Он читает подготовленные fixtures и допускает только одну фиктивную функцию; никакой код модели не исполняется. Этот файл можно использовать в последующих лабораторных с другим endpoint:
+4. Create a portable HTTP/SSE measurement client. It reads prepared fixtures and allows only one dummy function; no model-generated code is executed. This file can be reused in subsequent labs with another endpoint:
 
    ```sh
    cat > "$LAB_DIR/raw/http_probe.py" <<'PY'
@@ -226,9 +226,9 @@
    PY
    ```
 
-   Этот клиент измеряет TTFT только для streaming: задержка получения полного JSON не является TTFT. `ttft_content_s` отделено от первого reasoning-токена. Неподдерживаемый формат reasoning требует отдельного документированного parser, а не догадки по тегам. Ошибки и отклонённые tools остаются в архиве.
+   This client measures TTFT only for streaming: the delay until a complete JSON response is not TTFT. `ttft_content_s` is separate from the first reasoning token. An unsupported reasoning format requires a separately documented parser, not guesses based on tags. Errors and rejected tools remain in the archive.
 
-5. Подготовьте streaming-варианты и выполните четыре protocol cases по два раза:
+5. Prepare streaming variants and run the four protocol cases twice each:
 
    ```sh
    python3 - <<'PY'
@@ -254,9 +254,9 @@
    done
    ```
 
-   Проверяйте final `LAB_READY` / `LAB_VALUE_42`, корректность `call_id`, валидный JSON arguments, завершающее событие и finish reason. Второй запрос того же процесса может использовать prefix cache: первый и повторный запрос обозначайте отдельно. Отсутствующий usage записывайте `null`; не вычисляйте токены из длины текста. Незавершённый tool round trip — не pass даже при HTTP 200.
+   Check the final `LAB_READY` / `LAB_VALUE_42`, correct `call_id`, valid JSON arguments, terminal event, and finish reason. A second request to the same process may use the prefix cache: label first and repeated requests separately. Record missing usage as `null`; do not infer tokens from text length. An incomplete tool round trip is not a pass even with HTTP 200.
 
-6. Проверьте отказ локального диспетчера неизвестному инструменту на синтетическом ответе. Тот же `validate_tool` используется реальным round trip и тестом ниже; endpoint не вызывается:
+6. Test the local dispatcher's rejection of an unknown tool using a synthetic response. The real round trip and the test below use the same `validate_tool`; no endpoint is called:
 
    ```sh
    python3 - <<'PY'
@@ -288,9 +288,9 @@
    PY
    ```
 
-   В `offline-tool-*.tool-rejected.json` подтвердите конкретные причины `tool/arguments rejected by allowlist` и `missing tool call id`, а не произвольный Python error; для valid ожидается `accepted: true`. Это тест границы клиента; он не доказывает, что модель самостоятельно избегает неизвестных функций.
+   In `offline-tool-*.tool-rejected.json`, confirm the specific reasons `tool/arguments rejected by allowlist` and `missing tool call id`, rather than an arbitrary Python error; the valid case should return `accepted: true`. This tests the client's boundary; it does not prove the model independently avoids unknown functions.
 
-7. Подготовьте **длинный HTTP-вход** с учётом шаблона. Следующий генератор использует `/apply-template` и `/tokenize`, не выполняя inference. Он подбирает input не более `CTX − 4096`, оставляя output reserve. Если pinned server не поддерживает эти endpoints, фиксируйте blocker этой методики и считайте длину его tokenizer отдельно:
+7. Prepare a **long HTTP input**, accounting for the template. The following generator uses `/apply-template` and `/tokenize` without running inference. It selects an input no longer than `CTX − 4096`, leaving an output reserve. If the pinned server does not support these endpoints, record a blocker for this method and count length using its tokenizer separately:
 
    ```sh
    python3 - <<'PY'
@@ -304,9 +304,9 @@
        with urllib.request.urlopen(request, timeout=60) as response:
            return json.load(response)
    def candidate(rows):
-       text = 'Контрольное значение: LAB_SENTINEL_42.\n'
-       text += ''.join(f'Строка {i}: нейтральные данные измерения.\n' for i in range(rows))
-       text += 'Верни только контрольное значение из первой строки.'
+       text = 'Control value: LAB_SENTINEL_42.\n'
+       text += ''.join(f'Line {i}: neutral measurement data.\n' for i in range(rows))
+       text += 'Return only the control value from the first line.'
        messages = [{'role': 'user', 'content': text}]
        prompt = post('/apply-template', {'messages': messages})['prompt']
        tokens = post('/tokenize', {'content': prompt, 'add_special': False, 'parse_special': True})['tokens']
@@ -338,9 +338,9 @@
    done
    ```
 
-   Сравните server `usage.prompt_tokens` с предварительным count. Различие означает другой effective template/tokenization и требует объяснения. Проверка считается проверкой данного длинного входа только при отсутствии truncation/context shift; ожидаемый final — `LAB_SENTINEL_42`. Синтетическая строка не оценивает исследовательское качество модели.
+   Compare server `usage.prompt_tokens` with the preliminary count. A difference indicates another effective template/tokenization and requires explanation. This counts as a test of the given long input only if there is no truncation/context shift; the expected final answer is `LAB_SENTINEL_42`. A synthetic string does not evaluate the model's research quality.
 
-8. В том же контексте проверьте переполнение. Создайте вход длиннее `CTX` и сохраните tokenizer count:
+8. Test overflow in the same context. Create an input longer than `CTX` and preserve its tokenizer count:
 
    ```sh
    python3 - <<'PY'
@@ -378,7 +378,7 @@
      --out "$LAB_DIR/raw/ctx$CTX-overflow-recovery"
    ```
 
-   Запускайте recovery отдельной командой, даже когда ожидаемый HTTP error завершил probe с ненулевым кодом. Ожидается явный отказ либо документированное ограничение; тихое обрезание несовместимо с baseline. Затем проверьте отмену и снова короткий запрос:
+   Run recovery as a separate command, even when the expected HTTP error causes the probe to exit nonzero. An explicit rejection or a documented limit is expected; silent truncation is incompatible with the baseline. Then test cancellation and another short request:
 
    ```sh
    if curl --no-buffer --max-time 1 -H 'Content-Type: application/json' \
@@ -394,19 +394,19 @@
      --out "$LAB_DIR/raw/ctx$CTX-cancel-recovery"
    ```
 
-   Timeout клиента не доказывает, что сервер отменил вычисление: проверьте server log, slot и время восстановления. Если запрос успел закончиться за секунду, это не проверка отмены; повторите с заранее сохранённым более длительным запросом.
+   A client timeout does not prove the server cancelled computation: check the server log, slot, and recovery time. If the request finished within a second, cancellation was not tested; repeat with a previously saved longer-running request.
 
-9. Остановите сервер через Ctrl-C в его терминале, убедитесь, что процесс завершился и память освобождена. Повторите шаги 2–8 для `CTX=16384`, затем `CTX=32768`, только если предыдущие бюджеты соблюдены. Не поднимайте три сервера одновременно. В manifest сохраните одинаковые settings и отдельно context каждого запуска. Основной агентский baseline — 16K; 32K остаётся отдельным вариантом.
+9. Stop the server with Ctrl-C in its terminal; verify that the process exits and memory is released. Repeat steps 2–8 for `CTX=16384`, then `CTX=32768`, only if earlier budgets were respected. Do not start three servers simultaneously. Preserve identical settings in the manifest and record each run's context separately. The main agent baseline is 16K; 32K remains a separate variant.
 
-## Таблицы результатов
+## Results tables
 
-| Контекст | Depth + generation | Три bench повтора / raw | Пик памяти / источник | Swap / full GPU offload | Допуск |
+| Context | Depth + generation | Three bench repetitions / raw | Peak memory / source | Swap / full GPU offload | Admission |
 | --- | --- | --- | --- | --- | --- |
 | 8192 | 8064 + 128 | | | | |
 | 16384 | 16256 + 128 | | | | |
 | 32768 | 32640 + 128 | | | | |
 
-| Context | Case | Повтор | HTTP / finish reason | Final / tool validity | TTFT content / reasoning, s | Total, s | Raw prefix |
+| Context | Case | Repetition | HTTP / finish reason | Final / tool validity | TTFT content / reasoning, s | Total, s | Raw prefix |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | | chat | | | | | | |
 | | chat-stream | | | | | | |
@@ -415,43 +415,43 @@
 | | long context | | | | | | |
 | | overflow / cancel / recovery | | | | | | |
 
-| Context | Input count до запуска | usage.prompt_tokens | Output / reasoning tokens | Truncation / shift | Вывод |
+| Context | Input count before execution | usage.prompt_tokens | Output / reasoning tokens | Truncation / shift | Conclusion |
 | --- | --- | --- | --- | --- | --- |
 | 8192 | | | | | |
 | 16384 | | | | | |
 | 32768 | | | | | |
 
-## Что сдать
+## Deliverables
 
-- `report.md`, `measurements.tsv`, `manifest.json` со ссылкой на ЛР 04 и pinned settings.
-- `raw/http_probe.py`, SHA общих fixtures и их локальные копии, `raw/model-settings.txt`, help и binary hashes.
-- `raw/context-*-bench.*`, `raw/server-*.log`, `raw/props-*.json`, `raw/health-*.json`, `raw/models-*.json` и память/swap observations.
-- Все HTTP request/response/SSE, assembled messages, metrics, followup, errors и rejected tools; длинные prompts и token counts.
-- Описанные overflow/cancel/recovery cases и ответы на контрольные вопросы.
+- `report.md`, `measurements.tsv`, and `manifest.json` referencing LAB 04 and pinned settings.
+- `raw/http_probe.py`, SHA values of shared fixtures and their local copies, `raw/model-settings.txt`, help, and binary hashes.
+- `raw/context-*-bench.*`, `raw/server-*.log`, `raw/props-*.json`, `raw/health-*.json`, `raw/models-*.json`, and memory/swap observations.
+- All HTTP requests/responses/SSE, assembled messages, metrics, followups, errors, and rejected tools; long prompts and token counts.
+- Descriptions of overflow/cancel/recovery cases and answers to review questions.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Для каждого контекста выполнена проба заполнения либо сохранён blocker.
-- [ ] Есть два повтора chat, streaming, tools и streaming tools для допущенных контекстов.
-- [ ] Tool round trip проверен через allowlist, без исполнения произвольного кода.
-- [ ] Длинный HTTP-вход посчитан tokenizer и проверен на тихое обрезание.
-- [ ] Reasoning и final, output cap и finish reason описаны раздельно.
-- [ ] Проверены обработка ошибки/отмены и восстановление slot.
-- [ ] Нет смешения короткого smoke с подтверждением 32K; неудачные случаи сохранены.
+- [ ] A context-filling probe was performed for each context, or a blocker was preserved.
+- [ ] Admitted contexts have two repetitions each of chat, streaming, tools, and streaming tools.
+- [ ] The tool round trip was checked through an allowlist without executing arbitrary code.
+- [ ] The long HTTP input was counted with the tokenizer and checked for silent truncation.
+- [ ] Reasoning and final output, output cap, and finish reason are described separately.
+- [ ] Error/cancellation handling and slot recovery were tested.
+- [ ] Short smoke tests are not conflated with 32K confirmation; unsuccessful cases are preserved.
 
-Работа с корректно зафиксированным пределом 16K считается выполненной. Это не означает, что модель прошла конфигурацию 32K или готова к любому агентному протоколу.
+A lab that correctly records a 16K limit counts as completed. This does not mean the model passed the 32K configuration or is ready for every agent protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему `-c 32768` и короткий успешный ответ не подтверждают вместимость 32K?
-2. Чем TTFT первого reasoning-токена отличается от TTFT final content?
-3. Почему HTTP 200 с `finish_reason=length` может означать незавершённый tool round trip?
-4. Чем подтверждение отказа allowlist отличается от отказа модели вызвать неизвестный tool?
-5. Почему prefix cache влияет на повторный prefill и как это отразить в отчёте?
+1. Why do `-c 32768` and a short successful response not confirm 32K capacity?
+2. How does TTFT for the first reasoning token differ from TTFT for final content?
+3. Why can HTTP 200 with `finish_reason=length` indicate an incomplete tool round trip?
+4. How does confirming allowlist rejection differ from the model refusing to call an unknown tool?
+5. Why does the prefix cache affect repeated prefill, and how should this be reflected in the report?
 
-## Источники
+## Sources
 
-- [llama-server: API, context, slots, reasoning, tokenize и apply-template](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md).
-- [llama.cpp: function calling и tool-aware templates](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md).
-- [llama-bench: заполнение контекста и повторы](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md).
-- [Общий практикум](README.md), [описание fixtures](fixtures/README.md), [ЛР 04](LAB04-backends.md).
+- [llama-server: API, context, slots, reasoning, tokenize, and apply-template](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md).
+- [llama.cpp: function calling and tool-aware templates](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md).
+- [llama-bench: filling context and repetitions](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md).
+- [Lab course](README.md), [fixture descriptions](fixtures/README.md), [LAB 04](LAB04-backends.md).

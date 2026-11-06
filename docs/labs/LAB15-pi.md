@@ -1,46 +1,46 @@
-# ЛР15. Pi: исходный SDK-цикл, события и воспроизводимый T002
+# LAB15. Pi: native SDK loop, events, and reproducible T002
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | Завершённая [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `pi`, `mode=sdk`; `@mariozechner/pi-coding-agent@0.73.1`, Node.js `24.13.1` |
-| Минимум | Сборка, offline smoke, разбор событий и одна реальная попытка A2/T002 с независимым судьёй |
-| Время | Ориентир 2–4 часа оператора плюс сборка и ожидание судьи; agent execution ограничен 900 s |
-| Режим | Облачный `anthropic` либо `openai`; точный доступный model ID; `baseline`, USD `observed` |
-| Расширения | Три заранее назначенных повтора, T001 replay, T003, `without-spec` |
-| Начальное состояние | Эксперимент `not-run`; созданный учебный manifest — `not-started` |
+| Prerequisite | Completed [LAB01](LAB01-reproducibility.md) |
+| Harness | `pi`, `mode=sdk`; `@mariozechner/pi-coding-agent@0.73.1`, Node.js `24.13.1` |
+| Minimum | Build, offline smoke test, event analysis, and one real A2/T002 attempt with an independent judge |
+| Time | Estimate: 2–4 operator hours plus build and waiting for a judge; agent execution limited to 900 s |
+| Mode | Cloud `anthropic` or `openai`; exact available model ID; `baseline`, USD `observed` |
+| Extensions | Three preassigned repetitions, T001 replay, T003, `without-spec` |
+| Initial state | Experiment `not-run`; created lab manifest `not-started` |
 
-## Цель
+## Objective
 
-Запустить исходную сессию Pi на общем эпизоде и показать по трассе, что адаптер сохраняет native цикл и не считает одно сообщение дважды. Получить независимую оценку результата, отделив качество исправления от успешного запуска SDK и полноты метрик.
+Run a native Pi session on the shared episode and demonstrate from the trace that the adapter preserves the native loop and does not count a message twice. Obtain independent evaluation, distinguishing fix quality from successful SDK startup and metric completeness.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-При зафиксированных модели, образе и входах стандартных инструментов Pi и общего agent spec достаточно для выполнения T002 без дополнительных расширений. Условия проверки: одна зарегистрированная попытка, независимый `pass`/`fail`/`partial`, перечень реально использованных инструментов и недоступных метрик. `fail` опровергает достаточность этой конфигурации в этой попытке; один `pass` не доказывает устойчивость результата.
+With model, image, and inputs pinned, Pi's standard tools and the shared agent spec are sufficient to perform T002 without extra extensions. Testing conditions: one recorded attempt, an independent `pass`/`fail`/`partial`, and a list of tools actually used and unavailable metrics. `fail` refutes the sufficiency of this configuration in this attempt; one `pass` does not establish result stability.
 
-Отдельно проверьте учёт: `message_end` даёт usage завершённого assistant message, а повтор того же сообщения в `turn_end` не должен увеличивать токены. Поле `model` в событиях Pi берётся из конфигурации и не подтверждает модель ответа провайдера.
+Check accounting separately: `message_end` provides usage for a completed assistant message, and repeating that message in `turn_end` must not increase tokens. The `model` field in Pi events comes from configuration and does not confirm the provider response's model.
 
-## Подготовка
+## Preparation
 
-Работайте из корня репозитория под обычным пользователем с Node.js ≥22 и доступным Docker Engine. Команды ниже — задания для выполнения; опубликованная лабораторная не означает, что вы уже выполнили их. Создайте отчёт и запишите условия до модельного вызова:
+Work from the repository root as a regular user with Node.js ≥22 and Docker Engine available. The commands below are assignments to perform; publication of the lab does not mean you have already executed them. Create a report and record conditions before calling a model:
 
 ```bash
 npm run lab:new -- --lab LAB15 --session my-session
 LAB_DIR='experiments/pi/measurements/LAB15-my-session'
 PROVIDER_ID='anthropic'
-MODEL_ID='<точный доступный ID выбранного провайдера>'
+MODEL_ID='<exact available ID of the selected provider>'
 IMAGE_TAG='harness-lab/pi:0.73.1'
 ```
 
-Замените `MODEL_ID` на snapshot, доступный вашему аккаунту; `latest` и семейство вместо точной модели не подходят. Для OpenAI измените `PROVIDER_ID` на `openai` **до** `new-run` и подготовки. В аргументе модели нет `anthropic/` или `openai/`: провайдера передают отдельно. Имена credentials в корневом `.env`: `ANTHROPIC_API_KEY` либо `OPENAI_API_KEY`. Не выводите значения и не копируйте `.env` в отчёт. Координатор передаёт только ключ выбранного профиля; он доступен процессам внутри agent container, что не равно полной изоляции секрета от bash агента.
+Replace `MODEL_ID` with a snapshot available to your account; `latest` or a family name instead of an exact model is unsuitable. For OpenAI, change `PROVIDER_ID` to `openai` **before** `new-run` and preparation. The model argument has no `anthropic/` or `openai/` prefix: the provider is passed separately. Credential names in the root `.env` are `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`. Do not expose values or copy `.env` into the report. The coordinator passes only the selected profile's key; it is available to processes inside the agent container, which does not fully isolate the secret from the agent's bash tool.
 
-Прочитайте [профиль](../../experiments/pi/harness.json), [адаптер](../../experiments/pi/adapter.mjs), [runtime](../../experiments/pi/run.mjs), [общий протокол](../method.md) и [порядок независимой оценки](harness-workflow.md). Локальное подключение к Ryzen — отдельное расширение после реализации и приёмки [ЛР08](LAB08-local-bridge.md) для Pi. Облачный минимум этой работы не зависит от bridge.
+Read the [profile](../../experiments/pi/harness.json), [adapter](../../experiments/pi/adapter.mjs), [runtime](../../experiments/pi/run.mjs), [shared protocol](../method.md), and [independent evaluation workflow](harness-workflow.md). Local connection to Ryzen is a separate extension after implementing and accepting [LAB08](LAB08-local-bridge.md) for Pi. This lab's cloud minimum does not depend on the bridge.
 
-## Порядок выполнения
+## Procedure
 
-1. **Зафиксируйте конфигурацию.** Запишите Git revision, состояние дерева, версии Node/Docker, выбранные provider/model, цель USD 2 из T002, native предел 30 ходов и timeout 900 s. В `report.md` явно укажите: `observed` не останавливает траты на USD 2; это исследовательское отклонение от контрактного hard cap.
+1. **Record the configuration.** Save Git revision, working-tree status, Node/Docker versions, selected provider/model, the T002 USD 2 target, native 30-turn limit, and timeout 900 s. State explicitly in `report.md`: `observed` does not stop expenditure at USD 2; this is a research deviation from the contractual hard cap.
 
    ```bash
    git rev-parse HEAD > "$LAB_DIR/raw/git-revision.txt"
@@ -51,9 +51,9 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
    node --test experiments/pi/adapter.test.mjs > "$LAB_DIR/raw/adapter-tests.txt" 2>&1
    ```
 
-   Проверяйте exit code каждого шага до перехода к следующему. Тесты используют синтетические события, не API и не реальные hidden checks.
+   Check each step's exit code before proceeding. Tests use synthetic events, not APIs or actual hidden checks.
 
-2. **Соберите и заморозьте образ, проверьте SDK без сети.** Сборка загружает зависимости; основной пакет закреплён, транзитивные версии фиксирует полученный image ID. Не пересобирайте образ между повторами серии. Общему gateway нужен отдельный образ Node.js:
+2. **Build and freeze the image; check the SDK offline.** Building downloads dependencies; the main package is pinned, while the resulting image ID fixes transitive versions. Do not rebuild the image between series repetitions. The shared gateway needs a separate Node.js image:
 
    ```bash
    docker build -t "$IMAGE_TAG" -f experiments/pi/Dockerfile experiments/pi > "$LAB_DIR/raw/build.txt" 2>&1
@@ -71,22 +71,22 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
      "require('/opt/pi/node_modules/@mariozechner/pi-coding-agent/package.json').version" > "$LAB_DIR/raw/sdk-version.txt"
    ```
 
-   Ожидаемый признак smoke: сессия и native bash инициализированы, `printf sdk-ready` исполнен; модель не вызвана. Версия должна быть `0.73.1`; `pi --version` в этой версии пишет в stderr, поэтому используем metadata пакета. Зафиксируйте фактический результат, не копируйте ожидаемый в таблицу наблюдений.
+   Expected smoke indication: session and native bash initialized, `printf sdk-ready` executed, no model called. The version must be `0.73.1`; this version's `pi --version` writes to stderr, so package metadata is used. Record the actual result rather than copying the expectation into the observation table.
 
-3. **Разберите границы native цикла.** В `run.mjs` найдите `createAgentSession`, `session.prompt`, обработчик `turn_end` и `agent.abort()`. Нарисуйте в отчёте последовательность «prompt → ответ → tools → turn_end → продолжение/abort». Отметьте отключённые automatic compaction и retry. Ограничение действует на границе хода Pi; HTTP retries транспорта не становятся универсальными agent turns. Пользовательские plugins и host home не подгружаются. Системный prompt и инструменты создаёт Pi, адаптер не реализует собственный агентный цикл.
+3. **Examine native-loop boundaries.** Find `createAgentSession`, `session.prompt`, the `turn_end` handler, and `agent.abort()` in `run.mjs`. Diagram “prompt → response → tools → turn_end → continue/abort” in the report. Note that automatic compaction and retry are disabled. The limit applies at Pi's turn boundary; transport HTTP retries are not universal agent turns. User plugins and host home are not loaded. Pi creates the system prompt and tools; the adapter does not implement its own agent loop.
 
-4. **Создайте и подготовьте отдельный T002.** Сохраните выданный run ID в отчёте. Не используйте уже подготовленную учебную запись из ЛР01:
+4. **Create and prepare a separate T002.** Save the returned run ID in the report. Do not reuse the prepared teaching record from LAB01:
 
    ```bash
    npm run new-run -- --harness pi --harness-version 0.73.1 \
      --agent a2-janitor --task T002 --provider "$PROVIDER_ID" --model "$MODEL_ID"
-   RUN_ID='<run ID из new-run>'
+   RUN_ID='<run ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider "$PROVIDER_ID" > "$LAB_DIR/raw/prepare-$RUN_ID.txt" 2>&1
    ```
 
-   Убедитесь, что запись имеет `prepared`, а `inputs/control/harness.json` содержит выбранный provider, неизменённый runtime и его разрешённые API domains. Проверьте manifest и seed commit по ЛР01. Не редактируйте запечатанные inputs и не открывайте `tasks/*/check/` при решении эпизода.
+   Confirm `prepared` state and that `inputs/control/harness.json` contains the selected provider, unchanged runtime, and its allowed API domains. Check the manifest and seed commit as in LAB01. Do not edit sealed inputs or open `tasks/*/check/` while solving the episode.
 
-5. **Исполните native сессию и прочитайте результат координатора.** Только этот шаг обращается к модели:
+5. **Execute the native session and read the coordinator result.** Only this step calls the model:
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" --proxy-image "$PROXY_IMAGE_ID" \
@@ -98,9 +98,9 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
    NODE
    ```
 
-   `awaiting_review` означает окончание исполнения, а не успех T002. При `aborted` сохраните причину; новая попытка требует нового ID. Если выбранного snapshot нет в каталоге Pi, OpenAI fallback может взять transport/context/pricing из известного семейства, сохраняя точный requested snapshot ID; неизвестное семейство даёт ошибку, а не замену модели. Доступность конкретного ID до реального прогона — `unverified`.
+   `awaiting_review` means execution ended, not T002 success. Preserve the reason for `aborted`; a new attempt requires a new ID. If the selected snapshot is absent from Pi's catalog, the OpenAI fallback may take transport/context/pricing from a known family while preserving the exact requested snapshot ID; an unknown family produces an error rather than a model substitution. Availability of a specific ID remains `unverified` before the real run.
 
-6. **Проверьте события и арифметику.** Считайте только host trace, сохранённую координатором. Сводка ниже выводит типы событий, не полный текст сообщений:
+6. **Check events and arithmetic.** Read only the host trace saved by the coordinator. The summary below prints event types, not complete message text:
 
    ```bash
    node --input-type=module - "$RUN_ID" > "$LAB_DIR/raw/pi-events-$RUN_ID.json" <<'NODE'
@@ -115,9 +115,9 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
    NODE
    ```
 
-   Сопоставьте native `turns`/`compactions` с `lab_pi_result`; входные токены — сумма `input + cacheRead + cacheWrite` завершённых assistant `message_end`, выходные — `output`. `turn_end` не прибавляет вторую копию usage. Стоимость — оценка SDK; при неполном usage/оборванной трассе сохраняйте `null` и причину. `model.observed_id=null` здесь корректен даже при наличии `message.model`: заполненное из запроса поле не является наблюдением ответа.
+   Compare native `turns`/`compactions` with `lab_pi_result`; input tokens are the sum of `input + cacheRead + cacheWrite` for completed assistant `message_end` events; output tokens are `output`. `turn_end` does not add a second usage copy. Cost is an SDK estimate; preserve `null` and a reason for incomplete usage/truncated traces. `model.observed_id=null` is correct here even when `message.model` exists: a field populated from the request is not an observation of the response.
 
-7. **Получите независимый вердикт.** Для `awaiting_review` сформируйте шаблон и передайте его оценщику вместе с неизменёнными артефактами и manifests, следуя [общему порядку](harness-workflow.md):
+7. **Obtain an independent verdict.** For `awaiting_review`, generate a template and pass it to the evaluator with unchanged artifacts and manifests, following the [shared workflow](harness-workflow.md):
 
    ```bash
    (
@@ -126,7 +126,7 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
    )
    ```
 
-   Оценщик вне agent container выполняет T002 hidden-check, заполняет `result`, `evaluator`, `check_output`, сохраняя generated hashes. До его решения следующую команду не выполняйте. Отчёт агента и CLI exit 0 не заменяют проверку.
+   The evaluator performs the T002 hidden check outside the agent container, filling `result`, `evaluator`, and `check_output` while preserving generated hashes. Do not run the next command before their decision. The agent report and CLI exit 0 do not replace the check.
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -134,53 +134,53 @@ IMAGE_TAG='harness-lab/pi:0.73.1'
    npm run check > "$LAB_DIR/raw/check-after.txt" 2>&1
    ```
 
-8. **Оформите вывод и выберите расширение.** Добавьте run ID в manifest отчёта и наблюдения в [NOTES](../../experiments/pi/NOTES.md). Минимум не требует `pass`: содержательный `fail`/`partial` с независимой оценкой — завершённый эксперимент. `aborted` — материал для диагностики; чтобы закрыть минимум, устраните причину и получите новую оценённую попытку, сохранив старую. Для трёх повторов заранее назначьте три новых слота без отбора удачных. T001 выполняйте с одним frozen source archive, T003 — как аудит входов Pi, `without-spec` — как отдельную парную серию по [ЛР10](LAB10-ablation.md). Для T001/T003 builtin инструменты и системный prompt Pi остаются свойствами той же конфигурации. Порядок создания этих записей приведён в [общем workflow](harness-workflow.md).
+8. **Write the conclusion and choose an extension.** Add the run ID to the report manifest and observations to [NOTES](../../experiments/pi/NOTES.md). The minimum does not require `pass`: a substantive, independently evaluated `fail`/`partial` is a completed experiment. `aborted` is diagnostic material; to meet the minimum, fix the cause and obtain a new evaluated attempt while preserving the old one. For three repetitions, preassign three new slots without selecting successful outcomes. Run T001 with one frozen source archive, T003 as an audit of Pi inputs, and `without-spec` as a separate paired series under [LAB10](LAB10-ablation.md). For T001/T003, Pi's built-in tools and system prompt remain properties of the same configuration. The [shared workflow](harness-workflow.md) describes how to create these records.
 
-## Таблицы результатов
+## Results tables
 
-До выполнения измерения остаются пустыми; `not-run` — состояние плана, не verdict зарегистрированной попытки.
+Measurements remain empty before execution; `not-run` is a plan state, not a recorded attempt's verdict.
 
-| Проверка | План | Фактическое наблюдение | Evidence path |
+| Check | Plan | Actual observation | Evidence path |
 | --- | --- | --- | --- |
-| Пакет/image ID | Pi 0.73.1 / immutable ID | — | — |
-| Native smoke | Session + bash без API | — | — |
-| Identity | Exact request; observed отдельно | — | — |
-| Usage | Только завершённые `message_end` | — | — |
-| Ограничение | 30 native turns; 900 s; USD observed | — | — |
+| Package/image ID | Pi 0.73.1 / immutable ID | — | — |
+| Native smoke | Session + bash without an API | — | — |
+| Identity | Exact request; observed separately | — | — |
+| Usage | Only completed `message_end` events | — | — |
+| Limit | 30 native turns; 900 s; USD observed | — | — |
 
-| Слот | Run ID | Requested / observed ID | Native turns | Tokens in / out | USD / источник | Wall-clock s | Lifecycle / verdict |
+| Slot | Run ID | Requested / observed ID | Native turns | Tokens in / out | USD / source | Wall-clock s | Lifecycle / verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | T002 baseline, not-run | — | — | — | — | — | — | — |
 
-| Компонент Pi | Зачем нужен | Событие/код, подтверждающие роль | Измерение или ограничение |
+| Pi component | Why needed | Event/code supporting its role | Measurement or limitation |
 | --- | --- | --- | --- |
-| Исходный session/tools | — | — | — |
-| Abort на `turn_end` | — | — | — |
+| Native session/tools | — | — | — |
+| Abort on `turn_end` | — | — | — |
 | Compaction/retry disabled | — | — | — |
 
-## Что сдать
+## Deliverables
 
-`report.md`, заполненный учебный manifest, таблицы с evidence paths, build/version/smoke/test logs, разбор событий Pi, ссылку на целый `results/runs/<run-id>/` и независимую оценку. Сдавайте inputs/trace/artifacts вместе с `run.json`; одного скриншота final answer недостаточно. В отчёте укажите, какие метрики неизвестны и почему, границу USD и вывод о достаточности исходной конфигурации. Секреты и `.env` не входят в комплект.
+`report.md`, completed lab manifest, tables with evidence paths, build/version/smoke/test logs, Pi event analysis, a reference to the complete `results/runs/<run-id>/`, and independent evaluation. Submit inputs/trace/artifacts with `run.json`; a final-answer screenshot alone is insufficient. Identify unknown metrics and reasons, the USD boundary, and the conclusion about the native configuration's sufficiency. Secrets and `.env` are excluded from the submission.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Закреплены версия, image IDs, provider, exact model, вариант, native лимит, USD policy и timeout.
-- [ ] Offline tests/smoke пройдены либо диагностированы; подготовка не раскрывает hidden checks.
-- [ ] Есть минимум одна реальная T002-попытка `completed` с независимым `pass`/`fail`/`partial`; остальные начатые попытки сохранены.
-- [ ] Продемонстрирован учёт `message_end` без повторного счёта `turn_end`, объяснено `observed_id=null`.
-- [ ] Отчёт, raw evidence, ответы и NOTES согласованы; `npm run check` проходит.
+- [ ] Version, image IDs, provider, exact model, variant, native limit, USD policy, and timeout pinned.
+- [ ] Offline tests/smoke passed or diagnosed; preparation does not reveal hidden checks.
+- [ ] At least one real T002 attempt is `completed` with an independent `pass`/`fail`/`partial`; other started attempts are preserved.
+- [ ] `message_end` accounting without duplicate `turn_end` counting demonstrated; `observed_id=null` explained.
+- [ ] Report, raw evidence, answers, and NOTES agree; `npm run check` passes.
 
-Если модель/судья недоступны, сдайте отчёт `blocked` с выполненными шагами и причиной. Это честный промежуточный результат, но не завершённый минимум лабораторной.
+If the model/judge is unavailable, submit a `blocked` report with completed steps and the reason. This is an honest interim result, not completion of the lab minimum.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему `message_end` и `turn_end` не означают два оплаченных ответа?
-2. Что ограничивает `agent.abort()` и какие вызовы нельзя назвать одинаковыми turns разных обвязок?
-3. Почему поле `model` в сообщении Pi недостаточно для `observed_id`?
-4. Как отключённая compaction влияет на интерпретацию длинной серии?
-5. Почему одинаковый package version не заменяет immutable image ID?
-6. Чем independent `fail` отличается от `aborted` и успешного offline smoke?
+1. Why do `message_end` and `turn_end` not represent two paid responses?
+2. What does `agent.abort()` limit, and which calls cannot be treated as equivalent turns across harnesses?
+3. Why is the `model` field in a Pi message insufficient for `observed_id`?
+4. How does disabled compaction affect interpretation of a long series?
+5. Why does an identical package version not replace an immutable image ID?
+6. How does an independent `fail` differ from `aborted` and successful offline smoke testing?
 
-## Источники
+## Sources
 
-Версии и команды этой работы взяты из закреплённых файлов репозитория: [README Pi](../../experiments/pi/README.md), [Dockerfile](../../experiments/pi/Dockerfile), [harness.json](../../experiments/pi/harness.json), [runtime](../../experiments/pi/run.mjs), [adapter tests](../../experiments/pi/adapter.test.mjs), [метод](../method.md), [ledger L011](../harness-ledger.md), [общая инфраструктура](../../experiments/common/README.md). Работа не заявляет совместимость с другими версиями SDK; после изменения версии нужны новая конфигурация, smoke и проверка событий.
+Versions and commands in this lab come from pinned repository files: [Pi README](../../experiments/pi/README.md), [Dockerfile](../../experiments/pi/Dockerfile), [harness.json](../../experiments/pi/harness.json), [runtime](../../experiments/pi/run.mjs), [adapter tests](../../experiments/pi/adapter.test.mjs), [method](../method.md), [ledger L011](../harness-ledger.md), and [shared infrastructure](../../experiments/common/README.md). The lab does not claim compatibility with other SDK versions; a version change requires a new configuration, smoke tests, and event verification.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Создаёт стартовое состояние T002 в каталоге $1/sample.
+# Creates the T002 initial state in $1/sample.
 set -euo pipefail
 if [[ $# -ne 1 ]]; then
   echo 'usage: setup.sh <dest>' >&2
@@ -9,12 +9,12 @@ WORKSPACE=$(node --input-type=module - "$1" <<'JS'
 import { lstatSync, mkdirSync, readdirSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 const destination = process.argv[2];
-if (!destination.trim()) throw new Error('Нужен явный непустой путь рабочего каталога.');
+if (!destination.trim()) throw new Error('An explicit nonempty workspace path is required.');
 const dest = resolve(destination);
 let stat;
 try { stat = lstatSync(dest); } catch (error) { if (error.code !== 'ENOENT') throw error; }
 if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) {
-  throw new Error(`Отказ перезаписывать непустой каталог, файл или ссылку: ${dest}`);
+  throw new Error(`Refusing to overwrite a nonempty directory, file, or symlink: ${dest}`);
 }
 mkdirSync(join(dest, 'artifacts'), { recursive: true });
 console.log(dest);
@@ -40,7 +40,7 @@ cat > "$DEST/package.json" <<'EOF'
 EOF
 mkdir -p "$DEST/scripts"
 cat > "$DEST/scripts/lint.mjs" <<'EOF'
-// Крошечный линтер: запрещает console.log в src/ и незакрытые TODO без номера.
+// Tiny linter: forbids console.log in src/ and unresolved TODOs without a number.
 import { readdirSync, readFileSync } from "node:fs";
 let bad = 0;
 for (const f of readdirSync("src")) {
@@ -70,16 +70,16 @@ test("trims dashes on both ends", () => assert.equal(slugify("--Agent Harness--"
 test("collapses punctuation", () => assert.equal(slugify("a, b; c"), "a-b-c"));
 EOF
 cat > "$DEST/brief.md" <<'EOF'
-# Дворник для janitor-sample
-Проверка: `npm test` в каталоге sample/. Запрещено: удалять или ослаблять тесты, менять сигнатуру slugify.
-Известная уязвимость: lodash 4.17.15 (обновить в пределах 4.x).
-Исправить несоответствие реализации существующим тестам, сохранив публичную сигнатуру.
-Ветка исходного состояния: main; рабочая ветка: janitor/<run-id>.
-Отчёт: ../artifacts/report.md относительно sample/ (artifacts/report.md в корне workspace).
+# Janitor for janitor-sample
+Check: `npm test` in sample/. Forbidden: removing or weakening tests, changing the slugify signature.
+Known vulnerability: lodash 4.17.15 (upgrade within 4.x).
+Fix the implementation mismatch with existing tests while preserving the public signature.
+Initial branch: main; working branch: janitor/<run-id>.
+Report: ../artifacts/report.md relative to sample/ (artifacts/report.md at the workspace root).
 EOF
 (
   cd "$DEST"
-  # Не наследовать шаблоны, hooks, подписи и настройки окончания строк оператора.
+  # Do not inherit the operator’s templates, hooks, signatures, or line-ending settings.
   unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
   export GIT_CONFIG_NOSYSTEM=1 GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_COUNT=0
   export GIT_AUTHOR_DATE=2026-09-19T00:00:00Z GIT_COMMITTER_DATE=2026-09-19T00:00:00Z

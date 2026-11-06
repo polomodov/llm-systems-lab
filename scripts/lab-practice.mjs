@@ -14,5 +14,5 @@ await main(() => {
   const result = createLabPractice(process.cwd(), opts);
   console.log(`[lab:practice] ${result.directory}`);
   console.log(`[lab:practice] evidence_class=synthetic; status=${result.status}; response_state=${result.response_state}`);
-  console.log('[lab:practice] Записанный учебный сценарий; модель не запускалась, verdict отсутствует.');
+  console.log('[lab:practice] Recorded practice scenario; no model was run and no verdict exists.');
 });

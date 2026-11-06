@@ -31,7 +31,7 @@ export function copyTree(source, dest) {
   for (const row of rows) { const to = join(dest, row.path); mkdirSync(dirname(to), { recursive: true }); copyFileSync(join(source, row.path), to); }
   return rows;
 }
-/** Один писатель на прогон: устаревший каталог блокировки объясняется явно, а не падает как EEXIST. */
+/** One writer per run: report a stale lock directory explicitly instead of an opaque EEXIST. */
 export function acquireLock(dir) {
   const lock = join(dir, '.lock');
   try { mkdirSync(lock); } catch (error) {

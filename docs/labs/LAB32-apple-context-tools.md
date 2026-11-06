@@ -1,23 +1,23 @@
-# ЛР32. Контекст, streaming и инструменты на Mac
+# LAB32. Context, streaming and tools on Mac
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Протокольные и ресурсные измерения / `target-machine` |
-| Время | 3–5 часов |
-| Предпосылки | Успешная LAB30 **или** LAB31; для сравнения движков — обе |
-| Минимум | Один движок, 8K/16K/32K, четыре chat/tool × JSON/SSE случая; прогрев и три повтора каждого, длинный вход, отмена и переполнение |
+| Type / readiness | Protocol and resource measurements / `target-machine` |
+| Time | 3–5 hours |
+| Prerequisites | Successful LAB30 **or** LAB31; both for an engine comparison |
+| Minimum | One engine, 8K/16K/32K, four chat/tool × JSON/SSE cases; warmup and three repetitions each, long input, cancellation and overflow |
 
-## Цель
+## Objective
 
-Установить фактические границы рабочего контекста и пригодность протокола локального сервера для агентного цикла.
+Establish actual working-context limits and whether the local server protocol is suitable for an agent loop.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-На допущенном контексте сервер завершает текстовый и инструментальный round trip, корректно собирает SSE и восстанавливается после отказа/отмены без смены deployment.
+At an admitted context size, the server completes text and tool round trips, assembles SSE correctly and recovers from failure/cancellation without a deployment change.
 
-## Подготовка
+## Preparation
 
 ```sh
 npm run lab:new -- --lab LAB32 --session apple-protocol
@@ -27,7 +27,7 @@ export MODEL_ALIAS='lab-model'
 export CTX=8192
 ```
 
-Для MLX используйте порт 8081 и model identifier из LAB31. Работает только один сервер. Зафиксируйте protocol/attempts и [общие условия](../../experiments/local-models/apple/README.md). Программу `http_probe.py` переиспользуем из шага 4 LAB05: прохождение Linux-работы не требуется. Следующий код извлекает именно тот опубликованный блок, снимает Markdown indentation и проверяет синтаксис, не запускает его:
+For MLX, use port 8081 and the model identifier from LAB31. Run only one server. Record the protocol/attempts and [shared conditions](../../experiments/local-models/apple/README.md). Reuse `http_probe.py` from LAB05 step 4: completing the Linux lab is not required. The following code extracts that exact published block, removes Markdown indentation and checks syntax without running it:
 
 ```sh
 python3 - "$LAB_DIR" <<'PY'
@@ -42,11 +42,11 @@ with (pathlib.Path(sys.argv[1]) / 'raw/http_probe.py').open('x') as out:
 PY
 ```
 
-Это учебный HTTP-клиент для доверенного loopback, не изолирующий provider bridge. Он не предназначен для произвольных URL или production access. Исключите HTTP proxy для loopback (`export no_proxy='127.0.0.1,localhost,::1'`). Входы публичные, сервер не должен перенаправлять клиента.
+This is an educational HTTP client for trusted loopback, not an isolating provider bridge. It is not intended for arbitrary URLs or production access. Exclude loopback from HTTP proxies (`export no_proxy='127.0.0.1,localhost,::1'`). Inputs are public; the server must not redirect the client.
 
-## Порядок выполнения
+## Procedure
 
-1. Для llama.cpp запустите в отдельном терминале pinned server из LAB30 (переменные `LLAMA_BIN`, `LOCAL_GGUF`, `LAB_DIR`, `CTX` задать и там):
+1. For llama.cpp, start the pinned LAB30 server in a separate terminal (set `LLAMA_BIN`, `LOCAL_GGUF`, `LAB_DIR`, `CTX` there too):
 
    ```sh
    "$LLAMA_BIN/llama-server" -m "$LOCAL_GGUF" --host 127.0.0.1 --port 8080 \
@@ -54,9 +54,9 @@ PY
      > "$LAB_DIR/raw/server-$CTX.txt" 2>&1
    ```
 
-   Проверьте flags по pinned help. Сохраните `/health`, `/props`, `/v1/models` и GPU allocations. Для MLX используйте команду LAB31; сохраните model/device identity и доступные runtime limits. `CTX` в клиенте само по себе **не** задаёт MLX server cap: если выбранная версия не умеет фиксировать hard context limit, исследуйте input-budget 8K/16K/32K и укажите hard-limit проверку как `unavailable`. Не выдавайте это за одинаковый KV reservation с llama.cpp.
+   Check flags against pinned help. Save `/health`, `/props`, `/v1/models` and GPU allocations. For MLX, use the LAB31 command; save model/device identity and available runtime limits. Client-side `CTX` alone does **not** set the MLX server cap: if the selected version cannot fix a hard context limit, investigate 8K/16K/32K input budgets and mark the hard-limit check `unavailable`. Do not present this as the same KV reservation as llama.cpp.
 
-2. Подготовьте четыре запроса на каждый контекст, сохраняя исходные параметры и alias. Перед первой серией добавьте одинаковые model-specific sampling/reasoning настройки в копии, зафиксируйте hashes:
+2. Prepare four requests per context, preserving original parameters and alias. Before the first series, add identical model-specific sampling/reasoning settings to the copies and record hashes:
 
    ```sh
    python3 - "$LAB_DIR" "$MODEL_ALIAS" <<'PY'
@@ -74,7 +74,7 @@ PY
    shasum -a 256 "$LAB_DIR"/raw/*-request.json > "$LAB_DIR/raw/requests.sha256"
    ```
 
-3. Для каждого case выполните отдельный прогрев (`REPEAT=warmup`) и три повтора (`1`, `2`, `3`), осматривая результат между запусками. Пример текстового и инструментального вызова; затем заменить kind на `chat-stream`/`tool-stream`:
+3. For each case, run a separate warmup (`REPEAT=warmup`) and three repetitions (`1`, `2`, `3`), inspecting results between runs. Example text and tool calls; then change kind to `chat-stream`/`tool-stream`:
 
    ```sh
    export REPEAT=warmup
@@ -84,9 +84,9 @@ PY
      --request "$LAB_DIR/raw/tool-request.json" --out "$LAB_DIR/raw/ctx$CTX-tool-r$REPEAT" --follow-tool
    ```
 
-   Требуйте `LAB_READY` и `LAB_VALUE_42` в final; одну `lookup_lab_value`, arguments ровно `{"key":"alpha"}`, непустой call ID и связанный tool result. Код модели не исполняется: клиент возвращает фиксированную строку. HTTP 200 сам по себе не pass. Повторите offline allowlist cases из шага 6 LAB05: неизвестное имя, неправильный key, отсутствующий ID должны быть отвергнуты именно validator, а не случайной ошибкой Python. Их synthetic evidence пометьте отдельно от модельных измерений.
+   Require `LAB_READY` and `LAB_VALUE_42` in the final response; one `lookup_lab_value`, arguments exactly `{"key":"alpha"}`, a nonempty call ID and a linked tool result. Model code is not executed: the client returns a fixed string. HTTP 200 alone is not a pass. Repeat the offline allowlist cases from LAB05 step 6: unknown name, wrong key and missing ID must be rejected by the validator itself, not an accidental Python error. Label their synthetic evidence separately from model measurements.
 
-4. Исследуйте реальный длинный вход. В llama.cpp примените генератор `/apply-template` + `/tokenize` из шага 7 LAB05 с текущим `CTX`; это HTTP-код, переносимый на macOS. Для MLX считайте вход pinned tokenizer из **своего** артефакта. Пример подготовки без загрузки весов (Python из LAB31):
+4. Investigate genuinely long input. In llama.cpp, use the `/apply-template` + `/tokenize` generator from LAB05 step 7 with the current `CTX`; this HTTP code is portable to macOS. For MLX, count input with the pinned tokenizer from **your own** artifact. Example preparation without loading weights (Python from LAB31):
 
    ```sh
    "$MLX_ENV/bin/python" - "$LOCAL_MLX" "$LAB_DIR" "$CTX" "$MODEL_ALIAS" <<'PY'
@@ -95,9 +95,9 @@ PY
    tokenizer = AutoTokenizer.from_pretrained(sys.argv[1], local_files_only=True, trust_remote_code=False)
    ctx = int(sys.argv[3])
    def make(n):
-       return [{'role':'user', 'content':'Контрольное значение LAB_SENTINEL_42.\n' +
-           ''.join(f'Строка {i}: нейтральные данные.\n' for i in range(n)) +
-           'Верни контрольное значение из первой строки.'}]
+        return [{'role':'user', 'content':'Sentinel value LAB_SENTINEL_42.\n' +
+            ''.join(f'Line {i}: neutral data.\n' for i in range(n)) +
+            'Return the sentinel value from the first line.'}]
    def count(messages):
        ids = tokenizer.apply_chat_template(messages, tokenize=True, return_dict=False,
            add_generation_prompt=True, enable_thinking=False)
@@ -117,50 +117,50 @@ PY
    PY
    ```
 
-   В Transformers 5.19 `return_dict` по умолчанию равен `True`: `len(BatchEncoding)` считает поля, а не токены. Явный `return_dict=False` и проверка плоского списка ID обязательны; сохраните count и проверьте его до загрузки весов. В этом примере server должен использовать `enable_thinking=false`.
+   In Transformers 5.19, `return_dict` defaults to `True`: `len(BatchEncoding)` counts fields, not tokens. Explicit `return_dict=False` and validation of a flat ID list are mandatory; save and check the count before loading weights. In this example the server must use `enable_thinking=false`.
 
-   Подтвердите, что server использует тот же template и reasoning options; иначе счёт не доказан. Выполните long request тем же probe: warmup и три повтора, ожидая `LAB_SENTINEL_42`. Проверяйте actual input usage, truncation и память. Нельзя измерять «32K» коротким prompt в большом пустом context.
+   Confirm that the server uses the same template and reasoning options; otherwise the count is unproven. Run the long request with the same probe: warmup and three repetitions, expecting `LAB_SENTINEL_42`. Check actual input usage, truncation and memory. A short prompt in a large empty context does not measure “32K”.
 
-5. Отмена: подготовьте отдельный streaming long request с достаточным output cap, сохраните `curl --no-buffer --max-time 1` ответ/exit code. Затем проверьте серверную очередь и recovery chat до возвращения к baseline. Timeout клиента не доказывает отмену GPU generation. Сохраните длительность освобождения слота и изменение памяти; если запрос успел завершиться раньше timeout, опыт отмены не состоялся, отметьте это.
+5. Cancellation: prepare a separate long streaming request with a sufficient output cap; save the `curl --no-buffer --max-time 1` response/exit code. Then check the server queue and recovery chat before returning to baseline. A client timeout does not prove GPU generation was cancelled. Save slot-release time and memory change; if the request completed before the timeout, the cancellation experiment did not occur—record that.
 
-6. Переполнение: для runtime с подтверждённым hard cap создайте вход, который **после template/tokenization** превышает cap с output reserve. Сохраните точный count, request и ответ/ошибку, затем обычный recovery chat. Тихое усечение или context shift зафиксируйте как поведение, а не успешный контроль лимита. Если cap недоступен, оформите blocker этого опыта; не доводите машину до OOM для его имитации.
+6. Overflow: for a runtime with a confirmed hard cap, create input that **after template/tokenization** exceeds the cap including the output reserve. Save the exact count, request and response/error, then a normal recovery chat. Record silent truncation or context shifting as behavior, not successful limit enforcement. If a cap is unavailable, document a blocker for this experiment; do not force the machine into OOM to simulate it.
 
-7. Только после проверки 8K перейдите к 16K, затем 32K с новым runtime condition и перезапуском собственного сервера. Для второго движка создайте отдельную сессию. Не объединяйте warm/prefix-cached и cold запросы; покажите TTFT content отдельно от reasoning, отсутствующий usage не заменяйте оценкой по символам.
+7. Only after checking 8K, proceed to 16K, then 32K with a new runtime condition and a restart of your own server. Create a separate session for a second engine. Do not combine warm/prefix-cached and cold requests; show content TTFT separately from reasoning, and do not replace missing usage with character-count estimates.
 
-## Таблицы результатов
+## Results tables
 
-| Engine / context | Case / повтор | Input/output tokens | TTFT content / reasoning s | Total s | Final / tool / SSE correct | Память / swap | Evidence |
+| Engine / context | Case / repetition | Input/output tokens | TTFT content / reasoning s | Total s | Final / tool / SSE correct | Memory / swap | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | | | | | | | | |
 
-| Воздействие | Подтверждённый cap/count | Ответ | Recovery / slot release | Допуск / blocker |
+| Intervention | Confirmed cap/count | Response | Recovery / slot release | Admission / blocker |
 | --- | --- | --- | --- | --- |
-| Отмена | | | | |
-| Переполнение | | | | |
+| Cancellation | | | | |
+| Overflow | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, четыре request fixtures и hashes, probe, runtime identity, все JSON/SSE outputs, token counts, memory timeline, отмена/переполнение/recovery evidence и offline validation. Пропущенные context/cases остаются в planned attempts.
+Report/TSV/manifest, four request fixtures and hashes, probe, runtime identity, all JSON/SSE outputs, token counts, memory timeline, cancellation/overflow/recovery evidence and offline validation. Skipped contexts/cases remain in planned attempts.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Контексты подтверждены фактической длиной входа и runtime conditions.
-- [ ] Четыре protocol cases имеют warmup и три повтора на каждом допущенном контексте.
-- [ ] Tool allowlist, IDs, final content и SSE completion проверены.
-- [ ] Отмена/overflow не выданы за pass без recovery evidence.
-- [ ] Выдан отдельный допуск/blocker для LAB08 и нагрузочных работ.
-- [ ] Комплект проверен по общему протоколу.
+- [ ] Contexts confirmed by actual input length and runtime conditions.
+- [ ] Four protocol cases have a warmup and three repetitions at every admitted context size.
+- [ ] Tool allowlist, IDs, final content and SSE completion checked.
+- [ ] Cancellation/overflow not marked pass without recovery evidence.
+- [ ] Separate admission/blocker issued for LAB08 and load labs.
+- [ ] Submission checked against the shared protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему TTFT нельзя получить из времени non-streaming ответа?
-2. Почему client CTX не задаёт server context limit?
-3. Чем timeout соединения отличается от отмены generation?
-4. Почему prefix cache и reasoning меняют интерпретацию задержки?
+1. Why cannot TTFT be derived from non-streaming response time?
+2. Why does client CTX not set the server context limit?
+3. How does a connection timeout differ from cancelling generation?
+4. Why do prefix cache and reasoning affect latency interpretation?
 
-## Источники
+## Sources
 
-- [LAB05: переносимый HTTP/SSE probe и allowlist](LAB05-context-tools.md).
+- [LAB05: portable HTTP/SSE probe and allowlist](LAB05-context-tools.md).
 - [llama.cpp server](https://github.com/ggml-org/llama.cpp/tree/master/tools/server).
 - [MLX-LM server](https://github.com/ml-explore/mlx-lm/blob/main/mlx_lm/server.py).
 - [Transformers chat templates](https://huggingface.co/docs/transformers/chat_templating).

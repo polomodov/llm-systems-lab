@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This repository is a lab for running the same autonomous agents in different agent harnesses on the same tasks, and recording what each harness needed. Read this file as a map; details live in the files it points to.
+This repository is a lab for reproducible experiments with LLM systems: models, inference engines, hardware, serving, autonomous agents and their harnesses. Agent comparisons run the same agents on the same tasks and record what each harness needed. Read this file as a map; details live in the files it points to.
 
 ## What you are working in
 
@@ -27,5 +27,5 @@ This repository is a lab for running the same autonomous agents in different age
 
 ## Style
 
-- Documentation is in Russian, identifiers and file names in English. Agent specs and task contracts must be readable by any harness, so keep them plain Markdown without harness-specific syntax.
+- Write documentation, code comments, agent specifications, task contracts and user-facing messages in English. Preserve original research evidence and sealed historical inputs in their source language; translating them would change the experiment. Compatibility parsers and multilingual test data may retain source-language literals. Keep specifications and contracts in plain Markdown without harness-specific syntax.
 - Do not invent facts about a harness. If a feature is unverified, say "unverified" and where to verify.

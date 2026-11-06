@@ -28,46 +28,46 @@ save(raw/'runtime-summary.json',summary);m['unavailable'].update(energy='No ener
 m['evidence_files']=sorted(str(f.relative_to(directory)) for f in raw.rglob('*') if f.is_file());save(directory/'manifest.json',m)
 header='observation_id configuration_id model_id engine backend context_tokens repeat metric value unit status evidence_path unavailable_reason'.split();(directory/'measurements.tsv').write_text('\t'.join(header)+'\n'+''.join('\t'.join(r)+'\n' for r in rows))
 counts={s:sum(a['status']==s for a in m['planned_attempts']) for s in ('completed','failed','not-run')}
-(directory/'report.md').write_text(f'''# LAB31 — одинаковые HTTP-входы для GGUF и MLX
+(directory/'report.md').write_text(f'''# LAB31 — identical HTTP inputs for GGUF and MLX
 
-Сессия `{m['session_id']}`, статус **{m['status']}**. {m['conclusion']}
+Session `{m['session_id']}`, status **{m['status']}**. {m['conclusion']}
 
-## Паспорт выполнения
+## Run profile
 
-Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. GGUF Q6_K revision 3885219b6810b007914f3a7950a8d1b469d598a5 / llama.cpp 312cf03328496df9c56fe843952cf02a8964c59a tensor tile16 Metal против MLX affine 4-bit/group64 revision 938d8919941c6e7efd3c7150eff7fe9d12afa631 / MLX-LM 0.32.0 / MLX 0.32.3. Exact paths/bytes/hashes: [GGUF](raw/gguf-reference.json), [MLX runtime](raw/runtime-manifest.json), [artifacts](raw/artifact-manifest.json), [full MLX prestart pins](raw/prestart-pins.json). Две MLX safetensors shards не оцениваются по размеру GGUF. VLM artifact используется только для текста. Агентных episodes нет.
+Apple M5 Max / 128 GiB / macOS 26.5 (25F71), AC/mode 0. GGUF Q6_K revision 3885219b6810b007914f3a7950a8d1b469d598a5 / llama.cpp 312cf03328496df9c56fe843952cf02a8964c59a tensor tile16 Metal versus MLX affine 4-bit/group64 revision 938d8919941c6e7efd3c7150eff7fe9d12afa631 / MLX-LM 0.32.0 / MLX 0.32.3. Exact paths/bytes/hashes: [GGUF](raw/gguf-reference.json), [MLX runtime](raw/runtime-manifest.json), [artifacts](raw/artifact-manifest.json), [full MLX prestart pins](raw/prestart-pins.json). The two MLX safetensors shards are not estimated from GGUF size. The VLM artifact is used only for text. No agent episodes.
 
-## Гипотеза и протокол до запуска
+## Hypothesis and protocol before execution
 
-[Протокол](raw/protocol.md) и source-registration закреплены commit до исполнения: `64d17b0cf302e606206b3b8c29022b9b6071da49`, сохранённый ancestor текущей ветки. [Audit](raw/preregistration-audit.json) проверяет 10 точных blobs и recorded commit time 11:31:31Z перед началом GGUF 11:31:31.819526Z. `parent_commit=efab7f2` означает preparation parent, не registration proof. Git timestamps не являются независимой аттестацией часов. При отсутствующем ancestor, файле, несовпадающих bytes или позднем commit exporter переводит сессию в blocked. Порядок GGUF → MLX, один собственный сервер. [Входы](raw/shared-inputs.json) совпадают по messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. На каждый вход — один прогрев и три повтора. Final сравнивается буквально, без trim и нормализации. Внутренние templates, token IDs и квантизация могут различаться: оцениваются целые deployments.
+[Protocol](raw/protocol.md) and source registration are committed before execution: `64d17b0cf302e606206b3b8c29022b9b6071da49`, a retained ancestor of the current branch. The [audit](raw/preregistration-audit.json) verifies 10 exact blobs and recorded commit time 11:31:31Z before GGUF started at 11:31:31.819526Z. `parent_commit=efab7f2` means the preparation parent, not registration proof. Git timestamps are not independent clock attestation. A missing ancestor or file, mismatching bytes, or late commit makes the exporter mark the session blocked. Order: GGUF → MLX, one owned server. [Inputs](raw/shared-inputs.json) have identical messages; temp 0, seed 1, top_p 1, output cap 256, thinking false, streaming/include_usage. Each input has one warmup and three repeats. Final content is compared literally, without trimming or normalization. Internal templates, token IDs, and quantization may differ: whole deployments are evaluated.
 
-## Ход выполнения
+## Execution log
 
-[Контроллер](raw/run_common.py) проверяет model/native pins до Popen, отсутствие чужих моделей и порт. GGUF logs/props/slots проверяют M5/tensor/offload 33/33/context 8192. MLX observer проверяет actual default GPU, loaded native images и allocator. Resource guard каждые 2 с: free+spec ≥8 GiB, pressure level 1, swap 0, AC/mode 0, RSS ≤24 GiB, gap ≤15 с, deadline 900 с. HTTP клиент ограничен 120 с. Shutdown: один собственный SIGINT, 30 с, затем own kill при необходимости. ОС и чужие приложения не меняются.
+The [controller](raw/run_common.py) checks model/native pins before Popen, absence of foreign models, and the port. GGUF logs/props/slots establish M5/tensor/offload 33/33/context 8192. The MLX observer checks the actual default GPU, loaded native images, and allocator. Resource guard every 2 s: free+spec ≥8 GiB, pressure level 1, swap 0, AC/mode 0, RSS ≤24 GiB, gap ≤15 s, deadline 900 s. HTTP client limit: 120 s. Shutdown: one owned SIGINT, 30 s, then kill the owned process if needed. The OS and other users’ applications are unchanged.
 
-## Результаты
+## Results
 
-Attempts: {json.dumps(counts)}. API readiness от Popen учитывается отдельно в [runtime summary](raw/runtime-summary.json). TTFT — первое непустое content delta, total — время до полного SSE; usage из первичного ответа.
+Attempts: {json.dumps(counts)}. API readiness from Popen is recorded separately in the [runtime summary](raw/runtime-summary.json). TTFT is the first nonempty content delta; total is time to complete SSE; usage comes from the primary response.
 
-| Deployment/case/repeat | Статус | Raw final | TTFT, с | Total, с | Input/output tokens |
+| Deployment/case/repeat | Status | Raw final | TTFT, s | Total, s | Input/output tokens |
 | --- | --- | --- | --- | --- | --- |
-{chr(10).join(table) or '| — | Не выполнено | — | — | — | — |'}
+{chr(10).join(table) or '| — | Not performed | — | — | — | — |'}
 
-## Ошибки и ограничения
+## Errors and limitations
 
-{m['unavailable'].get('completion','Все зарегистрированные попытки выполнены.')} Одинаковые messages не означают одинаковый prompt token count. Readiness /v1/models не подтверждает завершение загрузки MLX: model provider загружает веса по первому запросу, его warmup включает загрузку. Hashing заранее прогревает filesystem cache; cold cache не измерялся. Серии короткие, ресурсный collector сделал по одному sample: sampled RSS не называется истинным peak. Поле execution.accepted осталось false из-за неиспользуемого начального значения контроллера; исходный файл сохранён. Итоговый protocol_accepted в runtime summary выводится из полного attempt register, exit/SIGINT и отсутствия guard, а не из этого поля. GGUF резервирует context 8192; MLX short-input budget 8192 не является hard cap. Три повтора не доказывают статистическую эквивалентность. Энергия, температура и максимальный GPU budget неизвестны. Смена формата и quant исключает вывод о влиянии одного Metal/MLX backend.
+{m['unavailable'].get('completion','All registered attempts were completed.')} Identical messages do not imply identical prompt-token counts. /v1/models readiness does not establish complete MLX loading: the model provider loads weights on the first request, so warmup includes loading. Hashing warms the filesystem cache beforehand; cold cache was not measured. These are short series, with one resource-collector sample each: sampled RSS is not called a true peak. execution.accepted remained false because of an unused controller initial value; the original file is retained. Final protocol_accepted in the runtime summary is derived from the full attempt register, exit/SIGINT, and absence of guards, not this field. GGUF reserves context 8192; the MLX short-input budget 8192 is not a hard cap. Three repeats do not establish statistical equivalence. Energy, temperature, and maximum GPU budget are unknown. Different formats and quantization prevent isolating the Metal/MLX backend effect.
 
-## Вывод по гипотезе
+## Hypothesis conclusion
 
-{m['conclusion']} Вывод ограничен этими входами, настройками, версиями и состоянием памяти. Скорость HTTP примитива не означает качество автономного агента.
+{m['conclusion']} The conclusion is limited to these inputs, settings, versions, and memory state. HTTP primitive speed does not establish autonomous-agent quality.
 
-## Ответы на контрольные вопросы
+## Answers to review questions
 
-1. Новая CLI-команда запускает новый процесс и может включать загрузку весов; здесь используется resident HTTP server, cold readiness отделена.
-2. 4-bit MLX и GGUF Q6_K используют разные схемы квантования, упаковку, kernels и templates; эффект одного engine не изолирован.
-3. RSS измеряет собственный server PID; MLX allocator active/cache/peak наблюдается отдельно. Суммировать пересекающиеся страницы нельзя.
-4. /v1/models сообщает alias, но не удостоверяет bytes/revision/runtime. Нужны full prestart hashes, actual model path, native loaded images и pinned source.
+1. A new CLI command starts a new process and may include loading weights; this uses a resident HTTP server, with cold readiness separated.
+2. 4-bit MLX and GGUF Q6_K use different quantization schemes, packing, kernels, and templates; the engine effect is not isolated.
+3. RSS measures the owned server PID; MLX allocator active/cache/peak are observed separately. Do not sum overlapping pages.
+4. /v1/models reports an alias but does not verify bytes/revision/runtime. Full prestart hashes, actual model path, native loaded images, and pinned source are required.
 
-## Комплект сдачи
+## Submission bundle
 
-Manifest v2, протокол, source registration, full model/native pins, raw inputs/SSE/finals/metrics, непрерывные ресурсы и cleanup сохранены. TSV хранит отдельные наблюдения с условиями. lab:check submission проверяет комплект; reviewer decision **не проверено**.
+Manifest v2, protocol, source registration, full model/native pins, raw inputs/SSE/finals/metrics, continuous resource observations, and cleanup are retained. TSV stores individual observations with conditions. lab:check submission checks the bundle; reviewer decision **unverified**.
 ''')

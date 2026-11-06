@@ -1,93 +1,93 @@
-# ЛР46. Inference-aware routing и холодный старт реплики
+# LAB46. Inference-aware routing and replica cold start
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка Kubernetes и GPU не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the Kubernetes and GPU branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | [ЛР44](LAB44-k8s-gpu-scheduling.md) (Kind на стенде B) и [ЛР45](LAB45-k8s-gpu-vllm-capacity.md) (vLLM в k3s на стенде A) |
-| Стенды | B: маршрутизация на симуляторе; A: одна настоящая реплика vLLM и холодный старт |
-| Минимум | Часть A (round-robin против Gateway API Inference Extension на 4 репликах симулятора), часть C (разложение холодного старта настоящей реплики) |
-| Расширения | Часть B (настоящая реплика vLLM в InferencePool на стенде A); кэш весов на узле или image volume; multi-LoRA на симуляторе |
-| Время | Ориентир 1 день |
-| Готовность | `target-machine`; совместимость закреплённых версий симулятора и endpoint picker `unverified` |
-| Начальное состояние | Учебный manifest — `not-started` |
+| Prerequisite | [LAB44](LAB44-k8s-gpu-scheduling.md) (Kind on machine B) and [LAB45](LAB45-k8s-gpu-vllm-capacity.md) (vLLM in k3s on machine A) |
+| Machines | B: routing on a simulator; A: one real vLLM replica and cold start |
+| Minimum | Part A (round-robin versus Gateway API Inference Extension on 4 simulator replicas), part C (real-replica cold-start breakdown) |
+| Extensions | Part B (real vLLM replica in an InferencePool on machine A); node weight cache or image volume; multi-LoRA on the simulator |
+| Time | Allow 1 day |
+| Readiness | `target-machine`; compatibility of pinned simulator and endpoint-picker versions is `unverified` |
+| Initial state | Educational manifest: `not-started` |
 
-## Цель
+## Objective
 
-Понять, чем маршрутизация запросов к LLM отличается от обычной балансировки HTTP и сколько она даёт, а также разложить холодный старт реплики на этапы. Это две вещи, которые определяют латентность и стоимость платформы сервинга при автоскейлинге.
+Understand how LLM request routing differs from ordinary HTTP load balancing and what it gains, and break down replica cold start into stages. These two factors determine serving-platform latency and cost during autoscaling.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. На нагрузке с общими префиксами и неравномерной длиной запросов inference-aware routing (endpoint picker Gateway API Inference Extension) снижает TTFT p95 по сравнению с round-robin не меньше чем на X% при той же общей нагрузке.
-2. В холодном старте настоящей реплики vLLM больше половины времени занимают загрузка весов и подготовка движка, а не планирование pod и скачивание образа.
+1. On a workload with shared prefixes and uneven request lengths, inference-aware routing (Gateway API Inference Extension endpoint picker) reduces TTFT p95 by at least X% versus round-robin at the same total load.
+2. Weight loading and engine preparation account for more than half of real vLLM replica cold-start time, rather than pod scheduling and image download.
 
-X фиксируется в протоколе до замера.
+Fix X in the protocol before measurement.
 
-## Подготовка
+## Preparation
 
-- Прочитайте: [Introducing Gateway API Inference Extension](https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/), документацию `kubernetes-sigs/gateway-api-inference-extension` (InferencePool, endpoint picker), репозиторий `llm-d/llm-d` (well-lit paths, KV-cache-aware routing, prefill/decode disaggregation), репозиторий `llm-d/llm-d-inference-sim`.
-- Симулятор имитирует OpenAI-совместимый сервер vLLM и его метрики без GPU. Его задержки — модель, а не измерение настоящего движка; выводы части A относятся к алгоритму маршрутизации.
-- Закрепите версии Gateway API CRD, реализации Gateway, Inference Extension, симулятора.
-- Нагрузка та же, что набор B из ЛР45, плюс смесь коротких и длинных запросов; генератор в `experiments/k8s-gpu/bench/`.
+- Read: [Introducing Gateway API Inference Extension](https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/), `kubernetes-sigs/gateway-api-inference-extension` documentation (InferencePool, endpoint picker), `llm-d/llm-d` (well-lit paths, KV-cache-aware routing, prefill/decode disaggregation), `llm-d/llm-d-inference-sim`.
+- The simulator mimics an OpenAI-compatible vLLM server and its metrics without a GPU. Its delays are a model, not measurements of a real engine; part A conclusions concern the routing algorithm.
+- Pin Gateway API CRD, Gateway implementation, Inference Extension and simulator versions.
+- Use the same workload as LAB45 set B plus a mix of short and long requests; generator in `experiments/k8s-gpu/bench/`.
 
 ```bash
 npm run lab:new -- --lab LAB46 --session honor-01
 LAB_DIR='experiments/k8s-gpu/measurements/LAB46-honor-01'
 ```
 
-Для части B и C на стенде A — отдельная сессия `ryzen-01` той же работы.
+For parts B and C on machine A, create a separate `ryzen-01` session of this lab.
 
-## Порядок выполнения
+## Procedure
 
-1. **Часть A: симулятор.** Kind на стенде B, Gateway API и выбранная реализация Gateway, 4 реплики `llm-d-inference-sim` с одинаковыми параметрами задержек.
-   - Прогон A1: HTTPRoute на Service реплик с явно настроенной балансировкой round-robin на уровне запроса в выбранной реализации Gateway. Обычный Service через kube-proxy не годится: он выбирает pod случайно и один раз на соединение, и при keep-alive запросы скапливаются на одной реплике. По логам или метрикам реплик проверьте, что запросы распределились поровну, иначе прогон не зачитывается.
-   - Прогон A2: InferencePool с endpoint picker.
-   По 3 прогона каждого варианта, порядок чередуется, одинаковая нагрузка. Сохраните конфигурацию, логи endpoint picker, метрики реплик.
-2. **Часть B (расширение): настоящая реплика.** На стенде A добавьте vLLM из ЛР45 в InferencePool вместе с репликами симулятора. Проверьте по логам endpoint picker, что он читает метрики настоящей реплики, и запишите, как распределяется трафик.
-3. **Часть C: холодный старт.** На стенде A удалите pod vLLM при пустом кэше страниц (запишите, как сбрасывали) и при прогретом. Отметьте метки времени: pod создан → назначен узлу → образ готов → контейнер запущен → веса загружены (по логам vLLM) → readiness → первый ответ. По 3 повтора каждого режима.
-4. **Расширение: кэш весов.** Повторите часть C с весами из image volume или локального кэша на узле и запишите разницу.
-5. **Teardown.** Удалите Kind-кластер стенда B; на стенде A верните состояние ЛР45 или удалите k3s.
+1. **Part A: simulator.** Kind on machine B, Gateway API and a chosen Gateway implementation, 4 `llm-d-inference-sim` replicas with identical delay parameters.
+   - Run A1: HTTPRoute to the replica Service with explicitly configured per-request round-robin balancing in the chosen Gateway implementation. An ordinary kube-proxy Service is unsuitable: it picks a pod randomly once per connection, so keep-alive accumulates requests on one replica. Verify even request distribution from replica logs or metrics; otherwise the run does not count.
+   - Run A2: InferencePool with endpoint picker.
+   Three runs per variant, alternating order, identical load. Save configuration, endpoint-picker logs and replica metrics.
+2. **Part B (extension): real replica.** On machine A, add LAB45 vLLM to an InferencePool alongside simulator replicas. Verify from endpoint-picker logs that it reads real-replica metrics, and record traffic distribution.
+3. **Part C: cold start.** On machine A, delete the vLLM pod with an empty page cache (record how it was cleared) and with a warm cache. Record timestamps: pod created → assigned to node → image ready → container started → weights loaded (from vLLM logs) → readiness → first response. Three repetitions per mode.
+4. **Extension: weight cache.** Repeat part C with weights from an image volume or local node cache and record the difference.
+5. **Teardown.** Delete machine B's Kind cluster; on machine A, restore the LAB45 state or remove k3s.
 
-## Таблицы результатов
+## Results tables
 
-| Вариант (часть A) | Прогон | TTFT медиана / p95, ms | Доля запросов на самую загруженную реплику, % | Ошибки |
+| Variant (part A) | Run | TTFT median / p95, ms | Request share on busiest replica, % | Errors |
 | --- | --- | --- | --- | --- |
 | Round-robin | 1–3 | | | |
 | Endpoint picker | 1–3 | | | |
 
-| Этап холодного старта (часть C) | Холодный кэш, s | Прогретый кэш, s | Кэш весов (расширение), s |
+| Cold-start stage (part C) | Cold cache, s | Warm cache, s | Weight cache (extension), s |
 | --- | --- | --- | --- |
-| Планирование pod | | | |
-| Образ готов | | | |
-| Запуск контейнера | | | |
-| Загрузка весов | | | |
-| Подготовка движка до readiness | | | |
-| Первый ответ | | | |
-| Итого | | | |
+| Pod scheduling | | | |
+| Image ready | | | |
+| Container startup | | | |
+| Weight loading | | | |
+| Engine preparation to readiness | | | |
+| First response | | | |
+| Total | | | |
 
-## Что сдать
+## Deliverables
 
-- Отчёты обеих сессий, манифесты Gateway и InferencePool, генератор нагрузки, сырые результаты, логи endpoint picker и vLLM с метками времени.
-- Версии всех компонентов; описание модели задержек симулятора.
+- Reports for both sessions, Gateway and InferencePool manifests, load generator, raw results, timestamped endpoint-picker and vLLM logs.
+- All component versions; description of the simulator's delay model.
 
-## Критерии завершения
+## Completion criteria
 
-- A1 и A2 прогнаны по 3 раза на одной нагрузке; гипотеза 1 принята или отвергнута.
-- Холодный старт разложен по этапам в обоих режимах кэша, гипотеза 2 принята или отвергнута.
-- Ограничения выводов из симулятора перечислены явно.
+- A1 and A2 each run 3 times on the same load; hypothesis 1 accepted or rejected.
+- Cold start broken down by stage in both cache modes; hypothesis 2 accepted or rejected.
+- Limits of simulator-derived conclusions explicitly listed.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какие сигналы использует endpoint picker, которых нет у обычного балансировщика, и почему они важны для LLM?
-2. Что такое prefill/decode disaggregation, и при каком профиле нагрузки она окупается?
-3. Спроектируйте сервинг для десятков моделей разного размера с разными SLO. Что общее, что на модель, где живёт маршрутизация, как делятся GPU?
-4. Какие из этапов холодного старта можно убрать или распараллелить, и что это стоит?
+1. Which signals does the endpoint picker use that ordinary load balancers lack, and why do they matter for LLMs?
+2. What is prefill/decode disaggregation, and under which workload profile does it pay off?
+3. Design serving for dozens of differently sized models with different SLOs. What is shared, what is per-model, where does routing live, and how are GPUs divided?
+4. Which cold-start stages can be removed or parallelized, and at what cost?
 
-## Источники
+## Sources
 
 - [Introducing Gateway API Inference Extension](https://kubernetes.io/blog/2025/06/05/introducing-gateway-api-inference-extension/); `kubernetes-sigs/gateway-api-inference-extension`.
 - [llm-d](https://github.com/llm-d/llm-d), `llm-d/llm-d-inference-sim`.
-- Документация Kubernetes: image volumes; документация vLLM по загрузке моделей.
-- Этот репозиторий: [ЛР45](LAB45-k8s-gpu-vllm-capacity.md), [протокол](../method.md).
+- Kubernetes image-volumes documentation; vLLM model-loading documentation.
+- This repository: [LAB45](LAB45-k8s-gpu-vllm-capacity.md), [protocol](../method.md).

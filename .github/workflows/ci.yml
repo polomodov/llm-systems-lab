@@ -21,7 +21,7 @@ defaults:
 
 env:
   PROXY_IMAGE: node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2
-  # Большинству jobs нужен только координатор; Python включён в основной check.
+  # Most jobs need only the coordinator; Python is enabled in the primary check.
   MISE_ENABLE_TOOLS: node
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
           CI_FORCE_PUSH: ${{ github.event.forced }}
         run: node .github/scripts/harness-ci.mjs plan
 
-  # Проверки инфраструктуры: без API-ключей и вызовов моделей.
+  # Infrastructure checks: no API keys or model calls.
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -90,7 +90,7 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
-  # На PR проверяем реальную границу до merge, когда меняется её код.
+  # PRs test the real boundary before merging changes to its implementation.
   docker:
     needs: plan
     if: needs.plan.outputs.docker == 'true'
@@ -119,7 +119,7 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
-  # PR/push: затронутые обвязки; вручную/еженедельно: все профили.
+  # PR/push: affected harnesses; manual/weekly: every profile.
   images:
     needs: plan
     if: needs.plan.outputs.has-images == 'true'

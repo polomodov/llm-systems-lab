@@ -1,8 +1,8 @@
-// Машинное описание задачи: tasks/<id>/task.json. Контракт task.md остаётся
-// текстом для агента; дескриптор говорит координатору, как готовить workspace,
-// какую сеть открывать и какие артефакты требовать. Три первые задачи
-// описаны и здесь, чтобы запечатанные входы старых прогонов без task.json
-// читались так же, как раньше.
+// Machine-readable task descriptor: tasks/<id>/task.json. task.md remains
+// the agent-facing contract; the descriptor tells the coordinator how to
+// prepare the workspace, configure network access and require artifacts.
+// The first three tasks are also described here so old sealed inputs
+// without task.json retain their original interpretation.
 import { existsSync, readFileSync, lstatSync } from 'node:fs';
 import { join } from 'node:path';
 import { safePath } from './files.mjs';

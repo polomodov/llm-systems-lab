@@ -1,90 +1,90 @@
-# ЛР39. Слой состояния: suspend/restore и fork для эпизодов агента
+# LAB39. State layer: suspend/restore and fork for agent episodes
 
-> **Заморожено 05.11.2026.** Методичка сохранена как есть, но новые сессии `lab:new` для неё не создаются: ветка SPACE не имеет измерений и реализации и выделяется в отдельный учебный репозиторий. Снятие заморозки требует отдельного решения и записи в [статусе практикума](README.md#заморозка-инфраструктурных-веток).
+> **Frozen 2026-11-05.** The manual is preserved, but `lab:new` does not create new sessions for it: the SPACE branch has no measurements or implementation and is being moved to a separate educational repository. Unfreezing requires a separate decision and an entry in the [lab status](README.md#infrastructure-branch-freeze).
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылки | [ЛР36](LAB36-space-deploy-smoke.md); одна из [ЛР37](LAB37-space-harness-vm.md) или [ЛР38](LAB38-space-tool-layer.md) |
-| Операции SPACE | `:suspend`, `:wake` (restore), `:pause`; durable fork через ECW (`scripts/tests/smoke-kind-sandbox-fork.py`) |
-| Минимум | Чекпойнт посреди эпизода: suspend → освобождение узла → restore → проверка состояния → продолжение; fork подготовленного состояния в 3 копии и три попытки T002 |
-| Расширения | Перенос на другой узел через forced drain; `bench-sbx-balloon.py` для размера снимков |
-| Время | Ориентир 1 день плюс прогоны |
-| Готовность | `implementation-required`: в раннере нет точки остановки и продолжения эпизода |
-| Начальное состояние | Эксперимент `not-run`; учебный manifest — `not-started` |
+| Prerequisites | [LAB36](LAB36-space-deploy-smoke.md); either [LAB37](LAB37-space-harness-vm.md) or [LAB38](LAB38-space-tool-layer.md) |
+| SPACE operations | `:suspend`, `:wake` (restore), `:pause`; durable fork through ECW (`scripts/tests/smoke-kind-sandbox-fork.py`) |
+| Minimum | Mid-episode checkpoint: suspend → release node resources → restore → verify state → continue; fork prepared state into 3 copies and run three T002 attempts |
+| Extensions | Move to another node via forced drain; `bench-sbx-balloon.py` for snapshot size |
+| Time | Allow 1 day plus runs |
+| Readiness | `implementation-required`: the runner has no episode pause/resume point |
+| Initial state | Experiment `not-run`; educational manifest `not-started` |
 
-## Цель
+## Objective
 
-Проверить, можно ли использовать снимки SPACE как механизм состояния агента: заморозить длинный эпизод и продолжить его позже, а из одного подготовленного состояния запустить несколько независимых попыток.
+Test whether SPACE snapshots can provide agent state management: freeze a long episode and resume it later, or launch multiple independent attempts from one prepared state.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-1. После `suspend` и restore файлы, запущенные процессы и содержимое памяти песочницы совпадают с состоянием до снимка (контрольные SHA-256), а агент продолжает эпизод с того же хода.
-2. Три попытки из fork одного состояния ведут себя как независимые повторы: их workspace расходятся только в результате действий агента.
+1. After `suspend` and restore, sandbox files, running processes and memory contents match their pre-snapshot state (control SHA-256 hashes), and the agent continues from the same turn.
+2. Three attempts forked from one state behave as independent repetitions: their workspaces diverge only because of agent actions.
 
-Опровержение 1 — расхождение контрольной суммы или потеря процесса. Опровержение 2 — общий изменяемый ресурс между копиями (файл, порт, кэш).
+A checksum mismatch or lost process falsifies 1. A shared mutable resource between copies (file, port, cache) falsifies 2.
 
-## Подготовка
+## Preparation
 
-- Лексика SPACE: `pause/resume` держит VM в памяти; `suspend/restore` сохраняет память и состояние, освобождает ресурсы узла и потом восстанавливает снимок; `wake` принимает любой допустимый путь подъёма. В ECW `pause` соответствует SPACE `suspend`, а `resume` — `restore`.
-- Состояние агента живёт не только в VM: история сообщений, кэш провайдера и счётчики обвязки находятся снаружи. Определите до запуска, что из этого сохраняете вы и как.
-- Протокол фиксирует, после какого хода делается снимок, и считается ли продолженный эпизод тем же run или новым (по [методу](../method.md) — описать явно).
+- SPACE terminology: `pause/resume` keeps the VM in memory; `suspend/restore` saves memory and state, releases node resources and later restores the snapshot; `wake` accepts any valid bring-up path. ECW `pause` corresponds to SPACE `suspend`, and `resume` to `restore`.
+- Agent state is not confined to the VM: message history, provider cache and harness counters live outside it. Decide before execution which of these you preserve and how.
+- The protocol fixes the snapshot turn and whether a resumed episode is the same run or a new one (describe explicitly under the [method](../method.md)).
 
 ```bash
 npm run lab:new -- --lab LAB39 --session ryzen-01
 LAB_DIR='experiments/space/measurements/LAB39-ryzen-01'
 ```
 
-## Порядок выполнения
+## Procedure
 
-1. **Синтетическая проверка без агента.** Песочница: файл со случайными данными на rootfs и в `/dev/shm`, фоновый процесс с буфером в памяти; записать SHA-256. `suspend`, дождаться завершения операции, проверить, что ресурсы узла освобождены, `wake`, сверить суммы и PID. 5 повторов; время suspend и restore, размер снимка.
+1. **Synthetic check without an agent.** In a sandbox: a random-data file on rootfs and in `/dev/shm`, a background process with an in-memory buffer; record SHA-256. `suspend`, await operation completion, verify node resources are released, `wake`, compare hashes and PID. 5 repetitions; suspend/restore time and snapshot size.
 
-2. **Точка остановки в раннере.** Добавьте режим, который после N-го завершённого хода сохраняет внешнее состояние агента (историю/сессию обвязки, если она это поддерживает) и вызывает `suspend`. Продолжение восстанавливает песочницу и внешнее состояние. Если обвязка не умеет продолжать сессию, зафиксируйте это как результат и используйте схему ЛР38, где внешним состоянием управляете вы.
+2. **Runner pause point.** Add a mode that saves external agent state (history/harness session if supported) after the Nth completed turn and calls `suspend`. Continuation restores the sandbox and external state. If the harness cannot resume a session, record that as a result and use the LAB38 design, where you control external state.
 
-3. **Эпизод с чекпойнтом.** T002 со снимком после хода N; между suspend и restore пауза не меньше 5 минут. Сравните итог с эпизодом без снимка той же обвязки.
+3. **Checkpointed episode.** T002 with a snapshot after turn N; pause at least 5 minutes between suspend and restore. Compare the outcome with an episode of the same harness without a snapshot.
 
-4. **Fork.** Подготовьте песочницу до первого хода агента (workspace залит, зависимости установлены), сделайте fork в 3 копии и запустите три попытки T002. Запишите `pass@3` и `pass^3` только как наблюдение на одной тройке.
+4. **Fork.** Prepare a sandbox before the first agent turn (workspace uploaded, dependencies installed), fork it into 3 copies and run three T002 attempts. Record `pass@3` and `pass^3` only as observations from one triplet.
 
-5. **Расширение: перенос.** На кластере с двумя worker повторите шаг 1 через `local.forced_drain_evacuates_sandbox` или ручной forced drain.
+5. **Extension: migration.** On a cluster with two workers, repeat step 1 through `local.forced_drain_evacuates_sandbox` or a manual forced drain.
 
-## Таблицы результатов
+## Results tables
 
-**Синтетический снимок**
+**Synthetic snapshot**
 
-| Повтор | Suspend, s | Restore, s | Размер снимка, MiB | SHA rootfs | SHA shm | Процесс жив |
+| Repetition | Suspend, s | Restore, s | Snapshot size, MiB | SHA rootfs | SHA shm | Process alive |
 | --- | --- | --- | --- | --- | --- | --- |
 
-**Эпизоды**
+**Episodes**
 
-| Run ID | Режим | Ход снимка | Пауза, s | Verdict | Ходы | USD | Что восстановлено снаружи |
+| Run ID | Mode | Snapshot turn | Pause, s | Verdict | Turns | USD | External state restored |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| | без снимка | — | — | | | | — |
-| | со снимком | | | | | | |
+| | no snapshot | — | — | | | | — |
+| | with snapshot | | | | | | |
 | | fork 1/3 | — | — | | | | |
 | | fork 2/3 | — | — | | | | |
 | | fork 3/3 | — | — | | | | |
 
-## Что сдать
+## Deliverables
 
-- Отчёт, изменения раннера с тестами и строками ledger.
-- Raw: логи операций SPACE (ID операций, состояния), контрольные суммы, `run.json` всех попыток.
+- Report, runner changes with tests and ledger rows.
+- Raw: SPACE operation logs (operation IDs, states), checksums, `run.json` for every attempt.
 
-## Критерии завершения
+## Completion criteria
 
-- Синтетическая проверка выполнена 5 раз, каждое расхождение объяснено.
-- Эпизод с чекпойнтом имеет запись и verdict; способ продолжения описан.
-- Три попытки из fork имеют записи; независимость проверена сравнением workspace.
-- `npm test` и `npm run check` проходят.
+- Synthetic check repeated 5 times; every discrepancy explained.
+- Checkpointed episode has a record and verdict; continuation method described.
+- Three forked attempts have records; independence checked by comparing workspaces.
+- `npm test` and `npm run check` pass.
 
-## Контрольные вопросы
+## Review questions
 
-1. Какая часть состояния агента не помещается в снимок VM?
-2. Можно ли считать попытки из fork независимыми повторами в смысле протокола, если у них общий кэш провайдера?
-3. Как размер снимка зависит от того, что агент делал до него?
-4. Когда `pause/resume` выгоднее `suspend/restore` для агента?
+1. Which part of agent state does not fit into a VM snapshot?
+2. Are forked attempts independent repetitions under the protocol if they share a provider cache?
+3. How does snapshot size depend on the agent's prior actions?
+4. When is `pause/resume` preferable to `suspend/restore` for an agent?
 
-## Источники
+## Sources
 
-- SPACE: `docs/architecture.md` (жизненный цикл), `docs/using-api.md`, `scripts/tests/smoke-kind-sandbox-fork.py`, `scripts/benchmarks/README.md` (balloon suspend/restore), `infra/space/kind/README.md` (forced drain).
-- Этот репозиторий: [метод](../method.md), [ЛР09](LAB09-agent-campaign.md) (pass@k).
+- SPACE: `docs/architecture.md` (lifecycle), `docs/using-api.md`, `scripts/tests/smoke-kind-sandbox-fork.py`, `scripts/benchmarks/README.md` (balloon suspend/restore), `infra/space/kind/README.md` (forced drain).
+- This repository: [method](../method.md), [LAB09](LAB09-agent-campaign.md) (pass@k).

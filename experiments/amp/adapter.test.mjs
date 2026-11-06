@@ -3,20 +3,20 @@ import assert from 'node:assert/strict';
 import { buildCommand, parseTrace } from './adapter.mjs';
 const trace = events => events.map(event => JSON.stringify(event)).join('\n');
 
-test('Amp: явный managed mode, локальный executor, literal prompt и запрет hard USD', () => {
+test('Amp: explicit managed mode, local executor, literal prompt, and hard USD rejection', () => {
   const prompt = '--help\n$(touch /tmp/injected)';
   const { command } = buildCommand({ model: 'medium', provider: 'amp', turns: null, budget: null, prompt });
   assert.equal(command.at(-1), `--execute=${prompt}`);
   assert.equal(command[command.indexOf('--mode') + 1], 'medium');
   assert.equal(command[command.indexOf('--executor') + 1], 'local');
   assert.equal(command[command.indexOf('--visibility') + 1], 'private');
-  assert.throws(() => buildCommand({ model: 'claude-sonnet-4-6', prompt }), /управляемый режим/);
+  assert.throws(() => buildCommand({ model: 'claude-sonnet-4-6', prompt }), /managed mode/);
   assert.throws(() => buildCommand({ model: 'medium', budget: 1, prompt }), /observed/);
   assert.throws(() => buildCommand({ model: 'medium', turns: -1, prompt }), /turns/);
   assert.throws(() => buildCommand({ model: 'medium', provider: 'anthropic', prompt }), /provider/);
 });
 
-test('Amp: только result usage, без повторного суммирования assistant usage', () => {
+test('Amp: only result usage, without adding assistant usage again', () => {
   const parsed = parseTrace(trace([
     { type: 'system', subtype: 'init', agent_mode: 'medium', session_id: 'T-test' },
     { type: 'assistant', message: { usage: { input_tokens: 999, output_tokens: 999 } }, session_id: 'T-test' },
@@ -31,7 +31,7 @@ test('Amp: только result usage, без повторного суммиро
   assert.equal(parsed.stopReason, 'completed');
 });
 
-test('Amp: документированный результат без usage не превращает неизвестное в нули', () => {
+test('Amp: documented result without usage does not turn unknown values into zeros', () => {
   const parsed = parseTrace(trace([{ type: 'result', subtype: 'success', num_turns: 1, is_error: false }]));
   assert.deepEqual(parsed.loop, { turns: 1 });
   assert.equal(Object.keys(parsed.metrics_unavailable).length, 3);
@@ -43,7 +43,7 @@ test('Amp: документированный результат без usage н
   assert.equal(incomplete.stopReason, 'trace_incomplete');
 });
 
-test('Amp: ошибки system/result сохраняют причину, смешанные сессии неоднозначны', () => {
+test('Amp: system/result errors retain their cause; mixed sessions are ambiguous', () => {
   assert.equal(parseTrace(trace([{ type: 'system', subtype: 'error_during_execution', error: 'failed' }])).stopReason, 'error_during_execution');
   assert.equal(parseTrace(trace([{ type: 'result', subtype: 'error_max_turns', is_error: true }])).stopReason, 'error_max_turns');
   assert.equal(parseTrace(trace([{ type: 'result', subtype: 'success', is_error: true }])).stopReason, 'error');

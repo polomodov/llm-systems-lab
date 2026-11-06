@@ -1,20 +1,20 @@
 # Google Antigravity CLI
 
-Практическое задание: [ЛР14 — Antigravity CLI, Gemini API и наблюдаемость](../../docs/labs/LAB14-antigravity-cli.md). Включает offline smoke, полный T002 с внешним судейством и дополнительные серии.
+Practical assignment: [LAB14 — Antigravity CLI, Gemini API, and observability](../../docs/labs/LAB14-antigravity-cli.md). Includes an offline smoke test, full T002 with external judging, and additional series.
 
-Реализован адаптер официального бинарного CLI **`agy` 1.2.7**. Это отдельный продукт Antigravity; пакет Gemini CLI не используется. Образ проверен 20.09.2026 на Linux/arm64 без credentials и доступной сети. Реальное выполнение эпизодов с Gemini API остаётся **unverified**. [Исходные проверки](smoke/2026-09-20.json) относятся к инфраструктуре.
+An adapter for the official binary CLI **`agy` 1.2.7** is implemented. This is a separate Antigravity product; the Gemini CLI package is not used. The image was checked on 2026-09-20 on Linux/arm64 without credentials or network access. Actual Gemini API episode execution remains **unverified**. The [original checks](smoke/2026-09-20.json) concern infrastructure.
 
 ```bash
 docker build --build-arg HARNESS_VERSION=1.2.7 \
   -t harness-lab/antigravity-cli:1.2.7 experiments/antigravity-cli
 ```
 
-Установщик использует [снимок релиза](releases/1.2.7.json), закреплённые URL и SHA-512 для Linux arm64/x64 из официальных release manifests. Сборка не запрашивает `latest`; для новой версии нужно сначала добавить проверенный manifest. x64-архив закреплён, но локально не запускался.
+The installer uses a [release snapshot](releases/1.2.7.json), pinned URLs, and Linux arm64/x64 SHA-512 values from official release manifests. The build does not request `latest`; add a verified manifest before selecting a new version. The x64 archive is pinned but has not been run locally.
 
-В `.env` нужен `GEMINI_API_KEY`. `settings.json` задаёт `modelProvider: gemini`: согласно документации запросы идут напрямую в Gemini API. Runtime копирует этот файл в временный HOME внутри контейнера; credentials хоста не подключаются. Для подготовки выберите `--harness antigravity-cli`, провайдер — `google`; для запуска нужны точный ID доступной модели, образ и `--budget-mode observed`. Общий цикл описан в [корневой инструкции](../../README.md).
+`.env` must contain `GEMINI_API_KEY`. `settings.json` sets `modelProvider: gemini`: according to the documentation, requests go directly to the Gemini API. The runtime copies this file to a temporary HOME inside the container; host credentials are not mounted. Select `--harness antigravity-cli` and provider `google` for preparation; execution requires an exact available model ID, an image, and `--budget-mode observed`. The shared lifecycle is described in the [root instructions](../../README.md).
 
-Используется `--output-format stream-json`, явная модель и пропуск интерактивных разрешений внутри внешнего контейнера. Разворачивание slash-команд отключено. `--print-timeout 0` передаёт ограничение времени общему runner. Лимиты USD и внутренних ходов не подтверждены интерфейсом; обязательные значения отклоняются, отсутствие ограничений в исследовательском режиме фиксируется.
+The adapter uses `--output-format stream-json`, an explicit model, and skips interactive permissions inside the outer container. Slash-command expansion is disabled. `--print-timeout 0` delegates the time limit to the shared runner. The interface does not verify USD or internal-turn limits; mandatory values are rejected, and the absence of limits in research mode is recorded.
 
-Парсер использует только последний итоговый `result`; накопительные счётчики не суммируются со `step_update`. USD и модельные ходы неизвестны: `num_turns` считает запросы пользователя. `tokens_out` берётся из итогового usage. Семантику cache/input нужно подтвердить реальным прогоном, поэтому `tokens_in` пока неизвестно. `init.model` отражает настройку, а не независимое доказательство модели ответа: `observed_id=null`.
+The parser uses only the last final `result`; cumulative counters are not added to `step_update`. USD and model turns are unknown: `num_turns` counts user requests. `tokens_out` comes from final usage. Cache/input semantics need confirmation in a real run, so `tokens_in` remains unknown. `init.model` reflects configuration, not independent evidence of the response model: `observed_id=null`.
 
-Первичные источники: [установка и Gemini API key](https://antigravity.google/docs/cli/install/), [headless protocol](https://antigravity.google/docs/cli/headless/), [официальный установщик](https://antigravity.google/cli/install.sh). Конкретные флаги сверены с `agy --help` в образе. Для повторной проверки нужны unit/smoke, проверка credentials/network и записанный эпизод с внешней оценкой; строка компонента — **L010**.
+Primary sources: [installation and Gemini API key](https://antigravity.google/docs/cli/install/), [headless protocol](https://antigravity.google/docs/cli/headless/), [official installer](https://antigravity.google/cli/install.sh). Specific flags were checked against `agy --help` inside the image. Retesting requires unit/smoke tests, credential/network verification, and a recorded episode with external evaluation; component row: **L010**.

@@ -1,14 +1,14 @@
-# Задачи — воспроизводимые эпизоды
+# Tasks — replayable episodes
 
-Каждая задача: `task.md` (стартовое состояние, контракт, видимая часть проверки), `setup.sh` (воспроизводит стартовое состояние в `results/runs/<run-id>/workspace/`), `check/` (скрытая проверка — агенту не показывать).
+Each task contains `task.md` (initial state, contract, and the visible portion of evaluation), `setup.sh` (reproduces the initial state in `results/runs/<run-id>/workspace/`), and `check/` (hidden evaluation; never show it to the agent).
 
-| ID | Задача | Агент | Тип проверки |
+| ID | Task | Agent | Evaluation type |
 | --- | --- | --- | --- |
-| T001 | Досье из шести источников об обвязках | A1 | скрипт + рубрика |
-| T002 | Дворник: красный `npm test` в маленьком проекте | A2 | скрипт |
-| T003 | Аудит обвязки этого репозитория | A3 | рубрика |
-| T004 | Реализация по спецификации: разбор и формат длительностей | A4 | скрипт |
-| T005 | Нормализация данных: три грязные выгрузки заказов | A5 | скрипт |
-| T006 | Укрепление безопасности: три дефекта в маленьком HTTP-сервере | A6 | скрипт |
+| T001 | Dossier from six sources about harnesses | A1 | script + rubric |
+| T002 | Janitor: failing `npm test` in a small project | A2 | script |
+| T003 | Audit this repository’s harness | A3 | rubric |
+| T004 | Implement a specification: duration parsing and formatting | A4 | script |
+| T005 | Data normalization: three dirty order exports | A5 | script |
+| T006 | Security hardening: three defects in a small HTTP server | A6 | script |
 
-Правило метода: обвязка обязана запрещать агенту доступ к `tasks/*/check/`. Прогон, в котором агент туда заглянул, помечается `fail` независимо от результата.
+Method rule: the harness must prevent agent access to `tasks/*/check/`. A run in which the agent looks there is marked `fail` regardless of its result.

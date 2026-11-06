@@ -1,11 +1,11 @@
-# Открытые учебные fixtures
+# Open educational fixtures
 
-`chat-request.json` и `tool-request.json` — одинаковые исходные запросы для ЛР05–07. Это открытые учебные данные; они не относятся к скрытым проверкам задач T001–T003.
+`chat-request.json` and `tool-request.json` are shared initial requests for LAB05–07. They are open educational data, unrelated to T001–T003 hidden checks.
 
-Перед отправкой замените `model` на закреплённый alias сервера. Сохраните полученный JSON в `raw/` своего отчёта: именно он является фактическим запросом. 2048 — начальный output budget, включающий reasoning там, где сервер считает его в output; это не оптимальная рекомендация для всех моделей. Sampling и thinking задайте до серии согласно выбранной конфигурации и сохраните effective settings. `stream=false` и `stream=true` — отдельные случаи одного тела запроса.
+Before sending, replace `model` with the pinned server alias. Save the resulting JSON in your report's `raw/`: it is the actual request. 2048 is an initial output budget including reasoning where the server counts it as output, not an optimal recommendation for every model. Set sampling/thinking before the series according to the chosen configuration and save effective settings. `stream=false` and `stream=true` are separate cases of the same request body.
 
-Для текстового случая ожидается `LAB_READY` в final content. Рассуждение не подменяет final. `finish_reason=length`, ошибка сервера или пустой финальный ответ не считаются успешным smoke; сохраните причину, а изменение бюджета оформите новой конфигурацией.
+The text case expects `LAB_READY` in final content. Reasoning does not replace final content. `finish_reason=length`, a server error or empty final response is not a successful smoke test; preserve the reason and treat a budget change as a new configuration.
 
-Единственный допустимый tool — `lookup_lab_value` с единственным аргументом `{"key":"alpha"}`. Исполнитель лабораторной проверяет JSON arguments и возвращает строку **`LAB_VALUE_42`** через сообщение `role=tool` с полученным `tool_call_id`, сохраняя предыдущее assistant сообщение. Затем выполняется второй запрос с той же схемой. Модель не получает возможность читать файлы или выполнять shell. Неизвестный tool, неверный JSON, иной key или дополнительные поля отклоняются.
+The only allowed tool is `lookup_lab_value` with the sole argument `{"key":"alpha"}`. The operator validates JSON arguments and returns **`LAB_VALUE_42`** in a `role=tool` message with the received `tool_call_id`, preserving the previous assistant message. Then send the second request with the same schema. The model cannot read files or execute shell commands. Reject unknown tools, invalid JSON, other keys or extra fields.
 
-Успех полного round trip: корректный вызов, совпадающий call ID, возвращённое значение и final content `LAB_VALUE_42`. Отдельно проверьте streaming deltas: аргументы могут поступать частями. OpenAI-compatible URL без такой проверки не доказывает совместимость инструментов. Пошаговый порядок и таблицы — в [ЛР05](../LAB05-context-tools.md).
+Full round-trip success means a correct call, matching call ID, returned value and final content `LAB_VALUE_42`. Check streaming deltas separately: arguments may arrive in fragments. An OpenAI-compatible URL does not prove tool compatibility without this check. Step-by-step procedure and tables: [LAB05](../LAB05-context-tools.md).

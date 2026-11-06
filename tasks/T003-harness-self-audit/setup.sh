@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Использование: setup.sh <dest> <harness>; скрытые проверки не читаются.
+# Usage: setup.sh <dest> <harness>; hidden checks are not read.
 set -euo pipefail
 if [[ $# -ne 2 ]]; then
   echo 'usage: setup.sh <dest> <harness>' >&2
@@ -12,34 +12,34 @@ import { lstatSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from '
 import { dirname, join, resolve } from 'node:path';
 const [destination, harness, root] = process.argv.slice(2);
 const relativeFile = value => typeof value === 'string' && /^[a-zA-Z0-9_.-]+(?:\/[a-zA-Z0-9_.-]+)*$/.test(value) && value.split('/').every(part => part !== '.' && part !== '..');
-if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(harness)) throw new Error('Недопустимый идентификатор обвязки');
+if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(harness)) throw new Error('Invalid harness identifier');
 const readAllowed = relative => {
-  if (!relativeFile(relative)) throw new Error(`Недопустимый путь снимка: ${relative}`);
+  if (!relativeFile(relative)) throw new Error(`Invalid snapshot path: ${relative}`);
   let current = root;
   for (const part of relative.split('/')) {
     current = join(current, part);
-    if (lstatSync(current).isSymbolicLink()) throw new Error(`Ссылка недопустима в снимке: ${relative}`);
+    if (lstatSync(current).isSymbolicLink()) throw new Error(`Symlink not allowed in snapshot: ${relative}`);
   }
-  if (!lstatSync(current).isFile()) throw new Error(`Ожидался обычный файл: ${relative}`);
+  if (!lstatSync(current).isFile()) throw new Error(`Expected a regular file: ${relative}`);
   return readFileSync(current);
 };
 const profilePath = `experiments/${harness}/harness.json`;
 const profile = JSON.parse(readAllowed(profilePath));
-if (profile.schema_version !== 1 || profile.id !== harness || !Array.isArray(profile.config_files) || !Array.isArray(profile.runtime_files)) throw new Error('Неизвестный формат профиля обвязки');
+if (profile.schema_version !== 1 || profile.id !== harness || !Array.isArray(profile.config_files) || !Array.isArray(profile.runtime_files)) throw new Error('Unknown harness profile format');
 const control = [
   { source:'adapter.mjs', target:'adapter.mjs' },
   { source:'harness.json', target:'harness.json' },
   ...profile.config_files,
   ...profile.runtime_files.map(source => ({ source, target:source })),
 ];
-for (const file of control) if (!relativeFile(file.source) || !relativeFile(file.target)) throw new Error('Недопустимый путь конфигурации');
-if (new Set(control.map(file=>file.target)).size !== control.length) throw new Error('Коллизия путей конфигурации');
-if (!destination.trim()) throw new Error('Нужен явный непустой путь рабочего каталога.');
+for (const file of control) if (!relativeFile(file.source) || !relativeFile(file.target)) throw new Error('Invalid configuration path');
+if (new Set(control.map(file=>file.target)).size !== control.length) throw new Error('Configuration path collision');
+if (!destination.trim()) throw new Error('An explicit nonempty workspace path is required.');
 const dest = resolve(destination);
 let stat;
 try { stat = lstatSync(dest); } catch (error) { if (error.code !== 'ENOENT') throw error; }
-if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) throw new Error(`Отказ перезаписывать непустой каталог, файл или ссылку: ${dest}`);
-// Явный список допуска; никаких обходов check/, .env, .git или результатов.
+if (stat && (!stat.isDirectory() || stat.isSymbolicLink() || readdirSync(dest).length)) throw new Error(`Refusing to overwrite a nonempty directory, file, or symlink: ${dest}`);
+// Explicit allowlist; never traverse check/, .env, .git, or results.
 const files = [
   'README.md','AGENTS.md','CLAUDE.md','package.json',
   'docs/method.md','docs/harnesses.md','docs/harness-ledger.md',
@@ -58,16 +58,16 @@ const activeConfig = harness === 'claude-code' ? '.claude/settings.json' : harne
 if (harness === 'claude-code') snapshot.set(activeConfig, snapshot.get('experiments/claude-code/settings.example.json'));
 if (harness === 'opencode') snapshot.set(activeConfig, snapshot.get('experiments/opencode/opencode.json'));
 snapshot.set('ledger-template.md', snapshot.get('docs/harness-ledger.md'));
-snapshot.set('brief.md', Buffer.from(`# Аудит обвязки ${harness}
+snapshot.set('brief.md', Buffer.from(`# Harness audit: ${harness}
 
-Модель и провайдер задаются метаданными прогона; из конфигурации их не угадывать.
-Здесь снимок разрешённых исходников лаборатории без секретов, результатов и скрытых проверок.
-Активная конфигурация для просмотра: ${activeConfig}.
-Файлы, монтируемые runner в /control, отражены в .harness/control/; исходники — experiments/${harness}/.
-Границы контейнера и сети реализованы в scripts/run.mjs и experiments/common/egress.mjs.
-Форма реестра — docs/harness-ledger.md (копия — ledger-template.md).
-Файлы снимка и SHA-256 перечислены в repository.snapshot.json.
-Результаты: artifacts/ledger.md и artifacts/ablation-plan.md. Не запускать аудируемые скрипты и хуки. Записывать только в artifacts/.
+Run metadata specifies the model and provider; do not guess them from configuration.
+This is a snapshot of allowed lab sources without secrets, results, or hidden checks.
+Active configuration to inspect: ${activeConfig}.
+Files mounted by the runner at /control are represented in .harness/control/; sources are in experiments/${harness}/.
+Container and network boundaries are implemented in scripts/run.mjs and experiments/common/egress.mjs.
+Ledger format: docs/harness-ledger.md (copy: ledger-template.md).
+Snapshot files and SHA-256 hashes are listed in repository.snapshot.json.
+Outputs: artifacts/ledger.md and artifacts/ablation-plan.md. Do not run the scripts or hooks being audited. Write only inside artifacts/.
 `));
 mkdirSync(join(dest,'artifacts'), { recursive:true });
 for (const [path,contents] of snapshot) {

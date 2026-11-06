@@ -1,25 +1,25 @@
-# ЛР33. Ollama и LM Studio на Apple Silicon
+# LAB33. Ollama and LM Studio on Apple Silicon
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Сервисные приложения / `target-machine` |
-| Время | 3–5 часов плюс установка |
-| Предпосылки | LAB32; соответствующие manifests LAB29–31 |
-| Минимум | Ollama/Metal GGUF, LM Studio/Metal GGUF и LM Studio/MLX: smoke каждого либо evidence blocker |
+| Type / readiness | Serving applications / `target-machine` |
+| Time | 3–5 hours plus installation |
+| Prerequisites | LAB32; corresponding LAB29–31 manifests |
+| Minimum | Ollama/Metal GGUF, LM Studio/Metal GGUF and LM Studio/MLX: smoke test each or provide blocker evidence |
 
-## Цель
+## Objective
 
-Проверить удобство и корректность API сервисных приложений и отличить накладные расходы wrapper от изменения внутреннего inference runtime.
+Check application API usability and correctness, distinguishing wrapper overhead from changes to the underlying inference runtime.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Приложение сохраняет требуемый tool/streaming протокол при закреплённых weights, runtime и настройках. Накладные расходы можно изолировать только при совпадении внутреннего движка и всех существенных условий с direct baseline.
+The application preserves the required tool/streaming protocol with pinned weights, runtime and settings. Overhead can be isolated only when the underlying engine and all material conditions match the direct baseline.
 
-## Подготовка
+## Preparation
 
-Приложения устанавливаются отдельно на закреплённых версиях, не обновляются во время серии. Сохраните версии приложения, CLI и runtime package. [Общий протокол](../../experiments/local-models/apple/README.md) и LAB32 определяют контекст/повторы.
+Install applications separately at pinned versions; do not update them during the series. Save application, CLI and runtime-package versions. The [shared protocol](../../experiments/local-models/apple/README.md) and LAB32 define context/repetitions.
 
 ```sh
 npm run lab:new -- --lab LAB33 --session apple-serving
@@ -33,13 +33,13 @@ lms load --help > "$LAB_DIR/raw/lms-load-help.txt" 2>&1
 lms server start --help > "$LAB_DIR/raw/lms-server-help.txt" 2>&1
 ```
 
-Отсутствующий CLI/runtime записывается как blocker выбранной ветви. Не заполняйте version по имени installer или GUI alone.
+Record a missing CLI/runtime as a blocker for that branch. Do not infer a version from the installer name or GUI alone.
 
-## Порядок выполнения
+## Procedure
 
-1. Подготовьте отдельные условия `ollama-metal`, `lm-studio-metal`, `lm-studio-mlx` и direct baseline. Для первых двух используйте **те же** GGUF hashes из LAB29, для третьего — отдельный pinned MLX artifact. Импорт не должен менять исходные файлы или автоматически обновлять веса. Для shard-импорта сверяйте поддержку выбранной версии; один первый shard без остальных не является моделью.
+1. Prepare separate `ollama-metal`, `lm-studio-metal`, `lm-studio-mlx` conditions and a direct baseline. For the first two, use **the same** GGUF hashes from LAB29; for the third, use a separate pinned MLX artifact. Import must not change original files or automatically update weights. For shard imports, check support in the selected version; the first shard without the others is not a model.
 
-2. Пример Ollama для поддержанного single-file GGUF. Перед записью `Modelfile` убедитесь, что путь не содержит кавычек/переводов строки; подставьте уже закреплённый absolute path:
+2. Ollama example for a supported single-file GGUF. Before writing `Modelfile`, ensure the path contains no quotes/newlines; substitute the already pinned absolute path:
 
    ```sh
    cat > "$LAB_DIR/raw/Modelfile" <<'MODEL'
@@ -53,15 +53,15 @@ lms server start --help > "$LAB_DIR/raw/lms-server-help.txt" 2>&1
    ollama show lab-apple-gguf > "$LAB_DIR/raw/ollama-model.txt" 2>&1
    ```
 
-   Импорт выполняется только после замены placeholder. Закрепите template/defaults и blob hashes; same alias не доказывает идентичность. Используйте один собственный loopback server; при CLI-запуске, после остановки фонового экземпляра приложения:
+   Import only after replacing the placeholder. Pin template/defaults and blob hashes; the same alias does not prove identity. Use one loopback server you own; for CLI startup, after stopping the application's background instance:
 
    ```sh
    OLLAMA_HOST=127.0.0.1:11434 ollama serve > "$LAB_DIR/raw/ollama-server.txt" 2>&1
    ```
 
-   Если сервер уже управляется приложением, не запускайте второй — архивируйте журналы существующего. Подтвердите Metal, runner и offload по логам. Если реально выбран другой engine/artifact, оформите отдельное deployment condition; этот GGUF-профиль не доказывает применимость к MLX runner.
+   If the application already manages the server, do not start a second one—archive the existing logs. Confirm Metal, runner and offload from logs. If a different engine/artifact was actually selected, record a separate deployment condition; this GGUF profile does not prove applicability to an MLX runner.
 
-3. Пример LM Studio (сверить интерфейс по pinned help):
+3. LM Studio example (check the interface against pinned help):
 
    ```sh
    lms import "$LOCAL_GGUF" > "$LAB_DIR/raw/lms-import.txt" 2>&1
@@ -69,19 +69,19 @@ lms server start --help > "$LAB_DIR/raw/lms-server-help.txt" 2>&1
    lms runtime ls > "$LAB_DIR/raw/lms-runtimes.txt" 2>&1
    ```
 
-   Запишите фактический model key из списка и выбранный runtime package/version. Загрузите только эту модель:
+   Record the actual model key from the list and the selected runtime package/version. Load only this model:
 
    ```sh
-   export LMS_MODEL_KEY='<ключ импортированной модели из lms ls>'
+   export LMS_MODEL_KEY='<imported model key from lms ls>'
    lms load "$LMS_MODEL_KEY" --identifier lab-model --context-length 8192 \
      > "$LAB_DIR/raw/lms-load.txt" 2>&1
    lms server start --port 1234 > "$LAB_DIR/raw/lms-server-start.txt" 2>&1
    lms ps > "$LAB_DIR/raw/lms-loaded.txt" 2>&1
    ```
 
-   В настройках сервера выключите доступ из LAN и проверьте фактический listener; интерфейс зависит от версии. MLX-вариант импортируйте/зарегистрируйте способом, документированным установленным runtime: CLI для GGUF не считать автоматически поддержкой MLX-directory. Если нельзя сохранить exact revision/hash — blocker. Сохраните выбранный runtime и загрузочные логи для обеих LM Studio ветвей, выгружая предыдущую модель перед следующей.
+   Disable LAN access in server settings and check the actual listener; the interface depends on the version. Import/register the MLX variant using the method documented for the installed runtime: a GGUF CLI does not automatically support an MLX directory. Inability to preserve the exact revision/hash is a blocker. Save the selected runtime and loading logs for both LM Studio branches, unloading the previous model before the next.
 
-4. Для каждого приложения сохраните `/v1/models`, например:
+4. Save `/v1/models` for each application, for example:
 
    ```sh
    curl --noproxy '*' --max-time 10 -sS http://127.0.0.1:11434/v1/models \
@@ -90,44 +90,44 @@ lms server start --help > "$LAB_DIR/raw/lms-server-help.txt" 2>&1
      > "$LAB_DIR/raw/lms-api-models.json"
    ```
 
-   Выполняйте запрос только к текущему серверу. Создайте свои копии четырёх запросов LAB32 с фактическим alias. На одном допущенном контексте выполните warmup + три повтора chat/tool × JSON/SSE, затем один отменённый запрос и recovery. Сохраните usage, final/IDs, raw SSE, TTFT и memory evidence. Native tool template и fallback template — отдельные условия; не скрывайте fallback после parser failure.
+   Send the request only to the current server. Make your own copies of the four LAB32 requests with the actual alias. At one admitted context size, run warmup + three repetitions of chat/tool × JSON/SSE, then one cancelled request and recovery. Save usage, final/IDs, raw SSE, TTFT and memory evidence. Native tool templates and fallback templates are separate conditions; do not hide fallback after a parser failure.
 
-5. Повторите те же HTTP cases direct llama-server/MLX-LM из LAB32 при совпадающем prompt и настройках. Если внутренний commit/build/tokenizer/quant не совпадает или неизвестен, вывод формулируйте как сравнение deployments. Не вычитайте TTFT двух разных engines как «чистый overhead GUI».
+5. Repeat the same HTTP cases on direct llama-server/MLX-LM from LAB32 with matching prompt and settings. If the internal commit/build/tokenizer/quant differs or is unknown, frame the conclusion as a deployment comparison. Do not subtract TTFT for two different engines and call it “pure GUI overhead”.
 
-6. Запишите deployment manifest каждого приложения: app/CLI/runtime versions, hashes весов, template, context/slots, cache/loading policy, observed backend/runner и процесс. После завершения остановите или выгрузите только свои лабораторные модели штатными средствами приложения.
+6. Record each application's deployment manifest: app/CLI/runtime versions, weight hashes, template, context/slots, cache/loading policy, observed backend/runner and process. After completion, stop or unload only your own lab models using the application's standard controls.
 
-## Таблицы результатов
+## Results tables
 
-| Deployment | App / CLI / runtime pin | Artifact hash | Backend подтверждён | Protocol pass/attempts | Median TTFT / total s | Память / failures |
+| Deployment | App / CLI / runtime pin | Artifact hash | Backend confirmed | Protocol pass/attempts | Median TTFT / total s | Memory / failures |
 | --- | --- | --- | --- | --- | --- | --- |
 | Ollama GGUF | | | | | | |
 | LM Studio GGUF | | | | | | |
 | LM Studio MLX | | | | | | |
 
-| Пара с direct baseline | Совпадающие условия | Различия / неизвестное | Overhead или deployment comparison |
+| Pair with direct baseline | Matching conditions | Differences / unknowns | Overhead or deployment comparison |
 | --- | --- | --- | --- |
 | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, version/help, import/runtime/identity evidence, deployment manifests, requests и результаты каждого повтора с памятью. Ошибки импорта и недоступные ветви остаются в реестре попыток.
+Report/TSV/manifest, version/help, import/runtime/identity evidence, deployment manifests, requests and results for every repetition with memory. Import errors and unavailable branches remain in the attempt registry.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Три ветви проверены или имеют конкретный blocker.
-- [ ] Exact weights и внутренний runtime различаются от версии GUI.
-- [ ] Tool/streaming случаи имеют warmup и три повтора на допущенных ветвях.
-- [ ] Чистый overhead не заявлен при неизвестном/разном внутреннем движке.
-- [ ] Комплект проверен по общему протоколу.
+- [ ] Three branches checked or assigned a specific blocker.
+- [ ] Exact weights and underlying runtime distinguished from GUI version.
+- [ ] Tool/streaming cases have a warmup and three repetitions on admitted branches.
+- [ ] No pure-overhead claim when underlying engines are unknown/different.
+- [ ] Submission checked against the shared protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему версия GUI не является pin inference engine?
-2. Когда импорт того же файла всё же меняет входной протокол?
-3. Что нужно доказать для измерения чистых накладных расходов wrapper?
-4. Чем observed runner полезнее model alias?
+1. Why is the GUI version not a pin for the inference engine?
+2. When can importing the same file still change the input protocol?
+3. What must be established to measure pure wrapper overhead?
+4. How is the observed runner more useful than a model alias?
 
-## Источники
+## Sources
 
 - [Ollama import](https://docs.ollama.com/import), [GPU](https://docs.ollama.com/gpu), [API compatibility](https://docs.ollama.com/api/openai-compatibility).
 - [LM Studio CLI](https://lmstudio.ai/docs/cli), [runtime](https://lmstudio.ai/docs/cli/runtime/runtime), [MLX engine](https://lmstudio.ai/blog/unified-mlx-engine).

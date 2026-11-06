@@ -1,27 +1,27 @@
-# ЛР21. Память агента и сжатие истории
+# LAB21. Agent memory and history compaction
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип | Инженерное расширение и контролируемый эксперимент |
-| Время | 3–6 часов проектирования и проверки адаптера; затем 6 попыток плюс judge |
-| Предпосылки | ЛР09; калибровка ЛР20 полезна перед оценкой досье |
-| Готовность | `implementation-required`: переключателей памяти и регистрации учебных эпизодов в runner сейчас нет |
-| Минимальный объём | Один эпизод × одна модель/обвязка × два режима × три пары = 6 новых попыток после инженерного допуска |
-| Расширение | Третий режим: структурированный checkpoint; второй многошаговый эпизод |
+| Type | Engineering extension and controlled experiment |
+| Time | 3–6 hours to design and verify the adapter; then 6 attempts plus judging |
+| Prerequisites | LAB09; LAB20 calibration is useful before evaluating a dossier |
+| Readiness | `implementation-required`: the runner currently has no memory switches or registration for the training episodes |
+| Minimum scope | One episode × one model/harness × two modes × three pairs = 6 new attempts after engineering acceptance |
+| Extension | Third mode: a structured checkpoint; a second multistep episode |
 
-## Цель
+## Objective
 
-Измерить, какие требования и промежуточные решения теряются при сжатии истории и окупается ли уменьшение последующих входных токенов. В отличие от ЛР05, здесь проверяется продолжение многошаговой работы, а не только размещение длинного prompt в контексте.
+Measure which requirements and intermediate decisions are lost when history is compacted and whether the reduction in subsequent input tokens pays off. Unlike LAB05, this tests the continuation of multistep work, rather than just fitting a long prompt into the context.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«После одного заранее определённого checkpoint краткая сводка сохраняет качество решения выбранного эпизода при меньшем суммарном расходе входных токенов». Фактор — режим передачи истории после checkpoint: `full-history` или `summary-only`. Во втором режиме учитываются и стоимость, и время создания сводки.
+“After one predefined checkpoint, a short summary preserves solution quality on the selected episode while reducing total input token usage.” The factor is the history transfer mode after the checkpoint: `full-history` or `summary-only`. The second mode includes both the cost and time of creating the summary.
 
-Модель, точная версия обвязки, исходный seed, доступные файлы и инструменты, права, лимиты, judge, момент checkpoint и итоговый бюджет одинаковы. Три пары — пилот: отсутствие различий не доказывает эквивалентность. Правило пилотной поддержки гипотезы: не меньше pass в summary, ни одного нового нарушения обязательного требования и меньший суммарный input во всех парах с измеренным usage. При неполных метриках — «данных недостаточно» для экономии.
+The model, exact harness version, initial seed, available files and tools, permissions, limits, judge, checkpoint timing, and total budget are identical. Three pairs are a pilot: a lack of differences does not prove equivalence. The rule for pilot support of the hypothesis is: at least as many passes with summary, no new violation of a mandatory requirement, and lower total input in every pair with measured usage. With incomplete metrics, the conclusion about savings is “insufficient data.”
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB21 --session memory-pilot
@@ -29,68 +29,68 @@ LAB_DIR='experiments/local-models/measurements/LAB21-memory-pilot'
 npm run check
 ```
 
-Выберите [исправление нескольких модулей](episodes/multi-file-bug/episode.md) или [досье по конфликтующим источникам](episodes/conflicting-sources/episode.md). До подключения модели выполните ручное упражнение на копии по [инструкции эпизодов](episodes/README.md). Это помогает понять обязательные требования, но не считается агентным run. Человек, которому известен готовый патч, не должен подсказывать его в prompt следующей попытки.
+Choose [a bug fix across multiple modules](episodes/multi-file-bug/episode.md) or [a dossier on conflicting sources](episodes/conflicting-sources/episode.md). Before connecting the model, complete the manual exercise on a copy using the [episode instructions](episodes/README.md). This helps clarify mandatory requirements but does not count as an agent run. A person who knows the finished patch must not hint at it in the next attempt's prompt.
 
-Прочитайте реализацию выбранного адаптера и его индивидуальную ЛР11–19. Наличие native compaction, session resume, настройки порога и полного transcript не предполагается: каждую возможность подтвердите кодом/точной версией либо запишите `unverified`. Если скрытое автоматическое сжатие нельзя отключить или наблюдать, данная обвязка не подходит для причинного сравнения этих режимов.
+Read the selected adapter's implementation and its individual LAB11–19 manual. Native compaction, session resume, threshold settings, and a complete transcript are not assumed: confirm each capability in the code/exact version or record `unverified`. If hidden automatic compaction cannot be disabled or observed, this harness is unsuitable for a causal comparison of these modes.
 
-## Порядок выполнения
+## Procedure
 
-1. **Сначала оформите инженерный допуск.** Зарегистрируйте новый task ID отдельным изменением с неизменяемым контрактом, seed, разрешёнными действиями, изолированной подготовкой и внешним judge. Открытые fixtures в `docs/` сами по себе не становятся задачами runner. Существующие `tasks/*/task.md` не редактируются, hidden checks не читаются. Проверки регистрации должны доказывать одинаковый начальный seed и то, что судья недоступен агентному контейнеру.
+1. **First establish engineering acceptance.** Register a new task ID in a separate change with an immutable contract, seed, permitted actions, isolated preparation, and an external judge. Public fixtures in `docs/` do not become runner tasks by themselves. Do not edit existing `tasks/*/task.md` or read hidden checks. Registration checks must prove that the initial seed is identical and that the judge is inaccessible to the agent container.
 
-2. **Реализуйте наблюдаемый checkpoint.** Адаптер должен уметь остановиться после завершённого tool result до следующего model request, сохранить transcript и workspace, затем продолжить с назначенным видом истории. Нельзя разрезать активный tool call или оставлять ответ на инструмент без соответствующего вызова. Зафиксируйте формат snapshot, strategy ID, summary prompt/hash, лимит сводки, model ID её автора и политику восстановления. Новые поля условий должны сохраняться в запечатанных controls и группировке сравнения; существующий `--variant without-spec` не означает compaction.
+2. **Implement an observable checkpoint.** The adapter must be able to stop after a completed tool result and before the next model request, save the transcript and workspace, and resume with the assigned form of history. Do not split an active tool call or leave a tool response without its corresponding call. Record the snapshot format, strategy ID, summary prompt/hash, summary limit, its author's model ID, and recovery policy. New condition fields must be retained in sealed controls and comparison grouping; the existing `--variant without-spec` does not mean compaction.
 
-3. **Проверьте механизмы без модели.** На синтетическом transcript подтвердите точное сохранение текущего задания, границ и последних согласованных tool call/result; отсутствие будущего verdict в сводке; учёт summary usage; неизменность workspace. Продолжение с full-history и summary должно начинаться из одного seed и протокола. Native автоматическое сжатие фиксируется как дополнительное вмешательство; иначе серия останавливается. Только после этих проверок разрешена настоящая серия. Не используйте вымышленные флаги памяти в текущем CLI.
+3. **Verify the mechanisms without a model.** On a synthetic transcript, confirm exact preservation of the current assignment, boundaries, and latest matched tool call/result; absence of a future verdict in the summary; accounting for summary usage; and an unchanged workspace. Full-history and summary continuations must start from the same seed and protocol. Record native automatic compaction as an additional intervention; otherwise stop the series. A real series is allowed only after these checks. Do not use invented memory flags in the current CLI.
 
-4. **Назначьте момент и формат вмешательства.** Для досье — после появления матрицы условий и перед написанием вывода; для исправления — после исходной диагностики и записи плана, до первого изменения файлов. Adapter должен подтверждать это событие trace, а не угадывать по wall-clock. Минимальный summary содержит цель, обязательные требования, проверенные наблюдения, состояние файлов, принятые решения и следующую работу; лимит, например 800 tokens, назначьте до пилота и одинаково во всей серии. Если сводку нельзя измерить нативным tokenizer, используйте фиксированный лимит символов и так его назовите.
+4. **Specify the timing and format of the intervention.** For the dossier, use the point after the conditions matrix is created and before writing the conclusion; for the bug fix, use the point after initial diagnosis and recording a plan, before the first file edit. The adapter must confirm this event through a trace rather than infer it from wall-clock time. The minimum summary contains the objective, mandatory requirements, verified observations, file state, decisions made, and next work; set its limit, for example 800 tokens, before the pilot and keep it identical throughout the series. If the summary cannot be measured with a native tokenizer, use a fixed character limit and label it accordingly.
 
-5. **Предварительно задайте три пары.** Порядок пары 1 — full → summary, пары 2 — summary → full, пары 3 — full → summary. Каждый вариант выполняет самостоятельную попытку от исходного seed; это проверка полной стратегии, а не шесть продолжений одного удачного checkpoint. Все исходные этапы и сводки входят в общий бюджет. Фиксируйте одинаковые temperature/reasoning/context/output и внешние time/token limits; неизвестную поддержку seed не заменяйте обещанием детерминизма.
+5. **Predefine three pairs.** Pair 1 order is full → summary, pair 2 is summary → full, and pair 3 is full → summary. Each variant makes an independent attempt from the initial seed; this tests the complete strategy, rather than six continuations of one successful checkpoint. All initial stages and summaries count toward the total budget. Keep temperature/reasoning/context/output and external time/token limits identical; do not replace unknown seed support with a promise of determinism.
 
-6. **Запустите серию через принятый интерфейс расширения.** Используйте жизненный цикл `new-run → prepare-run → run → judge-run` и реально реализованные новые поля/параметры из инженерного изменения. Точные команды внесите в отчёт. В опубликованном runner сейчас есть baseline/without-spec; до допуска можно сдать проект механизма и ручное упражнение, но измерительная часть остаётся `not-run`. Для local дополнительно нужен готовый bridge ЛР08.
+6. **Run the series through the accepted extension interface.** Use the `new-run → prepare-run → run → judge-run` lifecycle and the new fields/parameters actually implemented in the engineering change. Include exact commands in the report. The published runner currently has baseline/without-spec; before acceptance, you may submit the mechanism design and manual exercise, but the measurement component remains `not-run`. Local execution additionally requires a working LAB08 bridge.
 
-7. **Оцените итог и сохранение требований.** Независимому судье дайте только итоговые артефакты и контракт. Второй анализ trace отмечает каждое забытое требование, повторное чтение/исправление, противоречие checkpoint и перезапись правильного результата. Реестр требований составьте из контракта до запусков; не добавляйте критерии только к неудачному варианту. Судья не должен раскрывать эталон агенту при продолжении.
+7. **Evaluate the outcome and requirement retention.** Give the independent judge only the final artifacts and contract. A second trace analysis identifies every forgotten requirement, repeated read/fix, contradiction of the checkpoint, and overwrite of a correct result. Build the requirements register from the contract before running; do not add criteria only for the unsuccessful variant. The judge must not reveal the reference answer to the agent during continuation.
 
-8. **Посчитайте затраты полного пути.** Покажите input/output отдельно до checkpoint, на сводку и после; total — сумма всех стадий и ошибок. Добавьте wall-clock полного выполнения, размер сводки, число повторных tool calls, verdict. Если API не сообщает cache tokens либо compaction count, оставьте unknown и укажите источник наблюдений; размер текстового файла не заменяет token usage. Парные разности считайте только для сопоставимых измеренных значений.
+8. **Calculate costs for the entire path.** Show input/output separately before the checkpoint, for the summary, and afterward; total is the sum of all stages and errors. Add full execution wall-clock time, summary size, repeated tool call count, and verdict. If the API does not report cache tokens or compaction count, leave them unknown and identify the observation source; text file size is not a substitute for token usage. Calculate paired differences only for comparable measured values.
 
-9. **Сформулируйте ограниченное решение.** При новом нарушении обязательного требования гипотеза для пилота не поддержана даже при меньшей цене. При одинаковых исходах и неполном usage данных об экономии недостаточно. Укажите, какие поля сводки следует пересмотреть, но не исправляйте механизм посередине серии. Новая версия запускается новой серией и получает запись предположения/доказательства в ledger.
+9. **Form a limited conclusion.** A new violation of a mandatory requirement means the pilot does not support the hypothesis, even at a lower price. With identical outcomes and incomplete usage, there is insufficient evidence of savings. Identify summary fields to reconsider, but do not repair the mechanism midway through the series. A new version requires a new series and a corresponding assumption/evidence entry in the ledger.
 
-## Таблицы результатов
+## Results tables
 
-| Пара | Порядок | Full run ID | Summary run ID | Seed/model/limits одинаковы | Checkpoint evidence |
+| Pair | Order | Full run ID | Summary run ID | Identical seed/model/limits | Checkpoint evidence |
 | --- | --- | --- | --- | --- | --- |
-| 1/2/3 | Заранее | После допуска | После допуска | Да/нет и причина | Trace event/hash |
+| 1/2/3 | Predefined | After acceptance | After acceptance | Yes/no and reason | Trace event/hash |
 
-| Run | Режим | Verdict | Input до / сводка / после | Output всего | Wall-clock, s | Повторные tool calls | Потерянные требования |
+| Run | Mode | Verdict | Input before / summary / after | Total output | Wall-clock, s | Repeated tool calls | Lost requirements |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Фактический ID | Назначенный | После judge | Из usage либо unknown | Из usage | Измерить | Определить до серии | ID и evidence |
+| Actual ID | Assigned | After judging | From usage or unknown | From usage | Measure | Define before the series | ID and evidence |
 
-| Требование контракта | Есть до checkpoint | Передано в сводку | Соблюдено в результате | Evidence | Ошибка сжатия или иная причина |
+| Contract requirement | Present before checkpoint | Included in summary | Met in result | Evidence | Compaction error or another cause |
 | --- | --- | --- | --- | --- | --- |
-| Заранее заданный ID | Да/нет | Да/нет/не требуется | Да/нет | Trace/artifact | Обосновать |
+| Predefined ID | Yes/no | Yes/no/not required | Yes/no | Trace/artifact | Justify |
 
-## Что сдать
+## Deliverables
 
-Отчёт, проект/реализацию допуска с тестами, точный протокол стратегий, hashes checkpoint и сводок, все шесть run IDs, независимые verdict, таблицу требований и полный учёт расходов. До реализации допустима сдача **инженерной части** с явным `not-run`; это не завершение экспериментальной части. Проверка комплектности описана в [report-validation.md](report-validation.md).
+A report, acceptance design/implementation with tests, the exact strategy protocol, checkpoint and summary hashes, all six run IDs, independent verdicts, the requirements table, and complete cost accounting. Before implementation, submission of the **engineering component** with explicit `not-run` status is allowed; this does not complete the experimental component. Completeness checks are described in [report-validation.md](report-validation.md).
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Новый эпизод зарегистрирован, стратегии запечатаны и различаются в compare conditions.
-- [ ] Checkpoint наблюдаем; tool call/result согласованы; скрытая compaction исключена или опыт признан несопоставимым.
-- [ ] Три пары запланированы до выполнения и все попытки сохранены.
-- [ ] Расходы сводки включены в суммарный бюджет.
-- [ ] Все итоговые артефакты независимо оценены; ошибки привязаны к требованиям и evidence.
-- [ ] Вывод не переносится на другие context lengths, модели и эпизоды.
-- [ ] `npm run check` проходит; неполная инженерная работа не названа завершённым экспериментом.
+- [ ] The new episode is registered; strategies are sealed and distinguished in compare conditions.
+- [ ] The checkpoint is observable; tool call/result pairs match; hidden compaction is excluded or the experiment is declared incomparable.
+- [ ] Three pairs were planned before execution and all attempts are retained.
+- [ ] Summary costs are included in the total budget.
+- [ ] All final artifacts are independently evaluated; errors are linked to requirements and evidence.
+- [ ] The conclusion is not generalized to other context lengths, models, or episodes.
+- [ ] `npm run check` passes; incomplete engineering work is not called a completed experiment.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему меньше символов истории ещё не означает меньшую полную стоимость?
-2. Чем копирование одного checkpoint для двух продолжений отличается от независимого исполнения стратегии?
-3. Какие данные нельзя удалить между tool call и tool result?
-4. Почему плохая исходная диагностика не обязательно является ошибкой сжатия?
-5. Можно ли сравнивать native auto-compaction с ручной сводкой без наблюдаемого момента сжатия?
+1. Why does a shorter history in characters not yet imply a lower total cost?
+2. How does copying one checkpoint for two continuations differ from independent execution of a strategy?
+3. What data must not be removed between a tool call and its tool result?
+4. Why is poor initial diagnosis not necessarily a compaction error?
+5. Can native auto-compaction be compared with a manual summary without an observable compaction point?
 
-## Источники
+## Sources
 
-- [Метод: контекст и память](../method.md), [ЛР05: вместимость контекста и tools](LAB05-context-tools.md).
-- [Публичные учебные эпизоды](episodes/README.md), [ЛР09](LAB09-agent-campaign.md), [ЛР20](LAB20-judge-calibration.md).
-- [Подготовка controls](../../scripts/prepare-run.mjs), [схема настоящей записи](../../results/schema.json), [реестр компонентов](../harness-ledger.md).
+- [Method: context and memory](../method.md), [LAB05: context capacity and tools](LAB05-context-tools.md).
+- [Public training episodes](episodes/README.md), [LAB09](LAB09-agent-campaign.md), [LAB20](LAB20-judge-calibration.md).
+- [Preparing controls](../../scripts/prepare-run.mjs), [schema for real records](../../results/schema.json), [component ledger](../harness-ledger.md).

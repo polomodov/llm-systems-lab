@@ -1,36 +1,36 @@
-# Проверка комплектности учебного отчёта
+# Educational report completeness validation
 
-`lab:check` читает существующий комплект и сообщает пропущенные данные. Он не запускает модели, не меняет файлы, не выставляет зачёт и не присваивает `pass`. `npm run check` продолжает проверять каталог и настоящие run records; комплектность отдельного учебного отчёта проверяется явно.
+`lab:check` reads an existing bundle and reports missing data. It does not run models, change files, award credit or assign `pass`. `npm run check` continues to validate the catalog and real run records; individual educational-report completeness is checked explicitly.
 
-## Два режима
+## Two modes
 
-Из корня репозитория:
+From the repository root:
 
 ```bash
 npm run lab:new -- --lab LAB20 --session calibration-01
 npm run lab:check -- --report experiments/local-models/measurements/LAB20-calibration-01
 ```
 
-По умолчанию `mode=draft`: новый пустой отчёт допустим, но уже внесённые ссылки, статусы, числа и run IDs должны быть корректны. Для сдачи:
+The default is `mode=draft`: a new blank report is allowed, but entered links, statuses, numbers and run IDs must already be valid. For submission:
 
 ```bash
 npm run lab:check -- --report experiments/local-models/measurements/LAB20-calibration-01 --mode submission
 ```
 
-Обе команды выводят JSON и возвращают ненулевой код при ошибках. `ready_for_review=true` означает комплектность для просмотра. Это возможно и для оформленного `blocked`; блокировка не превращается в завершённую лабораторную. `experiment_pass` всегда `null`. Содержательные таблицы, ответы, минимальное число опытов и корректность выводов проверяет человек по методичке.
+Both commands output JSON and return nonzero on errors. `ready_for_review=true` means the bundle is complete for review. A properly documented `blocked` report may also qualify; blocking does not become lab completion. `experiment_pass` is always `null`. A human uses the manual to assess substantive tables, answers, minimum experiment counts and conclusion correctness.
 
 ## Manifest v2
 
-Новые `lab:new` создают версию 2. Неизменяемые идентификаторы отчёта должны совпадать с каталогом и каталогом файлов. `operator`, `hypothesis`, `conclusion` заполните к сдаче, `reviewer_decision` оставьте `null` до решения проверяющего.
+New `lab:new` sessions use version 2. Immutable report identifiers must match the catalog and directory. Fill `operator`, `hypothesis`, `conclusion` for submission; leave `reviewer_decision` `null` until the reviewer decides.
 
-- `evidence_class`: `experimental` для реальных наблюдений/прогонов, `synthetic` для учебных данных и записанных ответов, `protocol` для проверки подготовки без модельных измерений. Учебный и реальный маршруты оформляйте отдельными сессиями. `synthetic` не ссылается на настоящие `run_ids`; `protocol` допускает лишь не начатые `planned`/`prepared`/`aborted` записи. Любой запуск модели требует `experimental`.
-- `protocol_before_run`: путь **от каталога отчёта** к исходному протоколу, например `raw/protocol.md`. Включите его в `evidence_files`. `protocol_recorded_at` — UTC timestamp сохранения протокола до запусков: `YYYY-MM-DDTHH:mm:ssZ` или `YYYY-MM-DDTHH:mm:ss.sssZ`. Тот же формат применяется к `created_at`; несуществующие даты отклоняются. Для реальных run IDs проверяется, что эта дата не позже `execution.started_at`; подлинность даты и неизменность плана до опыта подтверждает автор отдельно.
-- `conditions`: пути **от корня репозитория** к аппаратному паспорту, manifest весов/runtime и harness profile. Для неприменимого поля оставьте `null` и добавьте строку причины, например `unavailable["conditions.model_artifact_manifest"] = "Учебная оценка записанных ответов без модели"`. Применимый файл должен существовать в `docs/`, `experiments/` или `results/runs/`.
-- `evidence_files`: уникальные пути **от каталога отчёта** ко всем сырым материалам. Для материалов других сессий сохраните нужную копию с происхождением; `..`, абсолютные пути, URL, symlink, `.env` и скрытые `check` запрещены. Публиковать секреты нельзя. Архивируйте файлы `*.log` отдельно: Git их игнорирует.
-- `run_ids`: все связанные реальные записи. Проверяются схема, хеши и доступная целостность snapshots. Синтетический trace из `lab:practice` сюда не добавляют.
-- `planned_attempts`: предварительный полный список попыток; после исполнения заполняются результаты. Не удаляйте неудачные строки.
+- `evidence_class`: `experimental` for real observations/runs, `synthetic` for educational data and recorded responses, `protocol` for preparation checks without model measurements. Use separate sessions for educational and real routes. `synthetic` references no real `run_ids`; `protocol` permits only unstarted `planned`/`prepared`/`aborted` records. Any model execution requires `experimental`.
+- `protocol_before_run`: path **relative to the report directory** to the original protocol, e.g. `raw/protocol.md`. Include it in `evidence_files`. `protocol_recorded_at` is the UTC timestamp when the protocol was saved before execution: `YYYY-MM-DDTHH:mm:ssZ` or `YYYY-MM-DDTHH:mm:ss.sssZ`. The same format applies to `created_at`; nonexistent dates are rejected. For real run IDs, this date must not be later than `execution.started_at`; the author separately establishes date authenticity and pre-experiment plan immutability.
+- `conditions`: paths **relative to the repository root** to hardware profile, weight/runtime manifest and harness profile. For an inapplicable field, leave `null` and add a reason string, e.g. `unavailable["conditions.model_artifact_manifest"] = "Educational evaluation of recorded responses without a model"`. An applicable file must exist in `docs/`, `experiments/` or `results/runs/`.
+- `evidence_files`: unique paths **relative to the report directory** to all raw materials. For other sessions' materials, preserve a needed copy with provenance; `..`, absolute paths, URLs, symlinks, `.env` and hidden `check` paths are prohibited. Never publish secrets. Archive `*.log` separately: Git ignores them.
+- `run_ids`: all linked real records. Schema, hashes and available snapshot integrity are checked. Do not add a synthetic `lab:practice` trace here.
+- `planned_attempts`: complete advance list of attempts; populate outcomes after execution. Do not delete failed rows.
 
-Пример **формы** одной записи до выполнения; это не результат:
+Example record **shape** before execution; this is not a result:
 
 ```json
 {
@@ -44,33 +44,33 @@ npm run lab:check -- --report experiments/local-models/measurements/LAB20-calibr
 }
 ```
 
-`id` и `configuration_id` — английские slug. `kind` принимает `agent-run`, `measurement`, `exercise`. Типы `measurement` и `exercise` не получают run ID. Для выполненного упражнения или замера нужны ссылки `evidence_files`, также перечисленные на верхнем уровне manifest.
+`id` and `configuration_id` are English slugs. `kind` accepts `agent-run`, `measurement`, `exercise`. `measurement` and `exercise` receive no run ID. A completed exercise or measurement needs `evidence_files` references also listed at manifest top level.
 
-| Статус попытки | Правило |
+| Attempt status | Rule |
 | --- | --- |
-| `planned` | Ещё не разрешена; к сдаче все такие строки нужно завершить или объяснить пропуск |
-| `completed` | Работа выполнена. Для `agent-run` нужен независимо оценённый `completed` run; любой честный `pass`/`partial`/`fail` допустим |
-| `awaiting-review` | Только `agent-run`: исполнение завершено, связанный run имеет `awaiting_review/pending`, времена начала и окончания. Обязательна причина. Сдача допустима только как `blocked` с `unavailable.completion`; независимый verdict ещё не получен |
-| `failed` | Начатая попытка прервана. Для `agent-run` нужен `aborted` с `execution.started_at`; обязательна причина |
-| `not-run` | Не запускалась; обязательна причина. Допустим ID `planned`/`prepared` или `aborted` до запуска; начатую попытку так помечать нельзя |
+| `planned` | Not yet resolved; for submission, complete every such row or explain its omission |
+| `completed` | Work performed. `agent-run` requires an independently evaluated `completed` run; any honest `pass`/`partial`/`fail` is acceptable |
+| `awaiting-review` | `agent-run` only: execution finished, linked run is `awaiting_review/pending`, with start/end times. Reason required. Submission allowed only as `blocked` with `unavailable.completion`; no independent verdict yet |
+| `failed` | A started attempt was interrupted. `agent-run` requires `aborted` with `execution.started_at`; reason required |
+| `not-run` | Never started; reason required. A `planned`/`prepared` ID or pre-start `aborted` is allowed; never use this for a started attempt |
 
-Каждый run ID встречается ровно в одной плановой строке и в верхнем `run_ids`. Обратная проверка обнаруживает запись, для которой забыли строку плана. Команда не может обнаружить опыт, который автор скрыл и в отчёте, и в плане: независимое хранение исходного протокола остаётся частью метода.
+Every run ID appears in exactly one planned row and top-level `run_ids`. Reverse validation detects records missing a plan row. The command cannot detect an experiment hidden by the author from both report and plan: independent preservation of the original protocol remains part of the method.
 
-Измеренные время и токены исполненной попытки `awaiting-review` можно сохранить в TSV с первичными доказательствами. Этот статус не разрешает объявить лабораторную `completed` или заменить независимую оценку. Не переводите такой run в `not-run`, `failed` или `completed` ради проверки комплектности.
+Measured time and tokens from an executed `awaiting-review` attempt may be saved in TSV with primary evidence. This status does not permit marking the lab `completed` or replacing independent evaluation. Do not relabel such a run `not-run`, `failed` or `completed` just to pass completeness checks.
 
-Для общего задания без модели используйте строки `exercise`, например подготовка из ЛР01 или независимые оценки ЛР20. В ЛР01 укажите `protocol`: завершённую подготовку занесите как `exercise/completed`, а её ещё не запущенный run ID — отдельной строкой `agent-run/not-run` с причиной «проверяется только подготовка». Так ссылка на sealed inputs сохраняется без приписывания модельного исполнения. Пустой список попыток не проходит сдачу; `completed` требует хотя бы одной выполненной или прерванной попытки. Для `blocked` нужна причина `unavailable.completion`; запланированные, но невозможные действия перечислите как `not-run`. Отдельная harness-лабораторная со статусом `completed` требует хотя бы одного настоящего оценённого прогона своей обвязки.
+For a general assignment without a model, use `exercise` rows, e.g. LAB01 preparation or LAB20 independent evaluations. In LAB01, set `protocol`: record completed preparation as `exercise/completed`, and its unstarted run ID separately as `agent-run/not-run` with reason “only preparation is checked”. This preserves a sealed-input link without implying model execution. An empty attempt list fails submission; `completed` requires at least one completed or interrupted attempt. `blocked` requires `unavailable.completion`; list planned but impossible actions as `not-run`. A dedicated harness lab marked `completed` requires at least one real evaluated run of its own harness.
 
-## Измерения
+## Measurements
 
-В `measurements.tsv` сохраните исходный заголовок. У каждой строки уникальный `observation_id`, непустые `configuration_id` и `metric`; конфигурация должна присутствовать в плане. Заполненные `context_tokens`/`repeat` — положительные целые.
+Preserve the original `measurements.tsv` header. Each row has a unique `observation_id`, nonempty `configuration_id` and `metric`; the configuration must appear in the plan. Populated `context_tokens`/`repeat` are positive integers.
 
-- `measured`: конечное десятичное число, единица и существующий `evidence_path`, включённый в manifest. Ноль допускается как измеренное значение.
-- `failed`, `not-run`, `unavailable`: `value` пуст, `unavailable_reason` заполнен. Неизвестное не превращается в ноль.
-- Если измерена длительность прерванного запроса, запишите её отдельной строкой `measured`; статус всей попытки останется `failed`.
-- Если численных наблюдений не было, оставьте только заголовок и объясните это в `unavailable.measurements`.
+- `measured`: a finite decimal number, unit and existing `evidence_path` included in the manifest. Zero is allowed as a measured value.
+- `failed`, `not-run`, `unavailable`: empty `value`, populated `unavailable_reason`. Unknown never becomes zero.
+- If an interrupted request's duration was measured, record a separate `measured` row; the overall attempt stays `failed`.
+- If there were no numeric observations, retain only the header and explain in `unavailable.measurements`.
 
-## Старые отчёты и учебные traces
+## Legacy reports and educational traces
 
-Версия 1 остаётся читаемой в `draft`. Для сдачи сделайте резервную копию, замените `schema_version` на 2, добавьте `evidence_class`, `protocol_recorded_at` и `planned_attempts`, а `protocol_before_run` приведите к пути файла. Восстанавливать предварительный план задним числом нельзя: при его отсутствии установите `status=blocked`, заполните `unavailable.completion` и `unavailable.protocol_before_run`. Поля протокола можно оставить `null` либо указать честную позднюю дату и объяснить её в той же причине. Это единственное исключение для отсутствующего или позднего протокола; для `completed` оно запрещено. Реестр выполненных/пропущенных действий восстановите с явной пометкой в отчёте, что это не предварительная регистрация. Затем создайте новую заранее спланированную сессию. Сам валидатор не переписывает старые отчёты.
+Version 1 remains readable in `draft`. For submission, make a backup, set `schema_version` to 2, add `evidence_class`, `protocol_recorded_at`, `planned_attempts`, and make `protocol_before_run` a file path. Do not retrospectively reconstruct an advance plan: if missing, set `status=blocked`, fill `unavailable.completion` and `unavailable.protocol_before_run`. Protocol fields may remain `null`, or use an honest late date explained in the same reason. This is the only exception for missing/late protocol; it is prohibited for `completed`. Reconstruct the completed/skipped action registry with an explicit report note that it is not preregistration. Then create a new session planned in advance. The validator itself never rewrites legacy reports.
 
-`lab:practice` создаёт другой формат `kind=lab-practice` в `experiments/local-models/practice/`. Он отвергается `lab:check`. Для сдачи учебного разбора создайте обычный отчёт ЛР20/22/23, укажите `synthetic`, скопируйте trace в `raw/` и приложите самостоятельно заполненные ответы. Такой разбор не выполняет инженерный или модельный минимум соответствующей работы.
+`lab:practice` creates a different format, `kind=lab-practice`, in `experiments/local-models/practice/`. `lab:check` rejects it. To submit an educational analysis, create a normal LAB20/22/23 report, set `synthetic`, copy the trace into `raw/` and attach your independently completed answers. Such analysis does not fulfill the engineering or model minimum of the corresponding lab.

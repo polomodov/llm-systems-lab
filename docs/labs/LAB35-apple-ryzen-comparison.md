@@ -1,24 +1,24 @@
-# ЛР35. Apple против Ryzen на одинаковых задачах
+# LAB35. Apple versus Ryzen on identical tasks
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | Сравнительная агентная кампания / `implementation-required` |
-| Время | 4–8 часов оператора плюс исполнение и независимая оценка |
-| Предпосылки | LAB04, LAB08, LAB09, LAB32, LAB34; manifests обеих машин |
-| Минимум | Один общий GGUF, один task/agent/harness, по три попытки на стенд и сопоставимая серия инференса |
-| Ограничение | Агентная часть ждёт принятого local provider bridge LAB08; один лишь HTTP server её не разблокирует |
+| Type / readiness | Comparative agent campaign / `implementation-required` |
+| Time | 4–8 operator hours plus execution and independent evaluation |
+| Prerequisites | LAB04, LAB08, LAB09, LAB32, LAB34; manifests for both machines |
+| Minimum | One shared GGUF, one task/agent/harness, three attempts per machine and a comparable inference series |
+| Limitation | The agent phase awaits an accepted LAB08 local provider bridge; an HTTP server alone does not unblock it |
 
-## Цель
+## Objective
 
-Сравнить полезность двух стендов на общих входах, отделив производительность инференса от успешности законченной агентной задачи.
+Compare the usefulness of two machines on shared inputs, separating inference performance from successful completion of an agent task.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Различия в latency/throughput двух deployments приводят к измеримому изменению времени или доли успешных решений при одинаковом контракте и бюджете. Более высокий tokens/s сам по себе не доказывает лучшее качество агента.
+Latency/throughput differences between two deployments produce measurable changes in completion time or success rate under the same contract and budget. Higher tokens/s alone does not establish better agent quality.
 
-## Подготовка
+## Preparation
 
 ```sh
 npm run lab:new -- --lab LAB35 --session apple-vs-ryzen
@@ -30,70 +30,70 @@ npm run --silent local:plan -- --hardware ryzen-ai-max-395-128gb-linux --engine 
 npm run check
 ```
 
-Это только планы. Нужны реальные manifests и пройденные проверки LAB08; существующий `run --provider local` не поддерживается. Не запускайте облачную модель под видом локальной. При отсутствии bridge оформите `blocked` агентной части; инфраструктурные измерения можно провести отдельной сессией.
+These are plans only. Actual manifests and passed LAB08 checks are required; `run --provider local` is not currently supported. Do not run a cloud model disguised as local. Without a bridge, mark the agent phase `blocked`; infrastructure measurements may be performed in a separate session.
 
-## Порядок выполнения
+## Procedure
 
-1. До запуска создайте матрицу условий в `raw/protocol.md`. Основная пара: один GGUF с одинаковыми hashes, одинаковый llama.cpp commit, tokenizer/template, prompt/output budgets, sampling/reasoning, KV/state, offload policy, threads и server slots. Apple backend — Metal, Ryzen — заранее выбранный Vulkan либо ROCm по LAB04. Если доступны оба Ryzen backend, это два отдельных сравнения, не выбор победителя после просмотра результатов.
+1. Before execution, create a conditions matrix in `raw/protocol.md`. Primary pair: one GGUF with identical hashes, the same llama.cpp commit, tokenizer/template, prompt/output budgets, sampling/reasoning, KV/state, offload policy, threads and server slots. Apple backend: Metal; Ryzen: Vulkan or ROCm selected in advance according to LAB04. If both Ryzen backends are available, these are two separate comparisons, not a winner selected after viewing results.
 
-2. Проверьте сопоставимость: OS/ISA/GPU отличаются по определению. Сохраните паспорта, compiler/build flags, питание, background load и network placement. Основная baseline — concurrency 1; cache policy фиксирована. При несовпадении runtime flags или weights запишите отличие и трактуйте результат как сравнение deployment целиком. Для MLX добавьте отдельную дополнительную пару с собственными quant/artifacts, не объединяйте с контролируемым GGUF-сравнением.
+2. Check comparability: OS/ISA/GPU differ by definition. Save hardware profiles, compiler/build flags, power, background load and network placement. The primary baseline is concurrency 1; cache policy is fixed. If runtime flags or weights differ, record the difference and interpret the result as a whole-deployment comparison. For MLX, add a separate supplementary pair with its own quant/artifacts; do not merge it with the controlled GGUF comparison.
 
-3. Повторите один публичный HTTP prompt LAB32 и нагрузочный fixture LAB34 на обоих стендах: отдельный warmup и три повтора на одинаковом допущенном контексте. Измеряйте TTFT только streaming-клиентом; non-streaming driver даёт полную latency. Чередуйте стенды по протоколу, холодный старт и prefix cache оформляйте отдельно. Архивы raw перенесите в новый отчёт вместе с source session IDs и hashes; существующие результаты не изменяйте.
+3. Repeat one public LAB32 HTTP prompt and the LAB34 load fixture on both machines: separate warmup and three repetitions at the same admitted context size. Measure TTFT only with a streaming client; the non-streaming driver yields total latency. Alternate machines according to the protocol; report cold starts and prefix cache separately. Copy raw archives into the new report with source session IDs and hashes; do not alter existing results.
 
-4. После принятия LAB08 выберите одну поддержанную обвязку, агентскую спецификацию и один существующий эпизод. Для первого опыта используйте T002/a2-janitor согласно LAB08/09. Зафиксируйте **один** harness version/image, permission/sandbox/network policy и входной snapshot. Лимиты turns/USD берутся из sealed task contract; новые defaults не добавляются. Если один image нельзя исполнить на обеих архитектурах одинаково, используйте одинаковый agent host для двух inference endpoints через принятый bridge или явно оформите разные harness deployments; нельзя скрывать emulation/разные образы.
+4. After LAB08 acceptance, choose one supported harness, agent specification and existing episode. For the first experiment, use T002/a2-janitor according to LAB08/09. Pin **one** harness version/image, permission/sandbox/network policy and input snapshot. Turn/USD limits come from the sealed task contract; do not add new defaults. If one image cannot run identically on both architectures, use the same agent host for two inference endpoints through the accepted bridge, or explicitly document different harness deployments; do not conceal emulation/different images.
 
-5. Пройдите lifecycle LAB09: new-run → prepare → execution → независимая оценка. Конкретную команду локального provider возьмите из реализованного и проверенного интерфейса LAB08, не из предположения о флагах. Проведите один отдельный pilot, затем по три заранее зарегистрированных попытки для каждой основной пары. Модельный прогрев — отдельный от учётных агентских попыток. Не читайте и не меняйте `tasks/*/check/`; не меняйте task contracts. Сохраняйте все started failures в настоящих run records, отсутствие usage/cost — `null` с причиной, не 0.
+5. Follow the LAB09 lifecycle: new-run → prepare → execution → independent evaluation. Take the exact local-provider command from the implemented and tested LAB08 interface, not assumed flags. Run one separate pilot, then three preregistered attempts for each primary pair. Model warmup is separate from recorded agent attempts. Do not read or modify `tasks/*/check/`; do not change task contracts. Preserve all started failures in real run records; absent usage/cost is `null` with a reason, not 0.
 
-6. Перед сравнением убедитесь, что metadata и compare уже различают hardware/deployment fingerprints, как требует LAB08. При отсутствии этой поддержки итоговое агентное сравнение blocked. Для выбранных реальных IDs:
+6. Before comparing, ensure metadata and compare already distinguish hardware/deployment fingerprints as LAB08 requires. Without this support, the final agent comparison is blocked. For the selected real IDs:
 
    ```sh
-   export RUN_IDS='<реальные run IDs через запятую>'
+   export RUN_IDS='<actual comma-separated run IDs>'
    npm run --silent compare -- --runs "$RUN_IDS" > "$LAB_DIR/raw/agent-comparison.json"
    ```
 
-   Это не команда создания результатов. Свяжите IDs в manifest и planned attempts. Покажите pass/total, каждое wall time, tokens/turns/cost completeness и errors. Начатые неудачи входят в знаменатель, not-run перечисляются отдельно. Три попытки дают начальную оценку разброса, не статистическое доказательство превосходства.
+   This does not create results. Link IDs in the manifest and planned attempts. Show pass/total, every wall time, tokens/turns/cost completeness and errors. Started failures enter the denominator; list not-run separately. Three attempts give an initial variability estimate, not statistical proof of superiority.
 
-7. Сформулируйте практический вывод по заранее выбранному правилу: годится ли каждый стенд для данной задачи и условий, где ограничение качества/latency/memory, какие данные ещё нужны. Энергетическую эффективность сравнивайте только при одинаковой методике измерения энергии; model API price=0 не означает нулевую стоимость компьютера и электричества.
+7. Form a practical conclusion using the preselected rule: whether each machine suits this task and these conditions, where quality/latency/memory limits lie, and what further data is needed. Compare energy efficiency only with identical energy-measurement methods; model API price=0 does not mean the computer and electricity cost nothing.
 
-## Таблицы результатов
+## Results tables
 
-| Условие | Hardware / OS | Engine SHA / backend | Weights / template hash | Context / cache / slots | Различия / evidence |
+| Condition | Hardware / OS | Engine SHA / backend | Weights / template hash | Context / cache / slots | Differences / evidence |
 | --- | --- | --- | --- | --- | --- |
 | Apple GGUF | | | | | |
 | Ryzen GGUF | | | | | |
-| MLX дополнительно | | | | | |
+| Supplementary MLX | | | | | |
 
-| Условие / повтор | Run ID | Verdict | Wall s | Tokens / turns | Cost USD / полнота | Ошибка / not-run |
+| Condition / repetition | Run ID | Verdict | Wall s | Tokens / turns | Cost USD / completeness | Error / not-run |
 | --- | --- | --- | --- | --- | --- | --- |
 | | | | | | | |
 
-| Пара | Inference latency / throughput | Pass / total | Разброс wall time | Что выводимо / что неизвестно |
+| Pair | Inference latency / throughput | Pass / total | Wall-time variability | Supported conclusions / unknowns |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, протокол сравнений, обе аппаратные/артефактные/runtime идентичности, HTTP raw evidence, run IDs и независимые verdict, compare JSON либо конкретный blocker интеграции. Учебный manifest не заменяет run.json.
+Report/TSV/manifest, comparison protocol, both hardware/artifact/runtime identities, HTTP raw evidence, run IDs and independent verdicts, compare JSON or a specific integration blocker. An educational manifest does not replace run.json.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Контролируемый GGUF и дополнительный MLX deployment не смешаны.
-- [ ] Bridge/metadata/изоляция приняты до агентных запусков.
-- [ ] На каждой машине три учётные попытки, включая failures, либо blocked с причиной.
-- [ ] Общий контракт, evaluator и run records сохранены без изменения скрытых проверок.
-- [ ] Вывод связан с задачей, условиями и evidence, а не только tokens/s.
-- [ ] Выполнены `lab:check --mode submission` и `npm run check`.
+- [ ] Controlled GGUF and supplementary MLX deployment kept distinct.
+- [ ] Bridge/metadata/isolation accepted before agent runs.
+- [ ] Three recorded attempts per machine, including failures, or blocked with a reason.
+- [ ] Shared contract, evaluator and run records preserved without changing hidden checks.
+- [ ] Conclusion tied to task, conditions and evidence, not just tokens/s.
+- [ ] `lab:check --mode submission` and `npm run check` completed.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему сравнение Metal и ROCm одновременно включает влияние ОС и аппаратуры?
-2. Когда можно говорить о чистом эффекте движка, а когда только о deployment?
-3. Как одинаковый task budget влияет на сравнение скорости и качества?
-4. Почему started failures нельзя исключать из pass/total?
-5. Какие дополнительные измерения нужны для стоимости успешной задачи?
+1. Why does comparing Metal and ROCm also include OS and hardware effects?
+2. When can one discuss the engine's isolated effect, and when only a deployment?
+3. How does an identical task budget affect speed and quality comparisons?
+4. Why must started failures remain in pass/total?
+5. What additional measurements are needed to calculate cost per successful task?
 
-## Источники
+## Sources
 
-- [Протокол эксперимента](../method.md), [LAB08](LAB08-local-bridge.md), [LAB09](LAB09-agent-campaign.md).
+- [Experiment protocol](../method.md), [LAB08](LAB08-local-bridge.md), [LAB09](LAB09-agent-campaign.md).
 - [LAB04](LAB04-backends.md), [LAB32](LAB32-apple-context-tools.md), [LAB34](LAB34-apple-load.md).
-- [Схема run records](../../results/schema.json), [сравнение](../../scripts/compare.mjs).
+- [Run record schema](../../results/schema.json), [comparison](../../scripts/compare.mjs).

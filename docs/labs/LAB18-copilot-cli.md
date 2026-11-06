@@ -1,33 +1,33 @@
-# ЛР18. Copilot CLI: автономный эпизод, selector модели и AI credits
+# LAB18. Copilot CLI: an autonomous episode, model selector, and AI credits
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предварительная работа | [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `copilot-cli`, пакет `@github/copilot` **1.0.86** |
-| Основной маршрут | Облачный provider `copilot`; локальный bridge не требуется |
-| Агент и задача | `a2-janitor` / T002 |
-| Минимум | Offline smoke с native cache и один реальный T002 с независимой оценкой |
-| Расширение | Три новых T002, T001 replay, T003, абляция спецификации |
-| Время | Ориентир 2–4 часа без задержек сервиса; не измеренный результат |
-| Начальный статус | `not-run`; эта работа содержит задания, а не отчёт о выполнении |
+| Previous lab | [LAB01](LAB01-reproducibility.md) |
+| Harness | `copilot-cli`, package `@github/copilot` **1.0.86** |
+| Main route | Cloud provider `copilot`; no local bridge required |
+| Agent and task | `a2-janitor` / T002 |
+| Minimum | Offline smoke test with native cache and one real T002 with independent evaluation |
+| Extension | Three new T002 attempts, T001 replay, T003, specification ablation |
+| Time | Estimate: 2–4 hours excluding service delays; not a measured result |
+| Initial status | `not-run`; this lab contains assignments, not an execution report |
 
-## Цель
+## Objective
 
-Запустить локальный Copilot CLI через общий координатор и получить независимо оценённый результат. Отделить выбранный Copilot selector от подтверждённого model snapshot, а premium requests / AI credits — от стоимости в USD. Проверить, не мешает ли собственному циклу CLI контейнерная граница и ограниченный native cache.
+Run local Copilot CLI through the shared coordinator and obtain an independently evaluated result. Distinguish the selected Copilot selector from a confirmed model snapshot, and premium requests / AI credits from USD cost. Check whether the container boundary and bounded native cache interfere with the CLI's own loop.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-CLI 1.0.86 с явным доступным selector выполнит T002 без интерактивных вопросов и завершит JSONL потоком `result`. Полные пары событий ходов дадут наблюдаемое число ходов основного агента, но текущий формат не обеспечит token totals, USD и фактический model ID. Независимый verdict проверит качество задачи отдельно от терминального `exitCode=0`.
+CLI 1.0.86 with an explicit available selector will execute T002 without interactive questions and end its JSONL stream with `result`. Complete turn-event pairs provide an observed count of main-agent turns, but the current format does not provide token totals, USD, or actual model ID. An independent verdict checks task quality separately from terminal `exitCode=0`.
 
-## Подготовка
+## Preparation
 
-Нужны Node.js ≥22, Bash, Git, Docker и аккаунт с доступом к Copilot CLI. Это **локальное исполнение CLI с облачным сервисом**, а не GitHub Copilot coding agent. Координатор запускается обычным пользователем из корня репозитория. На Linux x64 повторите smoke самостоятельно: сохранённые инфраструктурные измерения относились к Linux arm64.
+You need Node.js ≥22, Bash, Git, Docker, and an account with Copilot CLI access. This is **local CLI execution with a cloud service**, not GitHub Copilot coding agent. Run the coordinator as a regular user from the repository root. Repeat smoke tests yourself on Linux x64: saved infrastructure measurements concerned Linux arm64.
 
-Прочитайте [README](../../experiments/copilot-cli/README.md), [профиль](../../experiments/copilot-cli/harness.json), [протокол](../method.md), `agents/a2-janitor/spec.md` и открытый [контракт T002](../../tasks/T002-repo-janitor/task.md). Скрытые `tasks/*/check/` не читаются решающим агентом, контракты не редактируются.
+Read the [README](../../experiments/copilot-cli/README.md), [profile](../../experiments/copilot-cli/harness.json), [protocol](../method.md), `agents/a2-janitor/spec.md`, and public [T002 contract](../../tasks/T002-repo-janitor/task.md). The solving agent must not read hidden `tasks/*/check/`; contracts are not edited.
 
-Выполняйте блоки последовательно в Bash, разбирая ошибку до продолжения:
+Execute blocks sequentially in Bash, investigating errors before proceeding:
 
 ```bash
 npm run lab:new -- --lab LAB18 --session my-session
@@ -42,11 +42,11 @@ docker version > "$LAB_DIR/raw/docker-version.txt"
 npm run check
 ```
 
-В `.env` требуется **`COPILOT_GITHUB_TOKEN`**, поддерживаемый токен с доступом Copilot; в исследовании закреплённой версии указан fine-grained PAT с разрешением Copilot Requests, classic PAT не поддерживается. Значение не выводите и не копируйте в отчёт; не монтируйте `.env` в контейнер. До API-вызова запишите выбранную конфигурацию, лимиты T002, `timeout=900 s`, `budget-mode=observed`, одну основную попытку и независимого оценщика. Тип подписки запишите без идентификаторов и секретов аккаунта.
+`.env` requires **`COPILOT_GITHUB_TOKEN`**, a supported token with Copilot access; research for the pinned version specifies a fine-grained PAT with Copilot Requests permission, while classic PATs are unsupported. Do not expose its value or copy it into the report; do not mount `.env` in the container. Before an API call, record the selected configuration, T002 limits, `timeout=900 s`, `budget-mode=observed`, one main attempt, and independent evaluator. Record subscription type without account identifiers or secrets.
 
-## Порядок выполнения
+## Procedure
 
-1. **Соберите образ и сохраните его identity.** Используйте закреплённый npm package 1.0.86. Сборка требует сети для пакетов, но не ключа и не вызова модели; существующий проверенный образ можно использовать без пересборки.
+1. **Build the image and preserve its identity.** Use pinned npm package 1.0.86. Building requires network for packages, but no key or model call; an existing verified image may be used without rebuilding.
 
    ```bash
    docker build --build-arg HARNESS_VERSION="$HARNESS_VERSION" \
@@ -59,7 +59,7 @@ npm run check
    PROXY_IMAGE_ID="$(docker image inspect --format '{{.Id}}' node:24.13.1-bookworm-slim)"
    ```
 
-2. **Проверьте native cache без сети и credentials.** CLI распаковывает native addon; `noexec /tmp` без отдельного exec tmpfs мешает даже `--version`. Сохраните основной `/tmp` как `noexec`, выделите отдельный `/tmp/harness-native` 512 MiB и направьте туда `TMPDIR`/`XDG_CACHE_HOME`. Это настройка существующего профиля, а не разрешение исполнять файлы лаборатории.
+2. **Check native cache without network or credentials.** The CLI extracts a native addon; `noexec /tmp` without a separate executable tmpfs blocks even `--version`. Keep the main `/tmp` as `noexec`, allocate a separate 512 MiB `/tmp/harness-native`, and point `TMPDIR`/`XDG_CACHE_HOME` there. This is a setting of the existing profile, not permission to execute lab files.
 
    ```bash
    for FLAG in --version --help; do
@@ -84,11 +84,11 @@ npm run check
      > "$LAB_DIR/raw/adapter-tests.tap" 2>&1
    ```
 
-   Проверьте оба файла и коды завершения: версия должна быть 1.0.86, справка должна завершиться успешно. После `break` smoke считается незавершённым; API-этап не начинается. Старое измерение cache ≈157,5 MiB для arm64 из README не переносите в свой отчёт как собственное. 512 MiB — максимальная ёмкость tmpfs, а не заранее выделенная или измеренная память эпизода.
+   Check both files and exit codes: version must be 1.0.86 and help must complete successfully. After `break`, smoke testing is incomplete; do not begin the API stage. Do not copy the README's earlier arm64 cache measurement of ≈157.5 MiB into your report as your own. 512 MiB is the tmpfs maximum capacity, not preallocated or measured episode memory.
 
-3. **Разберите контракт адаптера.** По [адаптеру](../../experiments/copilot-cli/adapter.mjs) и тестам найдите `--no-ask-user`, `--no-custom-instructions`, `--disable-builtin-mcps`, `--no-remote-export`, отключение обновления и передачу prompt одним argv. Объясните, почему `--allow-all` допустим только вместе с внешней границей. Не добавляйте к текущему заданию GitHub MCP, BYOK, GHE.com или remote execution: это новые условия и профили.
+3. **Examine the adapter contract.** Find `--no-ask-user`, `--no-custom-instructions`, `--disable-builtin-mcps`, `--no-remote-export`, disabled updates, and prompt passing as one argv element in the [adapter](../../experiments/copilot-cli/adapter.mjs) and tests. Explain why `--allow-all` is acceptable only with an external boundary. Do not add GitHub MCP, BYOK, GHE.com, or remote execution to this assignment: these are new conditions and profiles.
 
-4. **Выберите явный selector и подготовьте новый T002.** Пример `gpt-5.4` присутствует в тестах и README закреплённого адаптера. Используйте его только если он доступен в вашем Copilot аккаунте, иначе до `new-run` замените другим поддерживаемым явным selector и запишите источник выбора. `auto`, `default`, `latest` запрещены. Название Copilot selector не доказывает тот же snapshot, что прямой API другого провайдера.
+4. **Choose an explicit selector and prepare a new T002.** The `gpt-5.4` example appears in tests and the pinned adapter README. Use it only if available in your Copilot account; otherwise replace it with another supported explicit selector before `new-run` and record the selection source. `auto`, `default`, and `latest` are forbidden. A Copilot selector name does not prove the same snapshot as another provider's direct API.
 
    ```bash
    MODEL_ID='gpt-5.4'
@@ -96,16 +96,16 @@ npm run check
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a2-janitor --task T002
    ```
 
-   Сохраните выданный ID в учебном manifest и следующей переменной:
+   Save the returned ID in the lab manifest and this variable:
 
    ```bash
-   RUN_ID='<ID из new-run>'
+   RUN_ID='<ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   До исполнения убедитесь, что запись `prepared`. Профиль разрешает только `github.com`, `api.github.com`, `api.githubcopilot.com`, `api.individual.githubcopilot.com`, `api.business.githubcopilot.com`, `api.enterprise.githubcopilot.com`. Полнота списка для вашего авторизованного CLI остаётся проверяемой гипотезой, а не основанием открыть wildcard.
+   Confirm `prepared` state before execution. The profile allows only `github.com`, `api.github.com`, `api.githubcopilot.com`, `api.individual.githubcopilot.com`, `api.business.githubcopilot.com`, and `api.enterprise.githubcopilot.com`. Completeness of this list for your authenticated CLI remains a testable hypothesis, not grounds for a wildcard.
 
-5. **Выполните реальный эпизод.** Это первый этап, использующий модель и credentials.
+5. **Execute a real episode.** This is the first stage using the model and credentials.
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" \
@@ -113,9 +113,9 @@ npm run check
      --model "$MODEL_ID" --timeout 900 --budget-mode observed
    ```
 
-   `observed` означает, что USD cap задачи не обеспечен. `--max-autopilot-continues` не используется как подмена лимита модельных ходов; принудительный предел — внешний timeout. При ошибке авторизации или denied egress сохраните причину. Изменение профиля требует новой подготовки и нового run ID; не расширяйте сеть в запечатанной попытке. Не передавайте токен в аргументы команд диагностики.
+   `observed` means the task's USD cap is not enforced. `--max-autopilot-continues` is not used as a substitute for a model-turn limit; the external timeout is the enforced boundary. Preserve the reason for authorization errors or denied egress. A profile change requires new preparation and a new run ID; do not expand networking in a sealed attempt. Do not pass the token in diagnostic command arguments.
 
-6. **Проверьте trace и неизвестные показатели.** Сохраните сводку record:
+6. **Check the trace and unknown metrics.** Save a record summary:
 
    ```bash
    node --input-type=module - "$RUN_ID" <<'NODE' > "$LAB_DIR/raw/summary-$RUN_ID.json"
@@ -127,9 +127,9 @@ npm run check
    NODE
    ```
 
-   Найдите в raw JSONL `session.start`, пары `assistant.turn_start` / `assistant.turn_end` и терминатор `type: result` с числовым `exitCode`. При полном наборе пар основной агент получает измеряемые turns, повторные ID не суммируются. `assistant.usage` и `session.shutdown` фильтруются stdout formatter этой версии; текущий парсер оставляет token totals и observed model неизвестными. Premium requests/AI credits нельзя переводить в USD без отдельного обоснованного измерения; в run record USD остаётся `null` с причиной. Наличие `result` и успешного exit code ещё не проверяет решение T002.
+   Find `session.start`, `assistant.turn_start` / `assistant.turn_end` pairs, and a `type: result` terminator with numeric `exitCode` in raw JSONL. A complete set of pairs yields measurable main-agent turns; duplicate IDs are not summed. This version's stdout formatter filters `assistant.usage` and `session.shutdown`; the current parser leaves token totals and observed model unknown. Premium requests/AI credits cannot be converted to USD without a separate justified measurement; USD remains `null` with a reason in the run record. A `result` and successful exit code do not yet check the T002 solution.
 
-7. **Завершите независимое судейство.** Для `awaiting_review` создайте шаблон; при `aborted` сохраните ошибку и при необходимости создайте новую попытку. Незавершённую/прерванную запись нельзя превратить в успех редактированием record.
+7. **Complete independent judging.** Create a template for `awaiting_review`; for `aborted`, preserve the error and create a new attempt if needed. Do not turn an unfinished/interrupted record into success by editing it.
 
    ```bash
    (
@@ -139,7 +139,7 @@ npm run check
    )
    ```
 
-   Независимый оценщик по [общей процедуре](harness-workflow.md) выполняет T002 hidden-check вне agent container и заполняет `result`, `evaluator`, `check_output` с версией проверки и наблюдениями; `human_notes` необязателен. `result` принимает `pass`, `fail`, `partial`; generated hashes остаются неизменными. Пока независимой оценки нет, запись остаётся `awaiting_review`.
+   Under the [shared procedure](harness-workflow.md), an independent evaluator performs the T002 hidden check outside the agent container and fills `result`, `evaluator`, and `check_output` with check version and observations; `human_notes` is optional. `result` accepts `pass`, `fail`, or `partial`; generated hashes stay unchanged. The record remains `awaiting_review` until independent evaluation exists.
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -147,87 +147,87 @@ npm run check
    npm run check
    ```
 
-   Минимум лабораторной — реальный `completed` с любым содержательно обоснованным verdict. Внесите фактические ID, наблюдаемость, egress и ограничения selector в `experiments/copilot-cli/NOTES.md`. Новый компонент требует ledger row; отсутствие token totals не разрешает придумывать измерение.
+   The lab minimum is a real `completed` record with any substantively justified verdict. Record actual IDs, observability, egress, and selector limitations in `experiments/copilot-cli/NOTES.md`. A new component requires a ledger row; absent token totals do not permit invented measurements.
 
-8. **Расширьте исследование по заранее заданному плану.** Для тройки создайте три новых T002 через шаги 4–7. Первый основной эпизод остаётся pilot; сохраняются версия, image IDs, selector, provider, task inputs, timeout и observed budget. Анализируйте все начатые исходы:
+8. **Extend the study according to a predefined plan.** For a triple, create three new T002 attempts through steps 4–7. The initial main episode remains a pilot; preserve version, image IDs, selector, provider, task inputs, timeout, and observed budget. Analyze every started outcome:
 
    ```bash
-   SERIES_RUN_IDS='<три новых run ID через запятую без пробелов>'
+   SERIES_RUN_IDS='<three new run IDs separated by commas without spaces>'
    npm run --silent compare -- --runs "$SERIES_RUN_IDS" > "$LAB_DIR/raw/compare-series.json"
    ```
 
-   Для T001 используйте единый архив зарегистрированного discovery run. Если его нет, выполните отдельный live discovery по [workflow](harness-workflow.md); архив должен содержать HTTP bodies/status, а не только URL.
+   For T001, use one recorded discovery-run archive. If none exists, perform separate live discovery under the [workflow](harness-workflow.md); the archive must contain HTTP bodies/statuses, not only URLs.
 
    ```bash
-   SOURCE_ARCHIVE='<путь к trace/sources.jsonl discovery run>'
-   AS_OF_DATE='<общая дата YYYY-MM-DD>'
+   SOURCE_ARCHIVE='<path to discovery run trace/sources.jsonl>'
+   AS_OF_DATE='<shared YYYY-MM-DD date>'
    npm run new-run -- --harness copilot-cli --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a1-dossier --task T001
-   RUN_ID='<новый T001 ID>'
+   RUN_ID='<new T001 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" \
      --variant baseline --as-of "$AS_OF_DATE" --source-archive "$SOURCE_ARCHIVE"
    ```
 
-   Исполнение — шаг 5, оценка — шаг 7, но метод T001 — `rubric` с предусмотренным проверяющим скриптом. Для T003 подготовьте отдельный аудит:
+   Execute with step 5 and evaluate with step 7, but T001 uses `rubric` with its designated checking script. Prepare a separate T003 audit:
 
    ```bash
    npm run new-run -- --harness copilot-cli --harness-version "$HARNESS_VERSION" \
      --provider "$PROVIDER_ID" --model "$MODEL_ID" --agent a3-ledger-auditor --task T003
-   RUN_ID='<новый T003 ID>'
+   RUN_ID='<new T003 ID>'
    npm run prepare-run -- --run "$RUN_ID" --provider "$PROVIDER_ID" --variant baseline
    ```
 
-   Выполните шаг 5 и внешнюю `rubric` оценку. Разные harness дают разные входные конфигурации T003. Для абляции создайте новый T002 как в шаге 4 и подготовьте `--variant without-spec`, затем исполните и оцените. Проверьте, что спецификация не возвращается через custom instructions; Docker и gateway остаются. Эффект исследуйте тремя baseline и тремя without-spec по [ЛР10](LAB10-ablation.md).
+   Perform step 5 and external `rubric` evaluation. Different harnesses give T003 different input configurations. For ablation, create a new T002 as in step 4 and prepare `--variant without-spec`, then execute and evaluate. Check that custom instructions do not reintroduce the specification; Docker and gateway remain. Study the effect with three baseline and three without-spec attempts under [LAB10](LAB10-ablation.md).
 
-## Таблицы результатов
+## Results tables
 
-| Run ID | Task / variant | CLI version / image ID | Copilot selector | Статус | Внешний verdict | Evidence |
+| Run ID | Task / variant | CLI version / image ID | Copilot selector | Status | External verdict | Evidence |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | — | — | — | — | — | — |
 
-| Показатель | Значение | Единица | Измерение или причина `null` | Evidence |
+| Metric | Value | Unit | Measurement or reason for `null` | Evidence |
 | --- | --- | --- | --- | --- |
-| Ходы основного агента | — | turns | — | — |
-| Токены вход/выход | — | tokens | — | — |
-| Premium requests / AI credits | — | Как обозначено сервисом | — | — |
-| Стоимость прогона | — | USD | — | — |
-| Время | — | s | — | — |
-| Наблюдаемый model ID | — | ID | — | — |
+| Main-agent turns | — | turns | — | — |
+| Input/output tokens | — | tokens | — | — |
+| Premium requests / AI credits | — | As labeled by the service | — | — |
+| Run cost | — | USD | — | — |
+| Time | — | s | — | — |
+| Observed model ID | — | ID | — | — |
 
-| Проверка | Условие до запуска | Наблюдение | Evidence / ограничение |
+| Check | Condition before execution | Observation | Evidence / limitation |
 | --- | --- | --- | --- |
-| Native cache smoke | Отдельный exec tmpfs 512 MiB, сеть отключена | — | — |
-| Turn pairs | Полные уникальные пары основного агента | — | — |
-| Egress | Только домены закреплённого profile | — | — |
-| T002 | Независимая содержательная оценка | — | — |
+| Native cache smoke | Separate 512 MiB executable tmpfs, network disabled | — | — |
+| Turn pairs | Complete unique main-agent pairs | — | — |
+| Egress | Only domains in the pinned profile | — | — |
+| T002 | Independent substantive evaluation | — | — |
 
-## Что сдать
+## Deliverables
 
-- Учебные manifest/report LAB18 с предварительным протоколом, таблицами и контрольными ответами.
-- Версию, архитектуру, image IDs, offline help/version/tests и параметры native tmpfs; без токена и `.env`.
-- Ссылки на все созданные run records, immutable inputs/trace/artifacts, T002 `trace/change.patch` и внешние оценки.
-- Compare JSON на точных IDs, NOTES и при необходимости ledger additions; отдельное объяснение selector identity и границы AI credits/USD.
+- LAB18 lab manifest/report with the advance protocol, tables, and review answers.
+- Version, architecture, image IDs, offline help/version/tests, and native tmpfs parameters; no token or `.env`.
+- References to all created run records, immutable inputs/trace/artifacts, T002 `trace/change.patch`, and external evaluations.
+- Compare JSON for exact IDs, NOTES, and ledger additions if needed; a separate explanation of selector identity and the AI credits/USD boundary.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] 1.0.86 подтверждена offline; native cache работает при сохранённом noexec основном `/tmp`.
-- [ ] Есть хотя бы один реальный T002 `completed` с независимым verdict; ошибки и aborted не скрыты.
-- [ ] Зафиксированы явный selector, provider, immutable images, observed budget и timeout 900 s.
-- [ ] Selector не объявлен точным model snapshot, AI credits не подменены USD, отсутствующие токены не заменены нулями.
-- [ ] Turns имеют evidence полных пар либо остаются неизвестными с причиной.
-- [ ] `npm run check` проходит; offline smoke и реальный результат не смешаны; дополнительные серии имеют собственные IDs.
+- [ ] 1.0.86 confirmed offline; native cache works while main `/tmp` remains noexec.
+- [ ] At least one real T002 is `completed` with an independent verdict; errors and aborted attempts are not hidden.
+- [ ] Explicit selector, provider, immutable images, observed budget, and timeout 900 s recorded.
+- [ ] Selector not declared an exact model snapshot, AI credits not substituted for USD, missing tokens not replaced with zeros.
+- [ ] Turns supported by complete-pair evidence, or remain unknown with a reason.
+- [ ] `npm run check` passes; offline smoke and real results are separate; additional series have their own IDs.
 
-## Контрольные вопросы
+## Review questions
 
-1. Чем локальный Copilot CLI отличается от Copilot coding agent в облаке?
-2. Почему тот же строковый selector в Copilot и другом API не гарантирует одинаковые веса?
-3. Почему общий `/tmp` остаётся noexec, хотя нужен исполняемый native cache?
-4. Какие события нужны для достоверного числа ходов? Что делать с незакрытой парой?
-5. Почему premium requests не являются стоимостью конкретной попытки в USD?
-6. Что нужно проверить до расширения egress после сетевого отказа и почему требуется новая запись?
+1. How does local Copilot CLI differ from the cloud Copilot coding agent?
+2. Why does the same selector string in Copilot and another API not guarantee identical weights?
+3. Why does shared `/tmp` remain noexec although an executable native cache is needed?
+4. Which events are needed for a reliable turn count? What should be done with an unclosed pair?
+5. Why are premium requests not the USD cost of a particular attempt?
+6. What must be checked before expanding egress after a network rejection, and why is a new record required?
 
-## Источники
+## Sources
 
-- [README](../../experiments/copilot-cli/README.md), [NOTES](../../experiments/copilot-cli/NOTES.md), [профиль](../../experiments/copilot-cli/harness.json), [Dockerfile](../../experiments/copilot-cli/Dockerfile), [адаптер](../../experiments/copilot-cli/adapter.mjs), [тесты](../../experiments/copilot-cli/adapter.test.mjs).
-- [Протокол](../method.md), [workflow оценки](harness-workflow.md), [реестр L014](../harness-ledger.md), [ЛР09](LAB09-agent-campaign.md), [ЛР10](LAB10-ablation.md).
-- Первичные источники, на которые опирается снимок репозитория от 20.09.2026: [программный CLI](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-programmatic-reference), [аутентификация](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli), [сетевой allowlist](https://docs.github.com/en/copilot/reference/copilot-allowlist-reference). Выполнение задания проверяет закреплённую версию 1.0.86, а не текущий `latest`.
+- [README](../../experiments/copilot-cli/README.md), [NOTES](../../experiments/copilot-cli/NOTES.md), [profile](../../experiments/copilot-cli/harness.json), [Dockerfile](../../experiments/copilot-cli/Dockerfile), [adapter](../../experiments/copilot-cli/adapter.mjs), [tests](../../experiments/copilot-cli/adapter.test.mjs).
+- [Protocol](../method.md), [evaluation workflow](harness-workflow.md), [ledger L014](../harness-ledger.md), [LAB09](LAB09-agent-campaign.md), [LAB10](LAB10-ablation.md).
+- Primary sources used by the repository snapshot from 2026-09-20: [programmatic CLI](https://docs.github.com/en/copilot/reference/copilot-cli-reference/cli-programmatic-reference), [authentication](https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli), [network allowlist](https://docs.github.com/en/copilot/reference/copilot-allowlist-reference). Performing the assignment checks pinned version 1.0.86, not current `latest`.

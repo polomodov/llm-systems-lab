@@ -1,9 +1,9 @@
-# Скрытая проверка T003 (агенту не показывать)
+# Hidden check T003 (do not expose to the agent)
 
-Рубрика:
-1. Все файлы из `experiments/<harness>/` (кроме README и NOTES) есть в `artifacts/ledger.md`.
-2. Строка про запрет чтения `tasks/*/check/` помечена как граница с триггером «никогда».
-3. Хотя бы одна инструкция названа кандидатом на удаление с цитатой из документации обвязки, которая её дублирует.
-4. `ablation-plan.md` называет эпизоды (task id) для проверки до и после.
+Rubric:
+1. All files from `experiments/<harness>/` (except README and NOTES) appear in `artifacts/ledger.md`.
+2. The row forbidding reads of `tasks/*/check/` is marked as a boundary with trigger “never.”
+3. At least one instruction is a removal candidate, citing harness documentation that duplicates it.
+4. `ablation-plan.md` names episodes (task IDs) for before/after checks.
 
-`pass` — 4/4; `partial` — 2–3; `fail` — иначе.
+`pass` — 4/4; `partial` — 2–3; `fail` — otherwise.

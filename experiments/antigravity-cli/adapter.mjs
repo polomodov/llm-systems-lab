@@ -1,12 +1,12 @@
-// https://antigravity.google/docs/cli/headless/ — контракт сверён 2026-09-20.
+// https://antigravity.google/docs/cli/headless/ — contract checked on 2026-09-20.
 export function buildCommand({ model, provider = 'google', turns, budget, prompt }) {
-  if (provider !== 'google') throw new Error('Antigravity: адаптер поддерживает только google через Gemini API');
-  if (typeof model !== 'string' || !model.trim()) throw new Error('Нужен точный model ID');
-  if (typeof prompt !== 'string' || !prompt.trim()) throw new Error('Пустой prompt');
-  if (budget != null) throw new Error('Antigravity: жёсткий лимит USD не поддержан; задайте --budget-mode observed');
-  if (turns != null) throw new Error('Antigravity: жёсткий лимит ходов не поддержан адаптером');
+  if (provider !== 'google') throw new Error('Antigravity: adapter supports only google through the Gemini API');
+  if (typeof model !== 'string' || !model.trim()) throw new Error('An exact model ID is required');
+  if (typeof prompt !== 'string' || !prompt.trim()) throw new Error('Empty prompt');
+  if (budget != null) throw new Error('Antigravity: hard USD limits are unsupported; specify --budget-mode observed');
+  if (turns != null) throw new Error('Antigravity: hard turn limits are unsupported by this adapter');
   const selected = model.replace(/^google\//, '');
-  if (!selected || selected.includes('/')) throw new Error('Antigravity: неверный google model ID');
+  if (!selected || selected.includes('/')) throw new Error('Antigravity: invalid google model ID');
   return {
     command: ['node', '/control/run-cli.mjs', '--model', selected, '--output-format', 'stream-json', '--print-timeout', '0', '--disable-slash-commands', '--dangerously-skip-permissions', '--print', prompt],
     env: {},
@@ -25,13 +25,13 @@ export function parseTrace(stdout) {
   const result = last?.event === 'result' && !malformed ? last.result : undefined;
   const loop = {};
   const metrics_unavailable = {
-    'loop.turns': 'Antigravity num_turns считает пользовательские запросы, а не внутренние модельные ходы',
-    'loop.cost_usd': 'Antigravity result не сообщает стоимость USD',
-    'loop.tokens_in': 'Семантика cache_read_tokens относительно input_tokens требует проверки реальным прогоном; сумма не выдумывается',
+    'loop.turns': 'Antigravity num_turns counts user requests, not internal model turns',
+    'loop.cost_usd': 'Antigravity result does not report USD cost',
+    'loop.tokens_in': 'The relationship between cache_read_tokens and input_tokens requires a real run to verify; no total is invented',
   };
-  // Счётчики result накопительные; step_update повторно не суммируем.
+  // Result counters are cumulative; do not add step_update again.
   if (count(result?.usage?.output_tokens)) loop.tokens_out = result.usage.output_tokens;
-  else metrics_unavailable['loop.tokens_out'] = 'Нет корректного итогового result.usage.output_tokens';
+  else metrics_unavailable['loop.tokens_out'] = 'No valid final result.usage.output_tokens';
   const status = typeof result?.status === 'string' ? result.status : '';
   return {
     loop, metrics_unavailable, modelId: null, modelIds: [],

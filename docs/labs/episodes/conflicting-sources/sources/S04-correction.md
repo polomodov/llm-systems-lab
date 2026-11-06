@@ -1,5 +1,5 @@
-# S04 — исправление S03, 2026-09-08
+# S04 — correction to S03, 2026-09-08
 
-Искусственный учебный источник. Класс: correction to operations observation.
+Artificial educational source. Class: correction to operations observation.
 
-В S03 неверно указана единица: следовало написать **17 output tokens/s для одного из запросов**, а не requests/s. Это не среднее по четырём запросам и не суммарная производительность сервера. Замер включает только стадию decode. Числовое значение сохранено; выводы о пропускной способности нужно пересмотреть. Полных логов четырёх запросов нет.
+S03 states the wrong unit: it should read **17 output tokens/s for one of the requests**, not requests/s. This is neither the average across four requests nor total server throughput. The measurement includes only decode. The numeric value is unchanged; throughput conclusions must be revised. Full logs for all four requests are unavailable.

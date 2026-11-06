@@ -11,15 +11,15 @@ import { createRun, METRIC_FIELDS, readRun, validateLedger, validateRun, writeRu
 const checkScript = fileURLToPath(new URL("../scripts/check.mjs", import.meta.url));
 const newScript = fileURLToPath(new URL("../scripts/new-run.mjs", import.meta.url));
 const stamp = "2026-09-20T12:00:00.000Z";
-const ledger = "| # | Компонента | Предположение | Доказательство | Дата и модель | Триггер | Режим | Статус |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| L001 | `experiments/example/config.json` | граница | требование метода | 2026-09-20 · модель | никогда | адаптация | предложена |\n";
+const ledger = "| # | Component | Assumption | Evidence | Date and model | Trigger | Mode | Status |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| L001 | `experiments/example/config.json` | boundary | method requirement | 2026-09-20 · model | never | adapted | proposed |\n";
 
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), "harness-records-"));
   t.after(() => rmSync(root, { recursive: true, force: true }));
   for (const [dir, file] of [["experiments/example", "README.md"], ["agents/a1-fixture", "spec.md"], ["tasks/T001-fixture", "task.md"], ["docs", "harness-ledger.md"]]) {
     mkdirSync(join(root, dir), { recursive: true });
-    // Контракт задачи обязан называть бюджет: его читает раннер и проверяет check.
-    const contents = { "harness-ledger.md": ledger, "task.md": "# T001-fixture\n\n## Бюджет\nДо 5 ходов или $1.\n" };
+    // The task contract must state its budget: the runner reads it and check validates it.
+    const contents = { "harness-ledger.md": ledger, "task.md": "# T001-fixture\n\n## Budget\nUp to 5 turns or $1.\n" };
     writeFileSync(join(root, dir, file), contents[file] ?? "fixture\n");
   }
   writeFileSync(join(root, "tasks/T001-fixture/setup.sh"), "#!/usr/bin/env bash\nmkdir -p \"$1/artifacts\"\n");
@@ -204,10 +204,10 @@ test("aborting requires an explicit aborted verdict and stop reason", (t) => {
 test("ledger validates filled columns, ownership, unique IDs and actual before/after references", () => {
   assert.deepEqual(validateLedger(ledger).errors, []);
   assert.ok(validateLedger(ledger + ledger.split("\n")[2]).errors.some((error) => /duplicate/.test(error)));
-  assert.ok(validateLedger(ledger.replace("| никогда |", "| | ")).errors.some((error) => /must be filled/.test(error)));
-  assert.ok(validateLedger(ledger.replace("адаптация", "mystery")).errors.some((error) => /ownership/.test(error)));
-  assert.ok(validateLedger(ledger.replace("предложена", "подтверждена")).errors.some((error) => /before\/after/.test(error)));
-  const confirmed = ledger.replace("требование метода", "2026-09-20-example-a1-t001-1, 2026-09-20-example-a1-t001-2").replace("предложена", "подтверждена");
+  assert.ok(validateLedger(ledger.replace("| never |", "| | ")).errors.some((error) => /must be filled/.test(error)));
+  assert.ok(validateLedger(ledger.replace("adapted", "mystery")).errors.some((error) => /ownership/.test(error)));
+  assert.ok(validateLedger(ledger.replace("proposed", "confirmed")).errors.some((error) => /before\/after/.test(error)));
+  const confirmed = ledger.replace("method requirement", "2026-09-20-example-a1-t001-1, 2026-09-20-example-a1-t001-2").replace("proposed", "confirmed");
   assert.ok(validateLedger(confirmed, { runIds: new Set() }).errors.some((error) => /does not exist/.test(error)));
 });
 

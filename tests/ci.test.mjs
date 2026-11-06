@@ -124,7 +124,7 @@ test('CI smoke executes the profile command offline and cleans up even on versio
   const log = join(dir, 'calls.jsonl');
   writeFileSync(bin, `#!${process.execPath}\nimport fs from 'node:fs';\nconst args = process.argv.slice(2);\nfs.appendFileSync(process.env.CI_TEST_CALLS, JSON.stringify(args) + '\\n');\nif (args[0] === 'image') console.log('sha256:' + 'a'.repeat(64));\nif (args[0] === 'run') console.log(process.env.CI_TEST_VERSION);\n`);
   chmodSync(bin, 0o755);
-  // Расширение отсутствует у исполняемого mock docker; package.json задаёт ESM для Node 22.
+  // The executable Docker mock has no extension; package.json selects ESM for Node 22.
   writeFileSync(join(dir, 'package.json'), '{"type":"module"}');
   for (const version of ['0.73.1', '0.73.2']) {
     writeFileSync(log, '');

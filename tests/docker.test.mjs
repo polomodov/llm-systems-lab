@@ -7,8 +7,8 @@ import { randomBytes } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { containerArgs } from '../scripts/run.mjs';
 
-// Явный opt-in; использует только готовый локальный image и синтетический агент.
-// Запуск: HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs
+// Explicit opt-in; uses only a prebuilt local image and a synthetic agent.
+// Run: HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs
 const enabled = process.env.HARNESS_DOCKER_TEST === '1';
 const image = 'node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2';
 const env = { ...process.env, ANTHROPIC_API_KEY: 'synthetic-infrastructure-test-only' };
@@ -21,7 +21,7 @@ const docker = argv => {
 
 test('real Docker boundary hides coordinator files, protects root and inputs, and blocks direct external egress', { skip: !enabled }, t => {
   docker(['image', 'inspect', '--format', '{{.Id}}', image]);
-  // Colima на macOS обычно экспортирует /Users, но не системный /var/folders.
+  // Colima on macOS normally exports /Users, but not the system /var/folders.
   const directory = mkdtempSync(join(process.env.HARNESS_DOCKER_TMPDIR ?? homedir(), '.harness-docker-test-'));
   const suffix = randomBytes(6).toString('hex');
   const name = `harness-test-agent-${suffix}`, network = `harness-test-internal-${suffix}`;

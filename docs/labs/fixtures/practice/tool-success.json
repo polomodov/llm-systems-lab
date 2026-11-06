@@ -3,19 +3,19 @@
   "kind": "lab-practice-fixture",
   "evidence_class": "synthetic",
   "id": "tool-success",
-  "title": "Контролируемый вызов инструмента",
+  "title": "Controlled tool call",
   "related_labs": ["LAB20", "LAB22"],
-  "assignment": "Проследите цепочку request → function call → разрешённый tool result → final. Проверьте, на какие наблюдения опирается финальный текст. Отделите корректный протокол от самостоятельного verdict по задаче.",
+  "assignment": "Trace request → function call → allowed tool result → final. Check which observations support the final text. Separate correct protocol from an independent task verdict.",
   "questions": [
-    "Как связаны request_id и call_id? Какое событие доказывает получение ответа инструмента?",
-    "Можно ли по финальному тексту без tool-response подтвердить значение LAB_VALUE_42?",
-    "Почему final-received не равен pass и почему токены/стоимость оставлены null?",
-    "Какие проверки нужны, если модель вместо разрешённого lookup предложит shell или другой аргумент?"
+    "How are request_id and call_id linked? Which event proves receipt of a tool response?",
+    "Can final text without tool-response confirm LAB_VALUE_42?",
+    "Why is final-received not pass, and why are tokens/cost left null?",
+    "Which checks are needed if the model proposes shell or a different argument instead of the allowed lookup?"
   ],
   "steps": [
     { "type": "request", "at_ms": 0, "request_id": "request-1" },
     { "type": "assistant-tool-call", "at_ms": 40, "request_id": "request-1", "call_id": "lookup-1", "name": "lookup_lab_value", "arguments": { "key": "alpha" } },
     { "type": "tool-response", "at_ms": 45, "request_id": "request-1", "call_id": "lookup-1", "delivery": "delivered" },
-    { "type": "assistant-final", "at_ms": 80, "request_id": "request-1", "text": "Значение alpha: LAB_VALUE_42; получено из lookup_lab_value." }
+    { "type": "assistant-final", "at_ms": 80, "request_id": "request-1", "text": "Value of alpha: LAB_VALUE_42; obtained from lookup_lab_value." }
   ]
 }

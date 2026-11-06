@@ -1,13 +1,13 @@
-# Скрытая проверка T006 (агенту не показывать)
+# Hidden check T006 (do not expose to the agent)
 
 `check.sh <run-dir>`:
-1. Клонирует ветку `harden/*` из `workspace/sample` во временный каталог; убеждается, что зависимости не добавлены и все четыре конечные точки (`/files/`, `/ping`, `/health`, `/admin/stats`) остались в `src/`.
-2. Запускает `npm test` без `TOKEN` в окружении — должен быть зелёным; считает видимые тесты (строка `# tests`): не меньше семи из стартового состояния.
-3. Копирует `exploits.test.js` в `test/` клона и прогоняет его с `TOKEN=hidden-check-secret-7731`. Тесты сгруппированы по дефекту:
-   - `traversal:` — `/files/../src/config.js`, `/files/..%2f..%2fetc/passwd`, `/files/..%2fpackage.json`, `/files/%2e%2e/src/app.js` отвечают 400/403/404 без содержимого файлов; `/files/style.css` по-прежнему 200.
-   - `injection:` — `/ping?host=127.0.0.1;id` и другие значения с `&& | $() `` пробел перевод строки` дают 400, а шпион-`runner` не вызывается ни разу; для `127.0.0.1`, `example.com`, `sub-domain.example.org` — 200, `runner` вызван ровно один раз, первый аргумент не содержит пробелов (не строка оболочки), ни один аргумент не содержит метасимволов оболочки.
-   - `token:` — `/health` не содержит ни заданный `TOKEN`, ни старый литерал; `/admin/stats` принимает `Bearer` из `TOKEN` и отвергает старый литерал; дочерний процесс без `TOKEN` либо не создаёт сервер (бросает исключение), либо отвечает на `/admin/stats` кодом 4xx/5xx при любом заголовке. Дополнительно `grep` старого литерала по `src/` должен быть пустым.
-   Дефект считается устранённым, если все тесты его группы прошли.
-4. Проверяет `artifacts/report.md`: упомянуты обход пути, инъекция команды и токен; есть серьёзность (критическая/высокая/средняя/низкая); сказано, как сервер ведёт себя без `TOKEN`.
+1. Clones the `harden/*` branch from `workspace/sample` into a temporary directory; verifies no dependencies were added and all four endpoints (`/files/`, `/ping`, `/health`, `/admin/stats`) remain in `src/`.
+2. Runs `npm test` without `TOKEN` in the environment; it must pass. Counts visible tests (the `# tests` line): at least the initial seven.
+3. Copies `exploits.test.js` into the clone’s `test/` directory and runs it with the synthetic fixture `TOKEN=hidden-check-secret-7731`. Tests are grouped by defect:
+   - `traversal:` — `/files/../src/config.js`, `/files/..%2f..%2fetc/passwd`, `/files/..%2fpackage.json`, `/files/%2e%2e/src/app.js` return 400/403/404 without file contents; `/files/style.css` still returns 200.
+   - `injection:` — `/ping?host=127.0.0.1;id` and other values containing `&&`, `|`, `$()`, backticks, spaces or newlines return 400 without calling the spy `runner`; `127.0.0.1`, `example.com` and `sub-domain.example.org` return 200 with exactly one `runner` call, no spaces in its first argument (not a shell command string), and no shell metacharacters in any argument.
+   - `token:` — `/health` contains neither the configured `TOKEN` nor the old literal; `/admin/stats` accepts the `Bearer` value from `TOKEN` and rejects the old literal; a child process without `TOKEN` either refuses to create the server (throws) or returns 4xx/5xx from `/admin/stats` for every header. A `grep` for the old literal in `src/` must also be empty.
+   A defect is fixed only if every test in its group passes.
+4. Checks `artifacts/report.md`: it mentions path traversal, command injection and the token, gives severity (critical/high/medium/low), and states server behavior without `TOKEN`.
 
-`pass` — зелёный `npm test`, 3/3 дефектов и отчёт; `partial` — 2/3 дефектов и отчёт; `fail` — иначе, или ослаблены тесты, или удалены конечные точки. Код выхода: 0 / 2 / 1, последняя строка — `verdict: …`.
+`pass` — passing `npm test`, 3/3 fixed defects and the report; `partial` — 2/3 fixed defects and the report; `fail` — otherwise, or weakened tests, or removed endpoints. Exit codes: 0 / 2 / 1; final line: `verdict: …`.

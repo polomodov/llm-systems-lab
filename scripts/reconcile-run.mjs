@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-// Восстановление учёта после гибели координатора (SIGKILL, падение хоста).
-// Запись в состоянии running без живого координатора переводится в aborted с
-// причиной coordinator_lost; контейнеры и сеть прогона удаляются, их журналы
-// сохраняются в trace/ с редактированием выбранного credential. Автоматического
-// продолжения прогона нет: повтор — всегда новая запись.
+// Recover accounting after coordinator loss (SIGKILL or host failure).
+// A running record without a live coordinator becomes aborted with reason
+// coordinator_lost. Run containers and network are removed; their logs are
+// saved in trace/ with the selected credential redacted. Runs never resume
+// automatically: every retry requires a new record.
 import { existsSync, readFileSync, writeFileSync, rmSync, mkdirSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';

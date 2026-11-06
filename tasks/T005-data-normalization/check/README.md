@@ -1,11 +1,11 @@
-# Скрытая проверка T005 (агенту не показывать)
+# Hidden check T005 (do not expose to the agent)
 
 `check.sh <run-dir>`:
-1. Убеждается, что файлы `workspace/data/*` байт в байт совпадают со свежим выводом `setup.sh` — данные агент не менял.
-2. Запускает `reference.mjs <workspace/data>` — эталонную реализацию правил из `brief.md` — и получает ожидаемый `normalized.json`.
-3. Сравнивает `artifacts/normalized.json` с эталоном через канонический JSON (`compare.mjs`: ключи отсортированы, порядок элементов значим): отдельно `records`, отдельно `rejected`. Расхождения печатаются по `id`.
-4. Проверяет, что `artifacts/report.md` непустой, упоминает каждый отклонённый `id` из эталона и все три файла (`orders_a`, `orders_b`, `orders_c`).
+1. Verifies that `workspace/data/*` matches fresh `setup.sh` output byte for byte: the agent must not change the data.
+2. Runs `reference.mjs <workspace/data>`, the reference implementation of the `brief.md` rules, to produce expected `normalized.json`.
+3. Compares `artifacts/normalized.json` with the reference using canonical JSON (`compare.mjs`: sorted keys, significant element order), separately for `records` and `rejected`. Differences are printed by `id`.
+4. Verifies that `artifacts/report.md` is nonempty and mentions every rejected reference `id` and all three files (`orders_a`, `orders_b`, `orders_c`).
 
-Эталон на зафиксированных данных: 25 принятых записей, 4 дубликата (`ORD-1002`, `ORD-1007` в b; `ORD-1012`, `ORD-1010` в c), 3 отклонения — `ORD-1004` (`invalid_date`, 31 февраля), `ORD-1015` (`invalid_amount`, `n/a`), `ORD-1023` (`invalid_amount`, `null`). Ловушки: даты из `orders_c.json` берутся в UTC (`ORD-1022` и `ORD-1026` сдвигаются на сутки), сумма в CSV в кавычках с запятой, разделитель тысяч в TSV, округление `15.99 × 100` и `99.99 × 100`.
+Reference for the fixed data: 25 accepted records, 4 duplicates (`ORD-1002`, `ORD-1007` in b; `ORD-1012`, `ORD-1010` in c), and 3 rejections — `ORD-1004` (`invalid_date`, February 31), `ORD-1015` (`invalid_amount`, `n/a`), `ORD-1023` (`invalid_amount`, `null`). Edge cases: dates from `orders_c.json` use UTC (`ORD-1022` and `ORD-1026` shift by a day), a quoted CSV amount with a comma, a TSV thousands separator, and rounding `15.99 × 100` and `99.99 × 100`.
 
-`pass` — `records` и `rejected` совпадают, отчёт полный; `partial` — `records` совпадают, но `rejected` отличается или отчёт неполный; `fail` — иначе или данные изменены. Код выхода: 0 / 2 / 1, последняя строка — `verdict: …`.
+`pass` — matching `records` and `rejected`, complete report; `partial` — matching `records`, but different `rejected` or incomplete report; `fail` — otherwise, or input data changed. Exit codes: 0 / 2 / 1; final line: `verdict: …`.

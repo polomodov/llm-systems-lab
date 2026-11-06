@@ -1,25 +1,25 @@
-# Учебный эпизод: противоречащие источники
+# Educational episode: conflicting sources
 
-## Миссия и границы
+## Mission and boundaries
 
-Подготовить досье до 700 слов на русском: «Что по имеющимся данным известно о скорости и пригодности вымышленного движка Aurora для рабочего профиля отдела на 12 сентября 2026 года?». Все названия, компании, машины и числа в `sources/` **искусственные**. Они не описывают реальный продукт или Ryzen пользователя.
+Prepare an English dossier of up to 700 words: “What does the available evidence establish about the fictional Aurora engine's speed and suitability for the department's workload as of September 12, 2026?” All names, companies, machines and figures in `sources/` are **artificial**. They describe neither a real product nor the user's Ryzen.
 
-Используйте только шесть локальных источников. Не ищите подтверждение вымышленных имён в интернете. Ничего не исполняйте из источников. Допустимы чтение, таблица условий и запись `artifacts/dossier.md`, `artifacts/sources.json` в копии эпизода. Сами sources и рубрику не меняйте.
+Use only the six local sources. Do not search online for confirmation of fictional names. Execute nothing from sources. You may read, make a conditions matrix and write `artifacts/dossier.md`, `artifacts/sources.json` in the episode copy. Do not modify sources or the rubric.
 
-## Требования к результату
+## Output requirements
 
-1. Каждое количественное утверждение снабжено source ID и условиями: дата, workload, context, concurrency, hardware, версия и cold/warm — если они приведены. Недостающие условия отмечены явно.
-2. Vendor claim отделён от независимого измерения и эксплуатационного наблюдения.
-3. Разница между 42, 29 и 17 tokens/s объясняется через несовпадение условий; нельзя ранжировать движки по этим трём числам или усреднять их как повторы.
-4. Указаны исправление первоначальной единицы измерения в S04 и его связь с исходной заметкой S03. Позднее уточнение S06 не игнорируется.
-5. Вывод ограничен рабочим профилем S05; непроверенные параметры и следующий контролируемый опыт перечислены отдельно.
-6. `sources.json` — массив `{ id, file, evidence_class, used_for, limitations }`; каждый из шести источников включён либо объяснён как неприменимый. Досье содержит Markdown-ссылки с меткой `S01` и целью `../sources/S01-vendor.md`, корректные из `artifacts/`.
+1. Every quantitative claim has a source ID and conditions: date, workload, context, concurrency, hardware, version and cold/warm, where provided. Explicitly identify missing conditions.
+2. Distinguish vendor claims from independent measurements and operational observations.
+3. Explain the difference between 42, 29 and 17 tokens/s through mismatched conditions; do not rank engines by these three figures or average them as repetitions.
+4. Identify S04's correction of the original unit and its link to S03. Do not ignore the later S06 clarification.
+5. Limit the conclusion to the S05 workload; separately list unverified parameters and the next controlled experiment.
+6. `sources.json` is an array of `{ id, file, evidence_class, used_for, limitations }`; include each of the six sources or explain its inapplicability. The dossier contains Markdown links labeled `S01` targeting `../sources/S01-vendor.md`, valid from `artifacts/`.
 
-## Порядок выполнения
+## Procedure
 
-Скопируйте папку по [общей инструкции](../README.md), прочитайте контракт и sources, составьте матрицу условий, затем досье и реестр. Остановитесь после ручной проверки по [открытой рубрике](rubric.json). Готового досье в fixture нет. Для ЛР21 координатор может назначить checkpoint после матрицы условий; во всех вариантах checkpoint определяется одинаковым состоянием работы, а не произвольным числом минут.
+Copy the directory according to the [shared guide](../README.md), read the contract and sources, create a conditions matrix, then the dossier and registry. Stop after manual review against the [open rubric](rubric.json). The fixture contains no completed dossier. For LAB21, the coordinator may assign a checkpoint after the conditions matrix; in all variants, the checkpoint is defined by the same work state, not an arbitrary number of minutes.
 
-Синтаксическая проверка JSON после создания артефактов:
+JSON syntax check after creating artifacts:
 
 ```bash
 node --input-type=module - "$EPISODE_DIR/artifacts/sources.json" <<'NODE'
@@ -35,4 +35,4 @@ console.log('Source registry shape is valid; factual quality requires rubric rev
 NODE
 ```
 
-Эта команда проверяет только форму. Независимый оценщик применяет все критерии рубрики к тексту и источникам. Учебный `pass` требует всех критериев; фактический verdict предстоит получить. В сдачу входят матрица, оба артефакта, заполненная рубрика с ссылками на строки и ограничения. Не создавайте `run.json` для ручного упражнения.
+This command checks only structure. An independent evaluator applies all rubric criteria to text and sources. Educational `pass` requires every criterion; the actual verdict remains to be obtained. Submit the matrix, both artifacts, completed rubric with line references and limitations. Do not create `run.json` for a manual exercise.

@@ -1,81 +1,85 @@
-# Протокол эксперимента
+# Experiment protocol
 
-## Цель и единица сравнения
+## Objective and unit of comparison
 
-Измеряем, что требуется каждой обвязке для выполнения одной и той же независимой спецификации на одном и том же эпизоде. Учитываем инструкции, ограничения и встроенные возможности. Название обвязки само по себе не объясняет результат: нужно фиксировать модель, её настройки, версию CLI, образ среды и условия задачи.
+Measure what each harness needs to execute the same independent specification on the same episode. Account for instructions, constraints and built-in capabilities. A harness name alone does not explain a result: record the model, its settings, CLI version, environment image and task conditions.
 
-| Часть | Что фиксируем |
+| Aspect | What to record |
 | --- | --- |
-| Цикл и остановка | ходы, причина остановки, лимиты USD/времени, фактическая стоимость |
-| Контекст и память | снимок prompt/spec/config, вариант абляции, доступность счётчика уплотнений |
-| Инструменты и среда | адаптер, immutable image ID, cwd, сеть и mounts |
-| Проверка | независимый судья, метод, версия проверки и evidence hash |
-| Оркестрация | наличие и измеримость подагентов; неизвестное не считать нулём |
-| Наблюдаемость | исходный поток CLI, измеренные поля, причины отсутствующих метрик |
-| Доверие и границы | ограниченный workspace, внешний координатор, сеть по задаче |
+| Loop and stopping | Turns, stop reason, USD/time limits, actual cost |
+| Context and memory | Prompt/spec/config snapshot, ablation variant, availability of compaction counts |
+| Tools and environment | Adapter, immutable image ID, cwd, network and mounts |
+| Evaluation | Independent judge, method, check version and evidence hash |
+| Orchestration | Presence and observability of subagents; unknown does not mean zero |
+| Observability | Original CLI stream, measured fields, reasons for missing metrics |
+| Trust and boundaries | Restricted workspace, external coordinator, task-specific network |
 
-## Воспроизводимый эпизод
+## Replayable episode
 
-Задача содержит открытый контракт `task.md`, машинный дескриптор `task.json`, безопасный `setup.sh` и скрытую проверку. Дескриптор задаёт агента, вид workspace (`repo` — Git-проект в `sample/` с рабочей веткой и патчем относительно seed commit; `files` — read-only каталог с записью только в `artifacts/`), метод оценки, обязательные артефакты, дополнительные домены сети и аргументы setup; координатор не ветвится по идентификатору задачи. Контракты не меняются при исправлениях координатора. setup требует отдельный пустой каталог. Подготовка фиксирует исходники, начальные файлы и их хеши, дату и Git revision; изменённое рабочее дерево помечается явно, код координатора также сохраняется в снимок.
+A task contains a public `task.md` contract, a machine-readable `task.json` descriptor, a safe `setup.sh` and a hidden check. The descriptor defines the agent, workspace kind (`repo` — a Git project in `sample/` with a working branch and a patch against the seed commit; `files` — a read-only directory with writes limited to `artifacts/`), evaluation method, required artifacts, additional network domains and setup arguments. The coordinator does not branch on task IDs. Coordinator fixes do not change contracts. Setup requires a separate empty directory. Preparation captures sources, initial files and their hashes, date and Git revision; a dirty working tree is marked explicitly, and coordinator code is included in the snapshot.
 
-Агент не получает mount исходного репозитория лаборатории, скрытые проверки, метаданные или исходный `.env`. Regex-хуки и `chmod` от имени того же пользователя не считаются достаточной границей. Docker-изоляция и gateway сохраняются во всех вариантах абляции. Подробности и ограничение credential isolation — в `experiments/common/README.md`.
+The agent does not receive a mount of the original lab repository, hidden checks, metadata or the original `.env`. Regex hooks and `chmod` under the same user are not sufficient boundaries. Docker isolation and the gateway remain in every ablation variant. Details and credential-isolation limits are in `experiments/common/README.md`.
 
-T002 имеет воспроизводимый Git commit. Служебный `.git/index` содержит файловые timestamps, поэтому полный снимок проверяет его целостность, а группировка сравнения исключает `.git/` и использует initial commit отдельно. T003 — копия разрешённых исходников и конфигурации выбранной обвязки; разные конфигурации означают разные входы и не сравниваются как идентичный эпизод.
+T002 has a reproducible Git commit. The internal `.git/index` contains file timestamps, so the full snapshot verifies its integrity, while comparison grouping excludes `.git/` and uses the initial commit separately. T003 copies allowlisted sources and configuration for the selected harness; different configurations are different inputs and are not compared as an identical episode.
 
-Для T001 живая загрузка источников даёт исследовательский архив, но страницы могут измениться между запусками. Контролируемая серия использует один сохранённый `trace/sources.jsonl` через `prepare-run --source-archive`. GET gateway возвращает сохранённый HTTP status, URL и тело, допускает начальные ссылки и ссылки глубины 1. Новые обращения в режиме replay запрещены; отсутствующие ответы дают недоступный источник, не выдуманный факт. Снимок списка URL без тел страниц не является полным replay. `npm run capture-sources` снимает архив начальных ссылок без прогона агента; ссылки глубины 1 в него не входят и в replay читаются как недоступные, что отмечается в manifest архива.
+For T001, live source retrieval creates a research archive, but pages can change between runs. A controlled series uses one saved `trace/sources.jsonl` through `prepare-run --source-archive`. The GET gateway returns the stored HTTP status, URL and body, allowing seed URLs and depth-1 links. New fetches are forbidden during replay; missing responses produce an unavailable source, not an invented fact. A URL-list snapshot without page bodies is not complete replay. `npm run capture-sources` captures seed URLs without an agent run. Depth-1 links are excluded and read as unavailable during replay, as recorded in the archive manifest.
 
-## Жизненный цикл и измерения
+## Lifecycle and measurements
 
-`planned → prepared → running → awaiting_review → completed`; неудачное или прерванное исполнение — `aborted`. Запись `running`, чей координатор погиб (SIGKILL, падение хоста), переводится в `aborted` командой `npm run reconcile` с причиной `coordinator_lost`: контейнеры находятся по именам из `trace/runtime.json`, их журналы сохраняются с редактированием credential, автоматического продолжения нет. CLI exit 0 переводит запись только в awaiting_review. Независимая оценка переводит её в completed с pass/fail/partial. Шаблоны и незавершённые попытки не выдаются за результаты.
+`planned → prepared → running → awaiting_review → completed`; failed or interrupted execution becomes `aborted`. A `running` record whose coordinator died (SIGKILL or host failure) is changed to `aborted` by `npm run reconcile`, with reason `coordinator_lost`. Containers are located using names in `trace/runtime.json`, their logs are saved with the credential redacted, and execution never resumes automatically. CLI exit 0 advances only to awaiting_review. Independent evaluation advances to completed with pass/fail/partial. Templates and unfinished attempts are not presented as results.
 
-Каждая попытка имеет новый run ID. Перезаписывать старую запись новым исполнением нельзя. Нулевые значения допустимы только как наблюдаемые измерения. Неизвестные стоимость, токены, ходы, подтверждения, уплотнения и подагенты записываются `null` с причинами в `metrics_unavailable`. `tokens_in` включает обычный вход и cache read/write; raw trace позволяет уточнить определение. Стоимость из CLI — измерение, сообщённое обвязкой, а не независимая сверка биллинга.
+Every attempt gets a new run ID. Never overwrite an old record with a new execution. Zero is valid only as an observed measurement. Unknown cost, tokens, turns, approvals, compactions and subagents are recorded as `null`, with reasons in `metrics_unavailable`. `tokens_in` includes ordinary input and cache read/write; the raw trace allows its definition to be examined. CLI cost is a harness-reported measurement, not an independent billing reconciliation.
 
-Бюджет задач задаётся контрактом: раннер читает лимиты ходов и USD из запечатанной копии `task.md` и не хранит собственных значений по умолчанию. Контракт, не называющий бюджет, останавливает запуск. Claude adapter передаёт max-turns и max-budget-usd; поведение конкретной версии требует подтверждения реальным прогоном. Общий runner принудительно завершает контейнер по timeout. Остальные восемь адаптеров не подтверждают hard USD cap; запуск возможен только с явным `--budget-mode observed`. Ходы ограничиваются лишь при наличии native capability; иначе `turns=null` в launch и внешний timeout остаётся единственным принудительным пределом цикла. Такие попытки остаются исследовательскими, с указанным отклонением от контракта, и группируются отдельно. Значение USD в loop — целевой бюджет, execution.budget_policy — способ его применения.
+Task budgets belong to the contract: the runner reads turn and USD limits from the sealed `task.md` and has no defaults of its own. A contract without a budget stops execution. The Claude adapter passes max-turns and max-budget-usd; the behavior of a particular version still requires a real run. The shared runner forcibly stops the container on timeout. The other eight adapters do not establish a hard USD cap; execution requires explicit `--budget-mode observed`. Turns are limited only where a native capability exists; otherwise launch records `turns=null` and the external timeout is the only enforced loop limit. Such research attempts state their deviation from the contract and are grouped separately. The loop's USD value is a target budget; execution.budget_policy describes enforcement.
 
-## Модель и сопоставимость
+## Model identity and comparability
 
-Указывают точный доступный model ID; плавающие алиасы запрещены. Запрошенный ID и ID, наблюдаемый в assistant response, записываются отдельно. Наблюдаемая смена модели прерывает исполнение. Отсутствие наблюдаемого ID не доказывает, что провайдер выбрал нужную модель; отчёт показывает долю подтверждённых идентификаторов.
+Specify an exact available model ID; floating aliases are forbidden. Record the requested ID separately from the ID observed in the assistant response. An observed model switch aborts execution. The absence of an observed ID does not prove the provider selected the requested model; the report shows the fraction of verified identifiers.
 
-`model.lock` — факт конкретной конфигурации, а не предположение по бренду. У восьми адаптеров задаётся явный ID/поддерживаемый selector; Amp выбирает underlying модель по managed mode. Для него фиксируются `model.selection=managed`, selector `managed:<mode>` и `model.lock=true`. Provider и способ выбора входят в условия сравнения. `harness.mode` отличает native SDK от CLI; собственные циклы проектов не заменяются общим агентом.
+`model.lock` is a fact about a specific configuration, not an assumption based on a brand. Eight adapters accept an explicit ID or supported selector; Amp chooses its underlying model through a managed mode. For Amp, record `model.selection=managed`, selector `managed:<mode>` and `model.lock=true`. Provider and selection method are comparison conditions. `harness.mode` distinguishes native SDKs from CLIs; native project loops are not replaced with a shared agent.
 
-Группировка отчёта сохраняет задачу, агента, входы, requested model/managed selector, provider, model selection, model lock, абляцию, бюджетную политику, лимиты, сеть и способ оценки. Внутри группы показываются отдельные harness/version/image. Живые T001-источники помечены live; по такой группе нельзя делать вывод об эффекте одной только обвязки. Сравнение с разными моделями или образом требует отдельной интерпретации, а не общего рейтинга.
+Report grouping preserves task, agent, inputs, requested model/managed selector, provider, model selection, model lock, ablation, budget policy, limits, network and evaluation method. Each group shows separate harness/version/image entries. Live T001 sources are marked live; such a group cannot establish the effect of the harness alone. Comparisons involving different models or images require separate interpretation, not a shared ranking.
 
-Первые прогоны — по одному, затем заранее определённые серии по три. `pass@3` означает хотя бы один pass, `pass^3` — три pass. CLI строит непересекающиеся тройки в порядке run ID, оставшиеся одну/две попытки показывает отдельно. Для научной серии выбирайте нужные ID явно, не отбирая только удачные. Начатые aborted включаются в знаменатель; сбой до старта и незавершённые записи перечисляются отдельно.
+Start with single runs, then preregister series of three. `pass@3` means at least one pass; `pass^3` means three passes. The CLI forms non-overlapping triples in run-ID order and reports one or two remaining attempts separately. Select the intended IDs explicitly for a scientific series, without selecting only successes. Started aborted attempts remain in the denominator; pre-start failures and unfinished records are listed separately.
 
-## Локальная модель как отдельное условие
+## Local models as distinct conditions
 
-Для локальной кампании inference backend отделён от agent harness: один и тот же сервер, artifact hash, quant, template, context/KV, sampling/reasoning и аппаратный паспорт должны сохраняться между обвязками. Смена Vulkan/HIP, offload или квантизации — новая группа условий. Номинальный model ID и название GPU недостаточны. Размер весов и расчёт памяти являются планом, а не измерением. TDP не равен энергопотреблению; стоимость электричества и inference fee учитываются отдельно.
+In the local campaign, the inference backend is separate from the agent harness: preserve the same server, artifact hash, quantization, template, context/KV, sampling/reasoning and hardware profile between harnesses. A Vulkan/HIP, offload or quantization change creates a new condition group. A nominal model ID and GPU name are insufficient. Weight size and memory calculations are plans, not measurements. TDP is not power consumption; electricity cost and inference fees are accounted for separately.
 
-[Матрица inference engines](local-inference-engines.md) отдельно фиксирует kernel engine, GPU backend и serving application. Для оценки эффекта движка сохраняются веса/quant/template; если они различаются, сравниваются полные deployments. GGUF-оценку нельзя переносить на native safetensors без нового артефакта; `artifact-required`/`engine-memory-required` — неполнота плановых данных, не результат задачи. Встроенные benchmark разных engines не считаются одинаковым измерителем HTTP latency.
+The [inference-engine matrix](local-inference-engines.md) records kernel engine, GPU backend and serving application separately. To estimate an engine's effect, keep weights/quantization/template fixed; otherwise compare complete deployments. GGUF estimates cannot be transferred to native safetensors without a new artifact. `artifact-required`/`engine-memory-required` indicate missing planning data, not task results. Different engines' built-in benchmarks are not equivalent HTTP-latency instruments.
 
-Порядок ресурсных проб, отбора и повторов — в [плане локальных моделей](local-models.md). Версионированный `local_inference` уже интегрирован в schema/prepare/compare и отдельный bridge для Pi/T002; текущий допуск и ограничения приведены ниже и в отчётах LAB08. Остальные локальные обвязки требуют интеграции; облачные профили не являются локальным маршрутом. Backend microbench хранится отдельно от agent-run records; его нельзя засчитать как успех задачи. Для T003 сохраняется ограничение разных входов при разных обвязках.
+The [local-model plan](local-models.md) defines resource probes, selection and repeats. Versioned `local_inference` is integrated into schema/prepare/compare and a separate Pi/T002 bridge; current qualification and limits are described below and in LAB08 reports. Other local harnesses require integration; cloud profiles are not a local route. Backend microbenchmarks are stored separately from agent-run records and cannot count as task success. T003 retains the limitation that different harnesses have different inputs.
 
-## Независимый судья
+## Independent judge
 
-Скрытая проверка выполняется оператором за пределами контейнера агента. Для T002 метод hidden-check, для T001/T003 rubric; в T001 оценщик использует и скрипт, и рубрику. Протокол метода фиксируется до запуска. Оценка содержит run ID, result, evaluator, check_output и хеши двух manifests: итоговых artifacts и workspace. Эти хеши формирует evaluation-template, решение заполняет оценщик.
+The operator runs the hidden check outside the agent container. T002 uses hidden-check; T001/T003 use rubric, with both a script and rubric considered for T001. Fix the evaluation protocol before execution. An evaluation contains run ID, result, evaluator, check_output and hashes of two manifests: final artifacts and workspace. evaluation-template creates these hashes; the evaluator supplies the decision.
 
-judge-run проверяет целостность входов/результатов и обязательные артефакты, но не заменяет содержательный суд. Оценка не может менять байты результата. `check` и `compare` повторно сверяют целостность после завершения. Переносите весь архив inputs/trace/artifacts вместе с run.json; пустую папку trace сохраняйте через `.gitkeep`. Workspace git-ignored и необязателен после оценки: если он есть, проверяется полностью; если отсутствует, проверяются архив и хеш финального manifest, а check/compare явно показывают отсутствие live tree. Для архивной `prepared`-записи проверяются sealed inputs и привязанный к ним inventory начального workspace; отсутствующее live tree явно отмечается в `check`, статус остаётся `prepared/pending`. Если дерево есть, его изменение или symlink отклоняется. Для исполнения `run` по-прежнему требует полный workspace и сверяет его с начальным снимком: успешная проверка архива не является допуском к запуску без дерева. Инфраструктурные тесты используют синтетические fixtures и не читают hidden checks.
+judge-run verifies input/output integrity and required artifacts but does not replace substantive judgment. Evaluation cannot change result bytes. `check` and `compare` recheck integrity after completion. Transfer the entire inputs/trace/artifacts archive together with run.json; retain empty trace directories using `.gitkeep`. Workspace is git-ignored and optional after evaluation: if present, it is fully checked; if absent, the archive and final-manifest hash are checked, and check/compare explicitly report the missing live tree. For an archived `prepared` record, sealed inputs and their bound initial-workspace inventory are checked. `check` explicitly reports a missing live tree, and status stays `prepared/pending`. A present tree with changes or symlinks is rejected. Execution through `run` still requires the full workspace and verifies it against the initial snapshot: successful archive validation does not authorize execution without the tree. Infrastructure tests use synthetic fixtures and do not read hidden checks.
 
-## Классы доказательств
+## Evidence classes
 
-- **Проверяемый факт** — первичный источник со ссылкой или измерение с run ID.
-- **Снимок продукта** — документированное состояние на дату; выгодные поставщику числа помечаются как заявление вендора.
-- **Авторский прогноз** — ожидание с критерием проверки.
-- **Управленческая эвристика** — ориентир, не норматив.
-- **Авторский вывод** — явная цепочка от фактов к интерпретации.
+- **Verifiable fact** — a linked primary source or a measurement with a run ID.
+- **Product snapshot** — a documented state at a particular date; vendor-favorable numbers are labeled as vendor claims.
+- **Author's forecast** — an expectation with a verification criterion.
+- **Management heuristic** — guidance, not a standard.
+- **Author's inference** — an explicit chain from facts to interpretation.
 
-Инфраструктурный smoke не является результатом автономного агента. До первых реальных прогонов нельзя утверждать, что одна обвязка лучше другой или что добавленный компонент повышает успех.
+Infrastructure smoke is not an autonomous-agent result. Before real runs exist, do not claim that one harness is better than another or that an added component improves success.
 
-## Абляция и запись наблюдений
+## Ablation and observation records
 
-Baseline передаёт спецификацию и контракт. `without-spec` убирает текст спецификации из prompt; границы остаются. Естественные файлы аудируемого репозитория T003 не удаляются этим вариантом. Остальные виды абляции пока не реализованы: при добавлении потребуется отдельный фиксируемый вариант и строка реестра.
+Baseline passes both specification and contract. `without-spec` removes specification text from the prompt while retaining boundaries. This variant does not delete naturally present files in the T003 repository under audit. Other ablations are not yet implemented; each addition requires a separately recorded variant and ledger row.
 
-После каждой серии заполнить `experiments/<harness>/NOTES.md`: run IDs, условия, что понадобилось добавить, что было заблокировано, что можно удалить. Реестр хранит компонент, предположение или границу, доказательство, дату/модель, триггер и режим владения. Статус подтверждена требует реальных завершённых прогонов до/после. При неизменном результате после удаления компонент становится кандидатом на удаление; границы не удаляются из абляции.
+After each series, complete `experiments/<harness>/NOTES.md`: run IDs, conditions, required additions, blocked actions and removable components. The ledger records the component, assumption or boundary, evidence, date/model, retest trigger and ownership mode. A confirmed status requires actual completed before/after runs. If removing a component leaves the outcome unchanged, it becomes a removal candidate; ablation never removes safety boundaries.
 
-### Версионированная локальная конфигурация (LAB08)
+### Versioned local configuration (LAB08)
 
-Local provider ограничен Pi / T002 / контролируемым native llama.cpp: Metal/macOS и ROCm/Linux. На Ryzen есть независимые fail/pass; Apple pilot ожидает оценки. Статус реализации не заменяет приёмку лабораторного отчёта: сводный Ryzen-комплект blocked из-за ретроспективно добавленных повторов (сверка 22.10.2026). Prepare принимает `--local-deployment` и запечатывает manifest в inputs. Дополнительное поле `local_inference` записи имеет собственный `schema_version=1`, `deployment_sha256`, canonical `fingerprint`, полный `deployment` и `observed` proof контролируемого процесса. Старые cloud записи schema_version=1 валидируются без этого поля; ручной миграции старых runs нет.
+The local provider is limited to Pi / T002 / controlled native llama.cpp: Metal/macOS and ROCm/Linux. Ryzen has independent fail/pass verdicts; the Apple pilot awaits evaluation. Implementation status does not replace lab-report acceptance: the consolidated Ryzen bundle is blocked because repeats were registered retrospectively (reconciliation on 2026-10-22). Prepare accepts `--local-deployment` and seals the manifest into inputs. The additional `local_inference` record field has its own `schema_version=1`, `deployment_sha256`, canonical `fingerprint`, full `deployment` and an `observed` proof of the controlled process. Old cloud schema_version=1 records remain valid without this field; old runs are not manually migrated.
 
-Fingerprint включает weights/revision/bytes/hashes/quant, tokenizer/template, engine/backend/build pins, hardware/OS/power и весь protocol/context/output/KV/cache/tools. Compare добавляет его к conditions только для local. Observed alias основан на собственном PID, проверке файлов до Popen и props/template до/после запросов, а не на SDK metadata. Primary HTTP usage хранится отдельно от SDK trace; его отсутствие даёт null с причиной. Нулевые SDK prices не доказывают нулевую стоимость железа/электричества.
+The fingerprint includes weights/revision/bytes/hashes/quantization, tokenizer/template, engine/backend/build pins, hardware/OS/power and the complete protocol/context/output/KV/cache/tools configuration. Compare adds it to conditions only for local runs. The observed alias is based on the owned PID, file checks before Popen and props/template checks before and after requests, not SDK metadata. Primary HTTP usage is separate from the SDK trace; absent usage is null with a reason. Zero SDK prices do not prove zero hardware/electricity cost.
 
-Bridge сохраняет internal сеть агента; доверенный broker с dual network публикует только host control listener на loopback и не выполняет CONNECT. Native host-worker выбирает единственный sealed loopback endpoint. В первой реализации SSE буферизуется до finish/DONE: tool round-trip проверяем, TTFT неизвестен. Общий source gateway и T001 replay остаются прежними для cloud; local T001/T003 требуют отдельной приёмки.
+The bridge preserves the agent's internal network. A trusted dual-network broker exposes only the host control listener on loopback and does not implement CONNECT. The native host-worker selects the single sealed loopback endpoint. The first implementation buffers SSE until finish/DONE: tool round trips can be checked, but TTFT is unknown. The shared source gateway and T001 replay are unchanged for cloud runs; local T001/T003 require separate acceptance.
+
+### Language migration
+
+The English publication translates current specifications, contracts and generated prompts. This changes input bytes and potentially model behavior, so it is a new condition rather than a relabeling of previous experiments. Original sealed Russian inputs remain unchanged and readable. Comparison groups use actual input hashes; see [archive provenance](publication.md).

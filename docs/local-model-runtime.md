@@ -1,37 +1,37 @@
-# Локальный inference: Ryzen AI Max+ 395, 128 GB, Linux
+# Local inference: Ryzen AI Max+ 395, 128 GB, Linux
 
-Дата исследования: **2026-09-21**. Пользователь подтвердил Linux. Точная модель компьютера, дистрибутив, ядро, BIOS, режим питания и доступный GPU memory budget пока **unverified**: этот документ подготовлен по первичным источникам, без доступа к целевой машине. Команды ниже — runbook будущих измерений; установка runtime, загрузка весов и inference в этой работе не выполнялись.
+Research date: **2026-09-21**. This document preserves the original plan; “pending” and “unverified” below describe that dated planning snapshot, not the current implementation status. See the [current local-provider documentation](../experiments/pi/README.md#local-provider-bridge--first-lab08-implementation) for subsequent work. The user confirmed Linux. At the time of this research, the exact computer model, distribution, kernel, BIOS, power mode, and available GPU memory budget were **unverified**: the document was prepared from primary sources without access to the target machine. The commands below form a runbook for future measurements; runtime installation, weight downloads, and inference were not performed as part of this work.
 
-Цель — сначала установить, какие конфигурации модели действительно помещаются и сохраняют работоспособность инструментов, затем сравнивать их в автономных задачах. Скорость backend и качество агента — разные измерения. План кандидатов и порядок серий находятся в [исследовании локальных моделей](local-models.md), состав сравнения движков — в [матрице inference engines](local-inference-engines.md). Примеры команд здесь относятся к двум реализациям llama.cpp; это часть общей кампании, а не её полный состав.
+The goal is first to establish which model configurations actually fit and preserve working tools, then compare them on autonomous tasks. Backend speed and agent quality are different measurements. Candidate planning and series order are in the [local-model study](local-models.md); the engine comparison scope is in the [inference-engine matrix](local-inference-engines.md). Command examples here cover two llama.cpp implementations: part of the overall campaign, not its entire scope.
 
-## Что подтверждено источниками
+## What primary sources establish
 
-| Факт | Статус и условие |
+| Fact | Status and conditions |
 | --- | --- |
-| Ryzen AI Max+ 395: 16 ядер / 32 потока, Radeon 8060S с 40 CU, максимум 128 GB LPDDR5x-8000 | Спецификация AMD; фактическую конфигурацию OEM ещё проверить. [Карточка процессора](https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html) |
-| До 96 GB под графику при 128 GB RAM | Заявление AMD о Variable Graphics Memory. Описание настройки относится к Windows/Adrenalin; это не измеренный Linux heap и не 96 GB дополнительной памяти. [AMD VGM FAQ](https://www.amd.com/en/blogs/2025/faqs-amd-variable-graphics-memory-vram-ai-model-sizes-quantization-mcp-more.html) |
-| `gfx1151` / RDNA 3.5 для семейства Ryzen AI Max 300 | Документировано AMD. Актуальная открытая матрица озаглавлена ROCm **10.0.0**, датирована 2026-08-19; для Ryzen указаны Ubuntu 26.04 / GA 7.0 и Ubuntu 24.04.4 / OEM 6.17. Это матрица конкретного стека, не обещание поддержки любого Linux. [Матрица ROCm](https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html) |
-| Поддержка Max+ 395 существовала и в ROCm 7.2.1 | Архивная матрица содержит процессор и Ubuntu 24.04.4. Не называть старый раздел `latest` текущей версией всей платформы. [Версионная матрица 7.2.1](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html) |
-| ROCm 7.14.1 — опубликованный release; 7.9–7.13 относились к preview-линейке | Release notes датированы 2026-09-02. Ветка установленных пакетов и её матрица фиксируются отдельно от перемещающейся документации `latest`. [Release notes 7.14.1](https://rocm.docs.amd.com/en/docs-7.14.1/about/release-notes.html) |
-| AMD публикует пакет llama.cpp b8407 / ROCm 7.2.1 / gfx115X / Ubuntu 24.04 | Исторический проверенный вендором вариант для диагностики. Новые архитектуры моделей могут требовать более нового llama.cpp. [AMD llama.cpp binaries](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html) |
+| Ryzen AI Max+ 395: 16 cores / 32 threads, Radeon 8060S with 40 CUs, up to 128 GB LPDDR5x-8000 | AMD specification; the actual OEM configuration still needs verification. [Processor specifications](https://www.amd.com/en/products/processors/laptop/ryzen/ai-300-series/amd-ryzen-ai-max-plus-395.html) |
+| Up to 96 GB for graphics with 128 GB RAM | AMD claim about Variable Graphics Memory. Configuration instructions concern Windows/Adrenalin; this is neither a measured Linux heap nor 96 GB of additional memory. [AMD VGM FAQ](https://www.amd.com/en/blogs/2025/faqs-amd-variable-graphics-memory-vram-ai-model-sizes-quantization-mcp-more.html) |
+| `gfx1151` / RDNA 3.5 for the Ryzen AI Max 300 family | Documented by AMD. The public matrix consulted was titled ROCm **10.0.0**, dated 2026-08-19; for Ryzen, it listed Ubuntu 26.04 / GA 7.0 and Ubuntu 24.04.4 / OEM 6.17. This is a matrix for a specific stack, not a promise of support for every Linux system. [ROCm matrix](https://rocm.docs.amd.com/en/latest/compatibility/compatibility-matrix.html) |
+| Max+ 395 was also supported in ROCm 7.2.1 | The archived matrix lists the processor and Ubuntu 24.04.4. Do not call an old `latest` section the current version of the whole platform. [Versioned 7.2.1 matrix](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/compatibility/compatibilityryz/native_linux/native_linux_compatibility.html) |
+| ROCm 7.14.1 is a published release; 7.9–7.13 belonged to the preview line | Release notes are dated 2026-09-02. Record the installed-package branch and its matrix separately from moving `latest` documentation. [7.14.1 release notes](https://rocm.docs.amd.com/en/docs-7.14.1/about/release-notes.html) |
+| AMD publishes a llama.cpp b8407 / ROCm 7.2.1 / gfx115X / Ubuntu 24.04 package | A historical vendor-verified diagnostic option. New model architectures may require newer llama.cpp. [AMD llama.cpp binaries](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/advanced/advancedryz/linux/llm/llamacpp.html) |
 
-Документированная поддержка оборудования не подтверждает скорость конкретной квантизации, Flash Attention, KV cache или tool calling. Например, AMD отдельно отмечала пониженную производительность некоторых LLM на Max+ 395 в ROCm 7.2.1. [Ограничения этой версии](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/limitations/limitationsryz.html)
+Documented hardware support does not establish the performance of a specific quantization, Flash Attention, KV cache, or tool calling. For example, AMD separately noted reduced performance of some LLMs on Max+ 395 in ROCm 7.2.1. [Limitations of that version](https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2.1/docs/limitations/limitationsryz.html)
 
-## Обязательная пара llama.cpp: HIP/ROCm и Vulkan
+## Mandatory llama.cpp pair: HIP/ROCm and Vulkan
 
-**Обе ветви входят в обязательный baseline:** llama.cpp + HIP/ROCm с target `gfx1151` и llama.cpp + Vulkan. ROCm на Ryzen AI Max+ 395 документирован AMD; заранее считать его запасным или менее подходящим оснований нет. Какой backend быстрее и стабильнее при конкретном контексте и quant, определяют измерения. `llama.cpp` документирует обе Linux-сборки. [Инструкция upstream](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)
+**Both tracks are mandatory baseline conditions:** llama.cpp + HIP/ROCm targeting `gfx1151`, and llama.cpp + Vulkan. AMD documents ROCm on Ryzen AI Max+ 395; there is no basis for treating it as a fallback or a less suitable choice in advance. Measurements determine which backend is faster and more stable for a specific context and quantization. `llama.cpp` documents both Linux builds. [Upstream instructions](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)
 
-Для обеих ветвей проверить ОС/ядро/драйвер и пройти smoke; недоступность одной записать как конкретный инфраструктурный blocker. Использовать один commit llama.cpp и одинаковые GGUF, контекст, KV precision, batch, число потоков и sampling. Зафиксировать ROCm components и Vulkan ICD с версиями. Сравнение Vulkan новой версии с AMD b8407 меняет сразу backend и версию движка; его можно сохранить как исследовательское, но нельзя приписать разницу одному HIP.
+For both tracks, check OS/kernel/driver and pass a smoke test; record any unavailable track as a specific infrastructure blocker. Use one llama.cpp commit and identical GGUF, context, KV precision, batch, thread count, and sampling. Record ROCm components and Vulkan ICD with versions. Comparing a newer Vulkan build with AMD b8407 changes both backend and engine version; it may be retained as exploratory work, but the difference cannot be attributed solely to HIP.
 
-vLLM, SGLang, PyTorch/Transformers, Ollama и LM Studio рассматриваются в общей кампании по [матрице движков](local-inference-engines.md): их нельзя отсеивать только из-за наличия альтернативы на Vulkan. Runtime engine, формат весов, backend и сервисная оболочка учитываются как разные факторы. Поддержка движка на AMD не означает поддержку всех quant и архитектур на `gfx1151`.
+vLLM, SGLang, PyTorch/Transformers, Ollama, and LM Studio are considered in the overall campaign through the [engine matrix](local-inference-engines.md); do not exclude them merely because a Vulkan alternative exists. Runtime engine, weight format, backend, and serving wrapper are separate factors. AMD engine support does not imply support for every quantization and architecture on `gfx1151`.
 
-Для unsupported стека не подменять архитектуру через `HSA_OVERRIDE_GFX_VERSION` в baseline. Если такая ветвь понадобится, она получает отдельную конфигурацию и статус experimental. NPU — отдельное исследование. Windows и WSL находятся за рамками подтверждённой пользователем Linux-конфигурации; чужой smoke на WSL не заменяет проверку native Linux.
+For an unsupported stack, do not substitute the architecture with `HSA_OVERRIDE_GFX_VERSION` in the baseline. If such a track is needed, give it a separate configuration and experimental status. The NPU is a separate study. Windows and WSL are outside the user-confirmed Linux configuration; somebody else’s WSL smoke test does not replace native Linux verification.
 
-## Preflight на целевой машине
+## Preflight on the target machine
 
-Сначала снять состояние, ничего не меняя в BIOS, kernel cmdline, памяти GPU, драйверах или power profile. Зафиксировать модель OEM и прошивку, подключение к питанию, текущий профиль мощности, наличие графического рабочего стола и фоновых нагрузок. Утилиты, которых нет, отметить как unavailable; не превращать диагностику в неявную установку.
+First capture state without changing BIOS, kernel cmdline, GPU memory, drivers, or power profile. Record OEM model and firmware, power connection, current power profile, graphical desktop, and background workloads. Mark missing utilities unavailable; do not turn diagnosis into implicit installation.
 
-Пример read-only сбора в новый каталог серии на Linux:
+Example of read-only collection into a new Linux series directory:
 
 ```sh
 set -eu
@@ -60,25 +60,25 @@ if command -v hipconfig >/dev/null; then
 fi
 ```
 
-Проверить, что Vulkan видит **Radeon 8060S**, а не программный renderer. Для HIP проверить `gfx1151`. Сохранить фактические memory heaps/budgets и доступность устройства в том же окружении, в котором будет inference; host и контейнер могут видеть разные устройства и библиотеки. Путь `/dev/dri/renderD128` нельзя предполагать: сопоставить render node с выбранным GPU. Серийные номера машины в публикуемый архив не требуются.
+Verify that Vulkan sees **Radeon 8060S**, not a software renderer. For HIP, check `gfx1151`. Save actual memory heaps/budgets and device availability in the same environment that will run inference; host and container may see different devices and libraries. Do not assume `/dev/dri/renderD128`: map the render node to the selected GPU. Machine serial numbers are unnecessary in the published archive.
 
-У AMD есть отдельные требования к исправлениям KFD для `gfx1151`: Ubuntu HWE от `6.17.0-19.19~24.04.2`, OEM от `6.14.0-1018`, для остальных дистрибутивов ядро от `6.18.4` в описанной таблице AMD prebuilt. Проверять также backports и матрицу конкретного релиза. Предел TTM в `/sys/module/ttm/parameters/pages_limit` выражен в страницах; AMD рекомендует для Linux небольшой BIOS carve-out и использование общей памяти. Это основание измерить текущее состояние, а не автоматически менять его. [AMD RDNA3.5 system optimization](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html)
+AMD specifies separate KFD fixes for `gfx1151`: Ubuntu HWE from `6.17.0-19.19~24.04.2`, OEM from `6.14.0-1018`, and kernel `6.18.4` or newer for other distributions in the cited AMD prebuilt table. Also check backports and the specific release matrix. The TTM limit in `/sys/module/ttm/parameters/pages_limit` is measured in pages; AMD recommends a small BIOS carve-out and shared-memory use on Linux. This motivates measuring current state, not automatically changing it. [AMD RDNA3.5 system optimization](https://rocm.docs.amd.com/en/docs-7.14.1/reference/system-optimization/rdna3-5.html)
 
-Память считать в байтах и отдельно отображать GiB (`bytes / 2^30`). Надпись «128 GB» не подставлять вместо измеренного `MemTotal`. VRAM и GTT на этой APU не независимые физические банки; их простая сумма может удвоить доступную RAM. Для допуска конфигурации одновременно нужны:
+Count memory in bytes and display GiB separately (`bytes / 2^30`). Do not substitute the “128 GB” label for measured `MemTotal`. VRAM and GTT on this APU are not independent physical banks; simply adding them may double-count available RAM. Configuration admission requires all of the following:
 
-1. Фактический GPU budget покрывает размещённые веса, KV/state cache и compute buffers с запасом.
-2. Для ОС, файлового кеша и обвязки остаётся резерв, заданный общим планом серии.
-3. Длительное выполнение не создаёт устойчивую подкачку, OOM, reset GPU или скрытый переход на CPU.
+1. The actual GPU budget covers resident weights, KV/state cache, and compute buffers with headroom.
+2. The reserve specified by the shared series plan remains available for the OS, filesystem cache, and harness.
+3. Sustained execution does not produce sustained swap, OOM, GPU reset, or hidden CPU fallback.
 
-Размер GGUF — нижний ориентир, а не peak memory. Для MoE учитывать **все** загруженные эксперты, а не только active parameters. Для recurrent/hybrid моделей не применять обычную формулу KV без проверки архитектуры. Если контекст увеличен с 8K до 32K или добавлен второй слот, допуск по памяти нужно измерить заново.
+GGUF size is a lower reference, not peak memory. For MoE, account for **all** loaded experts, not only active parameters. For recurrent/hybrid models, do not apply a conventional KV formula without checking the architecture. Increasing context from 8K to 32K or adding a second slot requires measuring memory admission again.
 
-## Зафиксировать движок и веса
+## Pin the engine and weights
 
-До скачивания выбранной партии получить immutable revision репозитория весов, список всех GGUF shards и их суммарный размер. После получения сохранить SHA-256 каждого файла. Зафиксировать исходную модель, лицензию, автора квантизации, метод/тип quant, tokenizer и встроенный chat template. Сторонний GGUF не становится официальным только потому, что исходная модель официальная.
+Before downloading the selected batch, obtain an immutable weights-repository revision, the full GGUF shard list, and their total size. After downloading, retain each file’s SHA-256. Record the source model, license, quantizer author, quantization method/type, tokenizer, and embedded chat template. Third-party GGUF does not become official merely because its source model is official.
 
-Для runtime сохранить commit SHA, `--version`, `--help`, compiler/CMake versions, build flags, linked libraries и хеш бинарников. При контейнеризации дополнительно сохранить image digest и host GPU stack: образ не фиксирует ядро и драйвер машины. Изменяемые URL `master`/`latest` в источниках ниже служат для чтения; запуск всегда привязывается к конкретному артефакту.
+For the runtime, save commit SHA, `--version`, `--help`, compiler/CMake versions, build flags, linked libraries, and binary hashes. When containerized, also retain the image digest and host GPU stack: the image does not pin the machine’s kernel or driver. Mutable `master`/`latest` source URLs below are for reading; execution always binds to a specific artifact.
 
-После подготовки pinned checkout команды сборки имеют следующий вид. Они не устанавливают зависимости и не загружают модели:
+After preparing a pinned checkout, build commands have the following form. They neither install dependencies nor download models:
 
 ```sh
 cmake -S "$LLAMA_SOURCE" -B "$LLAMA_SOURCE/build-vulkan" \
@@ -91,17 +91,17 @@ HIPCXX="$(hipconfig -l)/clang" HIP_PATH="$(hipconfig -R)" \
 cmake --build "$LLAMA_SOURCE/build-hip" --config Release -j 8
 ```
 
-`LLAMA_SOURCE` должен указывать на уже проверенный checkout. До применения команд сверить flags с документацией выбранного commit; сборки держать в разных каталогах. Пример нацелен на AMD HIP SDK, не требует PyTorch. Основа flags — [build.md llama.cpp](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).
+`LLAMA_SOURCE` must point to an already verified checkout. Before running commands, check flags against documentation for the selected commit; keep builds in separate directories. The example targets AMD HIP SDK and does not require PyTorch. Flag source: [llama.cpp build.md](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md)
 
-## Серия A: память и скорость без обвязки
+## Series A: memory and speed without a harness
 
-Сначала один небольшой кандидат, один слот, полный GPU offload, контекст 8K. По логам подтвердить фактический backend, число выгруженных слоёв и объёмы buffers. Если часть вычислений ушла на CPU, сохранить это как отдельный вариант, не смешивать с full-offload. Не запускать две модели одновременно.
+Start with one small candidate, one slot, full GPU offload, and 8K context. Confirm actual backend, offloaded-layer count, and buffer sizes in logs. If some computation falls back to CPU, retain it as a separate variant, not mixed with full offload. Do not run two models concurrently.
 
-Начальные настройки серии — проектные условия, не рекомендация «оптимальных» параметров: 8 CPU threads, batch 512, microbatch 256, KV `f16`, Flash Attention явно `on`. Несовместимость FA/quant/model записать как failure конфигурации; fallback `off` создаёт отдельную конфигурацию. В дальнейшем разрешена отдельная абляция KV `q8_0` после проверки качества; нельзя молча заменять KV precision ради красивого fit.
+Initial series settings are study conditions, not recommended “optimal” parameters: 8 CPU threads, batch 512, microbatch 256, KV `f16`, and Flash Attention explicitly `on`. Record FA/quant/model incompatibility as configuration failure; fallback `off` creates a separate configuration. A later separate ablation of KV `q8_0` is allowed after quality verification; do not silently substitute KV precision for a better-looking fit.
 
-`llama-bench` измеряет prompt processing (`pp`), generation (`tg`) и совместный режим (`pg`), умеет заполнять контекст через `-d`. Его время не включает tokenization и sampling. Сохранить сырые повторы, а не только среднее. [Семантика llama-bench](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md)
+`llama-bench` measures prompt processing (`pp`), generation (`tg`), and combined mode (`pg`), and can fill context with `-d`. Its timing excludes tokenization and sampling. Save raw repeats, not just the mean. [llama-bench semantics](https://github.com/ggml-org/llama.cpp/blob/master/tools/llama-bench/README.md)
 
-После одного прогрева — 3 измеряемых повтора каждого выбранного случая, как в общем плане. Один набор для заданного контекста включает несколько режимов pp/tg, но не становится несколькими агентскими попытками. Пример для уже скачанного `LOCAL_GGUF` и установленного `LLAMA_BIN`; output directory должен быть новым:
+After one warmup, perform 3 measured repeats of each selected case, as in the shared plan. A set for a given context includes several pp/tg modes but does not become multiple agent attempts. Example for an already downloaded `LOCAL_GGUF` and installed `LLAMA_BIN`; the output directory must be new:
 
 ```sh
 "$LLAMA_BIN/llama-bench" -m "$LOCAL_GGUF" -ngl 999 -t 8 \
@@ -115,15 +115,15 @@ cmake --build "$LLAMA_SOURCE/build-hip" --config Release -j 8
   > "$LOCAL_EVIDENCE/tg.json" 2> "$LOCAL_EVIDENCE/tg.log"
 ```
 
-Значение `8192` здесь — **глубина до генерации**, поэтому фактическая вместимость должна быть не меньше `8192 + 128`. Проверка 32K выполняется только после допуска по памяти и с запасом для выходных токенов. Синтаксис `-fa` менялся; применять приведённые команды только если pinned `--help` подтверждает `on`. Прогрев upstream обычно выполняет сам; сохранить help и отметить, выполнялся ли дополнительный прогрев, не включать его в измеряемые повторы.
+Here, `8192` is the **depth before generation**, so actual capacity must be at least `8192 + 128`. Test 32K only after memory admission, with headroom for output tokens. `-fa` syntax has changed over time; use these commands only when pinned `--help` confirms `on`. Upstream usually performs its own warmup; retain help and record whether additional warmup was performed, excluding it from measured repeats.
 
-В параллельном процессе с интервалом около секунды собирать MemAvailable, swap-in/out, RSS/PSS процесса, доступную GPU telemetry и температуру. RSS не равен физическому расходу всей системы при mmap/UMA: не складывать RSS, page cache и GPU allocation без проверки пересечений. Отдельно фиксировать peak по доступным счётчикам и их источники. Неподдерживаемый GPU sensor — `null` с причиной. Энергию — внешним ваттметром на розетке, если он есть; software power одной APU не считать потреблением всей машины.
+In a parallel process, collect MemAvailable, swap-in/out, process RSS/PSS, available GPU telemetry, and temperature roughly every second. RSS is not total physical system usage with mmap/UMA: do not add RSS, page cache, and GPU allocation without checking overlap. Record peaks separately from available counters, with their sources. Unsupported GPU sensors are `null` with a reason. Measure energy with an external wall-plug meter if available; do not treat one APU’s software power as whole-machine consumption.
 
-Отчёт содержит median/min/max и raw repeats, load time, pp/tg при конкретной depth, память и стабильность. Порядок Vulkan/HIP чередовать между повторами/сериями; режим мощности и фоновые нагрузки фиксировать. Холодную загрузку процесса и тёплый файловый кеш учитывать отдельно, не очищая глобальный page cache в фоне без отдельного плана.
+The report contains median/min/max and raw repeats, load time, pp/tg at specified depth, memory, and stability. Alternate Vulkan/HIP order between repeats/series; record power mode and background workloads. Account separately for cold process loading and warm filesystem cache; do not clear global page cache in the background without a separate plan.
 
-## Серия B: HTTP, templates и инструменты
+## Series B: HTTP, templates, and tools
 
-После допуска по памяти поднять один `llama-server` только на loopback, явный контекст и один slot. Это **runtime smoke**, ещё не запуск агента через лабораторный runner:
+After memory admission, launch one `llama-server` on loopback only, with an explicit context and one slot. This is a **runtime smoke test**, not yet an agent run through the lab runner:
 
 ```sh
 "$LLAMA_BIN/llama-server" -m "$LOCAL_GGUF" \
@@ -131,30 +131,30 @@ cmake --build "$LLAMA_SOURCE/build-hip" --config Release -j 8
   -t 8 -b 512 -ub 256 -ctk f16 -ctv f16 -fa on --jinja
 ```
 
-Chat template и reasoning задавать по карточке модели. Сервер поддерживает извлечение reasoning и связанные настройки, но `reasoning-format` сам по себе не включает и не отключает thinking. Записать effective settings и видимый ответ. Для модели с обязательным reasoning не заявлять, что его отключили общим флагом. [API и параметры сервера](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)
+Set the chat template and reasoning according to the model card. The server supports reasoning extraction and related settings, but `reasoning-format` alone neither enables nor disables thinking. Record effective settings and the visible response. For a model with mandatory reasoning, do not claim a generic flag disabled it. [Server API and parameters](https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md)
 
-Проверить round trip инструментов на синтетических безвредных fixtures: чтение фиксированного значения, одна функция с JSON arguments, результат tool и последующий final answer. Для streaming — корректную сборку `tool_calls`, аргументов и `call_id` по delta-событиям. Затем две последовательные функции и отказ неизвестному инструменту. Не выполнять произвольные команды из smoke-ответа модели.
+Test a tool round-trip on harmless synthetic fixtures: reading a fixed value, one function with JSON arguments, a tool result, and the subsequent final answer. For streaming, correctly assemble `tool_calls`, arguments, and `call_id` from delta events. Then test two sequential functions and rejection of an unknown tool. Do not execute arbitrary commands from a model’s smoke-test response.
 
-Tool-aware template обязателен; совместимость обычного chat endpoint не доказывает function calling. Сохранить `/props`, хеш шаблона, запрос и ответ без секретов, grammar/parser configuration. Если помогает изменённый template/parser, это уже компонент, который требует строки в harness ledger и отдельного сравнения. [Function calling llama.cpp](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md)
+A tool-aware template is mandatory; compatibility with an ordinary chat endpoint does not establish function calling. Save `/props`, template hash, request and response without secrets, and grammar/parser configuration. If a modified template/parser helps, it becomes a component requiring a harness-ledger row and separate comparison. [llama.cpp function calling](https://github.com/ggml-org/llama.cpp/blob/master/docs/function-calling.md)
 
-Измерить HTTP TTFT (от отправки запроса до первого содержательного токена), полное время ответа и токены сервера; для streaming исключить служебные пустые события. Проверить ограничения output length, отмену запроса, overflow контекста и освобождение slot. Chat Completions, Responses API и Anthropic-style API — разные контракты; наличие одного не считать поддержкой остальных. Для изоляции фактора harness оставить один backend/model/template и одинаковые sampling settings.
+Measure HTTP TTFT (from request dispatch to the first meaningful token), complete-response time, and server tokens; exclude empty service events for streaming. Check output-length limits, request cancellation, context overflow, and slot release. Chat Completions, Responses API, and Anthropic-style API are different contracts; do not treat one as support for the others. To isolate the harness factor, retain one backend/model/template and identical sampling settings.
 
-## Серия C: подключение к обвязкам — после bridge
+## Series C: harness integration — after the bridge
 
-**Текущий статус: pending.** Существующий `experiments/common/egress.mjs` блокирует private IP; готового универсального `--provider local` в runner нет. Поэтому команды `new-run → prepare-run → run` нельзя выдавать за уже работающий локальный inference. Планирование кандидатов не снимает это ограничение.
+**Status in the original 2026-09-21 plan: pending.** At that point, `experiments/common/egress.mjs` blocked private IPs, and the runner had no ready universal `--provider local`. The `new-run → prepare-run → run` commands therefore could not be presented as already working local inference. Candidate planning did not remove this limitation. Subsequent bridge work is documented in the current harness documentation linked above.
 
-Следующее изменение инфраструктуры должно дать агентскому контейнеру доступ только к одному доверенному endpoint модели. Не открывать весь localhost/host network и не давать агенту GPU devices. Backend запускает координатор; weights mount read-only, без репозитория задач, `.env`, hidden checks, workspace или Docker socket. У самого backend нет инструментов исполнения и необязательных внешних загрузок. Bridge разрешает только нужные inference routes; загрузка/выгрузка моделей, административные операции и произвольный proxy недоступны агенту.
+The next infrastructure change must give the agent container access only to one trusted model endpoint. Do not open all localhost/host networking or give the agent GPU devices. The coordinator starts the backend; its weights mount is read-only, without the task repository, `.env`, hidden checks, workspace, or Docker socket. The backend itself has no execution tools or optional external downloads. The bridge permits only necessary inference routes; model loading/unloading, administrative operations, and arbitrary proxying are unavailable to the agent.
 
-До реальных задач проверить контракт конкретной обвязки, запись exact model identity (GGUF hashes + server alias), usage, stop reason и все доступные budget controls. Если adapter ожидает Responses API, проверить его операции отдельно. Managed обвязку без подтверждённого custom endpoint помечать unsupported, не подменять её цикл собственным агентом.
+Before real tasks, verify the specific harness contract, recording of exact model identity (GGUF hashes + server alias), usage, stop reason, and every available budget control. If an adapter expects the Responses API, verify its operations separately. Mark a managed harness unsupported without a verified custom endpoint; do not replace its loop with your own agent.
 
-Сетевую границу T001 replay и T002 dependency gateway сохранить. Локальный backend — явное исключение на один сервис, а не общий доступ к LAN. Boundary-тесты должны подтвердить запрет соседних портов/private endpoints, redirect обходов и доступа к backend admin routes. Для нового bridge нужна запись ledger в том же изменении.
+Preserve T001 replay and T002 dependency-gateway network boundaries. A local backend is an explicit exception for one service, not general LAN access. Boundary tests must establish rejection of adjacent ports/private endpoints, redirect bypasses, and backend admin routes. A new bridge requires a ledger entry in the same change.
 
-## Запись результатов и стоп-критерии
+## Recording results and stop criteria
 
-До запуска агента подготовить обычный `run.json` и отдельно приложить backend manifest/trace как доказательства; связь runtime configuration → run ID обязательна. Микробенч не выдавать за завершённый агентский run и не присваивать ему hidden-check pass. Самостоятельные backend-пробы допустимы до bridge: хранить их в `experiments/local-models/measurements/<probe-id>/` с `metadata.json` и raw logs. В текущей работе подготовлен **план**, измерений пока нет. Новые local-поля `run.json` требуют описанного в общем плане расширения схемы; вручную обходить validator нельзя.
+Before launching an agent, prepare the usual `run.json` and separately attach a backend manifest/trace as evidence; runtime configuration → run ID linkage is mandatory. Do not present a microbenchmark as a completed agent run or assign it a hidden-check pass. Standalone backend probes are allowed before the bridge: store them in `experiments/local-models/measurements/<probe-id>/` with `metadata.json` and raw logs. The original 2026-09-21 work prepared a **plan**, without measurements at that date. New local `run.json` fields required the schema extension described in the shared plan; do not bypass the validator manually.
 
-В manifest нужны: дата, машина/ОС/ядро/firmware, ICD или ROCm версии, llama.cpp SHA, binary/image hashes, GGUF shard hashes, quant, effective chat template, context/slots/KV, offload, threads/batch, reasoning/sampling, seed, все launch arguments и route контракт. Неподтверждённые поля остаются `null` с причиной.
+The manifest needs: date, machine/OS/kernel/firmware, ICD or ROCm versions, llama.cpp SHA, binary/image hashes, GGUF shard hashes, quantization, effective chat template, context/slots/KV, offload, threads/batch, reasoning/sampling, seed, every launch argument, and route contract. Unverified fields remain `null` with reasons.
 
-Остановить конфигурацию при OOM, GPU reset, невалидных/нестабильных tool calls, устойчивой подкачке, превышении зарезервированной памяти или повторяемой ошибке данных. Сохранить failure и причину; уменьшение контекста/quant/CPU offload — новый вариант, а не исправление старого результата. Отсутствие API-биллинга не равно нулевой полной стоимости: энергия и время учитываются отдельно; неизвестная стоимость не заменяется нулём.
+Stop a configuration on OOM, GPU reset, invalid/unstable tool calls, sustained swap, exceeded reserved memory, or repeatable data errors. Preserve the failure and reason; reducing context/quantization or using CPU offload creates a new variant, not a correction of the old result. No API billing does not mean zero total cost: energy and time are recorded separately; unknown cost is not replaced with zero.
 
-Аппаратный smoke, пригодность конкретных моделей и сравнение Vulkan/HIP на машине пользователя остаются **unverified** до выполнения этого протокола.
+At the original 2026-09-21 planning date, hardware smoke tests, specific-model suitability, and the Vulkan/HIP comparison on the user’s machine remained **unverified** until this protocol was executed.

@@ -1,37 +1,37 @@
-# Runbook: ЛР02–ЛР05 на стенде Ryzen AI Max+ 395
+# Runbook: LAB02–LAB05 on Ryzen AI Max+ 395
 
-Сводный операторский лист для одной сессии измерений. Собран 21.09.2026 из коммита `b19e7db`.
+A consolidated operator worksheet for one measurement session. Assembled on 2026-09-21 from commit `b19e7db`.
 
-## Чем это является и чем нет
+## Scope and authority
 
-Это **производный** лист команд: четыре лабораторные работы сведены в один линейный порядок, `my-session` заменён на `ryzen-01`, все `/absolute/path/to/...` выведены из переменных, вложенные heredoc сняты с отступов списка (в исходных документах закрывающий `PY` стоит с отступом и при дословном копировании heredoc не закроется).
+This is a **derived** command worksheet: four labs are arranged in one linear sequence, `my-session` is replaced with `ryzen-01`, every `/absolute/path/to/...` comes from variables, and nested heredocs are unindented from lists (the original documents indent the closing `PY`, so copying them literally would leave the heredoc open).
 
-**Нормативны исходные лаборатории**, а не этот файл:
+The **original lab guides are authoritative**, not this file:
 
-- [ЛР02](../../docs/labs/LAB02-hardware.md) · [ЛР03](../../docs/labs/LAB03-artifacts.md) · [ЛР04](../../docs/labs/LAB04-backends.md) · [ЛР05](../../docs/labs/LAB05-context-tools.md)
+- [LAB02](../../docs/labs/LAB02-hardware.md) · [LAB03](../../docs/labs/LAB03-artifacts.md) · [LAB04](../../docs/labs/LAB04-backends.md) · [LAB05](../../docs/labs/LAB05-context-tools.md)
 
-Соглашение о блоках: команды сбора доказательств идут **отдельными строками**, как в лабораториях, — отказ одной утилиты не должен скрывать вывод остальных. Через `&&` соединены только проверки-ворота, где продолжение при неуспехе бессмысленно.
+Block convention: evidence-collection commands occupy **separate lines**, as in the lab guides, so one failed utility cannot hide output from the others. Only gates where proceeding after failure makes no sense are joined with `&&`.
 
-Здесь нет таблиц результатов, критериев завершения и контрольных вопросов — их заполняют из самих работ. Этот файл не создаёт `run.json`, не выставляет зачёт и не заменяет `report.md`.
+Result tables, completion criteria, and review questions are omitted here; complete them from the lab guides themselves. This file neither creates `run.json` nor awards credit, and it does not replace `report.md`.
 
-Проверка дрейфа источников из корня репозитория:
+Check source drift from the repository root:
 
 ```sh
 sha256sum -c experiments/local-models/runbook.sources.sha256
 ```
 
-При несовпадении сначала читайте изменившуюся работу, потом пересобирайте runbook.
+If hashes differ, read the changed lab guide first, then rebuild the runbook.
 
-## 0. Один раз: окружение сессии
+## 0. Once per session: environment
 
-Стенд — native Linux на целевой машине. ЛР02 останавливается на `test "$(uname -s)" = Linux`: macOS, WSL и VM паспорт не дают.
+The test environment is native Linux on the target machine. LAB02 stops at `test "$(uname -s)" = Linux`: macOS, WSL, and VMs cannot provide the required machine passport.
 
-Создайте env-файл **вне репозитория** (секретов в нём нет и быть не должно):
+Create an environment file **outside the repository** (it contains no secrets and must not contain any):
 
 ```sh
 cat > "$HOME/lab-ryzen-01.env" <<'ENV'
 export LAB_SESSION=ryzen-01
-export LAB_ROOT="$HOME/agent-harnesses-exps"
+export LAB_ROOT="$HOME/llm-systems-lab"
 export LAB_MEASUREMENTS="$LAB_ROOT/experiments/local-models/measurements"
 export LAB02_DIR="$LAB_MEASUREMENTS/LAB02-$LAB_SESSION"
 export LAB03_DIR="$LAB_MEASUREMENTS/LAB03-$LAB_SESSION"
@@ -43,33 +43,33 @@ export LLAMA_COMMIT=""
 ENV
 ```
 
-Поправьте `LAB_ROOT` под фактический путь клона и `LAB_STORAGE` под диск, свободное место которого измерите в ЛР02. `LLAMA_COMMIT` заполняется в ЛР04, `LOCAL_GGUF` и `LLAMA_BIN` дописываются в файл по ходу работы.
+Adjust `LAB_ROOT` to the actual clone path and `LAB_STORAGE` to the disk whose free space you will measure in LAB02. Fill in `LLAMA_COMMIT` during LAB04; append `LOCAL_GGUF` and `LLAMA_BIN` as the work progresses.
 
-**В каждом терминале этой сессии** (их понадобится до трёх):
+**In every terminal for this session** (up to three are needed):
 
 ```sh
 source "$HOME/lab-ryzen-01.env" && cd "$LAB_ROOT"
 ```
 
-Проверка инструментов:
+Check tools:
 
 ```sh
 node --version && git --version && bash --version && python3 --version
 ```
 
-Нужны Node ≥22 и Python ≥3.11 (`hashlib.file_digest` в ЛР03).
+Requires Node ≥22 and Python ≥3.11 (`hashlib.file_digest` in LAB03).
 
-Повтор любого опыта — это новая `--session`, а не перезапись папки: `lab:new` существующий каталог не затирает.
+Repeating an experiment requires a new `--session`, not overwriting a directory: `lab:new` does not overwrite an existing directory.
 
 ---
 
-# ЛР02. Паспорт машины и бюджет памяти
+# LAB02. Machine passport and memory budget
 
-Только чтение состояния. BIOS, ядро, kernel cmdline, TTM/GTT, драйверы и power profile не меняются. Активные inference-процессы закройте сами, незнакомые пользовательские процессы не трогайте.
+Read system state only. Do not change BIOS, kernel, kernel cmdline, TTM/GTT, drivers, or power profile. Close your own active inference processes; leave unfamiliar user processes alone.
 
-До сбора запишите в отчёт: модель компьютера, режим питания, питание от сети, активный рабочий стол, существенные фоновые нагрузки. Серийный номер в архив не нужен.
+Before collection, record the computer model, power mode, AC power, active desktop, and significant background workloads in the report. The archive does not need a serial number.
 
-## 02.1 Архив и проверка ОС
+## 02.1 Archive and OS check
 
 ```sh
 npm run lab:new -- --lab LAB02 --session "$LAB_SESSION"
@@ -79,9 +79,9 @@ npm run lab:new -- --lab LAB02 --session "$LAB_SESSION"
 export LAB_DIR="$LAB02_DIR" && test "$(uname -s)" = Linux && test -d "$LAB_DIR/raw" && echo ok
 ```
 
-## 02.2 Сбор сведений
+## 02.2 Collect system information
 
-Одна недоступная утилита не прерывает весь сбор — отсутствующие помечаются `unavailable`.
+One unavailable utility does not interrupt the entire collection; mark missing utilities `unavailable`.
 
 ```sh
 python3 - <<'PY'
@@ -127,7 +127,7 @@ for name, source in {
 PY
 ```
 
-## 02.3 Инвентарь памяти и UMA
+## 02.3 Memory inventory and UMA
 
 ```sh
 python3 - <<'PY'
@@ -158,64 +158,64 @@ print(json.dumps(result['memory'], indent=2))
 PY
 ```
 
-`pages_limit × page_size_bytes` — предел страниц TTM, **не** свободная память GPU. Не складывайте его с `MemTotal`, VRAM или GTT: shared UMA, carve-out и API heap могут описывать одну и ту же физическую память.
+`pages_limit × page_size_bytes` is the TTM page limit, **not** free GPU memory. Do not add it to `MemTotal`, VRAM, or GTT: shared UMA, carve-outs, and API heaps may describe the same physical memory.
 
-## 02.4 Три уровня обнаружения GPU
+## 02.4 Three levels of GPU detection
 
-Сопоставьте вручную по собранным файлам:
+Manually compare the collected files:
 
-| Уровень | Файл | Что искать |
+| Level | File | What to look for |
 | --- | --- | --- |
-| PCI / драйвер | `raw/pci.txt` | активный `amdgpu` |
-| Vulkan | `raw/vulkan-full.txt` | Radeon 8060S, ICD, версии API/драйвера, heap sizes и budgets |
+| PCI / driver | `raw/pci.txt` | active `amdgpu` |
+| Vulkan | `raw/vulkan-full.txt` | Radeon 8060S, ICD, API/driver versions, heap sizes and budgets |
 | HSA / ROCm | `raw/rocminfo.txt` | `gfx1151` |
 
-Программный Vulkan renderer за GPU не считается. При нескольких устройствах зафиксируйте выбранное и его render node; `/dev/dri/renderD128` не предполагается.
+A software Vulkan renderer does not count as a GPU. With multiple devices, record the selected device and its render node; do not assume `/dev/dri/renderD128`.
 
-## 02.5 Ядро против требований KFD
+## 02.5 Kernel versus KFD requirements
 
-Сверьте ядро и ROCm с **версией** документации AMD. Для gfx1151 перечислены: Ubuntu HWE от `6.17.0-19.19~24.04.2`, OEM от `6.14.0-1018`, остальные дистрибутивы от `6.18.4` для указанной таблицы prebuilt. Проверьте backports своего релиза. Запишите URL, дату доступа и вывод: `documented`, `conditional` или `unverified`. Команды смены ядра в этой работе не выполняются.
+Check the kernel and ROCm against a specific **version** of AMD documentation. The cited prebuilt table lists gfx1151 requirements: Ubuntu HWE from `6.17.0-19.19~24.04.2`, OEM from `6.14.0-1018`, and other distributions from `6.18.4`. Check backports for your release. Record the URL, access date, and conclusion: `documented`, `conditional`, or `unverified`. Do not execute kernel-change commands in this lab.
 
-## 02.6 Бюджет первой серии
+## 02.6 First-series budget
 
-Резерв ОС — 16 GiB, если в ЛР01 не объявлен другой. Оценка должна удовлетворять **обоим** ограничениям:
+Reserve 16 GiB for the OS unless LAB01 declares another value. The estimate must satisfy **both** limits:
 
 ```text
 weights + runtime + KV/state <= measured_RAM - OS_reserve
 allocations_on_GPU           <= measured_available_GPU_budget
 ```
 
-Если budget API его не сообщает — оставьте неизвестным. 96 GB из рекламы вместо наблюдения не подставляются.
+If the budget API does not report it, leave it unknown. Do not substitute the advertised 96 GB for an observation.
 
-Через минуту простоя:
+After one minute idle:
 
 ```sh
 free -b > "$LAB_DIR/raw/memory-after-idle.txt"
 ```
 
-Заметное расхождение с первым замером требует описания фоновых нагрузок.
+A substantial difference from the first measurement requires a description of background workloads.
 
-## 02.7 Отчёт
+## 02.7 Report
 
-Заполните `report.md`, `measurements.tsv`, `manifest.json`: ссылку на архив ЛР01, пути к raw evidence, допуск или конкретный blocker **для каждой ветви** (Vulkan и HIP/ROCm отдельно). Паспорт не превращается в `run.json` и не получает verdict агентской задачи.
+Fill in `report.md`, `measurements.tsv`, and `manifest.json`: link the LAB01 archive, give raw-evidence paths, and record admission or a concrete blocker **for each track** (Vulkan and HIP/ROCm separately). A passport does not become `run.json` or receive an agent-task verdict.
 
-## Ворота на выход
+## Exit gates
 
-- Целевая машина и native Linux подтверждены.
-- Для каждой ветви есть допуск либо конкретный blocker.
-- RAM, TTM/GTT и GPU budget не сложены как независимые банки.
+- Target machine and native Linux confirmed.
+- Each track has admission or a concrete blocker.
+- RAM, TTM/GTT, and GPU budget are not summed as independent banks.
 
-Сдача с blocker одной ветви — корректный результат диагностики, а не допуск к её измерениям.
+A submission with a blocker for one track is a valid diagnostic result, not admission to that track’s measurements.
 
-> **Если `vulkaninfo`, `rocminfo` или `hipconfig` недоступны:** пометьте `unavailable` и сдайте паспорт как есть. Установка стека и build-зависимостей (`cmake`, компилятор, Vulkan headers и shader compiler, HIP SDK) — **отдельная работа**, после которой паспорт снимается заново новой сессией, например `ryzen-02`. ЛР04 зависимости на лету не ставит.
+> **If `vulkaninfo`, `rocminfo`, or `hipconfig` is unavailable:** mark it `unavailable` and submit the passport as it stands. Installing the stack and build dependencies (`cmake`, compiler, Vulkan headers and shader compiler, HIP SDK) is **separate work**, after which a new session, such as `ryzen-02`, collects a fresh passport. LAB04 does not install dependencies on the fly.
 
 ---
 
-# ЛР03. Артефакты и контрольный GGUF
+# LAB03. Artifacts and control GGUF
 
-Предпосылка: сданы ЛР01 и ЛР02. Минимум — решение по всем 12 кандидатам и **один** проверенный контрольный GGUF `qwen35-9b` Q6_K (≈7,0 GiB). Второй контроль `gpt-oss-20b` MXFP4 (11,3 GiB) и остальные загрузки — расширение. Все 12 артефактов вместе — около 406,7 GiB, качать их для зачёта не нужно.
+Prerequisite: LAB01 and LAB02 submitted. The minimum is a decision for all 12 candidates and **one** verified control GGUF, `qwen35-9b` Q6_K (≈7.0 GiB). A second control, `gpt-oss-20b` MXFP4 (11.3 GiB), and other downloads are extensions. All 12 artifacts total about 406.7 GiB; downloading all of them is not required for credit.
 
-## 03.1 Архив и входы
+## 03.1 Archive and inputs
 
 ```sh
 npm run lab:new -- --lab LAB03 --session "$LAB_SESSION"
@@ -230,11 +230,11 @@ cp experiments/local-models/models.json "$LAB_DIR/raw/catalog.json"
 cp experiments/local-models/hardware.json "$LAB_DIR/raw/planning-hardware.json"
 ```
 
-Ссылка на паспорт ЛР02 и его измеренные `MemTotal`, `MemAvailable`, GPU heap/GTT и swap в `manifest.json` обязательна.
+`manifest.json` must link the LAB02 passport and its measured `MemTotal`, `MemAvailable`, GPU heap/GTT, and swap.
 
-## 03.2 План до загрузки
+## 03.2 Plan before downloading
 
-Общий план и план контрольной модели:
+Overall plan and control-model plan:
 
 ```sh
 node scripts/local-plan.mjs --format json > "$LAB_DIR/raw/plan-default.json"
@@ -244,15 +244,15 @@ node scripts/local-plan.mjs --format json > "$LAB_DIR/raw/plan-default.json"
 node scripts/local-plan.mjs --model qwen35-9b --context 8192 --format json > "$LAB_DIR/raw/control-plan.json"
 ```
 
-Планировщик по умолчанию использует **гипотезы** 119,2 GiB RAM, 89,4 GiB GPU budget, 16 GiB ОС, 6 GiB runtime и 4/8/16 GiB для 8K/16K/32K. Подставьте измеренное в ЛР02 и сохраните отдельным файлом вместе с точной командой:
+The planner defaults to **hypotheses** of 119.2 GiB RAM, 89.4 GiB GPU budget, 16 GiB OS, 6 GiB runtime, and 4/8/16 GiB for 8K/16K/32K. Substitute LAB02 measurements and save a separate file with the exact command:
 
 ```sh
-node scripts/local-plan.mjs --memory-gib ЧИСЛО --gpu-budget-gib ЧИСЛО --format json > "$LAB_DIR/raw/plan-measured.json"
+node scripts/local-plan.mjs --memory-gib NUMBER --gpu-budget-gib NUMBER --format json > "$LAB_DIR/raw/plan-measured.json"
 ```
 
-Для каждой из 12 моделей запишите решение «первый запуск / позднее / не проходит выбранный бюджет» и условие пересмотра. У MoE загружаются все эксперты, активные параметры описывают только вычисления на токен. Hybrid attention считает cache/state отдельно.
+For each of the 12 models, record “first run / later / exceeds selected budget” and a reconsideration condition. MoE loads all experts; active parameters describe only per-token computation. Hybrid attention accounts for cache/state separately.
 
-## 03.3 Экспорт точного артефакта
+## 03.3 Export an exact artifact
 
 ```sh
 python3 - "$LAB_DIR" qwen35-9b <<'PY'
@@ -265,9 +265,9 @@ print(json.dumps(model["artifact"], indent=2))
 PY
 ```
 
-Проверьте `model_id`/`model_revision`, репозиторий квантизатора, `artifact.revision`, имена и число файлов, `bytes`, `sha256`, точность и лицензию: ревизии основной модели и GGUF различаются. Недоступный файл или изменившаяся лицензия — статус `no-artifact` и остановка этой конфигурации.
+Check `model_id`/`model_revision`, quantizer repository, `artifact.revision`, filenames and file count, `bytes`, `sha256`, precision, and license: base-model and GGUF revisions differ. An unavailable file or changed license gives `no-artifact` and stops this configuration.
 
-## 03.4 Скрипт загрузки
+## 03.4 Download script
 
 ```sh
 cat > "$LAB_DIR/raw/fetch_artifact.py" <<'PY'
@@ -295,7 +295,7 @@ for item in artifact["files"]:
     if not dest.exists() and a.download:
         dest.parent.mkdir(parents=True, exist_ok=True)
         partial = dest.with_name(dest.name + ".part")
-        # Не используйте одновременно две копии этого скрипта для одного файла.
+        # Do not run two copies of this script concurrently for one file.
         try:
             with urllib.request.urlopen(url, timeout=120) as src, partial.open("xb") as out:
                 while chunk := src.read(8 * 1024 * 1024):
@@ -306,7 +306,7 @@ for item in artifact["files"]:
             assert not item.get("sha256") or digest == item["sha256"], "hash mismatch"
             os.replace(partial, dest)
         except BaseException:
-            # .part сохраняется для диагностики; удалять только после разбора ошибки.
+            # Retain .part for diagnosis; remove it only after investigating the error.
             raise
     if not dest.is_file():
         results.append({"path": str(dest), "status": "no-artifact"})
@@ -325,9 +325,9 @@ raise SystemExit(0 if all(x["status"] == "verified" for x in results) else 1)
 PY
 ```
 
-Скрипт не возобновляет оборванную загрузку и не заменяет молча неверный существующий файл. Сверьте запас диска с `artifact.total_bytes`, временными файлами и будущими копиями сервисов.
+The script does not resume interrupted downloads or silently replace an invalid existing file. Check disk headroom against `artifact.total_bytes`, temporary files, and future service copies.
 
-## 03.5 Загрузка и повторная offline-проверка
+## 03.5 Download and repeat offline verification
 
 ```sh
 python3 --version > "$LAB_DIR/raw/python-version.txt"
@@ -339,11 +339,11 @@ python3 "$LAB_DIR/raw/fetch_artifact.py" "$LAB_DIR/raw/artifact.json" "$LAB_STOR
 df -B1 "$LAB_STORAGE" > "$LAB_DIR/raw/disk-after.txt"
 ```
 
-При ошибке сохраните stderr и ненулевой exit code. Для split GGUF нужны **все** оригинальные shards в исходной структуре; серверу дальше передаётся первый shard. Shards не склеивают и не переименовывают. Vision projector, speculative draft или иной quant — новый manifest.
+On error, retain stderr and the nonzero exit code. Split GGUF requires **all** original shards in their original structure; pass the first shard to the server afterward. Do not concatenate or rename shards. A vision projector, speculative draft, or different quantization requires a new manifest.
 
-## 03.6 Передача артефакта дальше
+## 03.6 Pass the artifact downstream
 
-Checksum-файл для `sha256sum --check` в ЛР04–07 (JSON для этого не подходит):
+Checksum file for `sha256sum --check` in LAB04–07 (JSON is not suitable):
 
 ```sh
 python3 - "$LAB_DIR" <<'PY'
@@ -369,7 +369,7 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/checksums-rechec
 sha256sum "$LAB_DIR/raw/catalog.json" "$LAB_DIR/raw/artifact.json" "$LAB_DIR/raw/fetch_artifact.py" > "$LAB_DIR/raw/input-hashes.txt"
 ```
 
-Закрепите путь весов в env-файле сессии (для split GGUF убедитесь, что это **первый** shard):
+Pin the weights path in the session environment file (for split GGUF, ensure this is the **first** shard):
 
 ```sh
 python3 -c "import json,os,pathlib;d=json.loads(pathlib.Path(os.environ['LAB03_DIR']+'/raw/verification.json').read_text());print('export LOCAL_GGUF=\"'+next(f['path'] for f in d['files'] if f['path'].endswith('.gguf'))+'\"')" | tee -a "$HOME/lab-ryzen-01.env"
@@ -379,30 +379,30 @@ python3 -c "import json,os,pathlib;d=json.loads(pathlib.Path(os.environ['LAB03_D
 source "$HOME/lab-ryzen-01.env" && test -f "$LOCAL_GGUF" && echo "$LOCAL_GGUF"
 ```
 
-## Ворота на выход
+## Exit gates
 
-- Для 12 кандидатов есть решение с условиями памяти и очередью.
-- Для контрольного GGUF проверены все bytes и SHA-256 либо документирован `no-artifact`/`fail` с причиной.
-- Model revision, quantizer revision, quantization и shards различимы в manifest.
-- Отсутствующим запускам оставлен `not-run`; оценка не названа замером. Веса в Git не добавляются.
+- All 12 candidates have a decision with memory conditions and queue position.
+- All bytes and SHA-256 values for the control GGUF are verified, or `no-artifact`/`fail` is documented with a reason.
+- The manifest distinguishes model revision, quantizer revision, quantization, and shards.
+- Unexecuted runs remain `not-run`; estimates are not called measurements. Weights are not added to Git.
 
 ---
 
-# ЛР04. llama.cpp: Vulkan против HIP/ROCm
+# LAB04. llama.cpp: Vulkan versus HIP/ROCm
 
-Предпосылки: ЛР02 и ЛР03 сданы; `cmake`, компилятор, Vulkan headers и shader compiler, HIP SDK **уже установлены**. При ошибке сборки зависимости на лету не ставятся.
+Prerequisites: LAB02 and LAB03 submitted; `cmake`, compiler, Vulkan headers and shader compiler, and HIP SDK are **already installed**. Build failures do not justify installing dependencies on the fly.
 
-Обе ветви обязательны. Отсутствие одной — blocker, а не победа второй.
+Both tracks are mandatory. One being absent is a blocker, not a victory for the other.
 
-## 04.1 Закрепление commit
+## 04.1 Pin the commit
 
-Выберите один commit llama.cpp по поддержке архитектуры и quant вашей модели, запишите полный 40-символьный SHA и дату выбора. `master` и номер релиза идентификатором сборки не являются.
+Choose one llama.cpp commit based on support for your model architecture and quantization; record the full 40-character SHA and selection date. Neither `master` nor a release number identifies a build.
 
 ```sh
 npm run lab:new -- --lab LAB04 --session "$LAB_SESSION"
 ```
 
-Впишите SHA в env-файл, затем перечитайте его:
+Enter the SHA in the environment file, then reload it:
 
 ```sh
 "${EDITOR:-nano}" "$HOME/lab-ryzen-01.env"
@@ -412,13 +412,13 @@ npm run lab:new -- --lab LAB04 --session "$LAB_SESSION"
 source "$HOME/lab-ryzen-01.env" && export LAB_DIR="$LAB04_DIR" && python3 -c "import os,re,sys; sys.exit(0 if re.fullmatch(r'[0-9a-f]{40}', os.environ['LLAMA_COMMIT']) else 'set full lowercase commit SHA')"
 ```
 
-Если отдельного checkout ещё нет (`LLAMA_SOURCE` должен быть новым, не занятым каталогом):
+If no separate checkout exists (`LLAMA_SOURCE` must be a new, unoccupied directory):
 
 ```sh
 git clone https://github.com/ggml-org/llama.cpp.git "$LLAMA_SOURCE" && git -C "$LLAMA_SOURCE" checkout --detach "$LLAMA_COMMIT"
 ```
 
-## 04.2 Входы и проверка весов
+## 04.2 Inputs and weights verification
 
 ```sh
 test "$(uname -s)" = Linux && test -f "$LOCAL_GGUF" && test "$(git -C "$LLAMA_SOURCE" rev-parse HEAD)" = "$LLAMA_COMMIT" && echo ok
@@ -432,7 +432,7 @@ hipconfig --full > "$LAB_DIR/raw/hipconfig.txt" 2>&1
 vulkaninfo --summary > "$LAB_DIR/raw/vulkan-summary.txt" 2>&1
 ```
 
-`git status --porcelain` должен быть пустым. При локальных patch сохраните diff и примените его одинаково к обеим сборкам — это отдельный вариант относительно чистого pin.
+`git status --porcelain` must be empty. If local patches exist, retain the diff and apply it identically to both builds; this is a separate variant from the clean pin.
 
 ```sh
 cp "$LAB03_DIR/raw/artifact.json" "$LAB_DIR/raw/artifact.json"
@@ -440,9 +440,9 @@ cp "$LAB03_DIR/raw/weights.sha256" "$LAB_DIR/raw/weights.sha256"
 sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/verification-before.txt"
 ```
 
-При ненулевом exit code остановитесь. Хеширование читает веса целиком и прогревает filesystem cache — учтите это в описании состояния кеша.
+Stop on a nonzero exit code. Hashing reads all weights and warms the filesystem cache; account for this when describing cache state.
 
-## 04.3 Две сборки из одного checkout
+## 04.3 Two builds from one checkout
 
 ```sh
 (
@@ -462,9 +462,9 @@ cmake --build "$LAB_DIR/build-hip" --config Release -j 8 \
 )
 ```
 
-`HSA_OVERRIDE_GFX_VERSION` в baseline не добавляется, target на другую архитектуру ради прохождения не подменяется. Ошибку сохраняйте целиком.
+Do not add `HSA_OVERRIDE_GFX_VERSION` to the baseline or substitute another architecture target just to pass. Preserve the entire error.
 
-## 04.4 Инвентарь бинарников
+## 04.4 Binary inventory
 
 ```sh
 for backend in vulkan hip; do
@@ -479,9 +479,9 @@ for backend in vulkan hip; do
 done
 ```
 
-Проверьте в pinned `--help` наличие `-fa on`, `-ctk/-ctv`, `-d`, `-r`, `-o json`. При другом синтаксисе адаптируйте команды по документации выбранного commit и сохраните их. Автовыбор устройства допустим только после подтверждения Radeon 8060S в обеих ветвях.
+Check pinned `--help` for `-fa on`, `-ctk/-ctv`, `-d`, `-r`, and `-o json`. If syntax differs, adapt and retain commands using documentation for the selected commit. Automatic device selection is allowed only after confirming Radeon 8060S in both tracks.
 
-## 04.5 Прогрев
+## 04.5 Warmup
 
 ```sh
 (
@@ -496,17 +496,17 @@ done
 )
 ```
 
-В логах найдите фактическое число GPU layers, backend и allocations: `-ngl 999` — это запрос, а не доказательство full offload. CPU tokenizer и sampling допустимы; уход слоёв модели на CPU — отдельная конфигурация. При OOM, GPU reset, невалидных данных или выходе за бюджет остановите ветвь. KV precision, контекст и offload незаметно не уменьшаются.
+Find the actual GPU-layer count, backend, and allocations in logs: `-ngl 999` is a request, not proof of full offload. CPU tokenization and sampling are allowed; model layers on CPU constitute a separate configuration. Stop the track on OOM, GPU reset, invalid data, or exceeded budget. Do not silently reduce KV precision, context, or offload.
 
-## 04.6 Телеметрия — терминал B, запустить до серии
+## 04.6 Telemetry — terminal B, start before the series
 
 ```sh
 source "$HOME/lab-ryzen-01.env" && cd "$LAB_ROOT" && export LAB_DIR="$LAB04_DIR" && vmstat -w 1 > "$LAB_DIR/raw/vmstat-series.txt"
 ```
 
-Остановить Ctrl-C после серии. Отсутствующие sensors отмечайте `null`. RSS процесса, GPU allocation и page cache не складываются без анализа пересечения UMA.
+Stop with Ctrl-C after the series. Mark missing sensors `null`. Do not add process RSS, GPU allocation, and page cache without analyzing UMA overlap.
 
-## 04.7 Три парных повтора — терминал A
+## 04.7 Three paired repeats — terminal A
 
 ```sh
 (
@@ -535,38 +535,38 @@ done
 )
 ```
 
-Ветви не запускаются одновременно. `/usr/bin/time` — GNU time, а не shell keyword; при его отсутствии сохраните blocker process-метрик. Успешный exit code всё равно требует проверки логов на offload и allocations; частичный JSON не идёт в отчёт как успешный замер.
+Do not run both tracks concurrently. `/usr/bin/time` is GNU time, not a shell keyword; if absent, record a blocker for process metrics. A successful exit code still requires checking logs for offload and allocations; do not report partial JSON as a successful measurement.
 
-## 04.8 Разбор
+## 04.8 Analysis
 
-Состояние кеша описывается отдельно: каждый `llama-bench` — новый процесс, но это не холодный filesystem cache. Пишите «process cold / filesystem warm или unknown». Встроенный прогрев исключён из t/s, а `/usr/bin/time` включает весь процесс — process wall time не называется временем загрузки модели.
+Describe cache state separately: each `llama-bench` is a new process, but the filesystem cache is not cold. Write “process cold / filesystem warm or unknown”. Built-in warmup is excluded from t/s, whereas `/usr/bin/time` includes the entire process; do not label process wall time as model-load time.
 
-Перенесите три индивидуальных результата в `measurements.tsv`, посчитайте median/min/max и отношение `median_HIP / median_Vulkan` для каждого режима. При разных quant, FA или offload отношение как чистый эффект backend не интерпретируется. По `pswpin`/`pswpout` до и после оцените подкачку. В конце повторите проверки SHA весов и commit.
+Transfer the three individual results to `measurements.tsv`; calculate median/min/max and the `median_HIP / median_Vulkan` ratio for each mode. If quantization, FA, or offload differs, do not interpret the ratio as a pure backend effect. Assess swap activity from before/after `pswpin`/`pswpout`. Finish by repeating weights-SHA and commit checks.
 
-## Ворота на выход
+## Exit gates
 
-- Обе ветви собраны из одного commit и используют одни SHA весов.
-- Подтверждены Radeon 8060S, фактический offload и одинаковые настройки.
-- Есть прогрев и три парных повтора либо конкретный blocker.
-- Проверены swap и бюджеты, скрытого fallback не было.
+- Both tracks are built from one commit and use identical weights SHAs.
+- Radeon 8060S, actual offload, and identical settings are confirmed.
+- Warmup and three paired repeats exist, or a concrete blocker is recorded.
+- Swap and budgets are checked; no hidden fallback occurred.
 
 ---
 
-# ЛР05. Контекст 8/16/32K, streaming и инструменты
+# LAB05. Context 8/16/32K, streaming, and tools
 
-Ключевая работа маршрута: именно она делает сервер пригодным для агентов и открывает ЛР08.
+The key lab in this track: it makes the server suitable for agents and opens LAB08.
 
-Порядок контекстов строго по возрастанию: **8192 → 16384 → 32768**, каждый следующий только при соблюдённых бюджетах предыдущего. Три сервера одновременно не поднимаются. Агентский baseline — 16K; 32K остаётся отдельным вариантом.
+Contexts increase strictly in order: **8192 → 16384 → 32768**, proceeding only after the previous context meets its budgets. Do not launch three servers concurrently. The agent baseline is 16K; 32K remains a separate variant.
 
-Ниже один backend. Для второго работа повторяется в **новом архиве** (например `--session ryzen-01-vulkan`), а не дописывается в этот.
+One backend is shown below. Repeat for the second backend in a **new archive** (for example, `--session ryzen-01-vulkan`), rather than appending to this one.
 
-## 05.1 Архив, backend и fixtures
+## 05.1 Archive, backend, and fixtures
 
 ```sh
 npm run lab:new -- --lab LAB05 --session "$LAB_SESSION"
 ```
 
-Выберите прошедший ЛР04 backend и закрепите путь к бинарникам в env-файле (здесь HIP; для Vulkan — `build-vulkan`):
+Select a backend that passed LAB04 and pin its binary path in the environment file (HIP here; use `build-vulkan` for Vulkan):
 
 ```sh
 echo "export LLAMA_BIN=\"$LAB04_DIR/build-hip/bin\"" | tee -a "$HOME/lab-ryzen-01.env"
@@ -582,7 +582,7 @@ cp docs/labs/fixtures/tool-request.json "$LAB_DIR/raw/tool-request.json"
 sha256sum "$LAB_DIR/raw/chat-request.json" "$LAB_DIR/raw/tool-request.json" > "$LAB_DIR/raw/fixtures.sha256"
 ```
 
-Поле `model` в обеих fixtures — `lab-model`; оно совпадает с `--alias lab-model` сервера ниже. При другом alias fixtures правятся до серии, и правка получает свой SHA.
+The `model` field in both fixtures is `lab-model`, matching the server’s `--alias lab-model` below. For another alias, modify fixtures before the series and give the change its own SHA.
 
 ```sh
 "$LLAMA_BIN/llama-server" --help > "$LAB_DIR/raw/server-help.txt" 2>&1
@@ -590,17 +590,17 @@ sha256sum "$LAB_DIR/raw/chat-request.json" "$LAB_DIR/raw/tool-request.json" > "$
 sha256sum "$LLAMA_BIN/llama-server" "$LLAMA_BIN/llama-bench" > "$LAB_DIR/raw/binaries.sha256"
 ```
 
-Проверьте наличие `--alias`, `--no-context-shift`, `-np`, `-fa`, `-d` в pinned help. Зафиксируйте sampling и reasoning из карточки модели в `raw/model-settings.txt` и в manifest; применяйте их одинаково во всех трёх контекстах. Изменённый template получает свой SHA и отдельный вариант.
+Check pinned help for `--alias`, `--no-context-shift`, `-np`, `-fa`, and `-d`. Record sampling and reasoning from the model card in `raw/model-settings.txt` and the manifest; apply them identically in all three contexts. A modified template gets its own SHA and separate variant.
 
-## 05.2 Проба заполнения памяти без HTTP
+## 05.2 Memory-fill probe without HTTP
 
-Терминал B, до пробы:
+Terminal B, before the probe:
 
 ```sh
 source "$HOME/lab-ryzen-01.env" && cd "$LAB_ROOT" && export LAB_DIR="$LAB05_DIR" CTX=8192 && vmstat -w 1 > "$LAB_DIR/raw/context-$CTX-vmstat-series.txt"
 ```
 
-Терминал A:
+Terminal A:
 
 ```sh
 export CTX=8192
@@ -623,15 +623,15 @@ cat /proc/vmstat > "$LAB_DIR/raw/context-$CTX-vmstat-after.txt"
 test "$bench_status" -eq 0
 ```
 
-Глубины по контекстам — 8064, 16256 и 32640 токенов перед 128 generated. Встроенный прогрев в три измеряемых повтора не входит. Сохранённый exit code проверяется до перехода дальше. При OOM, GPU reset, постоянной подкачке, fallback или выходе за бюджет конфигурация останавливается; более длинный контекст автоматически не запускается. Изменение KV или FA ради вместимости — новый вариант, а не исправление результата.
+Depths are 8064, 16256, and 32640 tokens before 128 generated tokens. Built-in warmup is excluded from the three measured repeats. Check the recorded exit code before proceeding. Stop the configuration on OOM, GPU reset, sustained swap, fallback, or exceeded budget; do not automatically launch a longer context. Changing KV or FA to fit is a new variant, not a correction of the result.
 
-## 05.3 Сервер этого контекста — терминал C
+## 05.3 Server for this context — terminal C
 
 ```sh
 source "$HOME/lab-ryzen-01.env" && cd "$LAB_ROOT" && export LAB_DIR="$LAB05_DIR" CTX=8192 && "$LLAMA_BIN/llama-server" -m "$LOCAL_GGUF" --host 127.0.0.1 --port 8080 --alias lab-model -ngl 999 -c "$CTX" -np 1 -t 8 -b 512 -ub 256 -ctk f16 -ctv f16 -fa on --jinja --no-context-shift > "$LAB_DIR/raw/server-$CTX.log" 2>&1
 ```
 
-Добавьте сюда записанные model-specific sampling/reasoning flags. Сервер остаётся только на loopback. Терминал A, после health response:
+Add the recorded model-specific sampling/reasoning flags here. Keep the server on loopback only. Terminal A, after the health response:
 
 ```sh
 curl --fail --max-time 10 http://127.0.0.1:8080/health > "$LAB_DIR/raw/health-$CTX.json"
@@ -639,9 +639,9 @@ curl --fail --max-time 10 http://127.0.0.1:8080/props > "$LAB_DIR/raw/props-$CTX
 curl --fail --max-time 10 http://127.0.0.1:8080/v1/models > "$LAB_DIR/raw/models-$CTX.json"
 ```
 
-Подтвердите alias `lab-model`, GPU offload, effective context и slots, template. `--reasoning-format` описывает разбор результата, а не режим thinking: thinking не объявляется отключённым только потому, что reasoning не виден в `content`.
+Confirm alias `lab-model`, GPU offload, effective context and slots, and template. `--reasoning-format` describes result parsing, not thinking mode: do not claim thinking is disabled merely because reasoning is absent from `content`.
 
-## 05.4 HTTP/SSE измеритель
+## 05.4 HTTP/SSE measurement tool
 
 ```sh
 cat > "$LAB_DIR/raw/http_probe.py" <<'PY'
@@ -774,9 +774,9 @@ save(args.out + '.final.json', {'content': message.get('content'),
 PY
 ```
 
-TTFT измеряется только для streaming: задержка получения полного JSON не является TTFT. `ttft_content_s` отделён от первого reasoning-токена.
+Measure TTFT only for streaming: latency to a complete JSON response is not TTFT. `ttft_content_s` is distinct from time to the first reasoning token.
 
-## 05.5 Четыре protocol case по два раза
+## 05.5 Four protocol cases, twice each
 
 ```sh
 python3 - <<'PY'
@@ -804,11 +804,11 @@ for repeat in 1 2; do
 done
 ```
 
-Ожидаемые final: `LAB_READY` для чата, `LAB_VALUE_42` для tool round trip. Проверяйте совпадение `call_id`, валидный JSON arguments, завершающее событие и finish reason. Первый и повторный запрос обозначайте отдельно: второй может использовать prefix cache. Отсутствующий usage записывается `null`, токены из длины текста не вычисляются. Незавершённый round trip — не pass даже при HTTP 200.
+Expected final values: `LAB_READY` for chat and `LAB_VALUE_42` for the tool round-trip. Check matching `call_id`, valid JSON arguments, terminal event, and finish reason. Label initial and repeated requests separately: the second may use prefix cache. Record missing usage as `null`; do not infer tokens from text length. An incomplete round-trip is not a pass even with HTTP 200.
 
-## 05.6 Отказ диспетчера неизвестному инструменту
+## 05.6 Dispatcher rejects an unknown tool
 
-Endpoint не вызывается; проверяется граница клиента.
+No endpoint is called; this checks the client boundary.
 
 ```sh
 python3 - <<'PY'
@@ -840,11 +840,11 @@ assert all(row['exit_code'] == row['expected_exit_code'] for row in results.valu
 PY
 ```
 
-В `offline-tool-*.tool-rejected.json` подтвердите конкретные причины `tool/arguments rejected by allowlist` и `missing tool call id`, а не произвольную Python-ошибку; для valid ожидается `accepted: true`.
+In `offline-tool-*.tool-rejected.json`, confirm the specific reasons `tool/arguments rejected by allowlist` and `missing tool call id`, not an arbitrary Python error; the valid case must report `accepted: true`.
 
-## 05.7 Длинный вход с учётом шаблона
+## 05.7 Long input accounting for the template
 
-Генератор использует `/apply-template` и `/tokenize`, inference не выполняет. Если pinned server этих endpoints не поддерживает — фиксируйте blocker методики и считайте длину его tokenizer отдельно.
+The generator uses `/apply-template` and `/tokenize`, without inference. If the pinned server lacks these endpoints, record a methodology blocker and count length separately with its tokenizer.
 
 ```sh
 python3 - <<'PY'
@@ -858,9 +858,9 @@ def post(route, value):
     with urllib.request.urlopen(request, timeout=60) as response:
         return json.load(response)
 def candidate(rows):
-    text = 'Контрольное значение: LAB_SENTINEL_42.\n'
-    text += ''.join(f'Строка {i}: нейтральные данные измерения.\n' for i in range(rows))
-    text += 'Верни только контрольное значение из первой строки.'
+    text = 'Control value: LAB_SENTINEL_42.\n'
+    text += ''.join(f'Row {i}: neutral measurement data.\n' for i in range(rows))
+    text += 'Return only the control value from the first row.'
     messages = [{'role': 'user', 'content': text}]
     prompt = post('/apply-template', {'messages': messages})['prompt']
     tokens = post('/tokenize', {'content': prompt, 'add_special': False, 'parse_special': True})['tokens']
@@ -894,9 +894,9 @@ for repeat in 1 2; do
 done
 ```
 
-Сравните server `usage.prompt_tokens` с предварительным count: расхождение означает другой effective template или tokenization и требует объяснения. Ожидаемый final — `LAB_SENTINEL_42`, и только при отсутствии truncation и context shift.
+Compare server `usage.prompt_tokens` with the preliminary count: a discrepancy indicates a different effective template or tokenization and needs explanation. Expected final value: `LAB_SENTINEL_42`, and only without truncation or context shift.
 
-## 05.8 Переполнение, отмена, восстановление
+## 05.8 Overflow, cancellation, and recovery
 
 ```sh
 python3 - <<'PY'
@@ -932,13 +932,13 @@ PY
 python3 "$LAB_DIR/raw/http_probe.py" --url http://127.0.0.1:8080 --request "$LAB_DIR/raw/ctx$CTX-overflow-request.json" --out "$LAB_DIR/raw/ctx$CTX-overflow"
 ```
 
-Recovery запускается **отдельной командой**, даже если ожидаемая HTTP-ошибка завершила probe ненулевым кодом:
+Run recovery as a **separate command**, even if an expected HTTP error made the probe exit nonzero:
 
 ```sh
 python3 "$LAB_DIR/raw/http_probe.py" --url http://127.0.0.1:8080 --request "$LAB_DIR/raw/chat-request.json" --out "$LAB_DIR/raw/ctx$CTX-overflow-recovery"
 ```
 
-Ожидается явный отказ либо документированное ограничение; тихое обрезание с baseline несовместимо.
+Expect explicit rejection or a documented limit; silent truncation is incompatible with the baseline.
 
 ```sh
 if curl --no-buffer --max-time 1 -H 'Content-Type: application/json' \
@@ -955,45 +955,45 @@ fi
 python3 "$LAB_DIR/raw/http_probe.py" --url http://127.0.0.1:8080 --request "$LAB_DIR/raw/chat-request.json" --out "$LAB_DIR/raw/ctx$CTX-cancel-recovery"
 ```
 
-Timeout клиента не доказывает, что сервер отменил вычисление: проверьте server log, slot и время восстановления. Если запрос успел закончиться за секунду — это не проверка отмены, повторите с более длительным запросом.
+A client timeout does not prove that the server cancelled computation: check the server log, slot, and recovery time. If the request finished within a second, this did not test cancellation; repeat with a longer request.
 
-## 05.9 Следующий контекст
+## 05.9 Next context
 
-Остановите сервер Ctrl-C в терминале C, убедитесь, что процесс завершился и память освобождена. Затем повторите 05.2–05.8 с `CTX=16384`, после него — с `CTX=32768`, только если предыдущие бюджеты соблюдены. В manifest сохраните одинаковые settings и отдельно context каждого запуска.
+Stop the server with Ctrl-C in terminal C and verify process exit and memory release. Then repeat 05.2–05.8 with `CTX=16384`, followed by `CTX=32768`, only if the previous budgets were respected. Record identical settings and each run’s context separately in the manifest.
 
-## Ворота на выход
+## Exit gates
 
-- Для каждого контекста выполнена проба заполнения либо сохранён blocker.
-- Есть два повтора chat, streaming, tools и streaming tools для допущенных контекстов.
-- Tool round trip проверен через allowlist, без исполнения произвольного кода.
-- Длинный вход посчитан tokenizer и проверен на тихое обрезание.
-- Reasoning и final, output cap и finish reason описаны раздельно.
-- Проверены обработка ошибки, отмена и восстановление slot.
+- Each context has a memory-fill probe or a recorded blocker.
+- Admitted contexts have two repeats of chat, streaming, tools, and streaming tools.
+- Tool round-trip is checked through an allowlist without arbitrary code execution.
+- Long input is tokenizer-counted and checked for silent truncation.
+- Reasoning and final content, output cap, and finish reason are described separately.
+- Error handling, cancellation, and slot recovery are checked.
 
-Работа с честно зафиксированным потолком 16K считается выполненной. Это не означает, что модель прошла 32K или готова к любому агентному протоколу.
+A lab with an honestly recorded 16K ceiling counts as complete. This does not mean the model passed 32K or is ready for every agent protocol.
 
 ---
 
-# Гигиена доказательств
+# Evidence hygiene
 
-Корневой `.gitignore` исключает `*.log`, а `experiments/local-models/.gitignore` — `measurements/*/build-vulkan/`, `measurements/*/build-hip/`, `measurements/*/raw/sglang-src/`, `measurements/*/raw/ollama-models/`. Обычный commit **не перенесёт весь комплект raw evidence**: архивируйте `raw/` отдельно и указывайте архив в `manifest.json`.
+The root `.gitignore` excludes `*.log`; `experiments/local-models/.gitignore` excludes `measurements/*/build-vulkan/`, `measurements/*/build-hip/`, `measurements/*/raw/sglang-src/`, and `measurements/*/raw/ollama-models/`. A normal commit **does not transfer the entire raw-evidence set**: archive `raw/` separately and reference the archive in `manifest.json`.
 
-Неудачные попытки не удаляются. `null` или пусто — неизвестное с причиной; `0` — только измеренный ноль. Число без единиц, контекста и условий в сравнение не идёт.
+Never delete failed attempts. `null` or empty means unknown with a reason; `0` means a measured zero only. A number without units, context, and conditions is excluded from comparison.
 
-В конце каждой работы:
+At the end of each lab:
 
 ```sh
 npm run check
 ```
 
-Он проверяет структуру заданий, каталоги и run records — **зачёт за отчёт он не выставляет**.
+This checks assignment structure, catalogs, and run records; it **does not award credit for the report**.
 
-# Что дальше
+# Next steps
 
-| Куда | Что даёт | Предпосылка |
+| Destination | What it provides | Prerequisite |
 | --- | --- | --- |
-| [ЛР07](../../docs/labs/LAB07-serving.md) | Два сервиса из Ollama / LM Studio / Lemonade на том же GGUF | ЛР05 |
-| [ЛР06](../../docs/labs/LAB06-engines.md) | vLLM, SGLang, Transformers на ROCm; нужен отдельный native BF16 checkpoint, GGUF не переиспользуется | ЛР03 и ЛР05 |
-| [ЛР08](../../docs/labs/LAB08-local-bridge.md) | Local provider bridge — единственный путь к локальным ЛР09–10 | ЛР01 и ЛР05 |
+| [LAB07](../../docs/labs/LAB07-serving.md) | Two services from Ollama / LM Studio / Lemonade on the same GGUF | LAB05 |
+| [LAB06](../../docs/labs/LAB06-engines.md) | vLLM, SGLang, Transformers on ROCm; requires a separate native BF16 checkpoint, without reusing GGUF | LAB03 and LAB05 |
+| [LAB08](../../docs/labs/LAB08-local-bridge.md) | Local provider bridge: the only path to local LAB09–10 | LAB01 and LAB05 |
 
-Проектную часть ЛР08 (контракт endpoint, граница сети, поля схемы под fingerprint инференса) можно писать параллельно, пока идут сборки ЛР04.
+The LAB08 design work (endpoint contract, network boundary, schema fields for the inference fingerprint) can proceed in parallel while LAB04 builds run.

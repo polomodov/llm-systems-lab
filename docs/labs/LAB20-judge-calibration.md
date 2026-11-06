@@ -1,27 +1,27 @@
-# ЛР20. Калибровка двух независимых оценщиков
+# LAB20. Calibrating two independent evaluators
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип | Оценивание по фиксированной рубрике, полностью offline |
-| Время | 1–2 часа, включая разбор расхождений |
-| Предпосылки | ЛР01; два человека, способных независимо прочитать короткий ответ |
-| Готовность | `available`: учебный набор и рубрика включены; API, GPU и реальные agent runs не нужны |
-| Минимальный объём | Четыре обезличенных ответа × два оценщика × пять критериев = 40 отдельных решений |
-| Расширение | Вторая, заранее подготовленная партия ответов; калибровка на реальных артефактах кампании |
+| Type | Evaluation with a fixed rubric, entirely offline |
+| Time | 1–2 hours, including disagreement analysis |
+| Prerequisites | LAB01; two people able to read a short answer independently |
+| Readiness | `available`: teaching dataset and rubric included; no API, GPU, or real agent runs required |
+| Minimum scope | Four anonymized answers × two evaluators × five criteria = 40 separate decisions |
+| Extension | A second batch of answers prepared beforehand; calibration on actual campaign artifacts |
 
-## Цель
+## Objective
 
-Проверить, одинаково ли два оценщика понимают критерии, и отделить ошибку оценки от ошибки агента. Результат — исходные независимые решения, карта разногласий и предложенные уточнения рубрики.
+Check whether two evaluators understand criteria identically, and distinguish evaluation errors from agent errors. The result is the original independent decisions, a disagreement map, and proposed rubric clarifications.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«Два оценщика независимо применяют одну рубрику к одному набору так, что совпадают все четыре итоговых verdict и не менее 18 из 20 решений по критериям». Это **учебный критерий допуска**, выбранный заранее, а не статистически доказанный уровень надёжности.
+“Two evaluators independently apply one rubric to one dataset, agreeing on all four final verdicts and at least 18 of 20 criterion decisions.” This is a **teaching admission criterion** chosen in advance, not a statistically established reliability level.
 
-Изменяемый фактор — оценщик. Ответы, версия рубрики, источники и объём времени одинаковы. Проверяется межэкспертное согласие; повторное чтение тех же ответов после обсуждения не является независимым повтором. Даже полное согласие возможно при общей ошибке, поэтому затем используется публичный учебный эталон.
+The changed factor is the evaluator. Answers, rubric version, sources, and time allowance are identical. The experiment checks inter-rater agreement; rereading the same answers after discussion is not an independent repetition. Even complete agreement may reflect a shared error, so a public teaching reference is used afterward.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB20 --session judge-pilot
@@ -29,9 +29,9 @@ LAB_DIR='experiments/local-models/measurements/LAB20-judge-pilot'
 npm run check
 ```
 
-Прочитайте [контракт учебного набора](episodes/judge-calibration/episode.md) и [рубрику](episodes/judge-calibration/rubric.json). В наборе четыре искусственно написанных ответа; ни один не является измерением модели. До завершения независимых оценок не открывайте `reference-evaluation.json`: файл публичный, ограничение нужно для чистоты упражнения. Ссылки на ответы и рубрику передаёт координатор; не приписывайте кодам кандидатов имя автора, harness или предполагаемое качество.
+Read the [teaching dataset contract](episodes/judge-calibration/episode.md) and [rubric](episodes/judge-calibration/rubric.json). The dataset contains four artificially written answers; none is a model measurement. Do not open `reference-evaluation.json` before completing independent evaluations: the file is public, and the restriction preserves the exercise's integrity. The coordinator supplies links to answers and rubric; do not attach an author name, harness, or presumed quality to candidate codes.
 
-Сохраните версию входов и плана:
+Preserve the input and plan versions:
 
 ```bash
 git rev-parse HEAD > "$LAB_DIR/raw/repository-revision.txt"
@@ -44,76 +44,76 @@ console.log(JSON.stringify(names.map(name => ({ file: base + name, sha256: creat
 NODE
 ```
 
-Не назначайте одному человеку обе роли. Если второго оценщика нет, можно подготовить собственную оценку, но статус межэкспертной части остаётся неполным. Два вызова одной модели — отдельный эксперимент с зависимыми оценками и известной конфигурацией; они не заменяют двух людей в минимальном маршруте.
+Do not assign both roles to one person. If no second evaluator is available, you may prepare your own evaluation, but the inter-rater part remains incomplete. Two calls to one model constitute a separate experiment with dependent evaluations and a known configuration; they do not replace two humans in the minimum route.
 
-## Порядок выполнения
+## Procedure
 
-1. **Запишите протокол до оценивания.** R1 читает кандидатов `a → b → c → d`, R2 — `d → c → b → a`. На всю партию каждому выделяется до 25 минут; одинаковый лимит включает чтение исходных источников и рубрики. Зафиксируйте идентификаторы оценщиков, время, версию входов и правило допуска из гипотезы. Оценщики не обсуждают ответы до сдачи своих таблиц.
+1. **Record the protocol before evaluation.** R1 reads candidates `a → b → c → d`; R2 reads `d → c → b → a`. Each gets up to 25 minutes for the entire batch; the identical limit includes reading source materials and the rubric. Record evaluator identifiers, time, input version, and the hypothesis's admission rule. Evaluators must not discuss answers before submitting their tables.
 
-2. **Выдайте одинаковые входы.** Каждый получает задание, три источника, пять критериев и четыре ответа. Скрывается только соответствие реальному автору, если вы делаете расширение. В этом искусственном наборе автора-модели нет. Не скрывайте требования задачи и фактические источники: они необходимы для оценки.
+2. **Provide identical inputs.** Each receives the assignment, three sources, five criteria, and four answers. Hide only the mapping to actual authors when doing the extension. This artificial dataset has no model author. Do not hide task requirements or factual sources: they are necessary for evaluation.
 
-3. **Получите независимые решения.** Для каждого кандидата каждый оценщик отмечает C1–C5 как true/false и приводит короткую цитату либо указание отсутствующего элемента. Неоценённый критерий — `unknown` с причиной; он не равен false и не даёт pass. Pass допустим только при пяти true. Сохраните отдельные `raw/rater-r1.tsv` и `raw/rater-r2.tsv` с колонками `candidate`, `criterion`, `value`, `evidence`; verdict — в итоговой таблице отчёта. Запишите фактическое время. Не меняйте ранние строки после чтения другого файла.
+3. **Obtain independent decisions.** For each candidate, each evaluator marks C1–C5 true/false and gives a short quotation or identifies a missing element. An unevaluated criterion is `unknown` with a reason; it is neither false nor sufficient for pass. Pass requires all five true. Preserve separate `raw/rater-r1.tsv` and `raw/rater-r2.tsv` with columns `candidate`, `criterion`, `value`, and `evidence`; place verdicts in the report's summary table. Record actual time. Do not revise earlier rows after reading the other file.
 
-4. **Посчитайте согласие до обсуждения.** Основное согласие по критериям: число совпавших true/false решений / число пар с двумя известными решениями. Также покажите полноту: оценённые пары / 20. Согласие verdict: совпавшие pass/fail / полностью оценённые кандидаты; покажите полноту /4. При `unknown` минимальная калибровка неполна. Не исключайте спорный ответ из знаменателя молча. Укажите raw числитель и знаменатель, а не только процент.
+4. **Calculate agreement before discussion.** Primary criterion agreement: matching true/false decisions / pairs with two known decisions. Also show completeness: evaluated pairs / 20. Verdict agreement: matching pass/fail decisions / fully evaluated candidates; show completeness /4. Any `unknown` leaves minimum calibration incomplete. Do not silently remove a disputed answer from the denominator. Give raw numerators and denominators, not only percentages.
 
-5. **Откройте публичный эталон.** Сопоставьте каждую оценку с [reference-evaluation.json](episodes/judge-calibration/reference-evaluation.json). Для R1 и R2 отдельно посчитайте ложный pass среди эталонных fail и ложный fail среди эталонных pass. Это расхождения с конкретной учебной рубрикой, не измеренная точность универсального судьи. Если считаете эталон спорным, запишите точный пункт; не исправляйте свои исходные ответы задним числом.
+5. **Open the public reference.** Compare each evaluation with [reference-evaluation.json](episodes/judge-calibration/reference-evaluation.json). For R1 and R2 separately, count false passes among reference failures and false failures among reference passes. These are disagreements with a specific teaching rubric, not measured accuracy of a universal judge. If you dispute the reference, identify the exact item; do not retroactively correct original answers.
 
-6. **Проведите разбор разногласий.** Координатор собирает таблицу: ответ, критерий, два решения, текст ответа, правило рубрики, согласованное толкование. Различайте пропущенный факт, неоднозначный критерий, избыточное требование судьи и несогласие с эталоном. Например, наличие чисел не обязательно само по себе, если критерий требует корректно атрибутировать только приведённые числа. Разбор должен опираться на формулировку, а не на мнение об авторе.
+6. **Analyze disagreements.** The coordinator compiles a table: answer, criterion, two decisions, answer text, rubric rule, agreed interpretation. Distinguish a missed fact, ambiguous criterion, excessive evaluator requirement, and disagreement with the reference. For example, including numbers is not inherently required if a criterion only requires correctly attributing numbers that are given. Base the discussion on wording, not opinions about the author.
 
-7. **Примите решение по допуску.** При выполнении заранее заданного правила отметьте «допущены к пилотной серии с этой рубрикой» и ограничения малой партии. При невыполнении сохраните результат как завершённое упражнение с обнаруженной проблемой и подготовьте новую версию рубрики. Для повторного допуска нужна новая партия ответов, созданная до её оценивания. Повтор на знакомых четырёх ответах полезен для обучения, но не доказывает переносимость согласия.
+7. **Decide on admission.** If the predefined rule is met, mark “admitted to a pilot series with this rubric” and note the small-batch limitations. Otherwise, preserve the result as a completed exercise that found a problem and prepare a new rubric version. Readmission requires a new answer batch created before its evaluation. Repeating the familiar four answers is useful for learning but does not demonstrate transferable agreement.
 
-8. **Оформите сдачу.** Заполните [учебный отчёт и проверку комплектности](report-validation.md): класс доказательств `synthetic`, запланированные упражнения, файл протокола до оценивания и ссылки на ваши таблицы. Сохраните `run_ids: []`: ни одного агентного прогона в минимуме нет. Проверки не выставляют вердикт качества судей и не заменяют разбор разногласий:
+8. **Prepare the submission.** Complete the [lab report and completeness check](report-validation.md): evidence class `synthetic`, planned exercises, pre-evaluation protocol file, and references to your tables. Keep `run_ids: []`: the minimum contains no agent runs. Checks do not assign an evaluator-quality verdict or replace disagreement analysis:
 
    ```bash
    npm run lab:check -- --report "$LAB_DIR" --mode submission
    npm run check
    ```
 
-   Не записывайте этот опыт как pass скрытой проверки задачи.
+   Do not record this exercise as passing a task's hidden check.
 
-9. **Расширение на реальные артефакты.** После кампании выберите заранее объявленную партию, включающую успешные, неуспешные и спорные работы. Сохраните связь обезличенного кода с настоящим run ID у координатора. Не показывайте судьям модель, вариант или цену до выставления verdict. Применяйте контракт и внешний judge существующей задачи; калибровка не заменяет обязательную независимую оценку `judge-run`. Вспомогательная [offline practice](practice.md) подходит для тренировки чтения trace, но синтетические сценарии не измеряют поведение реальной модели.
+9. **Extension to actual artifacts.** After a campaign, choose a predeclared batch including successful, unsuccessful, and disputed work. The coordinator preserves the mapping from anonymized codes to real run IDs. Do not show judges the model, variant, or price before verdict assignment. Apply the existing task's contract and external judge; calibration does not replace required independent `judge-run` evaluation. Supporting [offline practice](practice.md) is suitable for learning trace reading, but synthetic scenarios do not measure a real model's behavior.
 
-## Таблицы результатов
+## Results tables
 
-| Кандидат | Критерий | R1: true/false/unknown | Evidence R1 | R2: true/false/unknown | Evidence R2 | Совпали |
+| Candidate | Criterion | R1: true/false/unknown | Evidence R1 | R2: true/false/unknown | Evidence R2 | Agreement |
 | --- | --- | --- | --- | --- | --- | --- |
-| candidate-a | C1; повторить для всех 20 пар | После оценки | Фрагмент ответа | После оценки | Фрагмент ответа | После сравнения |
+| candidate-a | C1; repeat for all 20 pairs | After evaluation | Answer excerpt | After evaluation | Answer excerpt | After comparison |
 
-| Кандидат | Verdict R1 | Verdict R2 | Verdict эталона после вскрытия | Причина расхождения |
+| Candidate | Verdict R1 | Verdict R2 | Reference verdict after reveal | Disagreement reason |
 | --- | --- | --- | --- | --- |
-| a/b/c/d, отдельная строка | После оценки | После оценки | После независимых оценок | Заполнить |
+| a/b/c/d, separate row | After evaluation | After evaluation | After independent evaluations | Fill in |
 
-| Показатель | Числитель | Знаменатель | Полнота | Интерпретация |
+| Metric | Numerator | Denominator | Completeness | Interpretation |
 | --- | --- | --- | --- | --- |
-| Согласие критериев | Совпавшие известные | Пары с двумя известными | Из 20 | Учебный порог 18/20 при полной оценке |
-| Согласие verdict | Совпавшие | Полностью оценённые кандидаты | Из 4 | Порог 4/4 |
-| Ложный pass R1/R2, отдельно | Fail эталона, получившие pass | Все fail эталона | Из всех кандидатов | Доля для этой партии |
-| Ложный fail R1/R2, отдельно | Pass эталона, получившие fail | Все pass эталона | Из всех кандидатов | Доля для этой партии |
+| Criterion agreement | Matching known decisions | Pairs with two known decisions | Out of 20 | Teaching threshold 18/20 with complete evaluation |
+| Verdict agreement | Matching decisions | Fully evaluated candidates | Out of 4 | Threshold 4/4 |
+| False pass R1/R2, separately | Reference failures marked pass | All reference failures | Out of all candidates | Proportion for this batch |
+| False fail R1/R2, separately | Reference passes marked fail | All reference passes | Out of all candidates | Proportion for this batch |
 
-## Что сдать
+## Deliverables
 
-План до оценивания, hashes, два исходных файла решений, четыре verdict каждого судьи, таблицы согласия и ошибок относительно эталона, протокол обсуждения, решение о допуске и при необходимости отдельную предложенную версию рубрики. Все числа согласия вычисляются из ваших оценок; готовых результатов человеческого оценивания в наборе нет.
+The pre-evaluation plan, hashes, two original decision files, four verdicts from each judge, agreement tables and errors relative to the reference, discussion record, admission decision, and a separate proposed rubric version if needed. Calculate all agreement numbers from your evaluations; the dataset contains no ready-made human-evaluation results.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Два независимых оценщика заполнили по 20 решений до обсуждения и чтения эталона.
-- [ ] Исходные решения сохранены; обсуждённая версия не перезаписывает их.
-- [ ] Показаны числители, знаменатели и неизвестные; порог выбран до просмотра результатов.
-- [ ] Раздельно оценены согласие между людьми и соответствие учебному эталону.
-- [ ] Каждое расхождение разобрано по тексту и правилу.
-- [ ] Вывод ограничен этой рубрикой и малой партией; не заявлена надёжность для всех задач.
-- [ ] Отчёт полностью заполнен, `run_ids` пуст, `npm run check` проходит.
+- [ ] Two independent evaluators each completed 20 decisions before discussion and reading the reference.
+- [ ] Original decisions preserved; the discussed version does not overwrite them.
+- [ ] Numerators, denominators, and unknowns shown; threshold chosen before viewing results.
+- [ ] Human agreement and correspondence to the teaching reference assessed separately.
+- [ ] Every disagreement analyzed against text and rule.
+- [ ] Conclusion limited to this rubric and small batch; no reliability claim for all tasks.
+- [ ] Report fully completed, `run_ids` empty, and `npm run check` passes.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему одинаковая ошибка обоих судей даёт высокое согласие?
-2. Зачем сохранять исходные оценки после согласования решения?
-3. Чем неизвестное решение отличается от fail?
-4. Почему повтор знакомого набора после обсуждения не равен независимой проверке?
-5. Что потребуется изменить в рубрике при переходе от досье к исправлению кода?
+1. Why does a shared error by both judges produce high agreement?
+2. Why preserve original evaluations after agreeing on a decision?
+3. How does an unknown decision differ from fail?
+4. Why is repeating a familiar dataset after discussion not an independent check?
+5. What would need to change in the rubric when moving from a dossier to a code fix?
 
-## Источники
+## Sources
 
-- [Учебный набор и его контракт](episodes/judge-calibration/episode.md), [рубрика](episodes/judge-calibration/rubric.json).
-- [Классы доказательств и независимая оценка](../method.md), [ЛР09: агентная кампания](LAB09-agent-campaign.md).
-- [Общий порядок оценки настоящих runs](harness-workflow.md), [шаблон evaluation](../../scripts/evaluation-template.mjs).
+- [Teaching dataset and contract](episodes/judge-calibration/episode.md), [rubric](episodes/judge-calibration/rubric.json).
+- [Evidence classes and independent evaluation](../method.md), [LAB09: agent campaign](LAB09-agent-campaign.md).
+- [Shared evaluation workflow for real runs](harness-workflow.md), [evaluation template](../../scripts/evaluation-template.mjs).

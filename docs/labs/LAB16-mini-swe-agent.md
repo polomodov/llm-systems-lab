@@ -1,46 +1,46 @@
-# ЛР16. mini-SWE-agent: минимальный native цикл и цена наблюдаемости
+# LAB16. mini-SWE-agent: a minimal native loop and the cost of observability
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Предпосылка | Завершённая [ЛР01](LAB01-reproducibility.md) |
-| Обвязка | `mini-swe-agent`, `mode=sdk`; `mini-swe-agent==2.4.6`, Python `3.12.12`, Node.js `24.13.1` |
-| Минимум | Сборка, offline smoke, разбор native trajectory и одна реальная A2/T002 с независимой оценкой |
-| Время | Ориентир 2–4 часа оператора плюс сборка/судейство; agent execution ≤900 s |
-| Условия | Облачный `anthropic` либо `openai`, точный model ID, `baseline`, USD `observed` |
-| Расширения | Три заранее назначенных повтора, T001 replay, аудит T003, парная абляция spec |
-| Начальное состояние | Эксперимент `not-run`; учебный manifest после создания — `not-started` |
+| Prerequisite | Completed [LAB01](LAB01-reproducibility.md) |
+| Harness | `mini-swe-agent`, `mode=sdk`; `mini-swe-agent==2.4.6`, Python `3.12.12`, Node.js `24.13.1` |
+| Minimum | Build, offline smoke test, native trajectory analysis, and one real A2/T002 with independent evaluation |
+| Time | Estimate: 2–4 operator hours plus build/judging; agent execution ≤900 s |
+| Conditions | Cloud `anthropic` or `openai`, exact model ID, `baseline`, USD `observed` |
+| Extensions | Three preassigned repetitions, T001 replay, T003 audit, paired spec ablation |
+| Initial state | Experiment `not-run`; lab manifest after creation `not-started` |
 
-## Цель
+## Objective
 
-Исследовать, как исходный `DefaultAgent` с `LitellmModel`, `LocalEnvironment` и встроенным `mini.yaml` выполняет общий контракт. Проверить полноту trajectory и показать, почему native step limit, число попыток API и стоимость нельзя смешивать в один универсальный счётчик.
+Study how the native `DefaultAgent` with `LitellmModel`, `LocalEnvironment`, and built-in `mini.yaml` executes the shared contract. Check trajectory completeness and show why the native step limit, API-attempt count, and cost cannot be combined into one universal counter.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Для T002 достаточно исходного workflow mini-SWE-agent и общей спецификации A2, без дополнительных правил исправления или собственного цикла координатора. Критерий — независимая оценка одной зарегистрированной попытки и перечень компонентов, реально участвовавших в работе. Если возникает `LimitsExceeded`, это повод оценить полученный артефакт, а не автоматически объявить успех или ошибку инфраструктуры.
+The native mini-SWE-agent workflow and shared A2 specification are sufficient for T002, without additional fixing rules or a custom coordinator loop. The criterion is independent evaluation of one recorded attempt and a list of components actually involved. `LimitsExceeded` is a reason to evaluate the resulting artifact, not automatically declare success or an infrastructure error.
 
-Проверяемое требование измерителя: `model_stats.api_calls` отражает число попыток, включая неудачные; токены и стоимость публикуются как итог лишь при наличии usage всех таких вызовов. Неполная trajectory не должна превращаться в дешёвый успешный запуск.
+Measurement requirement to test: `model_stats.api_calls` reflects the number of attempts, including failed ones; tokens and cost are published as totals only when usage is present for all those calls. An incomplete trajectory must not become an inexpensive successful run.
 
-## Подготовка
+## Preparation
 
-Из корня репозитория под обычным пользователем с Node.js ≥22 и Docker Engine создайте отчёт. Выберите provider и точную доступную модель до подготовки эпизода:
+From the repository root as a regular user with Node.js ≥22 and Docker Engine, create a report. Choose the provider and exact available model before preparing the episode:
 
 ```bash
 npm run lab:new -- --lab LAB16 --session my-session
 LAB_DIR='experiments/mini-swe-agent/measurements/LAB16-my-session'
 PROVIDER_ID='anthropic'
-MODEL_ID='<точный доступный ID выбранного провайдера>'
+MODEL_ID='<exact available ID of the selected provider>'
 IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
 ```
 
-Для OpenAI укажите `PROVIDER_ID='openai'`. Замените placeholder модели; плавающие алиасы не используйте. В CLI требуется ID **без** `anthropic/`/`openai/`: префикс для LiteLLM добавит адаптер. Нужное имя ключа в корневом `.env` — `ANTHROPIC_API_KEY` либо `OPENAI_API_KEY`. Не выводите значения, не сохраняйте `.env` в raw evidence и не исполняйте его как shell-скрипт. Ключ выбранного provider находится в окружении agent container; host-файл `.env` не монтируется, но это не скрывает ключ от процессов внутри контейнера.
+For OpenAI, set `PROVIDER_ID='openai'`. Replace the model placeholder; do not use floating aliases. The CLI requires an ID **without** `anthropic/`/`openai/`: the adapter adds the LiteLLM prefix. The required root `.env` key is `ANTHROPIC_API_KEY` or `OPENAI_API_KEY`. Do not expose values, save `.env` in raw evidence, or execute it as a shell script. The selected provider's key is in the agent-container environment; the host `.env` file is not mounted, but this does not hide the key from processes inside the container.
 
-Прочитайте [README](../../experiments/mini-swe-agent/README.md), [harness.json](../../experiments/mini-swe-agent/harness.json), [run.py](../../experiments/mini-swe-agent/run.py), [адаптер](../../experiments/mini-swe-agent/adapter.mjs), [метод](../method.md) и [общий workflow](harness-workflow.md). Локальная модель Ryzen подключается только после отдельной приёмки [ЛР08](LAB08-local-bridge.md) для mini-SWE-agent. Работа ниже использует уже реализованный cloud маршрут.
+Read the [README](../../experiments/mini-swe-agent/README.md), [harness.json](../../experiments/mini-swe-agent/harness.json), [run.py](../../experiments/mini-swe-agent/run.py), [adapter](../../experiments/mini-swe-agent/adapter.mjs), [method](../method.md), and [shared workflow](harness-workflow.md). Connect a local Ryzen model only after separate [LAB08](LAB08-local-bridge.md) acceptance for mini-SWE-agent. This lab uses the already implemented cloud route.
 
-## Порядок выполнения
+## Procedure
 
-1. **Запишите план до исполнения.** В отчёте зафиксируйте T002/A2, baseline, provider/model, Git revision и изменённое дерево. Целевой бюджет T002 — USD 2, но в этом профиле `observed` не обеспечивает hard cap. Внешний timeout 900 s обязателен. Native `step_limit=30` ограничивает `n_calls`, а `cost_limit=0` отключает встроенный постфактум cost stop; 0 здесь не означает бесплатный inference.
+1. **Record the plan before execution.** Record T002/A2, baseline, provider/model, Git revision, and changed-tree status in the report. T002's target budget is USD 2, but this profile's `observed` mode does not enforce a hard cap. External timeout 900 s is mandatory. Native `step_limit=30` limits `n_calls`, while `cost_limit=0` disables the built-in after-the-fact cost stop; 0 here does not mean free inference.
 
    ```bash
    git rev-parse HEAD > "$LAB_DIR/raw/git-revision.txt"
@@ -51,9 +51,9 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
    node --test experiments/mini-swe-agent/adapter.test.mjs > "$LAB_DIR/raw/adapter-tests.txt" 2>&1
    ```
 
-   Переходите к следующему этапу только после проверки exit code и evidence текущего. Unit-тесты синтетические, не используют провайдера или hidden checks.
+   Proceed only after checking the current stage's exit code and evidence. Unit tests are synthetic and use neither a provider nor hidden checks.
 
-2. **Соберите образ и выполните offline smoke.** Не устанавливайте SDK на host: эксперимент выполняется внутри общего Docker-контейнера. Основной пакет закреплён; один полученный image ID сохраняет транзитивные зависимости на всю серию.
+2. **Build the image and run offline smoke tests.** Do not install the SDK on the host: the experiment runs inside the shared Docker container. The main package is pinned; one resulting image ID preserves transitive dependencies for the entire series.
 
    ```bash
    docker build -t "$IMAGE_TAG" -f experiments/mini-swe-agent/Dockerfile experiments/mini-swe-agent > "$LAB_DIR/raw/build.txt" 2>&1
@@ -71,24 +71,24 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
      "from importlib.metadata import version; print(version('mini-swe-agent'))" > "$LAB_DIR/raw/sdk-version.txt"
    ```
 
-   Ожидается metadata `2.4.6`. Smoke собирает настоящие agent/model/environment и проверяет `printf sdk-ready` через `LocalEnvironment`; `agent.run()`/модель не вызываются. Зафиксируйте фактический вывод и status. Успех smoke не подтверждает доступность model ID, тариф LiteLLM или выполнение T002.
+   Expected metadata is `2.4.6`. The smoke test constructs the real agent/model/environment and checks `printf sdk-ready` through `LocalEnvironment`; it calls neither `agent.run()` nor the model. Record actual output and status. Smoke success does not confirm model-ID availability, LiteLLM pricing, or T002 execution.
 
-3. **Исследуйте состав native workflow.** В `run.py` найдите загрузку `mini.yaml`, переопределение `step_limit`, `cost_limit`, `output_path`, создание `LitellmModel`/`LocalEnvironment` и вызов `agent.run()`. Подкласс `TracedAgent` меняет только `add_messages`, чтобы сохранить события. В отчёте укажите, кто выбирает команды, обрабатывает format errors и завершает задачу: эти действия остаются в исходном `DefaultAgent`, а не в отдельном агенте лаборатории.
+3. **Examine the native workflow components.** In `run.py`, find loading of `mini.yaml`, overrides of `step_limit`, `cost_limit`, and `output_path`, creation of `LitellmModel`/`LocalEnvironment`, and the `agent.run()` call. The `TracedAgent` subclass changes only `add_messages` to preserve events. State in the report who chooses commands, handles format errors, and ends the task: these actions remain in the native `DefaultAgent`, not a separate lab agent.
 
-   Найдите в адаптере запрет hard USD. Объясните, почему встроенная проверка после расхода не равна жёсткому бюджету до вызова. `LITELLM_LOCAL_MODEL_COST_MAP=True` использует встроенную таблицу установленного пакета; отсутствие цены может завершить upstream ошибкой. Это ограничение следует зарегистрировать, не заменяя цену нулём и не подменяя модель ради получения успешной строки.
+   Find the adapter's rejection of hard USD. Explain why a built-in check after expenditure is not a hard budget before a call. `LITELLM_LOCAL_MODEL_COST_MAP=True` uses the installed package's built-in pricing table; missing pricing may cause an upstream error. Record this limitation rather than replacing price with zero or substituting a model to obtain a successful row.
 
-4. **Создайте свежую запись и запечатайте входы.** Не переиспользуйте run ID из ЛР01 или другого прогона:
+4. **Create a fresh record and seal inputs.** Do not reuse a run ID from LAB01 or another run:
 
    ```bash
    npm run new-run -- --harness mini-swe-agent --harness-version 2.4.6 \
      --agent a2-janitor --task T002 --provider "$PROVIDER_ID" --model "$MODEL_ID"
-   RUN_ID='<run ID из new-run>'
+   RUN_ID='<run ID from new-run>'
    npm run prepare-run -- --run "$RUN_ID" --variant baseline --provider "$PROVIDER_ID" > "$LAB_DIR/raw/prepare-$RUN_ID.txt" 2>&1
    ```
 
-   Проверьте `prepared`, seed commit, выбранный provider и API domains в `inputs/control/harness.json`/network policy. В контейнер не передаются исходный репозиторий лаборатории, её run records и hidden checks. Контракт задачи не меняйте, `tasks/*/check/` при решении не открывайте. После подготовки нельзя редактировать snapshot — для изменения условий создают новую запись.
+   Check `prepared`, seed commit, selected provider, and API domains in `inputs/control/harness.json`/network policy. The container does not receive the original lab repository, its run records, or hidden checks. Do not modify the task contract or open `tasks/*/check/` while solving it. The snapshot must not be edited after preparation; changed conditions require a new record.
 
-5. **Запустите T002 и зафиксируйте состояние.** Только этот этап обращается к реальному провайдеру:
+5. **Run T002 and record the state.** Only this stage calls a real provider:
 
    ```bash
    npm run run -- --run "$RUN_ID" --image "$IMAGE_ID" --proxy-image "$PROXY_IMAGE_ID" \
@@ -100,9 +100,9 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
    NODE
    ```
 
-   Возможный `Submitted` означает native завершение, а `LimitsExceeded` — остановку по пределу; ни одно не заменяет независимый verdict. При provider error, timeout или нарушении identity сохраняется `aborted`. Не перезаписывайте его успешным retry; каждое повторное исполнение получает новый ID.
+   A possible `Submitted` means native completion, while `LimitsExceeded` means stopping at a limit; neither replaces an independent verdict. Provider errors, timeout, or identity violations produce `aborted`. Do not overwrite it with a successful retry; every repeated execution gets a new ID.
 
-6. **Разберите trajectory и полноту учёта.** Получите короткую сводку, не дублируя весь текст сообщений:
+6. **Analyze the trajectory and accounting completeness.** Obtain a short summary without duplicating entire message texts:
 
    ```bash
    node --input-type=module - "$RUN_ID" > "$LAB_DIR/raw/mini-trajectory-$RUN_ID.json" <<'NODE'
@@ -118,9 +118,9 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
    NODE
    ```
 
-   Сверьте число response entries с `api_calls`; это условие полноты usage, а не повод скрыть failed calls. Суммируйте `prompt_tokens`/`completion_tokens` только при полном покрытии попыток. Цена `instance_cost` — оценка LiteLLM. Если итог отсутствует, укажите `null` и `metrics_unavailable`. `response.model` является источником наблюдаемой identity; сравните его с requested ID с учётом добавленного provider prefix. Несколько разных моделей или mismatch требуют отдельного разбора. Не считайте `mini_message` независимым от финальной trajectory повторным расходом.
+   Compare the number of response entries with `api_calls`; this is a usage-completeness condition, not a reason to hide failed calls. Sum `prompt_tokens`/`completion_tokens` only with complete coverage of attempts. `instance_cost` is a LiteLLM estimate. If the total is missing, record `null` and `metrics_unavailable`. `response.model` supplies observed identity; compare it with the requested ID, accounting for the added provider prefix. Multiple models or a mismatch require separate investigation. Do not count `mini_message` as additional expenditure independent of the final trajectory.
 
-7. **Передайте T002 независимому оценщику.** При `awaiting_review` создайте JSON-шаблон:
+7. **Hand T002 to an independent evaluator.** For `awaiting_review`, create a JSON template:
 
    ```bash
    (
@@ -129,7 +129,7 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
    )
    ```
 
-   В соответствии с [общим workflow](harness-workflow.md) оценщик вне agent container выполняет скрытую проверку T002, сохраняет manifests и заполняет `result`, `evaluator`, `check_output`. Только после получения содержательного решения примените оценку:
+   Following the [shared workflow](harness-workflow.md), the evaluator performs the T002 hidden check outside the agent container, preserves manifests, and fills `result`, `evaluator`, and `check_output`. Apply the evaluation only after receiving the substantive decision:
 
    ```bash
    npm run judge-run -- --run "$RUN_ID" --evaluation "$LAB_DIR/raw/evaluation-$RUN_ID.json"
@@ -137,56 +137,56 @@ IMAGE_TAG='harness-lab/mini-swe-agent:2.4.6'
    npm run check > "$LAB_DIR/raw/check-after.txt" 2>&1
    ```
 
-   `judge-run` связывает оценку с evidence hashes; он не выполняет содержательный суд вместо оценщика. Без оценщика запись остаётся `awaiting_review`, без completed evidence работа остаётся незавершённой.
+   `judge-run` links the evaluation to evidence hashes; it does not perform substantive judging in place of the evaluator. Without an evaluator, the record remains `awaiting_review`; without completed evidence, the lab remains incomplete.
 
-8. **Завершите отчёт и запланируйте расширение.** Запишите run IDs, native события, неизвестные метрики и ограничения в manifest, report и [NOTES](../../experiments/mini-swe-agent/NOTES.md). Расширение на три повтора требует заранее назначенных новых слотов и одного image ID. Для T001 используйте frozen archive, для T003 оценивайте собственную конфигурацию mini-SWE-agent — это иные входы, чем у других harness. `mini.yaml` содержит workflow исправления репозитория даже в T001/T003: исследуйте влияние этого условия, не переписывайте конфигурацию между попытками под видом baseline. Парная `without-spec`-серия и учёт изменений — по [ЛР10](LAB10-ablation.md); команды T001/T003 — в [общем workflow](harness-workflow.md).
+8. **Complete the report and plan an extension.** Record run IDs, native events, unknown metrics, and limitations in the manifest, report, and [NOTES](../../experiments/mini-swe-agent/NOTES.md). Extending to three repetitions requires preassigned new slots and one image ID. For T001, use a frozen archive; for T003, evaluate mini-SWE-agent's own configuration, which differs from other harnesses' inputs. `mini.yaml` contains a repository-fixing workflow even for T001/T003: investigate this condition's effect rather than rewriting configuration between attempts while calling it baseline. Follow [LAB10](LAB10-ablation.md) for the paired `without-spec` series and change accounting; T001/T003 commands are in the [shared workflow](harness-workflow.md).
 
-## Таблицы результатов
+## Results tables
 
-| Условие/проверка | План | Измеренное значение | Evidence path |
+| Condition/check | Plan | Measured value | Evidence path |
 | --- | --- | --- | --- |
-| Пакет / image IDs | 2.4.6 / agent и gateway | — | — |
-| Offline environment smoke | Shell без вызова модели | — | — |
+| Package / image IDs | 2.4.6 / agent and gateway | — | — |
+| Offline environment smoke | Shell without a model call | — | — |
 | Native limit / USD | `step_limit=30` / observed | — | — |
-| API calls / responses с usage | Полное покрытие или причина отсутствия | — | — |
-| Model identity | Requested и response отдельно | — | — |
+| API calls / responses with usage | Complete coverage or reason for absence | — | — |
+| Model identity | Requested and response separately | — | — |
 
-| Слот | Run ID | Native exit status | API calls | Tokens in / out | USD / источник | Wall-clock s | Lifecycle / verdict |
+| Slot | Run ID | Native exit status | API calls | Tokens in / out | USD / source | Wall-clock s | Lifecycle / verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | T002 baseline, not-run | — | — | — | — | — | — | — |
 
-| Компонент | Роль в эпизоде | Доказательство | Можно ли проверить удалением |
+| Component | Role in episode | Evidence | Testable by removal |
 | --- | --- | --- | --- |
-| `DefaultAgent` и `mini.yaml` | — | — | — |
+| `DefaultAgent` and `mini.yaml` | — | — | — |
 | `LocalEnvironment` | — | — | — |
 | Traced `add_messages` | — | — | — |
 | LiteLLM cost map | — | — | — |
 
-Все измерительные ячейки до запуска остаются пустыми. `not-run` не является допустимой заменой `run.json` verdict.
+All measurement cells remain empty before execution. `not-run` is not a valid substitute for a `run.json` verdict.
 
-## Что сдать
+## Deliverables
 
-Заполненные report/manifest/таблицы, вывод adapter tests и offline smoke, версии и image IDs, разбор финальной trajectory, ссылки на полные архивы всех начатых попыток и независимую оценку минимум одной T002. Добавьте объяснение неизвестных метрик, используемого native workflow и отклонения USD policy. Секреты не копируйте; вывод модели не выдавайте за вывод судьи.
+Completed report/manifest/tables, adapter-test and offline-smoke output, versions and image IDs, final-trajectory analysis, references to complete archives of every started attempt, and independent evaluation of at least one T002. Explain unknown metrics, the native workflow used, and the USD-policy deviation. Do not copy secrets or present model output as the judge's conclusion.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Версии, exact provider/model, образ и все условия записаны до исполнения.
-- [ ] Выполнены offline adapter tests и native environment smoke.
-- [ ] Одна реальная T002 имеет `completed` и независимый `pass`, `fail` либо `partial`; сохранены все `aborted` попытки.
-- [ ] Разобраны native step/API counters, полнота usage, model identity и цена LiteLLM.
-- [ ] Показана роль `mini.yaml`, заполнены NOTES и ответы, `npm run check` проходит.
+- [ ] Versions, exact provider/model, image, and all conditions recorded before execution.
+- [ ] Offline adapter tests and native environment smoke tests performed.
+- [ ] One real T002 has `completed` and an independent `pass`, `fail`, or `partial`; all `aborted` attempts preserved.
+- [ ] Native step/API counters, usage completeness, model identity, and LiteLLM pricing analyzed.
+- [ ] Role of `mini.yaml` demonstrated, NOTES and answers completed, and `npm run check` passes.
 
-Для завершения не требуется успешный `pass`; требуется оценённый эксперимент. Недоступность модели/цены/судьи фиксируется как причина `blocked` учебного отчёта с сохранением выполненных шагов, а не выдуманным завершением.
+Completion requires an evaluated experiment, not necessarily `pass`. Unavailable model/pricing/judge is recorded as the reason for a `blocked` lab report, preserving completed steps rather than inventing completion.
 
-## Контрольные вопросы
+## Review questions
 
-1. Чем `step_limit`, `model_stats.api_calls` и число сообщений отличаются друг от друга?
-2. Почему `cost_limit` после расхода не обеспечивает hard USD cap?
-3. Что означает `cost_limit=0` в данной сборке адаптера?
-4. Почему отсутствие usage одного failed call не позволяет назвать сумму остальных вызовов полной?
-5. Какие сведения `response.model` добавляет к requested ID?
-6. Как workflow `mini.yaml` может влиять на T001/T003 и почему это нельзя скрыть в сравнении?
+1. How do `step_limit`, `model_stats.api_calls`, and message count differ?
+2. Why does a post-expenditure `cost_limit` not enforce a hard USD cap?
+3. What does `cost_limit=0` mean in this adapter build?
+4. Why does one failed call's missing usage prevent calling the sum of other calls complete?
+5. What information does `response.model` add to the requested ID?
+6. How can the `mini.yaml` workflow affect T001/T003, and why must this not be hidden in a comparison?
 
-## Источники
+## Sources
 
-Закреплённые файлы проекта: [README mini-SWE-agent](../../experiments/mini-swe-agent/README.md), [Dockerfile](../../experiments/mini-swe-agent/Dockerfile), [harness.json](../../experiments/mini-swe-agent/harness.json), [runtime](../../experiments/mini-swe-agent/run.py), [adapter](../../experiments/mini-swe-agent/adapter.mjs), [adapter tests](../../experiments/mini-swe-agent/adapter.test.mjs), [метод](../method.md), [ledger L012](../harness-ledger.md), [границы контейнера](../../experiments/common/README.md). Доступность аккаунта, модели и полный реальный usage остаются `unverified` до зарегистрированного прогона; эта работа не обновляет pinned SDK.
+Pinned project files: [mini-SWE-agent README](../../experiments/mini-swe-agent/README.md), [Dockerfile](../../experiments/mini-swe-agent/Dockerfile), [harness.json](../../experiments/mini-swe-agent/harness.json), [runtime](../../experiments/mini-swe-agent/run.py), [adapter](../../experiments/mini-swe-agent/adapter.mjs), [adapter tests](../../experiments/mini-swe-agent/adapter.test.mjs), [method](../method.md), [ledger L012](../harness-ledger.md), and [container boundaries](../../experiments/common/README.md). Account/model availability and complete actual usage remain `unverified` until a recorded run; this lab does not update the pinned SDK.

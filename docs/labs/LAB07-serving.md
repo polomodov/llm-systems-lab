@@ -1,21 +1,21 @@
-# ЛР07. Ollama, LM Studio и Lemonade
+# LAB07. Ollama, LM Studio, and Lemonade
 
-## Паспорт
+## Profile
 
-- Время: 3–6 часов плюс установка выбранных приложений/runtime.
-- Предпосылки: сдана [ЛР05](LAB05-context-tools.md); сохранены проверенный GGUF, hash manifest, working backend и HTTP driver. Для дополнительного Lemonade/vLLM нужна [ЛР06](LAB06-engines.md).
-- Готовность: Linux CLI и import/configuration paths документированы на 21.09.2026; все аппаратные результаты предстоит получить. Установленные версии приложений и выбранные runtime должны пройти собственный smoke.
-- Минимум: один контрольный GGUF и **два сервиса на выбор**, по одной backend, уже прошедшей ЛР04. Третий сервис, пары Vulkan/ROCm, второй контрольный GGUF и Lemonade/vLLM — расширения. Для непройденных ветвей оставить `not-run`, не обещать проверку всей матрицы.
+- Time: 3–6 hours plus installation of the selected applications/runtimes.
+- Prerequisites: [LAB05](LAB05-context-tools.md) submitted; verified GGUF, hash manifest, working backend, and HTTP driver preserved. The optional Lemonade/vLLM branch requires [LAB06](LAB06-engines.md).
+- Readiness: Linux CLI and import/configuration paths are documented as of 2026-09-21; all hardware results remain to be obtained. Installed application versions and selected runtimes must pass their own smoke tests.
+- Minimum: one control GGUF and **two services of your choice**, each using one backend that already passed LAB04. The third service, Vulkan/ROCm pairs, a second control GGUF, and Lemonade/vLLM are extensions. Leave untested branches `not-run`; do not promise verification of the entire matrix.
 
-## Цель
+## Objective
 
-Проверить, сохраняется ли один артефакт и работоспособный tool protocol при переносе из direct llama-server в разные локальные сервисы, и найти изменения runtime, template, parser и настроек памяти.
+Check whether one artifact and a working tool protocol are preserved when moving from direct llama-server to different local services, and identify changes in runtime, template, parser, and memory settings.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«Два выбранных сервиса импортируют одни и те же bytes контрольного GGUF, используют заявленную GPU backend и проходят одинаковые chat/streaming/tool fixtures при закреплённых настройках». Совпадение весов не означает совпадение prompt или kernels; эти условия проверяются отдельно.
+“Two selected services import the same control GGUF bytes, use the declared GPU backend, and pass identical chat/streaming/tool fixtures with pinned settings.” Matching weights do not imply matching prompts or kernels; those conditions are checked separately.
 
-## Подготовка
+## Preparation
 
 ```bash
 npm run lab:new -- --lab LAB07 --session my-session
@@ -31,13 +31,13 @@ cp docs/labs/fixtures/tool-request.json "$LAB_DIR/raw/tool-request.json"
 sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.txt"
 ```
 
-Задайте `GGUF` абсолютным путём единственного контрольного файла `qwen35-9b` из ЛР03. Для него не нужен special split import. При расширении на split GGUF повторите проверку всех shards и используйте именно поддержанный этой версией импорт без склейки.
+Set `GGUF` to the absolute path of the single `qwen35-9b` control file from LAB03. It does not need a special split import. When extending to a split GGUF, verify all shards again and use the import method specifically supported by that version, without concatenation.
 
-В отчёте заранее выберите два сервиса, backend, context 8192, concurrency 1, output budget 2048, режим thinking/sampling из ЛР05. Сначала один сервер и одна модель в памяти; после остановки убедитесь, что runner освободил GPU. Сохраните отдельно baseline direct-server из ЛР05. Приложения являются serving wrappers: Ollama содержит собственную интеграцию llama.cpp, LM Studio выбирает runtime package, Lemonade запускает recipe. Три названия приложений не означают три независимых набора GPU kernels.
+Before execution, choose two services, the backend, context 8192, concurrency 1, output budget 2048, and the thinking/sampling mode from LAB05 in the report. Start with one server and one model in memory; after stopping it, confirm the runner has released the GPU. Preserve the direct-server baseline from LAB05 separately. These applications are serving wrappers: Ollama has its own llama.cpp integration, LM Studio selects a runtime package, and Lemonade launches a recipe. Three application names do not mean three independent sets of GPU kernels.
 
-## Порядок выполнения
+## Procedure
 
-1. **Закрепите приложение и runtime до первого запроса.** Если приложение отсутствует, установите Linux-вариант по официальной инструкции из источников, выбрав совместимый с вашей ОС release. Сохраните URL установочного файла, версию, дату, SHA-256 архива/пакета и команды установки в `raw/install-notes.md`. Установку не включать в время inference. Во время серии не обновлять приложение, models или runtime.
+1. **Pin the application and runtime before the first request.** If an application is missing, install its Linux version using the official instructions in the sources, choosing a release compatible with your OS. Record the installer URL, version, date, archive/package SHA-256, and installation commands in `raw/install-notes.md`. Exclude installation from inference time. Do not update the application, models, or runtime during the series.
 
    ```bash
    ollama --version > "$LAB_DIR/raw/ollama-version.txt" 2>&1
@@ -46,9 +46,9 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    lemond --help > "$LAB_DIR/raw/lemond-help.txt" 2>&1
    ```
 
-   Выполняйте только команды выбранных приложений. Отсутствующая команда — `not-run: runtime-not-installed`, не ошибка модели. Для Ollama конкретный кандидат — [v0.34.2](https://github.com/ollama/ollama/releases/tag/v0.34.2); AMD Linux требует основной пакет и ROCm runtime того же release. Для Lemonade — [v11.9.0](https://github.com/lemonade-sdk/lemonade/releases/tag/v11.9.0). Для LM Studio version GUI и version `lms` записываются раздельно, а runtime выбирается в шаге 3: изобретать имя пакета `gfx1151` нельзя. Уже установленную иную версию можно исследовать, но её результаты относятся именно к ней.
+   Run only the selected applications' commands. A missing command means `not-run: runtime-not-installed`, not a model error. A specific Ollama candidate is [v0.34.2](https://github.com/ollama/ollama/releases/tag/v0.34.2); AMD Linux requires the main package and ROCm runtime from the same release. For Lemonade, use [v11.9.0](https://github.com/lemonade-sdk/lemonade/releases/tag/v11.9.0). Record LM Studio GUI and `lms` versions separately; select the runtime in step 3 rather than inventing a `gfx1151` package name. Another already installed version may be studied, but its results apply specifically to that version.
 
-2. **Ветка Ollama: импорт и backend.** Запустите отдельный сервер в foreground на свободном loopback-порту. `OLLAMA_MODELS` задаёт отдельное хранилище; проверьте диск с учётом копии весов. Для ROCm:
+2. **Ollama branch: import and backend.** Start a separate foreground server on an available loopback port. `OLLAMA_MODELS` specifies separate storage; check disk space accounting for a weights copy. For ROCm:
 
    ```bash
    mkdir -p "$LAB_DIR/raw/ollama-models"
@@ -56,7 +56,7 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    OLLAMA_HOST=127.0.0.1:11435 OLLAMA_MODELS="$LAB_DIR/raw/ollama-models" OLLAMA_NUM_PARALLEL=1 OLLAMA_MAX_LOADED_MODELS=1 OLLAMA_CONTEXT_LENGTH=8192 OLLAMA_DEBUG=1 OLLAMA_VULKAN=0 ollama serve > "$LAB_DIR/raw/$LAB_OLLAMA_CONFIG-server.log" 2>&1
    ```
 
-   Убедитесь, что в окружении нет оставшегося из прежнего опыта `ROCR_VISIBLE_DEVICES=-1`. В другом терминале с тем же `LAB_DIR` и `GGUF` создайте Modelfile и импортируйте без requant:
+   Ensure the environment does not retain `ROCR_VISIBLE_DEVICES=-1` from an earlier experiment. In another terminal with the same `LAB_DIR` and `GGUF`, create a Modelfile and import without requantization:
 
    ```bash
    python3 - "$GGUF" "$LAB_DIR/raw/Modelfile" <<'PY'
@@ -70,13 +70,13 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    OLLAMA_HOST=127.0.0.1:11435 ollama show --modelfile lab-model > "$LAB_DIR/raw/ollama-effective-modelfile.txt"
    ```
 
-   Сверьте путь `FROM` в effective Modelfile с локальным blob и посчитайте его `sha256sum`: для single GGUF он должен совпасть с исходным. Не исполняйте строку `FROM` как shell. Сохраните template, stop tokens и параметры, фактический context из runner log. Образец исходного Modelfile не задаёт собственный template; различия автоматического шаблона сервиса с ЛР05 остаются частью исследуемой конфигурации.
+   Compare the `FROM` path in the effective Modelfile with the local blob and compute its `sha256sum`: for a single GGUF it must match the source. Do not execute the `FROM` line as shell code. Save the template, stop tokens, parameters, and actual context from the runner log. The example source Modelfile does not set its own template; differences between the service's automatic template and LAB05 remain part of the configuration under study.
 
-   Выполните шаг 5 с URL `http://127.0.0.1:11435`, model `lab-model`. Лог должен явно показывать ROCm/gfx1151 и распределение слоёв; выключение Vulkan само по себе этого не доказывает. CPU fallback → `fail` для гипотезы ROCm, даже если текст правильный.
+   Perform step 5 with URL `http://127.0.0.1:11435` and model `lab-model`. The log must explicitly show ROCm/gfx1151 and layer placement; disabling Vulkan alone does not prove this. CPU fallback → `fail` for the ROCm hypothesis, even if the text is correct.
 
-   Для дополнительной Vulkan-конфигурации остановите **созданный здесь** foreground-процесс, дождитесь освобождения памяти, задайте `LAB_OLLAMA_CONFIG=ollama-vulkan-8k` и повторите serve с `OLLAMA_VULKAN=1 ROCR_VISIBLE_DEVICES=-1`; задайте `GGML_VK_VISIBLE_DEVICES` по обнаруженному Vulkan device index. Новый `$LAB_OLLAMA_CONFIG-server.log` сохраняется отдельно от ROCm. Это диагностический способ исключить HIP-discovery, а фактический выбор всё равно подтверждается логом. Если CPU выбран снова, не называйте эту пробу Vulkan. Hash артефакта и Modelfile сохраняются; backend и конфигурация получают новое имя.
+   For an additional Vulkan configuration, stop the foreground process **created here**, wait for memory release, set `LAB_OLLAMA_CONFIG=ollama-vulkan-8k`, and repeat serve with `OLLAMA_VULKAN=1 ROCR_VISIBLE_DEVICES=-1`; set `GGML_VK_VISIBLE_DEVICES` from the detected Vulkan device index. Save the new `$LAB_OLLAMA_CONFIG-server.log` separately from ROCm. This is a diagnostic way to exclude HIP discovery; the actual selection still needs log confirmation. If CPU is selected again, do not call the probe Vulkan. Preserve the artifact hash and Modelfile; give the backend and configuration a new name.
 
-3. **Ветка LM Studio: приложение и runtime разделены.** Подготовьте локальный LM Studio/`lms`, затем:
+3. **LM Studio branch: application and runtime are separate.** Prepare local LM Studio/`lms`, then:
 
    ```bash
    lms runtime ls > "$LAB_DIR/raw/lms-runtimes-before.txt"
@@ -87,9 +87,9 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    lms ls > "$LAB_DIR/raw/lms-models.txt"
    ```
 
-   В интерактивном выборе запишите точные runtime ID/version и backend Vulkan либо ROCm. Если нужный package уже установлен, `get` пропускается. Linux ROCm документирован, но точный package/device stack всё равно требует проверки на 395. Импорт по умолчанию перемещает файл, поэтому `--copy` существенен; после него найдите destination из вывода и проверьте его bytes/SHA-256. Не заменяйте импорт загрузкой похожего имени из каталога LM Studio.
+   In the interactive selection, record the exact runtime ID/version and Vulkan or ROCm backend. Skip `get` if the required package is already installed. Linux ROCm is documented, but the exact package/device stack still requires verification on 395. Import moves the file by default, so `--copy` matters; afterward, find the destination in the output and verify its bytes/SHA-256. Do not replace import with downloading a similarly named model from the LM Studio catalog.
 
-   Выберите точный `model_key` из `lms ls` и сохраните его в `LMS_MODEL_KEY`, затем:
+   Select the exact `model_key` from `lms ls` and save it in `LMS_MODEL_KEY`, then:
 
    ```bash
    lms load "$LMS_MODEL_KEY" --estimate-only --gpu max --context-length 8192 > "$LAB_DIR/raw/lms-estimate.txt"
@@ -99,11 +99,11 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    lms log stream > "$LAB_DIR/raw/lms-prompt-log.txt" 2>&1
    ```
 
-   Последняя команда работает в foreground в отдельном терминале. Убедитесь по runtime log, что `--gpu max` действительно offload на нужное устройство. Выполните шаг 5 с URL `http://127.0.0.1:1235`. Сохраните effective load/inference settings из приложения: flash attention, KV dtype, context, seed/sampling и template. `--estimate-only` — оценка LM Studio, не измерение RAM.
+   The last command runs in the foreground in a separate terminal. Confirm in the runtime log that `--gpu max` actually offloads to the intended device. Perform step 5 with URL `http://127.0.0.1:1235`. Save effective load/inference settings from the application: flash attention, KV dtype, context, seed/sampling, and template. `--estimate-only` is an LM Studio estimate, not a RAM measurement.
 
-   Native tool parsing и default tool fallback — разные условия. Fallback может дописывать инструкции и преобразовывать сообщения; сохраните фактический model input из `lms log stream` для открытых fixtures и укажите режим. Если режим установить не удалось, запишите `unverified`, не делайте вывода о равных prompt. После опыта остановите свой log stream, выгрузите `lms unload lab-model`; созданный лабораторный server остановите через `lms server stop`. Вторая backend — новый выбранный runtime и отдельная конфигурация.
+   Native tool parsing and default tool fallback are different conditions. Fallback may append instructions and transform messages; preserve the actual model input for public fixtures from `lms log stream` and identify the mode. If the mode cannot be established, record `unverified` and do not claim equal prompts. After the experiment, stop your log stream and unload with `lms unload lab-model`; stop the lab server you created with `lms server stop`. A second backend is a newly selected runtime and a separate configuration.
 
-4. **Ветка Lemonade: собственный llama.cpp binary и exact GGUF.** Для наиболее строгого сравнения используйте каталог `bin` рабочей ROCm либо Vulkan сборки из ЛР04. Он должен содержать `llama-server` и необходимые libraries, а его прямой запуск должен уже пройти ЛР05. Задайте `LAB_LLAMA_BIN` абсолютным путём, `LAB_BACKEND=rocm` либо `vulkan`. Создайте отдельные config/cache, не меняя системный сервис:
+4. **Lemonade branch: a custom llama.cpp binary and exact GGUF.** For the strictest comparison, use the `bin` directory of the working ROCm or Vulkan build from LAB04. It must contain `llama-server` and required libraries, and its direct launch must already have passed LAB05. Set `LAB_LLAMA_BIN` to an absolute path and `LAB_BACKEND=rocm` or `vulkan`. Create separate config/cache directories without changing the system service:
 
    ```bash
    export LAB_BACKEND=rocm
@@ -126,11 +126,11 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    lemond "$LAB_DIR/raw/lemonade-cache" "$LAB_DIR/raw/lemonade-config" --port 13315 --host 127.0.0.1 --no-broadcast > "$LAB_DIR/raw/lemonade-server.log" 2>&1
    ```
 
-   `extra_models_dir` сканируется для local GGUF; в минимуме родительский каталог должен содержать только выбранный контроль, иначе явно проверьте список. В отдельном терминале сохраните `curl --fail-with-body http://127.0.0.1:13315/v1/models` в `raw/lemonade-models.json`. Из списка определите импортированное имя и используйте **`extra.NAME`** как model ID в шаге 5. Canonical prefix отличает импортированный файл от совпавшего built-in/user alias. Запрос сам инициирует загрузку; не выполняйте `pull` для этого опыта.
+   `extra_models_dir` is scanned for local GGUF files; for the minimum, the parent directory should contain only the selected control, otherwise explicitly check the list. In a separate terminal, save `curl --fail-with-body http://127.0.0.1:13315/v1/models` to `raw/lemonade-models.json`. Identify the imported name in the list and use **`extra.NAME`** as the model ID in step 5. The canonical prefix distinguishes an imported file from a matching built-in/user alias. The request initiates loading itself; do not run `pull` for this experiment.
 
-   Лог должен показать нужный recipe, абсолютный binary, GGUF path, context, GPU backend и child command. Сохраните также inherited library environment, использованное при direct запуске ЛР04: одинаковый executable без одинаковых libraries не гарантирует одинаковый runtime. Если custom binary несовместим с Lemonade, сохраните `fail`; переход на builtin — отдельная deployment-конфигурация со своим binary hash. После пробы остановите только созданный `lemond` и проверьте отсутствие его оставшихся model runners.
+   The log must show the intended recipe, absolute binary path, GGUF path, context, GPU backend, and child command. Also preserve the inherited library environment used in the direct LAB04 run: an identical executable without identical libraries does not guarantee an identical runtime. If the custom binary is incompatible with Lemonade, preserve `fail`; switching to a built-in binary is a separate deployment configuration with its own binary hash. After the probe, stop only the `lemond` instance you created and check for remaining model runners belonging to it.
 
-5. **Выполните общие пробы для каждой выбранной конфигурации.** Пример для Ollama; для других сервисов замените URL, configuration ID и model ID из предыдущих шагов:
+5. **Run common probes for each selected configuration.** The example is for Ollama; for other services replace the URL, configuration ID, and model ID using the previous steps:
 
    ```bash
    export LAB_URL=http://127.0.0.1:11435
@@ -150,28 +150,28 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
    python3 "$LAB_DIR/raw/http_probe.py" --url "$LAB_URL" --request "$LAB_DIR/raw/$LAB_CONFIG-tool-request.json" --out "$LAB_DIR/raw/$LAB_CONFIG-$LAB_CASE-tool" --follow-tool
    ```
 
-   Повторите streaming-вариант и полный round trip по ЛР05. Успех: final `LAB_READY`; разрешённый tool с аргументом `alpha`, соответствующий call ID и final `LAB_VALUE_42`. HTTP 200, текст с похожим JSON или `finish_reason=length` сами по себе не означают успех. Сохраните отклонённые/игнорируемые параметры и различие reasoning/final. В Ollama OpenAI API context задаётся через Modelfile, а наличие Chat Completions не доказывает все возможности Responses или поддержку конкретной агентной обвязки.
+   Repeat the streaming variant and full round trip from LAB05. Success means final `LAB_READY`; an allowed tool with argument `alpha`, a matching call ID, and final `LAB_VALUE_42`. HTTP 200, text resembling JSON, or `finish_reason=length` alone do not mean success. Preserve rejected/ignored parameters and the distinction between reasoning and final output. Ollama's OpenAI API context is set through the Modelfile; the presence of Chat Completions does not prove every Responses capability or support for a particular agent harness.
 
-   Для каждой прошедшей конфигурации получите один cold и три warm повтора. Для каждого случая/типа запроса укажите, модель уже загружена или нет: tool, отправленный после chat, не является холодной загрузкой. Например, после первого chat задайте `LAB_CASE=smoke-8k-warm-r1` и повторите только chat-команду; далее `smoke-8k-warm-r2`, `smoke-8k-warm-r3`. Для streaming используйте `LAB_CASE=stream-8k-warm-r1` и соответствующий сохранённый request. Cache mode, model keep-alive, loading time, prefix reuse и concurrency запишите явно. Для второй backend/контекста создавайте отдельный raw-подкаталог до запуска и перенаправляйте туда все команды, request files и server logs; исходный лог не перезаписывать. Настоящий near-limit 8K probe и наблюдение memory выполняются по методике ЛР05; длина короткого fixture не становится 8K от одного флага сервера. Не переносите llama.cpp-specific `/tokenize` и `/apply-template` на эти сервисы: возьмите сохранённый JSON длинного fixture ЛР05, замените `model`, проверьте фактические input tokens/template и отсутствие обрезания по usage/logs этого сервиса, оставьте запас под output. Если токенизацию/обрезание подтвердить нельзя, near-limit fit остаётся `unverified`; если запрос не выполнялся — `not-run: tokenizer-accounting-unavailable`. Короткие HTTP/tools-пробы остаются самостоятельными результатами.
+   For each passing configuration, obtain one cold and three warm repetitions. For each case/request type, indicate whether the model was already loaded: a tool request sent after chat is not a cold load. For example, after the first chat set `LAB_CASE=smoke-8k-warm-r1` and repeat only the chat command, then use `smoke-8k-warm-r2` and `smoke-8k-warm-r3`. For streaming, use `LAB_CASE=stream-8k-warm-r1` and the corresponding saved request. Explicitly record cache mode, model keep-alive, loading time, prefix reuse, and concurrency. For a second backend/context, create a separate raw subdirectory before execution and direct every command, request file, and server log there; do not overwrite the original log. Perform a genuine near-limit 8K probe and memory observation using the LAB05 method; a short fixture does not become 8K merely because of a server flag. Do not transplant llama.cpp-specific `/tokenize` and `/apply-template` to these services: use the saved long-fixture JSON from LAB05, replace `model`, verify actual input tokens/template and absence of truncation using this service's usage/logs, and leave an output reserve. If tokenization/truncation cannot be confirmed, near-limit fit remains `unverified`; if no request was executed, use `not-run: tokenizer-accounting-unavailable`. Short HTTP/tools probes remain results in their own right.
 
-6. **Сопоставьте сервис с direct baseline.** Сравните manifests по слоям: weights → binary/runtime → backend → template/parser → effective generation settings → API. Только когда эти условия совпали, разность latency можно исследовать как влияние serving wrapper. В противном случае назовите результат сравнением deployments и перечислите различия. В частности, LM Studio fallback tools и Ollama patched runner не исчезают из описания лишь из-за одинакового GGUF. Для компонента, добавляемого далее в агентную обвязку, понадобится строка ledger и отдельная ЛР08, а не новый флаг несуществующего `local` provider.
+6. **Compare the service with the direct baseline.** Compare manifests by layer: weights → binary/runtime → backend → template/parser → effective generation settings → API. Only when these conditions match can a latency difference be studied as a serving-wrapper effect. Otherwise, call the result a deployment comparison and list the differences. In particular, LM Studio fallback tools and Ollama's patched runner do not disappear from the description merely because the GGUF matches. A component subsequently added to an agent harness requires a ledger row and a separate LAB08, not a new flag for a nonexistent `local` provider.
 
-7. **Расширение: Lemonade/vLLM после ЛР06.** Сначала сохраните версию Lemonade и его `backend_versions.json`, per-arch pin и recipe/model-family defaults. Это экспериментальный ROCm путь, у автора проверенный на gfx1151; он использует собственный relocatable bundle vLLM/Torch/Triton. Проверьте kernel/CWSR prerequisites из официальной инструкции. Создайте отдельный экземпляр/config для этой ветви: ограничения `offline`/`no_fetch_executables` из шага 4 специально запрещают установку. На этапе подготовки разрешите загрузку только выбранного release с конкретным `vllm.rocm_bin`, затем выполните `lemonade --host 127.0.0.1 --port 13315 --no-discovery backends install vllm:rocm` для **своего** экземпляра и сохраните фактический downloaded tag/hash и arch. После установки верните offline/no-fetch для серии.
+7. **Extension: Lemonade/vLLM after LAB06.** First save the Lemonade version and its `backend_versions.json`, per-arch pin, and recipe/model-family defaults. This is an experimental ROCm path tested by its author on gfx1151; it uses its own relocatable vLLM/Torch/Triton bundle. Check kernel/CWSR prerequisites in the official instructions. Create a separate instance/config for this branch: the `offline`/`no_fetch_executables` restrictions from step 4 deliberately prevent installation. During preparation, permit downloading only the selected release with a specific `vllm.rocm_bin`, then run `lemonade --host 127.0.0.1 --port 13315 --no-discovery backends install vllm:rocm` for **your own** instance and record the actual downloaded tag/hash and architecture. Restore offline/no-fetch after installation for the series.
 
-   Выбранный native checkpoint должен иметь новый manifest и проверенные shards из ЛР06. Регистрация `user.*` recipe с одним HF именем без immutable revision не доказывает равенства checkpoint. Проверьте разрешение local snapshot/cache в вашей версии и фактический child `--model`; если закреплённый artifact путь не удалось обеспечить, оставьте `no-artifact` для парного сравнения. Не подменяйте его built-in FP16 либо FP8-моделью. Память BF16/FP16/native quant пересчитывается отдельно от GGUF.
+   The selected native checkpoint must have a new manifest and verified shards from LAB06. Registering a `user.*` recipe with only an HF name and no immutable revision does not prove checkpoint equality. Check local snapshot/cache resolution in your version and the actual child `--model`; if a pinned artifact path cannot be ensured, leave the paired comparison as `no-artifact`. Do not substitute a built-in FP16 or FP8 model. Recalculate BF16/FP16/native-quant memory separately from GGUF.
 
-   Выполните chat/tools и сравните child args с direct vLLM. Сервис управляет model, served name, host/port, context и частью cache/graph flags, добавляет family parser settings. Нельзя просто перенести всю команду ЛР06 в строку `vllm.args`. Сохраните health/backend URL только в evidence координатора; прямой `/metrics` child не является публичной возможностью общего API. Эта ветвь не входит в минимальный зачёт; неподготовленный bundle/точный artifact оставляет явный `not-run`/`no-artifact`.
+   Run chat/tools and compare child arguments with direct vLLM. The service manages model, served name, host/port, context, and some cache/graph flags, and adds family parser settings. You cannot simply paste the entire LAB06 command into `vllm.args`. Preserve the health/backend URL only in coordinator evidence; the child's direct `/metrics` is not a public capability of the shared API. This branch is outside the minimum required work; an unprepared bundle/exact artifact leaves an explicit `not-run`/`no-artifact`.
 
-## Таблицы результатов
+## Results tables
 
-| Сервис | App / CLI version | Runtime ID / binary hash | Backend / GPU доказательство | Выбран в минимум | Статус / причина |
+| Service | App / CLI version | Runtime ID / binary hash | Backend / GPU evidence | Selected for minimum | Status / reason |
 | --- | --- | --- | --- | --- | --- |
 | Ollama | | | | | |
 | LM Studio | | | | | |
 | Lemonade / llama.cpp | | | | | |
-| Lemonade / vLLM, расширение | | | | | |
+| Lemonade / vLLM, extension | | | | | |
 
-| Configuration | Source/imported SHA-256 | Template / tool mode | Context / cache / thinking / sampling | Отличия от direct baseline |
+| Configuration | Source/imported SHA-256 | Template / tool mode | Context / cache / thinking / sampling | Differences from direct baseline |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
@@ -179,30 +179,30 @@ sha256sum --check "$LAB_DIR/raw/weights.sha256" > "$LAB_DIR/raw/source-recheck.t
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт по двум выбранным конфигурациям, установочные/runtime pins, source и imported file hashes, команды импорта, effective Modelfile/runtime/configuration, открытые model prompts, server/runner logs, raw HTTP/SSE и memory observations. Для каждой непроверенной ветви указать причину и следующий конкретный шаг. В выводе отметить, где сравним wrapper overhead, а где меняется весь deployment.
+A report on two selected configurations, installation/runtime pins, source and imported file hashes, import commands, effective Modelfile/runtime/configuration, public model prompts, server/runner logs, raw HTTP/SSE, and memory observations. For every untested branch, give the reason and next specific step. State in the conclusion where wrapper overhead is comparable and where the entire deployment changes.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Два сервиса рассмотрены на одном артефакте; для каждого есть измерение или воспроизводимый `fail` с evidence.
-- [ ] Импортированный GGUF проверен по bytes/hash; загрузка alias не подменяет provenance.
-- [ ] App version, runtime version и фактическая GPU backend записаны раздельно.
-- [ ] Сохранён полный tool round trip и streaming; native/fallback parsing указан явно.
-- [ ] Direct baseline сравнивается с известными условиями, отсутствующие метрики не заполнены нулями.
-- [ ] Третья/дополнительные ветви отмечены `not-run`, если не выполнялись; Lemonade/vLLM не унаследовал память GGUF.
+- [ ] Two services were examined using one artifact; each has a measurement or reproducible `fail` with evidence.
+- [ ] The imported GGUF is verified by bytes/hash; downloading an alias does not substitute for provenance.
+- [ ] App version, runtime version, and actual GPU backend are recorded separately.
+- [ ] The full tool round trip and streaming are preserved; native/fallback parsing is stated explicitly.
+- [ ] The direct baseline is compared under known conditions; missing metrics are not filled with zeros.
+- [ ] Third/additional branches are marked `not-run` if not executed; Lemonade/vLLM did not inherit the GGUF memory estimate.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему сравнение Ollama и LM Studio не равно сравнению двух полностью независимых inference engines?
-2. Что нужно проверить после успешного импорта GGUF, кроме его отображения в списке моделей?
-3. Как tool fallback изменяет вопрос «помогла ли обвязка модели»?
-4. Почему `--gpu max` или `OLLAMA_VULKAN=0` сами по себе не доказывают нужный GPU path?
-5. При каких условиях можно приписать разность latency именно serving wrapper?
+1. Why is comparing Ollama and LM Studio not equivalent to comparing two fully independent inference engines?
+2. What must be checked after successfully importing a GGUF, beyond its appearance in the model list?
+3. How does tool fallback change the question “did the harness help the model”?
+4. Why do `--gpu max` or `OLLAMA_VULKAN=0` alone not prove the intended GPU path?
+5. Under which conditions can a latency difference be attributed specifically to the serving wrapper?
 
-## Источники
+## Sources
 
-- Ollama: [Linux install](https://docs.ollama.com/linux), [GPU/gfx1151 и выбор backend](https://docs.ollama.com/gpu), [GGUF import](https://docs.ollama.com/import), [Modelfile](https://docs.ollama.com/modelfile), [OpenAI API limits](https://docs.ollama.com/api/openai-compatibility).
+- Ollama: [Linux install](https://docs.ollama.com/linux), [GPU/gfx1151 and backend selection](https://docs.ollama.com/gpu), [GGUF import](https://docs.ollama.com/import), [Modelfile](https://docs.ollama.com/modelfile), [OpenAI API limits](https://docs.ollama.com/api/openai-compatibility).
 - LM Studio: [Linux download](https://lmstudio.ai/download), [runtime CLI](https://lmstudio.ai/docs/cli/runtime/runtime), [import](https://lmstudio.ai/docs/cli/local-models/import), [load](https://lmstudio.ai/docs/cli/local-models/load), [server start](https://lmstudio.ai/docs/cli/serve/server-start), [native/default tools](https://lmstudio.ai/docs/developer/openai-compat/tools).
-- Lemonade: [установка и supported platforms](https://lemonade-server.ai/docs/guide/install/), [CLI и выбор экземпляра](https://lemonade-server.ai/docs/guide/cli/), [configuration и custom binary](https://lemonade-server.ai/docs/guide/configuration/), [local extra models и canonical IDs](https://lemonade-server.ai/docs/guide/configuration/custom-models/), [experimental vLLM recipe и ограничения](https://lemonade-server.ai/docs/guide/configuration/vllm/).
-- [Матрица движков и сервисов](../local-inference-engines.md), [общие fixtures](fixtures/README.md), [метод исследования](../method.md).
+- Lemonade: [installation and supported platforms](https://lemonade-server.ai/docs/guide/install/), [CLI and instance selection](https://lemonade-server.ai/docs/guide/cli/), [configuration and custom binary](https://lemonade-server.ai/docs/guide/configuration/), [local extra models and canonical IDs](https://lemonade-server.ai/docs/guide/configuration/custom-models/), [experimental vLLM recipe and limitations](https://lemonade-server.ai/docs/guide/configuration/vllm/).
+- [Engine and service matrix](../local-inference-engines.md), [shared fixtures](fixtures/README.md), [research method](../method.md).

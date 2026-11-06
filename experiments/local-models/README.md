@@ -1,23 +1,23 @@
-# Локальные модели: Ryzen/Linux и Apple/macOS
+# Local models: Ryzen/Linux and Apple/macOS
 
-Apple M5 Max / 128 GB / macOS имеет [отдельный маршрут LAB28–35 и профили](apple/README.md). Выбор: `--hardware apple-m5-max-128gb-macos` для `local:plan` и `local:engines`. Без флага используются приведённые ниже исходные Ryzen-файлы; автоматического определения стенда нет.
+Apple M5 Max / 128 GB / macOS has a [separate LAB28–35 track and profiles](apple/README.md). Select `--hardware apple-m5-max-128gb-macos` for `local:plan` and `local:engines`. Without the flag, the original Ryzen files below are used; there is no automatic machine detection.
 
-Это исследовательская кампания, а не десятая обвязка. Один локальный inference server будет обслуживать разные существующие обвязки; backend, модель и обвязка учитываются раздельно. Каталоги задают плановые условия; реальные Ryzen-измерения LAB02–06/26 и local pilot LAB08 сохранены в [архиве измерений](measurements/README.md) по коммиту, вне рабочего дерева. Аппаратные результаты Apple приведены в [указателе стенда](apple/README.md). [Общая таблица состояния](../../docs/labs/README.md#состояние-выполнения-на-22102026) отделяет измерения, ограниченные квалификации и приёмку. Аппаратные пробы не заменяют агентные run records.
+This is a research campaign, not a tenth harness. One local inference server will serve several existing harnesses; backend, model, and harness are recorded separately. Catalogs specify planned conditions; actual Ryzen LAB02–06/26 measurements and the local LAB08 pilot are retained in the [measurement archive](measurements/README.md) at a pinned commit, outside the working tree. Apple hardware results are listed in the [machine index](apple/README.md). The [shared status table](../../docs/labs/README.md#execution-status-as-of-2026-10-22) distinguishes measurements, limited qualifications, and acceptance. Hardware probes do not replace agent run records.
 
-Для пошагового выполнения используйте [лабораторный практикум](../../docs/labs/README.md). `npm run lab:new -- --lab LAB02 --session first-pass` создаёт в `measurements/LAB02-first-pass/` пустой отчёт, manifest и таблицу измерений. Учебный manifest не заменяет `results/runs/<run-id>/run.json`; реальные агентные попытки записываются отдельно.
+Use the [lab course](../../docs/labs/README.md) for step-by-step execution. `npm run lab:new -- --lab LAB02 --session first-pass` creates an empty report, manifest, and measurement table in `measurements/LAB02-first-pass/`. A course manifest does not replace `results/runs/<run-id>/run.json`; actual agent attempts are recorded separately.
 
-В расширенном практикуме ЛР25 сравнивает качество при разной квантизации, ЛР26 измеряет параллельную нагрузку. Общие ЛР20–27 тоже сохраняют отчёты в `measurements/`. [Учебные упражнения без API](../../docs/labs/practice.md) находятся отдельно в `practice/`; их синтетические traces не подтверждают аппаратную совместимость или качество модели. [lab:check](../../docs/labs/report-validation.md) проверяет комплектность отчётов и учёт неудачных/пропущенных попыток.
+In the extended course, LAB25 compares quality across quantizations, and LAB26 measures concurrent load. Shared LAB20–27 also save reports in `measurements/`. [Exercises without an API](../../docs/labs/practice.md) live separately in `practice/`; their synthetic traces do not establish hardware compatibility or model quality. [lab:check](../../docs/labs/report-validation.md) checks report completeness and accounting for failed/skipped attempts.
 
-[`runbook.md`](runbook.md) — сводный операторский лист ЛР02–ЛР05 для одной сессии на стенде: те же команды с подставленными путями. Нормативны сами лаборатории; дрейф источников проверяется `sha256sum -c experiments/local-models/runbook.sources.sha256`.
+[`runbook.md`](runbook.md) is a consolidated operator worksheet for LAB02–LAB05 during one machine session: the same commands with paths filled in. The lab guides remain normative; check source drift with `sha256sum -c experiments/local-models/runbook.sources.sha256`.
 
-- [Порядок тестирования и критерии отбора](../../docs/local-models.md).
-- [Кандидаты, форматы весов и первичные источники](../../docs/local-model-candidates.md).
-- [Linux preflight и runbook backend](../../docs/local-model-runtime.md).
-- [Разные движки и ROCm/Vulkan](../../docs/local-inference-engines.md) — 12 профилей в `engines.json`; kernels и serving layers учитываются раздельно.
-- `models.json` — датированный каталог кандидатов; размеры являются оценкой или метаданными файлов, не замерами RAM.
-- `hardware.json` — аппаратная гипотеза и консервативные резервы памяти.
+- [Testing order and selection criteria](../../docs/local-models.md).
+- [Candidates, weight formats, and primary sources](../../docs/local-model-candidates.md).
+- [Linux preflight and backend runbook](../../docs/local-model-runtime.md).
+- [Different engines and ROCm/Vulkan](../../docs/local-inference-engines.md): 12 profiles in `engines.json`; kernels and serving layers are tracked separately.
+- `models.json`: dated candidate catalog; sizes are estimates or file metadata, not RAM measurements.
+- `hardware.json`: hardware hypothesis and conservative memory reserves.
 
-Из корня репозитория:
+From the repository root:
 
 ```bash
 npm run local:plan
@@ -29,16 +29,16 @@ npm run local:plan -- --engine vllm-rocm --model gpt-oss-20b
 npm run local:plan -- --engine all --format json
 ```
 
-После измерения доступной памяти можно пересчитать план, например:
+After measuring available memory, recalculate the plan, for example:
 
 ```bash
 npm run local:plan -- --memory-gib 125 --gpu-budget-gib 90
 ```
 
-Числа последней команды — пример, не характеристики машины владельца. `--memory-gib` означает измеренный общий usable RAM; planner отдельно вычитает резерв ОС. `--gpu-budget-gib` — безопасный бюджет GPU allocation, установленный после preflight. Значения не меняют файл и не настраивают ОС.
+The numbers in the last command are examples, not the owner’s machine specifications. `--memory-gib` means measured total usable RAM; the planner subtracts the OS reserve separately. `--gpu-budget-gib` is a safe GPU-allocation budget established after preflight. These values neither modify the file nor configure the OS.
 
-`candidate` означает, что модель проходит грубый расчёт резервов; `conditional` — дополнительную оговорку каталога; `over-budget` — превышение выбранного бюджета. Ни один статус не означает, что модель уже помещалась на железе. Реальный KV/state, staging buffers, kernel workspace и ограничения единичной allocation выясняются запуском.
+`candidate` means the model passes a rough reserve calculation; `conditional` indicates an additional catalog caveat; `over-budget` means the selected budget is exceeded. None of these statuses means the model has already fit on the hardware. Actual KV/state, staging buffers, kernel workspace, and single-allocation limits require execution to determine.
 
-С `--engine` дополнительно появляются `artifact-required` (нужен собственный артефакт для выбранного движка, размеры/quant GGUF не используются) и `engine-memory-required` (веса GGUF известны, расход serving runtime пока неизвестен). `hardware_support` описывает документированную поддержку отдельно от `fit_verified=false`. Без `--engine` остаётся прежний расчёт GGUF; это не универсальная оценка всех движков.
+With `--engine`, additional statuses appear: `artifact-required` (an engine-specific artifact is needed; GGUF sizes/quantization are not used) and `engine-memory-required` (GGUF weights are known, but serving-runtime memory is not). `hardware_support` describes documented support separately from `fit_verified=false`. Without `--engine`, the original GGUF calculation remains; it is not a universal estimate for every engine.
 
-Команда не скачивает веса, не обращается к серверу, не создаёт run records и не планирует фоновое выполнение. Для Pi/T002 уже реализован отдельный [local provider](../pi/README.md) с запечатанным deployment и native llama.cpp ROCm/Linux или Metal/macOS. Остальные локальные adapters и задачи требуют реализации/приёмки; состояние конкретного допуска хранится в LAB08.
+The command does not download weights, contact a server, create run records, or schedule background work. Pi/T002 already has a separate [local provider](../pi/README.md) with a sealed deployment and native llama.cpp ROCm/Linux or Metal/macOS. Other local adapters and tasks need implementation/acceptance; LAB08 records the status of each specific admission.

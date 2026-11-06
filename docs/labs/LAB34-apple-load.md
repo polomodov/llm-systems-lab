@@ -1,23 +1,23 @@
-# ЛР34. Параллельная нагрузка и устойчивость Mac
+# LAB34. Concurrent load and Mac stability
 
-## Паспорт
+## Profile
 
-| Поле | Значение |
+| Field | Value |
 | --- | --- |
-| Тип / готовность | HTTP load test / `target-machine` |
-| Время | 2–4 часа плюс 30-минутная серия |
-| Предпосылки | LAB32; LAB33 только при использовании wrapper |
-| Минимум | Warmup; по три серии из 12 запросов для concurrency 1/2/4; затем 30 минут для прошедшей конфигурации |
+| Type / readiness | HTTP load test / `target-machine` |
+| Time | 2–4 hours plus a 30-minute series |
+| Prerequisites | LAB32; LAB33 only when using a wrapper |
+| Minimum | Warmup; three 12-request series each at concurrency 1/2/4; then 30 minutes for a passing configuration |
 
-## Цель
+## Objective
 
-Измерить полезный параллелизм и устойчивость deployment на Mac, сохранив задержки, отказы и динамику общей памяти.
+Measure useful deployment concurrency and stability on Mac while retaining latency, failures and shared-memory dynamics.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-Рост concurrency увеличивает throughput без нарушения заранее выбранных latency/error/memory границ; допущенная конфигурация сохраняет их при длительной работе.
+Increasing concurrency raises throughput without violating preselected latency/error/memory limits; an admitted configuration maintains these limits during sustained operation.
 
-## Подготовка
+## Preparation
 
 ```sh
 npm run lab:new -- --lab LAB34 --session apple-load
@@ -28,11 +28,11 @@ export LOCAL_ENDPOINT='http://127.0.0.1:8080/v1/chat/completions'
 export MODEL_ALIAS='lab-model'
 ```
 
-Используйте [общий Apple-протокол](../../experiments/local-models/apple/README.md). Driver из LAB26 переносим для HTTP, но его `/proc` telemetry предназначена для Linux: на macOS эти поля ожидаемо `null` с причиной. **Обязателен отдельный macOS memory timeline**, запущенный до нагрузки. Отсутствие Linux-метрик не трактуется как нулевой swap или достаточная память.
+Use the [shared Apple protocol](../../experiments/local-models/apple/README.md). The LAB26 driver is portable for HTTP, but its `/proc` telemetry targets Linux: on macOS these fields are expected to be `null` with a reason. **A separate macOS memory timeline is mandatory**, starting before load. Missing Linux metrics must not be interpreted as zero swap or sufficient memory.
 
-## Порядок выполнения
+## Procedure
 
-1. Запишите endpoint, model identity, context, fixed server slots/queue/cache, output cap, питание и критерии остановки. Сервер использует только loopback. Driver не поддерживает auth: при обязательной авторизации сохраните blocker, не снимайте защиту. Не включайте tools в нагрузочный request.
+1. Record endpoint, model identity, context, fixed server slots/queue/cache, output cap, power and stop criteria. The server uses loopback only. The driver does not support auth: if authorization is mandatory, record a blocker rather than disabling protection. Do not include tools in the load request.
 
    ```sh
    python3 - "$LAB_DIR" "$MODEL_ALIAS" <<'PY'
@@ -44,7 +44,7 @@ export MODEL_ALIAS='lab-model'
    PY
    ```
 
-2. Снимите LAB28 memory/swap и начните временной ряд. Выполните отдельный прогрев:
+2. Collect LAB28 memory/swap and start the time series. Run a separate warmup:
 
    ```sh
    python3 -B docs/labs/fixtures/concurrency_driver.py \
@@ -52,9 +52,9 @@ export MODEL_ALIAS='lab-model'
      --concurrency 1 --requests 2 --timeout 120 --out "$LAB_DIR/raw/warmup"
    ```
 
-   При ошибке остановитесь. Timeout 120 s — начальная граница, не обещание latency; другой предел (не более 600 s) назначается до всей сравнительной серии.
+   Stop on error. A 120 s timeout is an initial boundary, not a latency promise; set any different limit (no more than 600 s) before the entire comparison series.
 
-3. Выполните по одной серии с проверкой summary и памяти после каждой. Порядок: r1 — 1→2→4; r2 — 2→4→1; r3 — 4→1→2. Для первой:
+3. Run one series at a time, checking summary and memory after each. Order: r1 — 1→2→4; r2 — 2→4→1; r3 — 4→1→2. For the first:
 
    ```sh
    export REPEAT=1
@@ -65,9 +65,9 @@ export MODEL_ALIAS='lab-model'
      --out "$LAB_DIR/raw/r$REPEAT-c$CONCURRENCY"
    ```
 
-   После timeout проверьте отсутствие оставшейся generation перед следующей серией. Не меняйте slots вместе с client concurrency: очередь сервера — часть результата. OOM, потеря readiness, устойчивый swap рост, критический pressure или нарушение заранее выбранного запаса — остановка; последующие клетки `not-run` с причиной.
+   After a timeout, verify that no generation remains before the next series. Do not change slots alongside client concurrency: the server queue is part of the result. OOM, loss of readiness, sustained swap growth, critical pressure or violation of the preselected reserve means stop; mark subsequent cells `not-run` with a reason.
 
-4. Выберите concurrency, прошедший короткие серии. До длинной серии запишите выбор и включите memory timeline. Следующая команда планирует блоки по 12 запросов в течение 1800 секунд; последний блок может закончиться позже (до своего deadline), что отражается в wall time. При первой HTTP/protocol ошибке driver останавливает серию. При memory stop-критерии оператор прерывает Ctrl-C; запись финального статуса сохраняется:
+4. Choose a concurrency that passed the short series. Record the choice and enable the memory timeline before the long series. The following command schedules 12-request blocks for 1800 seconds; the last block may finish later (up to its deadline), reflected in wall time. The driver stops the series at the first HTTP/protocol error. At a memory stop criterion, the operator interrupts with Ctrl-C; the final status record is preserved:
 
    ```sh
    export CONCURRENCY=1
@@ -98,42 +98,42 @@ export MODEL_ALIAS='lab-model'
    PY
    ```
 
-   Это последовательные bounded blocks с небольшими паузами клиента. Их wall time включается в длительность кампании; не описывайте её как непрерывную максимальную GPU occupancy. При прерывании проверьте завершение дочернего клиента и очередь сервера до других опытов. Энергия/температура собираются только доступными проверенными средствами, иначе неизвестны.
+   These are sequential bounded blocks with short client pauses. Their wall time counts toward campaign duration; do not describe this as continuous maximum GPU occupancy. After interruption, check child-client termination and the server queue before other experiments. Collect energy/temperature only with available verified tools; otherwise they are unknown.
 
-5. Разберите каждый `summary.json` и individual requests: median/p95/max успешных latency, число/latency failures, successful requests/s и tokens/s при полном usage. p95 на 12 наблюдениях грубый, почти максимум. Driver non-streaming: TTFT и decode-only speed недоступны. Итоговый throughput считайте по суммарным tokens и wall interval, не средним от block rates. Пропуски usage сохраняют общий tokens/s неизвестным.
+5. Examine every `summary.json` and individual request: median/p95/max successful latency, failure counts/latencies, successful requests/s and tokens/s when usage is complete. With 12 observations, p95 is coarse, almost the maximum. The driver is non-streaming: TTFT and decode-only speed are unavailable. Calculate overall throughput from total tokens and wall interval, not an average of block rates. Missing usage leaves overall tokens/s unknown.
 
-6. Сопоставьте временные интервалы нагрузки и memory pressure/swap, сравните начало/конец длинной серии. Не приписывайте ухудшение thermal throttling без thermal evidence. Запишите допустимый режим и ограничивающий фактор: очередь, memory, ошибки или latency.
+6. Align load intervals with memory pressure/swap and compare the start/end of the long series. Do not attribute degradation to thermal throttling without thermal evidence. Record the permitted operating mode and limiting factor: queue, memory, errors or latency.
 
-## Таблицы результатов
+## Results tables
 
-| Повтор / concurrency | Успех / всего | Median / p95 / max s | Requests/s | Tokens/s | Failures | Swap / pressure | Evidence |
+| Repetition / concurrency | Success / total | Median / p95 / max s | Requests/s | Tokens/s | Failures | Swap / pressure | Evidence |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | | | | | | | | |
 
-| Sustained concurrency | Planned / actual s | Начало / конец throughput | Peak memory / источник | Ошибки / stop reason |
+| Sustained concurrency | Planned / actual s | Start / end throughput | Peak memory / source | Errors / stop reason |
 | --- | --- | --- | --- | --- |
 | | | | | |
 
-## Что сдать
+## Deliverables
 
-Отчёт/TSV/manifest, request и deployment conditions, все driver output directories, `sustained/series.json`, отдельный macOS memory timeline и остановки/пропуски. Для неизвестных `/proc`, энергии и температуры — причины.
+Report/TSV/manifest, request and deployment conditions, all driver output directories, `sustained/series.json`, separate macOS memory timeline and stops/skips. Give reasons for unknown `/proc`, energy and temperature data.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] По три серии для 1/2/4 либо документированный stop/blocker.
-- [ ] 30-минутная серия имеет actual duration и все блоки, включая failures.
-- [ ] macOS memory собрана отдельно; `/proc` null не интерпретирован как ноль.
-- [ ] TTFT не выведен из non-streaming latency; usage и failure учтены честно.
-- [ ] Комплект проверен по общему протоколу.
+- [ ] Three series each for 1/2/4 or a documented stop/blocker.
+- [ ] The 30-minute series records actual duration and all blocks, including failures.
+- [ ] macOS memory collected separately; `/proc` null not interpreted as zero.
+- [ ] TTFT not inferred from non-streaming latency; usage and failures represented honestly.
+- [ ] Submission checked against the shared protocol.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему client concurrency не равно GPU parallelism?
-2. Как короткие серии ограничивают оценку p95?
-3. Почему усреднение block tokens/s даёт неправильный общий throughput?
-4. Какие доказательства нужны для вывода о throttling?
+1. Why is client concurrency not equal to GPU parallelism?
+2. How do short series limit p95 estimation?
+3. Why does averaging block tokens/s give incorrect overall throughput?
+4. What evidence is required to conclude throttling occurred?
 
-## Источники
+## Sources
 
-- [Driver](fixtures/concurrency_driver.py), [offline tests](fixtures/concurrency_test.py), [методика LAB26](LAB26-concurrent-load.md).
-- [Паспорт macOS](LAB28-apple-hardware.md), pinned server documentation и локальные man pages.
+- [Driver](fixtures/concurrency_driver.py), [offline tests](fixtures/concurrency_test.py), [LAB26 methodology](LAB26-concurrent-load.md).
+- [macOS hardware profile](LAB28-apple-hardware.md), pinned server documentation and local man pages.

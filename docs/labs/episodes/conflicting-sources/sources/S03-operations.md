@@ -1,5 +1,5 @@
-# S03 — эксплуатационная заметка, 2026-09-07
+# S03 — operations note, 2026-09-07
 
-Искусственный учебный источник. Класс: operations observation; содержит исправленную позднее ошибку.
+Artificial educational source. Class: operations observation; contains an error corrected later.
 
-Aurora 2.0, Atlas-B, Paper-27B Q4, concurrency 4. Запросы отдела имели prompt около 16K tokens. В заметке написано «17 requests/s» на запрос, без описания агрегирования. Для одного запроса зарегистрирован timeout. Все запросы начинались на холодном процессе, режим питания и output length не записаны. Значение требует проверки по S04; сравнение с S01 по этой заметке недопустимо.
+Aurora 2.0, Atlas-B, Paper-27B Q4, concurrency 4. Department requests had prompts of about 16K tokens. The note states “17 requests/s” per request, without explaining aggregation. One request timed out. All requests started in a cold process; power mode and output length were not recorded. The value must be checked against S04; this note does not permit comparison with S01.

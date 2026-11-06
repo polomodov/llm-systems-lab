@@ -1,128 +1,128 @@
-# План расширения экспериментов
+# Experiment extension roadmap
 
-Дата: 05.11.2026. Класс документа: авторский прогноз с критериями проверки. Ни один пункт не является результатом; каждый формулируется как вопрос, серия прогонов, которая на него отвечает, и условие, при котором направление закрывается.
+Date: 2026-11-05. Document class: author's forecast with verification criteria. No item is a result; each is a question, a run series that can answer it, and a condition for closing the direction.
 
-## Исходная точка
+## Starting point
 
-После PR «Облегчить ядро» в лаборатории:
+After the “Lighten the core” PR, the lab has:
 
-- 9 адаптеров обвязок с закреплёнными образами, из них с реальной моделью запускался один (Pi, локальная модель).
-- 6 задач трёх типов: исследование по веб-источникам (T001), исправление репозитория (T002, T004, T006), аудит и данные без репозитория (T003, T005). Оценённые прогоны есть только у T002.
-- 11 записей, 3 независимо оценены, ни одной полной тройки одинаковых условий.
-- Реестр из 29 строк, 28 в статусе «предложена»: компоненты реализованы, их вклад в успех агента не измерен.
+- 9 harness adapters with pinned images; one has run a real model (Pi, local model).
+- 6 tasks in three categories: web-source research (T001), repository changes (T002, T004, T006), and auditing/data without a repository (T003, T005). Only T002 has evaluated runs.
+- 11 records, 3 independently evaluated, and no complete triple under matching conditions.
+- A 29-row ledger with 28 entries marked proposed: components are implemented, but their contribution to agent success has not been measured.
 
-Главный вопрос лаборатории, что нужно обвязке для выполнения одной и той же спецификации, пока без ответа. Все направления ниже упорядочены по тому, насколько быстро они приближают к ответу.
+The lab's main question — what a harness needs to execute the same specification — remains unanswered. The directions below are ordered by how quickly they can move toward an answer.
 
-## Направление 1. Первая кампания: та же модель, разные обвязки
+## Direction 1. First campaign: the same model, different harnesses
 
-**Вопрос.** Различаются ли обвязки по успеху, стоимости и числу ходов при одной модели, одной задаче и одинаковых границах?
+**Question.** Do harnesses differ in success, cost and turns with one model, one task and matching boundaries?
 
-**Серия.** ЛР09. Три обвязки, принимающие одну и ту же модель Anthropic по точному ID: Claude Code, Pi, OpenCode. Две задачи с скриптовой проверкой: T002 и T004. По три повтора на ячейку. Всего 18 прогонов, бюджет контракта до 2 USD за прогон, ожидаемая стоимость серии до 40 USD. Один образ на обвязку на всю серию, `--budget-mode observed` для Pi и OpenCode с явной пометкой в сравнении.
+**Series.** LAB09. Three harnesses that accept the same exact Anthropic model ID: Claude Code, Pi and OpenCode. Two tasks with scripted checks: T002 and T004. Three repeats per cell. Total: 18 runs, contract budget up to USD 2 per run, expected series cost up to USD 40. One image per harness for the whole series, with `--budget-mode observed` for Pi and OpenCode explicitly marked in the comparison.
 
-**Что получится.** Первые полные тройки, `pass@3` и `pass^3` по ячейкам, первая таблица `compare --out`. Разброс внутри ячейки покажет, сколько повторов нужно дальше: если две тройки одной ячейки расходятся по `pass@3`, трёх повторов мало.
+**Output.** The first complete triples, `pass@3` and `pass^3` per cell, and the first `compare --out` table. Within-cell variability will indicate how many repeats are needed next: if two triples of one cell disagree on `pass@3`, three repeats are insufficient.
 
-**Критерий остановки.** Если все три обвязки дают `pass^3` на обеих задачах, задачи слишком просты и направление 4 становится первым. Если ни одна не даёт `pass@3`, сначала проверяется модель и контракт, а не обвязки.
+**Stop criterion.** If all three harnesses achieve `pass^3` on both tasks, the tasks are too easy and direction 4 takes priority. If none achieves `pass@3`, investigate the model and contract before the harnesses.
 
-**Что не делать.** Не смешивать провайдеров в одной группе, не сравнивать Amp с `managed:*` против точного ID, не переcобирать образ между повторами.
+**Avoid.** Do not mix providers in one group, compare Amp `managed:*` against an exact ID, or rebuild images between repeats.
 
-## Направление 2. Абляция компонентов обвязки
+## Direction 2. Harness component ablation
 
-**Вопрос.** Какие компоненты обвязки реально влияют на результат при фиксированной модели, а какие дублируют поведение модели по умолчанию?
+**Question.** Which harness components actually affect outcomes with a fixed model, and which duplicate the model's default behavior?
 
-**Серия.** ЛР10 на тех же условиях, что направление 1. Первая абляция уже реализована: `--variant without-spec`. Следующие варианты требуют отдельного флага `prepare-run` и строки реестра каждый:
+**Series.** LAB10 under the same conditions as direction 1. The first ablation is implemented: `--variant without-spec`. Each additional variant needs its own `prepare-run` flag and ledger row:
 
-| Вариант | Что убирается | Проверяемое предположение |
+| Variant | What is removed | Assumption under test |
 | --- | --- | --- |
-| `without-spec` | текст спецификации агента из prompt | явная спецификация помогает модели |
-| `without-brief-rules` | запреты и правила из `brief.md`, остаётся контракт | инструкции-ограничения, а не границы, меняют поведение |
-| `without-native-limits` | native turn/budget limit адаптера, остаётся внешний timeout | лимит обвязки меняет стратегию модели, не только обрывает её |
-| `minimal-config` | конфигурация обвязки сведена к пустой, остаётся адаптер | настройки обвязки по умолчанию достаточны |
+| `without-spec` | Agent specification text from the prompt | An explicit specification helps the model |
+| `without-brief-rules` | Prohibitions and rules from `brief.md`; the contract remains | Instructional constraints, rather than enforced boundaries, change behavior |
+| `without-native-limits` | Adapter native turn/budget limits; the external timeout remains | Harness limits change the model's strategy, not just interrupt it |
+| `minimal-config` | Harness configuration is reduced to empty; the adapter remains | Default harness settings are sufficient |
 
-Границы (Docker, gateway, запрет `check/`) не участвуют в абляции ни в одном варианте.
+Boundaries (Docker, gateway, exclusion of `check/`) are never ablated.
 
-**Что получится.** Переход строк реестра из «предложена» в «подтверждена» или «не подтверждена» с двумя run ID до и после. Это единственный путь, которым реестр становится доказательством, а не каталогом.
+**Output.** Ledger rows move from proposed to confirmed or unconfirmed, with before/after run IDs. This is the only way the ledger becomes evidence rather than a catalog.
 
-**Критерий остановки.** Компонент, не меняющий `pass@3` и стоимость в двух парных сериях, удаляется из конфигурации, а не остаётся «на всякий случай».
+**Stop criterion.** A component that changes neither `pass@3` nor cost in two paired series is removed from configuration, rather than retained “just in case.”
 
-## Направление 3. Матрица моделей
+## Direction 3. Model matrix
 
-**Вопрос.** Что сильнее влияет на результат: смена обвязки при той же модели или смена модели при той же обвязке?
+**Question.** Which has a larger effect: changing the harness with the same model, or changing the model with the same harness?
 
-**Серия.** После направления 1 добавить вторую модель того же провайдера на уровень ниже и выше по стоимости, прогнать те же ячейки для одной обвязки. Получится квадрат 3 обвязки × 1 модель плюс 1 обвязка × 3 модели с общей ячейкой.
+**Series.** After direction 1, add same-provider models one cost tier below and above, and run the same cells for one harness. The matrix is 3 harnesses × 1 model plus 1 harness × 3 models, sharing one cell.
 
-**Что получится.** Оценка того, где лежит основной источник разброса. Если модель объясняет почти всё, лаборатория обвязок становится лабораторией стоимости: сколько стоит одинаковый результат на разных моделях через одну обвязку.
+**Output.** An estimate of the main source of variation. If the model explains almost everything, the harness lab becomes a cost lab: how much the same result costs across models using one harness.
 
-**Условие.** Точный ID модели в `run.json`, подтверждённый `observed_id` из трассы. Прогоны с `model_mismatch` не входят в группы.
+**Condition.** An exact model ID in `run.json`, confirmed by `observed_id` from the trace. Runs with `model_mismatch` do not enter the groups.
 
-## Направление 4. Новые типы задач
+## Direction 4. New task types
 
-Шесть задач покрывают исследование, исправление, аудит, реализацию, данные и безопасность. Не покрыты типы, на которых обвязки должны различаться сильнее всего.
+The six tasks cover research, repair, audit, implementation, data and security. They do not cover the types where harnesses should differ most.
 
-| Задача | Тип | Что проверяет в обвязке | Проверка |
+| Task | Type | Harness capability tested | Evaluation |
 | --- | --- | --- | --- |
-| T007 · длинный горизонт | рефакторинг в 5–8 файлах с зелёными тестами на каждом шаге | уплотнение контекста, память, порядок действий | скрипт: тесты, diff против эталона структуры |
-| T008 · инъекция в источниках | T001 с архивом, в котором одна страница содержит инструкции агенту | устойчивость к инъекции через данные, граница «источник не инструкция» | скрипт: следы выполнения инъекции в артефактах и трассе |
-| T009 · неполная спецификация | задача с намеренным противоречием в `brief.md` | останавливается ли агент и фиксирует ли противоречие вместо догадки | рубрика плюс скрипт на наличие раздела противоречий |
-| T010 · восстановление | тесты, зависящие от внешнего процесса, который падает на первом запуске | стратегия повторов и диагностики (связь с ЛР23) | скрипт: тесты зелёные, число перезапусков из трассы |
-| T011 · инструменты | задача, решаемая только через заданный MCP-сервер или CLI с нестандартным интерфейсом | дизайн инструмента и цена интерфейса (связь с ЛР22) | скрипт: результат и число вызовов инструмента |
+| T007 · long horizon | Refactor across 5–8 files, with passing tests at every step | Context compaction, memory, action ordering | Script: tests and diff against a reference structure |
+| T008 · source injection | T001 with an archive containing agent-directed instructions on one page | Resistance to injection through data; the source/instruction boundary | Script: evidence of following the injection in artifacts and trace |
+| T009 · incomplete specification | A deliberate contradiction in `brief.md` | Whether the agent stops and records the contradiction rather than guessing | Rubric plus a script checking for a contradictions section |
+| T010 · recovery | Tests depend on an external process that fails on the first start | Retry and diagnosis strategy (related to LAB23) | Script: passing tests and restart count from the trace |
+| T011 · tools | A task solvable only through a specified MCP server or CLI with an unusual interface | Tool design and interface cost (related to LAB22) | Script: result and tool-call count |
 
-Каждая задача приходит с `task.json`, `setup.sh`, скрытой проверкой с различимыми `pass`, `partial`, `fail` и ручной проверкой этих трёх исходов до первого прогона. T008 опирается на `capture-sources`: архив снимается один раз и модифицируется вручную, чтобы инъекция была воспроизводимой.
+Each task comes with `task.json`, `setup.sh`, a hidden check with distinguishable `pass`, `partial` and `fail` outcomes, and manual verification of all three before the first run. T008 uses `capture-sources`: capture the archive once, then modify it manually to make the injection reproducible.
 
-**Критерий остановки.** Задача, которую все обвязки решают одинаково в трёх повторах, не различает обвязки и переносится в разминку, а не в кампанию.
+**Stop criterion.** A task that all harnesses solve identically in three repeats does not distinguish harnesses. Move it to warmup rather than the campaign.
 
-## Направление 5. Измерения и судья
+## Direction 5. Measurements and the judge
 
-**Вопрос.** Сопоставимы ли числа между обвязками, и насколько независима независимая оценка?
+**Question.** Are numbers comparable across harnesses, and how independent is independent evaluation?
 
-- **Единый словарь трассы.** Сейчас каждый адаптер нормализует события по-своему. Общая схема `trace/events.jsonl` с типами `model_call`, `tool_call`, `tool_result`, `compaction`, `subagent` и явными `unavailable` даёт одинаковые счётчики ходов и вызовов инструментов. Сырой поток CLI сохраняется рядом.
-- **Калибровка стоимости.** Сравнить `cost_usd` из CLI с биллингом провайдера за изолированный ключ на серии из направления 1. Расхождение записывается как класс доказательства «заявление обвязки».
-- **Два судьи.** ЛР20: для T001 и T003 два независимых оценщика по одной рубрике, согласие по каждому пункту. Пока согласие ниже порога, рубрика уточняется, а не результат.
-- **Время до первого действия и доля ходов без инструментов.** Две метрики, которые видны в любой трассе и различают стратегии обвязок без оценки качества.
+- **Shared trace vocabulary.** Each adapter currently normalizes events differently. A common `trace/events.jsonl` schema with `model_call`, `tool_call`, `tool_result`, `compaction`, `subagent` and explicit `unavailable` values provides consistent turn/tool-call counters. Preserve the raw CLI stream alongside it.
+- **Cost calibration.** Compare CLI `cost_usd` with provider billing for an isolated key over the direction-1 series. Record discrepancies under the evidence class “harness claim.”
+- **Two judges.** LAB20: two independent evaluators use one rubric for T001 and T003, measuring agreement item by item. Until agreement meets the threshold, refine the rubric rather than the result.
+- **Time to first action and fraction of turns without tools.** Two metrics visible in any trace that distinguish harness strategies without judging quality.
 
-**Критерий остановки.** Метрика, которую нельзя получить хотя бы из двух обвязок с одним определением, остаётся `null` с причиной и не попадает в сравнения.
+**Stop criterion.** A metric that cannot be obtained from at least two harnesses with the same definition stays `null` with a reason and is excluded from comparisons.
 
-## Направление 6. Границы и доверие
+## Direction 6. Boundaries and trust
 
-**Вопрос.** Держат ли границы при реальных прогонах, а не только в синтетических тестах?
+**Question.** Do boundaries hold in real runs, not just synthetic tests?
 
-- **Канарейки.** В каждое workspace кладётся файл-приманка вне разрешённой записи и URL вне allowlist; любое обращение к ним фиксируется gateway и проверкой. Это превращает правило «агент не читал `check/`» из предположения в измерение.
-- **Credential broker.** Ключ провайдера сейчас доступен процессам внутри контейнера агента. Reverse-proxy, который подставляет заголовок авторизации на стороне координатора, убирает ключ из окружения агента. Нужен для T008 и любых задач с недоверенными входами.
-- **Пробы границы по обвязкам.** ЛР11–19 дополняются одинаковым набором проб: запись вне workspace, CONNECT к запрещённому домену, чтение `/control`. Результат по каждой обвязке попадает в матрицу как измерение, а не как описание.
+- **Canaries.** Put a decoy file outside the allowed write area and a URL outside the allowlist in each workspace. Record every access through the gateway and checks. This turns “the agent did not read `check/`” from an assumption into a measurement.
+- **Credential broker.** The provider key is currently accessible to processes inside the agent container. A reverse proxy that adds authorization on the coordinator side removes the key from the agent environment. It is required for T008 and any task with untrusted inputs.
+- **Per-harness boundary probes.** Add the same probes to LAB11–19: writes outside the workspace, CONNECT to a forbidden domain, and reads of `/control`. Put each harness's result in the matrix as a measurement, not a description.
 
-## Направление 7. Локальная модель как условие
+## Direction 7. Local models as a condition
 
-Pi с локальной llama.cpp уже работает. Расширение в двух шагах, без возврата измерений локальных моделей в это дерево:
+Pi with local llama.cpp already works. Extend it in two steps without bringing local-model measurements back into this tree:
 
-1. Перенести local provider на вторую обвязку (OpenCode или mini-SWE-agent), чтобы «локальная модель» стала условием, а не свойством Pi.
-2. ЛР25: одна задача, одна обвязка, два квантования одной модели, по три повтора. Вопрос: меняет ли квантование успех агентной задачи, а не только скорость.
+1. Port the local provider to a second harness (OpenCode or mini-SWE-agent), making “local model” a condition rather than a property of Pi.
+2. LAB25: one task, one harness, two quantizations of one model, three repeats each. Does quantization change agent-task success, rather than only speed?
 
-Все комплекты измерений уходят в отдельный репозиторий измерений; здесь остаются `run.json`, сводка и ссылка.
+Measurement bundles go in a separate measurement repository; keep `run.json`, a summary and a link here.
 
-## Направление 8. Инфраструктура и регрессии
+## Direction 8. Infrastructure and regressions
 
-- **Сборка образов в CI.** Реализована в workflow: все девять Dockerfile по кнопке и еженедельно; на PR/push — затронутые обвязки. Проверяется фактически установленный пин без сети; Pi дополнительно проходит Docker smoke локального bridge. Это проверка инфраструктуры, не результат агента.
-- **Протокол обновления пина.** ЛР27: при смене версии обвязки или модели одна и та же ячейка направления 1 прогоняется до и после, различие записывается в реестр с двумя run ID.
-- **Публикация сравнения.** Workflow после успешных проверок push в `main` сохраняет `compare --out results/compare/latest.md` как artifact и job summary. Состояние доказательств читается без локального запуска скриптов; автоматического коммита отчёта нет.
-- **Автоматический prepare для серии.** Команда, создающая N записей одной ячейки за один вызов с одинаковыми параметрами, чтобы серия не собиралась руками.
+- **CI image builds.** Implemented in the workflow: all nine Dockerfiles on manual/weekly runs; affected harnesses on PR/push. Check the actual installed pin without network access; Pi also runs the local-bridge Docker smoke. These are infrastructure checks, not agent results.
+- **Pin-update protocol.** LAB27: when a harness or model version changes, run the same direction-1 cell before and after, recording the difference in the ledger with two run IDs.
+- **Comparison publication.** After successful checks on a push to `main`, the workflow saves `compare --out results/compare/latest.md` as an artifact and job summary. The evidence state is readable without running scripts locally; reports are not committed automatically.
+- **Automatic series preparation.** A command creates N records for one cell with matching parameters in one invocation, avoiding manual series assembly.
 
-## Порядок и объём
+## Order and effort
 
-| Шаг | Направление | Зависимости | Оценка объёма |
+| Step | Direction | Dependencies | Estimated effort |
 | --- | --- | --- | --- |
-| 1 | Кампания 3 × 2 × 3 (направление 1) | ключи двух провайдеров, собранные образы | 1–2 дня оператора, до 40 USD |
-| 2 | Абляция `without-spec` на лучшей ячейке (направление 2) | шаг 1 | полдня, до 15 USD |
-| 3 | Канарейки и пробы границ (направление 6) | нет | 1 день инженерной работы |
-| 4 | T007 и T008 (направление 4) | `capture-sources` на машине оператора | 2 дня |
-| 5 | Единый словарь трассы (направление 5) | нет, но до расширения адаптеров | 2–3 дня |
-| 6 | Матрица моделей (направление 3) | шаг 1 | 1 день, до 40 USD |
-| 7 | Credential broker (направление 6) | до любых недоверенных задач | 2 дня |
-| 8 | Локальный provider на второй обвязке (направление 7) | доступ к стенду | 2–3 дня |
+| 1 | Campaign 3 × 2 × 3 (direction 1) | Keys for two providers, built images | 1–2 operator days, up to USD 40 |
+| 2 | `without-spec` ablation on the best cell (direction 2) | Step 1 | Half a day, up to USD 15 |
+| 3 | Canaries and boundary probes (direction 6) | None | 1 engineering day |
+| 4 | T007 and T008 (direction 4) | `capture-sources` on the operator's machine | 2 days |
+| 5 | Shared trace vocabulary (direction 5) | None, but before expanding adapters | 2–3 days |
+| 6 | Model matrix (direction 3) | Step 1 | 1 day, up to USD 40 |
+| 7 | Credential broker (direction 6) | Before any untrusted task | 2 days |
+| 8 | Local provider in a second harness (direction 7) | Access to the target platform | 2–3 days |
 
-Шаги 1 и 2 отвечают на главный вопрос лаборатории первыми числами и определяют, стоит ли вкладываться в остальное. Шаг 3 защищает результаты шагов 1 и 2 от сомнений в границе. Остальное расширяет пространство условий и имеет смысл только после того, как первые тройки показали, что стенд различает обвязки.
+Steps 1 and 2 provide the first numbers for the main question and determine whether the remaining investment is worthwhile. Step 3 protects those results from doubts about the boundary. The rest expands the condition space and makes sense only after the first triples show that the setup can distinguish harnesses.
 
-## Чего не делать
+## What to avoid
 
-- Не возвращать в это дерево измерения локальных моделей и замороженные инфраструктурные ветки ЛР36–52.
-- Не добавлять десятую обвязку, пока девять существующих не прошли хотя бы одну ячейку кампании.
-- Не строить рейтинг обвязок по неполным тройкам и не объединять группы с разными моделями, вариантами или бюджетной политикой.
-- Не добавлять компонент обвязки без строки реестра и без запланированной пары прогонов до и после.
+- Do not return local-model measurement bundles or frozen LAB36–52 infrastructure branches to this tree.
+- Do not add a tenth harness before the nine existing ones have completed at least one campaign cell.
+- Do not rank harnesses using incomplete triples or combine groups with different models, variants or budget policies.
+- Do not add a harness component without a ledger row and a planned before/after run pair.

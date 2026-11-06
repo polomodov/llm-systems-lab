@@ -1,29 +1,29 @@
-# ЛР 01. Воспроизводимый эпизод и границы эксперимента
+# LAB 01. Reproducible episodes and experiment boundaries
 
-## Паспорт
+## Profile
 
-| Параметр | Условие |
+| Parameter | Condition |
 | --- | --- |
-| Время оператора | 1–2 часа |
-| Предыдущие работы | Нет |
-| Среда | Node.js ≥22, Git, Bash; GPU не нужен |
-| Готовность | Выполняется текущими командами репозитория |
-| Минимальный объём | Одна подготовленная T002 и две проверки подготовки/целостности на синтетических fixtures |
-| Расширение | Отдельный Docker isolation smoke; подготовка второго harness |
+| Operator time | 1–2 hours |
+| Previous labs | None |
+| Environment | Node.js ≥22, Git, Bash; no GPU required |
+| Readiness | Can be completed with the repository's current commands |
+| Minimum scope | One prepared T002 and two preparation/integrity checks using synthetic fixtures |
+| Extension | Separate Docker isolation smoke test; preparation of a second harness |
 
-## Цель
+## Objective
 
-Научиться создавать воспроизводимый эпизод, отличать его подготовку от выполнения задачи и проверить, какие данные видит агент. Результат — подготовленный run record и объяснённая граница между входами, workspace, trace и независимой оценкой.
+Learn to create a reproducible episode, distinguish preparation from task execution, and check what data the agent can see. The result is a prepared run record and an explanation of the boundaries between inputs, workspace, trace, and independent evaluation.
 
-## Проверяемая гипотеза
+## Hypothesis
 
-«Повторная подготовка одной и той же задачи сохраняет начальное содержимое, а изменение запечатанных входов обнаруживается до исполнения». Отдельное требование границы: скрытые проверки и `.env` не находятся в agent workspace. Не проверяйте его чтением реальных hidden checks; используйте исходный manifest и синтетические тесты.
+“Preparing the same task again preserves its initial content, and changes to sealed inputs are detected before execution.” A separate boundary requirement is that hidden checks and `.env` must not be in the agent workspace. Do not test this by reading actual hidden checks; use the original manifest and synthetic tests.
 
-## Подготовка
+## Preparation
 
-1. Откройте корень репозитория. Никаких ключей API для этой работы не требуется.
-2. Прочитайте [метод](../method.md), [описание записей](../../results/README.md), открытый [контракт T002](../../tasks/T002-repo-janitor/task.md) и [спецификацию A2](../../agents/a2-janitor/spec.md). Не открывайте каталог `check`.
-3. Создайте отчёт:
+1. Open the repository root. No API keys are required for this lab.
+2. Read the [method](../method.md), [record description](../../results/README.md), public [T002 contract](../../tasks/T002-repo-janitor/task.md), and [A2 specification](../../agents/a2-janitor/spec.md). Do not open the `check` directory.
+3. Create a report:
 
 ```bash
 npm run lab:new -- --lab LAB01 --session first-pass
@@ -33,11 +33,11 @@ git --version > "$LAB_DIR/raw/git-version.txt"
 bash --version > "$LAB_DIR/raw/bash-version.txt"
 ```
 
-Если папка уже существует, выберите новый session ID. Во всех последующих командах используйте путь созданной папки. Не затирайте raw логи при повторе опыта.
+If the directory already exists, choose a new session ID. Use the created directory's path in all subsequent commands. Do not overwrite raw logs when repeating an experiment.
 
-## Порядок выполнения
+## Procedure
 
-1. **До запуска** заполните гипотезу и протокол в `report.md`: будет исследоваться подготовка, без обращения к модели. Укажите текущий commit и факт изменённого дерева:
+1. **Before execution**, fill in the hypothesis and protocol in `report.md`: the experiment will examine preparation without calling a model. Record the current commit and whether the working tree has changes:
 
 ```bash
 git rev-parse HEAD > "$LAB_DIR/raw/revision.txt"
@@ -46,23 +46,23 @@ npm run harnesses > "$LAB_DIR/raw/harnesses.txt"
 npm run check > "$LAB_DIR/raw/check-before.txt" 2>&1
 ```
 
-2. **Создайте один новый эпизод**, выбрав реализованный harness:
+2. **Create one new episode**, choosing an implemented harness:
 
 ```bash
 npm run new-run -- --harness claude-code --agent a2-janitor --task T002
 ```
 
-В выводе будет путь `results/runs/<run-id>/run.json`. Скопируйте именно его идентификатор в следующую переменную. Это ручная подстановка из фактического вывода; не используйте строку-заполнитель буквально.
+The output will contain the path `results/runs/<run-id>/run.json`. Copy that exact identifier into the next variable. This is a manual substitution from the actual output; do not use the placeholder string literally.
 
 ```bash
-RUN_ID='<run-id из предыдущей команды>'
+RUN_ID='<run-id from the previous command>'
 test -f "results/runs/$RUN_ID/run.json"
 npm run prepare-run -- --run "$RUN_ID" > "$LAB_DIR/raw/prepare.txt" 2>&1
 ```
 
-Если `test -f` не завершился успешно, исправьте переменную до следующего шага. В `manifest.json` учебного отчёта добавьте полученный ID в `run_ids`. Не изменяйте экспериментальный `run.json` вручную.
+If `test -f` did not succeed, fix the variable before the next step. Add the resulting ID to `run_ids` in the lab report's `manifest.json`. Do not edit the experimental `run.json` manually.
 
-3. **Проверьте состояние и состав снимка**, читая только известные открытые файлы. Команда не обращается к hidden checks:
+3. **Check the snapshot's state and contents**, reading only known public files. The command does not access hidden checks:
 
 ```bash
 node --input-type=module - "$RUN_ID" <<'NODE' > "$LAB_DIR/raw/prepared-summary.json"
@@ -80,69 +80,69 @@ if (record.status !== 'prepared' || forbidden.length) process.exitCode = 1;
 NODE
 ```
 
-Ожидаемый структурный результат — `prepared`, непустой `seed_commit`, отсутствие forbidden paths. Это ожидаемое условие задания, не готовый результат вашей сессии. Сравните `inputs/control/prompt.txt` с открытой спецификацией/контрактом и выпишите, где агент должен работать и сохранять артефакты. Не запускайте команды из task prompt самостоятельно для исправления задачи.
+The expected structural result is `prepared`, a nonempty `seed_commit`, and no forbidden paths. This is an expected condition of the assignment, not a result already obtained in your session. Compare `inputs/control/prompt.txt` with the public specification/contract and note where the agent should work and save artifacts. Do not run commands from the task prompt yourself to fix the task.
 
-4. **Проверьте гипотезу на синтетических fixtures**. Не портите реальный подготовленный run ради демонстрации. Эти тесты создают собственные временные эпизоды:
+4. **Test the hypothesis using synthetic fixtures**. Do not corrupt an actual prepared run for demonstration purposes. These tests create their own temporary episodes:
 
 ```bash
 node --test tests/setup.test.mjs > "$LAB_DIR/raw/setup-tests.txt" 2>&1
 node --test tests/runtime.test.mjs > "$LAB_DIR/raw/integrity-tests.txt" 2>&1
 ```
 
-В первом логе найдите проверку одинакового начального Git commit, во втором — обнаружение мутации запечатанного входа/manifest. Запишите названия тестов и фактический результат. Если тест упал, прочитайте ошибку и сохраните её; не меняйте task contract или проверки, чтобы получить зелёный результат.
+In the first log, find the check for identical initial Git commits; in the second, find detection of a mutated sealed input/manifest. Record the test names and actual results. If a test fails, read and preserve the error; do not change the task contract or checks to obtain a passing result.
 
-5. **Опишите границу наблюдаемости.** По [общей инфраструктуре](../../experiments/common/README.md) и `inputs/control/network.json` заполните таблицу ниже: что смонтировано/разрешено, где лежат `.env`, hidden checks, run.json и trace. Подготовка доказывает состав файлов; сетевую/процессную границу без Docker теста считать `unverified`.
+5. **Describe the observability boundary.** Using the [shared infrastructure](../../experiments/common/README.md) and `inputs/control/network.json`, fill in the table below: what is mounted/allowed, and where `.env`, hidden checks, run.json, and trace reside. Preparation proves the file inventory; treat the network/process boundary as `unverified` without a Docker test.
 
-6. **Завершите структурную проверку**:
+6. **Complete the structural check**:
 
 ```bash
 npm run check > "$LAB_DIR/raw/check-after.txt" 2>&1
 ```
 
-Run остаётся `prepared`; не переводите его в `completed`, поскольку модель не запускалась и независимого verdict нет. Учебную ЛР01 можно завершить после её критериев. Добавьте в вывод, почему эти два статуса различаются.
+The run remains `prepared`; do not change it to `completed`, because the model was not run and there is no independent verdict. The educational LAB01 can be completed once its criteria are met. Explain in the conclusion why these two statuses differ.
 
-7. **Расширенное задание:** если Docker Engine и локальный `node:24.13.1-bookworm-slim` доступны, выполните `npm run test:docker > "$LAB_DIR/raw/docker-tests.txt" 2>&1`. Сохраните version/image сведения и результат; этот smoke не вызывает модель. Можно подготовить отдельный T002 для `opencode` и сопоставить открытые manifests, сохранив оба run ID. Состав `.git` с timestamps не обязан совпасть побайтно; сравнивайте исходный commit и содержательные файлы по методу.
+7. **Extension:** if Docker Engine and a local `node:24.13.1-bookworm-slim` image are available, run `npm run test:docker > "$LAB_DIR/raw/docker-tests.txt" 2>&1`. Save version/image details and the result; this smoke test does not call a model. You may prepare a separate T002 for `opencode` and compare the public manifests, preserving both run IDs. The contents of `.git`, including timestamps, need not match byte for byte; compare the initial commit and substantive files according to the method.
 
-## Таблицы результатов
+## Results tables
 
-| Проверка | Ожидаемое условие | Наблюдение | Raw evidence |
+| Check | Expected condition | Observation | Raw evidence |
 | --- | --- | --- | --- |
-| Начальное состояние run | `planned` до prepare | — | — |
-| После prepare | `prepared`, без verdict pass | — | — |
-| Начальное Git дерево T002 | Повторяемый seed commit | — | — |
-| Запечатанные входы | Мутация обнаруживается тестом | — | — |
-| Workspace | Нет check/.env | — | — |
-| Docker isolation, расширение | Синтетический тест проходит либо причина недоступности | — | — |
+| Initial run state | `planned` before prepare | — | — |
+| After prepare | `prepared`, without a pass verdict | — | — |
+| Initial T002 Git tree | Repeatable seed commit | — | — |
+| Sealed inputs | Mutation detected by the test | — | — |
+| Workspace | No check/.env | — | — |
+| Docker isolation, extension | Synthetic test passes, or reason it is unavailable | — | — |
 
-| Объект | Где находится | Видит ли агент | Основание / ограничение проверки |
+| Object | Location | Visible to agent | Evidence / check limitation |
 | --- | --- | --- | --- |
-| Контракт/spec | — | — | — |
-| Рабочие файлы T002 | — | — | — |
+| Contract/spec | — | — | — |
+| T002 working files | — | — | — |
 | `.env`, hidden checks | — | — | — |
 | `run.json`, trace | — | — | — |
-| API credential в окружении harness | — | — | — |
+| API credential in the harness environment | — | — | — |
 
-## Что сдать
+## Deliverables
 
-`report.md` с обеими таблицами и ответами; учебный `manifest.json` со ссылкой на run ID; `raw/` с версиями, состоянием дерева, выводом prepare, summary, тестами и двумя check. Реальный prepared run оставить в `results/runs/<run-id>/` вместе с входами. `measurements.tsv` может остаться без строк: объясните, что проверялась целостность, а не производительность модели.
+`report.md` with both tables and answers; the lab `manifest.json` referencing the run ID; `raw/` containing versions, working-tree status, prepare output, summary, tests, and both checks. Leave the actual prepared run in `results/runs/<run-id>/` together with its inputs. `measurements.tsv` may contain no data rows: explain that integrity, rather than model performance, was tested.
 
-## Критерии завершения
+## Completion criteria
 
-- [ ] Новый эпизод создан без перезаписи существующего и находится в `prepared`.
-- [ ] Приложены run ID, seed commit, результаты проверки manifest и обеих серий тестов.
-- [ ] Отсутствие hidden checks подтверждено без чтения их содержимого.
-- [ ] Разделены проверка подготовки и необязательный Docker smoke.
-- [ ] Учебный вывод не содержит выдуманного качества модели, tokens/s или стоимости.
-- [ ] `npm run check` проходит; отчёт и вопросы заполнены.
+- [ ] A new episode was created without overwriting an existing one and is in `prepared` state.
+- [ ] The run ID, seed commit, manifest check results, and both test suites are included.
+- [ ] The absence of hidden checks was confirmed without reading their contents.
+- [ ] Preparation verification is distinguished from the optional Docker smoke test.
+- [ ] The educational conclusion contains no invented model quality, tokens/s, or cost.
+- [ ] `npm run check` passes; the report and questions are completed.
 
-## Контрольные вопросы
+## Review questions
 
-1. Почему `prepared` и exit 0 не равны `pass` задачи?
-2. Что фиксирует SHA-256 manifest и чего он не доказывает?
-3. Почему timestamps `.git/index` не подходят для сравнения содержания эпизода?
-4. Чем отсутствие mount отличается от текстового запрета агенту читать файл?
-5. Какое ограничение остаётся, если ключ API находится в окружении harness?
+1. Why do `prepared` and exit 0 not mean the task has a `pass` verdict?
+2. What does the manifest's SHA-256 record, and what does it not prove?
+3. Why are `.git/index` timestamps unsuitable for comparing episode contents?
+4. How does the absence of a mount differ from a textual instruction prohibiting the agent from reading a file?
+5. What limitation remains if the API key is in the harness environment?
 
-## Источники
+## Sources
 
-[Метод эксперимента](../method.md), [жизненный цикл записей](../../results/README.md), [общая инфраструктура](../../experiments/common/README.md), открытые [T002](../../tasks/T002-repo-janitor/task.md) и [A2](../../agents/a2-janitor/spec.md). Исходники команд: [new-run](../../scripts/new-run.mjs), [prepare-run](../../scripts/prepare-run.mjs).
+[Experiment method](../method.md), [record lifecycle](../../results/README.md), [shared infrastructure](../../experiments/common/README.md), public [T002](../../tasks/T002-repo-janitor/task.md) and [A2](../../agents/a2-janitor/spec.md). Command sources: [new-run](../../scripts/new-run.mjs), [prepare-run](../../scripts/prepare-run.mjs).
