@@ -56,7 +56,7 @@ docker build --build-arg HARNESS_VERSION=1.18.29 \
   -t harness-lab/opencode:1.18.29 \
   -f experiments/opencode/Dockerfile experiments/opencode
 
-docker pull node:24.13.1-bookworm-slim
+docker pull node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2
 test -e .env || cp .env.example .env
 ```
 
@@ -159,13 +159,39 @@ npm run capture-sources -- --task T001 --as-of 2026-11-05
 
 ```bash
 npm test
+npm run test:python
 npm run test:docker
+npm run test:local-docker
 npm run check
 ```
 
-Обычные тесты не используют API и скрытые проверки. Docker smoke включается отдельно, использует локальный proxy image и синтетическую нагрузку. Для Colima временный mount создаётся в домашней папке; путь можно задать через `HARNESS_DOCKER_TMPDIR`.
+Обычные тесты не используют API и скрытые проверки. `test:python` запускает регрессии Apple exporter и все тесты fixtures, включая параллельную нагрузку и шум сервинга, через локальный HTTP mock. Docker smoke включается отдельно, использует локальный proxy image и синтетическую нагрузку. `test:local-docker` дополнительно требует Pi image с версией из `experiments/pi/harness.json`: проверяет настоящий SDK, tool call, broker, отмену запроса и timeout без модели и GPU. Для Colima временный mount создаётся в домашней папке; путь общего smoke можно задать через `HARNESS_DOCKER_TMPDIR`.
 
-`npm run check` дополнительно сверяет пин каждой обвязки в четырёх местах (профиль, Dockerfile, эта страница, README обвязки) и читает лимиты ходов и USD из контрактов задач. Для каждой задачи проверяется дескриптор `tasks/<id>/task.json`: существование агента и `setup.sh`, допустимые значения вида workspace, метода оценки, доменов сети и аргументов setup. Пин версии задаётся один раз в `experiments/<harness>/harness.json`: Dockerfile его утверждает, `run` сравнивает с версией, которую сообщает сам образ, и прерывает прогон до старта агента при расхождении. `npm test` и `npm run check` выполняются в GitHub Actions (`.github/workflows/ci.yml`); Docker-граница проверяется отдельной job на `main` и по кнопке.
+`npm run check` дополнительно сверяет пин каждой обвязки в четырёх местах (профиль, Dockerfile, эта страница, README обвязки) и читает лимиты ходов и USD из контрактов задач. Для каждой задачи проверяется дескриптор `tasks/<id>/task.json`: существование агента и `setup.sh`, допустимые значения вида workspace, метода оценки, доменов сети и аргументов setup. Пин версии задаётся один раз в `experiments/<harness>/harness.json`: Dockerfile его утверждает, `run` сравнивает с версией, которую сообщает сам образ, и прерывает прогон до старта агента при расхождении.
+
+### CI и публикация отчёта
+
+[Workflow](.github/workflows/ci.yml) работает на PR, push в `main`, вручную и по понедельникам в 06:23 UTC. Он имеет только `contents: read`, не получает credentials моделей и не запускает агентные эксперименты. Новые коммиты отменяют устаревший запуск того же PR; проверки `main` не отменяются.
+
+| Job | Условия и результат |
+| --- | --- |
+| `plan` | Выбирает обвязки из `harness.json` по Git diff; ошибка чтения истории останавливает job. |
+| `check` | На каждом событии: Node 22.0.0 (нижняя граница поддержки) и 24.13.1, `npm test`, `npm run check`. На основной версии также Python 3.12 и `test:python`. |
+| `docker` | На `main`, вручную, по расписанию и на PR с изменениями контейнерной инфраструктуры или обвязок: реальный smoke границы. |
+| `images` | PR/push: изменённые обвязки; вручную/по расписанию: все девять. Сборка по пину, проверка установленной версии без сети; для Pi также `test:local-docker`. До трёх сборок одновременно. |
+| `compare` | После успешных проверок push в `main`: `results/compare/latest.md` в artifact `comparison-<commit>-<attempt>` на 90 дней и в job summary. Файл не коммитится автоматически. |
+
+Изменения `.github/`, `scripts/`, `tests/`, `experiments/common/` и npm-конфигурации требуют сборки всех обвязок. Изменения исходников отдельной обвязки — только её образа. Документация и `measurements/` не требуют сборок. `plan` получает историю с `filter: blob:none`: merge-base доступен, старые бинарные измерения не скачиваются. У каждой job есть timeout (5–30 минут), текстовые логи тестов/сборки сохраняются на 14 дней, включая неуспешные запуски. Базовые образы и proxy закреплены multi-arch digest, Actions — полным commit SHA; их обновляют отдельным проверяемым изменением. Digest фиксирует базовый образ, но не делает изменяемые apt/npm/pip registry воспроизводимым архивом: полная еженедельная сборка проверяет, что установка по-прежнему работает.
+
+Локально те же сборка и проверка доступны без GitHub:
+
+```bash
+node .github/scripts/harness-ci.mjs build pi
+node .github/scripts/harness-ci.mjs smoke pi
+GITHUB_EVENT_NAME=workflow_dispatch node .github/scripts/harness-ci.mjs plan
+```
+
+Сборки скачивают публичные зависимости; smoke запускает только `version_command` в контейнере без сети. Отчёт `compare` использует уже записанные результаты и сохраняет разделение по условиям; успешный CI сам по себе не является измерением качества агента.
 
 - `docs/method.md` — протокол и ограничения интерпретации.
 - `docs/roadmap.md` — план расширения экспериментов: кампании, абляции, новые задачи, границы, порядок шагов.

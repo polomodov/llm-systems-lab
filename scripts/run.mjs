@@ -75,7 +75,7 @@ export async function execute(argv, { env, timeout, name, maxBytes = 32 * 1024 *
     child.on('close', (code, signal) => { clearInterval(timer); process.removeListener('SIGINT', onInt); process.removeListener('SIGTERM', onTerm); resolveResult({ stdout: Buffer.concat(out).toString('utf8'), stderr: Buffer.concat(err).toString('utf8'), code, signal: interruption ?? signal, timedOut, outputLimit, spawnError }); });
   });
 }
-export async function runExperiment(root, runId, { image, model, timeout = 900, proxyImage = 'node:24.13.1-bookworm-slim', budgetMode = 'hard', provider } = {}) {
+export async function runExperiment(root, runId, { image, model, timeout = 900, proxyImage = 'node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2', budgetMode = 'hard', provider } = {}) {
   const record = readRun(root, runId), dir = join(root, 'results/runs', runId);
   if (process.getuid?.() === 0) throw new Error('Run the coordinator as a non-root user so bind mounts have safe ownership');
   if (record.status !== 'prepared') throw new Error('Only a prepared run can execute');

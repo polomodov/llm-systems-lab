@@ -10,7 +10,7 @@ import { containerArgs } from '../scripts/run.mjs';
 // Явный opt-in; использует только готовый локальный image и синтетический агент.
 // Запуск: HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs
 const enabled = process.env.HARNESS_DOCKER_TEST === '1';
-const image = 'node:24.13.1-bookworm-slim';
+const image = 'node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2';
 const env = { ...process.env, ANTHROPIC_API_KEY: 'synthetic-infrastructure-test-only' };
 delete env.NODE_TEST_CONTEXT;
 const docker = argv => {
