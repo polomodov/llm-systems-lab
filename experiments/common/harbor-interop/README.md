@@ -92,7 +92,12 @@ fixture. It does not read or modify any existing lab task or hidden check.
 The agent image contains only public inputs. A separately built verifier image
 owns the expected output and evaluator. Only the declared `result.json` artifact
 crosses the boundary. The reference solution must pass; no-op, incorrect output,
-and forged verifier files/reward in the agent container must fail.
+and agent-side tampering must fail.
+
+Both images default to UID/GID 1000. Runtime probes assert that the solution,
+artifact controls and evaluator execute as UID 1000, and that the verifier
+fixture is not writable. Harbor still uses root for container preparation and
+artifact transfer; the runtime assertions cover agent and evaluator execution.
 
 The actual controls produced the following outcomes, with no Harbor exceptions:
 
@@ -101,11 +106,13 @@ The actual controls produced the following outcomes, with no Harbor exceptions:
 | Reference solution (`oracle`) | 1 | Correct artifact accepted |
 | No output (`nop`) | 0 | Missing output rejected |
 | Incorrect output | 0 | Incorrect artifact rejected |
-| Forged local tests, fixture and reward | 0 | Agent-side tampering did not alter the separate verifier |
+| Protected-path attempts, modified input and forged reward | 0 | Protected directory creation was denied; agent-side tampering did not alter the separate verifier |
 
 Harbor mounts a verifier-log directory into the agent, then clears it before
 grading. The tampering control deliberately writes a fake reward there; the
-separate verifier still rejects its incorrect artifact. This is evidence for
+separate verifier still rejects its incorrect artifact. It also modifies its
+own input and creates an agent-only marker, while attempts to create `/tests`
+and `/opt/verifier-fixtures` are denied. This is evidence for
 the tested boundary, not a claim that no shared writable path exists.
 
 ```bash

@@ -75,8 +75,7 @@ def text_content(content):
     return "".join(part["text"] for part in parts)
 
 
-def map_pi_trace(record, trace):
-    """Map only terminal messages; incremental and duplicate tool events stay raw."""
+def validate_record(record):
     require(record.get("harness") == {"name": "pi", "version": "0.73.1", "mode": "sdk"},
             "Only Pi SDK 0.73.1 is qualified by this exporter")
     require(record.get("status") == "completed", "Only completed evidence is supported")
@@ -94,6 +93,90 @@ def map_pi_trace(record, trace):
     if cost is None:
         require(bool(record.get("metrics_unavailable", {}).get("loop.cost_usd")),
                 "Unknown cost needs a recorded explanation")
+
+
+def append_tool_result(message, line_number, calls, observed_results):
+    call_id = message.get("toolCallId")
+    require(isinstance(call_id, str) and call_id in calls, "Orphan tool result")
+    require(call_id not in observed_results, "Duplicate tool result")
+    step, name = calls[call_id]
+    require(message.get("toolName") == name, "Tool result name differs from call")
+    step.setdefault("observation", {"results": []})["results"].append({
+        "source_call_id": call_id,
+        "content": text_content(message.get("content")),
+        "extra": {"is_error": message.get("isError"), "source_line": line_number,
+                  "timestamp": timestamp(message.get("timestamp"))},
+    })
+    observed_results.add(call_id)
+
+
+def map_tool_call(part, step, calls):
+    call_id, name = part.get("id"), part.get("name")
+    require(isinstance(call_id, str) and call_id and call_id not in calls,
+            "Missing or duplicate tool-call ID")
+    require(isinstance(name, str) and name and isinstance(part.get("arguments"), dict),
+            "Malformed tool call")
+    calls[call_id] = (step, name)
+    return {"tool_call_id": call_id, "function_name": name, "arguments": part["arguments"]}
+
+
+def map_message_usage(usage):
+    require(isinstance(usage, dict), "Invalid usage")
+    require(all(usage.get(key) is None or count(usage[key])
+                for key in ("input", "cacheRead", "cacheWrite", "output")),
+            "Invalid per-message token count")
+    inputs = [usage.get(key) for key in ("input", "cacheRead", "cacheWrite")]
+    return {
+        "prompt_tokens": sum(inputs) if all(count(v) for v in inputs) else None,
+        "completion_tokens": usage.get("output") if count(usage.get("output")) else None,
+        "cached_tokens": usage.get("cacheRead") if count(usage.get("cacheRead")) else None,
+        "cost_usd": None,
+        "extra": {"source": "Pi SDK message usage; aggregate run metrics are authoritative",
+                  "unknown_token_policy": "Null means the message lacks a complete nonnegative token count",
+                  "cost_unavailable": "Per-call cost is not imported; preserve authoritative aggregate only"},
+    }
+
+
+def map_assistant_content(message, step, calls):
+    parts = content_parts(message.get("content"), {"text", "thinking", "toolCall"})
+    fragments, tool_calls = {"text": [], "thinking": []}, []
+    for part in parts:
+        key = part["type"]
+        if key == "toolCall":
+            tool_calls.append(map_tool_call(part, step, calls))
+        else:
+            require(isinstance(part.get(key), str), f"Invalid {key} content")
+            fragments[key].append(part[key])
+    step["message"] = "".join(fragments["text"])
+    step["reasoning_content"] = "".join(fragments["thinking"]) if fragments["thinking"] else None
+    step["tool_calls"] = tool_calls or None
+    step["llm_call_count"] = 1
+    step["extra"].update({"configured_model_in_sdk_message": message.get("model"),
+                          "stop_reason": message.get("stopReason")})
+    step["metrics"] = map_message_usage(message.get("usage", {}))
+
+
+def append_message(message, line_number, steps, calls, observed_results):
+    require(isinstance(message, dict), "message_end lacks a message")
+    role = message.get("role")
+    if role == "toolResult":
+        append_tool_result(message, line_number, calls, observed_results)
+        return 0
+    require(role in {"user", "assistant"}, f"Unsupported message role: {role}")
+    require(set(calls) == observed_results, "New message before all tool results")
+    step = {"step_id": len(steps) + 1, "source": "agent" if role == "assistant" else "user",
+            "timestamp": timestamp(message.get("timestamp")), "message": "",
+            "extra": {"source_event": "message_end", "source_line": line_number}}
+    if role == "user":
+        step["message"] = text_content(message.get("content"))
+    else:
+        map_assistant_content(message, step, calls)
+    steps.append(step)
+    return int(role == "assistant")
+
+
+def map_terminal_messages(record, trace):
+    """Map only terminal messages; incremental and duplicate tool events stay raw."""
     steps, calls, observed_results, finals = [], {}, set(), []
     assistant_count = 0
     for line_number, line in enumerate(trace.splitlines(), 1):
@@ -109,76 +192,19 @@ def map_pi_trace(record, trace):
             finals.append(event)
             continue
         require(event_type == "message_end", f"Unsupported trace event: {event_type}")
-        message = event.get("message")
-        require(isinstance(message, dict), "message_end lacks a message")
-        role = message.get("role")
-        if role == "toolResult":
-            call_id = message.get("toolCallId")
-            require(isinstance(call_id, str) and call_id in calls, "Orphan tool result")
-            require(call_id not in observed_results, "Duplicate tool result")
-            step, name = calls[call_id]
-            require(message.get("toolName") == name, "Tool result name differs from call")
-            step.setdefault("observation", {"results": []})["results"].append({
-                "source_call_id": call_id,
-                "content": text_content(message.get("content")),
-                "extra": {"is_error": message.get("isError"), "source_line": line_number,
-                          "timestamp": timestamp(message.get("timestamp"))},
-            })
-            observed_results.add(call_id)
-            continue
-        require(role in {"user", "assistant"}, f"Unsupported message role: {role}")
-        require(set(calls) == observed_results, "New message before all tool results")
-        step = {"step_id": len(steps) + 1, "source": "agent" if role == "assistant" else "user",
-                "timestamp": timestamp(message.get("timestamp")), "message": "",
-                "extra": {"source_event": "message_end", "source_line": line_number}}
-        if role == "user":
-            step["message"] = text_content(message.get("content"))
-        else:
-            assistant_count += 1
-            parts = content_parts(message.get("content"), {"text", "thinking", "toolCall"})
-            text, reasoning, tool_calls = [], [], []
-            for part in parts:
-                if part["type"] in {"text", "thinking"}:
-                    key = "text" if part["type"] == "text" else "thinking"
-                    require(isinstance(part.get(key), str), f"Invalid {key} content")
-                    (text if key == "text" else reasoning).append(part[key])
-                else:
-                    call_id, name = part.get("id"), part.get("name")
-                    require(isinstance(call_id, str) and call_id and call_id not in calls,
-                            "Missing or duplicate tool-call ID")
-                    require(isinstance(name, str) and name and isinstance(part.get("arguments"), dict),
-                            "Malformed tool call")
-                    tool_calls.append({"tool_call_id": call_id, "function_name": name,
-                                       "arguments": part["arguments"]})
-                    calls[call_id] = (step, name)
-            step["message"] = "".join(text)
-            step["reasoning_content"] = "".join(reasoning) if reasoning else None
-            step["tool_calls"] = tool_calls or None
-            step["llm_call_count"] = 1
-            step["extra"].update({"configured_model_in_sdk_message": message.get("model"),
-                                  "stop_reason": message.get("stopReason")})
-            usage = message.get("usage", {})
-            require(isinstance(usage, dict), "Invalid usage")
-            require(all(usage.get(key) is None or count(usage[key])
-                        for key in ("input", "cacheRead", "cacheWrite", "output")),
-                    "Invalid per-message token count")
-            inputs = [usage.get(key) for key in ("input", "cacheRead", "cacheWrite")]
-            step["metrics"] = {
-                "prompt_tokens": sum(inputs) if all(count(v) for v in inputs) else None,
-                "completion_tokens": usage.get("output") if count(usage.get("output")) else None,
-                "cached_tokens": usage.get("cacheRead") if count(usage.get("cacheRead")) else None,
-                "cost_usd": None,
-                "extra": {"source": "Pi SDK message usage; aggregate run metrics are authoritative",
-                          "unknown_token_policy": "Null means the message lacks a complete nonnegative token count",
-                          "cost_unavailable": "Per-call cost is not imported; preserve authoritative aggregate only"},
-            }
-        steps.append(step)
+        assistant_count += append_message(event.get("message"), line_number, steps, calls, observed_results)
     require(len(finals) == 1 and assistant_count > 0 and steps and steps[0]["source"] == "user",
             "Trace requires user input, assistant messages and one final result")
     require(set(calls) == observed_results, "Trace ended with unresolved tool calls")
     require(count(finals[0].get("turns")) and finals[0]["turns"] == assistant_count == record["loop"]["turns"],
             "Recorded/final/observed turn counts differ")
     require(finals[0].get("stopReason") == record["loop"]["stop_reason"], "Stop reasons differ")
+    return steps, finals[0]
+
+
+def map_pi_trace(record, trace):
+    validate_record(record)
+    steps, final = map_terminal_messages(record, trace)
     model = record["model"]
     requested = f'{model["provider"]}/{model["id"]}'
     loop = record["loop"]
@@ -190,7 +216,7 @@ def map_pi_trace(record, trace):
         "source_notes": record.get("notes", ""), "notice": NOTICE,
     }
     return {
-        "schema_version": "ATIF-v1.8", "session_id": finals[0].get("sessionId"),
+        "schema_version": "ATIF-v1.8", "session_id": final.get("sessionId"),
         "trajectory_id": "derived-" + record["run_id"],
         "agent": {"name": "pi", "version": "0.73.1", "model_name": requested,
                   "extra": {"requested_model_id": model["id"], "observed_model_id": model.get("observed_id"),

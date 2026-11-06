@@ -1,6 +1,6 @@
 {
   "kind": "derived-historical-export-validation",
-  "checked_at": "2026-11-06T22:19:35.712790+00:00",
+  "checked_at": "2026-11-06T22:47:55.060511+00:00",
   "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
   "harbor_version": "0.25.0",
   "python": "3.12.12",
@@ -31,7 +31,7 @@
   },
   "historical_reward": 1,
   "cost_rendered_as_unknown": true,
-  "browser_inspection": "Job -> Rollouts -> trial -> Trajectory rendered successfully in local browser",
+  "browser_inspection": "Initial export rendered Job -> Rollouts -> trial -> Trajectory in the local browser; the refactored exporter produced a byte-identical trajectory, revalidated by the official validator and read-only viewer API.",
   "viewer_http_checks": {
     "/api/config": {
       "status": 200
@@ -54,9 +54,9 @@
     "rerun": false,
     "source_run_id": "2026-10-15-pi-a2-janitor-t002-repo-janitor",
     "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
-    "created_at": "2026-11-06T22:13:20.870420+00:00",
+    "created_at": "2026-11-06T22:47:55.009473+00:00",
     "notice": "Derived historical import; no agent execution or verification was repeated. Original language and recorded verdict are preserved. ATIF steps count user/agent messages, not lab turns. Aggregate metrics come from run.json; SDK placeholder prices are not costs. Timestamp intervals and recorded wall_clock_s have different boundaries; the latter remains in metadata. Model names are requested configuration; observed identity and its evidence are recorded separately.",
-    "exporter_sha256": "c150ed48deed7a8292c3494503ff1c974839b29e84051a7fc66b10b6a869cf55",
+    "exporter_sha256": "36775655704f016f89e47105e948c7bec0ac776325b6a3c20edcaa3d2762c621",
     "files": [
       {
         "path": "artifacts/report.md",
@@ -101,20 +101,21 @@
     ]
   },
   "generated_files_sha256": {
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "c96addf7573bc0bd154a644e2b405a0f0dbd488df4547f39e345b8dd8e562e22",
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "c00c26e468c1a56ad97efdaaa5bc05153d585ddd569554ba90bfee8d3d40f3ff",
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "372bb5467e34f6aff00ea7da77dc1501ab8a478cfdf50969d77f6630526caf04",
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "6c96a5e6f1698f4817265a147bc6633f60f583531311acb72d9fd525e0d99296",
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/agent/trajectory.json": "75015ad976d32e8e29d2128f7c62db3ef17b558edb7230e54a7694638028a99c",
-    "output/jobs/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/provenance.json": "55d613d9866b49e5e50f1cbf6f964f9b7258d08c0fadcb36b5f5ffe1651e26c8"
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "dd7d597a050ed83fe053396de9d130dfc7cbf2a1b637739bcdefb3600070d4ea",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "7e58397e61bfcf1861c5bc8927ba17a7c991f0783d5fec0523453d2926d4b0c5",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/config.json": "f252d810fb17b230ed2edeb94b163e8f0cf9a216344340a345def85c112bd375",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/result.json": "2775c939a3edb44b4283d32c0598364e41252bc46670b799f61278d08c6e51b5",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/agent/trajectory.json": "75015ad976d32e8e29d2128f7c62db3ef17b558edb7230e54a7694638028a99c",
+    "output/pr2-jobs-20261106T224754Z/derived-2026-10-15-pi-a2-janitor-t002-repo-janitor/2026-10-15-pi-a2-janitor-t002-repo-janitor/provenance.json": "ba2ea903601cf0532776c88b0dc66dac1bbd0cbdd3e043d609d46f779c3c5350"
   },
   "components_sha256": {
-    "export-run.py": "c150ed48deed7a8292c3494503ff1c974839b29e84051a7fc66b10b6a869cf55",
-    "test_export_run.py": "c03699016c800bd9cee5410a16613ed9354ebe67e27f5b3e901ad23cb451c387",
+    "export-run.py": "36775655704f016f89e47105e948c7bec0ac776325b6a3c20edcaa3d2762c621",
+    "test_export_run.py": "aa6fd8d11c001f87cf7808c834edd68734ca980f692dfa3953edba470a5b124f",
     "view.py": "334818993a3561954d4307560fc47fec151c8158d27a78e11573047a7b2b9083",
     "test_view.py": "78294640434dcf117c03fb5fd9ecaa6e74d2125481edac156280dec0fc4e9a1d",
     "lock.json": "74b42f5b7c70708967c52207ed4f5b7297c0590f4e84244be7d23c3bca9bcdda",
     "bootstrap.py": "3ece1d7916ea51b9d32543f37bb3be13125f88223b511c9dc9abca4ce5d2ccf9",
     "setup-docker-plugins.py": "0707e47aac41aae92a4ea90321fa0cf713e2ff00b49eb13b7b49bee58433cdc9"
-  }
+  },
+  "refactor_trajectory_unchanged": true
 }

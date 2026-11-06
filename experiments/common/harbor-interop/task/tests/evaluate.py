@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import os
 import socket
 import urllib.request
 from pathlib import Path
@@ -24,6 +25,8 @@ def evaluate(output: Path, fixture: Path) -> tuple[int, str]:
 
 if __name__ == "__main__":
     fixture = Path("/opt/verifier-fixtures/expected.json")
+    assert os.geteuid() == 1000, "verifier must run as the unprivileged image user"
+    assert not os.access(fixture, os.W_OK), "verifier fixture must remain read-only"
     reward, reason = evaluate(Path("/app/output/result.json"), fixture)
     try:
         with urllib.request.urlopen("https://example.com/", timeout=3) as response:
@@ -36,6 +39,8 @@ if __name__ == "__main__":
         "reward": reward,
         "reason": reason,
         "fixture_sha256": hashlib.sha256(fixture.read_bytes()).hexdigest(),
+        "fixture_writable": os.access(fixture, os.W_OK),
+        "effective_uid": os.geteuid(),
         "hostname": socket.gethostname(),
         "external_https_probe_blocked": external_https_blocked,
         "agent_input_present_in_verifier": Path("/app/input.json").exists(),

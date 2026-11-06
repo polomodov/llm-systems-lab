@@ -117,13 +117,16 @@ class MappingTests(unittest.TestCase):
         invalid_usage = fixture_events()
         invalid_usage[3]["message"]["usage"]["input"] = -1
         bad_traces.append(trace(invalid_usage))
+        record = fixture_record()
         for bad in bad_traces:
             with self.subTest(trace=bad[:30]), self.assertRaises(ValueError):
-                exporter.map_pi_trace(fixture_record(), bad)
+                exporter.map_pi_trace(record, bad)
+        valid_trace = trace()
         for change in [{"harness": {"name": "codex"}}, {"status": "aborted"},
                        {"verdict": {"result": "partial"}}]:
+            changed_record = {**record, **change}
             with self.assertRaises(ValueError):
-                exporter.map_pi_trace({**fixture_record(), **change}, trace())
+                exporter.map_pi_trace(changed_record, valid_trace)
 
     def test_envelopes_validate_and_scanner_loads_without_executing(self):
         from harbor.models.trajectories import Trajectory
