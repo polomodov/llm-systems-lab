@@ -1,0 +1,35 @@
+# Среда координатора и offline-проверок; версии обвязок остаются в harness.json.
+[tools]
+node = "24.13.1"
+python = "3.12.12"
+
+[env]
+PYTHONDONTWRITEBYTECODE = "1"
+
+[tasks.test]
+description = "Unit и integration тесты без API моделей"
+run = "npm test --"
+
+[tasks."test:python"]
+description = "Offline-регрессии Python"
+run = "npm run test:python"
+
+[tasks.check]
+description = "Записи прогонов, реестр, пины и контракты"
+run = "npm run check"
+
+[tasks.verify]
+description = "Все проверки без Docker и API моделей"
+run = ["npm test", "npm run test:python", "npm run check"]
+
+[tasks."test:docker"]
+description = "Docker smoke границы с синтетической нагрузкой"
+run = "npm run test:docker"
+
+[tasks."test:local-docker"]
+description = "Docker smoke Pi SDK и local bridge"
+run = "npm run test:local-docker"
+
+[tasks.compare]
+description = "Отчёт сравнения записанных прогонов"
+run = "npm run compare --"

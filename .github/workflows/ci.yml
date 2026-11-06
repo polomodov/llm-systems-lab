@@ -21,7 +21,8 @@ defaults:
 
 env:
   PROXY_IMAGE: node:24.13.1-bookworm-slim@sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2
-  PYTHONDONTWRITEBYTECODE: '1'
+  # Большинству jobs нужен только координатор; Python включён в основной check.
+  MISE_ENABLE_TOOLS: node
 
 jobs:
   plan:
@@ -37,14 +38,16 @@ jobs:
           fetch-depth: 0
           filter: blob:none
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
         with:
-          node-version: '24.13.1'
+          version: '2026.11.3'
+          cache_key_prefix: mise-node
       - name: Select changed harnesses and Docker checks
         id: plan
         env:
           CI_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
           CI_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+          CI_FORCE_PUSH: ${{ github.event.forced }}
         run: node .github/scripts/harness-ci.mjs plan
 
   # Проверки инфраструктуры: без API-ключей и вызовов моделей.
@@ -54,33 +57,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['22.0.0', '24.13.1']
+        runtime: [default, node22]
+    env:
+      MISE_ENABLE_TOOLS: ${{ matrix.runtime == 'default' && 'node,python' || 'node' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - name: Select the minimum supported Node version
+        if: matrix.runtime == 'node22'
+        run: echo 'MISE_NODE_VERSION=22.0.0' >> "$GITHUB_ENV"
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
         with:
-          node-version: ${{ matrix.node }}
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
-        if: matrix.node == '24.13.1'
-        with:
-          python-version: '3.12'
+          version: '2026.11.3'
+          cache_key_prefix: mise-${{ matrix.runtime }}
       - name: Prepare logs
         run: mkdir -p "$RUNNER_TEMP/ci-logs"
       - name: Unit and integration tests
-        run: npm test 2>&1 | tee "$RUNNER_TEMP/ci-logs/node-tests.log"
+        run: mise run test 2>&1 | tee "$RUNNER_TEMP/ci-logs/node-tests.log"
       - name: Offline Python regressions
-        if: ${{ !cancelled() && matrix.node == '24.13.1' }}
-        run: npm run test:python 2>&1 | tee "$RUNNER_TEMP/ci-logs/python-tests.log"
+        if: ${{ !cancelled() && matrix.runtime == 'default' }}
+        run: mise run test:python 2>&1 | tee "$RUNNER_TEMP/ci-logs/python-tests.log"
       - name: Records, ledger, pins and contracts
         if: ${{ !cancelled() }}
-        run: npm run check 2>&1 | tee "$RUNNER_TEMP/ci-logs/check.log"
+        run: mise run check 2>&1 | tee "$RUNNER_TEMP/ci-logs/check.log"
       - name: Preserve check logs
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: checks-node-${{ matrix.node }}-${{ github.run_attempt }}
+          name: checks-${{ matrix.runtime }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/ci-logs/
           retention-days: 14
           if-no-files-found: warn
@@ -95,15 +100,16 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
         with:
-          node-version: '24.13.1'
+          version: '2026.11.3'
+          cache_key_prefix: mise-node
       - name: Prepare logs
         run: mkdir -p "$RUNNER_TEMP/ci-logs"
       - name: Pull the immutable proxy image
         run: docker pull "$PROXY_IMAGE" 2>&1 | tee "$RUNNER_TEMP/ci-logs/pull.log"
       - name: Docker boundary smoke
-        run: npm run test:docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/docker-tests.log"
+        run: mise run test:docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/docker-tests.log"
       - name: Preserve Docker logs
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -129,9 +135,10 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
         with:
-          node-version: '24.13.1'
+          version: '2026.11.3'
+          cache_key_prefix: mise-node
       - name: Prepare logs
         run: mkdir -p "$RUNNER_TEMP/ci-logs"
       - name: Build pinned harness
@@ -143,7 +150,7 @@ jobs:
         run: docker pull "$PROXY_IMAGE" 2>&1 | tee "$RUNNER_TEMP/ci-logs/pull.log"
       - name: Pi SDK and local bridge Docker smoke
         if: matrix.harness == 'pi'
-        run: npm run test:local-docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/local-docker-tests.log"
+        run: mise run test:local-docker 2>&1 | tee "$RUNNER_TEMP/ci-logs/local-docker-tests.log"
       - name: Preserve image and smoke logs
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -166,12 +173,13 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
         with:
-          node-version: '24.13.1'
+          version: '2026.11.3'
+          cache_key_prefix: mise-node
       - name: Generate comparison and job summary
         run: |
-          npm run compare -- --out results/compare/latest.md
+          mise run compare -- --out results/compare/latest.md
           cat results/compare/latest.md >> "$GITHUB_STEP_SUMMARY"
       - name: Publish comparison artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

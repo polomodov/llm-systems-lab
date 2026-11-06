@@ -35,7 +35,7 @@ export function planChanges(ids, event, files = [], { full = false } = {}) {
   if (!events.has(event)) throw new Error(`Unsupported CI event: ${event}`);
   const all = full || event === 'workflow_dispatch' || event === 'schedule' || files.some(file =>
     ['.github/', 'scripts/', 'tests/', 'experiments/common/'].some(prefix => file.startsWith(prefix)) ||
-    ['package.json', 'package-lock.json', 'npm-shrinkwrap.json', '.dockerignore'].includes(file));
+    ['package.json', 'package-lock.json', 'npm-shrinkwrap.json', '.dockerignore', 'mise.toml', '.mise.toml', 'mise.lock'].includes(file));
   const selected = all ? ids : ids.filter(id => files.some(file => {
     const prefix = `experiments/${id}/`;
     if (!file.startsWith(prefix)) return false;
@@ -54,7 +54,9 @@ export function plan(root, env = process.env) {
   if (!events.has(event)) throw new Error(`Unsupported CI event: ${event}`);
   const ids = harnessIds(root);
   for (const id of ids) loadProfile(root, id);
-  const full = event === 'push' && /^0{40}$|^0{64}$/.test(env.CI_BASE_SHA ?? '');
+  // После переписывания истории старый before может отсутствовать в свежем
+  // checkout. GitHub forced=true требует полной проверки вместо diff.
+  const full = event === 'push' && (env.CI_FORCE_PUSH === 'true' || /^0{40}$|^0{64}$/.test(env.CI_BASE_SHA ?? ''));
   if (full) {
     if (!commit.test(env.CI_HEAD_SHA ?? '')) throw new Error('CI_HEAD_SHA must be a full commit SHA');
     command('git', ['rev-parse', '--verify', `${env.CI_HEAD_SHA}^{commit}`], { cwd: root });

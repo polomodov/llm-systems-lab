@@ -21,7 +21,7 @@ test('CI limits PR images to changed harnesses and skips documentation-only imag
 });
 
 test('CI rebuilds every harness for shared infrastructure, manual and scheduled runs', () => {
-  for (const path of ['.github/workflows/ci.yml', '.github/scripts/harness-ci.mjs', 'scripts/run.mjs', 'tests/docker.test.mjs', 'experiments/common/local-broker.mjs', 'package.json']) {
+  for (const path of ['.github/workflows/ci.yml', '.github/scripts/harness-ci.mjs', 'scripts/run.mjs', 'tests/docker.test.mjs', 'experiments/common/local-broker.mjs', 'package.json', 'mise.toml', '.mise.toml', 'mise.lock']) {
     const report = planChanges(ids, 'pull_request', [path]);
     assert.equal(report.matrix.include.length, ids.length, path);
     assert.equal(report.docker, 'true');
@@ -67,6 +67,20 @@ test('CI diff handles renamed/deleted inputs and fails closed for unavailable co
   assert.throws(() => plan(repository, { GITHUB_EVENT_NAME: 'pull_request' }), /full commit SHAs/);
   const firstPush = plan(repository, { GITHUB_EVENT_NAME: 'push', CI_BASE_SHA: '0'.repeat(40), CI_HEAD_SHA: git(repository, ['rev-parse', 'HEAD']) });
   assert.equal(firstPush.matrix.include.length, ids.length);
+});
+
+test('CI checks every harness after a force push without requiring the old history', () => {
+  const env = {
+    GITHUB_EVENT_NAME: 'push',
+    CI_BASE_SHA: 'f'.repeat(40),
+    CI_HEAD_SHA: git(repository, ['rev-parse', 'HEAD']),
+  };
+  assert.deepEqual(plan(repository, { ...env, CI_FORCE_PUSH: 'true' }), {
+    matrix: { include: ids.map(harness => ({ harness })) }, 'has-images': 'true', docker: 'true',
+  });
+  assert.throws(() => plan(repository, env), /git rev-parse failed/);
+  assert.throws(() => plan(repository, { ...env, CI_FORCE_PUSH: 'true', CI_HEAD_SHA: 'f'.repeat(40) }), /git rev-parse failed/);
+  assert.throws(() => plan(repository, { ...env, GITHUB_EVENT_NAME: 'pull_request', CI_FORCE_PUSH: 'true' }), /git rev-parse failed/);
 });
 
 test('CI version smoke rejects missing/mismatched pins including similar release prefixes', () => {

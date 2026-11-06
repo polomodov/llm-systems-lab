@@ -8,3 +8,5 @@ results/runs/**/trace/*.raw
 *.log
 __pycache__/
 .venv/
+mise.local.toml
+.mise.local.toml

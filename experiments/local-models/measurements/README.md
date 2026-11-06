@@ -2,19 +2,19 @@
 
 До 05.11.2026 здесь лежали 98 комплектов `LABxx-session` (около 150 МБ, включая бинарные журналы `.sse`, `.bin` и серверные `.log`). Они утяжеляли репозиторий лаборатории обвязок и не нужны для её основного цикла `new-run → prepare-run → run → judge-run → compare`.
 
-Полный архив сохранён в истории репозитория. Последний коммит с измерениями в дереве:
+Архив сохранён в истории репозитория. При подготовке к публикации 06.11.2026 личные метаданные обезличены; затронутые комплекты содержат `privacy-redaction.json` и `PUBLICATION-REDACTION.md`. Измерения повторно не выполнялись, численные результаты сохранены. Подробнее — [границы преобразования](../../../docs/publication.md). Последний коммит с измерениями в очищенной истории:
 
 ```
-1624dc86491cb3a1f7ab66d78fba0b498e14ef1b
+a12e9f430f8b4bd19f1d316811a63b7caca9e4cc
 ```
 
 Ссылки из документации ведут на permalink этого коммита. Для выделения в отдельный репозиторий или релизный артефакт:
 
 ```bash
-git fetch origin 1624dc86491cb3a1f7ab66d78fba0b498e14ef1b
+git fetch origin a12e9f430f8b4bd19f1d316811a63b7caca9e4cc
 git archive --format=tar.gz --prefix=local-models-measurements/ \
-  -o local-models-measurements-1624dc86491c.tar.gz \
-  1624dc86491cb3a1f7ab66d78fba0b498e14ef1b experiments/local-models/measurements
+  -o local-models-measurements-a12e9f430f8b.tar.gz \
+  a12e9f430f8b4bd19f1d316811a63b7caca9e4cc experiments/local-models/measurements
 ```
 
 Вместе с измерениями в архиве остались регрессии экспортёров Mac-лабораторий `experiments/local-models/test_lab3x_*.py`, которые читали эти комплекты. Экспортёры `apple/*.py` остались в дереве.

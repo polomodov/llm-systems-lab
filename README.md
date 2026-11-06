@@ -45,7 +45,17 @@ npm run lab:check -- --report experiments/local-models/measurements/LAB01-first-
 
 ## Требования и образы
 
-Нужны Node.js ≥22, Git, Bash и работающий Docker Engine. Координатор запускается обычным пользователем, не root. npm-зависимостей у координатора нет. Образы используют Node.js 24.13.1; версии CLI задаются при сборке. Версии девяти обвязок собраны и проверены без запросов к модели 20.09.2026. Пример двух образов:
+Нужны Git, Bash, [mise](https://mise.jdx.dev/getting-started.html) и работающий Docker Engine. [mise.toml](mise.toml) задаёт среду разработки и CI: Node.js 24.13.1 и Python 3.12.12 для offline-проверок. После установки mise выполните из корня репозитория:
+
+```bash
+mise trust
+mise install
+mise run verify
+```
+
+Команды `mise run` и `mise exec -- <команда>` работают без активации shell; например, `mise exec -- npm run harnesses`. Для обычных команд `node`, `python3` и `npm` можно [активировать mise в shell](https://mise.jdx.dev/cli/activate.html). Существующие npm-скрипты сохраняются; минимальная поддерживаемая версия координатора — Node.js 22.0.0. Секреты остаются в `.env`, который читает только harness: mise его не загружает.
+
+Координатор запускается обычным пользователем, не root. npm-зависимостей у координатора нет. Mise управляет host-инструментами, а версии CLI обвязок остаются в `experiments/<harness>/harness.json` и Dockerfile. Образы используют Node.js 24.13.1; версии CLI задаются при сборке. Версии девяти обвязок собраны и проверены без запросов к модели 20.09.2026. Пример двух образов:
 
 ```bash
 docker build --build-arg HARNESS_VERSION=2.1.83 \
@@ -158,14 +168,13 @@ npm run capture-sources -- --task T001 --as-of 2026-11-05
 ## Проверки и карта
 
 ```bash
-npm test
-npm run test:python
-npm run test:docker
-npm run test:local-docker
-npm run check
+mise run verify             # test, test:python, check последовательно
+mise run test:docker
+mise run test:local-docker
+mise run compare -- --out results/compare/latest.md
 ```
 
-Обычные тесты не используют API и скрытые проверки. `test:python` запускает регрессии Apple exporter и все тесты fixtures, включая параллельную нагрузку и шум сервинга, через локальный HTTP mock. Docker smoke включается отдельно, использует локальный proxy image и синтетическую нагрузку. `test:local-docker` дополнительно требует Pi image с версией из `experiments/pi/harness.json`: проверяет настоящий SDK, tool call, broker, отмену запроса и timeout без модели и GPU. Для Colima временный mount создаётся в домашней папке; путь общего smoke можно задать через `HARNESS_DOCKER_TMPDIR`.
+Отдельные `mise run test`, `mise run test:python` и `mise run check` вызывают те же npm-скрипты. Обычные тесты не используют API и скрытые проверки. `test:python` запускает регрессии Apple exporter и все тесты fixtures, включая параллельную нагрузку и шум сервинга, через локальный HTTP mock. Docker smoke включается отдельно, использует локальный proxy image и синтетическую нагрузку. `test:local-docker` дополнительно требует Pi image с версией из `experiments/pi/harness.json`: проверяет настоящий SDK, tool call, broker, отмену запроса и timeout без модели и GPU. Для Colima временный mount создаётся в домашней папке; путь общего smoke можно задать через `HARNESS_DOCKER_TMPDIR`.
 
 `npm run check` дополнительно сверяет пин каждой обвязки в четырёх местах (профиль, Dockerfile, эта страница, README обвязки) и читает лимиты ходов и USD из контрактов задач. Для каждой задачи проверяется дескриптор `tasks/<id>/task.json`: существование агента и `setup.sh`, допустимые значения вида workspace, метода оценки, доменов сети и аргументов setup. Пин версии задаётся один раз в `experiments/<harness>/harness.json`: Dockerfile его утверждает, `run` сравнивает с версией, которую сообщает сам образ, и прерывает прогон до старта агента при расхождении.
 
@@ -175,13 +184,13 @@ npm run check
 
 | Job | Условия и результат |
 | --- | --- |
-| `plan` | Выбирает обвязки из `harness.json` по Git diff; ошибка чтения истории останавливает job. |
-| `check` | На каждом событии: Node 22.0.0 (нижняя граница поддержки) и 24.13.1, `npm test`, `npm run check`. На основной версии также Python 3.12 и `test:python`. |
+| `plan` | Выбирает обвязки из `harness.json` по Git diff; первый push и force push проверяют все обвязки без старой истории. В остальных случаях ошибка чтения истории останавливает job. |
+| `check` | На каждом событии: среда `default` из `mise.toml` и `node22` с Node 22.0.0 (нижняя граница поддержки), задачи `test` и `check`. На основной версии также Python и `test:python` из той же mise-конфигурации. |
 | `docker` | На `main`, вручную, по расписанию и на PR с изменениями контейнерной инфраструктуры или обвязок: реальный smoke границы. |
 | `images` | PR/push: изменённые обвязки; вручную/по расписанию: все девять. Сборка по пину, проверка установленной версии без сети; для Pi также `test:local-docker`. До трёх сборок одновременно. |
 | `compare` | После успешных проверок push в `main`: `results/compare/latest.md` в artifact `comparison-<commit>-<attempt>` на 90 дней и в job summary. Файл не коммитится автоматически. |
 
-Изменения `.github/`, `scripts/`, `tests/`, `experiments/common/` и npm-конфигурации требуют сборки всех обвязок. Изменения исходников отдельной обвязки — только её образа. Документация и `measurements/` не требуют сборок. `plan` получает историю с `filter: blob:none`: merge-base доступен, старые бинарные измерения не скачиваются. У каждой job есть timeout (5–30 минут), текстовые логи тестов/сборки сохраняются на 14 дней, включая неуспешные запуски. Базовые образы и proxy закреплены multi-arch digest, Actions — полным commit SHA; их обновляют отдельным проверяемым изменением. Digest фиксирует базовый образ, но не делает изменяемые apt/npm/pip registry воспроизводимым архивом: полная еженедельная сборка проверяет, что установка по-прежнему работает.
+Изменения `.github/`, `scripts/`, `tests/`, `experiments/common/`, npm- и mise-конфигурации требуют сборки всех обвязок. Изменения исходников отдельной обвязки — только её образа. Документация и `measurements/` не требуют сборок. `plan` получает историю с `filter: blob:none`: merge-base доступен, старые бинарные измерения не скачиваются. У каждой job есть timeout (5–30 минут), текстовые логи тестов/сборки сохраняются на 14 дней, включая неуспешные запуски. Все jobs устанавливают host-инструменты через закреплённый `mise-action`; Python включён только в основной `check`, а отдельный кеш для `node22` учитывает переопределение `MISE_NODE_VERSION`. Базовые образы и proxy закреплены multi-arch digest, Actions — полным commit SHA; их обновляют отдельным проверяемым изменением. Digest фиксирует базовый образ, но не делает изменяемые apt/npm/pip registry воспроизводимым архивом: полная еженедельная сборка проверяет, что установка по-прежнему работает.
 
 Локально те же сборка и проверка доступны без GitHub:
 
@@ -203,3 +212,6 @@ GITHUB_EVENT_NAME=workflow_dispatch node .github/scripts/harness-ci.mjs plan
 - `results/schema.json`, `scripts/` — формат записи и координатор.
 
 Граница credentials ограничена: API key находится в окружении обвязки и доступен процессам внутри её контейнера. Host-файл `.env` не монтируется; для недоверенных задач, требующих скрыть ключ даже от bash агента, нужен отдельный credential broker. Оценённые Pi/local/T002 результаты не подтверждают качество остальных обвязок. Cloud-эпизоды, полнота отдельных usage-полей и доступность конкретной модели в аккаунте остаются **unverified**; для девяти адаптеров сохранены подготовка и offline проверки установки/SDK. Где проверять — в README адаптеров и матрице.
+
+Лицензия кода — [MIT](LICENSE), copyright © 2026 polomodov.
+Обезличивание истории, целостность архивов и ограничения старых ссылок описаны в [подготовке к публикации](docs/publication.md).
