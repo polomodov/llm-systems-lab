@@ -15,7 +15,10 @@ def hashes(root, mapping):
 
 
 def check():
-    evidence = read(BASE / ('review-evidence.json' if (BASE / 'review-evidence.json').exists() else 'offline-evidence.json'))
+    checkpoint = next(name for name in ['hn-o01-review-evidence.json', 'hn-o01-evidence.json', 'review-evidence.json', 'offline-evidence.json'] if (BASE / name).exists())
+    evidence = read(BASE / checkpoint)
+    if checkpoint == 'hn-o01-review-evidence.json':
+        require(sha(BASE / 'hn-o01-evidence.json') == evidence['previous_checkpoint_sha256'], 'Original HN-O01 checkpoint changed')
     require(sha(BASE / 'preservation.json') == evidence['preservation_sha256'], 'Preservation manifest changed')
     require(len(read(BASE / 'preservation.json')) == evidence['preserved_files'], 'Preservation scope changed')
     hashes(ROOT, read(BASE / 'preservation.json'))
@@ -42,6 +45,23 @@ def check():
         require(sha(bundle / 'trace/collection/coordinator-sources' / Path(relative).name) == expected, 'Coordinator source snapshot differs')
     require(controller['cleanup_complete'] and controller['sources_stable'] and controller['hooks'] and controller['sidecars'],
             'Source/boundary/cleanup evidence incomplete')
+    if 'hn_o01' in evidence:
+        import hn_o01
+        hashes(BASE, evidence['hn_o01']['pinned_source_sha256'])
+        collection = bundle / 'trace/collection'
+        measured = read(collection / 'hn-o01-measurements.json')
+        require(measured['synthetic'] is True and measured['offline'] is True and measured['identity_coverage_complete'], 'Missing offline identity coverage')
+        unavailable = sorted(key for key, value in measured['values'].items() if value is None)
+        expected_unavailable = evidence['hn_o01'].get('unavailable_metrics', [])
+        require(unavailable == expected_unavailable and all(key in measured['unavailable'] for key in unavailable), 'Unexpected native measurement coverage')
+        if expected_unavailable:
+            require(measured['issues'] == ['Permission telemetry is absent, incomplete or unbound'], 'Unexpected telemetry problem')
+        else:
+            require(not measured['issues'], 'Incomplete native measurement coverage')
+        require(hn_o01.observations(collection, record, offline=True)['metrics'] == {}, 'Synthetic metrics were promoted')
+        if 'permissions.asked' in expected_unavailable:
+            require('permissions.asked' not in hn_o01.observations(collection, record, offline=True)['metrics'], 'Unknown permission count was promoted')
+        require(measured['observed_model'] == record['model']['id'], 'Fixture response model mismatch')
     evaluator_summary = BASE / evidence['evaluation']['summary']
     require(sha(evaluator_summary) == evidence['evaluation']['summary_sha256'], 'Evaluator summary changed')
     evaluator = read(evaluator_summary)

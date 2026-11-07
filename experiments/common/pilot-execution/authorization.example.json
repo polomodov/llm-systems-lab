@@ -13,5 +13,9 @@
   "approved_by": "",
   "billing_project": "",
   "expires_at": "2000-01-01T00:00:00Z",
-  "previous_run_ids": []
+  "previous_run_ids": [],
+  "collector_sha256": null,
+  "reconciler_sha256": null,
+  "telemetry_sha256": null,
+  "billing_api_key_id": null
 }

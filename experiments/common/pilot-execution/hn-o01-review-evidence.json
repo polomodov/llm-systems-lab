@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "kind": "offline-controlled-execution-and-evaluator-readiness",
+  "checked_at": "2026-11-07T13:44:24.113013+00:00",
+  "source_revision": "e64c073934456352b9dc3b026de545cc65410838",
+  "source_dirty": true,
+  "execution_authorized": false,
+  "paid_runs": 0,
+  "provider_requests": 0,
+  "real_credentials_read": false,
+  "actual_hidden_checks_read": false,
+  "harbor": {
+    "summary": ".cache/offline-038afcc214aa4fae8acf03cfe6104d90/summary.json",
+    "summary_sha256": "152e522babbe5e4626a2ea9ffb496cc5f42ae685cf6306920e715ea2ed0b660c",
+    "actual_full_native_trial": true,
+    "native_harness": "codex",
+    "task_verdict": "pass",
+    "live_qualification": "inconclusive",
+    "cost_usd": null,
+    "synthetic_usage_not_billing": true
+  },
+  "evaluation": {
+    "summary": ".cache/evaluator-58c48774310e40ecadbe6c7940a0f8d1/summary.json",
+    "summary_sha256": "75ce23c9bc08338e6860984fc9095f73ed7285e7e75540e44258611a75656ea1",
+    "cases": 2,
+    "actual_task_checker_calibration": "not_run; independent context required",
+    "automatic_verdicts": false
+  },
+  "tests": [
+    {
+      "command": "npm test (Git-visible source snapshot)",
+      "passed": 206,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:python",
+      "passed": 52,
+      "failed": 0,
+      "new_execution_gate_tests": 24
+    },
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "records": 23,
+      "ledger_rows": 44
+    },
+    {
+      "command": "check_migration.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -m unittest discover -s experiments/common/harbor-native-2026-11",
+      "passed": 22,
+      "failed": 0
+    }
+  ],
+  "source_sha256": {
+    "experiments/common/pilot-execution/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
+    "experiments/common/pilot-execution/EVALUATION.md": "84a10e14ee20922a82c5792b2729b8012ac129b139dcae500d34818067395aab",
+    "experiments/common/pilot-execution/README.md": "db0883119d7ef1d3ab95d582f4236a7516d7ffb04afb9390dae509c2597ccd6d",
+    "experiments/common/pilot-execution/authorization.example.json": "a7160edfc0bcec9e89e301c9fc885f15377565f367be7bfe7992426381043035",
+    "experiments/common/pilot-execution/billing.example.json": "2489975f229585ae36cf7eb15fa966d549611567a257f241fb329b7a6ebdf95f",
+    "experiments/common/pilot-execution/check_offline.py": "ce1da0823ab40b85a7ce3dd3d3428844e89af735609a03de56f480c514572a49",
+    "experiments/common/pilot-execution/common.py": "e390918c27442167b69483673cfb481c9f4be213dc0a7cb85e3b79b7c049caee",
+    "experiments/common/pilot-execution/evaluation.mjs": "84500a5c609d1cf1721aa6facd412ef0e09f394ff67b15e5fddd4966b8261ad2",
+    "experiments/common/pilot-execution/evaluation.test.mjs": "9b4ec8d261b7cb9a7e358f983a542faa89ee30889f6f9aa402d254798b48bc89",
+    "experiments/common/pilot-execution/evaluator_container.py": "a54ed4e40b1766cb4a88a36b393d19f10ad439765a8e368399d8b7fdcbf70d9d",
+    "experiments/common/pilot-execution/observations.example.json": "145031a2352eb3309ce69dec744c9b8b254abb1b2ffb2841f96ad45a3f27c206",
+    "experiments/common/pilot-execution/offline_evaluation_smoke.py": "a32dd65161a717f20b40f9ae4a6d61448e0a65b885632e96b6bc181301ce366c",
+    "experiments/common/pilot-execution/single_trial.py": "d2d90602a925cd7e001c50dd641c579ad3143ba775f2e5c7a75adbc61356bb02",
+    "experiments/common/pilot-execution/test_single_trial.py": "60da6fa7343e67532be3e280217ad2ea91ef6ab9282cf664800077ccfa303d57",
+    "package.json": "ec13245a10c92bc9b094cc5a4aaf39e4933232f1260d4302087c5a5e4ffca3da",
+    "docs/harness-ledger.md": "9511d5feb497592965f868bc85702cb5d4d34135c115fda59c95d6aa81411a45",
+    "experiments/common/pilot-execution/hn_o01.py": "4b67dd39148df83e7ea0b37a23c303a009b97e7b9b738822543e905b10ee6b1d",
+    "experiments/common/pilot-execution/hn_o01_billing.py": "d967ae19c2d890f0d49dfd3429d2203082839ba0568ea070fe8cb8e69e9a3321",
+    "experiments/common/pilot-execution/otel_receiver.mjs": "dd17a02b09170ea9fbd15c8502e07ba8e12ab31951e914566c8e419973b312c4",
+    "experiments/common/pilot-execution/test_hn_o01.py": "d175f9cab252914e93dec24d2148df9b42bddb54cfa3c6f8af17a23d86b2331c",
+    "experiments/common/pilot-execution/HN-O01.md": "cf7692e5577f7c8bdb38068de9431054a2ca8f9a3364c17ac15321c68fbfc48f",
+    "experiments/common/pilot-execution/provider-export.example.json": "7ba5ecc5dd7c09cde359cadf4786fbb15239812e39f692a1f7ccb7793193520f"
+  },
+  "log_sha256": {
+    ".cache/pr6-node.log": "d84bbb188b595c7a4925c0f17d5a1e97d59a3c24d5d04199992d5f279ce3ed0c",
+    ".cache/pr6-python.log": "f05c83810abbffff47f4697fc9eae147e30338e971e9ee2e53358e6f50e71b51",
+    ".cache/pr6-native-tests.log": "1b2225d52e3258b764ae5afc8694a34a1432c5239c7b67907dbc8fbd8895e5af",
+    ".cache/pr6-check.log": "6a6c5380afb6459fff02093f410d740248b791a3e8f77ae809977080228b37a2",
+    ".cache/pr6-migration.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1",
+    ".cache/pr6-native-trial.log": "f799b1a457086f9ec57635000e0162023e9cff85b2e3258cd44d7ac2791cfeb9",
+    ".cache/pr5-eval-smoke.log": "832a69d4612909dd1f70fbfa45e781929d88b236f9a44a5240380d657c116cbd"
+  },
+  "preservation_sha256": "380606e8017fc36ce235c4656116a54640aa45a94a8329846831d325ca4ff953",
+  "preserved_files": 1673,
+  "remaining_live_gates": [
+    "Independent nested-call inventory or verified complete stream is required before full HN-O01 permission qualification; current counter stays unknown",
+    "Separate exact-run spending permit, approved project/API key ID, expiry and all current instrumentation hashes",
+    "Project/key exclusive for the entire UTC cost bucket; billing reviewer, full exports, two stable snapshots and justified finality",
+    "Live model/API acceptance and response identity on the native transport; unknowns remain unknown",
+    "No automatic retry, second native slot or campaign promotion"
+  ],
+  "previous_checkpoint_sha256": "6e916887c2a1bc5f738eee74f50e1582dfd28e44875d08ffd60a0a33d7c5dd00",
+  "hn_o01": {
+    "native_version": "0.167.0",
+    "native_source_commit": "086ccc833bc9cf01024ad2dd6af7dbd421b6bf9a",
+    "pinned_source_sha256": {
+      ".cache/codex-source/codex-rs/codex-api/src/sse/responses.rs": "3056d91cc81b40c60f4b9b40c83702e99cfe4b694032a46b50344bb1c6d6a79a",
+      ".cache/codex-source/codex-rs/core/src/session/mod.rs": "c04716274b5ecfc91730908bf25159bc6498a368d10352a0fc311aae7182df62",
+      ".cache/codex-source/codex-rs/otel/src/events/session_telemetry.rs": "0a5766b1964248468c8010555885b603281746ef430fb5c476e2b1199bdeeb1a",
+      ".cache/codex-source/codex-rs/otel/src/lib.rs": "246e06d55fab7671932cda69bb208db92f00460cb27b88004852f64543c06e03",
+      ".cache/codex-source/codex-rs/protocol/src/protocol.rs": "c7d307454bf2d8131ea35b6e02b2d834d12d6373a143d207af9e45cce0cb1d5e"
+    },
+    "all_measurements_present_in_synthetic_report": false,
+    "synthetic_response_identity_bound": true,
+    "live_record_identity_usage_cost_remain_null": true,
+    "native_sse_path_exercised": true,
+    "websocket_scope": "Native ServerModel source inspected and parser tested with synthetic native log lines; actual live WebSocket route unverified",
+    "billing_scope": "Invented provider export validation only; actual project/key exclusivity, exports and settlement remain unverified",
+    "unavailable_metrics": [
+      "permissions.asked"
+    ],
+    "permission_scope": "Nested exec lacks an independent call inventory; OTLP cannot establish complete coverage. Count remains null and full qualification stays blocked.",
+    "review_regressions": [
+      "Dropping both nested decision/result records while retaining outer exec never produces zero",
+      "Direct native call inventory supports counts; dropping direct pairs remains unknown",
+      "Reroute without observed alternate never falls back to the requested model, with or without requested metadata",
+      "Observed alternate model is preserved for existing accounting mismatch handling"
+    ]
+  }
+}

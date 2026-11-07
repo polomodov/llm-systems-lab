@@ -21,6 +21,9 @@ import uuid
 
 from common import BASE, ROOT, NATIVE, INTEROP, command, load, operator_document, operator_file, read, require, sha, write
 
+import hn_o01
+import hn_o01_billing
+
 a = load('single_trial_accounting', NATIVE / 'accounting.py')
 FAKE_KEY = 'offline-fixture-not-a-secret'
 RUN_PATTERN = r'\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*'
@@ -55,6 +58,9 @@ def validate_permit(permit, record, bundle, *, now=None):
                 'inputs_sha256': record['inputs']['manifest_sha256'],
                 'runner_sha256': sha(Path(__file__)), 'common_sha256': sha(BASE / 'common.py'),
                 'accounting_sha256': sha(NATIVE / 'accounting.py'), 'budget_target_usd': record['loop']['budget_usd']}
+    if expected['slot_id'] == 'HN-O01':
+        require(isinstance(permit.get('billing_api_key_id'), str) and permit['billing_api_key_id'].strip(), 'HN-O01 requires the attributable API key ID, never its secret')
+        expected.update(collector_sha256=sha(BASE / 'hn_o01.py'), reconciler_sha256=sha(BASE / 'hn_o01_billing.py'), telemetry_sha256=sha(BASE / 'otel_receiver.mjs'))
     require(all(permit.get(key) == value for key, value in expected.items()), 'Authorization does not bind this exact one-Trial execution')
     require(permit.get('approved_by') and permit.get('billing_project'), 'Authorization requires an operator and attributable billing project')
     expiry = datetime.fromisoformat(permit['expires_at'].replace('Z', '+00:00'))
@@ -83,6 +89,11 @@ def config_for(slot, package, directory, trial_name, offline):
     if offline:
         agent.update(base_url='http://127.0.0.1:8768/v1',
                      model_api_key_name='HARBOR_OFFLINE_FIXTURE_KEY')
+    if slot['slot_id'] == 'HN-O01':
+        agent['kwargs']['config'] = {**agent['kwargs'].get('config', {}),
+            'analytics': {'enabled': False},
+            'otel': {'exporter': {'otlp-http': {'endpoint': 'http://127.0.0.1:8769/v1/logs', 'protocol': 'json'}},
+                     'trace_exporter': 'none', 'metrics_exporter': 'none', 'log_user_prompt': False}}
     return {'task': {'path': str(package)}, 'trial_name': trial_name,
             'trials_dir': str(directory), 'agent': agent,
             'environment': {'type': 'docker', 'delete': True, 'force_build': False}}
@@ -124,7 +135,7 @@ def scratch_attempt(directory):
 
 
 def coordinator_sources():
-    paths = [Path(__file__), BASE / 'common.py', NATIVE / 'accounting.py', NATIVE / 'offline_smoke.py']
+    paths = [Path(__file__), BASE / 'common.py', NATIVE / 'accounting.py', NATIVE / 'offline_smoke.py', BASE / 'hn_o01.py', BASE / 'hn_o01_billing.py', BASE / 'otel_receiver.mjs']
     return {str(path.relative_to(ROOT)): sha(path) for path in paths}
 
 
@@ -230,7 +241,8 @@ async def run_trial(root, bundle, host, offline, permit=None):
     else:
         secret = selected_credential(ROOT / '.env', key)
     config['agent']['env'] = {
-        **slot.get('planned_env', {}), key: secret, 'HOME': '/home/agent',
+        **slot.get('planned_env', {}), **(hn_o01.TRACE_ENV if slot['slot_id'] == 'HN-O01' else {}),
+        key: secret, 'HOME': '/home/agent',
         'LITELLM_LOCAL_MODEL_COST_MAP': 'True'}
     directory.mkdir()
     write(bundle / 'trace/execution-claim.json', {'offline': offline, 'permit': permit,
@@ -250,6 +262,16 @@ async def run_trial(root, bundle, host, offline, permit=None):
             env = trial.agent_environment
             boundary = await env.exec('id -u; test ! -e /tests; test ! -e /opt/verifier-fixtures; test ! -e /var/run/docker.sock', user='1000:1000')
             require(boundary.return_code == 0 and boundary.stdout.strip() == '1000', 'Agent boundary probe failed')
+            if slot['slot_id'] == 'HN-O01':
+                await env.upload_file(BASE / 'otel_receiver.mjs', '/app/hn-o01-otel-receiver.mjs')
+                started_sink = await env.exec('node /app/hn-o01-otel-receiver.mjs > /logs/agent/hn-o01-otel-sink.log 2>&1 &', user='1000:1000')
+                require(started_sink.return_code == 0, 'Cannot start local telemetry sink')
+                for _ in range(20):
+                    ready = await env.exec('test -f /logs/agent/hn-o01-otel-ready', user='1000:1000')
+                    if ready.return_code == 0:
+                        break
+                    await asyncio.sleep(0.05)
+                require(ready.return_code == 0, 'Local telemetry sink not ready')
             if offline:
                 await env.upload_file(NATIVE / 'mock-provider.mjs', '/app/offline-provider.mjs')
                 started = await env.exec('node /app/offline-provider.mjs > /logs/agent/mock-server.log 2>&1 &', user='1000:1000')
@@ -293,6 +315,8 @@ async def run_trial(root, bundle, host, offline, permit=None):
           'finished_at': a.now(), 'source_sha256': sources_before,
           'sources_stable': sources_before == coordinator_sources(), 'task_digest_before': task_digest,
           'task_digest_after': 'sha256:' + Packager.compute_content_hash(package)[0]})
+    if slot['slot_id'] == 'HN-O01':
+        hn_o01.collect(directory, prefix, record, offline=offline)
     write(directory / 'state.json', {'phase': 'collected-awaiting-finalization', 'run_id': record['run_id'],
           'trial_directory': prefix, 'automatic_next_trial': False, 'provider_billing': 'unknown',
           'offline': offline, 'synthetic_usage_not_billing': offline})
@@ -309,6 +333,10 @@ def import_collection(root, bundle, directory, *, offline, billing=None, billing
     require(seal['offline'] is offline and seal['run_id'] == record['run_id'], 'Collection seal class/attempt mismatch')
     state = read(directory / 'state.json')
     require(state['run_id'] == record['run_id'] and state['offline'] is offline, 'Collection class/attempt mismatch')
+    mapped = None
+    if read(bundle / 'inputs/pilot-slot.json')['slot_id'] == 'HN-O01':
+        mapped = hn_o01.observations(directory, record, offline=offline)
+        require(observation is None or observation == mapped, 'HN-O01 observations are generated from sealed native evidence; overrides are forbidden')
     if not offline:
         require(billing and billing.get('status') == 'settled' and billing.get('run_id') == record['run_id'], 'Live finalization waits for attributable settled billing')
         require(not billing.get('synthetic'), 'Synthetic billing cannot finalize a live attempt')
@@ -317,6 +345,8 @@ def import_collection(root, bundle, directory, *, offline, billing=None, billing
         require(isinstance(billing.get('cost_usd'), (int, float)) and not isinstance(billing['cost_usd'], bool) and math.isfinite(billing['cost_usd']) and billing['cost_usd'] >= 0, 'Invalid settled cost')
         require(billing_evidence is not None and not billing_evidence.is_symlink() and billing_evidence.is_file(), 'Provider billing export evidence is required')
         require(sha(billing_evidence) == billing.get('evidence_sha256') and billing.get('attribution'), 'Billing export hash and attribution method are required')
+        if mapped is not None:
+            hn_o01_billing.verify_receipt(record, directory, seal, billing, read(billing_evidence))
     evidence = bundle / 'trace/import-source'
     require(not evidence.exists(), 'Finalization already started; inspect rather than overwrite')
     shutil.copytree(directory, evidence)
@@ -359,7 +389,7 @@ def import_collection(root, bundle, directory, *, offline, billing=None, billing
     if not native.exists():
         native = evidence / 'missing-native.json'
         write(native, {'native_trace_available': False})
-    observed = observation or {}
+    observed = mapped if mapped is not None else observation or {}
     observed.update(native_log=str(native.relative_to(evidence)),
         atif=trial_path + '/agent/trajectory.json' if (raw / 'agent/trajectory.json').exists() else None,
         terminal_native_trace=terminal,
@@ -419,7 +449,7 @@ async def main():
               'verdict': final['verdict']['result'], 'cost_usd': final['loop']['cost_usd'],
               'qualification': read(bundle / 'trace/accounting.json')['qualification'],
               'files': a.inventory(bundle), 'source_sha256': {str(p.relative_to(ROOT)): sha(p)
-                 for p in [Path(__file__), BASE / 'common.py', NATIVE / 'accounting.py', NATIVE / 'mock-provider.mjs']}})
+                 for p in [Path(__file__), BASE / 'common.py', BASE / 'hn_o01.py', BASE / 'hn_o01_billing.py', BASE / 'otel_receiver.mjs', NATIVE / 'accounting.py', NATIVE / 'mock-provider.mjs']}})
         print(json.dumps({'summary': str(directory / 'summary.json'), 'verdict': final['verdict']['result'],
                           'qualification': read(bundle / 'trace/accounting.json')['qualification']}))
         require(final['status'] == 'completed' and final['verdict']['result'] == 'pass', 'Offline Trial failed; retained its evidence')
@@ -428,10 +458,11 @@ async def main():
     bundle = a.safe(ROOT, 'results/runs/' + args.run_id)
     record = read(bundle / 'run.json')
     if args.action == 'finalize':
-        require(args.billing and args.observations, 'Finalization requires independent billing and provenance references')
+        require(args.billing, 'Finalization requires independent billing')
+        require(args.observations or read(bundle / 'inputs/pilot-slot.json')['slot_id'] == 'HN-O01', 'Other slots require explicit provenance references')
         _, billing = operator_document(args.billing)
         export, _ = operator_file(billing['evidence_file'])
-        _, observations = operator_document(args.observations)
+        observations = operator_document(args.observations)[1] if args.observations else None
         result = import_collection(ROOT, bundle, bundle / 'trace/collection', offline=False,
                                    billing=billing, billing_evidence=export, observation=observations)
         print(json.dumps({'run_id': result['run_id'], 'status': result['status']}))
