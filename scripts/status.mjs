@@ -12,6 +12,11 @@ import { main } from './lib/cli.mjs';
 const STATUSES = ['planned', 'prepared', 'running', 'awaiting_review', 'aborted', 'completed'];
 const VERDICTS = ['pass', 'fail', 'partial'];
 const count = (items, predicate) => items.filter(predicate).length;
+// Code-unit order: unlike localeCompare, it cannot differ between Node ICU versions and fail the freshness check.
+const byText = (a, b) => {
+  if (a === b) return 0;
+  return a < b ? -1 : 1;
+};
 const table = (head, rows) => [`| ${head.join(' | ')} |`, `| ${head.map(() => '---').join(' | ')} |`, ...rows.map(row => `| ${row.join(' | ')} |`)];
 
 export function ledgerStatuses(text) {
@@ -28,13 +33,14 @@ export function ledgerStatuses(text) {
 export function renderStatus(records, report, ledgerText) {
   const executed = records.filter(r => r.execution?.started_at);
   const evaluated = records.filter(r => r.status === 'completed');
-  const finished = executed.map(r => r.execution.finished_at).filter(Boolean).sort().at(-1);
+  const finished = executed.map(r => r.execution.finished_at).filter(Boolean).sort(byText).at(-1);
+  const latest = finished ? `; the latest finished on ${finished.slice(0, 10)}` : '';
   const verdicts = VERDICTS.map(v => `${v} ${count(evaluated, r => r.verdict?.result === v)}`).join(', ');
   const triples = report.groups.flatMap(g => g.harnesses).reduce((sum, h) => sum + h.triples.length, 0);
   const crossHarness = count(report.groups, g => g.harnesses.length > 1);
   const ledger = ledgerStatuses(ledgerText);
   const ledgerRows = Object.values(ledger).reduce((a, b) => a + b, 0);
-  const ledgerParts = Object.entries(ledger).sort().map(([status, n]) => `${n} ${status}`).join(', ');
+  const ledgerParts = Object.keys(ledger).sort(byText).map(status => `${ledger[status]} ${status}`).join(', ');
 
   const cells = new Map();
   for (const record of records) {
@@ -43,13 +49,13 @@ export function renderStatus(records, report, ledgerText) {
     if (!cells.has(id)) cells.set(id, { key, records: [] });
     cells.get(id).records.push(record);
   }
-  const rows = [...cells.keys()].sort().map(id => {
+  const rows = [...cells.keys()].sort(byText).map(id => {
     const { key, records: group } = cells.get(id);
     return [...key.map(value => `\`${value}\``),
       ...STATUSES.map(status => count(group, r => r.status === status)),
       ...VERDICTS.map(verdict => count(group, r => r.status === 'completed' && r.verdict?.result === verdict))];
   });
-  const waiting = records.filter(r => r.status === 'awaiting_review').map(r => r.run_id).sort();
+  const waiting = records.filter(r => r.status === 'awaiting_review').map(r => r.run_id).sort(byText);
 
   return [
     '# Lab status',
@@ -59,7 +65,7 @@ export function renderStatus(records, report, ledgerText) {
     '## Summary',
     '',
     `- Run records: ${records.length}.`,
-    `- Agent executions started: ${executed.length}${finished ? `; the latest finished on ${finished.slice(0, 10)}` : ''}.`,
+    `- Agent executions started: ${executed.length}${latest}.`,
     `- Independently evaluated: ${evaluated.length} (${verdicts}).`,
     `- Complete triples under matching conditions: ${triples}.`,
     `- Condition groups with more than one harness: ${crossHarness}.`,

@@ -46,7 +46,7 @@ function setup() {
   const source = join(environment, 'harbor');
   // Only the locked commit is needed. A shallow fetch is smaller, and rerunning resumes after a network failure.
   if (!existsSync(join(source, '.git'))) must('git', ['init', '--quiet', source]);
-  if (spawnSync('git', ['-C', source, 'rev-parse', '--verify', '--quiet', 'HEAD^{commit}']).status !== 0) {
+  if (run('git', ['-C', source, 'rev-parse', '--verify', '--quiet', 'HEAD^{commit}'], { stdio: 'ignore' }) !== 0) {
     must('git', ['-C', source, 'fetch', '--depth', '1', lock.harbor_repository, lock.harbor_commit]);
     must('git', ['-C', source, 'checkout', '--quiet', '--detach', 'FETCH_HEAD']);
   }
