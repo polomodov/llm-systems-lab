@@ -173,9 +173,9 @@ class BillingTests(unittest.TestCase):
             self.assertEqual(receipt['cost_usd'], value); self.assertIs(receipt['over_target'], over)
 
 class PermissionCoverageTests(unittest.TestCase):
-    def test_nested_native_tool_decisions_are_measured_not_assumed(self):
+    def test_nested_native_tool_decisions_cannot_prove_completeness(self):
         with tempfile.TemporaryDirectory() as directory:
-            _, _, raw, *_ = fixture(Path(directory))
+            record, collection, raw, *_ = fixture(Path(directory))
             def event(name, **fields):
                 attrs = {'event.name': name, 'conversation.id': 'thread-1', 'app.version': '0.167.0', **fields}
                 return {'attributes': [{'key': key, 'value': {'stringValue': value}} for key, value in attrs.items()]}
@@ -186,14 +186,69 @@ class PermissionCoverageTests(unittest.TestCase):
             def save(events):
                 path.write_text(json.dumps({'body': {'resourceLogs': [{'scopeLogs': [{'logRecords': events}]}]}}) + '\n')
             save([decision, result, outer])
-            self.assertEqual(capture.extract(raw, MODEL)['values']['permissions.asked'], 0)
+            self.assertIsNone(capture.extract(raw, MODEL)['values']['permissions.asked'])
             for attribute in decision['attributes']:
                 if attribute['key'] == 'source': attribute['value']['stringValue'] = 'User'
             save([decision, result, outer])
-            self.assertEqual(capture.extract(raw, MODEL)['values']['permissions.asked'], 1)
-            for broken in [[result, outer], [decision, result], [decision, decision, result, outer]]:
+            self.assertIsNone(capture.extract(raw, MODEL)['values']['permissions.asked'])
+            for broken in [[outer], [], [result, outer], [decision, result], [decision, decision, result, outer]]:
                 save(broken)
                 self.assertIsNone(capture.extract(raw, MODEL)['values']['permissions.asked'])
+            (collection / 'hn-o01-measurements.json').unlink()
+            capture.collect(collection, 'trial', record, offline=False)
+            self.assertNotIn('permissions.asked', capture.observations(collection, record, offline=False)['metrics'])
+
+
+    def test_direct_call_inventory_supports_counts_but_lost_pairs_stay_unknown(self):
+        with tempfile.TemporaryDirectory() as directory:
+            _, _, raw, _, _, _, rows, rollout = fixture(Path(directory))
+            rows[3] = ('response_item', {'type': 'function_call', 'name': 'exec_command', 'call_id': 'direct-1'})
+            rollout(rows)
+            def event(name, source=None):
+                attrs = {'event.name': name, 'conversation.id': 'thread-1', 'app.version': '0.167.0',
+                         'call_id': 'direct-1', 'tool_name': 'exec_command'}
+                if source: attrs['source'] = source
+                return {'attributes': [{'key': k, 'value': {'stringValue': v}} for k, v in attrs.items()]}
+            path = raw / 'agent/hn-o01-otel.jsonl'
+            def save(events):
+                path.write_text(json.dumps({'body': {'resourceLogs': [{'scopeLogs': [{'logRecords': events}]}]}}) + '\n')
+            for source, count in [('Config', 0), ('User', 1)]:
+                save([event('codex.tool_decision', source), event('codex.tool_result')])
+                self.assertEqual(capture.extract(raw, MODEL)['values']['permissions.asked'], count)
+            for incomplete in [[], [event('codex.tool_result')], [event('codex.tool_decision', 'User')]]:
+                save(incomplete)
+                self.assertIsNone(capture.extract(raw, MODEL)['values']['permissions.asked'])
+
+    def test_reroute_without_an_observed_alternate_never_exports_requested_identity(self):
+        for retain_requested_metadata in [False, True]:
+            with self.subTest(retain_requested_metadata=retain_requested_metadata), tempfile.TemporaryDirectory() as directory:
+                record, collection, raw, *_ = fixture(Path(directory))
+                path = raw / 'agent/codex.txt'
+                lines = path.read_text().splitlines()
+                if not retain_requested_metadata:
+                    lines = [line for line in lines if 'codex_' not in line]
+                lines.insert(-1, json.dumps({'type': 'model.rerouted'}))
+                path.write_text('\n'.join(lines) + '\n')
+                report = capture.extract(raw, MODEL)
+                self.assertTrue(report['model_mismatch'])
+                self.assertFalse(report['identity_coverage_complete'])
+                self.assertIsNone(report['observed_model'])
+                (collection / 'hn-o01-measurements.json').unlink()
+                capture.collect(collection, 'trial', record, offline=False)
+                self.assertIsNone(capture.observations(collection, record, offline=False)['identity'])
+
+    def test_observed_alternate_identity_is_preserved_for_accounting_failure(self):
+        with tempfile.TemporaryDirectory() as directory:
+            record, collection, raw, *_ = fixture(Path(directory))
+            path = raw / 'agent/codex.txt'
+            path.write_text(path.read_text().replace('server reported model ' + MODEL + ' (matches requested model)',
+                            'server reported model other-model while requested model was ' + MODEL))
+            (collection / 'hn-o01-measurements.json').unlink()
+            report = capture.collect(collection, 'trial', record, offline=False)
+            pointer = capture.observations(collection, record, offline=False)['identity']
+            self.assertEqual(pointer['pointer'], '/observed_model')
+            self.assertEqual(report['observed_model'], 'other-model')
+            self.assertNotEqual(report['observed_model'], record['model']['id'])
 
     def test_numeric_errors_sse_usage_disagreement_and_changed_report_fail_closed(self):
         with tempfile.TemporaryDirectory() as directory:

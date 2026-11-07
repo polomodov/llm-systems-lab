@@ -157,8 +157,13 @@ def extract(raw, requested):
                                 require(identity not in decisions and attrs.get('source') in ['Config', 'User', 'AutomatedReviewer'], 'Incomplete/duplicate tool decision')
                                 decisions[identity] = attrs['source']
             expected_calls = {c['call_id'] for c in calls}
-            approval_calls = {identity for identity, tool in tool_results.items() if tool != 'exec'}
-            require(expected_calls and expected_calls.issubset(tool_results) and set(decisions) == approval_calls, 'Tool-decision coverage differs from native calls/results')
+            # OTLP cannot independently enumerate calls nested inside exec. A
+            # decision/result pair may disappear together, even with the outer
+            # result present. Only directly inventoried native calls qualify.
+            require(all(c.get('name') in ['exec_command', 'write_stdin', 'apply_patch'] for c in calls),
+                    'Nested exec calls lack an independent permission inventory')
+            require(expected_calls and expected_calls == set(tool_results) == set(decisions),
+                    'Tool-decision coverage differs from the independent native call inventory')
             values['permissions.asked'] = sum(source == 'User' for source in decisions.values())
             bindings[str(otel_path.relative_to(raw))] = sha(otel_path)
         except (ValueError, KeyError, TypeError):
@@ -183,7 +188,10 @@ def extract(raw, requested):
     if responses and set(responses) != set(usage):
         model_coverage = False
         issues.append('SSE response IDs do not cover the native usage set')
-    observed = next(iter(sorted(identities - {requested})), requested) if mismatch else requested if model_coverage and identities == {requested} else None
+    alternatives = sorted(identity for identity in identities - {requested} if isinstance(identity, str) and identity)
+    observed = alternatives[0] if alternatives else None
+    if not mismatch and model_coverage and identities == {requested}:
+        observed = requested
     bindings['agent/codex.txt'] = sha(native)
     return {'schema_version': 1, 'kind': 'hn-o01-native-measurements',
             'requested_model': requested, 'observed_model': observed, 'model_mismatch': mismatch,
@@ -200,7 +208,7 @@ def extract(raw, requested):
                 'compactions': 'Compacted records in the complete single native rollout',
                 'subagents': 'Child rollouts observed in the complete collected root-session tree',
                 'tool_operations': 'Native function/custom/local-shell call records; not a task-success verdict',
-                'permissions.asked': 'User-sourced native tool decisions with matching result IDs and complete outer-call coverage; not configuration-inferred'}}
+                'permissions.asked': 'User-sourced native tool decisions matched exactly to directly inventoried native calls; nested exec remains unknown'}}
 
 
 def collect(collection, trial_name, record, *, offline):
@@ -242,6 +250,7 @@ def observations(collection, record, *, offline):
             pointer = ref(file, '/values/' + field, source)
             if field == 'tool_operations': result[field] = pointer
             else: result['metrics'][field] = pointer
-        if report['observed_model']:
+        if report['observed_model'] and (report['identity_coverage_complete'] or
+                report['model_mismatch'] and report['observed_model'] != record['model']['id']):
             result['identity'] = ref(file, '/observed_model', 'native_response')
     return result
