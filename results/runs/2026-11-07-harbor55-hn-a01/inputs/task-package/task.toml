@@ -1,0 +1,38 @@
+schema_version = "1.4"
+artifacts = [{ source = "/app/output/result.json", destination = "result.json" }]
+
+[task]
+name = "llm-systems-lab/harbor-native-normalize"
+version = "1.0.0"
+description = "Separate native-adapter infrastructure qualification."
+
+[metadata]
+category = "synthetic-native-adapter-qualification"
+
+[agent]
+user = "1000:1000"
+timeout_sec = 180.0
+network_mode = "allowlist"
+allowed_hosts = ["api.anthropic.com"]
+
+[environment]
+docker_image = "sha256:e353af2beaac6e728fc7fc47f2473eb2c33dcd6d062954cb6bc8c63c591e5a07"
+network_mode = "no-network"
+cpus = 1
+memory_mb = 2048
+storage_mb = 2048
+gpus = 0
+
+[verifier]
+user = "1000:1000"
+environment_mode = "separate"
+network_mode = "no-network"
+timeout_sec = 60.0
+
+[verifier.environment]
+docker_image = "sha256:609f60a6e55f2cc2ea608de277ac7d7de4a2a6e1f749e5e93884a9f06a8e3fb9"
+network_mode = "no-network"
+cpus = 1
+memory_mb = 256
+storage_mb = 512
+gpus = 0

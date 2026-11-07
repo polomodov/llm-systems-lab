@@ -1,7 +1,50 @@
+// Explicit model metadata from official provider docs, checked2026-11-07.
+export const refreshedModels = {
+  "anthropic": {
+    "id": "claude-sonnet-5-5",
+    "name": "Claude Sonnet 5.5",
+    "api": "anthropic-messages",
+    "baseUrl": "https://api.anthropic.com",
+    "reasoning": true,
+    "input": [
+      "text",
+      "image"
+    ],
+    "cost": {
+      "input": 2,
+      "output": 10,
+      "cacheRead": 0.1,
+      "cacheWrite": 2.5
+    },
+    "contextWindow": 1000000,
+    "maxTokens": 128000
+  },
+  "openai": {
+    "id": "gpt-6.1-sol",
+    "name": "GPT-6.1 Sol",
+    "api": "openai-responses",
+    "baseUrl": "https://api.openai.com/v1",
+    "reasoning": true,
+    "input": [
+      "text",
+      "image"
+    ],
+    "cost": {
+      "input": 2,
+      "output": 10,
+      "cacheRead": 0.1,
+      "cacheWrite": 2.5
+    },
+    "contextWindow": 1050000,
+    "maxTokens": 128000
+  }
+};
 // Tagged SDK contract: pi-mono v0.73.1; see README.md.
 export function resolveModel(registry, provider, model) {
   const exact = registry.find(provider, model);
   if (exact) return exact;
+  const modern = refreshedModels[provider];
+  if (modern?.id === model) return { ...modern, provider };
   // Pi's OpenAI catalogue uses family IDs; preserve the requested snapshot ID
   // while taking transport/context/pricing metadata from its known family.
   const family = provider === 'openai' ? model.match(/^(.+)-\d{4}-\d{2}-\d{2}$/)?.[1] : null;

@@ -12,6 +12,7 @@ export function buildCommand({ model, turns, budget, prompt }) {
     if (!Number.isInteger(turns) || turns <= 0) throw new Error('turns must be a positive integer');
     command.push('--max-turns', String(turns));
   }
+  if (model === 'claude-sonnet-5-5') command.push('--effort', 'medium');
   if (budget != null) {
     if (!Number.isFinite(budget) || budget <= 0) throw new Error('budget must be a positive number');
     command.push('--max-budget-usd', String(budget));

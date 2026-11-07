@@ -7,6 +7,7 @@ from minisweagent.agents.default import DefaultAgent
 from minisweagent.config import builtin_config_dir
 from minisweagent.environments.local import LocalEnvironment
 from minisweagent.models.litellm_model import LitellmModel
+from minisweagent.models.litellm_response_model import LitellmResponseModel
 import yaml
 
 if "--help" in sys.argv:
@@ -28,7 +29,11 @@ launch = {"model": "openai/gpt-4.1-2025-04-14", "turns": 1} if smoke else json.l
 config = yaml.safe_load((builtin_config_dir / "mini.yaml").read_text())
 config["agent"].update(step_limit=launch["turns"], cost_limit=0, output_path=None)
 # These are SDK/config assembly operations; DefaultAgent owns the whole loop.
-model = LitellmModel(**(config.get("model", {}) | {"model_name": launch["model"], "cost_tracking": "default"}))
+model_class = LitellmResponseModel if launch["model"] == "openai/gpt-6.1-sol" else LitellmModel
+model_config = config.get("model", {}) | {"model_name": launch["model"], "cost_tracking": "default"}
+if model_class is LitellmResponseModel:
+    model_config["model_kwargs"] = {k: v for k, v in model_config.get("model_kwargs", {}).items() if k not in {"temperature", "top_p", "top_k"}} | {"reasoning": {"effort": "medium"}}
+model = model_class(**model_config)
 environment = LocalEnvironment(**(config.get("environment", {}) | {"cwd": os.getcwd()}))
 agent = TracedAgent(model, environment, **config["agent"])
 if smoke:

@@ -1,0 +1,35 @@
+{
+  "order": 5,
+  "slot_id": "HN-O02",
+  "harness": "mini-swe-agent",
+  "harbor_agent": "mini-swe-agent",
+  "version": "2.4.6",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "provider": "openai",
+  "model_name": "openai/gpt-6.1-sol",
+  "wire_model_id": "gpt-6.1-sol",
+  "model_api_format": "openai_responses",
+  "model_api_key_name": "OPENAI_API_KEY",
+  "planned_kwargs": {
+    "version": "2.4.6",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "cost_limit": "2",
+    "config": {
+      "agent": {
+        "step_limit": 8
+      },
+      "model": {
+        "cost_tracking": "default"
+      }
+    }
+  },
+  "planned_env": {
+    "MSWEA_MODEL_RETRY_STOP_AFTER_ATTEMPT": "1"
+  },
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-o02"
+}

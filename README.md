@@ -57,11 +57,11 @@ mise run verify
 
 `mise run` and `mise exec -- <command>` work without shell activation; for example, `mise exec -- npm run harnesses`. To use ordinary `node`, `python3` and `npm` commands, you can [activate mise in your shell](https://mise.jdx.dev/cli/activate.html). Existing npm scripts remain available; the coordinator's minimum supported version is Node.js 22.0.0. Secrets stay in `.env`, consumed only by the harness; mise does not load it.
 
-Run the coordinator as an ordinary user, not root. It has no npm dependencies. Mise manages host tools; harness CLI versions remain in `experiments/<harness>/harness.json` and Dockerfile. Images use Node.js 24.13.1; CLI versions are set at build time. The nine harness versions were built and checked without model requests on 2026-09-20. Two example images:
+Run the coordinator as an ordinary user, not root. It has no npm dependencies. Mise manages host tools; harness CLI versions remain in `experiments/<harness>/harness.json` and Dockerfile. Images use Node.js 24.13.1; CLI versions are set at build time. The original nine harness versions were checked without model requests on 2026-09-20; the [2026-11-07 refresh](experiments/common/model-refresh-2026-11/README.md) separately qualifies the current Claude/Codex pins and revised model environments. Two example images:
 
 ```bash
-docker build --build-arg HARNESS_VERSION=2.1.83 \
-  -t harness-lab/claude-code:2.1.83 \
+docker build --build-arg HARNESS_VERSION=2.1.319 \
+  -t harness-lab/claude-code:2.1.319 \
   -f experiments/claude-code/Dockerfile experiments/claude-code
 
 docker build --build-arg HARNESS_VERSION=1.18.29 \
@@ -78,7 +78,7 @@ Other pinned images:
 
 | `--harness` | Image/tag | `.env` key |
 | --- | --- | --- |
-| `codex` | `harness-lab/codex:0.155.1` | `CODEX_API_KEY` |
+| `codex` | `harness-lab/codex:0.167.0` | `CODEX_API_KEY` |
 | `antigravity-cli` | `harness-lab/antigravity-cli:1.2.7` | `GEMINI_API_KEY` |
 | `pi` | `harness-lab/pi:0.73.1` | `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` |
 | `mini-swe-agent` | `harness-lab/mini-swe-agent:2.4.6` | `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` |
@@ -97,7 +97,7 @@ npm run new-run -- --harness claude-code --agent a2-janitor --task T002
 RUN_ID='<identifier printed by new-run>'
 npm run prepare-run -- --run "$RUN_ID"
 npm run run -- --run "$RUN_ID" \
-  --image harness-lab/claude-code:2.1.83 \
+  --image harness-lab/claude-code:2.1.319 \
   --model '<exact model ID in the Anthropic API>' --timeout 900
 ```
 
@@ -113,7 +113,7 @@ Codex example:
 npm run new-run -- --harness codex --agent a2-janitor --task T002 --provider openai
 RUN_ID='<new identifier>'
 npm run prepare-run -- --run "$RUN_ID"
-npm run run -- --run "$RUN_ID" --image harness-lab/codex:0.155.1 \
+npm run run -- --run "$RUN_ID" --image harness-lab/codex:0.167.0 \
   --model '<available exact model ID>' --budget-mode observed
 ```
 

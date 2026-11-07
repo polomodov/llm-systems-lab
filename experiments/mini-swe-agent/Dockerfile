@@ -4,5 +4,7 @@ COPY --from=node /usr/local/bin/node /usr/local/bin/node
 ARG HARNESS_VERSION=2.4.6
 RUN test "$HARNESS_VERSION" = "2.4.6"
 RUN apt-get update && apt-get install -y --no-install-recommends git curl ca-certificates && rm -rf /var/lib/apt/lists/*
-RUN pip install --no-cache-dir "mini-swe-agent==${HARNESS_VERSION}" && python -c "from importlib.metadata import version; print(version('mini-swe-agent'))"
+# Responses tool handling requires LiteLLM's MCP dependency closure.
+RUN pip install --no-cache-dir --only-binary=:all: "mini-swe-agent==${HARNESS_VERSION}" "litellm[mcp]==1.108.1" "mcp==2.2.0" \
+    && pip check && python -c "from importlib.metadata import version; print(version('mini-swe-agent'))"
 ENV LITELLM_LOCAL_MODEL_COST_MAP=True

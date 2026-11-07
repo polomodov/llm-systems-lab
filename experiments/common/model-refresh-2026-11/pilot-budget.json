@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-07",
+  "currency": "USD",
+  "execution_authorized": false,
+  "hard_spend_cap": false,
+  "rates_source": "model-migration.json",
+  "campaign_pilots": {
+    "slots": 6,
+    "per_attempt_target": 2,
+    "per_provider_target": 6,
+    "total_target": 12
+  },
+  "harbor_native_pilots": {
+    "slots": 6,
+    "per_attempt_target": 2,
+    "per_provider_target": 6,
+    "total_target": 12
+  },
+  "combined_proposed_pilots": {
+    "slots": 12,
+    "total_target": 24,
+    "reserve": 0,
+    "automatic_extra_attempts": 0,
+    "note": "Separate budgets; no transfer or automatic advancement. Historical prepared slots are preserved but must not execute as part of the refreshed plan."
+  },
+  "arithmetic_scenarios_not_measurements": {
+    "common_token_totals": {
+      "aggregate_input_tokens": 500000,
+      "aggregate_output_tokens": 30000,
+      "per_request_input_at_most": 272000,
+      "sonnet55_per_pilot": 1.3,
+      "sol61_per_pilot": 1.3,
+      "six_campaign_pilots": 7.8,
+      "old_sonnet46_per_pilot": 1.95,
+      "old_gpt54mini_per_pilot": 0.51,
+      "old_six_campaign_pilots": 7.38
+    },
+    "same_text_tokenizer_sensitivity": {
+      "anthropic_token_multiplier": 1.3,
+      "sonnet55_per_pilot": 1.69,
+      "sol61_per_pilot": 1.3,
+      "six_campaign_pilots": 8.97,
+      "note": "Illustrative30percent tokenizer increase from Anthropic migration guidance, not a measurement or forecast."
+    },
+    "single_long_sol_request": {
+      "input_tokens": 500000,
+      "output_tokens": 30000,
+      "cost": 2.45,
+      "note": "Exceeds USD2 target. Long-context entry requires reassessment; retain any overspend and stop admission. No universal per-request token/spend guard has been added."
+    },
+    "small_harbor_example": {
+      "input_tokens": 10000,
+      "output_tokens": 2000,
+      "cost_per_pilot_each_model": 0.04,
+      "six_pilots": 0.24,
+      "note": "Arithmetic only; actual tool loops/thinking can be much larger."
+    }
+  },
+  "conditions": [
+    "Standard global API pricing; no cache savings, cache writes, extra services or regional/tier premiums in these arithmetic examples.",
+    "Billed output includes reasoning tokens. Compare actual usage per new tokenizer, not old token counts as a forecast.",
+    "Task contract remains Up to30turns orUSD2 in campaigns and Up to8turns orUSD2 in Harbor; canonical task contracts were not modified.",
+    "Sequential attempts; wait for attributable settled billing and complete evidence before admission. Unknown/settling is not zero.",
+    "Failures consume actual spend. USD2 and USD12 are observed operator targets; requests/delayed billing may overshoot.",
+    "Main36comparison runs remain unauthorized; nominal USD72 target is arithmetic, not a funded or hard-capped allocation."
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "kind": "lab-model-refresh-immutable-images",
+  "images": {
+    "claude-code": {
+      "image_id": "sha256:091c4215ae16dd366dec32440f9d0e7e64b4dfb8c7ac27396240c104e1b9fef6",
+      "tag": "model-refresh-2026-11/lab-claude-code:frozen",
+      "base_image_id": "sha256:e353af2beaac6e728fc7fc47f2473eb2c33dcd6d062954cb6bc8c63c591e5a07",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "version": "2.1.319"
+    },
+    "opencode": {
+      "image_id": "sha256:22270d610fafc91dd36fb135437b9bb09b8b27c268859201ed694a3bd1913799",
+      "tag": "model-refresh-2026-11/lab-opencode:frozen",
+      "base_image_id": "sha256:f591e363a59f092e7192f74cac141fb215e532c911916e9664f50cb935740ff1",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "version": "1.18.29"
+    },
+    "codex": {
+      "image_id": "sha256:6533ab538c4a531b8f8f2759deddbc8253b44c86d13d956eb671471b2072b5eb",
+      "tag": "model-refresh-2026-11/lab-codex:frozen",
+      "base_image_id": "sha256:006c57104985bba2872abde1a38d41e4bda894dd9d7503f86743bce705178af4",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "version": "0.167.0"
+    },
+    "pi": {
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
+      "tag": "model-refresh-2026-11/lab-pi:frozen",
+      "base_image_id": "sha256:f8f31d3d72328e6914acb304e82879fde2c34d4c1430a7ad85bcb7b78ea81424",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "version": "0.73.1"
+    },
+    "mini-swe-agent": {
+      "image_id": "sha256:1fa9064c1503c48896eac117d98da36243c2964597b38449209ac4a821afeb28",
+      "tag": "model-refresh-2026-11/lab-mini-swe-agent:frozen",
+      "base_image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": null,
+        "Cmd": [
+          "python3"
+        ]
+      },
+      "version": "2.4.6"
+    }
+  },
+  "native_runtime_lock_sha256": "dd15c9bd07f5b3bbf8ec418dcaec80e807dc8fe7dd9841e01adb5a12920218e7",
+  "build_network": "none",
+  "provider_requests": 0,
+  "source_sha256": {
+    "experiments/common/model-refresh-2026-11/build-lab-images.py": "55eb23439be21581e665701e096ca179bc342f519d54208c66f21789129b6471",
+    "experiments/common/model-refresh-2026-11/lab.Dockerfile": "75d072df5009e6c969e6c3f0c91f90efcf197e41ccf30ddf775dddb10b07fad5",
+    "experiments/mini-swe-agent/Dockerfile": "e47fec306c6b66156c1535ff74fb4930f93c84362c53da41a00b0be26b253c70"
+  },
+  "note": "The Harbor normalization input is not preloaded into campaign images; the offline instrument copies its own public input for protocol tests. Lab coordinator must use these IDs explicitly; old tags remain unchanged."
+}

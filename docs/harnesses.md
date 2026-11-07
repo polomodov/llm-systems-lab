@@ -2,13 +2,13 @@
 
 Each of the nine harnesses has a dedicated [LAB11–19 exercise](labs/README.md) covering builds, smoke tests, a model episode and independent evaluation. The cloud learning route does not require a local provider bridge.
 
-Integration status as of **2026-09-20**. All nine harnesses are connected to shared preparation, Docker execution, trace recording and independent evaluation. Installation and offline smoke tests verify infrastructure; task success with a real provider remains **unverified** until completed records exist in `results/runs/`.
+Original integration status as of **2026-09-20**; current pins include the separately evidenced [2026-11-07 model refresh](../experiments/common/model-refresh-2026-11/README.md). All nine harnesses are connected to shared preparation, Docker execution, trace recording and independent evaluation. Installation and offline smoke tests verify infrastructure; task success with a real provider remains **unverified** until completed records exist in `results/runs/`.
 
 | Harness | Verified pin | Interface | Provider / `.env` variable | Model selection | Limits |
 | --- | --- | --- | --- | --- | --- |
-| [Claude Code](../experiments/claude-code/README.md) | 2.1.83 | CLI JSONL | Anthropic / `ANTHROPIC_API_KEY` | Explicit ID | Turns and USD through CLI |
+| [Claude Code](../experiments/claude-code/README.md) | 2.1.319 | CLI JSONL | Anthropic / `ANTHROPIC_API_KEY` | Explicit ID | Turns and USD through CLI |
 | [OpenCode](../experiments/opencode/README.md) | 1.18.29 | CLI JSONL | Anthropic / `ANTHROPIC_API_KEY` | Explicit ID | Steps advisory; USD observed |
-| [Codex](../experiments/codex/README.md) | 0.155.1 | `codex exec --json` | OpenAI / `CODEX_API_KEY` | Explicit ID | Internal turns and USD unavailable |
+| [Codex](../experiments/codex/README.md) | 0.167.0 | `codex exec --json` | OpenAI / `CODEX_API_KEY` | Explicit ID | Internal turns and USD unavailable |
 | [Antigravity CLI](../experiments/antigravity-cli/README.md) | 1.2.7 | `agy` headless JSONL | Google / `GEMINI_API_KEY` | Explicit ID through direct Gemini API | Internal turns and USD unavailable |
 | [Pi](../experiments/pi/README.md) | 0.73.1 | Native SDK `createAgentSession` | Anthropic or OpenAI / corresponding API key | Explicit ID | Turn limit; USD observed |
 | [mini-SWE-agent](../experiments/mini-swe-agent/README.md) | 2.4.6 | Native SDK `DefaultAgent` | Anthropic or OpenAI / corresponding API key | Explicit ID | Native step limit; USD observed |
@@ -26,9 +26,9 @@ The evidence class for the image itself varies; this table does not make those c
 - Only two have machine-readable offline smoke records: `antigravity-cli` and `codex` (`experiments/<harness>/smoke/2026-09-20.json`). The others have textual notes.
 - As of this integration snapshot, none had a real-model run.
 
-On 2026-09-21, on the operator's machine (Docker Engine 29.5.2, darwin/arm64 host), the version command in each of the nine built images returned its exact pin. This is our installation check without keys or provider requests, not a task result.
+On 2026-09-21, on the operator's machine (Docker Engine 29.5.2, darwin/arm64 host), the version command in each of the nine built images returned its exact pin. This historical check applies to the pins at that date, including Claude Code 2.1.83 and Codex 0.155.1. It does not qualify later upgrades. No keys or provider requests were used.
 
-Image installation uses `--ignore-scripts` by default. Three exceptions are documented in their Dockerfiles and were verified in built images on 2026-09-21: `opencode` (postinstall selects a platform binary), `amp` (postinstall places a native binary) and `pi` (its dependency tree includes `koffi`, which builds a native binding through an install script).
+Image installation uses `--ignore-scripts` by default. Exceptions are documented in their Dockerfiles: `claude-code`2.1.319 (native binary installation, verified offline on 2026-11-07), `opencode` (postinstall selects a platform binary), `amp` (postinstall places a native binary) and `pi` (its dependency tree includes `koffi`, which builds a native binding through an install script).
 
 An external timeout applies in every case. Eight harnesses require an explicit `--budget-mode observed`; the absence of a mandatory USD cap is not hidden. These research attempts deviate from the task budget and are not grouped with the `hard` policy. Native SDK step/iteration semantics can differ: raw events are retained for interpretation, and different counters are not presented as one universal metric.
 

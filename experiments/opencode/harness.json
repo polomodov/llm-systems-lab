@@ -1,12 +1,34 @@
 {
   "schema_version": 1,
-  "id": "opencode", "version": "1.18.29",
+  "id": "opencode",
+  "version": "1.18.29",
   "ledger": "L008",
   "model_policy": "explicit",
   "default_provider": "anthropic",
-  "providers": { "anthropic": { "credential_env": ["ANTHROPIC_API_KEY"], "connect_domains": ["api.anthropic.com"], "model_prefix": "anthropic/" } },
-  "version_command": ["opencode", "--version"],
-  "config_files": [{ "source": "opencode.json", "target": "opencode.json" }],
+  "providers": {
+    "anthropic": {
+      "credential_env": [
+        "ANTHROPIC_API_KEY"
+      ],
+      "connect_domains": [
+        "api.anthropic.com"
+      ],
+      "model_prefix": "anthropic/"
+    }
+  },
+  "version_command": [
+    "opencode",
+    "--version"
+  ],
+  "config_files": [
+    {
+      "source": "opencode.json",
+      "target": "opencode.json"
+    }
+  ],
   "runtime_files": [],
-  "budget": { "usd": "observed", "turns": "advisory" }
+  "budget": {
+    "usd": "observed",
+    "turns": "advisory"
+  }
 }

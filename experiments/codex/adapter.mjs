@@ -13,6 +13,7 @@ export function buildCommand({ model, provider = 'openai', turns, budget, prompt
       '--skip-git-repo-check', '--ephemeral', '--ignore-user-config', '--ignore-rules',
       '--sandbox', 'danger-full-access', '-c', 'approval_policy="never"',
       '-c', 'web_search="disabled"', '-c', 'agents.enabled=false',
+      ...(selected === 'gpt-6.1-sol' ? ['-c', 'model_reasoning_effort="medium"'] : []),
       '--', prompt,
     ],
     env: {},

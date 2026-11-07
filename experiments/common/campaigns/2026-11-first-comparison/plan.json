@@ -3,7 +3,7 @@
   "campaign_id": "2026-11-first-comparison",
   "created_on": "2026-11-06",
   "status": "preparation_only",
-  "scope_status": "draft_two_cohorts_requested",
+  "scope_status": "models_refreshed_offline_qualified_live_gates_open",
   "authorization": {
     "offline_preparation": true,
     "paid_runs": false,
@@ -17,15 +17,15 @@
     "openai_comparison": 18,
     "total": 42
   },
-  "source_revision": "18c212d6cece43c4e6fea4ac44a843284e79e389",
-  "environment_evidence": "docker-preflight.json",
+  "source_revision": "a32e825dc430ded4f7a0edc78fc10a40cf872eae",
+  "environment_evidence": "../../model-refresh-2026-11/lab-runtime-lock.json",
   "cohorts": [
     {
       "id": "anthropic",
       "provider": "anthropic",
-      "model_id": null,
+      "model_id": "claude-sonnet-5-5",
       "model_access_evidence": null,
-      "credential_readiness": "not_configured_in_checkout",
+      "credential_readiness": "unverified_not_inspected_for_offline_refresh",
       "harnesses": [
         "claude-code",
         "pi",
@@ -45,12 +45,14 @@
         "opencode": [
           "ANTHROPIC_API_KEY"
         ]
-      }
+      },
+      "model_selection_status": "offline_protocol_qualified_live_access_unverified",
+      "model_selection_evidence": "model-selection.json"
     },
     {
       "id": "openai",
       "provider": "openai",
-      "model_id": null,
+      "model_id": "gpt-6.1-sol",
       "model_access_evidence": null,
       "credential_env_by_harness": {
         "codex": [
@@ -63,7 +65,7 @@
           "OPENAI_API_KEY"
         ]
       },
-      "credential_readiness": "not_configured_in_checkout",
+      "credential_readiness": "unverified_not_inspected_for_offline_refresh",
       "harnesses": [
         "codex",
         "pi",
@@ -72,7 +74,9 @@
       "pilot_gate": "openai_pilot_ready",
       "comparison_gate": "openai_comparison_frozen",
       "comparison_run_ids": [],
-      "comparison_claim": "Same requested exact OpenAI model across three harnesses; observed identity is incomplete for Codex/Pi. Separate from the Anthropic cohort; no cross-provider causal ranking."
+      "comparison_claim": "Same requested exact OpenAI model across three harnesses; observed identity is incomplete for Codex/Pi. Separate from the Anthropic cohort; no cross-provider causal ranking.",
+      "model_selection_status": "offline_protocol_qualified_live_access_unverified",
+      "model_selection_evidence": "model-selection.json"
     }
   ],
   "common_conditions": {
@@ -83,9 +87,9 @@
     "contract_budget_usd": 2,
     "nominal_total_target_usd": 84,
     "spend_ceiling_enforced": false,
-    "campaign_spend_stop_policy": null,
+    "campaign_spend_stop_policy": "pilot_budget governs the six pilots only; the 36-run main-series spending policy remains unset and requires a separate decision.",
     "budget_note": "USD 2 per slot is a contractual target, not an enforced cap in observed mode. USD 84 is only 42 times that target and excludes extra qualification attempts. An operator spend/stop policy must be recorded before API execution.",
-    "execution_order": "Sequential, exactly one attempt at a time; use slots.order. Each cohort completes three pilots and passes its own freeze gate before its 18 main attempts. Harness positions rotate by repeat; task order alternates by repeat.",
+    "execution_order": "Sequential, exactly one attempt at a time. The pilot-only phase follows pilot_budget.slot_ids, skipping all comparison slots. After separate main-series authorization and each cohort freeze gate, preserve slots.order among comparison slots. Harness positions rotate by repeat; task order alternates by repeat.",
     "sandbox": "container",
     "network": "allowlist",
     "proxy_image_id": "sha256:a81a03dd965b4052269a57fac857004022b522a4bf06e7a739e25e18bce45af2",
@@ -95,54 +99,58 @@
       "T004": null
     },
     "docker_context": "colima",
-    "image_platform": "linux/arm64"
+    "image_platform": "linux/arm64",
+    "reasoning_effort": "medium explicitly requested and observed in offline fixture traffic; native behavior, prompts, limits and output ceilings still differ",
+    "image_selection": "Pass the exact per-harness image_id explicitly to the coordinator. Existing mutable/default tags do not identify this revision."
   },
   "harnesses": {
     "claude-code": {
-      "version": "2.1.83",
-      "image_id": "sha256:d19b4570fc10ee218dc169eb0a1fe662c27763dfa3c06772519166e705fcf094",
+      "version": "2.1.319",
+      "image_id": "sha256:091c4215ae16dd366dec32440f9d0e7e64b4dfb8c7ac27396240c104e1b9fef6",
       "version_verified": true,
-      "offline_smoke_evidence": "docker-preflight.json",
+      "offline_smoke_evidence": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
       "native_turn_limit": "hard",
       "observed_model_identity": "main assistant response when present",
       "cost": "CLI-reported cost; not independently reconciled billing"
     },
     "pi": {
       "version": "0.73.1",
-      "image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
       "version_verified": true,
-      "offline_smoke_evidence": "docker-preflight.json",
+      "offline_smoke_evidence": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
       "native_turn_limit": "hard",
       "observed_model_identity": "unavailable for cloud provider; configured message model is not response evidence",
       "cost": "SDK estimate when trace and pricing are complete",
-      "model_gate": "Anthropic requires an exact ID in the pinned SDK registry. For OpenAI a dated snapshot may use known family metadata while preserving the requested ID; unknown families fail. Verify model selection and account access separately for each cohort."
+      "model_gate": "Exact explicit refreshed metadata for both models; Sonnet adaptive/signed-thinking compatibility delta is hash pinned. No family substitution qualifies this revision."
     },
     "opencode": {
       "version": "1.18.29",
-      "image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984",
+      "image_id": "sha256:22270d610fafc91dd36fb135437b9bb09b8b27c268859201ed694a3bd1913799",
       "version_verified": true,
-      "offline_smoke_evidence": "docker-preflight.json",
+      "offline_smoke_evidence": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
       "native_turn_limit": "advisory steps",
       "observed_model_identity": "unavailable in current stdout parser",
-      "cost": "unavailable; verified session export is not implemented"
+      "cost": "unavailable; verified session export is not implemented",
+      "model_gate": "Explicit Sonnet metadata and medium variant; 1.18.29 retained after 1.19.5 failed strict offline exit checks."
     },
     "codex": {
-      "version": "0.155.1",
-      "image_id": "sha256:5633c9e6e3d514ceac25a58667af0373617700f412224854bb06ad9973c55149",
+      "version": "0.167.0",
+      "image_id": "sha256:6533ab538c4a531b8f8f2759deddbc8253b44c86d13d956eb671471b2072b5eb",
       "version_verified": true,
-      "offline_smoke_evidence": "docker-preflight.json",
+      "offline_smoke_evidence": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
       "native_turn_limit": "unavailable; external timeout is enforced",
       "observed_model_identity": "unavailable in current JSONL parser",
       "cost": "unavailable in current JSONL parser"
     },
     "mini-swe-agent": {
       "version": "2.4.6",
-      "image_id": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+      "image_id": "sha256:1fa9064c1503c48896eac117d98da36243c2964597b38449209ac4a821afeb28",
       "version_verified": true,
-      "offline_smoke_evidence": "docker-preflight.json",
+      "offline_smoke_evidence": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
       "native_turn_limit": "hard native step_limit / model API call count",
       "observed_model_identity": "response.model when present in complete trajectory",
-      "cost": "LiteLLM estimate when all attempted calls have response usage; unknown installed pricing can fail upstream"
+      "cost": "LiteLLM estimate when all attempted calls have response usage; unknown installed pricing can fail upstream",
+      "model_gate": "Sol uses native LitellmResponseModel / Responses with medium effort; LiteLLM 1.108.1 and MCP closure are inventoried."
     }
   },
   "evaluation": {
@@ -185,7 +193,7 @@
       "status": "open",
       "requirements": [
         "Select one exact OpenAI model ID supported by Codex, Pi and mini-SWE-agent and verify account access; host Codex app availability is not API evidence.",
-        "Verify Pi model registry/fallback metadata and the installed LiteLLM model/pricing support without substituting a different requested ID.",
+        "Require explicit Pi Sol metadata, Responses tool protocol and installed LiteLLM pricing support; no family fallback or Chat Completions substitution. Offline qualification is complete; verify actual live response and billing later.",
         "Record immutable harness images and proxy image, offline smoke/version evidence, source revision, evaluation readiness and spend/stop policy.",
         "Record credential readiness for CODEX_API_KEY (Codex) and OPENAI_API_KEY (Pi/mini-SWE-agent), without storing or displaying secrets.",
         "Obtain authorization for API activation and paid execution."
@@ -203,7 +211,7 @@
   },
   "record_policy": {
     "create_records_now": false,
-    "creation_rule": "Do not create real run records until exact model IDs are selected. Use the existing new-run/prepare-run lifecycle once execution preparation is authorized; each slot gets a distinct returned run ID.",
+    "creation_rule": "This selection step creates no real run records. Exact IDs are selected, but account/live-model qualification, evaluator readiness and paid-execution authorization remain open. Use new-run/prepare-run for each scheduled slot only when proceeding to the qualified execution stage.",
     "n_flag_note": "new-run --n is a run-ID suffix, not a batch count.",
     "retry_rule": "Every retry receives a new run ID and separate qualification slot; never replace a started comparison failure with a successful retry.",
     "pilot_rule": "Pilot runs never enter comparison triples.",
@@ -767,5 +775,39 @@
   ],
   "source_revision_note": "Code revision used for offline preparation; freeze the actual revision and sealed inputs again after qualification pilots. Campaign documents were added after this code revision.",
   "host_environment_evidence": "host-preflight.json",
-  "preparation_evidence": "preparation-preflight.json"
+  "preparation_evidence": "preparation-preflight.json",
+  "pilot_budget": {
+    "status": "planned_not_authorized_for_execution",
+    "currency": "USD",
+    "pilot_slots": 6,
+    "per_pilot_target_usd": 2,
+    "per_cohort_target_usd": 6,
+    "total_target_usd": 12,
+    "automatic_retry_allowance": 0,
+    "reserve_usd": 0,
+    "hard_spend_cap_enforced": false,
+    "timeout_s": 900,
+    "contract_turns": 30,
+    "accounting": "Use attributable provider usage/billing after each sequential pilot. Harness estimates are provisional; missing or unsettled costs are not zero.",
+    "stop_policy": [
+      "No pilot may start until separate paid-execution authorization and the existing pilot readiness gate are satisfied.",
+      "Run one pilot at a time. Reconcile its cost before admitting the next; if attributable cost is unavailable, pause.",
+      "Pause the pilot program if any pilot exceeds USD 2 or aggregate pilot spend reaches USD 12. At USD 6 in one cohort, stop further pilots in that cohort; the other cohort may continue within its own allocation and the aggregate budget. Before starting a slot, both applicable budgets must have at least USD 2 remaining.",
+      "These are operator admission and stop rules, not an in-flight provider or runner dollar cap. A running request and delayed billing can overshoot.",
+      "An aborted or failed pilot consumes its actual cost. No automatic retries or budget transfer between cohorts; extra qualification attempts need a new plan and spending authorization.",
+      "Main comparison runs remain unauthorized; do not advance automatically after pilots."
+    ],
+    "slot_ids": [
+      "A-P01",
+      "A-P02",
+      "A-P03",
+      "O-P01",
+      "O-P02",
+      "O-P03"
+    ],
+    "execution_order": "Execute only these six pilot slot_ids in listed order after authorization. Skip all comparison slots; their spending and execution remain separately unauthorized.",
+    "retry_scope": "No automatic additional pilot attempts. Existing native HTTP/model retry behavior is unchanged; its calls and charges belong to that attempt.",
+    "recalculation_evidence": "../../model-refresh-2026-11/pilot-budget.json"
+  },
+  "model_selection_note": "2026-11-07 refresh applies only to future unstarted slots. Old results and eight previous campaign files are preserved. Live access/evaluation/execution authorization remain open."
 }

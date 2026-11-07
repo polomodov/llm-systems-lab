@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "revision": "2026-11-07-sonnet55-sol61",
+  "status": "offline_qualified_live_access_unverified",
+  "source_revision": "a32e825dc430ded4f7a0edc78fc10a40cf872eae",
+  "source_dirty": true,
+  "paid_execution_authorized": false,
+  "provider_requests": 0,
+  "credentials_read": false,
+  "models": {
+    "anthropic": {
+      "id": "claude-sonnet-5-5",
+      "api": "anthropic-messages",
+      "context_tokens": 1000000,
+      "max_output_tokens": 128000,
+      "reasoning": "adaptive; effort medium chosen explicitly",
+      "standard_usd_per_million": {
+        "input": 2,
+        "output": 10,
+        "cache_read": 0.1,
+        "cache_write_5m": 2.5,
+        "cache_write_1h": 4
+      },
+      "requirements": [
+        "No thinking budgets or disabled thinking",
+        "No temperature/top_p/top_k",
+        "Preserve empty signed thinking blocks unchanged in append-only tool history",
+        "No forced tool_choice any/tool"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide"
+      ]
+    },
+    "openai": {
+      "id": "gpt-6.1-sol",
+      "api": "openai-responses",
+      "context_tokens": 1050000,
+      "max_output_tokens": 128000,
+      "reasoning": "medium",
+      "standard_usd_per_million": {
+        "input": 2,
+        "output": 10,
+        "cached_input": 0.1,
+        "cache_write": 2.5
+      },
+      "long_context": "Each request above272000 input tokens uses2x input/cache and1.5x output rates for the entire request. Aggregate episode tokens are not a per-request context size.",
+      "requirements": [
+        "Responses required for tool calling",
+        "No sampling parameters at medium reasoning",
+        "Do not silently substitute family metadata or a different model ID"
+      ],
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+        "https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6.1-sol"
+      ]
+    }
+  },
+  "identity": "Use the exact published IDs; no fabricated date suffix or unverified fixed-snapshot claim. Account access and response-level identity remain unverified until separately authorized live qualification.",
+  "previous_campaign": "previous-campaign/",
+  "previous_harbor": "../harbor-native-pilot/",
+  "new_harbor": "../harbor-native-2026-11/",
+  "preservation_manifest": "preservation-before.json",
+  "pin_choices": {
+    "claude-code": "2.1.319",
+    "codex": "0.167.0",
+    "opencode": "1.18.29 retained; explicit Sonnet5.5 metadata/medium variant. New1.19.5 rejected after reproducible EPIPE native exit failure.",
+    "pi": "0.73.1 with explicitly hash-pinned provider compatibility delta",
+    "mini-swe-agent": "2.4.6; use native LitellmResponseModel for Sol; LiteLLM1.108.1 retained and inventoried"
+  },
+  "live_account_access": "unverified",
+  "live_request_compatibility": "unverified",
+  "budget_evidence": "pilot-budget.json",
+  "rejected_candidate": {
+    "opencode": {
+      "version": "1.19.5",
+      "reason": "Native loop completed output but emitted EPIPE and exited1 in two fresh-container checks; do not qualify based on reward alone.",
+      "evidence": "../harbor-native-2026-11/.cache/native-smoke/20261107T070833026743Z/HN-A02",
+      "selected": "1.18.29 with strict Sonnet5.5 request/replay checks"
+    }
+  },
+  "offline_evidence": {
+    "lab": "sdk-smoke-evidence.json",
+    "native": "../harbor-native-2026-11/native-smoke-evidence.json",
+    "verifier": "../harbor-native-2026-11/control-evidence.json",
+    "lab_images": "lab-runtime-lock.json",
+    "native_images": "../harbor-native-2026-11/runtime-lock.json"
+  }
+}

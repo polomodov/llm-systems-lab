@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "campaign_id": "2026-11-first-comparison",
+  "checked_on": "2026-11-06",
+  "evidence_class": "offline-installed-catalog-check",
+  "scope": "Bundled OpenCode Anthropic model metadata and official provider lifecycle/pricing; no agent task or provider inference executed.",
+  "status": "passed_offline",
+  "selected_model_id": "claude-sonnet-4-6",
+  "harness": {
+    "id": "opencode",
+    "version": "1.18.29",
+    "image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984"
+  },
+  "method": {
+    "command": [
+      "opencode",
+      "models",
+      "anthropic",
+      "--verbose",
+      "--pure"
+    ],
+    "container_network": "none",
+    "read_only_root": true,
+    "uid_gid": "1000:1000",
+    "capabilities_dropped": "ALL",
+    "no_new_privileges": true,
+    "home_config_data_cache": "empty temporary directories under /tmp; no host auth or configuration mounted",
+    "provider_initialization": "A synthetic nonsecret ANTHROPIC_API_KEY token activated bundled provider enumeration. Its value is not retained. No real credential was read or passed.",
+    "initial_no_credential_result": "Provider not found: anthropic; this reflects provider initialization, not absence of the model from the bundled catalog.",
+    "catalog_refresh_requested": false,
+    "exit_code": 0
+  },
+  "observed_catalog_entry": {
+    "id": "claude-sonnet-4-6",
+    "providerID": "anthropic",
+    "name": "Claude Sonnet 4.6",
+    "family": "claude-sonnet",
+    "api": {
+      "id": "claude-sonnet-4-6",
+      "url": "",
+      "npm": "@ai-sdk/anthropic"
+    },
+    "status": "active",
+    "headers": {},
+    "options": {},
+    "cost_usd_per_million_tokens": {
+      "input": 3,
+      "output": 15,
+      "cache_read": 0.3,
+      "cache_write": 3.75
+    },
+    "limit": {
+      "context": 1000000,
+      "output": 128000
+    },
+    "capabilities": {
+      "temperature": true,
+      "reasoning": true,
+      "attachment": true,
+      "toolcall": true,
+      "input": {
+        "text": true,
+        "audio": false,
+        "image": true,
+        "video": false,
+        "pdf": true
+      },
+      "output": {
+        "text": true,
+        "audio": false,
+        "image": false,
+        "video": false,
+        "pdf": false
+      },
+      "interleaved": false
+    },
+    "release_date": "2026-02-17",
+    "variants": {
+      "low": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "low"
+      },
+      "medium": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "medium"
+      },
+      "high": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "high"
+      },
+      "max": {
+        "thinking": {
+          "type": "adaptive"
+        },
+        "effort": "max"
+      }
+    }
+  },
+  "provider_documentation": {
+    "retrieved_on": "2026-11-06",
+    "snapshot_semantics": "Anthropic states that dateless model IDs from the 4.6 generation are pinned model snapshots, not floating aliases.",
+    "lifecycle": {
+      "status": "active_legacy",
+      "retirement_not_sooner_than": "2027-02-17"
+    },
+    "standard_global_usd_per_million_tokens": {
+      "input": 3,
+      "output": 15,
+      "cache_write_5m": 3.75,
+      "cache_write_1h": 6,
+      "cache_read": 0.3
+    },
+    "long_context": "Standard pricing applies across the full 1M context for Claude Sonnet 4.6.",
+    "excluded_old_candidates": [
+      {
+        "id": "claude-sonnet-4-20250514",
+        "status": "retired",
+        "retired_on": "2026-06-15"
+      },
+      {
+        "id": "claude-sonnet-4-5-20250929",
+        "status": "deprecated",
+        "retirement_on": "2026-11-30"
+      }
+    ],
+    "sources": [
+      {
+        "url": "https://platform.claude.com/docs/en/models/sonnet-4-6/overview",
+        "supports": "Exact API ID, pricing, active legacy status and retirement commitment."
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions",
+        "supports": "Pinned semantics of dateless 4.6 and later model IDs."
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+        "supports": "Global standard pricing, cache categories and full-context pricing."
+      },
+      {
+        "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "supports": "Lifecycle of selected and excluded earlier candidates."
+      }
+    ]
+  },
+  "boundaries": {
+    "real_credentials_read": false,
+    "provider_api_calls": 0,
+    "paid_model_calls": 0,
+    "real_run_records_created": 0,
+    "host_auth_mounted": false
+  },
+  "limitations": [
+    "Installed catalog presence and metadata do not establish account entitlement or server acceptance of a real request.",
+    "Catalog output limits and reasoning variants describe this harness; they do not establish matched effective inference settings across harnesses.",
+    "Claude Code and Pi compatibility checks are recorded by the parent model-selection work; this file directly records only OpenCode enumeration.",
+    "Provider pricing and lifecycle are a documentation snapshot, not measured task cost or a guarantee that a specific account has access."
+  ]
+}

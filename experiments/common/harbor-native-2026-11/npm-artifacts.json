@@ -1,0 +1,42 @@
+{
+  "claude-code": {
+    "shasum": "f7a75c88de713be16d7fa7b367761db779a71e85",
+    "tarball": "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-2.1.319.tgz",
+    "fileCount": 7,
+    "integrity": "sha512-XoyAxGXBmNsb9ahz0xLAtyz/I6b1j+4lyLpucyTQIq4FcKUxrMDM2AzA2sHipHoN1DdMJINQQrLZxRZRq7FqBA==",
+    "signatures": [
+      {
+        "sig": "MEUCIQCFuLhtYHw49Fji0JsDQIA1BaAZR51Cgl4x4oT+rx97DAIgcMvoSH56jtmrSEF+1CPUqEdBoCINAlby7PKYywCh9AM=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEUCIQC8IkSXniijPGBXZyzCSkL0w3kUOaViLVetdnenY4HmegIgKoLbv4OtRPH90c0DM/OTH7g9n/pW/OfFVwwYjtv2fro=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "unpackedSize": 202387
+  },
+  "codex": {
+    "shasum": "e230b145472b6910b361e86a9c0a2e2f3d392ace",
+    "tarball": "https://registry.npmjs.org/@openai/codex/-/codex-0.167.0.tgz",
+    "fileCount": 3,
+    "integrity": "sha512-1FSQgbTIKAdTub5Ln6z36NT4eXDmBRkinfigzycbgn9yLZdJ3UdkQZqr0N7jnl8/D1xxT/Pz3Fl2l7S2dmRaFA==",
+    "signatures": [
+      {
+        "sig": "MEUCIQC/AMX6ZzVOSgLrgl5TUQdxPM5qa1g7/iN+Jb8+AguzsAIgdqeGrL5cI4OgjnmgzYqMAvZc4fRhCQumd9frjJ3m1Yw=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEYCIQDaeCLdWqicuSPozQfl1CJjiOOmbbNLe0wuflMShKyr2wIhAOw2dB3hcT2EbjDpWgTXGydfpRLnRyh+bOqSpBCbIJhy",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@openai%2fcodex@0.167.0",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 13570
+  }
+}

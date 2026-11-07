@@ -16,12 +16,19 @@ export function auditPins(root) {
   const ids = harnessIds(root), errors = [];
   const readme = readFileSync(join(root, 'README.md'), 'utf8');
   const matrix = readFileSync(join(root, 'docs/harnesses.md'), 'utf8');
+  const buildCommands = [...readme.replace(/\\\r?\n/g, ' ').matchAll(/\bdocker build\b[^\n]*/g)].map(match => match[0]);
   for (const id of ids) {
     const { version } = loadProfile(root, id);
     const dockerfile = readFileSync(join(root, 'experiments', id, 'Dockerfile'), 'utf8');
     if (!dockerfile.includes(`ARG HARNESS_VERSION=${version}`)) errors.push(`${id}: Dockerfile must default HARNESS_VERSION to the pinned ${version}`);
     if (!new RegExp(`RUN test "\\$HARNESS_VERSION" = "${escape(version)}"`).test(dockerfile)) errors.push(`${id}: Dockerfile must assert the pinned ${version}`);
     if (!readme.includes(`harness-lab/${id}:${version}`)) errors.push(`${id}: README.md must show the image tag harness-lab/${id}:${version}`);
+    for (const command of buildCommands) {
+      const argument = command.match(/--build-arg(?:=|\s+)HARNESS_VERSION=([^\s]+)/)?.[1];
+      if (command.includes(`harness-lab/${id}:${version}`) && argument && argument !== version) {
+        errors.push(`${id}: README.md build argument HARNESS_VERSION=${argument} differs from the pinned image tag ${version}`);
+      }
+    }
     const row = matrix.split('\n').find(line => line.includes(`experiments/${id}/README.md`));
     if (!row) errors.push(`${id}: docs/harnesses.md has no matrix row`);
     else if (!row.includes(version)) errors.push(`${id}: docs/harnesses.md row must state the pinned ${version}`);

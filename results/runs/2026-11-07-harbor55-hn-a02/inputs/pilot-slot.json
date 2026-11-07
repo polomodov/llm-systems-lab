@@ -1,0 +1,47 @@
+{
+  "order": 3,
+  "slot_id": "HN-A02",
+  "harness": "opencode",
+  "harbor_agent": "opencode",
+  "version": "1.18.29",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-5-5",
+  "wire_model_id": "claude-sonnet-5-5",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "1.18.29",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "disable_web_search": true,
+    "opencode_config": {
+      "model": "anthropic/claude-sonnet-5-5",
+      "small_model": "anthropic/claude-sonnet-5-5",
+      "autoupdate": false,
+      "agent": {
+        "build": {
+          "model": "anthropic/claude-sonnet-5-5",
+          "steps": 8
+        }
+      },
+      "provider": {
+        "anthropic": {
+          "models": {
+            "claude-sonnet-5-5": {
+              "variants": {
+                "medium": {
+                  "effort": "medium"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:f591e363a59f092e7192f74cac141fb215e532c911916e9664f50cb935740ff1",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-a02"
+}

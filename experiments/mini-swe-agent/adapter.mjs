@@ -11,7 +11,7 @@ export function parseTrace(stdout) {
   const events = String(stdout).split(/\r?\n/).flatMap(line => { try { return [JSON.parse(line)]; } catch { return []; } });
   const final = events.findLast(e => e?.type === 'lab_mini_result'), trace = final?.trajectory;
   const loop = {}, metrics_unavailable = {};
-  const responses = (trace?.messages ?? []).filter(m => m.role === 'assistant').map(m => m.extra?.response);
+  const responses = (trace?.messages ?? []).filter(m => m.role === 'assistant' || m.object === 'response').map(m => m.object === 'response' ? { ...m, usage: m.usage && { prompt_tokens: m.usage.input_tokens, completion_tokens: m.usage.output_tokens } } : m.extra?.response);
   const modelIds = [...new Set(responses.map(r => r?.model).filter(id => typeof id === 'string' && id))];
   const stats = trace?.info?.model_stats;
   if (Number.isInteger(stats?.api_calls) && stats.api_calls >= 0) loop.turns = stats.api_calls;

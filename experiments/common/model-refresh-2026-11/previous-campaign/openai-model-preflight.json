@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-06T21:49:59.044962+00:00",
+  "evidence_class": "offline-configuration-and-synthetic-check",
+  "model_id": "gpt-5.4-mini-2026-03-17",
+  "status": "offline_checks_passed_live_qualification_pending",
+  "boundaries": {
+    "container_network": "none",
+    "host_credentials_mounted": false,
+    "credentials_read": false,
+    "model_generation_requests": 0,
+    "real_run_records_created": 0,
+    "harness_source_or_image_changed": false
+  },
+  "mini_swe_agent": {
+    "version": "2.4.6",
+    "image_id": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+    "litellm_version": "1.108.1",
+    "exact_snapshot_in_installed_cost_map": true,
+    "cost_map_provider": "openai",
+    "cost_map_mode": "chat",
+    "function_calling": true,
+    "reasoning_supported": true,
+    "rates_usd_per_million_tokens": {
+      "input": 0.75,
+      "output": 4.5
+    },
+    "model_configuration_instantiated": true,
+    "request_model": "openai/gpt-5.4-mini-2026-03-17",
+    "request_parameter_keys": [
+      "drop_params",
+      "messages",
+      "model",
+      "tools"
+    ],
+    "tool_names": [
+      "bash"
+    ],
+    "model_kwargs": {
+      "drop_params": true
+    },
+    "reasoning_effort_explicit": null,
+    "temperature_explicit": null,
+    "mini_yaml_sha256": "b539a8965f5bf41dd0f32daafa5d2db22581923d13812fa378fd09569b9d6b0c",
+    "synthetic_cost_check": {
+      "input_tokens": 1000,
+      "output_tokens": 200,
+      "cost_usd": 0.00165,
+      "method": "Constructed a local LiteLLM ModelResponse and called the installed LitellmModel._calculate_cost. This is arithmetic validation, not measured model usage."
+    },
+    "request_check_method": "Instantiated the installed native LitellmModel using mini.yaml and replaced litellm.completion with an in-memory capture before calling _query; no HTTP request or real response."
+  },
+  "codex": {
+    "version": "0.155.1",
+    "image_id": "sha256:5633c9e6e3d514ceac25a58667af0373617700f412224854bb06ad9973c55149",
+    "method": "Started the pinned local app-server in an empty, temporary container home. Sent initialize, model/list and thread/start JSON-RPC requests; never sent turn/start. Terminated the server and removed the container.",
+    "selected_model_in_bundled_model_list": false,
+    "thread_start_accepted": true,
+    "returned_model": "gpt-5.4-mini-2026-03-17",
+    "returned_provider": "openai",
+    "returned_reasoning_effort": null,
+    "returned_service_tier": null,
+    "returned_thread_ephemeral": true,
+    "returned_thread_turn_count": 0,
+    "limitations": [
+      "Local configuration acceptance does not prove server-side model support or account access.",
+      "The selected snapshot is not in the bundled model/list catalog; live request compatibility remains unverified.",
+      "This probes model configuration, not execution of the full repository codex exec adapter."
+    ]
+  },
+  "official_sources": [
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+      "checked_on": "2026-11-06",
+      "facts": {
+        "snapshot": "gpt-5.4-mini-2026-03-17",
+        "pricing_usd_per_million_tokens": {
+          "input": 0.75,
+          "cached_input": 0.075,
+          "output": 4.5
+        },
+        "context_tokens": 400000,
+        "max_output_tokens": 128000,
+        "reasoning_default": "none",
+        "supports": [
+          "Responses",
+          "Chat Completions",
+          "function calling",
+          "streaming"
+        ]
+      }
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "checked_on": "2026-11-06",
+      "observation": "No GPT-5.4 Mini retirement notice found. GPT-5.4 Nano is separately listed and is not the selected model."
+    },
+    {
+      "url": "https://developers.openai.com/api/docs/models/gpt-4.1",
+      "checked_on": "2026-11-06",
+      "observation": "GPT-4.1 snapshot is marked deprecated; retained only as a historical fixture, not selected for this new campaign."
+    }
+  ],
+  "remaining_qualification": [
+    "Account access and authentication through the harness-owned .env mechanism.",
+    "Live transport, actual provider response identity, tool round trips and independent task evaluation.",
+    "Native harness reasoning defaults differ. This evidence does not establish identical inference parameters across harnesses.",
+    "Pi registry/session evidence is collected separately by the campaign coordinator."
+  ]
+}

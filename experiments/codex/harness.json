@@ -1,18 +1,29 @@
 {
   "schema_version": 1,
-  "id": "codex", "version": "0.155.1",
+  "id": "codex",
+  "version": "0.167.0",
   "ledger": "L009",
   "model_policy": "explicit",
   "default_provider": "openai",
   "providers": {
     "openai": {
-      "credential_env": ["CODEX_API_KEY"],
-      "connect_domains": ["api.openai.com"],
+      "credential_env": [
+        "CODEX_API_KEY"
+      ],
+      "connect_domains": [
+        "api.openai.com"
+      ],
       "model_prefix": "openai/"
     }
   },
-  "version_command": ["codex", "--version"],
+  "version_command": [
+    "codex",
+    "--version"
+  ],
   "config_files": [],
   "runtime_files": [],
-  "budget": { "usd": "observed", "turns": "unavailable" }
+  "budget": {
+    "usd": "observed",
+    "turns": "unavailable"
+  }
 }

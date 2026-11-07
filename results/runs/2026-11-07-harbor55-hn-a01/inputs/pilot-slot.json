@@ -1,0 +1,27 @@
+{
+  "order": 2,
+  "slot_id": "HN-A01",
+  "harness": "claude-code",
+  "harbor_agent": "claude-code",
+  "version": "2.1.319",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-5-5",
+  "wire_model_id": "claude-sonnet-5-5",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "2.1.319",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "permission_mode": "dontAsk",
+    "max_turns": 8,
+    "max_budget_usd": "2",
+    "disable_web_search": true,
+    "allowed_tools": "Bash,Read,Write"
+  },
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:e353af2beaac6e728fc7fc47f2473eb2c33dcd6d062954cb6bc8c63c591e5a07",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-a01"
+}

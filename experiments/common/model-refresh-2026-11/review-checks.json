@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "kind": "pr4-offline-review-validation",
+  "checked_at": "2026-11-07T08:25:42.956955+00:00",
+  "original_preparation_commit": "9b8d3be344f75168a40b520fae3930235541089c",
+  "source_dirty": true,
+  "result": {
+    "ok": true,
+    "offline_only": true,
+    "lab_fixture_cases": 6,
+    "native_fixture_slots": 6,
+    "boundary_controls": 4,
+    "prepared_records": 6,
+    "records_skipped": false,
+    "paid_runs": 0,
+    "execution_authorized": false,
+    "preserved_files": 1470
+  },
+  "checks": [
+    {
+      "command": "npm test",
+      "environment": "Git-visible source snapshot",
+      "passed": 201,
+      "failed": 0,
+      "skipped": 2
+    },
+    {
+      "command": "npm run test:python",
+      "passed": 28,
+      "failed": 0,
+      "includes_async_regressions": 2
+    },
+    {
+      "command": "sdk-smoke.py --docker-host <local Unix socket>",
+      "cases_passed": 6,
+      "provider_requests": 0
+    },
+    {
+      "command": "npm run check",
+      "exit_code": 0
+    },
+    {
+      "command": "check_migration.py",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --quiet HEAD -- results/runs experiments/common/harbor-native-pilot experiments/common/harbor-interop",
+      "exit_code": 0
+    }
+  ],
+  "evidence_sha256": {
+    ".sonarcloud.properties": "acb60156cd458d8f3a316aa2bda5e714c579b9adc87059a221ebe6770cef2ccd",
+    "README.md": "a74d8c2ad2be203b6cf8c16125c41f04f8eb2905ad770fd4b290103600a1a1f4",
+    "docs/harnesses.md": "c6da4caed9bc447869ae4b38d249232db541d78b67708b5d10e3dfa3a1465e85",
+    "experiments/claude-code/README.md": "64d0e30ab8cc25f01a7b26f2c7bc11a34cd5ec2ef5b7ce7fcfe975726df455fa",
+    "experiments/codex/README.md": "e5ffaacf1588ad735d7d76dc79b76a04dea742acf0c2073e0512bb788b9d9d0a",
+    "package.json": "20c2a17ad90bbe023770824595cea7f820c39c94b28c50a83b2f0e4aa418110a",
+    "scripts/lib/pins.mjs": "a735f17f9ce435fa95b57acbad10cdfbfd5730d5c22999bfeb2f06bb0c00a64a",
+    "tests/pins.test.mjs": "045617df558dfb50a1a1cffdd3f3cdce47237e72d661a03117722b5d549026e7",
+    "experiments/common/model-refresh-2026-11/sdk-smoke.py": "92032c7591fa61ce8d4a580528083a67c34e2f36c536a030a78b1c90742f7cd1",
+    "experiments/common/model-refresh-2026-11/test_sdk_smoke.py": "436e4327b3410130f200e67e8a82fd2bd0885e3877eb3706d167345b59ff2579",
+    "experiments/common/model-refresh-2026-11/sdk-smoke-evidence.json": "7367080f8c3e1db45740d5487ac37ddde99fd1e7156b723c8bdb524ccb5ffac3"
+  },
+  "logs_sha256": {
+    ".cache/pr4-full-node.log": "0c93b4f6d4190e46c7be5326d876a8464b7a54365f98075a96b34245061dff3b",
+    ".cache/pr4-python.log": "0adf6dcea56ab399107b26dacb677716d2ea3bb90f8dd18ecc0c697fbfd51916",
+    ".cache/pr4-sdk-offline.log": "13fa9a70781c1024ba763e4b70deebe3e96762fc19d080a6f7f2320b84e176bc",
+    ".cache/pr4-repo-check.log": "540449062aa777c2ba2628e1df9cd6fa99e1af08c8b5aa4dd974c859d7805e34",
+    ".cache/pr4-migration.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1"
+  },
+  "historical_cpd_predecessors_sha256": {
+    "experiments/common/harbor-native-pilot/accounting.py": "274eb59d61990c2965fc5d82d8f80d6ccc4ee98181e90e1029427a333a921208",
+    "experiments/common/harbor-native-pilot/check_preparation.py": "0930504ca33273a1a6ef0d462f6847d72fddc78298f819e2a210102245630644",
+    "experiments/common/harbor-native-pilot/materialize.py": "799773d59180908c0e9fd1306c4a2bf6727ec0a8603d223935e94d55b89c81a1",
+    "experiments/common/harbor-native-pilot/mock-provider.mjs": "32f7e5d296623841f019a30d9ed6fa0acdf02145aef80b660b3073ea26be2ace",
+    "experiments/common/harbor-native-pilot/mock-provider.test.mjs": "43b4c728b732953f2b774b7c106af5920ce3ae7f982a016b010a72ec9c51bce5",
+    "experiments/common/harbor-native-pilot/offline_smoke.py": "9fd9445402601b200ca418cd5c7799b2edbdbccf3be4223f264ca8a8221a7043",
+    "experiments/common/harbor-native-pilot/test_accounting.py": "8abfc370902ef8be63aad13c885d3b13ee0c9e98007ff96362476d0effa5fb7b",
+    "experiments/common/harbor-native-pilot/test_offline_smoke.py": "d7477b96dc1d70bfacbedd5238d49f6fa16efad7c3e948b810b3ee4a409141a4",
+    "experiments/common/harbor-native-pilot/verify_controls.py": "f1e4dce56de0d9b51abbe96eb4204351d15a6501cc1cb85c814453d27d2bcfee"
+  },
+  "sonar_review": {
+    "accepted_required_native_install": [
+      "AaG0-gjd_mnc5PvfI0ck",
+      "AaG0-gnU_mnc5PvfI0cp"
+    ],
+    "false_positive_container_private_paths": [
+      "AaG0-gnX_mnc5PvfI0cw",
+      "AaG0-gnX_mnc5PvfI0cx"
+    ],
+    "gate_verification": "Fetch the latest commit quality gate separately before merging; this report is offline validation only."
+  },
+  "paid_runs": 0,
+  "provider_requests": 0,
+  "credentials_read": false
+}

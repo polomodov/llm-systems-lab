@@ -1,0 +1,366 @@
+{
+  "schema_version": 1,
+  "kind": "lab-sdk-model-migration-offline-fixture",
+  "provider_requests": 0,
+  "credentials_read": false,
+  "runtime_lock_sha256": "dd15c9bd07f5b3bbf8ec418dcaec80e807dc8fe7dd9841e01adb5a12920218e7",
+  "lab_runtime_lock_sha256": "fe66b46e58edbb38c8ca10bd6099e22aae451cbf17fa157465dd8a949eb970f6",
+  "sources_sha256": {
+    "experiments/common/model-refresh-2026-11/sdk-smoke.py": "92032c7591fa61ce8d4a580528083a67c34e2f36c536a030a78b1c90742f7cd1",
+    "experiments/common/harbor-native-2026-11/offline_smoke.py": "4672f5f670f3d5b0b8ee03ca2505d4bd51354a298dbea0dde90a5fb2d06cf45c",
+    "experiments/common/harbor-native-2026-11/mock-provider.mjs": "fe3f3f4eed3b414e1afc3f26db2c27e202dc6dbdb27b834b8eddf03a48e68865",
+    "experiments/common/harbor-native-2026-11/task/instruction.md": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+    "experiments/common/harbor-native-2026-11/task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+    "experiments/common/harbor-native-2026-11/task/tests/expected.json": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+    "experiments/pi/run.mjs": "ec4ca4396bd87c5781ae446ddd6cf8dd7bdcb95877907e59fa17a7c4165ba419",
+    "experiments/pi/adapter.mjs": "17eb17f91bbd1af1f1e4683d1e52a794d3c5e503a7de7e345c53b9ea5ab6461a",
+    "experiments/mini-swe-agent/run.py": "bf13c35f6f5632fa932ebde0f8b451e0811bd9771cfafe23b45c9cad07b33839",
+    "experiments/mini-swe-agent/adapter.mjs": "7f6ad11f1a388c91d3b490ee9fb48599cb8d7acb25c72fdc1ea5808efb2e6f4f",
+    "experiments/claude-code/adapter.mjs": "ae9f7ba799f5b81cbdbb55b9d51d7700610b1954eb862a262b5f8904faf1aa5c",
+    "experiments/claude-code/settings.example.json": "9abea07f9bdebd4ad4f65bf38d3a6d18932ba1a199624e41a382d1fc2a3938ff",
+    "experiments/opencode/adapter.mjs": "5154d4ffc2514a6b6926d0849b5f384bb60ccf6593f7ba1f988ac2d6ec37dc93",
+    "experiments/opencode/opencode.json": "12724fa5dfa46785efbc1df76a5f0fcbe64a30cbc99831d2e81a5567233c255c",
+    "experiments/codex/adapter.mjs": "e17955b17ca0f453df7f13038313d7b04d4b5b5d03438030893afd5f78d37983"
+  },
+  "cases": [
+    {
+      "harness": "pi",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/pi-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "compactions": 0,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "01a1b519-b082-7310-bed7-8a9fdccddaf7"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "4cf1aa83a7a2ee5d436d4138edd867c0be702c2466a8c77fb1bb43326b3134f9",
+        "fetch-shim.mjs": "c467a4d2fd912706367d7592e566c71b3030449a7e5b0bceb5c0381b86e9c415",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "86f8a6ba6bd650999691c4c1b2a781a642b5d27dc7f0b2ef8fcc95420669adc7",
+        "agent/mock-requests.jsonl": "7f6708e77a2cc75617703689f7afb6f66dcdd0efa93205e8f45aeca3d7f8bdac",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "pi",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/pi-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 32000
+        },
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 32000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "compactions": 0,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "01a1b519-b630-75a1-bada-965057fcb455"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "a189d76b2b026afd25372127b75de6c8575bd66f237a0ad90cf490b323ceae25",
+        "fetch-shim.mjs": "c467a4d2fd912706367d7592e566c71b3030449a7e5b0bceb5c0381b86e9c415",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "a717d1ab810f62bf4bf9f52fcfb30c9c34f713d6e39a0c65096846eb97c51707",
+        "agent/mock-requests.jsonl": "456b3c9031e330e949d3fcf84ef272d3acf5d134584809311e8cd4aba249c59c",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "mini-swe-agent",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:1fa9064c1503c48896eac117d98da36243c2964597b38449209ac4a821afeb28",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/mini-swe-agent-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        },
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": "gpt-6.1-sol",
+        "modelIds": [
+          "gpt-6.1-sol"
+        ],
+        "stopReason": "Submitted",
+        "sessionId": null
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "a72be51fb1a1a9ee0637872932e0eda913e340f4980ca20370a3b2f742e25e25",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "60bd51e5221e22506743139cc2d61db68f8485b11019122ce98d934800f60d6e",
+        "agent/mock-requests.jsonl": "4bdb96603435566ca0853066f83d1055ee665830e785d23fd7a98514c11388cc",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "claude-code",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:091c4215ae16dd366dec32440f9d0e7e64b4dfb8c7ac27396240c104e1b9fef6",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/claude-code-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "updates"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 128000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "updates"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 128000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "cost_usd": 0.0008,
+          "tokens_in": 200,
+          "tokens_out": 40
+        },
+        "metrics_unavailable": {},
+        "modelId": "claude-sonnet-5-5",
+        "modelIds": [
+          "claude-sonnet-5-5"
+        ],
+        "stopReason": "completed",
+        "sessionId": "06bc7f67-1f58-474a-a8cb-d57ba22ba817"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "1c689430d17a39f1e92bc52ebd64e813df9a10bee35199e8eb6de5e9540ba3ab",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "646111fc50056df23ead41afb7832759b2db72abd9f49e97d987888e008ed35b",
+        "agent/mock-requests.jsonl": "07e978ae0b1ef3215f6d09f10573f2ecd132471c646d19548dfef1027f9bdefa",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "opencode",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:22270d610fafc91dd36fb135437b9bb09b8b27c268859201ed694a3bd1913799",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/opencode-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 3,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        }
+      ],
+      "parsed": {
+        "loop": {},
+        "metrics_unavailable": {
+          "loop.turns": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.cost_usd": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.tokens_in": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.tokens_out": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required"
+        },
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "ses_e4ae62fc6ffeJc0rnKY64RoO6n"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "b1b5f049cde05da0174ab5cc86464e77e69c9eded958b8c4ae8185ed7c6128c9",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "983fa20ddc3ec803eb9a3ba9e348cca50790b7151df5818eb390b2aca383dc85",
+        "agent/mock-requests.jsonl": "8b23f65b376885d625891718fa7f26faf4bb60fbd9a2ea5794cc938587b66383",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "codex",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:6533ab538c4a531b8f8f2759deddbc8253b44c86d13d956eb671471b2072b5eb",
+      "raw_directory": ".cache/sdk-smoke/fca1e0d3755a4438963e56f5dde8560b/codex-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "tool_choice": "auto"
+        },
+        {
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "tool_choice": "auto"
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "tokens_in": 200,
+          "tokens_out": 40
+        },
+        "metrics_unavailable": {
+          "loop.turns": "A Codex turn is a user request with an internal loop; JSONL does not report the full model-turn count",
+          "loop.cost_usd": "Codex JSONL does not report USD cost"
+        },
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "completed",
+        "sessionId": "01a1b519-da81-7b61-be93-9215a01801df"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only Pi fetch redirection, mini/Claude API-base env, OpenCode baseURL and Codex custom provider; live route unverified",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "26042da7153dabe5e818e32c6887b7a134083002f732ff81f7fdc4f62c3b0635",
+        "stderr.txt": "ebd314979df80c498909fa0182934c12754e8c0ff6b4aa3fcb7a821cfeb81293",
+        "stdout.jsonl": "fe7cf569b4ab573d41fdc6a44c0731b372791fac694202339181e758449a7830",
+        "agent/mock-requests.jsonl": "a67512eed56c1612fc1210dfb576b040a678e0545980d6fa40371600ec3f173a",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ]
+}
