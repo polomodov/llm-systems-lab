@@ -11,6 +11,8 @@ After the “Lighten the core” PR, the lab has:
 - 11 records, 3 independently evaluated, and no complete triple under matching conditions.
 - A 29-row ledger with 28 entries marked proposed: components are implemented, but their contribution to agent success has not been measured.
 
+These figures are a snapshot from the date above. Current counts are in [status.md](status.md). Later work prepared a [Harbor track](harbor.md) offline, and the [draft campaign plan](../experiments/common/campaigns/2026-11-first-comparison/README.md) now has 6 pilots and 36 comparison runs across Anthropic and OpenAI, which is larger than direction 1 below.
+
 The lab's main question — what a harness needs to execute the same specification — remains unanswered. The directions below are ordered by how quickly they can move toward an answer.
 
 ## Direction 1. First campaign: the same model, different harnesses

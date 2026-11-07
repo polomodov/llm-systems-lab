@@ -4,6 +4,8 @@ This repository is a lab for reproducible experiments with LLM systems: models, 
 
 ## What you are working in
 
+- `docs/status.md` — generated run counts and verdicts. Start here for the current state; do not edit it by hand.
+- `docs/harbor.md` — map of the Harbor track under `experiments/common/`, what blocks its first paid run, and which files are hash-protected. **Read it before changing `package.json`, `docs/harness-ledger.md` or any file under `experiments/common/`.**
 - `docs/method.md` — the experiment protocol: replayable episodes, evidence classes, what a run record must contain.
 - `docs/roadmap.md` — the extension plan: campaigns, ablations, new task types, boundary probes, ordered steps with stop criteria.
 - `docs/harnesses.md` — the harness matrix and install notes.
@@ -21,7 +23,7 @@ This repository is a lab for reproducible experiments with LLM systems: models, 
 - Secrets come only from `.env` through the harness. Do not print, copy or commit them.
 - Write only inside `results/runs/<run-id>/` and `experiments/<harness>/` unless the task says otherwise. Task workspaces live in `results/runs/<run-id>/workspace/` and are git-ignored.
 - Prefer deleting a harness component over adding one. If you add one, add its ledger row in the same change.
-- Checks: `npm run check` validates run records, the ledger, harness version pins (profile ↔ Dockerfile ↔ documentation), task budget contracts and task descriptors. Run it before finishing. `npm run reconcile` closes `running` records left by a killed coordinator; `npm run capture-sources` snapshots T001 sources for replay; `npm run compare -- --out <file.md>` writes the comparison report.
+- Checks: `npm run check` validates run records, the ledger, harness version pins (profile ↔ Dockerfile ↔ documentation), task budget contracts, task descriptors and the freshness of `docs/status.md`. Run `mise run verify` before finishing: it runs the tests and this check with the pinned Node and Python, and tests fail on an older system Python. After a change to records or the ledger, run `node scripts/status.mjs --write`. `npm run reconcile` closes `running` records left by a killed coordinator; `npm run capture-sources` snapshots T001 sources for replay; `npm run compare -- --out <file.md>` writes the comparison report.
 - A harness version is pinned once, in `experiments/<harness>/harness.json`. Dockerfile and documentation repeat it; the runner compares it with the version the image reports.
 - Turn and USD limits belong to `tasks/<id>/task.md`. The runner reads them from the sealed copy of the contract and never carries its own defaults.
 
