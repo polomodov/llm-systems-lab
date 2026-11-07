@@ -67,7 +67,7 @@ wire_api = "responses"
 requires_openai_auth = true
 request_max_retries = 0
 stream_max_retries = 0
-''' 
+'''
     return text
 
 

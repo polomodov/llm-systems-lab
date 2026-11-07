@@ -32,7 +32,10 @@ def check():
     require(plan['condition']['version'] == read(ROOT / 'experiments/codex/harness.json')['version'], 'Codex pin differs')
     lock = read(ROOT / 'experiments/common/harbor-native-2026-11/runtime-lock.json')
     require(plan['condition']['image_id'] == lock['images']['codex']['image_id'] and plan['condition']['verifier_image_id'] == lock['verifier']['image_id'], 'Immutable images changed')
-    evidence = read(BASE / 'offline-evidence.json')
+    checkpoint = 'pr-evidence.json' if (BASE / 'pr-evidence.json').exists() else 'offline-evidence.json'
+    evidence = read(BASE / checkpoint)
+    if checkpoint == 'pr-evidence.json':
+        require(sha(BASE / 'offline-evidence.json') == evidence['previous_checkpoint_sha256'], 'Original offline checkpoint changed')
     hashes(BASE, evidence['source_sha256']); hashes(BASE, evidence['log_sha256'])
     summary = BASE / evidence['summary']; require(sha(summary) == evidence['summary_sha256'], 'Offline summary changed')
     control = read(summary); require(control['synthetic'] and control['paid_runs'] == 0 and control['provider_requests'] == 0 and not control['real_credentials_read'] and not control['real_subscription_allowance_consumed'], 'Offline evidence class changed')
