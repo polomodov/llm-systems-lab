@@ -15,7 +15,7 @@ def hashes(root, mapping):
 
 
 def check():
-    evidence = read(BASE / 'offline-evidence.json')
+    evidence = read(BASE / ('review-evidence.json' if (BASE / 'review-evidence.json').exists() else 'offline-evidence.json'))
     require(sha(BASE / 'preservation.json') == evidence['preservation_sha256'], 'Preservation manifest changed')
     require(len(read(BASE / 'preservation.json')) == evidence['preserved_files'], 'Preservation scope changed')
     hashes(ROOT, read(BASE / 'preservation.json'))

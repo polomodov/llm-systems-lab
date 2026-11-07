@@ -25,7 +25,7 @@ mise exec -- experiments/common/harbor-interop/.venv/bin/python experiments/comm
   --docker-plugin-dir experiments/common/harbor-interop/.cache/docker-plugins
 ```
 
-The future production interface is `execute --run-id <prepared-id> --authorization <operator-file>` followed separately by `finalize --run-id <id> --billing <receipt> --observations <raw-provenance-pointers>`. Both refer only to this repository's frozen prepared records. These commands were **not executed** against a real provider. No active authorization file is supplied. A model-access test is a separately accounted real attempt, not an extra unbudgeted preflight.
+The future production interface is `execute --run-id <prepared-id> --authorization <operator-file>` followed separately by `finalize --run-id <id> --billing <receipt> --observations <raw-provenance-pointers>`. Authorization, billing, observations and the referenced billing export must be flat filenames inside `experiments/common/pilot-execution/.cache/operator/`. Stage operator-owned regular files there only after the relevant approval; symlinks, hard links, traversal, group/world writable files and files over 2 MB are rejected. Both commands refer only to this repository's frozen prepared records. These commands were **not executed** against a real provider. No active authorization file is supplied. A model-access test is a separately accounted real attempt, not an extra unbudgeted preflight.
 
 See [authorization.example.json](authorization.example.json), [billing.example.json](billing.example.json) and [observations.example.json](observations.example.json). Authorization placeholders must be replaced only after separate explicit spending approval. The program target remains USD 12, with USD 6 per provider and USD 2 per attempt; these are observed targets and may overshoot through in-flight requests/native retries. The campaign's separate USD 12 allocation cannot fund this pilot implicitly.
 
@@ -51,3 +51,7 @@ mise exec -- npm run check
 Unit tests exercise synthetic T002/T004 handoffs, independently supplied fail verdicts, existing judge import, altered input/log/check revisions, solver-as-judge rejection, exact authorization, concurrency, missing billing and modified collection evidence. CI runs only these unit tests; no Docker Trial or model request is started by default.
 
 [offline-evidence.json](offline-evidence.json) binds the accepted full native Trial, two separate evaluator-container probes with invented checks, test logs and current sources. Raw scratch records, Trials and evaluator logs remain local under ignored `.cache/`; the read-only validator requires those bytes. A clean checkout must repeat/rematerialize the offline probes. [preservation.json](preservation.json) protects existing result/preparation evidence. No old result is rewritten to claim this new orchestration was tested previously.
+
+## PR5 review checkpoint
+
+`offline-evidence.json` retains the initial preparation checkpoint from commit `210ec37`. `review-evidence.json` records fresh validation after review fixes; `check_offline.py` validates this latest checkpoint and the unchanged 1,673-file preservation inventory. Old raw Trial/evaluator evidence and historical results are retained.

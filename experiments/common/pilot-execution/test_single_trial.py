@@ -89,6 +89,48 @@ class TrialGateTests(unittest.TestCase):
                 with runner.execution_lock():
                     self.fail('Concurrent execution should be rejected')
 
+class FilesystemBoundaryTests(unittest.TestCase):
+    def test_operator_inputs_reject_paths_links_and_writable_files(self):
+        import os
+        import common
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / 'operator'; root.mkdir()
+            outside = Path(directory) / 'external.json'; outside.write_text('{"external":true}')
+            (root / 'valid.json').write_text('{"fixture":true}')
+            (root / 'linked.json').symlink_to(outside)
+            os.link(outside, root / 'hard.json')
+            (root / 'writable.json').write_text('{}'); (root / 'writable.json').chmod(0o666)
+            with patch.object(common, 'OPERATOR_ROOT', root):
+                self.assertEqual(common.operator_document('valid.json')[1], {'fixture': True})
+                for name in ['../external.json', str(outside), 'operator-other/file.json',
+                             'linked.json', 'hard.json', 'writable.json']:
+                    with self.subTest(name=name), self.assertRaises((ValueError, OSError)):
+                        common.operator_document(name)
+            self.assertEqual(outside.read_text(), '{"external":true}')
+
+    def test_redaction_never_writes_through_file_directory_or_hard_links(self):
+        import os
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            outside = root / 'outside'; outside.mkdir()
+            sentinel = outside / 'sentinel'; sentinel.write_text('secret')
+            for kind in ['file', 'directory', 'hard']:
+                collection = root / kind; collection.mkdir()
+                if kind == 'file': (collection / 'link').symlink_to(sentinel)
+                elif kind == 'directory': (collection / 'link').symlink_to(outside, target_is_directory=True)
+                else: os.link(sentinel, collection / 'link')
+                with self.subTest(kind=kind), self.assertRaises((ValueError, OSError)):
+                    runner.redact_tree(collection, 'secret')
+                self.assertEqual(sentinel.read_text(), 'secret')
+            collection = root / 'regular'; collection.mkdir()
+            (collection / 'evidence.json').write_text('before secret after')
+            runner.redact_tree(collection, 'secret')
+            self.assertEqual((collection / 'evidence.json').read_text(), 'before [REDACTED] after')
+
+    def test_offline_library_rejects_real_catalog_before_importing_harbor(self):
+        with self.assertRaisesRegex(ValueError, 'scratch catalog'):
+            asyncio.run(runner.run_trial(runner.ROOT, runner.ROOT / 'results/runs/unused', 'unix:///unused', True))
+
 
 if __name__ == '__main__':
     unittest.main()

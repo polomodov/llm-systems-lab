@@ -1,4 +1,5 @@
 import { test } from 'node:test';
+import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
 import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, copyFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -101,4 +102,40 @@ test('changed source and changed returned check logs cannot import a verdict', t
   assert.throws(() => importVerdict(f.root, f.handoff, join(f.evidence, 'completed.json')), /log changed/);
   writeFileSync(join(f.dir, 'workspace/artifacts/report.md'), 'source tampering');
   assert.throws(() => validateVerdict(f.root, f.handoff, f.receipt), /workspace changed/i);
+});
+
+
+test('actual evaluator wrapper receipt imports after only the documented independent fields are completed', t => {
+  const f = fixture(t, 'T002');
+  const checks = join(f.root, 'invented-checks'); mkdirSync(checks);
+  writeFileSync(join(checks, 'check.mjs'), '// Synthetic checker transport, never a hidden task check');
+  const output = join(f.root, 'wrapper-output');
+  // Replace Docker transport only: execute the real receipt-generation path.
+  const script = `import asyncio, json, sys
+from pathlib import Path
+from unittest.mock import patch
+sys.path.insert(0, sys.argv[1])
+import evaluator_container as evaluator
+submission, checks, output = map(Path, sys.argv[2:])
+async def command(*args, **kwargs):
+    if args[1] == 'inspect':
+        return json.dumps({'network':'none','mounts':[{'RW':False,'Source':str(submission),'Destination':'/work/submission'}, {'RW':False,'Source':str(checks),'Destination':'/work/check-package'}]})
+    return ''
+class Process:
+    returncode = 1
+    async def communicate(self): return b'Synthetic independent checker failed', b''
+async def spawn(*args, **kwargs): return Process()
+async def main():
+    with patch.object(evaluator, 'command', command), patch.object(asyncio, 'create_subprocess_exec', spawn):
+        await evaluator.evaluate(submission, checks, ['node','/work/check-package/check.mjs'], output, 'sha256:'+'a'*64)
+asyncio.run(main())`;
+  const result = spawnSync('python3', ['-c', script, join(repo, 'experiments/common/pilot-execution'),
+    join(f.handoff, 'submission'), checks, output], { encoding: 'utf8' });
+  assert.equal(result.status, 0, result.stderr);
+  const receipt = JSON.parse(readFileSync(join(output, 'receipt-template.json')));
+  assert.equal(receipt.method, 'hidden-check');
+  assert.equal(receipt.result, null);
+  Object.assign(receipt, { evaluator: 'independent-context', result: 'fail', check_output: 'Independent interpretation of synthetic checker' });
+  write(join(output, 'completed.json'), receipt);
+  assert.equal(importVerdict(f.root, f.handoff, join(output, 'completed.json')).verdict.result, 'fail');
 });

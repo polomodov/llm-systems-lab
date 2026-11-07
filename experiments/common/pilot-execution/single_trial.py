@@ -15,10 +15,11 @@ from pathlib import Path
 import re
 import shutil
 import socket
+import stat
 import sys
 import uuid
 
-from common import BASE, ROOT, NATIVE, INTEROP, command, load, read, require, sha, write
+from common import BASE, ROOT, NATIVE, INTEROP, command, load, operator_document, operator_file, read, require, sha, write
 
 a = load('single_trial_accounting', NATIVE / 'accounting.py')
 FAKE_KEY = 'offline-fixture-not-a-secret'
@@ -171,15 +172,31 @@ def reference(file, pointer, kind):
 def redact_tree(directory, secret):
     if not secret:
         return
-    for path in directory.rglob('*'):
-        require(not path.is_symlink(), 'Symlink in collected evidence')
-        if path.is_file():
-            content = path.read_bytes()
-            if secret.encode() in content:
-                path.write_bytes(content.replace(secret.encode(), b'[REDACTED]'))
+    root = os.open(directory, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        for _, directories, files, parent in os.fwalk('.', dir_fd=root, follow_symlinks=False):
+            for name in directories:
+                require(stat.S_ISDIR(os.stat(name, dir_fd=parent, follow_symlinks=False).st_mode),
+                        'Symlink in collected evidence')
+            for name in files:
+                descriptor = os.open(name, os.O_RDWR | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=parent)
+                with os.fdopen(descriptor, 'r+b') as stream:
+                    info = os.fstat(stream.fileno())
+                    require(stat.S_ISREG(info.st_mode) and info.st_nlink == 1,
+                            'Collected evidence must be regular files without links')
+                    content = stream.read()
+                    if secret.encode() in content:
+                        stream.seek(0)
+                        stream.write(content.replace(secret.encode(), b'[REDACTED]'))
+                        stream.truncate()
+    finally:
+        os.close(root)
 
 
 async def run_trial(root, bundle, host, offline, permit=None):
+    if offline:
+        require(root.resolve().is_relative_to((BASE / '.cache').resolve()) and
+                bundle.resolve().is_relative_to(root.resolve()), 'Offline execution requires a scratch catalog')
     record, slot = read(bundle / 'run.json'), read(bundle / 'inputs/pilot-slot.json')
     if not offline:
         validate_permit(permit, record, bundle)
@@ -378,9 +395,9 @@ async def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['plan', 'offline', 'execute', 'finalize'])
     parser.add_argument('--run-id')
-    parser.add_argument('--authorization', type=Path)
-    parser.add_argument('--billing', type=Path)
-    parser.add_argument('--observations', type=Path)
+    parser.add_argument('--authorization', help='Plain filename under pilot-execution/.cache/operator')
+    parser.add_argument('--billing', help='Plain filename under pilot-execution/.cache/operator')
+    parser.add_argument('--observations', help='Plain filename under pilot-execution/.cache/operator')
     parser.add_argument('--docker-host', default='unix:///Users/apolomodov/.colima/default/docker.sock')
     parser.add_argument('--docker-plugin-dir', type=Path, default=INTEROP / '.cache/docker-plugins')
     args = parser.parse_args()
@@ -412,17 +429,15 @@ async def main():
     record = read(bundle / 'run.json')
     if args.action == 'finalize':
         require(args.billing and args.observations, 'Finalization requires independent billing and provenance references')
-        billing = read(args.billing)
-        export = a.safe(args.billing.parent, billing['evidence_file'])
+        _, billing = operator_document(args.billing)
+        export, _ = operator_file(billing['evidence_file'])
+        _, observations = operator_document(args.observations)
         result = import_collection(ROOT, bundle, bundle / 'trace/collection', offline=False,
-                                   billing=billing, billing_evidence=export, observation=read(args.observations))
+                                   billing=billing, billing_evidence=export, observation=observations)
         print(json.dumps({'run_id': result['run_id'], 'status': result['status']}))
         return
     require(args.authorization is not None, 'Paid execution is disabled without a separate exact-run authorization')
-    require(not args.authorization.is_symlink() and args.authorization.is_file(), 'Authorization must be a regular operator-owned file')
-    require(args.authorization.stat().st_uid == os.getuid() and not args.authorization.stat().st_mode & 0o022,
-            'Authorization must be owned by the operator and not group/world writable')
-    permit = read(args.authorization)
+    _, permit = operator_document(args.authorization)
     validate_permit(permit, record, bundle)
     isolate(args.docker_host, args.docker_plugin_dir)
     with execution_lock():

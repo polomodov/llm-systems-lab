@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "kind": "offline-controlled-execution-and-evaluator-readiness",
+  "checked_at": "2026-11-07T09:25:52.326727+00:00",
+  "source_revision": "210ec373eb7ab09b4bd08ae07fe1ee5c2a7910c7",
+  "source_dirty": true,
+  "execution_authorized": false,
+  "paid_runs": 0,
+  "provider_requests": 0,
+  "real_credentials_read": false,
+  "actual_hidden_checks_read": false,
+  "harbor": {
+    "summary": ".cache/offline-6270f180df2e4699a6563ff6be91f999/summary.json",
+    "summary_sha256": "e9b276703ffbd21c749327d6eabdc378f56d711bdad389e0f9c18103bb5f5897",
+    "actual_full_native_trial": true,
+    "native_harness": "codex",
+    "task_verdict": "pass",
+    "live_qualification": "inconclusive",
+    "cost_usd": null,
+    "synthetic_usage_not_billing": true
+  },
+  "evaluation": {
+    "summary": ".cache/evaluator-58c48774310e40ecadbe6c7940a0f8d1/summary.json",
+    "summary_sha256": "75ce23c9bc08338e6860984fc9095f73ed7285e7e75540e44258611a75656ea1",
+    "cases": 2,
+    "actual_task_checker_calibration": "not_run; independent context required",
+    "automatic_verdicts": false
+  },
+  "tests": [
+    {
+      "command": "npm test (Git-visible source snapshot)",
+      "passed": 206,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:python",
+      "passed": 38,
+      "failed": 0,
+      "new_execution_gate_tests": 10
+    },
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "records": 23,
+      "ledger_rows": 42
+    },
+    {
+      "command": "check_migration.py",
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "experiments/common/pilot-execution/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
+    "experiments/common/pilot-execution/EVALUATION.md": "84a10e14ee20922a82c5792b2729b8012ac129b139dcae500d34818067395aab",
+    "experiments/common/pilot-execution/README.md": "c3ec99c13d701be5d5bfb4e91df078bb8c5835e436a0bcd3e15b3f169115ee80",
+    "experiments/common/pilot-execution/authorization.example.json": "3f4662e883b8da072474257700845c8be574d7b3c54100388112010ce9e056e6",
+    "experiments/common/pilot-execution/billing.example.json": "2489975f229585ae36cf7eb15fa966d549611567a257f241fb329b7a6ebdf95f",
+    "experiments/common/pilot-execution/check_offline.py": "8a6a32884a81dbcf1e2c3c9bab86729f3fa1cc2d7b94208b020b0be720c68ee1",
+    "experiments/common/pilot-execution/common.py": "e390918c27442167b69483673cfb481c9f4be213dc0a7cb85e3b79b7c049caee",
+    "experiments/common/pilot-execution/evaluation.mjs": "84500a5c609d1cf1721aa6facd412ef0e09f394ff67b15e5fddd4966b8261ad2",
+    "experiments/common/pilot-execution/evaluation.test.mjs": "9b4ec8d261b7cb9a7e358f983a542faa89ee30889f6f9aa402d254798b48bc89",
+    "experiments/common/pilot-execution/evaluator_container.py": "a54ed4e40b1766cb4a88a36b393d19f10ad439765a8e368399d8b7fdcbf70d9d",
+    "experiments/common/pilot-execution/observations.example.json": "145031a2352eb3309ce69dec744c9b8b254abb1b2ffb2841f96ad45a3f27c206",
+    "experiments/common/pilot-execution/offline_evaluation_smoke.py": "a32dd65161a717f20b40f9ae4a6d61448e0a65b885632e96b6bc181301ce366c",
+    "experiments/common/pilot-execution/single_trial.py": "4f926857343c32c7f387ea4927ce084fd4effac321a2306784ce075270b40889",
+    "experiments/common/pilot-execution/test_single_trial.py": "3f6e0b15ad2dc6e1d1e047a43904451ef7b146a4e66ad9538bdd73aef862a461",
+    "package.json": "ec13245a10c92bc9b094cc5a4aaf39e4933232f1260d4302087c5a5e4ffca3da",
+    "docs/harness-ledger.md": "73cab8058628e1569a353b0ca6ec380a417ebb41e218dc72218cb3bf75f509e3"
+  },
+  "log_sha256": {
+    ".cache/pr5-full-node.log": "090d0c716cb057f719cc24732589630d035bf9b3a4c7dd45841c0a03f6b1040e",
+    ".cache/pr5-python.log": "c3222afca61b6644dd13d1ed814b24606083df18897260e4bc0ce3a1efe047e9",
+    ".cache/pr5-check.log": "51c0b3dfeb7bb7e40abf049e40e903aa5beb8b5b4b3299ddafa8db396ece9d4e",
+    ".cache/pr5-native-trial.log": "268ed67e39c91d58e509f1a8ed9a121bf687e10c940836943ac578bc112287b6",
+    ".cache/pr5-eval-smoke.log": "832a69d4612909dd1f70fbfa45e781929d88b236f9a44a5240380d657c116cbd",
+    ".cache/pr5-migration.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1"
+  },
+  "preservation_sha256": "380606e8017fc36ce235c4656116a54640aa45a94a8329846831d325ca4ff953",
+  "preserved_files": 1673,
+  "remaining_live_gates": [
+    "Independent evaluator assignment, actual pinned hidden checker revision/calibration in that separate context",
+    "Explicit exact-run execution authorization and attributable provider billing project",
+    "Actual API/model acceptance, response-level identity/usage and settled provider billing; missing data remains unknown",
+    "No automatic promotion to a second native slot or to the36 comparison runs"
+  ],
+  "previous_checkpoint_sha256": "c2f88050308a9df94b19d1a89c0ee1fbafbb1ebad6d0e8ae1bead8e18189e8e0"
+}

@@ -32,6 +32,7 @@ async def evaluate(submission, checks, argv, output, image, timeout=120):
     require(1 <= timeout <= 600, 'Evaluator timeout must be 1..600 seconds')
     manifest = read(submission / 'manifest.json')
     require(manifest.get('kind') == 'independent-evaluation-submission' and manifest.get('task') in ['T002-repo-janitor', 'T004-feature-from-spec'], 'Unsupported evaluator submission')
+    require(manifest.get('method') == 'hidden-check', 'Evaluator requires the sealed hidden-check method')
     before = inventory(submission)
     require({name: value for name, value in before.items() if name != 'manifest.json'} == {row['path']: row['sha256'] for row in manifest['files']}, 'Submission differs from its sealed inventory')
     require(not output.resolve().is_relative_to(submission.resolve()) and not output.resolve().is_relative_to(checks.resolve()), 'Output must be separate from evaluator inputs')
@@ -81,7 +82,7 @@ async def evaluate(submission, checks, argv, output, image, timeout=120):
         if remaining:
             await command('docker', 'rm', '-f', name)
     require(inventory(submission) == before and inventory(checks) == check_files, 'Evaluator source inputs changed')
-    receipt = {'schema_version': 1, 'submission_id': manifest['submission_id'],
+    receipt = {'schema_version': 1, 'method': manifest['method'], 'submission_id': manifest['submission_id'],
        'submission_manifest_sha256': sha(submission / 'manifest.json'),
        'artifacts_sha256': manifest['artifacts_sha256'], 'workspace_sha256': manifest['workspace_sha256'],
        'checker_revision': manifest['checker_revision'],
