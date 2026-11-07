@@ -1,0 +1,67 @@
+{
+  "kind": "hn-o01-provider-billing-export-v1",
+  "synthetic": false,
+  "run_id": null,
+  "inputs_sha256": null,
+  "collection_seal_sha256": null,
+  "response_set_sha256": null,
+  "scope": {
+    "project_id": null,
+    "api_key_id": null,
+    "start_time": null,
+    "end_time": null,
+    "exclusive_for_entire_bucket": false,
+    "other_activity": null
+  },
+  "review": {
+    "status": "unsettled",
+    "reviewer": "",
+    "basis": "",
+    "reviewed_at": null,
+    "all_retries_included": false
+  },
+  "snapshots": [
+    {
+      "retrieved_at": null,
+      "query": {
+        "start_time": null,
+        "end_time": null,
+        "project_ids": [],
+        "api_key_ids": [],
+        "usage_group_by": [
+          "project_id",
+          "api_key_id",
+          "model"
+        ],
+        "cost_group_by": [
+          "project_id",
+          "api_key_id",
+          "line_item"
+        ]
+      },
+      "usage_pages": [],
+      "cost_pages": []
+    },
+    {
+      "retrieved_at": null,
+      "query": {
+        "start_time": null,
+        "end_time": null,
+        "project_ids": [],
+        "api_key_ids": [],
+        "usage_group_by": [
+          "project_id",
+          "api_key_id",
+          "model"
+        ],
+        "cost_group_by": [
+          "project_id",
+          "api_key_id",
+          "line_item"
+        ]
+      },
+      "usage_pages": [],
+      "cost_pages": []
+    }
+  ]
+}

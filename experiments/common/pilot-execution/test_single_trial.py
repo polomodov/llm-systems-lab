@@ -23,13 +23,15 @@ class TrialGateTests(unittest.TestCase):
             'inputs_sha256': self.record['inputs']['manifest_sha256'],
             'runner_sha256': sha(Path(runner.__file__)), 'common_sha256': sha(BASE / 'common.py'),
             'accounting_sha256': sha(NATIVE / 'accounting.py'),
-            'budget_target_usd': 2, 'approved_by': 'fixture-operator', 'billing_project': 'fixture-project',
+            'collector_sha256': sha(BASE / 'hn_o01.py'), 'reconciler_sha256': sha(BASE / 'hn_o01_billing.py'), 'telemetry_sha256': sha(BASE / 'otel_receiver.mjs'),
+            'budget_target_usd': 2, 'approved_by': 'fixture-operator', 'billing_project': 'fixture-project', 'billing_api_key_id': 'key-fixture',
             'expires_at': (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(), 'previous_run_ids': []}
 
     def test_exact_authorization_and_expiry_are_required(self):
         runner.validate_permit(self.permit, self.record, self.bundle)
         for patch in [{'allow_paid': False}, {'max_trials': 2}, {'run_id': 'other'},
-                      {'kind': 'offline-fixture'}, {'runner_sha256': '0' * 64},
+                      {'kind': 'offline-fixture'}, {'runner_sha256': '0' * 64}, {'collector_sha256': '0' * 64},
+                      {'reconciler_sha256': '0' * 64}, {'telemetry_sha256': '0' * 64}, {'billing_api_key_id': None},
                       {'plan_sha256': '0' * 64}, {'common_sha256': '0' * 64},
                       {'expires_at': '2000-01-01T00:00:00Z'}, {'previous_run_ids': None}]:
             with self.subTest(patch=patch), self.assertRaises(ValueError):
@@ -53,6 +55,8 @@ class TrialGateTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             bundle = Path(directory)
             write(bundle / 'run.json', {'run_id': 'fixture'})
+            (bundle / 'inputs').mkdir()
+            write(bundle / 'inputs/pilot-slot.json', {'slot_id': 'fixture'})
             collection = bundle / 'collection'; collection.mkdir()
             write(collection / 'state.json', {'run_id': 'fixture', 'offline': False})
             (bundle / 'trace').mkdir()

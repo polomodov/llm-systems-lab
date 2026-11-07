@@ -54,4 +54,8 @@ Unit tests exercise synthetic T002/T004 handoffs, independently supplied fail ve
 
 ## PR5 review checkpoint
 
-`offline-evidence.json` retains the initial preparation checkpoint from commit `210ec37`. `review-evidence.json` records fresh validation after review fixes; `check_offline.py` validates this latest checkpoint and the unchanged 1,673-file preservation inventory. Old raw Trial/evaluator evidence and historical results are retained.
+`offline-evidence.json` retains the initial preparation checkpoint from commit `210ec37`. `review-evidence.json` records fresh validation after review fixes; `check_offline.py` validates the newest available checkpoint and the unchanged 1,673-file preservation inventory. Old raw Trial/evaluator evidence and historical results are retained.
+
+## HN-O01 observations and billing
+
+[HN-O01.md](HN-O01.md) documents the added native measurement collector, response-level model confirmation, loopback-only tool-decision telemetry and strict operator-export reconciliation. HN-O01 provenance is now generated/recomputed from the sealed collection; `finalize` needs its reconciled billing receipt and no manual `--observations` file. Other slots retain their existing interface. New permits must additionally bind collector, reconciler and telemetry-sink hashes. `hn-o01-evidence.json` is the current offline checkpoint, including the retained full native Trial, complete synthetic measurement bindings and pinned source inspection. These sources add observation only; all historical checkpoints and frozen campaign/native inputs are preserved.
