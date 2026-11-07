@@ -19,20 +19,21 @@ The two `harbor-native-*` directories share 18 identical files. This is delibera
 
 ## What blocks the first paid run
 
-From [`review-evidence.json`](../experiments/common/pilot-execution/review-evidence.json), `remaining_live_gates`:
+From [`hn-o01-review-evidence.json`](../experiments/common/pilot-execution/hn-o01-review-evidence.json), `remaining_live_gates`, for the first slot, HN-O01 (see [`HN-O01.md`](../experiments/common/pilot-execution/HN-O01.md)):
 
-1. An assigned independent evaluator, with the pinned hidden-checker revision calibrated in that separate context.
-2. Explicit authorization for an exact run, and a provider billing project that spending can be attributed to.
-3. Actual model acceptance, response-level identity and usage, and settled provider billing. Missing data stays unknown.
+1. An independent nested-call inventory or a verified complete stream, before full permission qualification. Until then the counter stays unknown.
+2. A separate spending permit for the exact run, with an approved project and API key ID, an expiry and all current instrumentation hashes.
+3. A project and key used only by this run for the entire UTC cost bucket, a billing reviewer, full exports, two stable snapshots and justified finality.
+4. Live model and API acceptance, and response identity on the native transport. Unknowns stay unknown.
 
-Passing one pilot slot does not promote the next slot or the comparison runs.
+There is no automatic retry, second native slot or campaign promotion. T002 and T004 runs also need an independent evaluator; see [`EVALUATION.md`](../experiments/common/pilot-execution/EVALUATION.md).
 
 ## Hash-protected files
 
 Changing these invalidates recorded evidence. Do not edit them to make a fix convenient.
 
 - [`preservation.json`](../experiments/common/pilot-execution/preservation.json) covers `harbor-interop`, both `harbor-native-*` directories, `model-refresh-2026-11` and `results/runs`.
-- `review-evidence.json` covers the `pilot-execution` sources, **`package.json`** and **`docs/harness-ledger.md`**. Changing either of the last two makes `check_offline.py` report `Evidence changed` until the evidence is recorded again, which needs Docker and the local logs under `pilot-execution/.cache/`.
+- `hn-o01-review-evidence.json`, the newest checkpoint `check_offline.py` selects, covers the `pilot-execution` sources, **`package.json`** and **`docs/harness-ledger.md`**. Changing either of the last two makes `check_offline.py` report `Evidence changed` until the evidence is recorded again, which needs Docker and the local logs under `pilot-execution/.cache/`. Earlier checkpoints in that directory no longer match the sources; this is expected.
 - An execution authorization binds `single_trial.py`, `common.py` and `accounting.py`.
 
 ## Tests
