@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "kind": "codex-subscription-normalization-plan",
+  "pilot_id": "2026-11-codex-subscription-normalize",
+  "slot_id": "SN-C01",
+  "execution_authorized": false,
+  "live_launcher_implemented": false,
+  "max_attempts": 1,
+  "automatic_retries": 0,
+  "condition": {
+    "harness": "codex",
+    "version": "0.167.0",
+    "mode": "cli",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "speed": "standard",
+    "funding": "chatgpt_subscription",
+    "auth_mode": "chatgpt",
+    "image_id": "sha256:006c57104985bba2872abde1a38d41e4bda894dd9d7503f86743bce705178af4",
+    "verifier_image_id": "sha256:609f60a6e55f2cc2ea608de277ac7d7de4a2a6e1f749e5e93884a9f06a8e3fb9",
+    "comparison_scope": "Separate subscription condition; never an HN-O01/API campaign replacement",
+    "apps_enabled": false,
+    "plugins_enabled": false
+  },
+  "limits": {
+    "agent_timeout_s": 180,
+    "verifier_timeout_s": 60,
+    "model_response_target": 8,
+    "hard_turn_cap": false,
+    "cost_usd": null,
+    "minimum_remaining_percent": 20,
+    "max_observed_delta_percentage_points": 5,
+    "quota_threshold_status": "proposed_not_authorized",
+    "hard_quota_cap": false
+  },
+  "auth_policy": {
+    "private_home": "/run/subscription-home",
+    "codex_home": "/run/subscription-home/.codex",
+    "credential_store": "file",
+    "forced_login_method": "chatgpt",
+    "host_auth_or_keyring_reuse": false,
+    "api_fallback": false,
+    "retain_auth_in_evidence": false,
+    "agent_can_access_selected_credential": true,
+    "refresh_persistence": "Discard runtime copy after attempt; future scoped login only after explicit authorization"
+  },
+  "network": {
+    "offline": "Docker network none; loopback fixture only",
+    "live": "Not configured or qualified; separate scoped allowlist required for ChatGPT backend and refresh",
+    "host_socket_mount": false
+  },
+  "accounting": {
+    "record_kind": "subscription-pilot-run-v1",
+    "quota": "before/after native account/rateLimits/read snapshots; shared rounded account observations",
+    "exact_run_quota_consumption": null,
+    "usd_policy": "null, never inferred zero or API-token pricing",
+    "credits_policy": "No purchases, reset redemption or API fallback; refuse credit-backed/unknown quota preflight",
+    "qualification": "Task, model identity, trace, isolation and quota evidence reported separately; missing permissions remain unknown"
+  },
+  "live_gates": [
+    "Explicit one-attempt authorization bound to new sources/plan and account scope",
+    "Private user-performed subscription login; no host credential reuse; model/account availability unverified",
+    "Qualified live network/auth-refresh boundary; no public-CI OAuth or mounted host HOME",
+    "Fresh complete quota observations and accepted proposed quota thresholds/overshoot risk",
+    "No implicit second attempt, campaign admission, API fallback, credit purchase or quota-reset redemption"
+  ]
+}

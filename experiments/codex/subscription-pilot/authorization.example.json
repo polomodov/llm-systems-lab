@@ -1,0 +1,19 @@
+{
+  "kind": "subscription-normalization-authorization-v1",
+  "allow_real": false,
+  "pilot_id": "2026-11-codex-subscription-normalize",
+  "slot_id": "SN-C01",
+  "run_id": null,
+  "plan_sha256": null,
+  "source_sha256": {},
+  "approved_by": "",
+  "account_scope": "",
+  "expected_account_id": null,
+  "expires_at": null,
+  "maximum_attempts": 1,
+  "quota_thresholds_approved": false,
+  "quota_overshoot_risk_accepted": false,
+  "api_fallback": false,
+  "credit_purchase": false,
+  "automatic_retry": false
+}

@@ -1,0 +1,53 @@
+{
+  "kind": "native-codex-subscription-offline-readiness-v1",
+  "checked_at": "2026-11-07T15:03:00.532623+00:00",
+  "source_revision": "4bd7de4b64bea9b9007019023b040d11db785c51",
+  "source_dirty": true,
+  "execution_authorized": false,
+  "paid_runs": 0,
+  "real_subscription_runs": 0,
+  "real_credentials_read": false,
+  "summary": ".cache/offline-ffcc863ffa9749cf8772513633cc8a61/summary.json",
+  "summary_sha256": "6f45a9e4df3e0b2629ae5b8672270c383a3a4ab83493419b9e440cafbdef2b1d",
+  "source_sha256": {
+    "prepared-run.json": "30f8917f944c81bec2c296edf4780b25beb5523bde39dfe16b354c9564ab1e1c",
+    "offline_agent.mjs": "0de0610eac08efa802fabcf488e6dee0a76a57cf22a0ba373a57f722559a54ee",
+    "plan.json": "7611543477111b0d7dc91c603e88dd5828d384b8ee137e17643b8fd5cbeb4707",
+    "check.py": "67cde9d14c44461dfb91e9cef89e2c00facdeb054ed2d00a0f5f08725290a37e",
+    "preservation.json": "7badc0f049ccd1e69506ec94d7cd4c95433d4a44039ef979ab7dcb59fb443e4c",
+    "authorization.example.json": "c53053818ed9207b7c238e66e7523082b2acf9415466c2d34393c22f13d1b120",
+    "offline.py": "ab5842bb051494c71e6ee915fb93aa81386ba81747786c7762c9b11b22225b7f",
+    "contract.md": "00543159e275d11f1b53b459ef4b79ae5d0f2b0e0496eea7d9892168da600f38",
+    "instruction.md": "1570e8839a5351adfb6378e56c257c21bebf46abf99a440cac8ae40a8101b4a2",
+    "README.md": "3aa89b123dd80d22397cd008733066073fa032a5e02266ffc70dc4d3cde9d2c7",
+    "subscription_pilot.py": "0f1e0989e40ebe8884e3344d0a7df182c3822a3a16b0e3eb520d56911a24c4ac",
+    "schema.json": "aa73ed5c5cf287117a1f679f69584db2a2312a7dd7532e51d1fd2e08443e9ba3"
+  },
+  "log_sha256": {
+    ".cache/accepted-isolated-control.log": "1e185411b609aed18e0f8fc089fc10f0f83afd071c79f6df4cdeed2433b30875",
+    ".cache/node-tests.log": "4e25dd4eff57eb94d6e39a16c9f75a9e8f33038254437eb4883ff952e7934083",
+    ".cache/python-tests.log": "312b91695ae8f05255a702434724bedd3da48e8115249a3f3fd670dd8f2c35e2",
+    ".cache/native-accounting-tests.log": "b1e77ec0444f95aa094eb91512eafac0a41efe4eac3182865e2d98605cabd4f2",
+    ".cache/repository-check.log": "f53369f0400122db613c8bf0b58783e22b65062101657816e190af8d16c3a4ea",
+    ".cache/migration-check.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1"
+  },
+  "validation": {
+    "node_passed": 206,
+    "node_opt_in_skipped": 2,
+    "python_default_passed": 59,
+    "native_accounting_passed": 22,
+    "native_chatgpt_auth_fixture": true,
+    "native_api_profile_rejected_before_backend_request": true,
+    "native_quota_rpc_before_after": true,
+    "normalization_artifact_verdict": "pass",
+    "container_network": "none",
+    "independent_verifier": true,
+    "live_model_or_subscription_qualified": false
+  },
+  "limitations": [
+    "Loopback TLS/custom-provider fixture, not hosted subscription routing or token refresh qualification",
+    "Quota percentages are shared rounded observations; exact run quota and per-run USD remain unknown",
+    "No live launcher or real authorization; account/model availability, live network, quota thresholds and overshoot remain later gates",
+    "Nested native permission coverage remains unknown under the prior reviewed collector"
+  ]
+}

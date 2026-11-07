@@ -1,0 +1,53 @@
+{
+  "kind": "subscription-pilot-run-v1",
+  "run_id": "2026-11-07-codex-subscription-sn-c01",
+  "funding": "chatgpt_subscription",
+  "synthetic": false,
+  "execution_authorized": false,
+  "status": "prepared",
+  "condition": {
+    "harness": "codex",
+    "version": "0.167.0",
+    "mode": "cli",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "medium",
+    "speed": "standard",
+    "funding": "chatgpt_subscription",
+    "auth_mode": "chatgpt",
+    "image_id": "sha256:006c57104985bba2872abde1a38d41e4bda894dd9d7503f86743bce705178af4",
+    "verifier_image_id": "sha256:609f60a6e55f2cc2ea608de277ac7d7de4a2a6e1f749e5e93884a9f06a8e3fb9",
+    "comparison_scope": "Separate subscription condition; never an HN-O01/API campaign replacement",
+    "apps_enabled": false,
+    "plugins_enabled": false
+  },
+  "started_at": null,
+  "verdict": null,
+  "observed_model": null,
+  "cost_usd": null,
+  "exact_run_quota_consumption": null,
+  "live_qualification": "unverified",
+  "plan_sha256": "7611543477111b0d7dc91c603e88dd5828d384b8ee137e17643b8fd5cbeb4707",
+  "source_sha256": {
+    "offline_agent.mjs": "0de0610eac08efa802fabcf488e6dee0a76a57cf22a0ba373a57f722559a54ee",
+    "check.py": "ab3c5624a14b5253fbfcccbeb7fba9d6c9f575219dd462df323034177185de8c",
+    "offline.py": "ab5842bb051494c71e6ee915fb93aa81386ba81747786c7762c9b11b22225b7f",
+    "subscription_pilot.py": "7fa3baa0c447b132b50e4b0aac129819040f39a124cfa2465e2d9b0c2067bc9c"
+  },
+  "measurements": {
+    "turns": null,
+    "tokens_in": null,
+    "tokens_out": null,
+    "permissions_asked": null,
+    "compactions": null,
+    "subagents": null,
+    "wall_clock_s": null
+  },
+  "inputs_sha256": {
+    "experiments/codex/subscription-pilot/contract.md": "00543159e275d11f1b53b459ef4b79ae5d0f2b0e0496eea7d9892168da600f38",
+    "experiments/codex/subscription-pilot/instruction.md": "1570e8839a5351adfb6378e56c257c21bebf46abf99a440cac8ae40a8101b4a2",
+    "experiments/common/harbor-interop/task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+    "experiments/common/harbor-interop/task/tests/evaluate.py": "613004ac1c2aa65ce40478585ec614a07473701ff52c41ce599349b17291366f"
+  },
+  "metrics_unavailable": "Preparation only; no subscription request, quota read, credential or model response.",
+  "notes": "Separate native subscription condition; never reuse an API pilot run ID, account budget or historical outcome."
+}
