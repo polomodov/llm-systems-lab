@@ -119,6 +119,38 @@ jobs:
           retention-days: 14
           if-no-files-found: warn
 
+  # Harbor experiment tests import pinned Harbor, so they run apart from `check`.
+  # They share the Docker job's condition: documentation-only PRs skip both.
+  harbor:
+    needs: plan
+    if: needs.plan.outputs.docker == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MISE_ENABLE_TOOLS: node,python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5
+        with:
+          version: '2026.11.3'
+          cache_key_prefix: mise-default
+      - name: Prepare logs
+        run: mkdir -p "$RUNNER_TEMP/ci-logs"
+      - name: Install pinned Harbor
+        run: node scripts/test-harbor.mjs --setup 2>&1 | tee "$RUNNER_TEMP/ci-logs/harbor-setup.log"
+      - name: Harbor experiment tests
+        run: node scripts/test-harbor.mjs 2>&1 | tee "$RUNNER_TEMP/ci-logs/harbor-tests.log"
+      - name: Preserve Harbor logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: harbor-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/ci-logs/
+          retention-days: 14
+          if-no-files-found: warn
+
   # PR/push: affected harnesses; manual/weekly: every profile.
   images:
     needs: plan
