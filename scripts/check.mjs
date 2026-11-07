@@ -9,6 +9,7 @@ import { loadLabCatalog } from "./lib/labs.mjs";
 import { auditPins } from "./lib/pins.mjs";
 import { taskLimits } from "./lib/contracts.mjs";
 import { loadTaskDescriptor } from "./lib/tasks.mjs";
+import { statusFor } from "./status.mjs";
 
 const root = process.cwd();
 const runsDir = join(root, "results", "runs");
@@ -97,6 +98,12 @@ for (const name of entries) {
 }
 if (ledgerText) for (const error of validateLedger(ledgerText, { runIds: evidenceIds }).errors) {
   if (!ledger.errors.includes(error)) { console.error(`✖ ${error}`); failed++; }
+}
+const statusFile = join(root, "docs", "status.md");
+if (existsSync(statusFile)) {
+  try {
+    if (readFileSync(statusFile, "utf8") !== statusFor(root)) { console.error("✖ docs/status.md is stale: run node scripts/status.mjs --write"); failed++; }
+  } catch (error) { console.error(`[check] status: ${error.message}`); failed++; }
 }
 console.log(`[check] runs=${entries.length} completed=${completed} failed=${failed} ledger rows=${ledger.ids.size}`);
 if (completed === 0) console.log("[check] no experimental evidence: no completed, evaluated runs");

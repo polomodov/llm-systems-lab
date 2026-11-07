@@ -11,11 +11,13 @@ A lab for reproducible experiments with LLM systems: local models, inference eng
 - Input snapshots with SHA-256, original traces, reasons for unknown metrics, and independent evaluation bound to the actual outputs.
 - Comparisons only within matching conditions; `pass@3` and `pass^3` over complete triples. Specification ablation through `--variant without-spec`.
 
-**Status as of 2026-10-22:** hardware measurements exist for Ryzen and Apple, along with 11 agent-run records. Three Pi/local/T002 runs have independent evaluations: two `fail` and one `pass`. Six other records are `aborted`, one is `awaiting_review`, and one is `prepared`. There are no complete triples under matching conditions or cross-harness comparisons yet. Actual coverage and acceptance limits are listed in the [lab status overview](docs/labs/README.md#execution-status-as-of-2026-10-22). Infrastructure checks do not replace agent-quality evaluation.
+**Status:** current run counts and verdicts are generated from the records in [docs/status.md](docs/status.md). Hardware measurements exist for Ryzen and Apple. Actual lab coverage and acceptance limits are listed in the [lab status overview](docs/labs/README.md#execution-status-as-of-2026-10-22). Infrastructure checks do not replace agent-quality evaluation.
 
 **2026-11-05:** local-model measurement bundles (about 150 MB including binary logs) were moved out of the working tree into a [commit-addressed archive](experiments/local-models/measurements/README.md); documentation uses permalinks. The `experiments/` tree shrank from 155 MB to 2 MB.
 
 **2026-11-06:** the project moved to this public repository with sanitized history, MIT licensing and an English project interface. Original research artifacts retain their source language and sealed conditions; see [publication and archive provenance](docs/publication.md).
+
+**2026-11-07:** a separate track prepared agent runs through pinned Harbor, offline only. No model request has been made; [docs/harbor.md](docs/harbor.md) maps its directories, what blocks the first paid run, and which files are hash-protected.
 
 ## Laboratory exercises
 
@@ -189,6 +191,7 @@ The [workflow](.github/workflows/ci.yml) runs on PRs, pushes to `main`, manual d
 | `plan` | Selects harnesses from `harness.json` using the Git diff; initial and forced pushes check every harness without requiring old history. Other history-read failures stop the job. |
 | `check` | Every event: the `default` environment from `mise.toml` and `node22` with Node 22.0.0 (the support floor), running `test` and `check`. The default environment also runs Python and `test:python` from the same mise configuration. |
 | `docker` | On `main`, manual/scheduled runs and PRs changing container infrastructure or harnesses: a real boundary smoke test. |
+| `harbor` | Same condition as `docker`: installs pinned Harbor and runs the Harbor experiment tests with `scripts/test-harbor.mjs`. No model requests. |
 | `images` | PR/push: changed harnesses; manual/scheduled: all nine. Pinned builds and offline installed-version checks; Pi also runs `test:local-docker`. Up to three builds at a time. |
 | `compare` | After successful checks on a push to `main`: `results/compare/latest.md` in a `comparison-<commit>-<attempt>` artifact retained for 90 days, and in the job summary. The file is not committed automatically. |
 
@@ -204,6 +207,8 @@ GITHUB_EVENT_NAME=workflow_dispatch node .github/scripts/harness-ci.mjs plan
 
 Builds download public dependencies; smoke runs only `version_command` in a container without network access. `compare` uses recorded results and keeps different conditions separate. Successful CI is not itself a measurement of agent quality.
 
+- `docs/status.md` — generated run counts and verdicts; `node scripts/status.mjs --write` refreshes it and `npm run check` rejects a stale copy.
+- `docs/harbor.md` — map of the Harbor track and its hash-protected files.
 - `docs/method.md` — protocol and limits of interpretation.
 - `docs/roadmap.md` — experiment extensions: campaigns, ablations, new tasks, boundaries and ordered steps.
 - `docs/harnesses.md` — implemented adapters and candidates with primary sources.
