@@ -95,6 +95,20 @@ function resolveCatalog(root, category, value, requiredFile) {
   return name;
 }
 
+// One experiment-owned episode, deliberately outside the campaign task catalog.
+// Fixed IDs and paths prevent this importer from becoming an arbitrary-path bypass.
+function validateHarborPilotCatalog(root, record) {
+  if (record.task !== 'harbor-native-normalize') return false;
+  if (!record.inputs?.manifest_path) throw new Error('Harbor pilot requires sealed preparation');
+  if (record.agent !== 'harbor-native-normalizer' || record.harness?.mode !== 'cli') throw new Error('Harbor pilot requires its registered agent and native CLI mode');
+  if (!['claude-code', 'opencode', 'codex', 'pi', 'mini-swe-agent'].includes(record.harness?.name)) throw new Error('Unregistered Harbor pilot harness');
+  const base = 'experiments/common/harbor-native-pilot/task';
+  const registration = JSON.parse(readFileSync(safePath(root, `${base}/registration.json`), 'utf8'));
+  if (registration.schema_version !== 1 || registration.task_id !== record.task || registration.agent_id !== record.agent || registration.contract !== 'contract.md' || registration.agent_spec !== 'agent-spec.md') throw new Error('Invalid Harbor pilot registration');
+  for (const file of ['contract.md', 'agent-spec.md']) if (!lstatSync(safePath(root, `${base}/${file}`)).isFile()) throw new Error(`Missing Harbor pilot ${file}`);
+  return true;
+}
+
 export function validateRun(record, { root, folderName } = {}) {
   const errors = [];
   validateSchema(record, schema, "run", errors);
@@ -152,7 +166,10 @@ export function validateRun(record, { root, folderName } = {}) {
   if (root) {
     try {
       const dir = runDirectory(root, record.run_id);
-      for (const [category, id, requiredFile] of [["experiments", record.harness?.name, "README.md"], ["agents", record.agent, "spec.md"], ["tasks", record.task, "task.md"]]) {
+      const harborPilot = validateHarborPilotCatalog(root, record);
+      const catalogEntries = [["experiments", record.harness?.name, "README.md"]];
+      if (!harborPilot) catalogEntries.push(["agents", record.agent, "spec.md"], ["tasks", record.task, "task.md"]);
+      for (const [category, id, requiredFile] of catalogEntries) {
         assertSegment(id, category);
         if (!existsSync(safePath(root, category, id, requiredFile))) errors.push(`run: ${category}/${id}/${requiredFile} missing`);
       }

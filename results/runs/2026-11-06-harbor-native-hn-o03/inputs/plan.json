@@ -1,0 +1,356 @@
+{
+  "schema_version": 1,
+  "kind": "non-executable-native-adapter-pilot-plan",
+  "pilot_id": "2026-11-harbor-native-adapters",
+  "status": "offline_preparation_complete_live_execution_not_authorized",
+  "execution_authorized": false,
+  "launchable": false,
+  "planning_revision": "d75d5b0a909225b1d9a14615bbfd8793de119df7",
+  "harbor_lock": "../harbor-interop/lock.json",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "evidence": [
+    "offline-checks.json",
+    "anthropic-source-evidence.json",
+    "openai-source-evidence.json",
+    "pi-source-evidence.json",
+    "runtime-evidence.json",
+    "runtime-inventories.json",
+    "native-smoke-evidence.json",
+    "control-evidence.json",
+    "preparation-evidence.json"
+  ],
+  "model_selection_provenance": {
+    "source": "../campaigns/2026-11-first-comparison/model-selection.json",
+    "source_sha256": "b3040f85de624d0ed74555814f540016559e421b240277b1f1e1785111a4f7c6",
+    "source_was_uncommitted": true,
+    "use": "Candidate IDs copied into this separate plan; source campaign and its budget are unchanged.",
+    "live_access": "unverified",
+    "sources_checked_on": "2026-11-06",
+    "official_sources": [
+      "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+      "https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions",
+      "https://platform.claude.com/docs/en/models/sonnet-4-6/overview"
+    ]
+  },
+  "task_proposal": {
+    "status": "materialized_and_registered",
+    "design": "Separate normalization task: original public input/evaluator/fixture bytes retained; public instruction changes only its network-boundary sentence. New Node oracle, immutable runtime images, native policies and explicit limits are sealed.",
+    "reference_package": "../harbor-interop/task",
+    "reference_task_digest": "sha256:a936880d5675dfbb3f911200b59077b959179f78f59aa7b80316058366ad5e50",
+    "new_lab_task_id": "harbor-native-normalize",
+    "new_task_contract_limits": {
+      "agent_timeout_s": 180,
+      "turn_or_step_target": 8,
+      "usd_target": 2,
+      "verifier_timeout_s": 60
+    },
+    "semantics": "Limits are sealed in task/contract.md and each prepared record. Native turn/step definitions differ and are not a shared efficiency metric; no paid launcher is implemented.",
+    "outcome_scope": "Provider/model routing, task tool execution, trace conversion, artifact transfer and independent verdict; no coding-performance or campaign-parity claim.",
+    "agent_user": "1000:1000",
+    "verifier_user": "1000:1000",
+    "verifier_environment_mode": "separate",
+    "setup_network": "no-network after separate immutable image preparation",
+    "agent_network": "allowlist containing only api.openai.com or api.anthropic.com for the selected slot; inspect the actual resolved phase policy",
+    "verifier_network": "no-network; no provider credentials",
+    "network_limitations": "Harbor Docker policy permits resolver DNS/ICMP; this is not complete network isolation or parity with the laboratory gateway.",
+    "credential_policy": "Only the separately authorized selected provider credential from .env through the harness; names only in plan, no host auth/HOME/repository/socket mounts, no full environment forwarding.",
+    "public_files_and_verifier_identical_across_slots": true,
+    "image_and_native_config_differences_recorded_per_slot": true,
+    "new_lab_agent_id": "harbor-native-normalizer",
+    "new_task_digests": {
+      "prepared": {
+        "HN-O01": "sha256:a688735dc6aa01c52152dd53cab2dd3951cd722a03c5de4027b320b2b6359fec",
+        "HN-A01": "sha256:c2387c74a8393ec6291af364356e37973bcb7ede3e2aab218c7aee75a4f76d49",
+        "HN-A02": "sha256:97e805dcf1202bb16dd088d7055236e41cd62167e741590214138f70ad25b502",
+        "HN-A03": "sha256:300e6664c92ec0e06ca71050a20c08d1e9edbb390422071b768396a881921f99",
+        "HN-O02": "sha256:393cf951e3295f6d19935ea338d81c2e08c30a40aca237acf945dee5880daa2d",
+        "HN-O03": "sha256:e33c9f5de59c0d380f1ca098e625f35e138f996e263c0f2e0d0774df9f694700"
+      },
+      "offline": {
+        "HN-O01": "sha256:4c176331fc31756e844a5bd1989ff5b74750a36383ff063364217b8cd39bcc6d",
+        "HN-A01": "sha256:50d53cbeb7baea1de0f307eb9ed91fc64c3cb7c92ba469d74d126271cc891c8a",
+        "HN-A02": "sha256:13be922331c61d52903c539659afa8c88501dc2fec61f23de0364a4fbe4d37bf",
+        "HN-A03": "sha256:50c80a7e4fec9707774513599cf000b9ae7974eff1eca3cbbbbfa0aa3a70c7ab",
+        "HN-O02": "sha256:21623a150b262629a0cd671d2873f3e1e4de08586f03ff09e4009197d032e2df",
+        "HN-O03": "sha256:50c80a7e4fec9707774513599cf000b9ae7974eff1eca3cbbbbfa0aa3a70c7ab"
+      }
+    }
+  },
+  "execution_policy_proposal": {
+    "n_concurrent_trials": 1,
+    "n_attempts": 1,
+    "retry": {
+      "max_retries": 0
+    },
+    "resume_trajectory": false,
+    "load_trajectory": null,
+    "skills": [],
+    "mcp_servers": [],
+    "simulated_user": null,
+    "paid_judge": null,
+    "cloud_sandbox": null,
+    "telemetry": false,
+    "provider_route": "direct standard API; no custom base URL or proxy route in this first proposal",
+    "version_gate": "Independently assert exact profile version and immutable image digest before model execution; Harbor skip_install only warns on mismatch.",
+    "reasoning_effort": "medium proposed explicitly; verify effective native mapping per adapter before freezing, and stop/revise the plan if unsupported. This does not imply equal inference behavior.",
+    "native_retries": "Disable Pi retries and set mini MSWEA_MODEL_RETRY_STOP_AFTER_ATTEMPT=1 in dedicated pilot configuration. Capture and count remaining native HTTP retries; Harbor retry=0 alone does not disable them.",
+    "autoupdates": "Disabled; no runtime package installations or mutable installer invocation.",
+    "native_configs": "Dedicated frozen non-secret configs with clean per-trial HOME; no host config or account-session reuse.",
+    "record_admission": "Data-only accounting bridge implemented and fixture-validated. Require a valid sealed prepared record, exact independently observed runtime, prior settled billing and complete evidence before a separately authorized live attempt. No launcher or automatic authorization is provided."
+  },
+  "budget_proposal": {
+    "status": "not_authorized",
+    "currency": "USD",
+    "attempts": 6,
+    "per_attempt_target": 2,
+    "per_provider_target": 6,
+    "total_target": 12,
+    "reserve": 0,
+    "hard_spend_cap_enforced": false,
+    "campaign_budget_transfer_allowed": false,
+    "admission": "Before each slot, reconciled remaining total and provider allocations must each cover USD2. Resolve the previous slot's attributable billing first; unknown/settling cost blocks the next slot.",
+    "stop": "Stop on target overrun, exhausted allocation, missing accounting, unexpected model, boundary failure or incomplete evidence. In-flight requests and delayed billing may overshoot targets.",
+    "failures": "Started failures/aborts consume spend and stay in the denominator; never overwrite or silently retry.",
+    "extra_attempts": "Require a revised plan and separate approval; no automatic reruns, reserves or expansion.",
+    "main_campaigns": "Remain unchanged and separately unauthorized. No automatic promotion."
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "status": "passed",
+      "description": "Pinned source, registration map and ten offline version/help probes inspected; all eight current campaign files preserved."
+    },
+    {
+      "id": "G2",
+      "status": "passed_offline",
+      "description": "Five agent images and separate verifier frozen by immutable local ID; versions/UID/inventories checked, Pi metadata/settings and genuine mini uv/dependency closure repaired; 12 task packages materialized."
+    },
+    {
+      "id": "G3",
+      "status": "passed_offline",
+      "description": "Six actual native CLI fixture lifecycles passed in Docker network none; four real Harbor Trial controls on representative mini image passed1/0/0/0 with common separate verifier. Scopes differ; full native-agent Trial/live API qualification remains unverified."
+    },
+    {
+      "id": "G4",
+      "status": "passed_offline",
+      "description": "Six unexecuted records sealed; data-only importer and scoped core validation tested against identity, measurement, evidence, billing and admission failures. Actual provider billing collection/reconciliation remains unverified; unknown billing blocks admission."
+    },
+    {
+      "id": "G5",
+      "status": "not_authorized",
+      "description": "Approve exact frozen slots and separate USD12 proposal; resolve authorized credential use and confirm account/model access only within that later authorization."
+    }
+  ],
+  "required_gates_for_every_slot": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
+  ],
+  "slots": [
+    {
+      "order": 1,
+      "slot_id": "HN-O01",
+      "harness": "codex",
+      "harbor_agent": "codex",
+      "version": "0.155.1",
+      "lab_mode": "cli",
+      "harbor_mode": "cli",
+      "provider": "openai",
+      "model_name": "openai/gpt-5.4-mini-2026-03-17",
+      "wire_model_id": "gpt-5.4-mini-2026-03-17",
+      "model_api_format": "openai_responses",
+      "model_api_key_name": "CODEX_API_KEY",
+      "planned_kwargs": {
+        "version": "0.155.1",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "web_search": "disabled",
+        "config": {
+          "agents": {
+            "enabled": false
+          }
+        }
+      },
+      "condition_notes": "Native sessions retained for ATIF; unified_exec enabled; lab ignore-user-config/ignore-rules/ephemeral switches not reproduced. Explicit private HOME/CODEX_HOME required. No native hard turn/USD limit.",
+      "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-o01"
+    },
+    {
+      "order": 2,
+      "slot_id": "HN-A01",
+      "harness": "claude-code",
+      "harbor_agent": "claude-code",
+      "version": "2.1.83",
+      "lab_mode": "cli",
+      "harbor_mode": "cli",
+      "provider": "anthropic",
+      "model_name": "anthropic/claude-sonnet-4-6",
+      "wire_model_id": "claude-sonnet-4-6",
+      "model_api_key_name": "ANTHROPIC_API_KEY",
+      "planned_kwargs": {
+        "version": "2.1.83",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "permission_mode": "dontAsk",
+        "max_turns": 8,
+        "max_budget_usd": "2",
+        "disable_web_search": true,
+        "allowed_tools": "Bash,Read,Write"
+      },
+      "condition_notes": "Freeze explicit settings and tool allowlist for dontAsk; no fallback model; disable updates. Config discovery differs from laboratory --setting-sources ''. Verify native budget behavior, not assumed universal hard cap.",
+      "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-a01"
+    },
+    {
+      "order": 3,
+      "slot_id": "HN-A02",
+      "harness": "opencode",
+      "harbor_agent": "opencode",
+      "version": "1.18.29",
+      "lab_mode": "cli",
+      "harbor_mode": "cli",
+      "provider": "anthropic",
+      "model_name": "anthropic/claude-sonnet-4-6",
+      "wire_model_id": "claude-sonnet-4-6",
+      "model_api_key_name": "ANTHROPIC_API_KEY",
+      "planned_kwargs": {
+        "version": "1.18.29",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "disable_web_search": true,
+        "opencode_config": {
+          "model": "anthropic/claude-sonnet-4-6",
+          "small_model": "anthropic/claude-sonnet-4-6",
+          "autoupdate": false,
+          "agent": {
+            "build": {
+              "model": "anthropic/claude-sonnet-4-6",
+              "steps": 8
+            }
+          }
+        }
+      },
+      "condition_notes": "Supported hidden auto-approval flag changes permission behavior; task/OS boundary must enforce scope. Native step setting advisory; no native hard USD cap. Audit auxiliary calls and raw observed model.",
+      "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-a02"
+    },
+    {
+      "order": 4,
+      "slot_id": "HN-A03",
+      "harness": "pi",
+      "harbor_agent": "pi",
+      "version": "0.73.1",
+      "lab_mode": "sdk",
+      "harbor_mode": "cli",
+      "provider": "anthropic",
+      "model_name": "anthropic/claude-sonnet-4-6",
+      "wire_model_id": "claude-sonnet-4-6",
+      "model_api_key_name": "ANTHROPIC_API_KEY",
+      "planned_kwargs": {
+        "version": "0.73.1",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "max_turns": 8
+      },
+      "condition_notes": "Freeze native settings disabling retry/compaction; no MCP. Harbor turn extension modifies prompt and abort semantics. Separate from lab SDK condition; no native hard USD cap.",
+      "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-a03"
+    },
+    {
+      "order": 5,
+      "slot_id": "HN-O02",
+      "harness": "mini-swe-agent",
+      "harbor_agent": "mini-swe-agent",
+      "version": "2.4.6",
+      "lab_mode": "sdk",
+      "harbor_mode": "cli",
+      "provider": "openai",
+      "model_name": "openai/gpt-5.4-mini-2026-03-17",
+      "wire_model_id": "gpt-5.4-mini-2026-03-17",
+      "model_api_format": "openai_responses",
+      "model_api_key_name": "OPENAI_API_KEY",
+      "planned_kwargs": {
+        "version": "2.4.6",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "cost_limit": "2",
+        "config": {
+          "agent": {
+            "step_limit": 8
+          },
+          "model": {
+            "cost_tracking": "default"
+          }
+        }
+      },
+      "planned_env": {
+        "MSWEA_MODEL_RETRY_STOP_AFTER_ATTEMPT": "1"
+      },
+      "condition_notes": "Genuine pinned uv tool environment with system-site-packages and explicit LiteLLM MCP dependency closure. Native InteractiveAgent CLI and explicit litellm_response model class differ from lab SDK DefaultAgent. Cost stopping is post-spend; preserve raw usage and unknown billing rather than Harbor zero fallbacks.",
+      "image_id": "sha256:2ab18e18a15ce4571047115e4064684370f8b773fc07eb1da0a43b8009479021",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-o02"
+    },
+    {
+      "order": 6,
+      "slot_id": "HN-O03",
+      "harness": "pi",
+      "harbor_agent": "pi",
+      "version": "0.73.1",
+      "lab_mode": "sdk",
+      "harbor_mode": "cli",
+      "provider": "openai",
+      "model_name": "openai/gpt-5.4-mini-2026-03-17",
+      "wire_model_id": "gpt-5.4-mini-2026-03-17",
+      "model_api_key_name": "OPENAI_API_KEY",
+      "planned_kwargs": {
+        "version": "0.73.1",
+        "skip_install": true,
+        "reasoning_effort": "medium",
+        "max_turns": 8
+      },
+      "metadata_recipe": "pi-source-evidence.json#proposed_metadata_delivery.direct_provider_route",
+      "condition_notes": "Block until exact dated ID resolves with mini-family metadata in native CLI. No base_url/model_api override, MCP or inherited PI_CODING_AGENT_DIR. Dedicated non-secret models/settings files must be frozen and verified.",
+      "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+      "status": "prepared_not_started",
+      "run_id": "2026-11-06-harbor-native-hn-o03"
+    }
+  ],
+  "acceptance": {
+    "required_per_slot": [
+      "independently verified version/image",
+      "complete terminal native trace",
+      "at least one task tool operation",
+      "valid native ATIF schema",
+      "requested wire model preserved",
+      "observed model evidence or explicit unverified status",
+      "independent artifact verdict",
+      "immutable input/fixture hashes",
+      "raw usage and attributable billing",
+      "boundary and cleanup evidence"
+    ],
+    "success": "Complete valid evidence, reward1 and verified intended model identity/accounting for the slot. Native CLI exit0 or reward1 alone is insufficient.",
+    "inconclusive": "Missing identity, billing, terminal trace or conversion evidence with otherwise successful task; withhold full qualification and stop admission as applicable.",
+    "failure": "Wrong output, mismatch, timeout, infrastructure error or boundary violation; retain original attempt and actual cost.",
+    "reporting": "Separate execution, task verdict, model identity, accounting and boundary statuses. No missing-to-zero coercion, invented success rate, pass@k or campaign result promotion."
+  },
+  "runtime_lock": "runtime-lock.json",
+  "package_lock": "package-lock.json",
+  "observed_offline_conditions": {
+    "native_fixture_requests": 13,
+    "provider_requests": 0,
+    "paid_runs": 0,
+    "pi_version": "Pi writes version to stderr; Harbor native detection/ATIF version unknown. Independent exact combined-stream probe passes0.73.1.",
+    "pi_fixture_route": "Custom loopback route uses Harbor-generated harbor-endpoint metadata/settings; direct-provider complete metadata and disabled retry/compaction separately verified by native imports.",
+    "mini_transport": "Explicit Responses/litellm_response native class verified; earlier Chat Completions selector did not prevent LiteLLM automatic Responses routing.",
+    "opencode_auxiliary": "One title fixture call uses same exact model at low effort; two task calls use medium. Auxiliary requests must be included in live accounting.",
+    "full_trial_scope": "Oracle/nop/wrong-output/tamper on mini runtime; shared separate verifier, captured no-network phase rules; other image boundaries have runtime probes and native lifecycle checks.",
+    "live_access_and_billing": "Unverified; mock success is not live qualification. USD12 proposal remains unauthorized."
+  }
+}

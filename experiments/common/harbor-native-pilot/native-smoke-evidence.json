@@ -1,0 +1,605 @@
+{
+  "kind": "native-harbor-offline-fixture-lifecycle-evidence",
+  "checked_at": "2026-11-06T23:46:15.217425+00:00",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "plan_sha256": "b68f6192e5c7085f9b3d3658184d75882e25febc131abd311490910ecf6ad2cd",
+  "slot_configuration_sha256": "08a22b77fd6f36bc3d319fa3451838ba6f93dcf9cb90b58a4d5e08d3e624c881",
+  "runtime_lock_sha256": "d5f0c2fecc40acf8addedabcfccb3b5ef8e78341af05f3a163584d039e764877",
+  "frozen_inputs_stable": {
+    "components": true,
+    "runtime_lock": true,
+    "slot_configuration": true
+  },
+  "frozen_input_directory": ".cache/native-smoke/20261106T234550411352Z",
+  "provider_requests": 0,
+  "real_credentials_read": false,
+  "paid_runs": 0,
+  "host_ip_connections": "blocked by Python audit hook; Docker client uses local Unix socket",
+  "scope": "Actual pinned Harbor agent setup/run/populate_context with custom Docker exec environment and deterministic in-container loopback protocol fixture. Not a Harbor Trial, live-model qualification, measured usage or billing.",
+  "transport_deviation": "Fixture-only base_url override; Pi uses Harbor-generated isolated harbor-endpoint metadata/settings instead of the direct-provider profile, which is separately verified in runtime evidence.",
+  "usage_and_cost": "Response token fields are constant synthetic protocol fixtures. Any native usage/cost derived from them is synthetic and must never be imported as real billing or campaign performance.",
+  "offline_limits": {
+    "agent_timeout_s": 100,
+    "max_fixture_requests": 16,
+    "memory": "2g",
+    "cpus": 1,
+    "pids": 256
+  },
+  "components_sha256": {
+    "offline_smoke.py": "2afdfece73c22995cb998a06adf8d15e0404211260808da8ee91a5d9eb6d6a8f",
+    "mock-provider.mjs": "32f7e5d296623841f019a30d9ed6fa0acdf02145aef80b660b3073ea26be2ace",
+    "task/instruction.md": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+    "task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b"
+  },
+  "slots": [
+    {
+      "slot_id": "HN-O01",
+      "harness": "codex",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O01",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768/v1",
+      "fixture_model_api_format": "openai_responses",
+      "harbor_detected_version": "0.155.1",
+      "observed_version": "0.155.1",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "turn.completed",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "codex",
+        "version": "0.155.1",
+        "model_name": "gpt-5.4-mini-2026-03-17"
+      },
+      "atif_step_count": 5,
+      "native_trace_complete": true,
+      "cleanup_confirmed": true,
+      "fixture_requests": 2,
+      "observed_request_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "observed_request_paths": [
+        "/v1/responses"
+      ],
+      "observed_request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium"
+          },
+          "tool_choice": "auto"
+        },
+        {
+          "reasoning": {
+            "effort": "medium"
+          },
+          "tool_choice": "auto"
+        }
+      ],
+      "evidence_manifest_sha256": "c563a5b36d0eae6da5d5075b82e89230be43e547d0f85ccb029f9bdd3e104f0f",
+      "evidence_files": {
+        "agent/codex.txt": {
+          "sha256": "25c54722cc9144a625e7fa331afb1648225f0eef1f3caddd8664df327f4d59d0",
+          "bytes": 3963
+        },
+        "agent/mock-requests.jsonl": {
+          "sha256": "78ac9d59ad5a400275bec86974aadbff6b52f10e40a230e016c08b2727eb601f",
+          "bytes": 16626
+        },
+        "agent/sessions/2026/11/06/rollout-2026-11-06T23-45-52-01a1b341-1fd1-7fb1-9798-95b33ce8c0c5.jsonl": {
+          "sha256": "2983ed711576f067a9b8586e79fb41421b180f75e79f7b7b3f7621047cec2a38",
+          "bytes": 38615
+        },
+        "agent/trajectory.json": {
+          "sha256": "f4d80df6b63516b4d09f6430a66f3e337eae80f29de0dbde7ef03a4c3e6ea587",
+          "bytes": 10659
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "cc8240b5bac55fa9edf186901f795475a389e5b938bb793cb26089ef0c15eadc",
+          "bytes": 6304
+        }
+      }
+    },
+    {
+      "slot_id": "HN-A01",
+      "harness": "claude-code",
+      "model": "claude-sonnet-4-6",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A01",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768",
+      "fixture_model_api_format": "anthropic_messages",
+      "harbor_detected_version": "2.1.83",
+      "observed_version": "2.1.83",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "result",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "claude-code",
+        "version": "2.1.83",
+        "model_name": "claude-sonnet-4-6"
+      },
+      "atif_step_count": 3,
+      "native_trace_complete": true,
+      "cleanup_confirmed": true,
+      "fixture_requests": 2,
+      "observed_request_models": [
+        "claude-sonnet-4-6"
+      ],
+      "observed_request_paths": [
+        "/v1/messages?beta=true"
+      ],
+      "observed_request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        }
+      ],
+      "evidence_manifest_sha256": "48eb747b38916092e2d717c030298051de92cead16e5b42a5e68d429e3a6f928",
+      "evidence_files": {
+        "agent/claude-code.txt": {
+          "sha256": "c988db27c0fef3d1b0ae0309acbb1eb4dc979944b0d53ea297222ed8ac3bf60e",
+          "bytes": 3869
+        },
+        "agent/mock-requests.jsonl": {
+          "sha256": "91d1901f589f3b85917de48af400c7a88f06e46927e81103b9dd4e97c8f40b83",
+          "bytes": 7428
+        },
+        "agent/sessions/projects/-app/3b8f0c41-2e2b-4854-8f3d-5a0c25c69d2e.jsonl": {
+          "sha256": "0d58a181232e3cefc9daabbbde17dfc621164a611fc4185660e636bd5c19d223",
+          "bytes": 5382
+        },
+        "agent/trajectory.json": {
+          "sha256": "5432ebd2d1672f51d983d9c32742935568ba1f6d6b87da88f727640f013644ba",
+          "bytes": 6019
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "c4c169d7bc2cdfc7a2626cb067c49de22ecd1652035d7f422dab3f19906a3266",
+          "bytes": 4256
+        }
+      }
+    },
+    {
+      "slot_id": "HN-A02",
+      "harness": "opencode",
+      "model": "claude-sonnet-4-6",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A02",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768/v1",
+      "fixture_model_api_format": "anthropic_messages",
+      "harbor_detected_version": "1.18.29",
+      "observed_version": "1.18.29",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "step_finish",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "opencode",
+        "version": "1.18.29",
+        "model_name": "anthropic/claude-sonnet-4-6"
+      },
+      "atif_step_count": 3,
+      "native_trace_complete": true,
+      "cleanup_confirmed": true,
+      "fixture_requests": 3,
+      "observed_request_models": [
+        "claude-sonnet-4-6"
+      ],
+      "observed_request_paths": [
+        "/v1/messages"
+      ],
+      "observed_request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "low"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        },
+        {
+          "thinking": {
+            "type": "adaptive"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        }
+      ],
+      "evidence_manifest_sha256": "d9bb5e4e6960685fcbf435a2ad9107c3f1339ced2a7e0099553c15a273f85f98",
+      "evidence_files": {
+        "agent/mock-requests.jsonl": {
+          "sha256": "4a3f1992aa4bb3598bf84c6a55552ddc73d41136abb9bf65080fc320ab7f5aa1",
+          "bytes": 4104
+        },
+        "agent/opencode.txt": {
+          "sha256": "8d15aeb71df077fdb28a7a20a22ab6714f37d48c863b1f7e3f8eda17be872dcd",
+          "bytes": 3450
+        },
+        "agent/trajectory.json": {
+          "sha256": "ce115f36a229525761919417b063a566e46d0fb90376526455f9e6677d7e015a",
+          "bytes": 2784
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "7bac1ec574f11d9dda4b46714a6a334b669ee8b267e564630ad533811ce92cc5",
+          "bytes": 4359
+        }
+      }
+    },
+    {
+      "slot_id": "HN-A03",
+      "harness": "pi",
+      "model": "claude-sonnet-4-6",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A03",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768",
+      "fixture_model_api_format": "anthropic_messages",
+      "harbor_detected_version": null,
+      "observed_version": "0.73.1",
+      "native_version_detection_limitation": "Pinned Pi writes version to stderr; pinned Harbor reads stdout only. Independent exact-version gate uses both streams without modifying the CLI or adapter.",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "agent_end",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "pi",
+        "version": "unknown",
+        "model_name": "harbor-endpoint/claude-sonnet-4-6"
+      },
+      "atif_step_count": 3,
+      "native_trace_complete": true,
+      "fixture_route_limitation": "Harbor generates provider harbor-endpoint in isolated PI_CODING_AGENT_DIR. Its model metadata/defaults and settings lookup differ from the frozen direct-provider profile; only transport/tool/trace plumbing is qualified here.",
+      "cleanup_confirmed": true,
+      "fixture_requests": 2,
+      "observed_request_models": [
+        "claude-sonnet-4-6"
+      ],
+      "observed_request_paths": [
+        "/v1/messages"
+      ],
+      "observed_request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 16384
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 16384
+        }
+      ],
+      "evidence_manifest_sha256": "ac77b6f8353f75e02664d1b62ecc900115f3668ac8bb4420dee0eb9e379cd104",
+      "evidence_files": {
+        "agent/mock-requests.jsonl": {
+          "sha256": "d13317e4e6c898264a2abc1064ea1756483108b26d636362265f4d9778cb9fb3",
+          "bytes": 2903
+        },
+        "agent/pi/sessions/2026-11-06T23-46-10-036Z_01a1b341-65f4-70d0-b205-9846996a226c.jsonl": {
+          "sha256": "ff1a5b28fd366af9a7f18963c5c9e9018133f6c288eecf073909d65e8dbf1957",
+          "bytes": 3185
+        },
+        "agent/pi.txt": {
+          "sha256": "4c95ed8f95d60bf91ea3a9676560e3b3c8de50114f0dff58a7a4352a7bdf1a89",
+          "bytes": 10049
+        },
+        "agent/trajectory.json": {
+          "sha256": "9c54d622885fad02572081f7489e63687175d016aeeb2122968f0db61db04f69",
+          "bytes": 4024
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "c13b7650fa75732de1278bfb879a39bf8393ba5539125dea0af60277fd65401c",
+          "bytes": 5080
+        }
+      }
+    },
+    {
+      "slot_id": "HN-O02",
+      "harness": "mini-swe-agent",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O02",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:2ab18e18a15ce4571047115e4064684370f8b773fc07eb1da0a43b8009479021",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768/v1",
+      "fixture_model_api_format": "openai_responses",
+      "harbor_detected_version": "2.4.6",
+      "observed_version": "2.4.6",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "Submitted",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "mini-swe-agent",
+        "version": "2.4.6",
+        "model_name": "openai/gpt-5.4-mini-2026-03-17"
+      },
+      "atif_step_count": 4,
+      "native_trace_complete": true,
+      "cleanup_confirmed": true,
+      "fixture_requests": 2,
+      "observed_request_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "observed_request_paths": [
+        "/v1/responses"
+      ],
+      "observed_request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        },
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        }
+      ],
+      "evidence_manifest_sha256": "fd1ec423c51ed51b13573409c13a2fa118de6b37b47b4f13e799a1375b3aded4",
+      "evidence_files": {
+        "agent/mini-swe-agent.trajectory.json": {
+          "sha256": "a6cf5bea9a465580a6ea60159eea62e0770235ae35af930587fbc2f99e92578a",
+          "bytes": 15927
+        },
+        "agent/mini-swe-agent.txt": {
+          "sha256": "78d006b3cde25331efc133beb4ea6bb43066854b754f2ff28d64953efed8c4a2",
+          "bytes": 5519
+        },
+        "agent/mock-requests.jsonl": {
+          "sha256": "0d7fc5ce33cad0cf09866e314d86d34e78f32b8271c2175ef9cd5fab971cde53",
+          "bytes": 8852
+        },
+        "agent/trajectory.json": {
+          "sha256": "26f37c0e3824edeae6a78f4a2a9a8eea9bd2721ea140303ce13f336992075ed4",
+          "bytes": 11075
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "c101d73f1d39f2556ee28c72759cfa33510787fc23d2703848d69bcd12881e4f",
+          "bytes": 4911
+        }
+      }
+    },
+    {
+      "slot_id": "HN-O03",
+      "harness": "pi",
+      "model": "gpt-5.4-mini-2026-03-17",
+      "status": "passed",
+      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O03",
+      "provider_requests": 0,
+      "synthetic_protocol_usage": true,
+      "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+      "docker_network": "none",
+      "host_mounts": [],
+      "setup_capabilities": [
+        "CHOWN",
+        "DAC_OVERRIDE",
+        "FOWNER"
+      ],
+      "fixture_base_url": "http://127.0.0.1:8768/v1",
+      "fixture_model_api_format": "openai_responses",
+      "harbor_detected_version": null,
+      "observed_version": "0.73.1",
+      "native_version_detection_limitation": "Pinned Pi writes version to stderr; pinned Harbor reads stdout only. Independent exact-version gate uses both streams without modifying the CLI or adapter.",
+      "instruction_sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "native_process_exit_code": 0,
+      "native_terminal_event": "agent_end",
+      "input_sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "artifact_verified": true,
+      "tool_executed_as_uid": 1000,
+      "task_effective_capabilities": [],
+      "atif_schema": "ATIF-v1.7",
+      "atif_agent": {
+        "name": "pi",
+        "version": "unknown",
+        "model_name": "harbor-endpoint/gpt-5.4-mini-2026-03-17"
+      },
+      "atif_step_count": 3,
+      "native_trace_complete": true,
+      "fixture_route_limitation": "Harbor generates provider harbor-endpoint in isolated PI_CODING_AGENT_DIR. Its model metadata/defaults and settings lookup differ from the frozen direct-provider profile; only transport/tool/trace plumbing is qualified here.",
+      "cleanup_confirmed": true,
+      "fixture_requests": 2,
+      "observed_request_models": [
+        "gpt-5.4-mini-2026-03-17"
+      ],
+      "observed_request_paths": [
+        "/v1/responses"
+      ],
+      "observed_request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 16384
+        },
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 16384
+        }
+      ],
+      "evidence_manifest_sha256": "ea0b0c1b4c6d351ff80b7c53e683f215d3fa86cc9db33feb48d5b29c3146f289",
+      "evidence_files": {
+        "agent/mock-requests.jsonl": {
+          "sha256": "cc25737621a1ca0d3f26caba40f212cdeae2ba099407e661a9f671aa7cf18bef",
+          "bytes": 7727
+        },
+        "agent/pi/sessions/2026-11-06T23-46-14-920Z_01a1b341-7907-71a5-87a8-78a1e53f01b4.jsonl": {
+          "sha256": "0f663144fdd412a08e57825e154ede9d2c9ed574b85b481955e29a2bdf51b7a4",
+          "bytes": 3278
+        },
+        "agent/pi.txt": {
+          "sha256": "15551cc63cd870d819daee10d9875edd855c474dddfe8f2c272c66da0654dd94",
+          "bytes": 10362
+        },
+        "agent/trajectory.json": {
+          "sha256": "b4f373d178bc997cbd0a22095fce2286a720eaec87980651bc1311ea78b9c4f5",
+          "bytes": 4066
+        },
+        "artifact/model-tool.json": {
+          "sha256": "d8b9163129fe2d574c4e7a901e483325bfc69a30a5e96aa2f167fc399b555ae5",
+          "bytes": 78
+        },
+        "artifact/result.json": {
+          "sha256": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+          "bytes": 26
+        },
+        "commands.json": {
+          "sha256": "7359c9290e90a3c8691e4d26f74eff79923d6587918edb9f94e4038c635c7276",
+          "bytes": 5083
+        }
+      }
+    }
+  ]
+}

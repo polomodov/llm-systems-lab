@@ -1,0 +1,34 @@
+{
+  "order": 3,
+  "slot_id": "HN-A02",
+  "harness": "opencode",
+  "harbor_agent": "opencode",
+  "version": "1.18.29",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-4-6",
+  "wire_model_id": "claude-sonnet-4-6",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "1.18.29",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "disable_web_search": true,
+    "opencode_config": {
+      "model": "anthropic/claude-sonnet-4-6",
+      "small_model": "anthropic/claude-sonnet-4-6",
+      "autoupdate": false,
+      "agent": {
+        "build": {
+          "model": "anthropic/claude-sonnet-4-6",
+          "steps": 8
+        }
+      }
+    }
+  },
+  "condition_notes": "Supported hidden auto-approval flag changes permission behavior; task/OS boundary must enforce scope. Native step setting advisory; no native hard USD cap. Audit auxiliary calls and raw observed model.",
+  "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-06-harbor-native-hn-a02"
+}

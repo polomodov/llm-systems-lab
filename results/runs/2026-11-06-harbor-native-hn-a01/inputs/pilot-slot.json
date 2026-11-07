@@ -1,0 +1,27 @@
+{
+  "order": 2,
+  "slot_id": "HN-A01",
+  "harness": "claude-code",
+  "harbor_agent": "claude-code",
+  "version": "2.1.83",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-4-6",
+  "wire_model_id": "claude-sonnet-4-6",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "2.1.83",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "permission_mode": "dontAsk",
+    "max_turns": 8,
+    "max_budget_usd": "2",
+    "disable_web_search": true,
+    "allowed_tools": "Bash,Read,Write"
+  },
+  "condition_notes": "Freeze explicit settings and tool allowlist for dontAsk; no fallback model; disable updates. Config discovery differs from laboratory --setting-sources ''. Verify native budget behavior, not assumed universal hard cap.",
+  "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-06-harbor-native-hn-a01"
+}

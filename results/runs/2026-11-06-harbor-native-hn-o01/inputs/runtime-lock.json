@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "kind": "local-immutable-native-pilot-images",
+  "created_at": "2026-11-06T23:42:39.932630+00:00",
+  "platform": "linux/arm64",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "images": {
+    "claude-code": {
+      "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
+      "tag": "harbor-native-pilot/claude-code:frozen",
+      "base_image_id": "sha256:d19b4570fc10ee218dc169eb0a1fe662c27763dfa3c06772519166e705fcf094",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "lab_base_image_id": "sha256:d19b4570fc10ee218dc169eb0a1fe662c27763dfa3c06772519166e705fcf094",
+      "version": "2.1.83"
+    },
+    "opencode": {
+      "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
+      "tag": "harbor-native-pilot/opencode:frozen",
+      "base_image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "lab_base_image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984",
+      "version": "1.18.29"
+    },
+    "codex": {
+      "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
+      "tag": "harbor-native-pilot/codex:frozen",
+      "base_image_id": "sha256:5633c9e6e3d514ceac25a58667af0373617700f412224854bb06ad9973c55149",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "lab_base_image_id": "sha256:5633c9e6e3d514ceac25a58667af0373617700f412224854bb06ad9973c55149",
+      "version": "0.155.1"
+    },
+    "pi": {
+      "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+      "tag": "harbor-native-pilot/pi-configured:frozen",
+      "base_image_id": "sha256:429f598e832117b3913f278c7f3b8df8b4391bb32982526adbb128575e418ceb",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": [
+          "docker-entrypoint.sh"
+        ],
+        "Cmd": [
+          "node"
+        ]
+      },
+      "lab_base_image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+      "version": "0.73.1"
+    },
+    "mini-swe-agent": {
+      "image_id": "sha256:2ab18e18a15ce4571047115e4064684370f8b773fc07eb1da0a43b8009479021",
+      "tag": "harbor-native-pilot/mini-uv:frozen",
+      "base_image_id": "sha256:14966994fbc4d0251e149c4304327c5a3c553a8956f3db2fb2c66f280c4c68d8",
+      "platform": "linux/arm64",
+      "container_config": {
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "Entrypoint": null,
+        "Cmd": [
+          "python3"
+        ]
+      },
+      "lab_base_image_id": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+      "version": "2.4.6"
+    }
+  },
+  "verifier": {
+    "image_id": "sha256:609f60a6e55f2cc2ea608de277ac7d7de4a2a6e1f749e5e93884a9f06a8e3fb9",
+    "tag": "harbor-native-pilot/verifier:frozen",
+    "base_image_id": "sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c",
+    "platform": "linux/arm64",
+    "container_config": {
+      "User": "1000:1000",
+      "WorkingDir": "/app",
+      "Entrypoint": null,
+      "Cmd": [
+        "python3"
+      ]
+    },
+    "base_manifest": "python:3.12.12-slim-bookworm@sha256:593bd06efe90efa80dc4eee3948be7c0fde4134606dd40d8dd8dbcade98e669c"
+  },
+  "build_network": "none",
+  "provider_requests": 0,
+  "credential_files_read": false,
+  "source_sha256": {
+    "experiments/common/harbor-interop/task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+    "experiments/common/harbor-interop/task/tests/evaluate.py": "613004ac1c2aa65ce40478585ec614a07473701ff52c41ce599349b17291366f",
+    "experiments/common/harbor-interop/task/tests/expected.json": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+    "experiments/common/harbor-interop/task/tests/test.sh": "531ebe2bf0f4796eb8f35e2856c6fe0b331eb602b33e5ba18b16fe3a61551b8c",
+    "experiments/common/harbor-native-pilot/build-images.py": "979c067a0d7628eeec2d7df15aae4fcd7a2f3388656ac78d3579e900ef020e58",
+    "experiments/common/harbor-native-pilot/images/agent.Dockerfile": "9596f44813ef6c21db86201a6f0b9d6b98386836a5cedc80f32cde79b6758d6c",
+    "experiments/common/harbor-native-pilot/images/mini.Dockerfile": "168670a89771c7baaae6a36053a81680944ea144a1cb3b4ac8c2483ee3cd05a8",
+    "experiments/common/harbor-native-pilot/images/pi.Dockerfile": "47e6378a3b1d8095d73912913d3a4a96f8431f144efe24f57039f73481775a8b",
+    "experiments/common/harbor-native-pilot/images/verifier.Dockerfile": "8c52b9e75e08429015fa62b6da517a247f5261aac492ca57516c98677ed2bc7b",
+    "experiments/common/harbor-native-pilot/runtime/fixed-node.sh": "9dcae59f569fba95a1104c3955254f4c68df2c658ebbf997313cdbef9835fe9d",
+    "experiments/common/harbor-native-pilot/runtime/pi/models.json": "e1d711d07de6d14b16ea6ed5a0475b3e016f00ec7b30fc9d26dc5499e7bcc452",
+    "experiments/common/harbor-native-pilot/runtime/pi/settings.json": "16314860f036f15a2b95913f9f3d91f2408ace742b17e81972fbbae78c342122",
+    "experiments/common/harbor-native-pilot/runtime/wheels.lock.json": "ac61c59841eaf79457958fef091e0a8aa8b96fc06b8839c8a94f2133ef971893"
+  },
+  "limitations": [
+    "Local image IDs are immutable but not pullable registry manifest digests. Retain these local images or archive/export before moving hosts.",
+    "Immutable lab bases retain existing dependencies; no claim of bit-reproducible rebuilds from mutable upstream package indexes.",
+    "Pi uses a documented fixed-Node shim for Harbor's nvm source path; no NVM download or fake version output.",
+    "Mini is a genuine uv tool environment with system-site-packages enabled to reuse the immutable base dependency set.",
+    "Agent runtime packages differ: Node24.13.1 in all; Python3.12.12 in mini only. This is not general coding-environment parity."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "order": 1,
+  "slot_id": "HN-O01",
+  "harness": "codex",
+  "harbor_agent": "codex",
+  "version": "0.155.1",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "openai",
+  "model_name": "openai/gpt-5.4-mini-2026-03-17",
+  "wire_model_id": "gpt-5.4-mini-2026-03-17",
+  "model_api_format": "openai_responses",
+  "model_api_key_name": "CODEX_API_KEY",
+  "planned_kwargs": {
+    "version": "0.155.1",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "web_search": "disabled",
+    "config": {
+      "agents": {
+        "enabled": false
+      }
+    }
+  },
+  "condition_notes": "Native sessions retained for ATIF; unified_exec enabled; lab ignore-user-config/ignore-rules/ephemeral switches not reproduced. Explicit private HOME/CODEX_HOME required. No native hard turn/USD limit.",
+  "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-06-harbor-native-hn-o01"
+}

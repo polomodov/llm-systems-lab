@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "kind": "native-adapter-source-inspection",
+  "checked_at": "2026-11-06T23:24:42.659740+00:00",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "lab_harness": "pi",
+  "lab_version": "0.73.1",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+  "inspection_method": {
+    "container_network": "none",
+    "root_filesystem": "read-only",
+    "uid": "1000:1000",
+    "mounts": [],
+    "operation": "Node fs reads and SHA-256 of installed public package source only; no Pi imports, CLI invocation, session construction or prompts.",
+    "model_api_calls": 0,
+    "credentials_read": false,
+    "campaigns_modified": false,
+    "images_modified": false
+  },
+  "harbor_source_sha256": {
+    "src/harbor/agents/installed/pi.py": "a952b42f3e93a4ac44701ec8e69eab01deb500185cd0abc76f92dc34462e471d",
+    "src/harbor/agents/installed/base.py": "eb9aa0ae6c49c019925fde180936e551dfaf899b992b455627a5b0286ff40a68",
+    "src/harbor/agents/installed/node_install.py": "67bae8c32bc7d98902cb3e1dcc56fde0026764606bd377b4d07b2346e82ad29d",
+    "src/harbor/agents/options.py": "eb26920fb4ccb61b48812803a14db7af7a870fe5410e4190c36977e5c499384b"
+  },
+  "installed_source_sha256": {
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/package.json": "f8355b4a90ef7892ff7c8ddfc377fb20e6703e843b78e9a87b77d619d76d6d56",
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-resolver.js": "87fade5d3973d02d258c6d170b79cddb2f9d6a1ea677300ec2dedb9d51966f5e",
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-registry.js": "dda4a25633a8073b39cc9dbe8e67d6516ea3b275ac0ccb72605c45f8b0c3472e",
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/settings-manager.js": "753d3af0030b04c13231c40adb8184e16803ec250ff864a545483f9b04eb1baa",
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/defaults.js": "a41e2b14bdfea7a8e167e9d313686bbc81e2b599859285fb978bac4102aa4d48",
+    "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/config.js": "f7595f14cbb2faa1043ebfc1637424597626ca60cba34a436efcd8063b017e53",
+    "/opt/pi/node_modules/@mariozechner/pi-ai/dist/models.generated.js": "2934bfc471f774904a298fc9b47577d5fb80d89e6d998c584b6d879e0b917012"
+  },
+  "findings": {
+    "version_install": {
+      "requested": "0.73.1",
+      "package": "@mariozechner/pi-coding-agent",
+      "unconfigured_default": "latest @earendil-works/pi-coding-agent",
+      "evidence": [
+        "src/harbor/agents/installed/pi.py:45",
+        "src/harbor/agents/installed/pi.py:179",
+        "src/harbor/agents/installed/pi.py:227"
+      ],
+      "qualification_gap": "Harbor installs Node major22 via nvm and npm --ignore-scripts; the lab uses Node24.13.1 and intentionally enables the dependency install script for koffi. Cold install/runtime or a dedicated frozen image must be qualified."
+    },
+    "anthropic": {
+      "requested": "anthropic/claude-sonnet-4-6",
+      "registry_exact": true,
+      "metadata_api": "anthropic-messages",
+      "evidence": "/opt/pi/node_modules/@mariozechner/pi-ai/dist/models.generated.js:1973",
+      "live_compatibility": "unverified"
+    },
+    "openai_cli_fallback": {
+      "requested": "openai/gpt-5.4-mini-2026-03-17",
+      "registry_exact": false,
+      "exact_requested_id_preserved_by_source": true,
+      "fallback_metadata_source": "openai/gpt-5.4",
+      "fallback_metadata": {
+        "api": "openai-responses",
+        "contextWindow": 272000,
+        "maxTokens": 128000,
+        "cost": {
+          "input": 2.5,
+          "output": 15,
+          "cacheRead": 0.25,
+          "cacheWrite": 0
+        }
+      },
+      "correct_family_metadata": {
+        "id": "gpt-5.4-mini-2026-03-17",
+        "name": "gpt-5.4-mini-2026-03-17",
+        "api": "openai-responses",
+        "baseUrl": "https://api.openai.com/v1",
+        "reasoning": true,
+        "thinkingLevelMap": {
+          "off": null,
+          "xhigh": "xhigh"
+        },
+        "input": [
+          "text",
+          "image"
+        ],
+        "cost": {
+          "input": 0.75,
+          "output": 4.5,
+          "cacheRead": 0.075,
+          "cacheWrite": 0
+        },
+        "contextWindow": 400000,
+        "maxTokens": 128000
+      },
+      "evidence": [
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-resolver.js:13",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-resolver.js:120",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-resolver.js:358",
+        "/opt/pi/node_modules/@mariozechner/pi-ai/dist/models.generated.js:7157",
+        "/opt/pi/node_modules/@mariozechner/pi-ai/dist/models.generated.js:7175"
+      ],
+      "conclusion": "The exact dated ID is accepted by fallback logic, but its inherited pricing/context differ from the mini family. Model-ID rejection is not the blocker; metadata correctness is.",
+      "live_compatibility": "unverified"
+    },
+    "custom_endpoint": {
+      "harbor_generated_fields": [
+        "id",
+        "reasoning when reasoning_effort is not None/off",
+        "thinkingLevelMap only for xhigh/max"
+      ],
+      "pi_defaults_for_omitted_fields": {
+        "cost": {
+          "input": 0,
+          "output": 0,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "contextWindow": 128000,
+        "maxTokens": 16384,
+        "input": [
+          "text"
+        ],
+        "reasoning": false
+      },
+      "evidence": [
+        "src/harbor/agents/installed/pi.py:293",
+        "src/harbor/agents/installed/pi.py:456",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-registry.js:445"
+      ],
+      "conclusion": "A Harbor base_url/model_api route creates a separate harbor-endpoint provider and overwrites models.json under /tmp/harbor-pi-agent; direct-provider configuration must not be assumed to apply."
+    },
+    "limits_and_defaults": {
+      "harbor_max_turns": "Extension appends a budget sentence to the system prompt and aborts after the configured count of completed turns. Not a hard dollar cap.",
+      "lab_max_turns": "SDK subscriber aborts at the limit only when the final message contains tool calls.",
+      "harbor_retry_and_compaction": "Not disabled by this adapter; Pi source defaults compaction enabled and retry enabled with maxRetries3.",
+      "lab_retry_and_compaction": "Both disabled through in-memory settings.",
+      "reasoning_default": "Pi medium; explicitly set Harbor reasoning_effort=medium in a pilot instead of relying on defaults.",
+      "mcp_compatible_at_lab_pin": false,
+      "mcp_supported_pi_range": ">=0.84.1,<0.86.0",
+      "evidence": [
+        "src/harbor/agents/installed/pi.py:370",
+        "src/harbor/agents/installed/pi.py:191",
+        "experiments/pi/run.mjs:22",
+        "experiments/pi/run.mjs:43",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/settings-manager.js:451",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/settings-manager.js:484",
+        "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/defaults.js:1"
+      ]
+    },
+    "accounting": {
+      "harbor": "ATIF/native-session conversion sums available metrics and converts nonpositive costs to null; missing token components can contribute zero.",
+      "lab": "Requires a complete final trace and complete usage; otherwise emits null with a reason.",
+      "required_pilot_check": "Compare raw message/session usage, ATIF and provider billing; never treat fallback/catalog estimates as authoritative bill reconciliation.",
+      "evidence": [
+        "src/harbor/agents/installed/pi.py:524",
+        "src/harbor/agents/installed/pi.py:732",
+        "src/harbor/agents/installed/pi.py:1094",
+        "experiments/pi/adapter.mjs:25"
+      ]
+    }
+  },
+  "proposed_metadata_delivery": {
+    "status": "source-supported design; not implemented, installed or runtime-qualified",
+    "kwargs_config_supported": false,
+    "reason": "Pi does not declare native_config; BaseInstalledAgent rejects config.",
+    "evidence": [
+      "src/harbor/agents/installed/pi.py:95",
+      "src/harbor/agents/installed/base.py:672",
+      "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/config.js:359",
+      "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-registry.js:247",
+      "/opt/pi/node_modules/@mariozechner/pi-coding-agent/dist/core/model-registry.js:317"
+    ],
+    "direct_provider_route": {
+      "conditions": [
+        "No Harbor base_url or model_api override",
+        "No MCP servers",
+        "Fresh dedicated non-root HOME with no host auth/settings mounted",
+        "No inherited PI_CODING_AGENT_DIR override; verify effective directory",
+        "Frozen artifact hashes and observed version checked before model execution"
+      ],
+      "mechanism": "Bake non-secret models.json and settings.json into the dedicated agent HOME at .pi/agent/. Native Pi reads them; no Harbor adapter patch is required.",
+      "models_json": {
+        "providers": {
+          "openai": {
+            "models": [
+              {
+                "id": "gpt-5.4-mini-2026-03-17",
+                "name": "gpt-5.4-mini-2026-03-17",
+                "api": "openai-responses",
+                "baseUrl": "https://api.openai.com/v1",
+                "reasoning": true,
+                "thinkingLevelMap": {
+                  "off": null,
+                  "xhigh": "xhigh"
+                },
+                "input": [
+                  "text",
+                  "image"
+                ],
+                "cost": {
+                  "input": 0.75,
+                  "output": 4.5,
+                  "cacheRead": 0.075,
+                  "cacheWrite": 0
+                },
+                "contextWindow": 400000,
+                "maxTokens": 128000
+              }
+            ]
+          }
+        }
+      },
+      "settings_json": {
+        "compaction": {
+          "enabled": false
+        },
+        "retry": {
+          "enabled": false
+        }
+      },
+      "harbor_kwargs": {
+        "version": "0.73.1",
+        "reasoning_effort": "medium"
+      },
+      "separate_limit_choice": "Set max_turns from the future synthetic contract; record the injected budget prompt and native CLI semantics.",
+      "gate": "Before paid execution, verify native registry selects exact dated ID with mini-family metadata and effective settings in the frozen image. Verify emitted request/model and billing in the authorized live pilot."
+    },
+    "custom_base_url_route": "Blocked pending a separate design and offline proof for complete metadata in Harbor-generated /tmp/harbor-pi-agent/models.json. Prebaked ~/.pi/agent files alone are bypassed. No silent custom endpoint or model alias substitution.",
+    "comparison_condition": "Even with matching model metadata and retries disabled, Harbor Pi is CLI plus Harbor extension/session handling, separate from the lab SDK condition."
+  }
+}
