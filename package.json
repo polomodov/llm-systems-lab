@@ -16,7 +16,7 @@
     "judge-run": "node scripts/judge-run.mjs",
     "compare": "node scripts/compare.mjs",
     "test": "node --test tests/*.test.mjs experiments/*/adapter.test.mjs experiments/common/*.test.mjs",
-    "test:python": "python3 -m unittest discover -s experiments/local-models -p 'test_lab*.py' -v && python3 -m unittest discover -s docs/labs/fixtures -p '*_test.py' -v",
+    "test:python": "python3 -m unittest discover -s experiments/local-models -p 'test_lab*.py' -v && python3 -m unittest discover -s docs/labs/fixtures -p '*_test.py' -v && python3 -m unittest discover -s experiments/common/model-refresh-2026-11 -p 'test_*.py' -v",
     "test:docker": "HARNESS_DOCKER_TEST=1 node --test tests/docker.test.mjs",
     "evaluation-template": "node scripts/evaluation-template.mjs",
     "harnesses": "node scripts/harnesses.mjs",

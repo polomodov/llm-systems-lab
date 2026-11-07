@@ -2,7 +2,9 @@
 
 Step-by-step assignment covering `exec`, external isolation, a real T002, and JSONL analysis: [LAB13 — Codex CLI](../../docs/labs/LAB13-codex.md).
 
-The `codex exec --json` adapter is implemented. Version **0.167.0** was built and checked on 2026-09-20 on Linux/arm64 without credentials or network access. Actual provider-backed episode execution remains **unverified**. The [original checks](smoke/2026-09-20.json) are not agent runs.
+The `codex exec --json` adapter is implemented. Historical version **0.155.1** was built and checked on 2026-09-20 on Linux/arm64 without credentials or network access. Actual provider-backed episode execution remains **unverified**. The [original checks](smoke/2026-09-20.json) are not agent runs.
+
+Current pin: **0.167.0**, independently checked on 2026-11-07. The [refresh evidence](../common/model-refresh-2026-11/README.md) covers immutable images, exact version probes and synthetic Responses tool loops; it does not establish live API access. The September record applies only to 0.155.1.
 
 ```bash
 docker build --build-arg HARNESS_VERSION=0.167.0 \

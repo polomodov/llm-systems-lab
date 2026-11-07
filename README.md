@@ -57,10 +57,10 @@ mise run verify
 
 `mise run` and `mise exec -- <command>` work without shell activation; for example, `mise exec -- npm run harnesses`. To use ordinary `node`, `python3` and `npm` commands, you can [activate mise in your shell](https://mise.jdx.dev/cli/activate.html). Existing npm scripts remain available; the coordinator's minimum supported version is Node.js 22.0.0. Secrets stay in `.env`, consumed only by the harness; mise does not load it.
 
-Run the coordinator as an ordinary user, not root. It has no npm dependencies. Mise manages host tools; harness CLI versions remain in `experiments/<harness>/harness.json` and Dockerfile. Images use Node.js 24.13.1; CLI versions are set at build time. The nine harness versions were built and checked without model requests on 2026-09-20. Two example images:
+Run the coordinator as an ordinary user, not root. It has no npm dependencies. Mise manages host tools; harness CLI versions remain in `experiments/<harness>/harness.json` and Dockerfile. Images use Node.js 24.13.1; CLI versions are set at build time. The original nine harness versions were checked without model requests on 2026-09-20; the [2026-11-07 refresh](experiments/common/model-refresh-2026-11/README.md) separately qualifies the current Claude/Codex pins and revised model environments. Two example images:
 
 ```bash
-docker build --build-arg HARNESS_VERSION=2.1.83 \
+docker build --build-arg HARNESS_VERSION=2.1.319 \
   -t harness-lab/claude-code:2.1.319 \
   -f experiments/claude-code/Dockerfile experiments/claude-code
 

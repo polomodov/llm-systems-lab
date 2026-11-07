@@ -2,7 +2,7 @@
 
 Each of the nine harnesses has a dedicated [LAB11–19 exercise](labs/README.md) covering builds, smoke tests, a model episode and independent evaluation. The cloud learning route does not require a local provider bridge.
 
-Integration status as of **2026-09-20**. All nine harnesses are connected to shared preparation, Docker execution, trace recording and independent evaluation. Installation and offline smoke tests verify infrastructure; task success with a real provider remains **unverified** until completed records exist in `results/runs/`.
+Original integration status as of **2026-09-20**; current pins include the separately evidenced [2026-11-07 model refresh](../experiments/common/model-refresh-2026-11/README.md). All nine harnesses are connected to shared preparation, Docker execution, trace recording and independent evaluation. Installation and offline smoke tests verify infrastructure; task success with a real provider remains **unverified** until completed records exist in `results/runs/`.
 
 | Harness | Verified pin | Interface | Provider / `.env` variable | Model selection | Limits |
 | --- | --- | --- | --- | --- | --- |
@@ -26,7 +26,7 @@ The evidence class for the image itself varies; this table does not make those c
 - Only two have machine-readable offline smoke records: `antigravity-cli` and `codex` (`experiments/<harness>/smoke/2026-09-20.json`). The others have textual notes.
 - As of this integration snapshot, none had a real-model run.
 
-On 2026-09-21, on the operator's machine (Docker Engine 29.5.2, darwin/arm64 host), the version command in each of the nine built images returned its exact pin. This is our installation check without keys or provider requests, not a task result.
+On 2026-09-21, on the operator's machine (Docker Engine 29.5.2, darwin/arm64 host), the version command in each of the nine built images returned its exact pin. This historical check applies to the pins at that date, including Claude Code 2.1.83 and Codex 0.155.1. It does not qualify later upgrades. No keys or provider requests were used.
 
 Image installation uses `--ignore-scripts` by default. Exceptions are documented in their Dockerfiles: `claude-code`2.1.319 (native binary installation, verified offline on 2026-11-07), `opencode` (postinstall selects a platform binary), `amp` (postinstall places a native binary) and `pi` (its dependency tree includes `koffi`, which builds a native binding through an install script).
 

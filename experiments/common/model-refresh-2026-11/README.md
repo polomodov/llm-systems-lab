@@ -52,3 +52,7 @@ npm run check
 ```
 
 To repeat protocol tests after changing code/images, run `sdk-smoke.py --docker-host <local Unix socket>` and the new native revision's `offline_smoke.py` / `verify_controls.py` commands described in its README. Freeze and seal a new revision before any live execution; do not rewrite historical prepared records.
+
+## PR4 review follow-up
+
+[Review corrections and Sonar decisions](PR4-REVIEW.md) separate the original preparation checkpoint from the repeated current lab fixture validation. [review-checks.json](review-checks.json) binds the current sources and offline evidence. Historical run records and the original native preparation remain unchanged.

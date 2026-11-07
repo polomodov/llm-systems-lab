@@ -46,6 +46,16 @@ test('a pin that drifts in one place is reported, not silently accepted', t => {
   }
 });
 
+test('a stale documented build argument fails even when its image tag is current', t => {
+  const root = fixture(t);
+  const file = join(root, 'README.md');
+  writeFileSync(file, readFileSync(file, 'utf8').replace(
+    `--build-arg HARNESS_VERSION=${claudePin}`, '--build-arg HARNESS_VERSION=0.0.1'));
+  assert.deepEqual(auditPins(root).errors, [
+    `claude-code: README.md build argument HARNESS_VERSION=0.0.1 differs from the pinned image tag ${claudePin}`,
+  ]);
+});
+
 test('a harness profile without an exact version pin is invalid', () => {
   const profile = JSON.parse(readFileSync(join(repository, 'experiments/claude-code/harness.json'), 'utf8'));
   assert.equal(validateProfile({ ...profile }, 'claude-code').version, claudePin);
