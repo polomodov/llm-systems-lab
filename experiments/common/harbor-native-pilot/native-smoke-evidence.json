@@ -1,6 +1,6 @@
 {
   "kind": "native-harbor-offline-fixture-lifecycle-evidence",
-  "checked_at": "2026-11-07T06:11:29.578454+00:00",
+  "checked_at": "2026-11-07T06:14:59.749602+00:00",
   "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
   "plan_sha256": "8680b3302c30a06da1fdaf4326a678f32f875070ff37315ff22e2d30b1a19292",
   "slot_configuration_sha256": "08a22b77fd6f36bc3d319fa3451838ba6f93dcf9cb90b58a4d5e08d3e624c881",
@@ -10,7 +10,7 @@
     "runtime_lock": true,
     "slot_configuration": true
   },
-  "frozen_input_directory": ".cache/native-smoke/20261107T061103890032Z",
+  "frozen_input_directory": ".cache/native-smoke/20261107T061435304273Z",
   "provider_requests": 0,
   "real_credentials_read": false,
   "paid_runs": 0,
@@ -26,7 +26,7 @@
     "pids": 256
   },
   "components_sha256": {
-    "offline_smoke.py": "a2a26c6ecb82c858ed50ce64a780872f152cd8bb876825bcf005503a4e89d0c4",
+    "offline_smoke.py": "9fd9445402601b200ca418cd5c7799b2edbdbccf3be4223f264ca8a8221a7043",
     "mock-provider.mjs": "32f7e5d296623841f019a30d9ed6fa0acdf02145aef80b660b3073ea26be2ace",
     "task/instruction.md": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
     "task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b"
@@ -37,7 +37,7 @@
       "harness": "codex",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O01",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-O01",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
@@ -89,22 +89,22 @@
           "tool_choice": "auto"
         }
       ],
-      "evidence_manifest_sha256": "764763b68e837fb430c5aa48ad52f98dbc2164b7d17dd6d8cae03cfdc60a1e48",
+      "evidence_manifest_sha256": "1ad630f9efccdb3ff65cfba61050ad907d1576042e5e227951d03b62286f197d",
       "evidence_files": {
         "agent/codex.txt": {
-          "sha256": "31b0759e90ff9a7edd871ed5844675194d6d1b8d4aa13ba191be2374be352d3d",
+          "sha256": "a01f3cd59d0de1c74bb1e897cbc3e92a3436ca1091df3eb15e7f3e5a5763ddbf",
           "bytes": 3963
         },
         "agent/mock-requests.jsonl": {
-          "sha256": "ae487e31110a01f0b0e4f0afca1dca2b5c123585363d2988e43645aafffe0f31",
-          "bytes": 16628
+          "sha256": "33cc118e4594a235ce11b174b5d2d15caea65aa801bf02ee72f351295bf5a8c6",
+          "bytes": 16629
         },
-        "agent/sessions/2026/11/07/rollout-2026-11-07T06-11-05-01a1b4a1-d044-77a1-9d46-d31361140ad1.jsonl": {
-          "sha256": "6df1ef5c3bfe9e93548ec00358bbe90840ba9ebc7195d83bd22ade55d111eac9",
-          "bytes": 38617
+        "agent/sessions/2026/11/07/rollout-2026-11-07T06-14-36-01a1b4a5-07cf-7732-9e21-f3d83e19054e.jsonl": {
+          "sha256": "7962e4097f47bd2b05805b2588ae5ff6c3325620eb6afa93781744fc9bdcc0ad",
+          "bytes": 38618
         },
         "agent/trajectory.json": {
-          "sha256": "c6e33628e58d54386ea55cf40067a13291fd9e08096dc497ca8a1e0b3099ed71",
+          "sha256": "d60284f60de43fdc0fe97ce3449c90213815fa7ea6590e2c5775d1736cfc68fb",
           "bytes": 10659
         },
         "artifact/model-tool.json": {
@@ -126,7 +126,7 @@
       "harness": "claude-code",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A01",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-A01",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
@@ -184,22 +184,22 @@
           "max_tokens": 32000
         }
       ],
-      "evidence_manifest_sha256": "b0d0ce1acc767591520a83964fad43fb4bce3144b3db1a66b4ffb58e552819ac",
+      "evidence_manifest_sha256": "bb852603de35f5ff5072517a1da7efe9667e7cbffbcda5734ddaa9eb9e854f61",
       "evidence_files": {
         "agent/claude-code.txt": {
-          "sha256": "eb73b16eaad4134ddb7caad0472efcc4d796b190243fbb77bb3bc179167d88e7",
+          "sha256": "35ca416870e531bb6849140c1492f995a3823f8086312b427daa0948c5429c03",
           "bytes": 3870
         },
         "agent/mock-requests.jsonl": {
           "sha256": "ce39704e4a9484094a8fc061ccf7f14639a0be45f20eb0758ef3f662de5ffcdf",
           "bytes": 7428
         },
-        "agent/sessions/projects/-app/4e9026f6-9873-45b1-ad08-74085e877f73.jsonl": {
-          "sha256": "efb7fe0f86ae84ff68a05c476f19d7e436d220be08b2aa35fb8c3cf5d9095df9",
+        "agent/sessions/projects/-app/2c5c7d61-8b54-4af3-ba82-2d70345600b0.jsonl": {
+          "sha256": "7f3f9985f354600211bc74e24ced6c0492fe50212b5362602e9a160c668c176b",
           "bytes": 5382
         },
         "agent/trajectory.json": {
-          "sha256": "cde56988b6ff409eafa8aa6340e2ec17877254dae32885435dcf86d7baa96fdb",
+          "sha256": "df652337660c445ded0b5f522120696e99c2e47e11cfd83d681f2f2c5e0e558a",
           "bytes": 6019
         },
         "artifact/model-tool.json": {
@@ -211,7 +211,7 @@
           "bytes": 26
         },
         "commands.json": {
-          "sha256": "cb3b13a9069ba4f788bb34ec84d38623cde8a3a30dd47a72003182be95c6ab9e",
+          "sha256": "046f39e352222d1fdd32e4099172a8f21c93e96e187892eaf1314ba6b6fc82dd",
           "bytes": 4256
         }
       }
@@ -221,7 +221,7 @@
       "harness": "opencode",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A02",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-A02",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
@@ -294,18 +294,18 @@
           }
         }
       ],
-      "evidence_manifest_sha256": "7bbcb10c412fb31c82f3804edfb3becbf1061416de62c112b5386b4bd88aed90",
+      "evidence_manifest_sha256": "76081cef2c56860ab6b2f33197f6b96b2b9c3b368893ab6f8dc2acafca0a0a6d",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
           "sha256": "4a3f1992aa4bb3598bf84c6a55552ddc73d41136abb9bf65080fc320ab7f5aa1",
           "bytes": 4104
         },
         "agent/opencode.txt": {
-          "sha256": "8aaad17b530306666c07f79d3166a3aafb23aa9d03eddf7c31d13aa9f606a5c4",
+          "sha256": "84a75b388f758f99cf5e5cede13343ea76c91562b9dfaf295105e72dd7c283fb",
           "bytes": 3450
         },
         "agent/trajectory.json": {
-          "sha256": "18f4d645bee1021b72f127b89dc1b6f2e8d97b864070c3c26b8ac3a4130f21e6",
+          "sha256": "befa19297347cbcda48e88a552013ce3d534d619836aceb7e153815fdfee912c",
           "bytes": 2784
         },
         "artifact/model-tool.json": {
@@ -327,7 +327,7 @@
       "harness": "pi",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A03",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-A03",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
@@ -389,22 +389,22 @@
           "max_tokens": 16384
         }
       ],
-      "evidence_manifest_sha256": "32b114099390f700b2f46959f3fa5213673926d9018b57126e4474c2ecebf385",
+      "evidence_manifest_sha256": "f997b375d63fb1fd015e53a4db3de842f6f1947f732bacffb51fec0d3943dd6b",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
           "sha256": "d13317e4e6c898264a2abc1064ea1756483108b26d636362265f4d9778cb9fb3",
           "bytes": 2903
         },
-        "agent/pi/sessions/2026-11-07T06-11-24-558Z_01a1b4a2-190d-70e8-a3cc-5e2ef1560c2d.jsonl": {
-          "sha256": "4ab7d2ba67736d7addde1cb4999eac3442c9a6c7b767f8799d07707b3adfeb5e",
+        "agent/pi/sessions/2026-11-07T06-14-55-019Z_01a1b4a5-4f2b-72a7-bc2f-cb6fd5c28505.jsonl": {
+          "sha256": "afaa92951d7976cb42bc2f6968da6112bcae47be4fee393bdbc143d2eaef88ee",
           "bytes": 3185
         },
         "agent/pi.txt": {
-          "sha256": "05129b91af7d0d05b795a103eedff4a2e58b8ac7d1eef2f4017873f3d2e340e8",
+          "sha256": "92f9ae6ee6bdd0002ef4708515a20138dab2eaa78e7c4198823f209c3146a03b",
           "bytes": 10049
         },
         "agent/trajectory.json": {
-          "sha256": "7cde8b9ec2740c6b1058ff4e16b35db60eb2d6491b3083d33405f90940b2725d",
+          "sha256": "219f463acbfdd8b9645569c8cbcdefe4b6e5be6efd93a201497a5dbaac16f086",
           "bytes": 4024
         },
         "artifact/model-tool.json": {
@@ -426,7 +426,7 @@
       "harness": "mini-swe-agent",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O02",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-O02",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:2ab18e18a15ce4571047115e4064684370f8b773fc07eb1da0a43b8009479021",
@@ -476,10 +476,10 @@
           }
         }
       ],
-      "evidence_manifest_sha256": "7108a6a09d61c9356c7e9b2e52d8e00036ca2e495106b8727c153025eeb8c1f8",
+      "evidence_manifest_sha256": "0693b24bc690a209a292674b0e40d9f424cb38789f9cf7914e885be595e64bae",
       "evidence_files": {
         "agent/mini-swe-agent.trajectory.json": {
-          "sha256": "892cb4670e1a27eee30aa7559aa2a8a9996be29372d5626fca0f094d4d2cb70b",
+          "sha256": "9b60d76652c33933b24692a6f4b603c3cc513c2ac0e5a52520a7097f40b037c2",
           "bytes": 15927
         },
         "agent/mini-swe-agent.txt": {
@@ -491,7 +491,7 @@
           "bytes": 8852
         },
         "agent/trajectory.json": {
-          "sha256": "104b60982a915f184d42f37565791d301dd19381e7df9db6fe8b80cf365b7bdd",
+          "sha256": "615dbc9b8ba7f94306a7016dfc065f0c7ec34a5f676a6625a1a818343d9c7977",
           "bytes": 11075
         },
         "artifact/model-tool.json": {
@@ -503,7 +503,7 @@
           "bytes": 26
         },
         "commands.json": {
-          "sha256": "6f888cc39de0d2674fe34a896c3d2a7c501f576bb8494d72bd9e2664e9923ab4",
+          "sha256": "8b91b0f0eaf76c4c56ec994cb03044c398b834244fa02c3b5905ede9097ea57d",
           "bytes": 4911
         }
       }
@@ -513,7 +513,7 @@
       "harness": "pi",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O03",
+      "raw_directory": ".cache/native-smoke/20261107T061435304273Z/HN-O03",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
@@ -569,22 +569,22 @@
           "max_output_tokens": 16384
         }
       ],
-      "evidence_manifest_sha256": "cba5d6db3ed151aea5c1bdc30a0d1fb1ac3c46b5ca96e4757ac01daabbba23b6",
+      "evidence_manifest_sha256": "1e440ef602b9fdbf034bdecaa570abd1888358c0ef4039f658a3aed84c9e65fb",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
           "sha256": "afb8cc98f16f9762f441b2b30b93074ac18dba1a7637cdc6be1f8f5b9c5da485",
           "bytes": 7727
         },
-        "agent/pi/sessions/2026-11-07T06-11-29-202Z_01a1b4a2-2b31-7608-83e9-1df99a8a868a.jsonl": {
-          "sha256": "56b2af93e73b4555e98afa24c1967abdb72f5a7f3c17ab953aba2bccda33c972",
+        "agent/pi/sessions/2026-11-07T06-14-59-450Z_01a1b4a5-6079-7028-b9fd-203096245533.jsonl": {
+          "sha256": "31ea77fe124181c202040082d1b55ae1b6da20f1f7410bc10bf34a2f00a22357",
           "bytes": 3278
         },
         "agent/pi.txt": {
-          "sha256": "8a58ef66639ea5863e5d37908d0696f68fe64bc7f4c897cc1c64d25a405b66a7",
+          "sha256": "c6494478d5da18159063eadcea0d6a55efa5dd3842843ab44743f2b81fe3a74e",
           "bytes": 10362
         },
         "agent/trajectory.json": {
-          "sha256": "b1f8670ffa216bd05c5563d956bbfa12c56f0c355be2dcf7531ff5ba3297549e",
+          "sha256": "ed222addcdc4c4d42e6bed35c2fbd13cb4931b4678c4bf5ac629df95e218e23c",
           "bytes": 4066
         },
         "artifact/model-tool.json": {

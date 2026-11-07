@@ -25,6 +25,11 @@ BASE = Path(__file__).resolve().parent
 DOCKER = shutil.which("docker")
 
 
+def require(condition, message):
+    if not condition:
+        raise ValueError(message)
+
+
 async def command(*args, timeout=180):
     process=await asyncio.create_subprocess_exec(*map(str,args),stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.PIPE)
     try:
@@ -111,15 +116,15 @@ async def run_slot(slot,lock,host,output):
         started=await environment.docker("run","--detach","--rm","--pull=never","--name",name,"--network","none","--user","1000:1000","--cap-drop","ALL","--cap-add","CHOWN","--cap-add","DAC_OVERRIDE","--cap-add","FOWNER","--security-opt","no-new-privileges","--cpus","1","--memory","2g","--pids-limit","256","--entrypoint","sleep",image,"infinity")
         if started.return_code:raise RuntimeError(started.stderr)
         inspect=await environment.docker("inspect",name,"--format","{{json .HostConfig.NetworkMode}}")
-        assert json.loads(inspect.stdout)=="none"
+        require(json.loads(inspect.stdout)=="none", 'Offline smoke validation failed')
         record["docker_network"]="none"
         mounts=await environment.docker("inspect",name,"--format","{{json .Mounts}}")
-        assert json.loads(mounts.stdout)==[],"Unexpected container mount"
+        require(json.loads(mounts.stdout)==[], "Unexpected container mount")
         record["host_mounts"]=[]
         record["setup_capabilities"]=["CHOWN","DAC_OVERRIDE","FOWNER"]
         await environment.upload_file(BASE/"mock-provider.mjs","/tmp/mock-provider.mjs")
         prepared=await environment.exec("mkdir -p /logs/agent /app/output; node /tmp/mock-provider.mjs > /logs/agent/mock-server.log 2>&1 &")
-        assert prepared.return_code==0,prepared.stderr
+        require(prepared.return_code==0, prepared.stderr)
         await asyncio.sleep(0.2)
         kwargs=dict(slot["planned_kwargs"])
         fmt="anthropic_messages" if slot["provider"]=="anthropic" else slot.get("model_api_format","openai_responses")
@@ -133,7 +138,7 @@ async def run_slot(slot,lock,host,output):
         record["harbor_detected_version"]=agent.version()
         probe=await environment.exec(agent.get_version_command())
         observed=agent.parse_version((probe.stdout or "")+"\n"+(probe.stderr or ""))
-        assert probe.return_code==0 and observed==slot["version"],f"Independently detected version mismatch: {observed}"
+        require(probe.return_code==0 and observed==slot["version"], f"Independently detected version mismatch: {observed}")
         record["observed_version"]=observed
         if agent.version()!=observed:
             record["native_version_detection_limitation"]="Pinned Pi writes version to stderr; pinned Harbor reads stdout only. Independent exact-version gate uses both streams without modifying the CLI or adapter."
@@ -147,22 +152,22 @@ async def run_slot(slot,lock,host,output):
         agent.populate_context_post_run(context)
         artifact=await environment.exec("cat /app/output/result.json; cat /app/output/model-tool.json")
         lines=artifact.stdout.splitlines()
-        assert artifact.return_code==0,artifact.stderr
-        assert json.loads(lines[0])==["apple","banana","pear"]
-        assert json.loads(lines[1])=={"fixture":True,"uid":1000,"tool_executed":True,"cap_eff":"0000000000000000"}
+        require(artifact.return_code==0, artifact.stderr)
+        require(json.loads(lines[0])==["apple","banana","pear"], 'Offline smoke validation failed')
+        require(json.loads(lines[1])=={"fixture":True,"uid":1000,"tool_executed":True,"cap_eff":"0000000000000000"}, 'Offline smoke validation failed')
         await environment.download_dir("/app/output",logs/"artifact")
         input_bytes=await environment.exec("cat /app/input.json")
-        assert input_bytes.return_code==0
+        require(input_bytes.return_code==0, 'Offline smoke validation failed')
         record["input_sha256"]=hashlib.sha256(input_bytes.stdout.encode()).hexdigest()
-        assert record["input_sha256"]==hashlib.sha256((BASE/"task/environment/input.json").read_bytes()).hexdigest(),"Public input changed"
+        require(record["input_sha256"]==hashlib.sha256((BASE/"task/environment/input.json").read_bytes()).hexdigest(), "Public input changed")
         record["artifact_verified"]=True
         record["tool_executed_as_uid"]=1000
         record["task_effective_capabilities"]=[]
         trajectory=logs/"agent/trajectory.json"
         validator=TrajectoryValidator()
-        assert validator.validate(trajectory),validator.get_errors()
+        require(validator.validate(trajectory), validator.get_errors())
         atif=json.loads(trajectory.read_text())
-        assert any(s.get("tool_calls") and s.get("observation",{}).get("results") for s in atif["steps"]),"Native ATIF lacks observed tool operation"
+        require(any(s.get("tool_calls") and s.get("observation",{}).get("results") for s in atif["steps"]), "Native ATIF lacks observed tool operation")
         record["atif_schema"]=atif["schema_version"]
         record["atif_agent"]={k:atif["agent"].get(k) for k in ["name","version","model_name"]}
         record["atif_step_count"]=len(atif["steps"])
@@ -245,7 +250,7 @@ async def main():
         if args.slot and slot["slot_id"]!=args.slot:continue
         result=await run_slot(slot,lock,args.docker_host,output)
         records.append(result);print(json.dumps(result),flush=True)
-    assert records,"No selected slots"
+    require(records, "No selected slots")
     components_stable=component_hashes=={str(p.relative_to(BASE)):hashlib.sha256(p.read_bytes()).hexdigest() for p in component_paths}
     runtime_stable=runtime_bytes==runtime_path.read_bytes()
     slots_stable=slot_hash==slot_configuration_sha256(json.loads((BASE/"plan.json").read_text()))

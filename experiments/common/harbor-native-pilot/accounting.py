@@ -82,7 +82,7 @@ def copy_tree(source, dest):
 
 def limits(contract):
     match = re.findall(r"Up to (\d+) turns or \$(\d+(?:\.\d+)?)", contract)
-    timeout = re.findall(r"(\d+)-second external timeout", contract)
+    timeout = re.findall(r"\b(\d+)-second external timeout\b", contract)
     if len(match) != 1 or len(timeout) != 1:
         raise ValueError("Ambiguous sealed task budget")
     return {"turns": int(match[0][0]), "usd": float(match[0][1]), "timeout_s": int(timeout[0])}
