@@ -25,7 +25,10 @@ seals the exact package, plan, slot, locks, contract and specification in
 model or usage, and no measured cost. Reusing an existing run directory fails.
 The manifest uses the lab's native version-1 integrity format and an explicit
 `harbor-native-pilot-v1` importer marker. `check --root <repository> --run-id <id>`
-uses the existing lab schema, lifecycle, catalog and integrity validators.
+uses the existing lab schema, lifecycle, catalog and integrity validators. CLI
+paths must point to this repository and the canonical plan, locks and selected
+materialized package; arbitrary external files and symlink paths are rejected.
+The Python API remains available for isolated fixture repositories.
 
 ## Import actual evidence later
 
@@ -57,7 +60,11 @@ records. Paths must stay inside the evidence tree and cannot use symlinks.
   cannot populate `loop.cost_usd`. Unknown or settling costs stay null.
 - `verifier` points to a separate-verifier report with `result`, `check_output`,
   `artifact_file`, `artifact_sha256`, and `verifier_sha256`. Artifact bytes and
-  the frozen `tests/evaluate.py` must match. `boundary` points to independent
+  the frozen `tests/evaluate.py` must match. A failing missing-output verdict may
+  explicitly declare `artifact_absent: true` and `artifact_sha256: null`, with
+  `artifact_file` naming a path that is actually absent. This retains the failing
+  verifier report and settled spend without creating fake output. Passing
+  verdicts and existing artifacts cannot use this exception. `boundary` points to independent
   boolean `passed` and `cleanup_complete` observations.
 
 The pinned Harbor `TrajectoryValidator` validates the declared ATIF version.

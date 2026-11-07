@@ -93,6 +93,48 @@ class AccountingTests(unittest.TestCase):
             self.prepare()
         self.assertEqual((bundle / "run.json").read_bytes(), before)
 
+    def test_missing_output_failure_preserves_verdict_and_settled_spend(self):
+        bundle = self.start()
+        evidence, observation = self.evidence()
+        (evidence / "artifact.json").unlink()
+        report = a.read(evidence / "verifier.json")
+        report.update(result="fail", check_output="missing-or-nonregular-output",
+                      artifact_absent=True, artifact_sha256=None)
+        a.write(evidence / "verifier.json", report, exclusive=False)
+        record = a.finish(self.root, self.run_id, evidence, observation)
+        self.assertEqual(record["status"], "completed")
+        self.assertEqual(record["verdict"]["result"], "fail")
+        self.assertEqual(record["loop"]["cost_usd"], 0.01)
+        self.assertEqual(a.read(bundle / "trace/accounting.json")["qualification"], "failed")
+        self.assertFalse((bundle / "trace/evidence/artifact.json").exists())
+        self.assertEqual(a.read(bundle / "trace/evidence/verifier.json"), report)
+        a.core_check(self.root, record)
+
+    def test_absent_artifact_cannot_pass_or_hide_existing_bytes(self):
+        self.start()
+        evidence, observation = self.evidence()
+        report = a.read(evidence / "verifier.json")
+        report.update(artifact_absent=True, artifact_sha256=None)
+        a.write(evidence / "verifier.json", report, exclusive=False)
+        with self.assertRaisesRegex(ValueError, "Absent artifact"):
+            a.finish(self.root, self.run_id, evidence, observation)
+        report["result"] = "fail"
+        a.write(evidence / "verifier.json", report, exclusive=False)
+        with self.assertRaisesRegex(ValueError, "Absent artifact"):
+            a.finish(self.root, self.run_id, evidence, observation)
+
+    def test_cli_paths_reject_external_files_traversal_and_symlinks(self):
+        expected = a.HERE / "plan.json"
+        self.assertEqual(a.cli_path(str(expected), expected), expected)
+        for path in ("/etc/passwd", str(a.HERE / "../harbor-native-pilot/plan.json")):
+            with self.assertRaisesRegex(ValueError, "canonical experiment path"):
+                a.cli_path(path, expected)
+        with tempfile.TemporaryDirectory(dir=a.HERE) as directory:
+            link = Path(directory) / "plan.json"
+            link.symlink_to(self.plan_path)
+            with self.assertRaisesRegex(ValueError, "Symlink"):
+                a.cli_path(str(link), link)
+
     def test_completed_fixture_binds_raw_evidence_and_exact_measurements(self):
         bundle = self.start()
         record = a.finish(self.root, self.run_id, *self.evidence())

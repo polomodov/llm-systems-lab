@@ -338,7 +338,12 @@ def finish(root, run_id, evidence_dir, observation):
         if verifier:
             artifact = safe(source, verifier["artifact_file"])
             sealed_verifier = bundle / "inputs/task-package/tests/evaluate.py"
-            if digest(artifact) != verifier["artifact_sha256"] or digest(sealed_verifier) != verifier["verifier_sha256"]:
+            if digest(sealed_verifier) != verifier["verifier_sha256"]:
+                raise ValueError("Independent verifier artifact or frozen code binding differs")
+            if verifier.get("artifact_absent") is True:
+                if verifier.get("result") != "fail" or verifier.get("artifact_sha256") is not None or artifact.exists():
+                    raise ValueError("Absent artifact requires a failing verdict, null hash and missing file")
+            elif digest(artifact) != verifier["artifact_sha256"]:
                 raise ValueError("Independent verifier artifact or frozen code binding differs")
         if verifier and (verifier.get("result") not in ("pass", "fail", "partial") or not verifier.get("check_output")):
             raise ValueError("Invalid independent verifier verdict")
@@ -423,6 +428,13 @@ def admission(root, run_ids, next_slot, plan):
     return {"admitted": admitted, "reason": "Accounting allocation available; separate authorization still required" if admitted else "Insufficient allocation", "spent": spent}
 
 
+def cli_path(value, expected):
+    """CLI inputs select this experiment's fixed files, never arbitrary paths."""
+    if Path(value).absolute() != expected:
+        raise ValueError("CLI path must match the canonical experiment path: " + str(expected))
+    return safe(REPO, str(expected.relative_to(REPO)))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="action", required=True)
@@ -433,13 +445,21 @@ def main():
     check.add_argument("--root", required=True)
     check.add_argument("--run-id", required=True)
     args = parser.parse_args()
+    if Path(args.root).absolute() != REPO:
+        raise ValueError("CLI root must be this repository; use the Python API for isolated fixtures")
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*", args.run_id):
+        raise ValueError("Invalid run ID")
     if args.action == "prepare":
-        plan = read(args.plan)
+        plan_path = cli_path(args.plan, HERE / "plan.json")
+        runtime_path = cli_path(args.runtime_lock, HERE / "runtime-lock.json")
+        package_lock = cli_path(args.package_lock, HERE / "package-lock.json")
+        plan = read(plan_path)
         slot = next(slot for slot in plan["slots"] if slot["slot_id"] == args.slot)
-        print(prepare(args.root, args.run_id, slot, args.package, args.runtime_lock, args.package_lock, args.plan))
+        package = cli_path(args.package, HERE / ".cache/tasks/prepared" / slot["slot_id"])
+        print(prepare(REPO, args.run_id, slot, package, runtime_path, package_lock, plan_path))
     else:
-        record = read(safe(args.root, "results/runs/" + args.run_id + "/run.json"))
-        core_check(args.root, record)
+        record = read(safe(REPO, "results/runs/" + args.run_id + "/run.json"))
+        core_check(REPO, record)
         print(json.dumps({"run_id": args.run_id, "status": record["status"], "valid": True}))
 
 

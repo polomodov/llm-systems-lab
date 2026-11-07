@@ -1,8 +1,8 @@
 {
   "kind": "native-harbor-offline-fixture-lifecycle-evidence",
-  "checked_at": "2026-11-06T23:46:15.217425+00:00",
+  "checked_at": "2026-11-07T06:11:29.578454+00:00",
   "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
-  "plan_sha256": "b68f6192e5c7085f9b3d3658184d75882e25febc131abd311490910ecf6ad2cd",
+  "plan_sha256": "8680b3302c30a06da1fdaf4326a678f32f875070ff37315ff22e2d30b1a19292",
   "slot_configuration_sha256": "08a22b77fd6f36bc3d319fa3451838ba6f93dcf9cb90b58a4d5e08d3e624c881",
   "runtime_lock_sha256": "d5f0c2fecc40acf8addedabcfccb3b5ef8e78341af05f3a163584d039e764877",
   "frozen_inputs_stable": {
@@ -10,7 +10,7 @@
     "runtime_lock": true,
     "slot_configuration": true
   },
-  "frozen_input_directory": ".cache/native-smoke/20261106T234550411352Z",
+  "frozen_input_directory": ".cache/native-smoke/20261107T061103890032Z",
   "provider_requests": 0,
   "real_credentials_read": false,
   "paid_runs": 0,
@@ -26,7 +26,7 @@
     "pids": 256
   },
   "components_sha256": {
-    "offline_smoke.py": "2afdfece73c22995cb998a06adf8d15e0404211260808da8ee91a5d9eb6d6a8f",
+    "offline_smoke.py": "a2a26c6ecb82c858ed50ce64a780872f152cd8bb876825bcf005503a4e89d0c4",
     "mock-provider.mjs": "32f7e5d296623841f019a30d9ed6fa0acdf02145aef80b660b3073ea26be2ace",
     "task/instruction.md": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
     "task/environment/input.json": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b"
@@ -37,7 +37,7 @@
       "harness": "codex",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O01",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O01",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:fb59bbb251df58b3676f08d099fb618d8c47490c027822f78b438fab50d1ad08",
@@ -89,22 +89,22 @@
           "tool_choice": "auto"
         }
       ],
-      "evidence_manifest_sha256": "c563a5b36d0eae6da5d5075b82e89230be43e547d0f85ccb029f9bdd3e104f0f",
+      "evidence_manifest_sha256": "764763b68e837fb430c5aa48ad52f98dbc2164b7d17dd6d8cae03cfdc60a1e48",
       "evidence_files": {
         "agent/codex.txt": {
-          "sha256": "25c54722cc9144a625e7fa331afb1648225f0eef1f3caddd8664df327f4d59d0",
+          "sha256": "31b0759e90ff9a7edd871ed5844675194d6d1b8d4aa13ba191be2374be352d3d",
           "bytes": 3963
         },
         "agent/mock-requests.jsonl": {
-          "sha256": "78ac9d59ad5a400275bec86974aadbff6b52f10e40a230e016c08b2727eb601f",
-          "bytes": 16626
+          "sha256": "ae487e31110a01f0b0e4f0afca1dca2b5c123585363d2988e43645aafffe0f31",
+          "bytes": 16628
         },
-        "agent/sessions/2026/11/06/rollout-2026-11-06T23-45-52-01a1b341-1fd1-7fb1-9798-95b33ce8c0c5.jsonl": {
-          "sha256": "2983ed711576f067a9b8586e79fb41421b180f75e79f7b7b3f7621047cec2a38",
-          "bytes": 38615
+        "agent/sessions/2026/11/07/rollout-2026-11-07T06-11-05-01a1b4a1-d044-77a1-9d46-d31361140ad1.jsonl": {
+          "sha256": "6df1ef5c3bfe9e93548ec00358bbe90840ba9ebc7195d83bd22ade55d111eac9",
+          "bytes": 38617
         },
         "agent/trajectory.json": {
-          "sha256": "f4d80df6b63516b4d09f6430a66f3e337eae80f29de0dbde7ef03a4c3e6ea587",
+          "sha256": "c6e33628e58d54386ea55cf40067a13291fd9e08096dc497ca8a1e0b3099ed71",
           "bytes": 10659
         },
         "artifact/model-tool.json": {
@@ -126,7 +126,7 @@
       "harness": "claude-code",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A01",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A01",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:262a29b2d30bf8b853cf1c7bdb2f7b479cd1eba5288c2e83cac1f1874f08bfd2",
@@ -184,22 +184,22 @@
           "max_tokens": 32000
         }
       ],
-      "evidence_manifest_sha256": "48eb747b38916092e2d717c030298051de92cead16e5b42a5e68d429e3a6f928",
+      "evidence_manifest_sha256": "b0d0ce1acc767591520a83964fad43fb4bce3144b3db1a66b4ffb58e552819ac",
       "evidence_files": {
         "agent/claude-code.txt": {
-          "sha256": "c988db27c0fef3d1b0ae0309acbb1eb4dc979944b0d53ea297222ed8ac3bf60e",
-          "bytes": 3869
+          "sha256": "eb73b16eaad4134ddb7caad0472efcc4d796b190243fbb77bb3bc179167d88e7",
+          "bytes": 3870
         },
         "agent/mock-requests.jsonl": {
-          "sha256": "91d1901f589f3b85917de48af400c7a88f06e46927e81103b9dd4e97c8f40b83",
+          "sha256": "ce39704e4a9484094a8fc061ccf7f14639a0be45f20eb0758ef3f662de5ffcdf",
           "bytes": 7428
         },
-        "agent/sessions/projects/-app/3b8f0c41-2e2b-4854-8f3d-5a0c25c69d2e.jsonl": {
-          "sha256": "0d58a181232e3cefc9daabbbde17dfc621164a611fc4185660e636bd5c19d223",
+        "agent/sessions/projects/-app/4e9026f6-9873-45b1-ad08-74085e877f73.jsonl": {
+          "sha256": "efb7fe0f86ae84ff68a05c476f19d7e436d220be08b2aa35fb8c3cf5d9095df9",
           "bytes": 5382
         },
         "agent/trajectory.json": {
-          "sha256": "5432ebd2d1672f51d983d9c32742935568ba1f6d6b87da88f727640f013644ba",
+          "sha256": "cde56988b6ff409eafa8aa6340e2ec17877254dae32885435dcf86d7baa96fdb",
           "bytes": 6019
         },
         "artifact/model-tool.json": {
@@ -211,7 +211,7 @@
           "bytes": 26
         },
         "commands.json": {
-          "sha256": "c4c169d7bc2cdfc7a2626cb067c49de22ecd1652035d7f422dab3f19906a3266",
+          "sha256": "cb3b13a9069ba4f788bb34ec84d38623cde8a3a30dd47a72003182be95c6ab9e",
           "bytes": 4256
         }
       }
@@ -221,7 +221,7 @@
       "harness": "opencode",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A02",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A02",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
@@ -294,18 +294,18 @@
           }
         }
       ],
-      "evidence_manifest_sha256": "d9bb5e4e6960685fcbf435a2ad9107c3f1339ced2a7e0099553c15a273f85f98",
+      "evidence_manifest_sha256": "7bbcb10c412fb31c82f3804edfb3becbf1061416de62c112b5386b4bd88aed90",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
           "sha256": "4a3f1992aa4bb3598bf84c6a55552ddc73d41136abb9bf65080fc320ab7f5aa1",
           "bytes": 4104
         },
         "agent/opencode.txt": {
-          "sha256": "8d15aeb71df077fdb28a7a20a22ab6714f37d48c863b1f7e3f8eda17be872dcd",
+          "sha256": "8aaad17b530306666c07f79d3166a3aafb23aa9d03eddf7c31d13aa9f606a5c4",
           "bytes": 3450
         },
         "agent/trajectory.json": {
-          "sha256": "ce115f36a229525761919417b063a566e46d0fb90376526455f9e6677d7e015a",
+          "sha256": "18f4d645bee1021b72f127b89dc1b6f2e8d97b864070c3c26b8ac3a4130f21e6",
           "bytes": 2784
         },
         "artifact/model-tool.json": {
@@ -327,7 +327,7 @@
       "harness": "pi",
       "model": "claude-sonnet-4-6",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-A03",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-A03",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
@@ -389,22 +389,22 @@
           "max_tokens": 16384
         }
       ],
-      "evidence_manifest_sha256": "ac77b6f8353f75e02664d1b62ecc900115f3668ac8bb4420dee0eb9e379cd104",
+      "evidence_manifest_sha256": "32b114099390f700b2f46959f3fa5213673926d9018b57126e4474c2ecebf385",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
           "sha256": "d13317e4e6c898264a2abc1064ea1756483108b26d636362265f4d9778cb9fb3",
           "bytes": 2903
         },
-        "agent/pi/sessions/2026-11-06T23-46-10-036Z_01a1b341-65f4-70d0-b205-9846996a226c.jsonl": {
-          "sha256": "ff1a5b28fd366af9a7f18963c5c9e9018133f6c288eecf073909d65e8dbf1957",
+        "agent/pi/sessions/2026-11-07T06-11-24-558Z_01a1b4a2-190d-70e8-a3cc-5e2ef1560c2d.jsonl": {
+          "sha256": "4ab7d2ba67736d7addde1cb4999eac3442c9a6c7b767f8799d07707b3adfeb5e",
           "bytes": 3185
         },
         "agent/pi.txt": {
-          "sha256": "4c95ed8f95d60bf91ea3a9676560e3b3c8de50114f0dff58a7a4352a7bdf1a89",
+          "sha256": "05129b91af7d0d05b795a103eedff4a2e58b8ac7d1eef2f4017873f3d2e340e8",
           "bytes": 10049
         },
         "agent/trajectory.json": {
-          "sha256": "9c54d622885fad02572081f7489e63687175d016aeeb2122968f0db61db04f69",
+          "sha256": "7cde8b9ec2740c6b1058ff4e16b35db60eb2d6491b3083d33405f90940b2725d",
           "bytes": 4024
         },
         "artifact/model-tool.json": {
@@ -426,7 +426,7 @@
       "harness": "mini-swe-agent",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O02",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O02",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:2ab18e18a15ce4571047115e4064684370f8b773fc07eb1da0a43b8009479021",
@@ -476,10 +476,10 @@
           }
         }
       ],
-      "evidence_manifest_sha256": "fd1ec423c51ed51b13573409c13a2fa118de6b37b47b4f13e799a1375b3aded4",
+      "evidence_manifest_sha256": "7108a6a09d61c9356c7e9b2e52d8e00036ca2e495106b8727c153025eeb8c1f8",
       "evidence_files": {
         "agent/mini-swe-agent.trajectory.json": {
-          "sha256": "a6cf5bea9a465580a6ea60159eea62e0770235ae35af930587fbc2f99e92578a",
+          "sha256": "892cb4670e1a27eee30aa7559aa2a8a9996be29372d5626fca0f094d4d2cb70b",
           "bytes": 15927
         },
         "agent/mini-swe-agent.txt": {
@@ -491,7 +491,7 @@
           "bytes": 8852
         },
         "agent/trajectory.json": {
-          "sha256": "26f37c0e3824edeae6a78f4a2a9a8eea9bd2721ea140303ce13f336992075ed4",
+          "sha256": "104b60982a915f184d42f37565791d301dd19381e7df9db6fe8b80cf365b7bdd",
           "bytes": 11075
         },
         "artifact/model-tool.json": {
@@ -503,7 +503,7 @@
           "bytes": 26
         },
         "commands.json": {
-          "sha256": "c101d73f1d39f2556ee28c72759cfa33510787fc23d2703848d69bcd12881e4f",
+          "sha256": "6f888cc39de0d2674fe34a896c3d2a7c501f576bb8494d72bd9e2664e9923ab4",
           "bytes": 4911
         }
       }
@@ -513,7 +513,7 @@
       "harness": "pi",
       "model": "gpt-5.4-mini-2026-03-17",
       "status": "passed",
-      "raw_directory": ".cache/native-smoke/20261106T234550411352Z/HN-O03",
+      "raw_directory": ".cache/native-smoke/20261107T061103890032Z/HN-O03",
       "provider_requests": 0,
       "synthetic_protocol_usage": true,
       "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
@@ -569,22 +569,22 @@
           "max_output_tokens": 16384
         }
       ],
-      "evidence_manifest_sha256": "ea0b0c1b4c6d351ff80b7c53e683f215d3fa86cc9db33feb48d5b29c3146f289",
+      "evidence_manifest_sha256": "cba5d6db3ed151aea5c1bdc30a0d1fb1ac3c46b5ca96e4757ac01daabbba23b6",
       "evidence_files": {
         "agent/mock-requests.jsonl": {
-          "sha256": "cc25737621a1ca0d3f26caba40f212cdeae2ba099407e661a9f671aa7cf18bef",
+          "sha256": "afb8cc98f16f9762f441b2b30b93074ac18dba1a7637cdc6be1f8f5b9c5da485",
           "bytes": 7727
         },
-        "agent/pi/sessions/2026-11-06T23-46-14-920Z_01a1b341-7907-71a5-87a8-78a1e53f01b4.jsonl": {
-          "sha256": "0f663144fdd412a08e57825e154ede9d2c9ed574b85b481955e29a2bdf51b7a4",
+        "agent/pi/sessions/2026-11-07T06-11-29-202Z_01a1b4a2-2b31-7608-83e9-1df99a8a868a.jsonl": {
+          "sha256": "56b2af93e73b4555e98afa24c1967abdb72f5a7f3c17ab953aba2bccda33c972",
           "bytes": 3278
         },
         "agent/pi.txt": {
-          "sha256": "15551cc63cd870d819daee10d9875edd855c474dddfe8f2c272c66da0654dd94",
+          "sha256": "8a58ef66639ea5863e5d37908d0696f68fe64bc7f4c897cc1c64d25a405b66a7",
           "bytes": 10362
         },
         "agent/trajectory.json": {
-          "sha256": "b4f373d178bc997cbd0a22095fce2286a720eaec87980651bc1311ea78b9c4f5",
+          "sha256": "b1f8670ffa216bd05c5563d956bbfa12c56f0c355be2dcf7531ff5ba3297549e",
           "bytes": 4066
         },
         "artifact/model-tool.json": {

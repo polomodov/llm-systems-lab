@@ -266,9 +266,9 @@
   "source_and_evidence_sha256": {
     "docs/harness-ledger.md": "54dd73c3f194bec7447cfecb995899d8838a512f0186264986a45c5d76b34e9d",
     "experiments/common/harbor-native-pilot/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
-    "experiments/common/harbor-native-pilot/ACCOUNTING.md": "13e1a463320f9ae96dc55f7ff8c6520bcf25a6fe627baa7a61c55a11690009bc",
+    "experiments/common/harbor-native-pilot/ACCOUNTING.md": "e86ff11dbf4202704baed1e7bfd2763b3a5f66ae28d8feb7800db7f37766a9c8",
     "experiments/common/harbor-native-pilot/README.md": "052440864c9a5003a3254e41b13ef416ccc1fd744f9ffbdf08d228720b09a4a7",
-    "experiments/common/harbor-native-pilot/accounting.py": "3399475bbd65239ab8046f487c39d3304ea5f1d2a3b2ccdf982938bb436bbfd6",
+    "experiments/common/harbor-native-pilot/accounting.py": "4404b97a6e2c87abdb1e043dca486d59318fb21f38044cdb7c99f3e258b69589",
     "experiments/common/harbor-native-pilot/anthropic-source-evidence.json": "9edf2af20182efbe1c83a7d691f294a07479c6e39426a11917e8b113e001436b",
     "experiments/common/harbor-native-pilot/build-images.py": "979c067a0d7628eeec2d7df15aae4fcd7a2f3388656ac78d3579e900ef020e58",
     "experiments/common/harbor-native-pilot/check_preparation.py": "0930504ca33273a1a6ef0d462f6847d72fddc78298f819e2a210102245630644",
@@ -281,9 +281,9 @@
     "experiments/common/harbor-native-pilot/materialize.py": "799773d59180908c0e9fd1306c4a2bf6727ec0a8603d223935e94d55b89c81a1",
     "experiments/common/harbor-native-pilot/mock-provider.mjs": "32f7e5d296623841f019a30d9ed6fa0acdf02145aef80b660b3073ea26be2ace",
     "experiments/common/harbor-native-pilot/mock-provider.test.mjs": "43b4c728b732953f2b774b7c106af5920ce3ae7f982a016b010a72ec9c51bce5",
-    "experiments/common/harbor-native-pilot/native-smoke-evidence.json": "8fe793a0018b1860bbb394f75968f8464271b4360c8e3ed81500ac9806693231",
+    "experiments/common/harbor-native-pilot/native-smoke-evidence.json": "f1819f744763b68352c61e8809ff065c60716ab8514652f8b2a479ddfde00aa6",
     "experiments/common/harbor-native-pilot/offline-checks.json": "a7289a2a1c3de8f8f54be2ad40183871857a35f67f0d18fb524b76909e78c23d",
-    "experiments/common/harbor-native-pilot/offline_smoke.py": "2afdfece73c22995cb998a06adf8d15e0404211260808da8ee91a5d9eb6d6a8f",
+    "experiments/common/harbor-native-pilot/offline_smoke.py": "a2a26c6ecb82c858ed50ce64a780872f152cd8bb876825bcf005503a4e89d0c4",
     "experiments/common/harbor-native-pilot/openai-source-evidence.json": "05b46b8e61f5fb62ad197ae70cc827fbbc77ebe598331d6d670b5511ffcb956f",
     "experiments/common/harbor-native-pilot/package-lock.json": "f7bca4cea56541391c215b9fe829eaa804ee3dffe5f33be2c8a83c848c50d5b7",
     "experiments/common/harbor-native-pilot/pi-source-evidence.json": "b5acb063ae426c846cf783a567df29830df8875a7479891df0df4850c0fe7548",
@@ -307,7 +307,7 @@
     "experiments/common/harbor-native-pilot/task/tests/evaluate.py": "613004ac1c2aa65ce40478585ec614a07473701ff52c41ce599349b17291366f",
     "experiments/common/harbor-native-pilot/task/tests/expected.json": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
     "experiments/common/harbor-native-pilot/task/tests/test.sh": "531ebe2bf0f4796eb8f35e2856c6fe0b331eb602b33e5ba18b16fe3a61551b8c",
-    "experiments/common/harbor-native-pilot/test_accounting.py": "0b22f2e47a702df7b4a1bf99a15e3b71b68dfbdd3145f18b8490687f4402b2f1",
+    "experiments/common/harbor-native-pilot/test_accounting.py": "8abfc370902ef8be63aad13c885d3b13ee0c9e98007ff96362476d0effa5fb7b",
     "experiments/common/harbor-native-pilot/test_inspect.py": "e8bd7abf7a22f26ffd8ae39eb3b47f5561e29bcb16bcbf816494832c557c437e",
     "experiments/common/harbor-native-pilot/test_offline_smoke.py": "d7477b96dc1d70bfacbedd5238d49f6fa16efad7c3e948b810b3ee4a409141a4",
     "experiments/common/harbor-native-pilot/verify_controls.py": "f1e4dce56de0d9b51abbe96eb4204351d15a6501cc1cb85c814453d27d2bcfee",
@@ -345,5 +345,38 @@
         "pr-source-check.log": "6c085cc00f8509ff2a40adcf52aafba1cf4a5ba0195656276ddd9adea63f3f52"
       }
     }
+  },
+  "review_follow_up": {
+    "date": "2026-11-07",
+    "changes": [
+      "Finalize explicit missing-output failures with sealed verifier evidence and settled billing; reject absent-artifact passes or existing files.",
+      "Constrain accounting CLI paths and offline-smoke runtime lock to canonical experiment locations.",
+      "Repeat six native loopback fixtures after smoke validation changed; source hashes and raw evidence updated."
+    ],
+    "changed_source_and_evidence": {
+      "experiments/common/harbor-native-pilot/ACCOUNTING.md": {
+        "previous_sha256": "13e1a463320f9ae96dc55f7ff8c6520bcf25a6fe627baa7a61c55a11690009bc",
+        "current_sha256": "e86ff11dbf4202704baed1e7bfd2763b3a5f66ae28d8feb7800db7f37766a9c8"
+      },
+      "experiments/common/harbor-native-pilot/accounting.py": {
+        "previous_sha256": "3399475bbd65239ab8046f487c39d3304ea5f1d2a3b2ccdf982938bb436bbfd6",
+        "current_sha256": "4404b97a6e2c87abdb1e043dca486d59318fb21f38044cdb7c99f3e258b69589"
+      },
+      "experiments/common/harbor-native-pilot/native-smoke-evidence.json": {
+        "previous_sha256": "8fe793a0018b1860bbb394f75968f8464271b4360c8e3ed81500ac9806693231",
+        "current_sha256": "f1819f744763b68352c61e8809ff065c60716ab8514652f8b2a479ddfde00aa6"
+      },
+      "experiments/common/harbor-native-pilot/offline_smoke.py": {
+        "previous_sha256": "2afdfece73c22995cb998a06adf8d15e0404211260808da8ee91a5d9eb6d6a8f",
+        "current_sha256": "a2a26c6ecb82c858ed50ce64a780872f152cd8bb876825bcf005503a4e89d0c4"
+      },
+      "experiments/common/harbor-native-pilot/test_accounting.py": {
+        "previous_sha256": "0b22f2e47a702df7b4a1bf99a15e3b71b68dfbdd3145f18b8490687f4402b2f1",
+        "current_sha256": "8abfc370902ef8be63aad13c885d3b13ee0c9e98007ff96362476d0effa5fb7b"
+      }
+    },
+    "python_tests_passed": 24,
+    "aggregate_check": "passed:6nativefixtures,4boundarycontrols,6preparedrecords",
+    "paid_runs": 0
   }
 }

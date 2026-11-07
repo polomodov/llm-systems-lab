@@ -208,6 +208,9 @@ async def main():
     parser.add_argument("--slot")
     parser.add_argument("--runtime-lock",type=Path,default=BASE/"runtime-lock.json")
     args=parser.parse_args()
+    runtime_path=BASE/"runtime-lock.json"
+    if args.runtime_lock.absolute()!=runtime_path or runtime_path.is_symlink():
+        raise ValueError("Only the canonical native-pilot runtime lock is allowed")
     if not args.docker_host.startswith("unix://"):
         raise ValueError("Local Unix Docker only")
     os.environ.clear()
@@ -219,7 +222,7 @@ async def main():
         if event=="socket.connect" and args[0].family!=socket.AF_UNIX:
             raise RuntimeError("Host IP connections are disabled during offline smoke")
     sys.addaudithook(no_host_ip_connections)
-    runtime_bytes=args.runtime_lock.read_bytes()
+    runtime_bytes=runtime_path.read_bytes()
     plan_bytes=(BASE/"plan.json").read_bytes()
     lock=json.loads(runtime_bytes)
     plan=json.loads(plan_bytes)
@@ -244,7 +247,7 @@ async def main():
         records.append(result);print(json.dumps(result),flush=True)
     assert records,"No selected slots"
     components_stable=component_hashes=={str(p.relative_to(BASE)):hashlib.sha256(p.read_bytes()).hexdigest() for p in component_paths}
-    runtime_stable=runtime_bytes==args.runtime_lock.read_bytes()
+    runtime_stable=runtime_bytes==runtime_path.read_bytes()
     slots_stable=slot_hash==slot_configuration_sha256(json.loads((BASE/"plan.json").read_text()))
     report={
         "kind":"native-harbor-offline-fixture-lifecycle-evidence",
