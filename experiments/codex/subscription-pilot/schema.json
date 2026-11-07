@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Separate subscription pilot record",
+  "type": "object",
+  "required": [
+    "kind",
+    "run_id",
+    "funding",
+    "synthetic",
+    "execution_authorized",
+    "status",
+    "condition",
+    "started_at",
+    "verdict",
+    "observed_model",
+    "cost_usd",
+    "exact_run_quota_consumption",
+    "live_qualification",
+    "plan_sha256",
+    "source_sha256"
+  ],
+  "properties": {
+    "kind": {
+      "const": "subscription-pilot-run-v1"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "funding": {
+      "const": "chatgpt_subscription"
+    },
+    "synthetic": {
+      "type": "boolean"
+    },
+    "execution_authorized": {
+      "const": false
+    },
+    "status": {
+      "enum": [
+        "prepared",
+        "running",
+        "completed",
+        "aborted"
+      ]
+    },
+    "condition": {
+      "type": "object"
+    },
+    "cost_usd": {
+      "type": "null"
+    },
+    "exact_run_quota_consumption": {
+      "type": "null"
+    },
+    "live_qualification": {
+      "const": "unverified"
+    },
+    "started_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observed_model": {
+      "type": "null"
+    },
+    "verdict": {
+      "enum": [
+        null,
+        "pass",
+        "fail",
+        "aborted"
+      ]
+    },
+    "plan_sha256": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "object"
+    }
+  }
+}
