@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-06",
+  "scope": "Read-only native Harbor adapter source inspection and offline OpenCode help/binary inspection; no model prompts, API clients, credentials, task execution, or campaign edits.",
+  "harbor": {
+    "version": "0.25.0",
+    "commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+    "source_root": "../harbor-interop/.cache/harbor",
+    "source_sha256": {
+      "src/harbor/agents/options.py": "eb26920fb4ccb61b48812803a14db7af7a870fe5410e4190c36977e5c499384b",
+      "src/harbor/agents/installed/base.py": "eb9aa0ae6c49c019925fde180936e551dfaf899b992b455627a5b0286ff40a68",
+      "src/harbor/agents/installed/claude_code.py": "17da63c664d272d0dd9cce13f782399b67d203da7c7922fbe49788f08b0de414",
+      "src/harbor/agents/installed/opencode.py": "ecdfa037328675d952902cae728e97a55af6cdc43001d0f21c191a64852c47c0",
+      "src/harbor/agents/agent_auth_resolution.py": "5983c6da410366f6c66ce86323320db62048d306cb114a54f94321701bf99cd7",
+      "src/harbor/models/job/config.py": "2f29f4d0ab1f4289f6962ce50fb9a1d764388fc50392a4578702c1bfedd42cb8"
+    }
+  },
+  "model_candidate": {
+    "provider": "anthropic",
+    "id": "claude-sonnet-4-6",
+    "harbor_model_name": "anthropic/claude-sonnet-4-6",
+    "live_access": "unverified",
+    "live_model_requests": 0
+  },
+  "shared_findings": [
+    {
+      "finding": "InstalledAgentOptions accepts version and skip_install; omitted version can select latest or any installed version.",
+      "references": [
+        "src/harbor/agents/options.py:68",
+        "src/harbor/agents/installed/base.py:949"
+      ]
+    },
+    {
+      "finding": "With skip_install, a version mismatch only logs a warning and the detected version replaces the requested version. A separate exact-version admission assertion is required.",
+      "reference": "src/harbor/agents/installed/base.py:1191"
+    },
+    {
+      "finding": "Agent execution uses the environment default user; preparation uses root. Explicit UID 1000 and writable HOME/log paths must be qualified. Config-file ownership depends on environment.default_user.",
+      "references": [
+        "src/harbor/agents/installed/base.py:1105",
+        "src/harbor/agents/installed/base.py:1132",
+        "src/harbor/agents/installed/base.py:1171"
+      ]
+    },
+    {
+      "finding": "Harbor retry.max_retries defaults to zero; explicitly preserve zero for a single-attempt pilot. Native CLI HTTP retries are a separate unverified condition.",
+      "reference": "src/harbor/models/job/config.py:292"
+    },
+    {
+      "finding": "Both adapters emit ATIF-v1.7. Both copy final token fields into AgentContext with `or 0`; missing metrics must be reconciled from raw evidence rather than accepted as measured zero.",
+      "references": [
+        "src/harbor/agents/installed/claude_code.py:1826",
+        "src/harbor/agents/installed/claude_code.py:1866",
+        "src/harbor/agents/installed/opencode.py:773",
+        "src/harbor/agents/installed/opencode.py:813"
+      ]
+    }
+  ],
+  "claude_code": {
+    "lab_version": "2.1.83",
+    "native_agent": "claude-code",
+    "status": "source-compatible candidate; live execution unverified",
+    "supported_options": [
+      "version",
+      "skip_install",
+      "config",
+      "max_turns",
+      "max_budget_usd",
+      "permission_mode",
+      "reasoning_effort",
+      "disable_web_search"
+    ],
+    "option_reference": "src/harbor/agents/installed/claude_code.py:62",
+    "model_resolution": "Anthropic provider prefix is removed for ANTHROPIC_MODEL; direct provider credential is ANTHROPIC_API_KEY.",
+    "model_references": [
+      "src/harbor/agents/installed/claude_code.py:1937",
+      "src/harbor/agents/installed/claude_code.py:1995",
+      "src/harbor/agents/installed/claude_code.py:2113"
+    ],
+    "installation": "Debian install path downloads a mutable bootstrap shell script from downloads.claude.ai; use a prebuilt qualified image and skip_install for the pilot.",
+    "installation_reference": "src/harbor/agents/installed/claude_code.py:617",
+    "differences_from_lab": [
+      "Harbor defaults permission_mode to bypassPermissions; lab sets dontAsk. Native option supports dontAsk.",
+      "Harbor does not pass lab's --setting-sources empty-string isolation flag. Clean per-trial HOME/project configuration and explicit safe native settings require qualification.",
+      "Harbor can use ambient Claude effort/output settings; sanitize inherited environment and record effective settings.",
+      "Harbor's observed session model has requested-model fallback; retain native response model evidence and any auxiliary models separately."
+    ],
+    "accounting": "Terminal CLI total_cost_usd takes precedence; absent terminal cost can be replaced with a labeled LiteLLM estimate. Missing per-message usage values can become zero. Reconcile raw terminal/session usage and provider billing.",
+    "accounting_references": [
+      "src/harbor/agents/installed/claude_code.py:1074",
+      "src/harbor/agents/installed/claude_code.py:1186",
+      "src/harbor/agents/installed/claude_code.py:1404",
+      "src/harbor/agents/installed/claude_code.py:1807"
+    ]
+  },
+  "opencode": {
+    "lab_version": "1.18.29",
+    "native_agent": "opencode",
+    "status": "source and installed flag compatibility established; live execution and permission behavior unverified",
+    "supported_options": [
+      "version",
+      "skip_install",
+      "reasoning_effort (alias variant)",
+      "opencode_config",
+      "disable_web_search"
+    ],
+    "option_reference": "src/harbor/agents/installed/opencode.py:270",
+    "model_resolution": "Provider/model selector is retained; direct anthropic connection uses ANTHROPIC_API_KEY and Anthropic Messages.",
+    "model_references": [
+      "src/harbor/agents/installed/opencode.py:400",
+      "src/harbor/agents/agent_auth_resolution.py:64"
+    ],
+    "installation": "Installer can install coreutils, Node/nvm and opencode-ai; use a prebuilt image with coreutils and skip_install to avoid runtime dependency drift.",
+    "installation_reference": "src/harbor/agents/installed/opencode.py:424",
+    "differences_from_lab": [
+      "Harbor hardcodes --thinking and --dangerously-skip-permissions, sets OPENCODE_FAKE_VCS=git and uses separate XDG storage.",
+      "The dangerous flag is a supported hidden alias for auto-approval, not an unsupported argument. It is absent from normal help because the installed parser marks it hidden.",
+      "Harbor opencode_config can explicitly set model/small_model/build-agent model and advisory steps; default configuration is empty.",
+      "Harbor has no native max_turns or max_budget_usd option; timeout and external spending admission remain required."
+    ],
+    "accounting": "Only completed step_start/step_finish groups contribute. Prompt-token totals sum input plus cache-read, excluding cache-write (retained in extra). Requested configuration supplies ATIF model_name; it is not observed model identity. Zero totals become null in ATIF, then can become zero in AgentContext.",
+    "accounting_references": [
+      "src/harbor/agents/installed/opencode.py:567",
+      "src/harbor/agents/installed/opencode.py:681",
+      "src/harbor/agents/installed/opencode.py:728",
+      "src/harbor/agents/installed/opencode.py:764"
+    ]
+  },
+  "opencode_offline_evidence": {
+    "image_tag": "harness-lab/opencode:1.18.29",
+    "image_id": "sha256:2da82e2d2e7dca044974357472e60b27f6e6167818db56368e9c3d126b59f984",
+    "binary_path": "/usr/local/lib/node_modules/opencode-ai/bin/opencode.exe",
+    "bytes": 184199312,
+    "sha256": "e94d9ebec16ce2611eae94026afe8ec87f2e2dcc66db40bc4f889955b026eb75",
+    "isolation": {
+      "network": "none",
+      "root_filesystem": "read-only",
+      "user": "1000:1000",
+      "host_mounts": [],
+      "credentials_forwarded": false,
+      "prompts_sent": false,
+      "model_calls": 0
+    },
+    "help": {
+      "command": "docker --context colima run --rm --network none --read-only --user 1000:1000 --tmpfs /tmp:rw,nosuid,nodev,size=67108864,uid=1000,gid=1000 --env HOME=/tmp/opencode-help --env XDG_CACHE_HOME=/tmp/opencode-cache --workdir /tmp --entrypoint opencode harness-lab/opencode:1.18.29 run --help",
+      "exit_code": 0,
+      "stdout": "opencode run [message..]\n\nrun opencode with a message\n\nPositionals:\n  message  message to send                                                     [array] [default: []]\n\nOptions:\n  -h, --help         show help                                                             [boolean]\n  -v, --version      show version number                                                   [boolean]\n      --print-logs   print logs to stderr                                                  [boolean]\n      --log-level    log level                  [string] [choices: \"DEBUG\", \"INFO\", \"WARN\", \"ERROR\"]\n      --pure         run without external plugins                                          [boolean]\n      --command      the command to run, use message for args                               [string]\n  -c, --continue     continue the last session                                             [boolean]\n  -s, --session      session id to continue                                                 [string]\n      --fork         fork the session before continuing (requires --continue or --session) [boolean]\n      --share        share the session                                                     [boolean]\n  -m, --model        model to use in the format of provider/model                           [string]\n      --agent        agent to use                                                           [string]\n      --format       format: default (formatted) or json (raw JSON events)\n                                          [string] [choices: \"default\", \"json\"] [default: \"default\"]\n  -f, --file         file(s) to attach to message                                            [array]\n      --title        title for the session (uses truncated prompt if no value provided)     [string]\n      --attach       attach to a running opencode server (e.g., http://localhost:4096)      [string]\n  -p, --password     basic auth password (defaults to OPENCODE_SERVER_PASSWORD)             [string]\n  -u, --username     basic auth username (defaults to OPENCODE_SERVER_USERNAME or 'opencode')\n                                                                                            [string]\n      --dir          directory to run in, path on remote server if attaching                [string]\n      --port         port for the local server (defaults to random port if no value provided)\n                                                                                            [number]\n      --variant      model variant (provider-specific reasoning effort, e.g., high, max, minimal)\n                                                                                            [string]\n      --thinking     show thinking blocks                                                  [boolean]\n  -i, --interactive  run in direct interactive split-footer mode          [boolean] [default: false]\n      --auto         auto-approve permissions that are not explicitly denied (dangerous!)\n                                                                          [boolean] [default: false]",
+      "thinking_visible": true,
+      "dangerous_alias_visible": false
+    },
+    "static_binary_inspection": {
+      "method": "Read the installed binary using Node fs.readFileSync in a network-none/read-only container. Search raw embedded JavaScript bytes; no harness prompt or execution path is invoked.",
+      "byte_offsets_are": "Zero-based byte offsets in the SHA-256-identified installed binary.",
+      "snippets": [
+        {
+          "offset": 96271518,
+          "text": ".option(\"dangerously-skip-permissions\",{type:\"boolean\",hidden:!0,default:!1})"
+        },
+        {
+          "offset": 96272229,
+          "text": "Hj=j.auto||j.yolo||j[\"dangerously-skip-permissions\"]"
+        },
+        {
+          "offset": 96280272,
+          "text": "if(Hj)await N.permission.reply({requestID:J.id,reply:\"once\"})"
+        }
+      ],
+      "conclusion": "The hidden flag is parsed and used by Cli.run to auto-approve emitted permission requests. The public --auto help describes approval for permissions not explicitly denied. Actual tool deny/allow enforcement with a real model remains unverified."
+    }
+  }
+}

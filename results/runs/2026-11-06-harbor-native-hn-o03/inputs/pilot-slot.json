@@ -1,0 +1,24 @@
+{
+  "order": 6,
+  "slot_id": "HN-O03",
+  "harness": "pi",
+  "harbor_agent": "pi",
+  "version": "0.73.1",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "provider": "openai",
+  "model_name": "openai/gpt-5.4-mini-2026-03-17",
+  "wire_model_id": "gpt-5.4-mini-2026-03-17",
+  "model_api_key_name": "OPENAI_API_KEY",
+  "planned_kwargs": {
+    "version": "0.73.1",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "max_turns": 8
+  },
+  "metadata_recipe": "pi-source-evidence.json#proposed_metadata_delivery.direct_provider_route",
+  "condition_notes": "Block until exact dated ID resolves with mini-family metadata in native CLI. No base_url/model_api override, MCP or inherited PI_CODING_AGENT_DIR. Dedicated non-secret models/settings files must be frozen and verified.",
+  "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-06-harbor-native-hn-o03"
+}

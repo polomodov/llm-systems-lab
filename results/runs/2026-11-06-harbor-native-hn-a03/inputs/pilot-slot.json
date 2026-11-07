@@ -1,0 +1,23 @@
+{
+  "order": 4,
+  "slot_id": "HN-A03",
+  "harness": "pi",
+  "harbor_agent": "pi",
+  "version": "0.73.1",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-4-6",
+  "wire_model_id": "claude-sonnet-4-6",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "0.73.1",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "max_turns": 8
+  },
+  "condition_notes": "Freeze native settings disabling retry/compaction; no MCP. Harbor turn extension modifies prompt and abort semantics. Separate from lab SDK condition; no native hard USD cap.",
+  "image_id": "sha256:54de64a9370fc3fcac5cbd58001c56b6210917d23df9daa6d926b7e93af594be",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-06-harbor-native-hn-a03"
+}

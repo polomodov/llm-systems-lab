@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-06T23:24:35.731345+00:00",
+  "evidence_class": "pinned-source-and-installed-package-inspection",
+  "harbor_version": "0.25.0",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "boundaries": {
+    "model_requests": 0,
+    "credentials_read": false,
+    "campaign_files_modified": false,
+    "adapter_or_image_modified": false,
+    "paid_execution_authorized": false
+  },
+  "scope": "Read-only compatibility inspection and options for a future separately authorized pilot; not an executable job configuration or live qualification.",
+  "candidate_model": {
+    "harbor_name": "openai/gpt-5.4-mini-2026-03-17",
+    "wire_id": "gpt-5.4-mini-2026-03-17",
+    "official_source": "https://developers.openai.com/api/docs/models/gpt-5.4-mini",
+    "official_snapshot_and_both_transports_checked_by_parent": true,
+    "live_account_access": "unverified",
+    "live_request_compatibility": "unverified"
+  },
+  "source_sha256": {
+    "src/harbor/agents/installed/codex.py": "c1a7d08fc7a3ce871f7037d79731533263044a62cff08dedf216f0ec5dd7288a",
+    "src/harbor/agents/installed/mini_swe_agent.py": "5a7b4b6116d9b62d1324e7b39e2a42c8828a4da5be589ca1ff1195ef2e9dd82c",
+    "src/harbor/agents/installed/base.py": "eb9aa0ae6c49c019925fde180936e551dfaf899b992b455627a5b0286ff40a68",
+    "src/harbor/llms/litellm_config.py": "2ba75907c4c49cf8a1ff6372995f6e1d141328de7a1a7c356b09b1c3ef6aae90",
+    "src/harbor/models/model_api_format.py": "41ecbbdbe5f60a3f09789b275cebb4164daaa158387ea9022f753db28234c651",
+    "src/harbor/models/trial/config.py": "b04f0672343405e176d0f7e54263fc0bf1bb191ae112a8e2d98e2d2c98887dbe",
+    "src/harbor/models/job/config.py": "2f29f4d0ab1f4289f6962ce50fb9a1d764388fc50392a4578702c1bfedd42cb8"
+  },
+  "common": {
+    "version_configuration": "Set exact version under AgentConfig.kwargs.version, not a top-level AgentConfig version.",
+    "skip_install_caveat": "BaseInstalledAgent.setup detects the installed version when skip_install is true, but only warns on a mismatch and records the detected version. An independent fail-closed exact-version gate remains required.",
+    "network": "Only the selected inference endpoint should be reachable during execution; setup package downloads must be completed separately. Base URL support does not prove compatibility with the laboratory gateway.",
+    "retries": "Job retry.max_retries defaults to 0 and n_attempts defaults to 1. These do not disable native model/HTTP retries.",
+    "source_refs": [
+      "src/harbor/models/trial/config.py:65",
+      "src/harbor/models/trial/config.py:165",
+      "src/harbor/agents/installed/base.py:644",
+      "src/harbor/agents/installed/base.py:1171",
+      "src/harbor/models/job/config.py:293",
+      "src/harbor/models/job/config.py:406"
+    ]
+  },
+  "codex": {
+    "lab_version": "0.155.1",
+    "lab_mode": "cli",
+    "harbor_agent_name": "codex",
+    "harbor_mode": "cli",
+    "compatibility": "Native adapter and exact-version option exist; actual Harbor launch with this pin and model is unverified.",
+    "suggested_options_for_later_manifest": {
+      "model_name": "openai/gpt-5.4-mini-2026-03-17",
+      "model_api_format": "openai_responses",
+      "model_api_key_name": "CODEX_API_KEY",
+      "kwargs.version": "0.155.1",
+      "kwargs.skip_install": true,
+      "kwargs.web_search": "disabled",
+      "kwargs.config.agents.enabled": false,
+      "reasoning_effort": "Freeze explicitly or record native default; do not infer parity with Pi/mini.",
+      "credentials": "Names only here. Any real credential use requires a separately authorized run through the harness-owned .env mechanism; never mount host auth.json."
+    },
+    "installation": {
+      "pin_support": "npm @openai/codex@<version>; if the requested version already exists, install returns without replacing it.",
+      "unfrozen_defaults": "Omitted version uses @latest. Fresh glibc installation fetches NVM v0.40.2 and selects floating Node22. Prefer a separately recorded immutable image with the already pinned binary.",
+      "nonroot": "Runtime uses the environment default agent user; private Codex home is handed to the detected UID/GID, while setup/ownership uses root."
+    },
+    "native_command": "codex exec --dangerously-bypass-approvals-and-sandbox --skip-git-repo-check --model <exact-wire-id> --json --enable unified_exec [option flags] -- <instruction>",
+    "differences_from_lab": [
+      "Harbor retains native sessions for ATIF; the lab passes --ephemeral.",
+      "Harbor does not add the lab --ignore-user-config and --ignore-rules flags. Use an isolated fresh HOME/CODEX_HOME and inspect the task for agent-readable instructions.",
+      "Harbor enables unified_exec. Its effective tool configuration and exact 0.155.1 feature acceptance need a separate offline/live qualification gate.",
+      "The lab explicitly disables web search and agents. Harbor options/config must freeze these deliberately for this pilot.",
+      "Normal native execution resolves OPENAI_API_KEY before CODEX_API_KEY by default and writes temporary auth.json; explicitly choose the intended credential source name. Do not fall back to ChatGPT auth files."
+    ],
+    "limits": "No native turn or USD limit is exposed by this Harbor Codex option set. Outer timeout and operator admission/billing rules are required; they are not an in-flight dollar cap.",
+    "accounting": [
+      "Native session rollouts become ATIF-v1.7; conversion errors are logged and can leave no trajectory, so successful CLI exit alone is insufficient.",
+      "Token totals come from rollout token_count events; absent cost is estimated from Harbor host LiteLLM pricing. Treat it as an estimate, not independent billing.",
+      "ATIF model_name may originate in configured model_name/turn_context. Do not count it alone as a provider-observed identity."
+    ],
+    "source_refs": [
+      "src/harbor/agents/installed/codex.py:95",
+      "src/harbor/agents/installed/codex.py:154",
+      "src/harbor/agents/installed/codex.py:367",
+      "src/harbor/agents/installed/codex.py:644",
+      "src/harbor/agents/installed/codex.py:728",
+      "src/harbor/agents/installed/codex.py:1288",
+      "src/harbor/agents/installed/codex.py:1627",
+      "src/harbor/agents/installed/codex.py:1823",
+      "src/harbor/agents/installed/codex.py:1900",
+      "src/harbor/agents/installed/codex.py:1984",
+      "src/harbor/agents/installed/codex.py:2069",
+      "src/harbor/agents/installed/codex.py:2204",
+      "experiments/codex/adapter.mjs:1"
+    ]
+  },
+  "mini_swe_agent": {
+    "lab_version": "2.4.6",
+    "lab_mode": "sdk",
+    "lab_agent_class": "DefaultAgent through laboratory TracedAgent subclass",
+    "harbor_agent_name": "mini-swe-agent",
+    "harbor_mode": "cli",
+    "native_default_agent_class": "InteractiveAgent with yolo mode and confirm_exit=false",
+    "compatibility": "Native adapter and exact-version option exist; CLI flags are present in installed mini2.4.6 source. Existing lab image cannot satisfy Harbor native version detection because uv is absent. Full Harbor launch is unverified.",
+    "suggested_options_for_later_manifest": {
+      "model_name": "openai/gpt-5.4-mini-2026-03-17",
+      "model_api_format": "openai_chat_completions",
+      "model_api_key_name": "OPENAI_API_KEY",
+      "kwargs.version": "2.4.6",
+      "kwargs.skip_install": true,
+      "kwargs.config.model.cost_tracking": "default",
+      "kwargs.config.agent.step_limit": {
+        "type": "integer",
+        "value_from": "the separate pilot contract"
+      },
+      "kwargs.cost_limit": {
+        "type": "string",
+        "value_from": "the separate pilot contract target; native check is post-spend, never a hard USD cap"
+      },
+      "reasoning_effort": "Freeze explicitly or record native default; no parity claim.",
+      "skip_install_precondition": "An immutable image with a functioning pinned uv tool installation and independently verified mini/LiteLLM/runtime versions is required first."
+    },
+    "installation": {
+      "pin_support": "uv tool install mini-swe-agent==<version>",
+      "unfrozen_defaults": "Installer selects Python3.12, downloads uv installer, and adds unpinned litellm[mcp], orjson and fastapi. Mini version alone does not lock the dependency set.",
+      "version_command": "uv tool list 2>/dev/null | grep mini-swe-agent",
+      "lab_image": "sha256:71d0819cae1fc705322a4a8c385453473884b869e48e9e22e41e7d845f8be5d4",
+      "lab_image_uv_on_path": null,
+      "lab_image_litellm": "1.108.1"
+    },
+    "native_command": "mini-swe-agent --yolo --model=<provider/model> --task=<instruction> --output=<native trajectory> --cost-limit=<value> -c mini [config overrides] --exit-immediately",
+    "defaults_and_limits": [
+      "Harbor cost_limit defaults to string 0, disabling cost stopping; packaged mini.yaml step_limit is0. Neither default is acceptable as an implicit pilot budget.",
+      "Harbor sets model.model_kwargs.timeout=3600 seconds. A shorter external pilot timeout must be explicit.",
+      "mini2.4.6 native retry helper defaults to10 attempts via MSWEA_MODEL_RETRY_STOP_AFTER_ATTEMPT. Preserve and record it, or qualify a deliberately changed value as a distinct condition.",
+      "Mini checks accumulated cost before a subsequent query, after a billed call may already exceed the target.",
+      "Harbor prepends -c mini before overrides, preserving the packaged prompt; a custom config can set agent.step_limit and model.cost_tracking."
+    ],
+    "accounting": [
+      "Harbor sets MSWEA_COST_TRACKING=ignore_errors. Explicit model.cost_tracking=default in a pilot config prevents that from silently replacing the lab cost policy.",
+      "Harbor normalizes missing token usage to0 and missing instance_cost to0 in AgentContext. ATIF may instead use null for zero cost and apportions per-step cost by output-token share. Preserve raw native evidence and independently validate completeness; never import these zero fallbacks as observed lab measurements.",
+      "ATIF model_name comes from mini info.config.model.model_name. Read raw provider responses for observed identity; ATIF alone is not proof.",
+      "Both raw mini-swe-agent.trajectory.json and converted ATIF-v1.7 must exist and reconcile; conversion failures are logged rather than treated as a model failure."
+    ],
+    "source_refs": [
+      "src/harbor/agents/installed/mini_swe_agent.py:55",
+      "src/harbor/agents/installed/mini_swe_agent.py:100",
+      "src/harbor/agents/installed/mini_swe_agent.py:269",
+      "src/harbor/agents/installed/mini_swe_agent.py:488",
+      "src/harbor/agents/installed/mini_swe_agent.py:647",
+      "src/harbor/agents/installed/mini_swe_agent.py:740",
+      "src/harbor/agents/installed/mini_swe_agent.py:756",
+      "src/harbor/agents/installed/mini_swe_agent.py:802",
+      "src/harbor/agents/installed/mini_swe_agent.py:848",
+      "src/harbor/agents/installed/mini_swe_agent.py:1000",
+      "experiments/mini-swe-agent/run.py:1"
+    ]
+  },
+  "installed_package_inspection": {
+    "method": "docker run --rm --network none --read-only --user1000:1000 --entrypoint python <existing-image>; stdlib importlib.metadata, hashlib and pathlib only; no host mounts, forwarded credentials, API client imports or model execution.",
+    "files_sha256": {
+      "minisweagent/run/mini.py": "ae9c82013afbc8e0320dc1e55600eed9d9ee6dec5acbc59763ff984a0594f9a9",
+      "minisweagent/config/mini.yaml": "b539a8965f5bf41dd0f32daafa5d2db22581923d13812fa378fd09569b9d6b0c",
+      "minisweagent/agents/default.py": "e8ef8aa365942d739c2ec5cb0879f60f377d2dc2de8ec670aaedf3bafb45a4c2",
+      "minisweagent/agents/interactive.py": "d68236832ce2a8c65340fdfd4cdb6df2a24818691112f83bc229197203521cce",
+      "minisweagent/models/litellm_model.py": "6df4483bcdc9620b2f9d7f8bb1027a7fb9729b739976cbcf1a9d18fb58c48227",
+      "minisweagent/models/utils/retry.py": "fb9dd9d9ca0253a2b2ac86907fea4c34fe75c55af6d443781e1ab02229a1ac18"
+    },
+    "line_refs": [
+      "minisweagent/run/mini.py:54-65 CLI flags",
+      "minisweagent/run/mini.py:101 default_type=interactive",
+      "minisweagent/config/mini.yaml:101 step_limit=0",
+      "minisweagent/agents/default.py:28 post-spend cost policy",
+      "minisweagent/models/litellm_model.py:36 cost_tracking",
+      "minisweagent/models/litellm_model.py:111-115 cost fallback",
+      "minisweagent/models/utils/retry.py:21 default10 attempts"
+    ]
+  }
+}

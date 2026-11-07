@@ -2,6 +2,7 @@ import { localRecordErrors } from './local-inference.mjs';
 import { existsSync, lstatSync, readFileSync } from 'node:fs';
 import { basename, dirname, join, relative, resolve, sep } from 'node:path';
 import { inventory, safePath, sha256 } from './files.mjs';
+import { taskLimits } from './contracts.mjs';
 
 function ownedPath(root, path, kind = 'file') {
   const full = safePath(root, path);
@@ -19,8 +20,41 @@ function sameInventory(path, expected, label) {
   if (!Array.isArray(expected) || JSON.stringify(inventory(path)) !== JSON.stringify(expected)) throw new Error(`Run integrity: ${label} changed after snapshot`);
 }
 
+function verifyHarborPilot(dir, record, manifest) {
+  if (record.task !== 'harbor-native-normalize') return;
+  if (manifest.version !== 1 || manifest.importer !== 'harbor-native-pilot-v1') throw new Error('Harbor pilot requires its sealed native-format manifest');
+  const slot = JSON.parse(readFileSync(ownedPath(dir, 'inputs/pilot-slot.json'), 'utf8'));
+  if (slot.harness !== record.harness.name || slot.version !== record.harness.version || slot.wire_model_id !== record.model.id || slot.provider !== record.model.provider || slot.harbor_mode !== record.harness.mode) throw new Error('Harbor pilot sealed slot differs from record');
+  const runtimeText = readFileSync(ownedPath(dir, 'inputs/runtime-lock.json'));
+  const runtime = JSON.parse(runtimeText);
+  const packages = JSON.parse(readFileSync(ownedPath(dir, 'inputs/package-lock.json'), 'utf8'));
+  const matches = packages.packages.filter(row => row.slot_id === slot.slot_id && row.mode === 'prepared');
+  const runtimeImage = runtime.images[record.harness.name];
+  if (packages.runtime_lock_sha256 !== sha256(runtimeText) || matches.length !== 1 || runtimeImage.image_id !== manifest.image_id || runtimeImage.version !== record.harness.version) throw new Error('Harbor pilot runtime/package lock mismatch');
+  const pkg = matches[0];
+  const sourceFiles = Object.fromEntries(Object.entries(packages.source_sha256).filter(([path]) => path.startsWith('task/')).map(([path, hash]) => [path.slice(5), hash]));
+  const expected = { ...sourceFiles, ...pkg.file_sha256 };
+  const actual = Object.fromEntries(inventory(ownedPath(dir, 'inputs/task-package', 'directory')).map(row => [row.path, row.sha256]));
+  const pairs = value => JSON.stringify(Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0));
+  const digest = sha256(Object.entries(pkg.harbor_file_sha256).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([path, hash]) => `${path}\0${hash}\n`).join(''));
+  if (pairs(expected) !== pairs(actual) || pkg.task_digest !== `sha256:${digest}` || pkg.image_id !== manifest.image_id || pkg.verifier_image_id !== runtime.verifier.image_id) throw new Error('Harbor pilot frozen package differs from lock');
+  const limits = taskLimits(readFileSync(ownedPath(dir, 'inputs/task.md'), 'utf8'));
+  if (limits.budget !== record.loop.budget_usd || manifest.image_id !== record.execution.image_id) throw new Error('Harbor pilot sealed runtime/budget differs from record');
+  if (!['completed', 'aborted'].includes(record.status)) return;
+  const accountingText = readFileSync(ownedPath(dir, 'trace/accounting.json'));
+  const accounting = JSON.parse(accountingText);
+  const evaluationText = readFileSync(ownedPath(dir, record.evaluation.evidence_path));
+  const evaluation = JSON.parse(evaluationText);
+  if (sha256(evaluationText) !== record.evaluation.evidence_sha256 || evaluation.accounting_sha256 !== sha256(accountingText)) throw new Error('Harbor pilot accounting seal differs from evaluation');
+  if (accounting.start_receipt_sha256 !== sha256(readFileSync(ownedPath(dir, 'trace/start-receipt.json')))) throw new Error('Harbor pilot execution receipt changed');
+  if (JSON.stringify(accounting.loop) !== JSON.stringify(record.loop) || accounting.permissions_asked !== record.permissions.asked) throw new Error('Harbor pilot measurements differ from evidence');
+  if (accounting.run_id !== record.run_id || accounting.status !== record.status || accounting.cost_usd !== record.loop.cost_usd || accounting.observed_model_id !== record.model.observed_id) throw new Error('Harbor pilot accounting differs from record');
+  sameInventory(ownedPath(dir, 'trace/evidence', 'directory'), accounting.evidence_files, 'Harbor evidence');
+}
+
 /** Verify native coordinator snapshots without importing the runner or records module. */
 export function verifyRunIntegrity(root, record) {
+  if (record?.task === 'harbor-native-normalize' && !record?.inputs?.manifest_path) throw new Error('Harbor pilot requires sealed preparation');
   if (!record?.inputs?.manifest_path) return;
   if (!/^\d{4}-\d{2}-\d{2}-[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.run_id)) throw new Error('Run integrity: invalid run_id');
   const dir = ownedPath(root, `results/runs/${record.run_id}`, 'directory');
@@ -28,6 +62,7 @@ export function verifyRunIntegrity(root, record) {
   const manifestText = readFileSync(manifestPath);
   if (sha256(manifestText) !== record.inputs.manifest_sha256) throw new Error('Run integrity: input manifest SHA-256 mismatch');
   const manifest = JSON.parse(manifestText);
+  verifyHarborPilot(dir, record, manifest);
   // Generic record importers may attach their own manifest format. Native files
   // always declare version; an unknown native version must never silently pass.
   if (manifest?.version === undefined) return;

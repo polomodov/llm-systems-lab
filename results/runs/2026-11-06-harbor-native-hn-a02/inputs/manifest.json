@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "importer": "harbor-native-pilot-v1",
+  "task": "harbor-native-normalize",
+  "harness": "opencode",
+  "image_id": "sha256:f112c67d2016b4c1bef6fc1f197e3adda65a0b3f7b9a2d3b944c4d2bb7a95396",
+  "files": [
+    {
+      "path": "agent-spec.md",
+      "sha256": "6bb08f28783f5ea4442c6210768b7aecdf064a559940912aeded1659bdfe486e",
+      "bytes": 498,
+      "executable": false
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "f7bca4cea56541391c215b9fe829eaa804ee3dffe5f33be2c8a83c848c50d5b7",
+      "bytes": 31676,
+      "executable": false
+    },
+    {
+      "path": "pilot-slot.json",
+      "sha256": "5a5272bbe5fa64851e9f91230f1a890f34cc9421201fb9073bd14f60545b7e2e",
+      "bytes": 1147,
+      "executable": false
+    },
+    {
+      "path": "plan.json",
+      "sha256": "8680b3302c30a06da1fdaf4326a678f32f875070ff37315ff22e2d30b1a19292",
+      "bytes": 18003,
+      "executable": false
+    },
+    {
+      "path": "registration.json",
+      "sha256": "c65e1cf853dc3b3b509cd481d43ba14ce8206fcfed57525d47f12fd314e79293",
+      "bytes": 263,
+      "executable": false
+    },
+    {
+      "path": "runtime-lock.json",
+      "sha256": "d5f0c2fecc40acf8addedabcfccb3b5ef8e78341af05f3a163584d039e764877",
+      "bytes": 6506,
+      "executable": false
+    },
+    {
+      "path": "task-package/.harborignore",
+      "sha256": "643690c7c7e79bde1c9f834d4e25a7345b6fa8c5d4fa87459d43c2d788a46dec",
+      "bytes": 34,
+      "executable": false
+    },
+    {
+      "path": "task-package/agent-spec.md",
+      "sha256": "6bb08f28783f5ea4442c6210768b7aecdf064a559940912aeded1659bdfe486e",
+      "bytes": 498,
+      "executable": false
+    },
+    {
+      "path": "task-package/contract.md",
+      "sha256": "d39acbe8eaee986eea9f17ad950e85c1e1133e6307e853b14b3d5fcec2983d1b",
+      "bytes": 1690,
+      "executable": false
+    },
+    {
+      "path": "task-package/environment/input.json",
+      "sha256": "278fa93632546a8e45249b8d001d3bada241486119a43305670abe8fb35f751b",
+      "bytes": 62,
+      "executable": false
+    },
+    {
+      "path": "task-package/instruction.md",
+      "sha256": "3e2c0e91b8942e1c379798e58ef4ac4048e3f7d427fcaf7a092f90b0222684d3",
+      "bytes": 653,
+      "executable": false
+    },
+    {
+      "path": "task-package/registration.json",
+      "sha256": "c65e1cf853dc3b3b509cd481d43ba14ce8206fcfed57525d47f12fd314e79293",
+      "bytes": 263,
+      "executable": false
+    },
+    {
+      "path": "task-package/solution/solve.sh",
+      "sha256": "6e040e328e349166efd27baa2291b39208579d63a8acb870930ae706ae1a7d8c",
+      "bytes": 1121,
+      "executable": true
+    },
+    {
+      "path": "task-package/task.toml",
+      "sha256": "b1a4b538c7cbe7c4efa4045a7f8342b891d75c217482870b96bbf8c3af20e323",
+      "bytes": 912,
+      "executable": false
+    },
+    {
+      "path": "task-package/tests/.dockerignore",
+      "sha256": "5cfb02ba99598574bcec20ba82895df0dd6ccf2555aeaa72a8d4f1f78df2d51d",
+      "bytes": 59,
+      "executable": false
+    },
+    {
+      "path": "task-package/tests/.harborignore",
+      "sha256": "ac2de72f51a815d5d4c3b2c16f8aa800a4c817c4b4f5e054218e300c661b47fa",
+      "bytes": 25,
+      "executable": false
+    },
+    {
+      "path": "task-package/tests/evaluate.py",
+      "sha256": "613004ac1c2aa65ce40478585ec614a07473701ff52c41ce599349b17291366f",
+      "bytes": 2185,
+      "executable": false
+    },
+    {
+      "path": "task-package/tests/expected.json",
+      "sha256": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+      "bytes": 28,
+      "executable": false
+    },
+    {
+      "path": "task-package/tests/test.sh",
+      "sha256": "531ebe2bf0f4796eb8f35e2856c6fe0b331eb602b33e5ba18b16fe3a61551b8c",
+      "bytes": 109,
+      "executable": true
+    },
+    {
+      "path": "task.md",
+      "sha256": "d39acbe8eaee986eea9f17ad950e85c1e1133e6307e853b14b3d5fcec2983d1b",
+      "bytes": 1690,
+      "executable": false
+    }
+  ],
+  "workspace": []
+}
