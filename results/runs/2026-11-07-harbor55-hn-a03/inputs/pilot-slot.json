@@ -1,0 +1,23 @@
+{
+  "order": 4,
+  "slot_id": "HN-A03",
+  "harness": "pi",
+  "harbor_agent": "pi",
+  "version": "0.73.1",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "provider": "anthropic",
+  "model_name": "anthropic/claude-sonnet-5-5",
+  "wire_model_id": "claude-sonnet-5-5",
+  "model_api_key_name": "ANTHROPIC_API_KEY",
+  "planned_kwargs": {
+    "version": "0.73.1",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "max_turns": 8
+  },
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:f8f31d3d72328e6914acb304e82879fde2c34d4c1430a7ad85bcb7b78ea81424",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-a03"
+}

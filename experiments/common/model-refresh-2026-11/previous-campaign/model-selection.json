@@ -1,0 +1,300 @@
+{
+  "schema_version": 1,
+  "campaign_id": "2026-11-first-comparison",
+  "checked_on": "2026-11-06",
+  "scope": "Model selection and offline compatibility inspection, without provider requests or real run records.",
+  "model_api_calls": 0,
+  "credentials_read": false,
+  "paid_execution_authorized": false,
+  "selected_models": [
+    {
+      "provider": "anthropic",
+      "model_id": "claude-sonnet-4-6",
+      "selection_reason": "Active fixed Sonnet release present in both pinned Pi and OpenCode catalogs; Claude Code help names this exact model. Newer Sonnet releases are absent from pinned Pi.",
+      "provider_documentation": {
+        "lifecycle": "active legacy",
+        "retirement_not_before": "2027-02-17",
+        "identity": "Canonical fixed snapshot despite having no date suffix",
+        "prices_usd_per_million_tokens": {
+          "input": 3,
+          "output": 15,
+          "cache_read": 0.3,
+          "cache_write_5m": 3.75,
+          "cache_write_1h": 6
+        },
+        "pricing_conditions": "Standard global direct Claude API token rates; regional premiums and additional services excluded.",
+        "sources": [
+          "https://platform.claude.com/docs/en/models/sonnet-4-6/overview",
+          "https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions",
+          "https://platform.claude.com/docs/en/about-claude/pricing",
+          "https://platform.claude.com/docs/en/about-claude/model-deprecations"
+        ]
+      },
+      "offline_checks": {
+        "claude-code": {
+          "version": "2.1.83",
+          "image_id": "sha256:d19b4570fc10ee218dc169eb0a1fe662c27763dfa3c06772519166e705fcf094",
+          "check": "claude --model claude-sonnet-4-6 --help exited 0; help explicitly names claude-sonnet-4-6 as an example full model name",
+          "level": "CLI argument surface only, not a model request"
+        },
+        "pi": {
+          "version": "0.73.1",
+          "image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+          "registry_exact": true,
+          "resolved_model_id": "claude-sonnet-4-6",
+          "api": "anthropic-messages",
+          "native_session_initialized": true,
+          "prompt_called": false,
+          "thinking_level": "medium",
+          "context_window": 1000000,
+          "max_output_metadata": 64000,
+          "cost_usd_per_million_tokens": {
+            "input": 3,
+            "output": 15,
+            "cache_read": 0.3,
+            "cache_write": 3.75
+          }
+        },
+        "opencode": {
+          "version": "1.18.29",
+          "evidence": "anthropic-model-preflight.json"
+        }
+      },
+      "live_account_access": "unverified",
+      "live_request_compatibility": "unverified"
+    },
+    {
+      "provider": "openai",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "selection_reason": "Dated coding-capable snapshot whose family exists in pinned Pi and whose exact ID/pricing exists in pinned LiteLLM; both Responses and Chat Completions are documented. Native Codex configuration acceptance is checked separately.",
+      "provider_documentation": {
+        "identity": "Dated snapshot",
+        "prices_usd_per_million_tokens": {
+          "input": 0.75,
+          "output": 4.5,
+          "cached_input": 0.075
+        },
+        "pricing_conditions": "Standard global direct OpenAI API token rates; regional premiums and additional tools excluded.",
+        "sources": [
+          "https://developers.openai.com/api/docs/models/gpt-5.4-mini"
+        ]
+      },
+      "offline_checks": {
+        "pi": {
+          "version": "0.73.1",
+          "image_id": "sha256:14966241647fca0f551edefbf44914b12ac2d50ded7622c2294bcfbe84205a6b",
+          "registry_exact": false,
+          "metadata_family": "gpt-5.4-mini",
+          "resolved_model_id": "gpt-5.4-mini-2026-03-17",
+          "resolution": "Existing resolveModel dated-snapshot fallback preserves exact requested ID and inherits family transport/context/pricing metadata",
+          "api": "openai-responses",
+          "native_session_initialized": true,
+          "prompt_called": false,
+          "thinking_level": "medium",
+          "context_window": 400000,
+          "max_output_metadata": 128000,
+          "cost_usd_per_million_tokens": {
+            "input": 0.75,
+            "output": 4.5,
+            "cache_read": 0.075,
+            "cache_write": 0
+          }
+        },
+        "codex": {
+          "version": "0.155.1",
+          "evidence": "openai-model-preflight.json"
+        },
+        "mini-swe-agent": {
+          "version": "2.4.6",
+          "evidence": "openai-model-preflight.json"
+        }
+      },
+      "live_account_access": "unverified",
+      "live_request_compatibility": "unverified"
+    }
+  ],
+  "pi_inspection_method": {
+    "network": "none",
+    "root_filesystem": "read-only",
+    "user": "1000:1000",
+    "home": "temporary container /tmp",
+    "mounted_source": "experiments/pi read-only; no host credentials or task workspaces",
+    "operations": [
+      "ModelRegistry.inMemory(AuthStorage.create())",
+      "resolveModel(registry, provider, exact_model_id)",
+      "createAgentSession with SessionManager.inMemory and compaction/retry disabled",
+      "Inspect selected model and thinkingLevel, then session.dispose; never call prompt"
+    ]
+  },
+  "pilot_budget": {
+    "status": "planned_not_authorized_for_execution",
+    "currency": "USD",
+    "pilot_slots": 6,
+    "per_pilot_target_usd": 2,
+    "per_cohort_target_usd": 6,
+    "total_target_usd": 12,
+    "automatic_retry_allowance": 0,
+    "reserve_usd": 0,
+    "hard_spend_cap_enforced": false,
+    "timeout_s": 900,
+    "contract_turns": 30,
+    "accounting": "Use attributable provider usage/billing after each sequential pilot. Harness estimates are provisional; missing or unsettled costs are not zero.",
+    "stop_policy": [
+      "No pilot may start until separate paid-execution authorization and the existing pilot readiness gate are satisfied.",
+      "Run one pilot at a time. Reconcile its cost before admitting the next; if attributable cost is unavailable, pause.",
+      "Pause the pilot program if any pilot exceeds USD 2 or aggregate pilot spend reaches USD 12. At USD 6 in one cohort, stop further pilots in that cohort; the other cohort may continue within its own allocation and the aggregate budget. Before starting a slot, both applicable budgets must have at least USD 2 remaining.",
+      "These are operator admission and stop rules, not an in-flight provider or runner dollar cap. A running request and delayed billing can overshoot.",
+      "An aborted or failed pilot consumes its actual cost. No automatic retries or budget transfer between cohorts; extra qualification attempts need a new plan and spending authorization.",
+      "Main comparison runs remain unauthorized; do not advance automatically after pilots."
+    ],
+    "slot_ids": [
+      "A-P01",
+      "A-P02",
+      "A-P03",
+      "O-P01",
+      "O-P02",
+      "O-P03"
+    ],
+    "execution_order": "Execute only these six pilot slot_ids in listed order after authorization. Skip all comparison slots; their spending and execution remain separately unauthorized.",
+    "retry_scope": "No automatic additional pilot attempts. Existing native HTTP/model retry behavior is unchanged; its calls and charges belong to that attempt."
+  },
+  "illustrative_cost_only": {
+    "evidence_class": "arithmetic_scenario_not_measurement",
+    "aggregate_uncached_input_tokens_per_pilot": 500000,
+    "aggregate_billed_output_tokens_per_pilot": 30000,
+    "anthropic_usd": 1.95,
+    "openai_usd": 0.51,
+    "assumptions": "Totals span all model calls, not a per-request context size. Billed output includes reasoning where charged. No cache writes, cache savings, service premiums or extra tool fees; not a forecast or upper bound."
+  },
+  "limitations": [
+    "CLI parsing, registry resolution and SDK initialization do not establish authenticated API acceptance or successful task execution.",
+    "Native inference defaults are not normalized: Pi initializes medium thinking; mini-SWE-agent does not set reasoning effort; Codex configuration does not by itself establish the emitted request. Capture actual pilot requests/settings where possible and report this as a native harness comparison, not equal-reasoning inference.",
+    "Context/output metadata differ between harnesses (including Sonnet output limits); no universal output-token hard cap was added.",
+    "OpenCode and Codex lack complete USD accounting; bill reconciliation is required for the pilot admission rule. No hard USD cap exists under observed policy.",
+    "The earlier preparation smoke intentionally used fixture IDs, including retired Sonnet 4. Preserve that historical evidence; it is not the campaign model selection.",
+    "No images, adapters, task contracts, schema, or historical run records were changed."
+  ],
+  "source_revision": "c2276d14b180fc251ad5179a89652e3f69cb598e",
+  "coordinator_launch_checks": [
+    {
+      "cohort": "anthropic",
+      "harness": "claude-code",
+      "task": "T002",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "anthropic",
+      "harness": "claude-code",
+      "task": "T004",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "anthropic",
+      "harness": "pi",
+      "task": "T002",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "anthropic",
+      "harness": "pi",
+      "task": "T004",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "anthropic",
+      "harness": "opencode",
+      "task": "T002",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "anthropic",
+      "harness": "opencode",
+      "task": "T004",
+      "model_id": "claude-sonnet-4-6",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "codex",
+      "task": "T002",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": null,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "codex",
+      "task": "T004",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": null,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "pi",
+      "task": "T002",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "pi",
+      "task": "T004",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "mini-swe-agent",
+      "task": "T002",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    },
+    {
+      "cohort": "openai",
+      "harness": "mini-swe-agent",
+      "task": "T004",
+      "model_id": "gpt-5.4-mini-2026-03-17",
+      "launch_turns": 30,
+      "hard_budget_argument": null,
+      "status": "passed",
+      "model_calls": 0
+    }
+  ]
+}

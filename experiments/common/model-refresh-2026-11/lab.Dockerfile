@@ -1,0 +1,5 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+USER root
+RUN rm -f /app/input.json
+USER 1000:1000

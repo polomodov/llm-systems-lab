@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-11-07",
+  "status": "offline_qualified_live_access_unverified",
+  "models": {
+    "anthropic": {
+      "id": "claude-sonnet-5-5",
+      "api": "anthropic-messages",
+      "context_tokens": 1000000,
+      "max_output_tokens": 128000,
+      "reasoning": "adaptive; effort medium chosen explicitly",
+      "standard_usd_per_million": {
+        "input": 2,
+        "output": 10,
+        "cache_read": 0.1,
+        "cache_write_5m": 2.5,
+        "cache_write_1h": 4
+      },
+      "requirements": [
+        "No thinking budgets or disabled thinking",
+        "No temperature/top_p/top_k",
+        "Preserve empty signed thinking blocks unchanged in append-only tool history",
+        "No forced tool_choice any/tool"
+      ],
+      "sources": [
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/overview",
+        "https://platform.claude.com/docs/en/models/sonnet-5-5/migration-guide"
+      ]
+    },
+    "openai": {
+      "id": "gpt-6.1-sol",
+      "api": "openai-responses",
+      "context_tokens": 1050000,
+      "max_output_tokens": 128000,
+      "reasoning": "medium",
+      "standard_usd_per_million": {
+        "input": 2,
+        "output": 10,
+        "cached_input": 0.1,
+        "cache_write": 2.5
+      },
+      "long_context": "Each request above272000 input tokens uses2x input/cache and1.5x output rates for the entire request. Aggregate episode tokens are not a per-request context size.",
+      "requirements": [
+        "Responses required for tool calling",
+        "No sampling parameters at medium reasoning",
+        "Do not silently substitute family metadata or a different model ID"
+      ],
+      "sources": [
+        "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+        "https://developers.openai.com/api/docs/guides/latest-model?model=gpt-6.1-sol"
+      ]
+    }
+  },
+  "pin_choices": {
+    "claude-code": "2.1.319",
+    "codex": "0.167.0",
+    "opencode": "1.18.29 retained; explicit Sonnet5.5 metadata/medium variant. New1.19.5 rejected after reproducible EPIPE native exit failure.",
+    "pi": "0.73.1 with explicitly hash-pinned provider compatibility delta",
+    "mini-swe-agent": "2.4.6; use native LitellmResponseModel for Sol; LiteLLM1.108.1 retained and inventoried"
+  },
+  "evidence": {
+    "migration": "../../model-refresh-2026-11/model-migration.json",
+    "lab_smoke": "../../model-refresh-2026-11/sdk-smoke-evidence.json",
+    "images": "../../model-refresh-2026-11/lab-runtime-lock.json",
+    "budget": "../../model-refresh-2026-11/pilot-budget.json"
+  },
+  "provider_requests": 0,
+  "credentials_read": false,
+  "paid_execution_authorized": false,
+  "historical_preflights": "anthropic-model-preflight.json and openai-model-preflight.json describe the previous selection only; never use them to qualify the refreshed models.",
+  "historical_archive": "../../model-refresh-2026-11/previous-campaign/"
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-11-07-harbor55-hn-a03",
+  "date": "2026-11-07",
+  "status": "prepared",
+  "harness": {
+    "name": "pi",
+    "version": "0.73.1",
+    "mode": "cli"
+  },
+  "agent": "harbor-native-normalizer",
+  "task": "harbor-native-normalize",
+  "model": {
+    "id": "claude-sonnet-5-5",
+    "lock": true,
+    "reasoning": "medium",
+    "observed_id": null,
+    "identity_evidence": "Requested ID only; no model request has been made.",
+    "provider": "anthropic",
+    "selection": "explicit"
+  },
+  "permissions": {
+    "mode": "native-adapter; isolated UID1000",
+    "blocked": [],
+    "asked": null
+  },
+  "sandbox": {
+    "kind": "container",
+    "network": "allowlist"
+  },
+  "loop": {
+    "turns": null,
+    "cost_usd": null,
+    "tokens_in": null,
+    "tokens_out": null,
+    "wall_clock_s": null,
+    "compactions": null,
+    "subagents": null,
+    "stop_reason": null,
+    "budget_usd": 2.0
+  },
+  "metrics_unavailable": {
+    "loop.turns": "Attempt has not started.",
+    "loop.cost_usd": "Attempt has not started.",
+    "loop.tokens_in": "Attempt has not started.",
+    "loop.tokens_out": "Attempt has not started.",
+    "loop.wall_clock_s": "Attempt has not started.",
+    "loop.compactions": "Attempt has not started.",
+    "loop.subagents": "Attempt has not started.",
+    "permissions.asked": "Attempt has not started."
+  },
+  "inputs": {
+    "manifest_path": "inputs/manifest.json",
+    "manifest_sha256": "0b17e30c84b02be20a56963c2f3175b843af89b31bd18feaeb87a32c8fc93f33",
+    "prepared_at": "2026-11-07T07:22:58Z"
+  },
+  "provenance": {
+    "git_commit": "a32e825dc430ded4f7a0edc78fc10a40cf872eae",
+    "git_dirty": true,
+    "recorded_at": "2026-11-07T07:22:58Z",
+    "runner_version": "harbor-native-pilot-v1",
+    "source_revision_reason": "Experiment preparation; all exact package/configuration bytes are sealed in inputs."
+  },
+  "execution": {
+    "command": [],
+    "cwd": null,
+    "started_at": null,
+    "finished_at": null,
+    "exit_code": null,
+    "signal": null,
+    "timed_out": false,
+    "image_id": "sha256:f8f31d3d72328e6914acb304e82879fde2c34d4c1430a7ad85bcb7b78ea81424",
+    "timeout_s": 180,
+    "network_policy": "setup=no-network; agent=selected-provider-only; verifier=no-network; Harbor permits DNS/ICMP",
+    "budget_policy": "observed",
+    "proxy_image_id": null
+  },
+  "evaluation": {
+    "method": null,
+    "evaluator": null,
+    "evidence_path": null,
+    "evidence_sha256": null,
+    "evaluated_at": null
+  },
+  "verdict": {
+    "result": "pending",
+    "check_output": "",
+    "human_notes": ""
+  },
+  "harness_changes": [
+    {
+      "component": "Frozen native Harbor runtime, isolated verifier and evidence accounting",
+      "kind": "walls",
+      "ledger": "L032"
+    }
+  ],
+  "trace_path": "trace/",
+  "notes": "Separate native Harbor synthetic pilot. Preparation is not authorization or evidence of paid execution; existing campaigns are unchanged."
+}

@@ -1,0 +1,25 @@
+{
+  "order": 6,
+  "slot_id": "HN-O03",
+  "harness": "pi",
+  "harbor_agent": "pi",
+  "version": "0.73.1",
+  "lab_mode": "sdk",
+  "harbor_mode": "cli",
+  "provider": "openai",
+  "model_name": "openai/gpt-6.1-sol",
+  "wire_model_id": "gpt-6.1-sol",
+  "model_api_key_name": "OPENAI_API_KEY",
+  "planned_kwargs": {
+    "version": "0.73.1",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "max_turns": 8
+  },
+  "metadata_recipe": "pi-source-evidence.json#proposed_metadata_delivery.direct_provider_route",
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:f8f31d3d72328e6914acb304e82879fde2c34d4c1430a7ad85bcb7b78ea81424",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-o03",
+  "model_api_format": "openai_responses"
+}

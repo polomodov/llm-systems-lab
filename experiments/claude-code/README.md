@@ -4,12 +4,12 @@ Step-by-step assignment with its own report, Docker smoke test, real T002, usage
 
 The adapter is implemented; actual results appear only in `results/runs/`. CLI documentation was checked on **2026-09-20**; each image’s compatibility is verified separately. The local version on the operator’s machine does not determine the run version.
 
-An infrastructure check ran on 2026-09-20 using Docker Engine 29.5.2 / Linux arm64: the image built, `claude --version` returned `2.1.83 (Claude Code)`, and CLI help opened with networking disabled. Installation with `--ignore-scripts` works for this version. This checks installation, not a model experiment: no keys were passed and no provider requests were made.
+An infrastructure check ran on 2026-09-20 using Docker Engine 29.5.2 / Linux arm64: the image built, `claude --version` returned `2.1.319 (Claude Code)`, and CLI help opened with networking disabled. Installation with `--ignore-scripts` works for this version. This checks installation, not a model experiment: no keys were passed and no provider requests were made.
 
 ```bash
-docker build --build-arg HARNESS_VERSION=2.1.83 -t harness-lab/claude-code:2.1.83 -f experiments/claude-code/Dockerfile experiments/claude-code
-docker run --rm --network none harness-lab/claude-code:2.1.83 claude --version
-docker run --rm --network none harness-lab/claude-code:2.1.83 claude --help
+docker build --build-arg HARNESS_VERSION=2.1.319 -t harness-lab/claude-code:2.1.319 -f experiments/claude-code/Dockerfile experiments/claude-code
+docker run --rm --network none harness-lab/claude-code:2.1.319 claude --version
+docker run --rm --network none harness-lab/claude-code:2.1.319 claude --help
 ```
 
 Verified local image ID: `sha256:4d9080ac1909d7e8c49056f0f2ae881e13926c5fc37f398c463bcb42d6117761`. Rebuilding may produce a different ID because of the base image and system packages; retain one built image for a run series.
@@ -22,7 +22,7 @@ First build the image with a pinned CLI version using the [root instructions](..
 npm run new-run -- --harness claude-code --agent a1-dossier --task T001
 RUN_ID='<identifier printed by new-run>'
 npm run prepare-run -- --run "$RUN_ID"
-npm run run -- --run "$RUN_ID" --image harness-lab/claude-code:2.1.83 --model '<exact model ID>'
+npm run run -- --run "$RUN_ID" --image harness-lab/claude-code:2.1.319 --model '<exact model ID>'
 npm run judge-run -- --run "$RUN_ID" --evaluation '<independent evaluation JSON>'
 npm run check
 ```

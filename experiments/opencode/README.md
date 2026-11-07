@@ -52,3 +52,7 @@ node --test experiments/opencode/adapter.test.mjs
 ```
 
 Record component changes in the [ledger](../../docs/harness-ledger.md) and results in `NOTES.md` with the run ID. Compare conditions with the shared `npm run compare -- --runs <run-id-1>,<run-id-2>` command; preserve research deviations in the report.
+
+## Sonnet 5.5 revision
+
+The exact refreshed model gets explicit context/output/pricing metadata, adaptive thinking and the medium variant. OpenCode 1.18.29 passed the strict lab/native loopback fixture, including signed-thinking replay. Candidate 1.19.5 failed process-exit checks with EPIPE and was rejected. [Frozen images and evidence](../common/model-refresh-2026-11/README.md) apply only to this future revision; live access remains unverified.

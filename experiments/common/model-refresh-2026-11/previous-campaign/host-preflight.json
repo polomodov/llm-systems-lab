@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-06T21:35:05.754068Z",
+  "evidence_class": "infrastructure-check",
+  "status": "passed",
+  "repository_revision": "18c212d6cece43c4e6fea4ac44a843284e79e389",
+  "platform": {
+    "system": "Darwin",
+    "machine": "arm64"
+  },
+  "bootstrap": {
+    "tool": "mise",
+    "version": "2026.11.3",
+    "executable": "~/.local/bin/mise",
+    "source": "https://github.com/jdx/mise/releases/download/v2026.11.3/mise-v2026.11.3-macos-arm64",
+    "release_metadata": "https://api.github.com/repos/jdx/mise/releases/tags/v2026.11.3",
+    "sha256": "6d39119ab914c54ab865204dee9337c71b83a7ed1e730f663c2fc3453e38fe9c",
+    "verification": "Downloaded binary SHA-256 matched the official GitHub release asset digest before installation."
+  },
+  "runtimes": {
+    "node": "24.13.1",
+    "python": "3.12.12",
+    "npm": "11.8.0"
+  },
+  "configuration": {
+    "pinned_file": "mise.toml",
+    "pinned_file_sha256": "81824326d7f01b5035b70ca18dfedfc1c4c0edce97733fcde684e162c6eefb1d",
+    "trusted_files": [
+      "mise.toml",
+      "mise.local.toml"
+    ],
+    "ignored_local_file": "mise.local.toml",
+    "local_environment": {
+      "DOCKER_CONTEXT": "colima"
+    },
+    "shell_configuration_changed": false,
+    "global_runtime_defaults_changed": false,
+    "invocation": "~/.local/bin/mise exec -- <command>"
+  },
+  "checks": {
+    "command": "~/.local/bin/mise run verify",
+    "exit_code": 0,
+    "node": {
+      "tests": 200,
+      "passed": 198,
+      "failed": 0,
+      "skipped": 2,
+      "skipped_reason": "The two Docker tests require explicit opt-in; they are checked separately by campaign Docker preflight."
+    },
+    "python": {
+      "suites": [
+        8,
+        18
+      ],
+      "passed": 26,
+      "failed": 0
+    },
+    "records": {
+      "runs": 11,
+      "completed": 3,
+      "failed_records": 0,
+      "ledger_rows": 30
+    },
+    "stdout_summary": [
+      "\u2139 tests 200",
+      "\u2139 pass 198",
+      "\u2139 fail 0",
+      "\u2139 skipped 2",
+      "Ran 8 tests in 0.598s",
+      "OK",
+      "Ran 18 tests in 2.734s",
+      "OK",
+      "[check] runs=11 completed=3 failed=0 ledger rows=30"
+    ],
+    "sandbox_note": "Executed outside the sandbox because synthetic HTTP fixtures bind localhost; no external model APIs were used."
+  },
+  "model_api_requests": 0,
+  "credentials_read": false,
+  "limitations": [
+    "Infrastructure validation does not qualify any model or provider account.",
+    "Docker/image evidence is recorded separately."
+  ]
+}

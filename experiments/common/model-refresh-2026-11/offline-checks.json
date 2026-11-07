@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "kind": "offline-model-migration-validation",
+  "checked_at": "2026-11-07T07:27:57.428767+00:00",
+  "result": {
+    "ok": true,
+    "offline_only": true,
+    "lab_fixture_cases": 6,
+    "native_fixture_slots": 6,
+    "boundary_controls": 4,
+    "prepared_records": 6,
+    "records_skipped": false,
+    "paid_runs": 0,
+    "execution_authorized": false,
+    "preserved_files": 1470
+  },
+  "checks": [
+    {
+      "command": "npm test",
+      "environment": "Git-visible source snapshot; ignored virtualenv/bootstrap artifacts excluded",
+      "passed": 200,
+      "failed": 0,
+      "skipped": 2,
+      "skip_reason": "Two opt-in Docker tests; actual migration-specific Docker fixtures ran separately."
+    },
+    {
+      "command": "python -m unittest discover -s experiments/common/harbor-native-2026-11 -p 'test_*.py' -v",
+      "passed": 22,
+      "failed": 0
+    },
+    {
+      "command": "node --test experiments/common/harbor-native-2026-11/mock-provider.test.mjs experiments/{claude-code,codex,pi,opencode,mini-swe-agent}/adapter.test.mjs",
+      "passed": 26,
+      "failed": 0
+    },
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "records": 23,
+      "ledger_rows": 40
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "evidence_sha256": {
+    "experiments/common/model-refresh-2026-11/check_migration.py": "30e94e0160f998a642b7f8da64f114cb5d3a250a56fbe81aa4454a872ad3fd61",
+    "experiments/common/model-refresh-2026-11/model-migration.json": "12fe5c10e459b5caa1e85b8ea996f4edf982d0893a4ff4eb4e284ddba7286341",
+    "experiments/common/model-refresh-2026-11/pilot-budget.json": "1d49492a33699af6d49d4a3dc358efc0ce0c38148602ed9890f4308191ab75fc",
+    "experiments/common/model-refresh-2026-11/lab-runtime-lock.json": "fe66b46e58edbb38c8ca10bd6099e22aae451cbf17fa157465dd8a949eb970f6",
+    "experiments/common/model-refresh-2026-11/sdk-smoke-evidence.json": "269d5127974df261e3dd5378888f20235148b750a54f287de0eb1190788daefe",
+    "experiments/common/harbor-native-2026-11/plan.json": "6bf836cbc2b55d56eabb6f2bdd7e40f122b62a9410168565af8e8a2499b913a4",
+    "experiments/common/harbor-native-2026-11/runtime-lock.json": "dd15c9bd07f5b3bbf8ec418dcaec80e807dc8fe7dd9841e01adb5a12920218e7",
+    "experiments/common/harbor-native-2026-11/native-smoke-evidence.json": "ba247b61bb37217735d11d275f3176de34fe329d7b3a5ef7e297922bc6416d08",
+    "experiments/common/harbor-native-2026-11/control-evidence.json": "d53de1f992a58f5ced0b3b1b6dc8d81d6739e74984d1f7fe02eabe3c38e38098",
+    "experiments/common/harbor-native-2026-11/package-lock.json": "163cd1ec80e93a30eb8361c0c8ec7d1100c73895b040fe2bc6662f5503f9c4f8",
+    "experiments/common/campaigns/2026-11-first-comparison/plan.json": "f9c7e0f4481438c07524888e59f5a63d84c9d7a8832bb71d8eb11f7592651782",
+    "tests/pins.test.mjs": "f0e41b026e3d610a68290a9f60dbab57327cdc9052c1fbc2444c8b0613f75ad5",
+    "tests/profiles.test.mjs": "f32b11576bc0cdfbb399eda6d041e02f59e754c894a0847f7f69b919b3a045e1",
+    "tests/runtime.test.mjs": "8ef5f2b770a168646232a9646871b565e7e600f941771e10b8628656fbf19300"
+  },
+  "previous_campaign_sha256": {
+    "README.md": "0a40471273bd1f368a3bf42b92175492de304d912cc4f636ed1991992dfdb97e",
+    "anthropic-model-preflight.json": "ceb783e6680480b1b4feea1c83f6089692e90df967a171546e7dd81478b5976e",
+    "docker-preflight.json": "b35535a2661223cbc83c0852776a445d2401de87d60fa25c5dfccb4692c12e73",
+    "host-preflight.json": "4d4159fc5d7429845d398f5acd9b743a3bf45dbe614d29aba979da845b3ca217",
+    "model-selection.json": "b3040f85de624d0ed74555814f540016559e421b240277b1f1e1785111a4f7c6",
+    "openai-model-preflight.json": "b0abeb073c838de0c9e665cb2b41d1a752d531800fdb153cb3ba65d0a83c442b",
+    "plan.json": "e3afb7d0fc1d9a5be87c74b8ad21fec4f8d7bf85874aa819e5055f1cbfa59547",
+    "preparation-preflight.json": "735108a29fa1a6c072dd17ab0006a84120f8596254eeb636d92534f41ba2d0b0"
+  },
+  "local_test_logs_sha256": {
+    ".cache/full-node-tests.log": "7ecef8db95017a6f0d8fb647cd674c169d25c87e59aba80e3ca820429570cc1d",
+    ".cache/python-tests.log": "72156b0eaf1d3923b20d1fc658cd714c28dcf34e663e2bc5bd0f14653f645c14",
+    ".cache/node-focused.log": "f457f516affecd01365548cf85be368fcd5d66c3d6ebe6d4ab3ef10c93a8381f",
+    ".cache/final-repo-check.log": "540449062aa777c2ba2628e1df9cd6fa99e1af08c8b5aa4dd974c859d7805e34",
+    ".cache/final-migration.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1"
+  },
+  "provider_requests": 0,
+  "paid_runs": 0,
+  "credentials_read": false,
+  "live_qualification": "unverified",
+  "authorization": "offline preparation only"
+}

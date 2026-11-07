@@ -41,3 +41,7 @@ docker run --rm --network none --read-only --user 1000:1000 \
 The offline smoke test also passed with proxy environment variables; `/tmp` does not need executable permission. The version comes from installed Python-package metadata.
 
 Primary sources at the tag: [DefaultAgent and step/cost limits](https://github.com/SWE-agent/mini-swe-agent/blob/v2.4.6/src/minisweagent/agents/default.py), [LiteLLM: raw response, usage, and cost](https://github.com/SWE-agent/mini-swe-agent/blob/v2.4.6/src/minisweagent/models/litellm_model.py), [mini.yaml](https://github.com/SWE-agent/mini-swe-agent/blob/v2.4.6/src/minisweagent/config/mini.yaml), [LocalEnvironment](https://github.com/SWE-agent/mini-swe-agent/blob/v2.4.6/src/minisweagent/environments/local.py). Availability of a particular model ID and episode outcomes require a separate registered run.
+
+## Sol 6.1 revision
+
+For exact `openai/gpt-6.1-sol`, the lab entrypoint uses mini's native `LitellmResponseModel`, with Responses tool calling, explicit medium effort and no incompatible sampling options. Other models keep their existing model class. LiteLLM 1.108.1 and MCP 2.2.0 are pinned; the refreshed immutable image has a checked dependency closure. The parser accepts Responses usage without inventing missing totals. [Offline lab/native evidence](../common/model-refresh-2026-11/README.md) passes; fixture cost is synthetic and live billing/account access remain unverified.

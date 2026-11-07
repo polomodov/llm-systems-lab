@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "proposed_metadata_delivery": {
+    "direct_provider_route": {
+      "models": "runtime/pi/models.json",
+      "settings": "runtime/pi/settings.json",
+      "provider_delta": "../../pi/model-refresh.mjs",
+      "evidence": "runtime-evidence.json",
+      "scope": "Both exact model definitions are frozen; adaptive detection and empty signed thinking replay patched under source-hash guard. Native offline fixture uses separate harbor-endpoint metadata; direct API access unverified."
+    }
+  }
+}

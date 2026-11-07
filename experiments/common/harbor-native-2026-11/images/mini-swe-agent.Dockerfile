@@ -1,0 +1,5 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+USER root
+RUN chown -R 1000:1000 /home/agent
+USER 1000:1000

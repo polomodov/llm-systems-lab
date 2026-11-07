@@ -22,3 +22,11 @@ test('mini-SWE-agent rejects partial accounting on failed/missing calls and pres
   assert.equal(result.modelId,null); assert.deepEqual(result.modelIds,['a','b']);
   assert.deepEqual(parseTrace('invalid').loop,{}); assert.equal(parseTrace('invalid').stopReason,'trace_incomplete');
 });
+test('mini Responses trajectories retain provider identity and reject partial usage', () => {
+  const message={object:'response',model:'gpt-6.1-sol',usage:{input_tokens:100,output_tokens:20}};
+  const event={type:'lab_mini_result',trajectory:{messages:[message],info:{model_stats:{api_calls:1,instance_cost:0.0004},exit_status:'Submitted'}}};
+  const complete=parseTrace(JSON.stringify(event));assert.equal(complete.modelId,'gpt-6.1-sol');
+  assert.equal(complete.loop.tokens_in,100);assert.equal(complete.loop.tokens_out,20);
+  delete message.usage.output_tokens;
+  const partial=parseTrace(JSON.stringify(event));assert.equal(partial.loop.tokens_in,undefined);assert.equal(partial.loop.cost_usd,undefined);
+});

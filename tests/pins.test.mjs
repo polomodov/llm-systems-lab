@@ -9,6 +9,7 @@ import { validateProfile } from '../scripts/lib/harnesses.mjs';
 import { taskLimits } from '../scripts/lib/contracts.mjs';
 
 const repository = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const claudePin = JSON.parse(readFileSync(join(repository, 'experiments/claude-code/harness.json'), 'utf8')).version;
 
 /** Minimal root with one harness: the audit checks only the profiles it finds. */
 function fixture(t, id = 'claude-code') {
@@ -32,12 +33,12 @@ test('the repository pins every harness identically in profile, Dockerfile and d
 test('a pin that drifts in one place is reported, not silently accepted', t => {
   const docker = fixture(t);
   const dockerfile = join(docker, 'experiments/claude-code/Dockerfile');
-  writeFileSync(dockerfile, readFileSync(dockerfile, 'utf8').replace('RUN test "$HARNESS_VERSION" = "2.1.83"', 'RUN test -n "$HARNESS_VERSION"'));
-  assert.deepEqual(auditPins(docker).errors, ['claude-code: Dockerfile must assert the pinned 2.1.83']);
+  writeFileSync(dockerfile, readFileSync(dockerfile, 'utf8').replace(`RUN test "$HARNESS_VERSION" = "${claudePin}"`, 'RUN test -n "$HARNESS_VERSION"'));
+  assert.deepEqual(auditPins(docker).errors, [`claude-code: Dockerfile must assert the pinned ${claudePin}`]);
 
   const profile = fixture(t);
   const file = join(profile, 'experiments/claude-code/harness.json');
-  writeFileSync(file, readFileSync(file, 'utf8').replace('"version": "2.1.83"', '"version": "2.1.84"'));
+  writeFileSync(file, readFileSync(file, 'utf8').replace(`"version": "${claudePin}"`, '"version": "999.0.1"'));
   const errors = auditPins(profile).errors;
   assert.equal(errors.length, 5, errors.join('; '));
   for (const place of ['Dockerfile must default', 'Dockerfile must assert', 'README.md must show', 'docs/harnesses.md row', 'experiments/claude-code/README.md']) {
@@ -47,7 +48,7 @@ test('a pin that drifts in one place is reported, not silently accepted', t => {
 
 test('a harness profile without an exact version pin is invalid', () => {
   const profile = JSON.parse(readFileSync(join(repository, 'experiments/claude-code/harness.json'), 'utf8'));
-  assert.equal(validateProfile({ ...profile }, 'claude-code').version, '2.1.83');
+  assert.equal(validateProfile({ ...profile }, 'claude-code').version, claudePin);
   for (const version of [undefined, null, '', 'latest', '2.1', 'v2.1.83', '2.1.83 (Claude Code)', 2]) {
     assert.throws(() => validateProfile({ ...profile, version }, 'claude-code'), /exact version pin/, String(version));
   }

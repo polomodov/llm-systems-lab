@@ -1,0 +1,29 @@
+{
+  "order": 1,
+  "slot_id": "HN-O01",
+  "harness": "codex",
+  "harbor_agent": "codex",
+  "version": "0.167.0",
+  "lab_mode": "cli",
+  "harbor_mode": "cli",
+  "provider": "openai",
+  "model_name": "openai/gpt-6.1-sol",
+  "wire_model_id": "gpt-6.1-sol",
+  "model_api_format": "openai_responses",
+  "model_api_key_name": "CODEX_API_KEY",
+  "planned_kwargs": {
+    "version": "0.167.0",
+    "skip_install": true,
+    "reasoning_effort": "medium",
+    "web_search": "disabled",
+    "config": {
+      "agents": {
+        "enabled": false
+      }
+    }
+  },
+  "condition_notes": "New model revision; retain previous native-vs-lab differences, independently verify request compatibility and complete offline evidence before live qualification.",
+  "image_id": "sha256:006c57104985bba2872abde1a38d41e4bda894dd9d7503f86743bce705178af4",
+  "status": "prepared_not_started",
+  "run_id": "2026-11-07-harbor55-hn-o01"
+}

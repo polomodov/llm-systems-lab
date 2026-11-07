@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "kind": "lab-sdk-model-migration-offline-fixture",
+  "provider_requests": 0,
+  "credentials_read": false,
+  "runtime_lock_sha256": "dd15c9bd07f5b3bbf8ec418dcaec80e807dc8fe7dd9841e01adb5a12920218e7",
+  "lab_runtime_lock_sha256": "fe66b46e58edbb38c8ca10bd6099e22aae451cbf17fa157465dd8a949eb970f6",
+  "sources_sha256": {
+    "experiments/common/model-refresh-2026-11/sdk-smoke.py": "8cbc986d50fb35c00d8fa17880d32f2c6f266a4091e95889aa01c94abb7f6151",
+    "experiments/pi/run.mjs": "ec4ca4396bd87c5781ae446ddd6cf8dd7bdcb95877907e59fa17a7c4165ba419",
+    "experiments/pi/adapter.mjs": "17eb17f91bbd1af1f1e4683d1e52a794d3c5e503a7de7e345c53b9ea5ab6461a",
+    "experiments/mini-swe-agent/run.py": "bf13c35f6f5632fa932ebde0f8b451e0811bd9771cfafe23b45c9cad07b33839",
+    "experiments/mini-swe-agent/adapter.mjs": "7f6ad11f1a388c91d3b490ee9fb48599cb8d7acb25c72fdc1ea5808efb2e6f4f",
+    "experiments/claude-code/adapter.mjs": "ae9f7ba799f5b81cbdbb55b9d51d7700610b1954eb862a262b5f8904faf1aa5c",
+    "experiments/opencode/adapter.mjs": "5154d4ffc2514a6b6926d0849b5f384bb60ccf6593f7ba1f988ac2d6ec37dc93",
+    "experiments/codex/adapter.mjs": "e17955b17ca0f453df7f13038313d7b04d4b5b5d03438030893afd5f78d37983",
+    "experiments/common/harbor-native-2026-11/mock-provider.mjs": "fe3f3f4eed3b414e1afc3f26db2c27e202dc6dbdb27b834b8eddf03a48e68865"
+  },
+  "cases": [
+    {
+      "harness": "pi",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/pi-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "summarized"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "compactions": 0,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "01a1b4e2-58fc-768d-97e9-731ab4fc6c81"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "9e933705d5840d17c8052a7c5241dd7127d221403795555e5bd6472e505ccf1b",
+        "fetch-shim.mjs": "c467a4d2fd912706367d7592e566c71b3030449a7e5b0bceb5c0381b86e9c415",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "c1ae5a4aa936d24f4bc7bfdc0699ca1934ff6e638ec1c4398727ef55875fa8e1",
+        "agent/mock-requests.jsonl": "7f6708e77a2cc75617703689f7afb6f66dcdd0efa93205e8f45aeca3d7f8bdac",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "pi",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:319e5be38956329b05dc40fa1a8ad4f4b518dfb4b9e9d7b4f5308f807069ddbf",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/pi-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 32000
+        },
+        {
+          "reasoning": {
+            "effort": "medium",
+            "summary": "auto"
+          },
+          "max_output_tokens": 32000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "compactions": 0,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "01a1b4e2-5d12-72a1-a10e-1720412f5ba0"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "7870a72c99dbe37fe38f20561628505b3a28b876647ebac8bbfab74b4617b696",
+        "fetch-shim.mjs": "c467a4d2fd912706367d7592e566c71b3030449a7e5b0bceb5c0381b86e9c415",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "35401e2bc7c85572f2926a8d9ada84786f1e6117e35556cdf50067257de68616",
+        "agent/mock-requests.jsonl": "456b3c9031e330e949d3fcf84ef272d3acf5d134584809311e8cd4aba249c59c",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "mini-swe-agent",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:1fa9064c1503c48896eac117d98da36243c2964597b38449209ac4a821afeb28",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/mini-swe-agent-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        },
+        {
+          "reasoning": {
+            "effort": "medium"
+          }
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "tokens_in": 200,
+          "tokens_out": 40,
+          "cost_usd": 0.0007999999999999999
+        },
+        "metrics_unavailable": {},
+        "modelId": "gpt-6.1-sol",
+        "modelIds": [
+          "gpt-6.1-sol"
+        ],
+        "stopReason": "Submitted",
+        "sessionId": null
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "a72be51fb1a1a9ee0637872932e0eda913e340f4980ca20370a3b2f742e25e25",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "aca1b02a35bd77f2fc5752abdadf2a80a3ca4de9c3e31751b3ce2903dfcd42b1",
+        "agent/mock-requests.jsonl": "4bdb96603435566ca0853066f83d1055ee665830e785d23fd7a98514c11388cc",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "claude-code",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:091c4215ae16dd366dec32440f9d0e7e64b4dfb8c7ac27396240c104e1b9fef6",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/claude-code-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "updates"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 128000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "display": "updates"
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 128000
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "turns": 2,
+          "cost_usd": 0.0008,
+          "tokens_in": 200,
+          "tokens_out": 40
+        },
+        "metrics_unavailable": {},
+        "modelId": "claude-sonnet-5-5",
+        "modelIds": [
+          "claude-sonnet-5-5"
+        ],
+        "stopReason": "completed",
+        "sessionId": "a282b7cc-8c56-4783-b8ab-c19a2bd9155e"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "d1203b21ae95e6106846774827bdb5be4aa8933666945161d13a1e16a66dcb6a",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "c9bb8cd40ccf36e1df919719029310018d073f83044632b479890a1df34b2248",
+        "agent/mock-requests.jsonl": "07e978ae0b1ef3215f6d09f10573f2ecd132471c646d19548dfef1027f9bdefa",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "opencode",
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5",
+      "status": "passed",
+      "image_id": "sha256:22270d610fafc91dd36fb135437b9bb09b8b27c268859201ed694a3bd1913799",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/opencode-anthropic",
+      "provider_requests": 0,
+      "fixture_calls": 3,
+      "request_settings": [
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        },
+        {
+          "thinking": {
+            "type": "adaptive",
+            "block_binding": {
+              "prefix_mismatch_behavior": "drop_block"
+            }
+          },
+          "output_config": {
+            "effort": "medium"
+          },
+          "max_tokens": 32000,
+          "tool_choice": {
+            "type": "auto"
+          }
+        }
+      ],
+      "parsed": {
+        "loop": {},
+        "metrics_unavailable": {
+          "loop.turns": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.cost_usd": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.tokens_in": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required",
+          "loop.tokens_out": "OpenCode stdout is an event stream without guaranteed complete final accounting; a verified session export is required"
+        },
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "stop",
+        "sessionId": "ses_e4b1d91edffer2E5Mfu9gFQWVR"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "db1ce7cb906f2de1a43aab239bfccd0bf632c0153f54959dec256014bd1799f5",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.jsonl": "1a685e08f436641c7fb9585bbdbc77b7b5f69a7560c3978cdf5255258d7bc827",
+        "agent/mock-requests.jsonl": "8b23f65b376885d625891718fa7f26faf4bb60fbd9a2ea5794cc938587b66383",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "harness": "codex",
+      "provider": "openai",
+      "model": "gpt-6.1-sol",
+      "status": "passed",
+      "image_id": "sha256:6533ab538c4a531b8f8f2759deddbc8253b44c86d13d956eb671471b2072b5eb",
+      "raw_directory": ".cache/sdk-smoke/4a955703bfc948ed84078a2f9170cb3f/codex-openai",
+      "provider_requests": 0,
+      "fixture_calls": 2,
+      "request_settings": [
+        {
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "tool_choice": "auto"
+        },
+        {
+          "reasoning": {
+            "effort": "medium",
+            "context": "all_turns"
+          },
+          "tool_choice": "auto"
+        }
+      ],
+      "parsed": {
+        "loop": {
+          "tokens_in": 200,
+          "tokens_out": 40
+        },
+        "metrics_unavailable": {
+          "loop.turns": "A Codex turn is a user request with an internal loop; JSONL does not report the full model-turn count",
+          "loop.cost_usd": "Codex JSONL does not report USD cost"
+        },
+        "modelId": null,
+        "modelIds": [],
+        "stopReason": "completed",
+        "sessionId": "01a1b4e2-73ec-7540-a8b2-a1d45bb4d486"
+      },
+      "synthetic_usage_not_billing": true,
+      "transport_deviation": "Fixture-only transport: Pi fetch redirection, mini/Claude API-base env, OpenCode provider baseURL, Codex CLI provider base_url; no real provider route qualification",
+      "cleanup_confirmed": true,
+      "raw_sha256": {
+        "parsed.json": "388d4e4c0b36fde4a1f4870aea407192b9bb4ad96d4175dc464aebcdb794ec1b",
+        "stderr.txt": "ebd314979df80c498909fa0182934c12754e8c0ff6b4aa3fcb7a821cfeb81293",
+        "stdout.jsonl": "fc0865809c67ba486d99a02619e5f5eb3d71c258fa1c330f62a4549fc545dd62",
+        "agent/mock-requests.jsonl": "d6a1db69520c54b65295fe1a7a969b5963844108e2f73df909c1c85c5faa27c6",
+        "agent/mock-server.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ]
+}

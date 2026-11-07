@@ -8,13 +8,14 @@ export function buildCommand({ model, turns, budget, prompt }) {
   const selected = model.startsWith('anthropic/') ? model : `anthropic/${model}`;
   if (selected.slice('anthropic/'.length).includes('/')) throw new Error('The adapter supports only provider anthropic');
   return {
-    command: ['opencode', 'run', '--model', selected, '--agent', 'build', '--format', 'json', '--', prompt],
+    command: ['opencode', 'run', '--model', selected, '--agent', 'build', '--format', 'json', ...(selected === 'anthropic/claude-sonnet-5-5' ? ['--variant','medium'] : []), '--', prompt],
     env: {
       OPENCODE_CONFIG: '/control/opencode.json',
       OPENCODE_DISABLE_AUTOUPDATE: 'true',
       OPENCODE_CONFIG_CONTENT: JSON.stringify({
         model: selected, small_model: selected,
         agent: { build: { model: selected, ...(turns == null ? {} : { steps: turns }) } },
+        ...(selected === 'anthropic/claude-sonnet-5-5' ? {provider:{anthropic:{models:{'claude-sonnet-5-5':{name:'Claude Sonnet5.5',limit:{context:1000000,output:128000},cost:{input:2,output:10,cache_read:0.1,cache_write:2.5},options:{thinking:{type:'adaptive'},effort:'medium'},variants:{medium:{effort:'medium'}}}}}}} : {}),
       }),
     },
   };

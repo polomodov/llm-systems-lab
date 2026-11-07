@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "kind": "native-pilot-offline-boundary-controls",
+  "checked_at": "2026-11-07T07:16:34.852929+00:00",
+  "harbor_commit": "ff2a1ef48070a8df374669138e4d4db79b77f013",
+  "package_lock_sha256": "163cd1ec80e93a30eb8361c0c8ec7d1100c73895b040fe2bc6662f5503f9c4f8",
+  "runner_sha256": "f1e4dce56de0d9b51abbe96eb4204351d15a6501cc1cb85c814453d27d2bcfee",
+  "reused_helpers_sha256": "f55025446b7d82cb328ddd2045a5fd66b9f5833d143ca2127585cbd9ec159c2f",
+  "source_sha256": {
+    "harbor-native-2026-11/verify_controls.py": "f1e4dce56de0d9b51abbe96eb4204351d15a6501cc1cb85c814453d27d2bcfee",
+    "harbor-native-2026-11/materialize.py": "799773d59180908c0e9fd1306c4a2bf6727ec0a8603d223935e94d55b89c81a1",
+    "harbor-interop/synthetic_controls.py": "f55025446b7d82cb328ddd2045a5fd66b9f5833d143ca2127585cbd9ec159c2f"
+  },
+  "provider_api_calls": 0,
+  "paid_runs": 0,
+  "host_credentials_forwarded": false,
+  "controls": [
+    {
+      "scenario": "oracle",
+      "expected_reward": 1,
+      "actual_reward": 1.0,
+      "exception": null,
+      "raw_trial": ".cache/control-runs/20261107T071440064385Z/native-hn-o02-oracle",
+      "task_checksum": "1edc7207c23f1bf553329952841010425d41c00767e420d16459b20362f1cc0d",
+      "task_lock_digest": "sha256:346f33201b540b95ccd3b62b7fe53c19a925cc75abf656e31027663d5fd085ce",
+      "verifier_environment_mode": "separate",
+      "agent_info": {
+        "name": "oracle",
+        "version": "1.0.0",
+        "model_info": null
+      },
+      "sidecar_policy_observations": [
+        {
+          "container": "5f916d3e4a44",
+          "project": "native-hn-o02-oracle__env",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-oracle__env",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        },
+        {
+          "container": "ac2c81cb4d77",
+          "project": "native-hn-o02-oracle__verifier__trial",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-oracle__verifier__trial",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        }
+      ],
+      "agent_boundary": {
+        "effective_uid": 1000,
+        "hostname": "5f916d3e4a44",
+        "absent_paths": [
+          "/tests",
+          "/opt/verifier-fixtures",
+          "/var/run/docker.sock"
+        ],
+        "external_https_probe_blocked": true
+      },
+      "verifier_evidence": {
+        "reward": 1,
+        "reason": "correct-output",
+        "fixture_sha256": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+        "fixture_writable": false,
+        "effective_uid": 1000,
+        "hostname": "ac2c81cb4d77",
+        "external_https_probe_blocked": true,
+        "agent_input_present_in_verifier": false,
+        "agent_solution_present_in_verifier": false,
+        "agent_tamper_marker_present_in_verifier": false
+      },
+      "slot_id": "HN-O02",
+      "image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+      "raw_file_sha256": {
+        "agent/boundary.json": "335adb240e0dcb460c59718dc088d9892c8a629d5f4d2db35329ef3c9f9ace59",
+        "agent/oracle.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifacts/manifest.json": "55234fd7268a1897518b280cdf91e224fd9a8dc40d7955a6cae89b89ff085be1",
+        "artifacts/result.json": "bb0f2beb008acdb8882a0696a83053ca97895aa662ce1677982c8a40f8132a1c",
+        "config.json": "bbbad388baf6a3ab36c8d90a6e3c003884e499f47ac0c360a41bae1a2fa3a32a",
+        "lock.json": "1cd2b89a7e79c5f7ab65692bd8c27d8e4da1af37662ca18838e426926612711e",
+        "result.json": "df0b2e958ce687a544dbda49f8f490d4214ee04d4ca3271129194c2301859f09",
+        "trial.log": "49e642a9148e9203d454933e937ceb9feea0849685e87a7ff4e3347d2f21b635",
+        "verifier/evidence.json": "e857fb14bb2409d1cec4d88bb9dfcbd0f25e835d217cbe42ea6fd2623d612d24",
+        "verifier/reward.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "verifier/test-stdout.txt": "03e18b06d7b02b90a00ed8249174ad72be046ffca36109c64e45b35545bec4cc"
+      }
+    },
+    {
+      "scenario": "nop",
+      "expected_reward": 0,
+      "actual_reward": 0.0,
+      "exception": null,
+      "raw_trial": ".cache/control-runs/20261107T071440064385Z/native-hn-o02-nop",
+      "task_checksum": "1edc7207c23f1bf553329952841010425d41c00767e420d16459b20362f1cc0d",
+      "task_lock_digest": "sha256:346f33201b540b95ccd3b62b7fe53c19a925cc75abf656e31027663d5fd085ce",
+      "verifier_environment_mode": "separate",
+      "agent_info": {
+        "name": "nop",
+        "version": "1.0.0",
+        "model_info": null
+      },
+      "sidecar_policy_observations": [
+        {
+          "container": "c5eb6075ef35",
+          "project": "native-hn-o02-nop__env",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-nop__env",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        },
+        {
+          "container": "3864a9e8388b",
+          "project": "native-hn-o02-nop__verifier__trial",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-nop__verifier__trial",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        }
+      ],
+      "agent_boundary": null,
+      "verifier_evidence": {
+        "reward": 0,
+        "reason": "missing-or-nonregular-output",
+        "fixture_sha256": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+        "fixture_writable": false,
+        "effective_uid": 1000,
+        "hostname": "3864a9e8388b",
+        "external_https_probe_blocked": true,
+        "agent_input_present_in_verifier": false,
+        "agent_solution_present_in_verifier": false,
+        "agent_tamper_marker_present_in_verifier": false
+      },
+      "slot_id": "HN-O02",
+      "image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+      "raw_file_sha256": {
+        "artifacts/manifest.json": "cd00e8f2c65b4bd2bb27139bae3cfac676431384ec74be440887f44d8f271f64",
+        "config.json": "f32479127c6ec71bcd5e87e8c83614f91db0908296fdd567c9159269ec919cac",
+        "lock.json": "9c7fc4444bf32586b1121c1ad2bb0196daee8715fd1f8eabc30e8561b6542a33",
+        "result.json": "551382e5d70347174bbee7cfea8c592b1cf3adee25f33f19b5c6801d6be031de",
+        "trial.log": "cf5b9d6a221093eeda8102b222493dad7e77190248333e4e5965c194e14fd3bf",
+        "verifier/evidence.json": "26b829b53b7ae52f0f2e9ee013fda4049fb44ee490d960e841ac9c219f866082",
+        "verifier/reward.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "verifier/test-stdout.txt": "6493f151400b2ba778c834745465cd6abf05ef0fb3253cef44fb8fed6a446832"
+      }
+    },
+    {
+      "scenario": "bad",
+      "expected_reward": 0,
+      "actual_reward": 0.0,
+      "exception": null,
+      "raw_trial": ".cache/control-runs/20261107T071440064385Z/native-hn-o02-bad",
+      "task_checksum": "1edc7207c23f1bf553329952841010425d41c00767e420d16459b20362f1cc0d",
+      "task_lock_digest": "sha256:346f33201b540b95ccd3b62b7fe53c19a925cc75abf656e31027663d5fd085ce",
+      "verifier_environment_mode": "separate",
+      "agent_info": {
+        "name": "native-artifact-control",
+        "version": "1.0.0",
+        "model_info": null
+      },
+      "sidecar_policy_observations": [
+        {
+          "container": "2f54291ec4af",
+          "project": "native-hn-o02-bad__env",
+          "policy": "mode: allow-all (transparent proxy disabled)\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-bad__env",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        },
+        {
+          "container": "342fae7f753e",
+          "project": "native-hn-o02-bad__verifier__trial",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-bad__verifier__trial",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        }
+      ],
+      "agent_boundary": {
+        "effective_uid": 1000,
+        "hostname": "2f54291ec4af",
+        "absent_paths": [
+          "/tests",
+          "/opt/verifier-fixtures",
+          "/var/run/docker.sock"
+        ],
+        "scenario": "bad",
+        "external_https_probe_blocked": true
+      },
+      "verifier_evidence": {
+        "reward": 0,
+        "reason": "incorrect-output",
+        "fixture_sha256": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+        "fixture_writable": false,
+        "effective_uid": 1000,
+        "hostname": "342fae7f753e",
+        "external_https_probe_blocked": true,
+        "agent_input_present_in_verifier": false,
+        "agent_solution_present_in_verifier": false,
+        "agent_tamper_marker_present_in_verifier": false
+      },
+      "slot_id": "HN-O02",
+      "image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+      "raw_file_sha256": {
+        "agent/boundary.json": "27c0ce8c44d966d075dc74dda186b9fac98332e4e7030571d40d494bec6c8c47",
+        "artifacts/manifest.json": "55234fd7268a1897518b280cdf91e224fd9a8dc40d7955a6cae89b89ff085be1",
+        "artifacts/result.json": "3527a86ed9aec93cdb4090ecda8880e105c8d8ee7f196e7eda95a990f6b42670",
+        "config.json": "5bb212999060c9e59b3fd769a6f4ce4de27bb87ab0c0dbb200e1a5486da86299",
+        "lock.json": "11f143196f411e4b0b54f2e0438e44350f6e698d294e21cdbdae8390bea53cee",
+        "result.json": "83dc9fff15ccc17df15a5c046b39aacf5235a1c3914f2f040eae23f1a7b2031a",
+        "trial.log": "8f5f6ba77fbfb4217a85cf1e0d743497d3b8001ab5dc932e72336594dce452a9",
+        "verifier/evidence.json": "07ff71b9fba17a824666c28e6ad1d88e25c82704527ed48152a05558e64d3537",
+        "verifier/reward.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "verifier/test-stdout.txt": "ac9da04ef9740183892f7e0e1aa2463b35aba3624a7dab8b8501c2d2242063c5"
+      }
+    },
+    {
+      "scenario": "tamper",
+      "expected_reward": 0,
+      "actual_reward": 0.0,
+      "exception": null,
+      "raw_trial": ".cache/control-runs/20261107T071440064385Z/native-hn-o02-tamper",
+      "task_checksum": "1edc7207c23f1bf553329952841010425d41c00767e420d16459b20362f1cc0d",
+      "task_lock_digest": "sha256:346f33201b540b95ccd3b62b7fe53c19a925cc75abf656e31027663d5fd085ce",
+      "verifier_environment_mode": "separate",
+      "agent_info": {
+        "name": "native-artifact-control",
+        "version": "1.0.0",
+        "model_info": null
+      },
+      "sidecar_policy_observations": [
+        {
+          "container": "89caba9062d4",
+          "project": "native-hn-o02-tamper__env",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-tamper__env",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        },
+        {
+          "container": "7414a8ec63f8",
+          "project": "native-hn-o02-tamper__verifier__trial",
+          "policy": "mode: controlled egress\nallowlist: /opt/egress-sidecar/allowlist.txt\n(empty: deny all controlled TCP egress)\n",
+          "nftables_rules": "table inet gost_egress {\n\tchain output {\n\t\ttype nat hook output priority dstnat; policy accept;\n\t\tmeta mark 0x0001bf52 return\n\t\tfib daddr type local return\n\t\tip daddr 127.0.0.11 udp dport 53 return\n\t\tip daddr 127.0.0.11 tcp dport 53 return\n\t\tmeta l4proto tcp redirect to :12345\n\t}\n\n\tchain egress {\n\t\ttype filter hook output priority filter; policy accept;\n\t\tmeta mark 0x0001bf52 accept\n\t\tfib daddr type local accept\n\t\tip daddr 127.0.0.11 udp dport 53 accept\n\t\tip daddr 127.0.0.11 tcp dport 53 accept\n\t\tip protocol icmp accept\n\t\tip6 nexthdr ipv6-icmp accept\n\t\tmeta l4proto != tcp reject\n\t}\n}\n",
+          "labels": {
+            "com.docker.compose.config-hash": "78fe46ed38f1846ddc14fa3ca5303b9b31c73aba4bb8d09e65676d359e4e6f16",
+            "com.docker.compose.image": "sha256:339fba23c96cc9e8cff2e6e0bbad4a91eeaab72f0ac94a231c1e5c7a2c9e753f",
+            "com.docker.compose.project": "native-hn-o02-tamper__verifier__trial",
+            "com.docker.compose.service": "harbor-docker-egress-control-sidecar",
+            "com.docker.compose.version": "5.7.0"
+          }
+        }
+      ],
+      "agent_boundary": {
+        "effective_uid": 1000,
+        "hostname": "89caba9062d4",
+        "absent_paths": [
+          "/tests",
+          "/opt/verifier-fixtures",
+          "/var/run/docker.sock"
+        ],
+        "scenario": "tamper",
+        "protected_directory_creation_denied": [
+          "/tests",
+          "/opt/verifier-fixtures"
+        ],
+        "input_tamper_method": "replace-through-writable-parent",
+        "forged_shared_reward": "1",
+        "modified_agent_input": [
+          "wrong"
+        ],
+        "external_https_probe_blocked": true
+      },
+      "verifier_evidence": {
+        "reward": 0,
+        "reason": "incorrect-output",
+        "fixture_sha256": "d83118ac633add13d2c96b6b65bab5d5e0909614d1d817e3a5da3c4eaece0a61",
+        "fixture_writable": false,
+        "effective_uid": 1000,
+        "hostname": "7414a8ec63f8",
+        "external_https_probe_blocked": true,
+        "agent_input_present_in_verifier": false,
+        "agent_solution_present_in_verifier": false,
+        "agent_tamper_marker_present_in_verifier": false
+      },
+      "slot_id": "HN-O02",
+      "image_id": "sha256:6ab44eaea7e91700200156c5df90f280b9394518f0b371d73f4e8f754cee1bfb",
+      "raw_file_sha256": {
+        "agent/boundary.json": "19424166a7b8bdc88ccb3b8f99a78363bf1da435900e4ff88aaf9e1a20ec5818",
+        "artifacts/manifest.json": "55234fd7268a1897518b280cdf91e224fd9a8dc40d7955a6cae89b89ff085be1",
+        "artifacts/result.json": "3527a86ed9aec93cdb4090ecda8880e105c8d8ee7f196e7eda95a990f6b42670",
+        "config.json": "38603a8f098feec9d5f500031279f5357a9402b39fe6064d76fb819535d5d1a9",
+        "lock.json": "529b55bdf6fa47cd573d6e850ab3ad9b25dd21a64dad16d74ef00a727afbc55f",
+        "result.json": "fc031d218fa604a41e07e06ea52cb362aab9b2a72463b0f0877eb8fe62bb3ee0",
+        "trial.log": "8f5f6ba77fbfb4217a85cf1e0d743497d3b8001ab5dc932e72336594dce452a9",
+        "verifier/evidence.json": "6b54bc3161c109e7cd948c849b5b11b52c13f793bac1cecb61bc9d69a5e867b7",
+        "verifier/reward.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "verifier/test-stdout.txt": "2c7a1424f111ce1cda6fdc565b06d450ea4b88f8d220c78f7b6a1011f29108e8"
+      }
+    }
+  ],
+  "control_count": 4,
+  "cleanup_passed": true,
+  "network_scope": "Every phase denies controlled TCP via Harbor sidecar; rules captured and HTTPS blocked. DNS/ICMP remain permitted. No online positive control was run in this offline suite; prior experiment has a separately recorded positive control.",
+  "interpretation": "Four real Harbor Trial controls on each selected image; default representative is mini's Python/uv image with the common task policy and separate verifier. This is not a full native-agent Trial or live API qualification. See runtime-evidence.json for per-image probes and native-smoke-evidence.json for all six actual native CLI fixture lifecycles."
+}

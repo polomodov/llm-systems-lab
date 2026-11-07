@@ -102,7 +102,7 @@ const fs = require('node:fs');
 const argv = process.argv.slice(2);
 fs.appendFileSync(${JSON.stringify(calls)}, JSON.stringify(argv) + '\\n');
 if (argv[0] === 'image') console.log('sha256:' + 'a'.repeat(64));
-else if (argv.includes('--version')) console.log('codex-cli 0.155.1');
+else if (argv.includes('--version')) console.log('codex-cli ${loadProfile(root, 'codex').version}');
 else if (argv[0] === 'run') {
   console.log(JSON.stringify({type:'thread.started',thread_id:'synthetic-session'}));
   console.log(JSON.stringify({type:'item.completed',item:{type:'agent_message',text:process.env.CODEX_API_KEY}}));

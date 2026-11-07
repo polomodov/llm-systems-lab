@@ -29,3 +29,13 @@ test('Pi OpenAI snapshot requests preserve exact ID even when catalog only has t
   assert.throws(()=>resolveModel(registry,'openai','unknown-2025-04-14'));
   assert.throws(()=>resolveModel(registry,'anthropic','gpt-4.1-2025-04-14'));
 });
+test('Pi modern model definitions preserve exact IDs and selected transport', () => {
+  const registry={find:()=>undefined};
+  const sol=resolveModel(registry,'openai','gpt-6.1-sol');
+  assert.equal(sol.api,'openai-responses'); assert.equal(sol.id,'gpt-6.1-sol');
+  assert.equal(sol.contextWindow,1050000); assert.equal(sol.cost.input,2);
+  const sonnet=resolveModel(registry,'anthropic','claude-sonnet-5-5');
+  assert.equal(sonnet.api,'anthropic-messages'); assert.equal(sonnet.id,'claude-sonnet-5-5');
+  assert.equal(sonnet.contextWindow,1000000); assert.equal(sonnet.cost.output,10);
+  assert.throws(()=>resolveModel(registry,'anthropic','gpt-6.1-sol'));
+});

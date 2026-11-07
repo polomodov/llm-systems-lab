@@ -18,6 +18,7 @@ import { acquireLock, copyTree, inventory, safePath } from '../scripts/lib/files
 import { createGateway, normalizeUrl, publicAddress } from '../experiments/common/egress.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const claudePin = JSON.parse(readFileSync(join(root, 'experiments/claude-code/harness.json'), 'utf8')).version;
 const temp = t => {
   const directory = mkdtempSync(join(tmpdir(), 'harness-runtime-test-'));
   t.after(() => rmSync(directory, { recursive: true, force: true }));
@@ -295,7 +296,7 @@ else if (args.includes('--version')) console.log('9.9.9 (rebuilt without the pin
   t.after(() => { process.env.PATH = originalPath; });
   await assert.rejects(
     runExperiment(f.root, f.record.run_id, { image: 'synthetic-image', model: 'claude-synthetic-20260920', timeout: 10 }),
-    /Image reports 9\.9\.9, sealed profile pins 2\.1\.83/,
+    error => error.message.includes(`Image reports 9.9.9, sealed profile pins ${claudePin}`),
   );
   assert.equal(readRun(f.root, f.record.run_id).status, 'prepared');
   assert.equal(existsSync(join(f.dir, 'runtime-control')), false);

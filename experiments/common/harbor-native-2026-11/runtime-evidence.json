@@ -1,0 +1,153 @@
+{
+  "kind": "offline-runtime-evidence",
+  "images": {
+    "claude-code": {
+      "version_output": "2.1.319 (Claude Code)",
+      "runtime_details": {},
+      "uid": 1000,
+      "home": "/home/agent",
+      "node": "24.13.1",
+      "provider_requests": 0,
+      "network": "none",
+      "root_filesystem": "disposable writable container layer",
+      "workspace_and_logs_writable": true,
+      "verifier_paths_and_docker_socket_absent": true
+    },
+    "opencode": {
+      "version_output": "1.18.29",
+      "runtime_details": {},
+      "uid": 1000,
+      "home": "/home/agent",
+      "node": "24.13.1",
+      "provider_requests": 0,
+      "network": "none",
+      "root_filesystem": "disposable writable container layer",
+      "workspace_and_logs_writable": true,
+      "verifier_paths_and_docker_socket_absent": true
+    },
+    "codex": {
+      "version_output": "codex-cli 0.167.0\nWARNING: failed to clean up stale arg0 temp dirs: Cross-device link (os error 18)",
+      "runtime_details": {},
+      "uid": 1000,
+      "home": "/home/agent",
+      "node": "24.13.1",
+      "provider_requests": 0,
+      "network": "none",
+      "root_filesystem": "disposable writable container layer",
+      "workspace_and_logs_writable": true,
+      "verifier_paths_and_docker_socket_absent": true
+    },
+    "pi": {
+      "version_output": "0.73.1",
+      "runtime_details": {
+        "model": {
+          "id": "gpt-6.1-sol",
+          "name": "GPT-6.1 Sol",
+          "api": "openai-responses",
+          "provider": "openai",
+          "baseUrl": "https://api.openai.com/v1",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
+          },
+          "contextWindow": 1050000,
+          "maxTokens": 128000
+        },
+        "anthropic": {
+          "id": "claude-sonnet-5-5",
+          "name": "Claude Sonnet 5.5",
+          "api": "anthropic-messages",
+          "provider": "anthropic",
+          "baseUrl": "https://api.anthropic.com",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        },
+        "compaction": false,
+        "retry": false
+      },
+      "uid": 1000,
+      "home": "/home/agent",
+      "node": "24.13.1",
+      "provider_requests": 0,
+      "network": "none",
+      "root_filesystem": "disposable writable container layer",
+      "workspace_and_logs_writable": true,
+      "verifier_paths_and_docker_socket_absent": true
+    },
+    "mini-swe-agent": {
+      "version_output": "mini-swe-agent v2.4.6\n- mini\n- mini-e\n- mini-extra\n- mini-swe-agent",
+      "runtime_details": {
+        "python": "3.12.12",
+        "executable": "/home/agent/.local/share/uv/tools/mini-swe-agent/bin/python",
+        "mini-swe-agent": "2.4.6",
+        "litellm": "1.108.1",
+        "uv": "0.13.7",
+        "pyvenv_cfg": "home = /usr/local/bin\nimplementation = CPython\nuv = 0.13.7\nversion_info = 3.12.12\ninclude-system-site-packages = true",
+        "uv_receipt": "[tool]\nrequirements = [{ name = \"mini-swe-agent\", path = \"/opt/pilot-wheels/mini_swe_agent-2.4.6-py3-none-any.whl\" }]\nexcludes = [\n    \"datasets\",\n    \"jinja2\",\n    \"litellm\",\n    \"openai\",\n    \"platformdirs\",\n    \"prompt-toolkit\",\n    \"pydantic\",\n    \"python-dotenv\",\n    \"pyyaml\",\n    \"requests\",\n    \"rich\",\n    \"tenacity\",\n    \"textual\",\n    \"typer\",\n]\npython = \"/usr/local/bin/python\"\nentrypoints = [\n    { name = \"mini\", install-path = \"/home/agent/.local/bin/mini\", from = \"mini-swe-agent\" },\n    { name = \"mini-e\", install-path = \"/home/agent/.local/bin/mini-e\", from = \"mini-swe-agent\" },\n    { name = \"mini-extra\", install-path = \"/home/agent/.local/bin/mini-extra\", from = \"mini-swe-agent\" },\n    { name = \"mini-swe-agent\", install-path = \"/home/agent/.local/bin/mini-swe-agent\", from = \"mini-swe-agent\" },\n]",
+        "immutable_system_dependencies": [
+          "datasets",
+          "jinja2",
+          "litellm",
+          "openai",
+          "platformdirs",
+          "prompt_toolkit",
+          "pydantic",
+          "python-dotenv",
+          "pyyaml",
+          "requests",
+          "rich",
+          "tenacity",
+          "textual",
+          "typer"
+        ],
+        "dependency_check": "all active mini dependencies satisfy wheel requirements",
+        "tools_route": {
+          "litellm_tools_route_import": "passed",
+          "mcp": "2.2.0",
+          "mcp-types": "2.2.0",
+          "httpx2": "2.16.0",
+          "fastuuid": "0.14.0"
+        },
+        "full_dependency_check": "No broken requirements found."
+      },
+      "uid": 1000,
+      "home": "/home/agent",
+      "node": "24.13.1",
+      "provider_requests": 0,
+      "network": "none",
+      "root_filesystem": "disposable writable container layer",
+      "workspace_and_logs_writable": true,
+      "verifier_paths_and_docker_socket_absent": true
+    },
+    "verifier": {
+      "uid": 1000,
+      "python": "3.12.12",
+      "fixture_directory_writable": false,
+      "output_and_logs_writable": true,
+      "network": "none",
+      "provider_requests": 0
+    }
+  },
+  "package_inventory_file": "runtime-inventories.json",
+  "package_inventory_sha256": "13251f9c5ce7663addde382c3fd326bc87b0496891699c2cfa4e3080910b11cd",
+  "checked_at": "2026-11-07T07:12:27.127502+00:00",
+  "model_requests": 0
+}
