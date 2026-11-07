@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "kind": "offline-controlled-execution-and-evaluator-readiness",
+  "checked_at": "2026-11-07T09:12:32.246183+00:00",
+  "source_revision": "07c4888c972412fc0fc71b5768e30e739c7fecee",
+  "source_dirty": true,
+  "execution_authorized": false,
+  "paid_runs": 0,
+  "provider_requests": 0,
+  "real_credentials_read": false,
+  "actual_hidden_checks_read": false,
+  "harbor": {
+    "summary": ".cache/offline-32faa4e6d1a44db19a22d081a77f5ba1/summary.json",
+    "summary_sha256": "83bc5c03abe353b36b62e0aa092bf6573af6fd4b79dd0e0ff52dd68b589b0ec2",
+    "actual_full_native_trial": true,
+    "native_harness": "codex",
+    "task_verdict": "pass",
+    "live_qualification": "inconclusive",
+    "cost_usd": null,
+    "synthetic_usage_not_billing": true
+  },
+  "evaluation": {
+    "summary": ".cache/evaluator-eb50f428601249bb9f02fd056cab1592/summary.json",
+    "summary_sha256": "d1e6a6372eabd85c3d7a76afcf66848e2a66d0d2bc1bd2e3347d6159d834680b",
+    "cases": 2,
+    "actual_task_checker_calibration": "not_run; independent context required",
+    "automatic_verdicts": false
+  },
+  "tests": [
+    {
+      "command": "npm test (Git-visible source snapshot)",
+      "passed": 205,
+      "skipped": 2,
+      "failed": 0
+    },
+    {
+      "command": "npm run test:python",
+      "passed": 35,
+      "failed": 0,
+      "new_execution_gate_tests": 7
+    },
+    {
+      "command": "npm run check",
+      "exit_code": 0,
+      "records": 23,
+      "ledger_rows": 42
+    },
+    {
+      "command": "check_migration.py",
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "experiments/common/pilot-execution/.gitignore": "046032151fe6113c18a8d7d9971c557e81129ca1ba244e5263d54b7e0e6f9643",
+    "experiments/common/pilot-execution/EVALUATION.md": "84a10e14ee20922a82c5792b2729b8012ac129b139dcae500d34818067395aab",
+    "experiments/common/pilot-execution/README.md": "9b6a1aef13ce247e2e201158e5e7687743ad609000cd9a0353e61c6190e7e2eb",
+    "experiments/common/pilot-execution/authorization.example.json": "3f4662e883b8da072474257700845c8be574d7b3c54100388112010ce9e056e6",
+    "experiments/common/pilot-execution/billing.example.json": "2489975f229585ae36cf7eb15fa966d549611567a257f241fb329b7a6ebdf95f",
+    "experiments/common/pilot-execution/check_offline.py": "4db0898346abd7fcff9ed8e71daba89e81140b210ee089c052c2e98d60e554cd",
+    "experiments/common/pilot-execution/common.py": "099be0766dad5dc34cf52e0981db2766dbfe29e5efeeee0b977289004412cf60",
+    "experiments/common/pilot-execution/evaluation.mjs": "84500a5c609d1cf1721aa6facd412ef0e09f394ff67b15e5fddd4966b8261ad2",
+    "experiments/common/pilot-execution/evaluation.test.mjs": "d4f2ca59ef7f5f89faf9f10a5e70a54f029498afdbab3705e564486d96b3a10d",
+    "experiments/common/pilot-execution/evaluator_container.py": "424f8f310d15797392a3a55ce90cc1680e034460bcbc522845c8354a4f50e7b5",
+    "experiments/common/pilot-execution/observations.example.json": "145031a2352eb3309ce69dec744c9b8b254abb1b2ffb2841f96ad45a3f27c206",
+    "experiments/common/pilot-execution/offline_evaluation_smoke.py": "0f409d5ca726448ea8952d2a0bccbed9d63654a7eb359a354d79f70f8d0e0e05",
+    "experiments/common/pilot-execution/single_trial.py": "07ddede0cb8c36e535fef9f6f11db8f6a955e58d9cb9d256eebcb050de55bfe5",
+    "experiments/common/pilot-execution/test_single_trial.py": "2c2cb232a26ad5bf4ac7c5dc976f226fde56ef93f8fd1f97a9783aeea2532dd3",
+    "package.json": "ec13245a10c92bc9b094cc5a4aaf39e4933232f1260d4302087c5a5e4ffca3da",
+    "docs/harness-ledger.md": "73cab8058628e1569a353b0ca6ec380a417ebb41e218dc72218cb3bf75f509e3"
+  },
+  "log_sha256": {
+    ".cache/full-node.log": "20976d3c3cde1c103a23c0f066614ae841767a965d9f2abd893f3bfef5a16dd2",
+    ".cache/all-python.log": "fc0a8ae3ee1854d8037bdf462eb0b85f528a49453f695610dccf7c35857ca940",
+    ".cache/repo-check.log": "51c0b3dfeb7bb7e40abf049e40e903aa5beb8b5b4b3299ddafa8db396ece9d4e",
+    ".cache/accepted-trial.log": "3284cb5f08aeb716675313898007caa5bdb8f1f460185cd59152d1d50ac132b0",
+    ".cache/evaluator-smoke.log": "3011b29805ccf6c880114c79a5be4527829712d71de1358373f3a66bacc2750a",
+    ".cache/migration-check.log": "e7772f1372816cd0294628d6fc6323dcd4c983ce88911bc750d79f582da537b1"
+  },
+  "preservation_sha256": "380606e8017fc36ce235c4656116a54640aa45a94a8329846831d325ca4ff953",
+  "preserved_files": 1673,
+  "remaining_live_gates": [
+    "Independent evaluator assignment, actual pinned hidden checker revision/calibration in that separate context",
+    "Explicit exact-run execution authorization and attributable provider billing project",
+    "Actual API/model acceptance, response-level identity/usage and settled provider billing; missing data remains unknown",
+    "No automatic promotion to a second native slot or to the36 comparison runs"
+  ]
+}

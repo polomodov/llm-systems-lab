@@ -1,0 +1,17 @@
+{
+  "kind": "harbor-single-trial-authorization-v1",
+  "allow_paid": false,
+  "max_trials": 1,
+  "run_id": null,
+  "slot_id": null,
+  "plan_sha256": null,
+  "inputs_sha256": null,
+  "runner_sha256": null,
+  "common_sha256": null,
+  "accounting_sha256": null,
+  "budget_target_usd": 2,
+  "approved_by": "",
+  "billing_project": "",
+  "expires_at": "2000-01-01T00:00:00Z",
+  "previous_run_ids": []
+}
